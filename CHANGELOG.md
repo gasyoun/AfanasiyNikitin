@@ -11,6 +11,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Extracted the shared visualization design system into `css/atlas.css`; all 13 existing widget HTML files now link to the shared stylesheet and keep only widget-specific CSS inline.
 - Bundled D3 v7, TopoJSON 3, world-atlas 110m data, and Tabler Icons under `lib/`; all current HTML pages now reference local assets instead of external CDNs.
 - Centralized the route map and Gantt timeline datasets into `js/atlas-data.js`; `afanasy_v8_text_map.html` and `afanasy_gantt.html` now consume shared `window.ATLAS` data.
+- Extracted the repeated dark/light theme toggle script into `js/atlas-theme.js` for the index and 13 established visualization pages.
 
 ### Fixed
 - `afanasy_world_before_after.html`: replaced late-added CDN D3/TopoJSON/world-atlas references with bundled local assets.

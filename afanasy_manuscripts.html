@@ -267,39 +267,7 @@ renderPassage();
   <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
     <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
   </button>
-  <script>
-  (function(){
-    const html = document.documentElement;
-    const toggle = document.getElementById('theme-toggle');
-    const icon = document.getElementById('theme-icon');
-    
-    // Ensure Tabler Icons CSS is loaded if not already loaded in the document
-    if (!document.querySelector('link[href*="tabler-icons"]')) {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = 'lib/tabler-icons.min.css';
-      document.head.appendChild(link);
-    }
-
-    function updateTheme(theme) {
-      html.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      if (icon) {
-        icon.className = theme === 'dark' ? 'ti ti-sun' : 'ti ti-moon';
-      }
-    }
-    const saved = localStorage.getItem('theme') || 'light';
-    updateTheme(saved);
-    if (toggle) {
-      toggle.addEventListener('click', () => {
-        const current = html.getAttribute('data-theme') || 'light';
-        updateTheme(current === 'dark' ? 'light' : 'dark');
-      });
-      toggle.addEventListener('mouseenter', () => { toggle.style.transform = 'scale(1.1)'; });
-      toggle.addEventListener('mouseleave', () => { toggle.style.transform = 'scale(1.0)'; });
-    }
-  })();
-  </script>
+  <script src="js/atlas-theme.js"></script>
 
 </body>
 </html>

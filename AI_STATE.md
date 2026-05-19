@@ -4,14 +4,14 @@ This file is maintained by AI assistants (Antigravity/Claude) working on this re
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
 > **Last updated:** 2026-05-19 · Conversation ID: GPT-5.5 Phase 2
-> **Commit:** Phase 2 Stage 3 complete
+> **Commit:** Phase 2 Stage 4 complete
 
 ---
 
-## Current Status: ✅ PHASE 2 STARTED — Stage 3 Shared Data Complete
+## Current Status: ✅ PHASE 2 COMPLETE — Shared CSS, Assets, Data, and Theme Extracted
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 is complete: FIX 2 in `afanasy_gantt.html`, FIX 1 in `afanasy_v8_text_map.html`, FIX 3 in `afanasy_calendar_pascha_islam.html`, and FIX 4 in `afanasy_economics_prices.html`. Phase 2 Stage 1 extracted the shared visualization CSS into `css/atlas.css`; Phase 2 Stage 2 bundled D3, TopoJSON, world-atlas 110m, and Tabler Icons locally under `lib/`; Phase 2 Stage 3 now centralizes the map/Gantt datasets in `js/atlas-data.js`.
+Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 is complete: FIX 2 in `afanasy_gantt.html`, FIX 1 in `afanasy_v8_text_map.html`, FIX 3 in `afanasy_calendar_pascha_islam.html`, and FIX 4 in `afanasy_economics_prices.html`. Phase 2 is complete for the established atlas pages: shared CSS in `css/atlas.css`, bundled local assets in `lib/`, shared map/Gantt data in `js/atlas-data.js`, and shared theme logic in `js/atlas-theme.js`.
 
 ---
 
@@ -39,6 +39,8 @@ Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 
 | Phase 2 Stage 3 — Shared data | ✅ Done | Created `js/atlas-data.js` with `window.ATLAS.WP`, `PASSAGES`, `STATES`, `CITIES`, `SEGS`, and `CITY_TO_WP`; map and Gantt pages now load the shared data file |
 | Stage 3 verification | ✅ Done | Node parse check confirmed 28 waypoints, 28 passages, 13 state polygons, 14 cities, 48 Gantt segments, and 47 Gantt-to-map link keys; Chrome DevTools smoke test verified map `?wp=18` activates Dabhol, Gantt renders 108 map links including `wp=18`, theme toggles work, and console logs are clean |
 | Offline follow-up for new widget | ✅ Done | After concurrent commit `25b817f` added `afanasy_world_before_after.html`, replaced its CDN D3/TopoJSON/world-atlas references with the already bundled local files |
+| Phase 2 Stage 4 — Shared theme | ✅ Done | Created `js/atlas-theme.js` and replaced the duplicated theme-toggle IIFE in `index.html` plus the 13 established visualization pages with a shared script tag |
+| Stage 4 verification | ✅ Done | Chrome DevTools smoke test loaded the index plus all 13 established widgets, confirmed `js/atlas-theme.js` is present, toggled each theme button, checked icon classes, and found no console issues |
 
 ### Session 1 (conv `a6b4ceee`) — Core UI Overhaul
 | Task | Status | Notes |
@@ -106,7 +108,7 @@ Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 
 
 ## Files Modified Since Last Clean Commit
 
-> After the Phase 2 Stage 3 commit, tracked files are clean. The pre-existing PDF and extracted book text remain intentionally untracked.
+> After the Phase 2 Stage 4 commit, tracked files are clean. The pre-existing PDF and extracted book text remain intentionally untracked.
 
 ```
 git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
@@ -135,8 +137,8 @@ git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
 
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
-1. **Phase 2 — Stage 4**: extract shared `js/atlas-theme.js`
-2. **Phase 3 — FIX 5** manuscript leaf-size proof
+1. **Phase 3 — FIX 5** manuscript leaf-size proof
+2. **New widget audit**: normalize the eight newly added standalone pages against `css/atlas.css`, `js/atlas-theme.js`, Russian UI/no-scroll constraints, and color-token rules
 3. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
 
 ---
