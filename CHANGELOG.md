@@ -9,6 +9,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 - Extracted the shared visualization design system into `css/atlas.css`; all 13 existing widget HTML files now link to the shared stylesheet and keep only widget-specific CSS inline.
+- Bundled D3 v7, TopoJSON 3, world-atlas 110m data, and Tabler Icons under `lib/`; all current HTML pages now reference local assets instead of external CDNs.
 
 ### Fixed
 - `index.html`: repaired the book-summary download link by pointing it at the existing `tetradi_hrustalev_2026.md` while preserving the Russian download filename.

@@ -41,7 +41,7 @@ canvas#tm-c{display:block;width:100%;border-radius:var(--border-radius-lg);borde
   </style>
 
   <!-- Tabler Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
 </head>
 <body>
   <div class="vis-container">
@@ -90,8 +90,8 @@ canvas#tm-c{display:block;width:100%;border-radius:var(--border-radius-lg);borde
 </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+  <script src="lib/d3.min.js"></script>
+<script src="lib/topojson.min.js"></script>
 <script>
 (function(){
 const W=720,H=380,PAD=12;
@@ -342,7 +342,7 @@ window.setFilter=function(f){
 
 function waitLib(cb){if(typeof d3!=='undefined'&&typeof topojson!=='undefined')cb();else setTimeout(()=>waitLib(cb),60);}
 waitLib(()=>{
-  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+  fetch('lib/countries-110m.json')
     .then(r=>r.json()).then(w=>{buildBase(w);mapReady=true;drawFrame();});
 });
 })();
@@ -362,7 +362,7 @@ waitLib(()=>{
     if (!document.querySelector('link[href*="tabler-icons"]')) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = 'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css';
+      link.href = 'lib/tabler-icons.min.css';
       document.head.appendChild(link);
     }
 

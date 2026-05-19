@@ -38,7 +38,7 @@
   select{background:var(--color-background-secondary);color:var(--color-text-primary);border:1px solid var(--color-border-tertiary);border-radius:4px;padding:6px 10px;font-family:inherit;font-size:12px;}
   .note{font-size:10px;color:#6a5a40;max-width:100%;text-align:center;margin-top:12px;line-height:1.6;}
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="lib/tabler-icons.min.css">
 </head>
 <body>
   <div class="vis-container">
@@ -87,8 +87,8 @@
 </p>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="lib/d3.min.js"></script>
+<script src="lib/topojson.min.js"></script>
 <script>
 const W=735,H=510,PAD=18;
 const C=document.getElementById('mapC');
@@ -408,7 +408,7 @@ window.stopRecording=function(){
   document.getElementById('recBtn').disabled=false;
 };
 
-fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+fetch('lib/countries-110m.json')
   .then(r=>r.json())
   .then(w=>{
     buildOffscreen(w);mapReady=true;
@@ -431,7 +431,7 @@ requestAnimationFrame(frame);
     if (!document.querySelector('link[href*="tabler-icons"]')) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = 'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css';
+      link.href = 'lib/tabler-icons.min.css';
       document.head.appendChild(link);
     }
 

@@ -4,14 +4,14 @@ This file is maintained by AI assistants (Antigravity/Claude) working on this re
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
 > **Last updated:** 2026-05-19 · Conversation ID: GPT-5.5 Phase 2
-> **Commit:** Phase 2 Stage 1 complete
+> **Commit:** Phase 2 Stage 2 complete
 
 ---
 
-## Current Status: ✅ PHASE 2 STARTED — Stage 1 Shared CSS Complete
+## Current Status: ✅ PHASE 2 STARTED — Stage 2 Local Assets Complete
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 is complete: FIX 2 in `afanasy_gantt.html`, FIX 1 in `afanasy_v8_text_map.html`, FIX 3 in `afanasy_calendar_pascha_islam.html`, and FIX 4 in `afanasy_economics_prices.html`. Phase 2 Stage 1 now extracts the shared visualization CSS into `css/atlas.css`.
+Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 is complete: FIX 2 in `afanasy_gantt.html`, FIX 1 in `afanasy_v8_text_map.html`, FIX 3 in `afanasy_calendar_pascha_islam.html`, and FIX 4 in `afanasy_economics_prices.html`. Phase 2 Stage 1 extracted the shared visualization CSS into `css/atlas.css`; Phase 2 Stage 2 now bundles D3, TopoJSON, world-atlas 110m, and Tabler Icons locally under `lib/`.
 
 ---
 
@@ -34,6 +34,8 @@ Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 
 | FIX 4 browser verification | ✅ Done | `python -m http.server 8080`; at 1366×768 clicked all Economics tabs, opened the horse ledger tooltip, toggled dark mode light→dark→light, checked console logs and no vertical page scroll |
 | Phase 2 Stage 1 — Shared CSS | ✅ Done | Created `css/atlas.css` from the common design-system CSS and replaced duplicated boilerplate in all 13 existing visualization HTML files with a shared stylesheet link |
 | Stage 1 browser verification | ✅ Done | `python -m http.server 8080`; smoke-checked all 13 migrated widgets for `css/atlas.css`, header/back/theme controls, shared body/container styles, and console warnings; toggled dark mode on `three_travelers_comparison.html` |
+| Phase 2 Stage 2 — Local assets | ✅ Done | Added local `lib/` copies of D3 v7, TopoJSON 3, world-atlas 110m, Tabler Icons CSS, and Tabler font files; replaced all CDN/script/fetch/icon fallback references in the current HTML pages |
+| Stage 2 verification | ✅ Done | `python -m http.server 8080`; checked local asset HTTP 200 responses, verified no remaining CDN refs in HTML/CSS/lib, opened key pages with local script/style URLs and no console warnings; Browser plugin could not directly inspect page globals/canvas pixels because its evaluate context is isolated |
 
 ### Session 1 (conv `a6b4ceee`) — Core UI Overhaul
 | Task | Status | Notes |
@@ -101,10 +103,10 @@ Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 
 
 ## Files Modified Since Last Clean Commit
 
-> After the Phase 2 Stage 1 commit, tracked files are clean. The pre-existing untracked source files remain intentionally untouched.
+> After the Phase 2 Stage 2 commit, tracked files are clean. Existing untracked source/draft files remain intentionally untouched unless the human explicitly asks to include or delete them.
 
 ```
-git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
+git status: untracked Phase 4 widget drafts, hrustalev_tetradi_2026.pdf, and scratch/book_text.txt
 ```
 
 ---
@@ -130,11 +132,10 @@ git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
 
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
-1. **Phase 2 — Stage 2**: localize D3, TopoJSON, world-atlas, and Tabler Icons into `lib/`
-2. **Phase 2 — Stage 3**: extract shared `js/atlas-data.js` after the map/Gantt data shape settles
-3. **Phase 2 — Stage 4**: extract shared `js/atlas-theme.js`
-4. **Phase 3 — FIX 5** manuscript leaf-size proof
-5. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
+1. **Phase 2 — Stage 3**: extract shared `js/atlas-data.js` after the map/Gantt data shape settles
+2. **Phase 2 — Stage 4**: extract shared `js/atlas-theme.js`
+3. **Phase 3 — FIX 5** manuscript leaf-size proof
+4. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
 
 ---
 
