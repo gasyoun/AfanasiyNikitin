@@ -172,14 +172,18 @@ Do not adjust without updating all route visualizations that depend on this view
 
 | File | Purpose |
 |---|---|
-| `README_afanasy_visualizations.md` | Technical stack, methodology, data sources, currency notes |
-| `index.md` | Master index: all 21 visualizations with descriptions |
+| `README.md` | Public-facing overview: visualization list, tech stack, methodology, sources |
+| `CLAUDE.md` | AI/developer guide: architecture patterns, editing tasks, scholarly context |
+| `CHANGELOG.md` | Full version history with added/changed/fixed entries per release |
+| `AI_STATE.md` | AI session handoff state: what's done, active decisions, known issues, next steps |
+| `ROADMAP.md` | Development roadmap: 7 phases, priorities, cancelled items |
+| `index.md` | Master index: all visualizations with descriptions |
 | `use_cases_and_guide.md` | Educational use cases (6 teacher scenarios + kids' guide) |
-| `Тетради_купца_Афанасия.md` | Full book summary (structure, characters, conclusions) |
 | `afanasy_geolocations.md` | Coordinates for all 19 route points + GeoJSON export |
 | `afanasy_journey_data.md` | Timeline data: dates, sea crossings, waypoint descriptions |
+| `tetradi_hrustalev_2026.md` | Full book summary (structure, characters, conclusions) |
 
-Always update relevant docs when modifying visualizations.
+**Always update `CHANGELOG.md` and `AI_STATE.md` when modifying visualizations.**
 
 ---
 
