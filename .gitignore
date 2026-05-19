@@ -1,0 +1,4 @@
+http-server.*.log
+*.log
+scratch/
+hrustalev_tetradi_2026.pdf

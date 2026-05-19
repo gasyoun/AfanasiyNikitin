@@ -9,6 +9,7 @@
     --color-text-primary: #2c1810;
     --color-text-secondary: #6e5e54;
     --color-accent: #b87020;
+    --color-accent-hover: #a0591b;
     --border-radius-lg: 12px;
     --border-radius-md: 8px;
     --border-radius-sm: 4px;
@@ -26,6 +27,7 @@
     --color-text-primary: #ebdcd5;
     --color-text-secondary: #b8aba3;
     --color-accent: #e08830;
+    --color-accent-hover: #f0a040;
 }
 
 html[data-theme="dark"] body {
@@ -113,7 +115,7 @@ body {
 }
 
 .back-btn:hover {
-    color: #a0591b;
+    color: var(--color-accent-hover);
 }
 
 /* Scrollbars */
