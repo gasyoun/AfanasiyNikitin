@@ -13,6 +13,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `index.html`: renumbered homepage visualization cards sequentially from 1 to 12.
 - Replaced hardcoded `body { color: #333; }` with `var(--color-text-secondary)` across the 12 affected visualization pages.
 - `afanasy_gantt.html`: expanded the Khrustalev timeline with Bidar phases, Gulbarga, Kallur, Dabhol, the 1474 Somalia/Maskat return, the Persian return chain, Black Sea stops, and dated event markers.
+- `afanasy_v8_text_map.html`: added the missing Khrustalev route waypoints (Lar, Aland, Gulbarga, Kallur, Dabhol, Somalia, Erzinjan, Platana, Balaklava/Gurzuf), replaced the generic west-coast placeholder with Dabhol, and re-indexed Gantt deep links to the new 28-point route.
 
 ---
 
