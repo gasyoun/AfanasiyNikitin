@@ -4,14 +4,14 @@ This file is maintained by AI assistants (Antigravity/Claude) working on this re
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
 > **Last updated:** 2026-05-19 · Conversation ID: GPT-5.5 Phase 0  
-> **Commit:** Phase 0 quick fixes in progress
+> **Commit:** Phase 0 quick fixes complete locally
 
 ---
 
-## Current Status: 🔄 PHASE 0 IN PROGRESS — Quick Fixes
+## Current Status: ✅ PHASE 0 COMPLETE — Browser Verified
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Current work is Phase 0 from `FIX_PLAN.md`: A1–A4 credibility and dark-mode fixes.
+Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes.
 
 ---
 
@@ -23,6 +23,8 @@ Current work is Phase 0 from `FIX_PLAN.md`: A1–A4 credibility and dark-mode fi
 | A1 — Broken download link in index | ✅ Done | `index.html` now links to existing `tetradi_hrustalev_2026.md` and keeps the Russian download filename |
 | A2 — Reconcile visualization counts | ✅ Done | Public counts now use 13 existing HTML widgets in `index.html`, `README.md`, `index.md`, and `tmp.md` |
 | A3 — Renumber index cards | ✅ Done | `index.html` card badges now run 1–12 sequentially |
+| A4 — Hardcoded `color: #333` | ✅ Done | 12 visualization pages now use `var(--color-text-secondary)` for body text |
+| Browser verification | ✅ Done | `python -m http.server 8080`; index links/cards/footer, theme toggles on 12 affected widgets, Gantt→Map deep-link presence, and console logs checked |
 
 ### Session 1 (conv `a6b4ceee`) — Core UI Overhaul
 | Task | Status | Notes |
@@ -81,6 +83,7 @@ Current work is Phase 0 from `FIX_PLAN.md`: A1–A4 credibility and dark-mode fi
 | `afanasy_world_before_after.html` — not in current repo | Medium | — | Listed in README but file doesn't exist yet |
 | `afanasy_religious_crisis.html` — not in repo | Low | — | Removed from `index.html`; may be created later |
 | Dark mode canvas filter on map | Low | `afanasy_v8_text_map.html` | CSS `filter: invert()` not applied to Canvas pixels; only the container flips |
+| Existing 1366×768 page scroll | Medium | multiple widgets | Browser check showed several pages still have `documentElement.scrollHeight > 768`; `.vis-container` itself did not overflow. Needs layout pass outside Phase 0. |
 | Mobile touch targets | Low | all pages | Not tested on phone; touch targets may be too small |
 | `scratch/theme_injector.py` not committed to repo | Resolved | — | Committed in `9e006c0` |
 | PWA offline capability | Future | — | Service Worker not implemented yet |
@@ -118,11 +121,11 @@ git status: nothing to commit, working tree clean
 
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
-1. **A4 — Replace `color: #333`** in visualization pages with `var(--color-text-secondary)`
-2. **Phase 1 — FIX 2** Gantt return-route and India-phase data corrections
-3. **Phase 1 — FIX 1** map waypoint additions and Dabhol correction
-4. **Phase 1 — FIX 3** calendar Easter observations
-5. **Phase 1 — FIX 4** economics horse and daily-cost data
+1. **Phase 1 — FIX 2** Gantt return-route and India-phase data corrections
+2. **Phase 1 — FIX 1** map waypoint additions and Dabhol correction
+3. **Phase 1 — FIX 3** calendar Easter observations
+4. **Phase 1 — FIX 4** economics horse and daily-cost data
+5. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
 
 ---
 
