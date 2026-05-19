@@ -4,14 +4,14 @@ This file is maintained by AI assistants (Antigravity/Claude) working on this re
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
 > **Last updated:** 2026-05-19 · Conversation ID: GPT-5.5 Phase 1
-> **Commit:** Phase 1 FIX 3 complete
+> **Commit:** Phase 1 FIX 4 complete
 
 ---
 
-## Current Status: ✅ PHASE 1 STARTED — FIX 1 + FIX 2 + FIX 3 Complete
+## Current Status: ✅ PHASE 1 STARTED — FIX 1 + FIX 2 + FIX 3 + FIX 4 Complete
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 now has FIX 2 in `afanasy_gantt.html`, FIX 1 in `afanasy_v8_text_map.html`, and FIX 3 in `afanasy_calendar_pascha_islam.html`.
+Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 now has FIX 2 in `afanasy_gantt.html`, FIX 1 in `afanasy_v8_text_map.html`, FIX 3 in `afanasy_calendar_pascha_islam.html`, and FIX 4 in `afanasy_economics_prices.html`.
 
 ---
 
@@ -30,6 +30,8 @@ Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 
 | FIX 1 browser verification | ⚠️ Partial | Verified Gantt links for Gulbarga/Kallur/Dabhol/Gurzuf point into the new 0–27 map range; full map canvas and `?wp=18` text-panel initialization could not be verified because existing CDN D3/TopoJSON scripts did not load locally (A7/local lib follow-up) |
 | FIX 3 — Calendar Easter observations | ✅ Done | Added 8 true-vs-observed Pascha markers, drift labels, the 1470 Ramadan/Lent 4/5 March annotation, and compact no-scroll layouts for timeline/events/convergence tabs |
 | FIX 3 browser verification | ✅ Done | `python -m http.server 8080`; at 1366×768 clicked Timeline/Events/Convergence, opened the Пасха 8 Маскат card, toggled dark mode light→dark→light, checked console logs and no vertical page scroll |
+| FIX 4 — Economics horse data | ✅ Done | Replaced estimated "зол." horse-loss values with 100 rubles purchase, 68 futuns sale, exactly one year ownership, 2.5 altyns/day in Bidar, and ruble/altyn/dengi conversion notes |
+| FIX 4 browser verification | ✅ Done | `python -m http.server 8080`; at 1366×768 clicked all Economics tabs, opened the horse ledger tooltip, toggled dark mode light→dark→light, checked console logs and no vertical page scroll |
 
 ### Session 1 (conv `a6b4ceee`) — Core UI Overhaul
 | Task | Status | Notes |
@@ -97,7 +99,7 @@ Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 
 
 ## Files Modified Since Last Clean Commit
 
-> After the Phase 1 FIX 3 commit, tracked files are clean. The pre-existing untracked source files remain intentionally untouched.
+> After the Phase 1 FIX 4 commit, tracked files are clean. The pre-existing untracked source files remain intentionally untouched.
 
 ```
 git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
@@ -126,10 +128,9 @@ git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
 
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
-1. **Phase 1 — FIX 4** economics horse and daily-cost data
-2. **Phase 1 — FIX 5** manuscript leaf-size proof
-3. **A7 / Architecture Stage 4**: localize D3/TopoJSON/world-atlas assets so browser verification is independent of CDN loading
-4. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
+1. **Phase 1 — FIX 5** manuscript leaf-size proof
+2. **A7 / Architecture Stage 4**: localize D3/TopoJSON/world-atlas assets so browser verification is independent of CDN loading
+3. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
 
 ---
 

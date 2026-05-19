@@ -15,6 +15,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `afanasy_gantt.html`: expanded the Khrustalev timeline with Bidar phases, Gulbarga, Kallur, Dabhol, the 1474 Somalia/Maskat return, the Persian return chain, Black Sea stops, and dated event markers.
 - `afanasy_v8_text_map.html`: added the missing Khrustalev route waypoints (Lar, Aland, Gulbarga, Kallur, Dabhol, Somalia, Erzinjan, Platana, Balaklava/Gurzuf), replaced the generic west-coast placeholder with Dabhol, and re-indexed Gantt deep links to the new 28-point route.
 - `afanasy_calendar_pascha_islam.html`: added the eight Khrustalev Easter observations with parallel true/observed Pascha tracks, drift markers, the 1470 Ramadan/Lent annotation, and compact no-scroll layouts for all calendar tabs.
+- `afanasy_economics_prices.html`: replaced estimated horse-loss values with the exact Khrustalev data: 100 rubles purchase, 68 futuns sale, one-year ownership, 2.5 altyns per day in Bidar, and ruble/altyn/dengi conversions.
 
 ---
 
