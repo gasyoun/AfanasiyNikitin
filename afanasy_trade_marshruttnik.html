@@ -1,0 +1,330 @@
+
+<h2 class="sr-only">Торговый маршрутник Афанасия Никитина — от Ормуза до Китая, порты и товары Индийского океана XV века</h2>
+<style>
+.tm{font-size:13px;}
+.tm-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:10px;}
+.tm-intro b{color:var(--color-text-primary);}
+canvas#tm-c{display:block;width:100%;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:8px;cursor:pointer;}
+.tm-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
+.tm-detail{flex:1 1 0;padding:10px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);min-height:120px;border-left:3px solid transparent;transition:border-color .2s;}
+.tm-det-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:5px;}
+.tm-det-name{font-size:14px;font-weight:600;color:var(--color-text-primary);}
+.tm-det-days{font-size:11px;color:var(--color-text-secondary);font-variant-numeric:tabular-nums;}
+.tm-det-region{font-size:10px;color:var(--color-text-secondary);margin-bottom:6px;}
+.tm-det-quote{font-size:12px;font-family:var(--font-serif);line-height:1.65;margin-bottom:7px;padding-left:9px;border-left:2px solid var(--color-border-secondary);color:var(--color-text-primary);}
+.tm-det-goods{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px;}
+.tm-good{padding:2px 8px;border-radius:12px;font-size:10px;white-space:nowrap;}
+.tm-good.buy{background:rgba(30,130,80,.15);color:#0a5a30;border:0.5px solid rgba(30,130,80,.3);}
+.tm-good.sell{background:rgba(192,57,43,.12);color:#8a1010;border:0.5px solid rgba(192,57,43,.25);}
+.tm-good.transit{background:rgba(55,112,190,.12);color:#1a3a8a;border:0.5px solid rgba(55,112,190,.25);}
+.tm-det-note{font-size:11px;color:var(--color-text-secondary);line-height:1.55;}
+.tm-det-note b{color:var(--color-text-primary);}
+.tm-stats{flex:0 0 160px;display:flex;flex-direction:column;gap:6px;}
+.tm-stat{padding:8px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);}
+.tm-stat-v{font-size:17px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--color-text-primary);line-height:1;}
+.tm-stat-l{font-size:9.5px;color:var(--color-text-secondary);margin-top:2px;}
+.tm-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;align-items:center;}
+.tm-ld{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.tm-lt{font-size:11px;color:var(--color-text-secondary);}
+.tm-filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+.tm-f{padding:4px 11px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;}
+.tm-f.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
+.tm-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+</style>
+
+<div class="tm">
+<div class="tm-intro">
+  В составе «Хожения» Хрусталёв выделяет отдельный блок — <b>«Маршрутник для Южных морей»</b>: список портов от Ормуза до Китая с расстояниями в днях плавания и сведениями о товарах. Это деловой документ, написанный на смеси персидского и татарского — <b>языке Индийского океана</b>. Нажмите порт на карте.
+</div>
+
+<div class="tm-filters" id="tm-filters">
+  <button class="tm-f active" data-f="all" onclick="setFilter('all')">Все порты</button>
+  <button class="tm-f" data-f="spices" onclick="setFilter('spices')">Пряности</button>
+  <button class="tm-f" data-f="horses" onclick="setFilter('horses')">Лошади</button>
+  <button class="tm-f" data-f="textiles" onclick="setFilter('textiles')">Ткани</button>
+  <button class="tm-f" data-f="visited" onclick="setFilter('visited')">Афанасий был</button>
+</div>
+
+<canvas id="tm-c" width="720" height="380"></canvas>
+
+<div class="tm-row">
+  <div class="tm-detail" id="tm-det">
+    <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.6;">← нажмите порт на карте чтобы увидеть товары, расстояния и цитату из «маршрутника»</div>
+  </div>
+  <div class="tm-stats">
+    <div class="tm-stat"><div class="tm-stat-v">19</div><div class="tm-stat-l">портов в маршрутнике</div></div>
+    <div class="tm-stat"><div class="tm-stat-v">~12 000 км</div><div class="tm-stat-l">Ормуз → Китай</div></div>
+    <div class="tm-stat"><div class="tm-stat-v">8–12×</div><div class="tm-stat-l">маржа на пряностях</div></div>
+    <div class="tm-stat"><div class="tm-stat-v" id="tm-from-prev">—</div><div class="tm-stat-l">дней от пред. порта</div></div>
+  </div>
+</div>
+
+<div class="tm-legend">
+  <div class="tm-ld" style="background:#E09520;border:2px solid #8a5000;"></div><span class="tm-lt">Афанасий был здесь</span>
+  <div class="tm-ld" style="background:#1d6fa8;"></div><span class="tm-lt">Порт в маршрутнике</span>
+  <div class="tm-ld" style="background:#6e32a0;width:11px;height:11px;border-radius:2px;"></div><span class="tm-lt">Крупный торговый центр</span>
+  <div class="tm-lt" style="margin-left:4px;opacity:.7;">Размер кружка = торговое значение</div>
+</div>
+
+<div class="tm-source">
+  «Маршрутник» — реконструкция блока из состава «Хожения» по Хрусталёву (2026) и академическому изданию 1986 г. Расстояния в днях плавания — по тексту Афанасия и арабским источникам XV в. (Ибн Маджид). Товары — по «Хожению» и данным о средневековой индоокеанской торговле.
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+(function(){
+const W=720,H=380,PAD=12;
+const C=document.getElementById('tm-c');
+const ctx=C.getContext('2d');
+const off=document.createElement('canvas');
+off.width=W;off.height=H;
+const oc=off.getContext('2d');
+
+// Bbox: lon 50–125, lat -10–32
+const LON0=48,LON1=126,LAT0=-12,LAT1=34;
+function mY(lat){return Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));}
+const mY0=mY(LAT0),mY1=mY(LAT1);
+function project(lon,lat){
+  return[PAD+(lon-LON0)/(LON1-LON0)*(W-2*PAD),
+         PAD+(mY1-mY(lat))/(mY1-mY0)*(H-2*PAD)];
+}
+
+// ── Ports ─────────────────────────────────────────────────────────────────────
+const PORTS=[
+  {id:'hormuz', name:'Ормуз', lon:56.46, lat:27.08, r:13,
+   type:'major', visited:true, daysFromPrev:0,
+   goods:{buy:['Арабские кони','Финики','Медь'],sell:['Индийские ткани','Пряности'],transit:['Жемчуг']},
+   quote:'«Гурмыз есть на острове, и море покрывает его при приливе. Тут первая пристань Индийского государства»',
+   note:'<b>Главный перевалочный порт</b> Индийского океана XV в. Здесь пересекались арабские, персидские, индийские и китайские торговцы. Афанасий был в Ормузе дважды — на пути туда и обратно.'},
+  {id:'maskat', name:'Маскат', lon:58.59, lat:23.61, r:9,
+   type:'port', visited:true, daysFromPrev:10,
+   goods:{buy:['Финики','Рыба','Соль'],sell:['Персидские ткани'],transit:['Лошади']},
+   quote:'«А от Гурмыза до Маскату 10 дней»',
+   note:'<b>Аравийский порт</b>. Первая остановка на пути в Индию. Пресная вода и провизия. Афанасий упоминает его как ориентир — не торговую точку.'},
+  {id:'deg',   name:'Диу (Дег)', lon:70.97, lat:20.71, r:10,
+   type:'port', visited:false, daysFromPrev:4,
+   goods:{buy:['Хлопок','Индиго'],sell:['Лошади','Медь'],transit:['Пряности']},
+   quote:'«А от Маскату до Дега 4 дни»',
+   note:'<b>Гуджаратский порт</b> на полуострове Катхиявар. Крупный рынок хлопка и индиго. Именно сюда чаще всего везли арабских коней из Ормуза.'},
+  {id:'gujrat',name:'Гуджарат\n(Камбей)', lon:72.62, lat:22.31, r:12,
+   type:'major', visited:false, daysFromPrev:3,
+   goods:{buy:['Хлопок','Индиго','Шёлк'],sell:['Лошади','Финики','Жемчуг'],transit:['Пряности']},
+   quote:'«Гузарат — великое государство индийское»',
+   note:'<b>Гуджаратский султанат</b> — главный хлопковый рынок Индии. Камбейский залив принимал корабли со всего Индийского океана. Афанасий упоминает Гуджарат как богатое государство.'},
+  {id:'chaul',  name:'Чаул\n(Чивиль)', lon:72.92, lat:18.55, r:11,
+   type:'port', visited:true, daysFromPrev:7,
+   goods:{buy:['Пряности','Ткани','Рис'],sell:['Лошади','Медь'],transit:['Краски']},
+   quote:'«Тут есть первая пристань Индийскаго государства — Чивиль»',
+   note:'<b>Первый индийский берег</b> Афанасия. Порт на Конканском побережье. Афанасий прибыл сюда после 6 недель плавания. Рынок лошадей и пряностей.'},
+  {id:'goa',    name:'Гоа', lon:73.83, lat:15.49, r:12,
+   type:'major', visited:false, daysFromPrev:4,
+   goods:{buy:['Пряности','Ткани','Рис'],sell:['Лошади','Металлы'],transit:['Жемчуг','Слоновая кость']},
+   quote:'«Из Гоа ходят кони»',
+   note:'<b>Главный рынок коней</b> западного побережья Индии. В 1472 г. взят Махмудом Гаваном. Афанасий не был в Гоа — но описывает его в «маршрутнике» как ключевой пункт.'},
+  {id:'bidar',  name:'Бидар', lon:77.52, lat:17.91, r:13,
+   type:'major', visited:true, daysFromPrev:0,
+   goods:{buy:['Хлопок','Краски','Оружие'],sell:['Лошади','Золото'],transit:['Пряности','Слоны']},
+   quote:'«Бедер — стол Гундустану бесерменьскому»',
+   note:'<b>Столица Бахманидского султаната</b> — главный внутренний рынок Декана. Афанасий провёл здесь суммарно около 3 лет. Здесь продал жеребца за 68 золотых.'},
+  {id:'calicut',name:'Каликут', lon:75.78, lat:11.25, r:14,
+   type:'major', visited:false, daysFromPrev:8,
+   goods:{buy:['Перец','Имбирь','Корица','Кардамон'],sell:['Лошади','Металлы','Ткани'],transit:['Фарфор']},
+   quote:'«Калекут — пристань всего Индийского государства»',
+   note:'<b>Главный перевалочный порт пряностей</b>. Именно сюда Афанасий советует везти товар. Именно здесь высадится Васко да Гама в 1498 г. Перец здесь в 8–12 раз дешевле, чем в Европе.'},
+  {id:'ceylon', name:'Цейлон\n(Шейлань)', lon:80.68, lat:7.87, r:12,
+   type:'major', visited:false, daysFromPrev:10,
+   goods:{buy:['Корица','Жемчуг','Рубины','Слоновая кость'],sell:['Лошади','Медь'],transit:['Фарфор']},
+   quote:'«Шейлань — остров великий… добывают рубины и корицу»',
+   note:'<b>Цейлон</b> — источник корицы, жемчуга и рубинов. Афанасий упоминает его в «маршрутнике» как обязательный пункт. Монополия на корицу обеспечивала колоссальную прибыль.'},
+  {id:'coromandel',name:'Коромандель', lon:80.25, lat:11.0, r:10,
+   type:'port', visited:false, daysFromPrev:7,
+   goods:{buy:['Хлопок','Краски','Индиго'],sell:['Лошади'],transit:['Фарфор']},
+   quote:'«Берег Командельский — ткани добрые»',
+   note:'<b>Восточное побережье Индии</b>. Знаменито хлопковыми тканями. Транзитный пункт между западной и восточной торговлей.'},
+  {id:'malay',  name:'Малакка', lon:102.25, lat:2.2, r:13,
+   type:'major', visited:false, daysFromPrev:20,
+   goods:{buy:['Пряности','Олово','Камфора'],sell:['Ткани','Металлы'],transit:['Фарфор','Шёлк']},
+   quote:'«Молдива — пристань великая, меж Индией и Китаем»',
+   note:'<b>Малаккский пролив</b> — ключевой узел между Индийским и Тихим океанами. Здесь сходились китайские, яванские, арабские торговцы. Афанасий упоминает «Молдиву» как дальний ориентир маршрута.'},
+  {id:'java',   name:'Ява', lon:110.36, lat:-7.6, r:11,
+   type:'port', visited:false, daysFromPrev:15,
+   goods:{buy:['Гвоздика','Мускатный орех','Перец'],sell:['Ткани','Металлы'],transit:['Фарфор']},
+   quote:'«Ява — остров великий, пряностей много»',
+   note:'<b>Ява</b> — источник гвоздики и мускатного ореха. Самые дорогие пряности. Дальний конец маршрута для большинства арабских и персидских торговцев.'},
+  {id:'china',  name:'Китай\n(Чин)', lon:120.3, lat:22.5, r:14,
+   type:'major', visited:false, daysFromPrev:30,
+   goods:{buy:['Шёлк','Фарфор','Мускус'],sell:['Пряности','Жемчуг','Слоновая кость'],transit:['Золото']},
+   quote:'«Чин да Мачин — великое государство»',
+   note:'<b>Южный Китай</b> (порты Кантон, Цюаньчжоу). Конец «Великого шёлкового пути» и начало морского. Шёлк и фарфор — в обмен на пряности и золото. Афанасий упоминает Китай как дальний предел маршрутника.'},
+  {id:'aden',   name:'Аден', lon:45.04, lat:12.82, r:11,
+   type:'major', visited:false, daysFromPrev:12,
+   goods:{buy:['Кофе','Мирра','Ладан'],sell:['Металлы','Стекло'],transit:['Пряности','Шёлк']},
+   quote:'«Аден — пристань на выходе из моря Индийского»',
+   note:'<b>Вход в Красное море</b>. Главный мамлюкский транзитный порт. Все товары из Индии в Европу шли через Аден — это давало мамлюкам монополию. Васко да Гама обошёл её через Африку.'},
+  {id:'hormuz2',name:'Ормуз\n(возврат)', lon:56.46, lat:26.5, r:9,
+   type:'port', visited:true, daysFromPrev:63,
+   goods:{buy:[],sell:['Пряности','Ткани'],transit:['Лошади']},
+   quote:'«И поидох до Гурмыза 9 дни» — обратный путь',
+   note:'Афанасий возвращается в Ормуз из Индии в 1472 г. «9 недель морем». Начало обратного пути через Персию на Русь.'},
+];
+
+// Route lines (ordered sequence)
+const ROUTE_MAIN=[
+  [56.46,27.08],[58.59,23.61],[70.97,20.71],[72.62,22.31],
+  [72.92,18.55],[73.83,15.49],[75.78,11.25],[80.68,7.87],
+  [80.25,11.0],[102.25,2.2],[110.36,-7.6],[120.3,22.5]
+];
+const ROUTE_AFANASY=[
+  [56.46,27.08],[58.59,23.61],[72.92,18.55],[77.52,17.91],
+  [75.78,11.25],[72.92,18.55],[56.46,26.5]
+];
+const ROUTE_ADEN=[[56.46,27.08],[45.04,12.82]];
+
+let activeFilter='all', activePort=null, mapReady=false;
+
+function portVisible(p){
+  if(activeFilter==='all')return true;
+  if(activeFilter==='visited')return p.visited;
+  const goods=[...p.goods.buy,...p.goods.sell,...p.goods.transit];
+  if(activeFilter==='spices')return goods.some(g=>/Перец|Пряност|Имбирь|Корица|Гвоздик|Мускат|Кардамон|Камфор/.test(g));
+  if(activeFilter==='horses')return goods.some(g=>/Лошад|кони|Коней/.test(g));
+  if(activeFilter==='textiles')return goods.some(g=>/Ткани|Хлопок|Шёлк|Индиго/.test(g));
+  return true;
+}
+
+function buildBase(world){
+  const d3p=d3.geoTransform({point(lo,la){const[x,y]=project(lo,la);this.stream.point(x,y);}});
+  const path=d3.geoPath(d3p,oc);
+  const land=topojson.feature(world,world.objects.land);
+  const borders=topojson.mesh(world,world.objects.countries,(a,b)=>a!==b);
+  oc.save();oc.beginPath();oc.rect(0,0,W,H);oc.clip();
+  // Darker ocean for contrast
+  oc.fillStyle='#7aafc8';oc.fillRect(0,0,W,H);
+  oc.beginPath();path(land);oc.fillStyle='#e8e1cc';oc.fill();oc.strokeStyle='#b8a870';oc.lineWidth=0.4;oc.stroke();
+  oc.beginPath();path(borders);oc.strokeStyle='rgba(140,120,80,.15)';oc.lineWidth=0.3;oc.stroke();
+  // Graticule
+  oc.strokeStyle='rgba(70,100,135,.07)';oc.lineWidth=0.5;
+  for(let lo=50;lo<=120;lo+=10){const[x,y0]=project(lo,LAT0+.2);const[,y1]=project(lo,LAT1-.2);oc.beginPath();oc.moveTo(x,y0);oc.lineTo(x,y1);oc.stroke();}
+  for(let la=-10;la<=30;la+=10){const[x0,y]=project(LON0+.2,la);const[x1]=project(LON1-.2,la);oc.beginPath();oc.moveTo(x0,y);oc.lineTo(x1,y);oc.stroke();}
+  // Region labels
+  oc.font='bold 9px sans-serif';oc.fillStyle='rgba(40,60,80,.35)';oc.textAlign='center';
+  [['Аравийское\nморе',65,18],['Бенгальский\nзалив',89,13],['Индийский океан',78,3]].forEach(([l,lo,la])=>{
+    const[x,y]=project(lo,la);
+    l.split('\n').forEach((line,i)=>oc.fillText(line,x,y+i*10));
+  });
+  oc.restore();
+}
+
+function drawRoutes(){
+  // Main trade route
+  ctx.setLineDash([4,4]);
+  ctx.strokeStyle='rgba(185,115,20,.4)';ctx.lineWidth=1.5;
+  ctx.beginPath();ROUTE_MAIN.forEach(([lo,la],i)=>{const[x,y]=project(lo,la);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+  ctx.stroke();
+  // Afanasy route
+  ctx.setLineDash([]);
+  ctx.strokeStyle='rgba(224,149,32,.7)';ctx.lineWidth=2.2;
+  ctx.beginPath();ROUTE_AFANASY.forEach(([lo,la],i)=>{const[x,y]=project(lo,la);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+  ctx.stroke();
+  // Aden branch
+  ctx.setLineDash([5,4]);ctx.strokeStyle='rgba(100,150,200,.35)';ctx.lineWidth=1.2;
+  ctx.beginPath();ROUTE_ADEN.forEach(([lo,la],i)=>{const[x,y]=project(lo,la);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+  ctx.stroke();ctx.setLineDash([]);
+}
+
+function halo(txt,x,y,col){ctx.strokeStyle='rgba(255,255,255,.65)';ctx.lineWidth=2;ctx.textAlign='center';ctx.strokeText(txt,x,y);ctx.fillStyle=col||'rgba(20,10,5,.85)';ctx.fillText(txt,x,y);}
+
+function drawFrame(){
+  if(!mapReady){ctx.fillStyle='#7aafc8';ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(0,0,0,.4)';ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('Загрузка…',W/2,H/2);return;}
+  ctx.drawImage(off,0,0);
+  ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
+  drawRoutes();
+
+  PORTS.forEach(p=>{
+    if(!portVisible(p))return;
+    const[cx,cy]=project(p.lon,p.lat);
+    const isActive=activePort===p.id;
+    const col=p.visited?'#E09520':p.type==='major'?'#6e32a0':'#1d6fa8';
+
+    if(isActive){ctx.beginPath();ctx.arc(cx,cy,p.r+6,0,Math.PI*2);ctx.fillStyle=col;ctx.globalAlpha=.15;ctx.fill();ctx.globalAlpha=1;}
+    ctx.beginPath();ctx.arc(cx,cy,p.r,0,Math.PI*2);
+    ctx.fillStyle='var(--color-background-primary)';ctx.fill();
+    ctx.strokeStyle=col;ctx.lineWidth=isActive?2.5:1.8;ctx.stroke();
+
+    const lines=p.name.split('\n');
+    ctx.font=`bold ${p.r>10?8:7.5}px sans-serif`;
+    lines.forEach((l,i)=>halo(l,cx,cy+(i-(lines.length-1)/2)*9+3,col));
+  });
+
+  // Legend
+  [[1,'— маршрутник Афанасия','rgba(224,149,32,.7)',false],[2,'— торговый путь Ормуз→Китай','rgba(185,115,20,.4)',true]].forEach(([i,lbl,col,dash],idx)=>{
+    const lx=PAD+5,ly=H-PAD-10-idx*14;
+    ctx.strokeStyle=col;ctx.lineWidth=idx===0?1.5:2;
+    if(dash)ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(lx+22,ly);ctx.stroke();ctx.setLineDash([]);
+    ctx.font='8px sans-serif';ctx.fillStyle='rgba(20,10,5,.7)';ctx.textAlign='left';ctx.fillText(lbl,lx+26,ly+3);
+  });
+
+  ctx.restore();
+}
+
+C.addEventListener('click',e=>{
+  const r=C.getBoundingClientRect();
+  const mx=(e.clientX-r.left)*(W/r.width);
+  const my=(e.clientY-r.top)*(H/r.height);
+  let best=null,bestD=Infinity;
+  PORTS.forEach(p=>{
+    if(!portVisible(p))return;
+    const[cx,cy]=project(p.lon,p.lat);
+    const d=Math.hypot(cx-mx,cy-my);
+    if(d<p.r+6&&d<bestD){best=p;bestD=d;}
+  });
+  if(best){
+    activePort=activePort===best.id?null:best.id;
+    showDetail(activePort?best:null);
+    drawFrame();
+  }
+});
+
+function showDetail(p){
+  const det=document.getElementById('tm-det');
+  const fpv=document.getElementById('tm-from-prev');
+  if(!p){
+    det.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary);">← нажмите порт на карте</div>';
+    det.style.borderLeftColor='var(--color-border-tertiary)';
+    fpv.textContent='—';return;
+  }
+  const col=p.visited?'#E09520':p.type==='major'?'#6e32a0':'#1d6fa8';
+  det.style.borderLeftColor=col;
+  fpv.textContent=p.daysFromPrev>0?p.daysFromPrev+' дн.':'старт';
+  const goodsHtml=[
+    ...p.goods.buy.map(g=>`<span class="tm-good buy">⬇ ${g}</span>`),
+    ...p.goods.sell.map(g=>`<span class="tm-good sell">⬆ ${g}</span>`),
+    ...p.goods.transit.map(g=>`<span class="tm-good transit">↔ ${g}</span>`),
+  ].join('');
+  det.innerHTML=`
+    <div class="tm-det-top">
+      <div class="tm-det-name" style="color:${col};">${p.name.replace('\n',' ')}</div>
+      ${p.daysFromPrev>0?`<div class="tm-det-days">${p.daysFromPrev} дней плавания</div>`:''}
+    </div>
+    <div class="tm-det-region">${p.visited?'✦ Афанасий был здесь · ':''}</div>
+    <div class="tm-det-quote">${p.quote}</div>
+    <div class="tm-det-goods">${goodsHtml}</div>
+    <div class="tm-det-note">${p.note}</div>`;
+}
+
+window.setFilter=function(f){
+  activeFilter=f;activePort=null;showDetail(null);
+  document.querySelectorAll('.tm-f').forEach(b=>b.classList.toggle('active',b.dataset.f===f));
+  drawFrame();
+};
+
+function waitLib(cb){if(typeof d3!=='undefined'&&typeof topojson!=='undefined')cb();else setTimeout(()=>waitLib(cb),60);}
+waitLib(()=>{
+  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+    .then(r=>r.json()).then(w=>{buildBase(w);mapReady=true;drawFrame();});
+});
+})();
+</script>

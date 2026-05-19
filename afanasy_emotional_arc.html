@@ -1,0 +1,301 @@
+
+<h2 class="sr-only">Эмоциональная дуга «Хожения за три моря» — тональность текста по разделам</h2>
+<style>
+.ea{font-size:13px;}
+.ea-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
+.ea-intro b{color:var(--color-text-primary);}
+.ea-chart-wrap{position:relative;margin-bottom:10px;}
+svg#ea-svg{display:block;width:100%;}
+.ea-detail{padding:11px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);margin-bottom:10px;min-height:58px;border-left:3px solid transparent;transition:border-color .2s;}
+.ea-det-loc{font-size:10px;color:var(--color-text-secondary);margin-bottom:4px;display:flex;gap:8px;align-items:center;}
+.ea-det-score{font-size:11px;font-weight:600;}
+.ea-det-q{font-size:12.5px;font-family:var(--font-serif);line-height:1.7;color:var(--color-text-primary);margin-bottom:6px;padding-left:10px;border-left:2px solid var(--color-border-secondary);}
+.ea-det-body{font-size:11px;color:var(--color-text-secondary);line-height:1.55;}
+.ea-det-body b{color:var(--color-text-primary);}
+.ea-dims{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px;}
+.ea-dim{padding:8px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;user-select:none;transition:all .12s;}
+.ea-dim.active{background:var(--color-background-primary);}
+.ea-dim-dot{width:8px;height:8px;border-radius:50%;margin-bottom:4px;}
+.ea-dim-name{font-size:10px;font-weight:500;color:var(--color-text-primary);}
+.ea-dim-sub{font-size:9px;color:var(--color-text-secondary);}
+.ea-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+</style>
+
+<div class="ea">
+<div class="ea-intro">
+  Тональность «Хожения» менялась радикально. <b>Три вершины отчаяния</b> — ограбление на Волге, угроза в Джуннаре, молитва-лament в Бидаре — перемежаются моментами любопытства и восхищения. <b>Финал</b> — не радость возвращения, а смерть под Смоленском, не дойдя до дома. Нажмите точку на графике или карточку измерения.
+</div>
+
+<div class="ea-dims" id="ea-dims">
+  <div class="ea-dim active" data-dim="total" onclick="setDim('total')">
+    <div class="ea-dim-dot" style="background:#6e32a0;"></div>
+    <div class="ea-dim-name">Общий тон</div>
+    <div class="ea-dim-sub">−10 (отчаяние) → +10 (радость)</div>
+  </div>
+  <div class="ea-dim" data-dim="hope" onclick="setDim('hope')">
+    <div class="ea-dim-dot" style="background:#1e8250;"></div>
+    <div class="ea-dim-name">Надежда / тревога</div>
+    <div class="ea-dim-sub">вернуться на Русь</div>
+  </div>
+  <div class="ea-dim" data-dim="faith" onclick="setDim('faith')">
+    <div class="ea-dim-dot" style="background:#c0392b;"></div>
+    <div class="ea-dim-name">Вера / сомнение</div>
+    <div class="ea-dim-sub">христианская идентичность</div>
+  </div>
+  <div class="ea-dim" data-dim="wonder" onclick="setDim('wonder')">
+    <div class="ea-dim-dot" style="background:#1d6fa8;"></div>
+    <div class="ea-dim-name">Удивление / скука</div>
+    <div class="ea-dim-sub">взгляд этнографа</div>
+  </div>
+</div>
+
+<div class="ea-chart-wrap">
+  <svg id="ea-svg" viewBox="0 0 700 300"></svg>
+</div>
+
+<div class="ea-detail" id="ea-det">
+  <div class="ea-det-loc" id="ea-det-loc">← нажмите точку на графике</div>
+  <div class="ea-det-q" id="ea-det-q" style="display:none;"></div>
+  <div class="ea-det-body" id="ea-det-body"></div>
+</div>
+
+<div class="ea-source">
+  Тональная разметка — авторская оценка по шкале −10…+10 на основе лексики, пунктуации, молитвенных формул и контекста. Не алгоритмическая: основана на чтении академического издания «Хожения» (1986) и анализе Хрусталёва (2026).
+</div>
+</div>
+
+<script>
+(function(){
+const SVG_NS='http://www.w3.org/2000/svg';
+const svg=document.getElementById('ea-svg');
+function el(tag,a){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] of Object.entries(a))e.setAttribute(k,v);return e;}
+function t(s,a){const e=el('text',a);e.textContent=s;return e;}
+
+// ── Data: 20 фрагментов ───────────────────────────────────────────────────────
+// total: общий тон; hope: надежда (+) / тревога (−); faith: вера (+) / сомнение (−); wonder: удивление (+) / безразличие (−)
+const PTS=[
+  {i:0, loc:'Тверь, апр. 1467', year:1467,
+   total:4, hope:7, faith:8, wonder:2,
+   quote:'«Пошёл я, Афанасий сын Никитин, от Спаса Святого с его милостию»',
+   note:'<b>Начало:</b> деловой тон, уверенность. Купец выходит с благословением князя и церкви. Никаких предчувствий.'},
+  {i:1, loc:'Волга → Нижний Новгород',year:1467,
+   total:3, hope:6, faith:7, wonder:3,
+   quote:'«Пристали к послу Асанбегу ширванскому — шёл с кречатами»',
+   note:'<b>Ожидание:</b> нейтральный тон, деловые наблюдения. Путешествие идёт по плану.'},
+  {i:2, loc:'Ограбление под Астраханью', year:1467,
+   total:-8, hope:-7, faith:-2, wonder:-1,
+   quote:'«Заплакали есмя да розошлися кои куды»',
+   note:'<b>Первый кризис:</b> катастрофа. Всё потеряно. «Заплакали» — единственное открытое упоминание слёз во всём тексте. Тон падает до дна.'},
+  {i:3, loc:'Дербент, осень 1467', year:1467,
+   total:-5, hope:-4, faith:2, wonder:2,
+   quote:'«Ширваншах принял нас хорошо, да помочь не дал»',
+   note:'<b>Унижение:</b> просьба о помощи отклонена. Афанасий застрял без денег и товара. Группа рассыпается.'},
+  {i:4, loc:'Баку — Мазендаран', year:1468,
+   total:-2, hope:1, faith:3, wonder:5,
+   quote:'«А из Дербенти к Баке, где огнь горить неугасимый»',
+   note:'<b>Любопытство возвращается:</b> вечные огни Апшерона, персидские города. Этнографический взгляд включается. Тревога фоновая.'},
+  {i:5, loc:'Сари (6 месяцев)', year:1468,
+   total:-3, hope:-2, faith:2, wonder:1,
+   quote:'«В Сари пробыл 6 месяцев — болен был»',
+   note:'<b>Вынужденный простой:</b> болезнь, нищета, зима. Тон усталый, нейтральный. Ни радости, ни отчаяния — просто выживание.'},
+  {i:6, loc:'Персия — путь к Ормузу', year:1469,
+   total:0, hope:2, faith:3, wonder:4,
+   quote:'«Кашан — 1 месяц, Йезд — 1 месяц»',
+   note:'<b>Деловая Персия:</b> города, рынки, дороги. Афанасий — профессиональный купец. Тон нейтральный, описательный.'},
+  {i:7, loc:'Ормуз — Пасха 1469', year:1469,
+   total:1, hope:3, faith:1, wonder:5,
+   quote:'«Гурмыз есть на острове… тут есть море Индейское»',
+   note:'<b>Порог нового мира:</b> Афанасий видит Индийский океан впервые. Смешанное чувство — восхищение и тревога. Пасха в Ормузе — один.'},
+  {i:8, loc:'Океан — плавание в Индию', year:1469,
+   total:2, hope:4, faith:3, wonder:7,
+   quote:'«Шли есмя морем 6 недель»',
+   note:'<b>Открытие Индии:</b> высокая тональность удивления. Новые берега, новые люди, ощущение приключения.'},
+  {i:9, loc:'Чаул — первая Индия', year:1469,
+   total:5, hope:4, faith:2, wonder:9,
+   quote:'«Тут есть Индийская страна, и люди ходят все наги»',
+   note:'<b>Пик удивления:</b> максимальный этнографический интерес. Афанасий описывает всё — одежду, еду, животных. Тон восхищённо-растерянный.'},
+  {i:10, loc:'Джуннар — угроза смерти', year:1469,
+   total:-9, hope:-8, faith:-3, wonder:-2,
+   quote:'«Коня моего взял, а меня хотел в бесермены обратить»',
+   note:'<b>Второй кризис — самый острый:</b> угроза смерти или принятия ислама. Конь отнят. Спасает случай. Тон — экзистенциальный ужас.'},
+  {i:11, loc:'Бидар — 1-й год', year:1470,
+   total:-1, hope:1, faith:-2, wonder:4,
+   quote:'«Бедер — стол Гундустану бесерменьскому»',
+   note:'<b>Адаптация:</b> Афанасий обустраивается в столице. Описывает султана, слонов, роскошь. Любопытство с тоской по дому.'},
+  {i:12, loc:'Бидар — Пасха 1470 (не найдена)', year:1470,
+   total:-7, hope:-5, faith:-8, wonder:1,
+   quote:'«Пасхи есмь не ведал — велик день ли, ни Петров день»',
+   note:'<b>Религиозный кризис:</b> потеря христианского календаря. Самый тяжёлый духовный момент — Афанасий не знает, когда его праздник.'},
+  {i:13, loc:'Пятиязычная молитва', year:1470,
+   total:-6, hope:-3, faith:-6, wonder:0,
+   quote:'«Аллах керим, аллах рахим… Бу кюн пасха али нет?»',
+   note:'<b>Кульминация кризиса идентичности:</b> молитва на пяти языках всем богам сразу. Хрусталёв: это самый человечный момент всего текста.'},
+  {i:14, loc:'Паломничество Шрисайлам', year:1471,
+   total:3, hope:2, faith:1, wonder:8,
+   quote:'«Парват — то их Иерусалим»',
+   note:'<b>Любопытство к чужой вере:</b> Афанасий идёт на индуистское паломничество с открытым умом. Сравнивает с Иерусалимом без осуждения.'},
+  {i:15, loc:'Бидар — взятие Гоа', year:1472,
+   total:1, hope:2, faith:2, wonder:3,
+   quote:'«Меликтучар воевал Виджаянагар»',
+   note:'<b>Летопись войн:</b> Афанасий наблюдает или записывает военные кампании. Тон хроникёра — нейтральный, фактический.'},
+  {i:16, loc:'Прощание с Индией', year:1472,
+   total:-4, hope:-6, faith:-3, wonder:2,
+   quote:'«Путь не ведаю, куда ити из Гундустани»',
+   note:'<b>Третий кризис — безысходность:</b> «лжою привели псы-бесермены». Разочарование. Денег нет, пути домой нет. Горечь.'},
+  {i:17, loc:'Обратный путь — Персия', year:1473,
+   total:2, hope:5, faith:4, wonder:2,
+   quote:'«Из Гурмыза к Лару, из Лара к Ширязу»',
+   note:'<b>Надежда нарастает:</b> Афанасий идёт домой. Знакомые города, знакомые дороги. Деловой тон возвращается.'},
+  {i:18, loc:'Чёрное море — Трабзон', year:1474,
+   total:4, hope:7, faith:5, wonder:1,
+   quote:'«3-е море Чёрное, дориа Стебольская»',
+   note:'<b>Почти дома:</b> три моря пройдены. «Меня бог пронёс через три моря» — торжество и облегчение.'},
+  {i:19, loc:'Кафа — последняя запись', year:1474,
+   total:3, hope:6, faith:6, wonder:0,
+   quote:'«Приехал есмь в Кафу за девять дней до Филиппова поста»',
+   note:'<b>Финал текста:</b> Афанасий в Кафе, на пороге Руси. Умер «под Смоленском» — этой записи в тексте нет, она в предисловии Мамырева. Текст обрывается на надежде.'},
+];
+
+const DIMS={
+  total:{color:'#6e32a0', label:'Общий тон', lo:'отчаяние', hi:'радость'},
+  hope: {color:'#1e8250', label:'Надежда', lo:'тревога',   hi:'надежда'},
+  faith:{color:'#c0392b', label:'Вера',     lo:'сомнение', hi:'вера'},
+  wonder:{color:'#1d6fa8',label:'Удивление',lo:'скука',    hi:'удивление'},
+};
+
+let activeDim='total', activeIdx=null;
+const W=700,H=300,mL=32,mR=20,mT=30,mB=50;
+const iW=W-mL-mR, iH=H-mT-mB;
+
+function yScale(v){return mT+iH-(v+10)/20*iH;}
+function xScale(i){return mL+i/(PTS.length-1)*iW;}
+
+// Gradient fill
+function makeGradient(id,color){
+  const defs=svg.querySelector('defs')||svg.insertBefore(el('defs',{}),svg.firstChild);
+  const g=el('linearGradient',{id,x1:'0',y1:'0',x2:'0',y2:'1'});
+  const s1=el('stop',{'offset':'0%','stop-color':color,'stop-opacity':'0.35'});
+  const s2=el('stop',{'offset':'100%','stop-color':color,'stop-opacity':'0.02'});
+  g.appendChild(s1);g.appendChild(s2);defs.appendChild(g);
+}
+
+function redraw(){
+  svg.innerHTML='';
+  const dim=activeDim;
+  const{color}=DIMS[dim];
+
+  makeGradient('fill-grad',color);
+
+  // Zero line
+  svg.appendChild(el('line',{x1:mL,y1:yScale(0),x2:W-mR,y2:yScale(0),
+    stroke:'var(--color-border-secondary)','stroke-width':.8,'stroke-dasharray':'4 3'}));
+  svg.appendChild(t('0',{x:mL-4,y:yScale(0)+3,'text-anchor':'end','font-size':'8',fill:'var(--color-text-secondary)'}));
+
+  // Grid
+  [-10,-5,5,10].forEach(v=>{
+    const y=yScale(v);
+    svg.appendChild(el('line',{x1:mL,y1:y,x2:W-mR,y2:y,stroke:'var(--color-border-tertiary)','stroke-width':.4}));
+    svg.appendChild(t(v>0?'+'+v:v,{x:mL-4,y:y+3,'text-anchor':'end','font-size':'8',fill:'var(--color-text-secondary)'}));
+  });
+
+  // Gradient fill area
+  const pts=PTS.map(p=>[xScale(p.i),yScale(p[dim])]);
+  const zeroY=yScale(0);
+  let areaD=`M${pts[0][0]},${zeroY}`;
+  pts.forEach(([x,y])=>areaD+=` L${x},${y}`);
+  areaD+=` L${pts[pts.length-1][0]},${zeroY} Z`;
+  svg.appendChild(el('path',{d:areaD,fill:'url(#fill-grad)'}));
+
+  // Smooth spline path
+  let d=`M${pts[0][0]},${pts[0][1]}`;
+  for(let i=0;i<pts.length-1;i++){
+    const[x0,y0]=pts[i],[x1,y1]=pts[i+1];
+    const cpx=(x0+x1)/2;
+    d+=` C${cpx},${y0} ${cpx},${y1} ${x1},${y1}`;
+  }
+  svg.appendChild(el('path',{d,fill:'none',stroke:color,'stroke-width':2.2,'stroke-linejoin':'round'}));
+
+  // Year ticks
+  let lastYr=null;
+  PTS.forEach((p,i)=>{
+    if(p.year!==lastYr){
+      lastYr=p.year;
+      const x=xScale(i);
+      svg.appendChild(el('line',{x1:x,y1:mT+iH+2,x2:x,y2:mT+iH+8,stroke:'var(--color-border-secondary)','stroke-width':.8}));
+      svg.appendChild(t(p.year,{x,y:mT+iH+18,'text-anchor':'middle','font-size':'8.5','font-weight':'500',fill:'var(--color-text-secondary)'}));
+    }
+  });
+
+  // Axis labels
+  const{lo,hi}=DIMS[dim];
+  svg.appendChild(t(hi+' +10',{x:mL-4,y:mT-6,'text-anchor':'end','font-size':'8',fill:color,opacity:.7}));
+  svg.appendChild(t(lo+' −10',{x:mL-4,y:H-mB+18,'text-anchor':'end','font-size':'8',fill:color,opacity:.7}));
+
+  // Dots + interaction
+  PTS.forEach((p,i)=>{
+    const[cx,cy]=[xScale(i),yScale(p[dim])];
+    const isActive=activeIdx===i;
+
+    // Halo on active
+    if(isActive){
+      svg.appendChild(el('circle',{cx,cy,r:10,fill:color,opacity:.12}));
+    }
+
+    const dot=el('circle',{cx,cy,r:isActive?6:4,fill:isActive?color:'var(--color-background-primary)',
+      stroke:color,'stroke-width':isActive?2:1.5,style:'cursor:pointer;transition:r .1s;'});
+    dot.addEventListener('click',()=>{
+      activeIdx=activeIdx===i?null:i;
+      redraw();
+      showDetail(activeIdx===null?null:p);
+    });
+    dot.addEventListener('mouseenter',()=>{if(activeIdx!==i)dot.setAttribute('r','5.5');});
+    dot.addEventListener('mouseleave',()=>{if(activeIdx!==i)dot.setAttribute('r','4');});
+    svg.appendChild(dot);
+
+    // Label above key points
+    const v=p[dim];
+    if(Math.abs(v)>=7||i===0||i===PTS.length-1){
+      const lbl=p.loc.split(',')[0].split('—')[0].trim().split(' ')[0];
+      svg.appendChild(t(lbl,{x:cx,y:cy-(v>0?9:14),'text-anchor':'middle','font-size':'7.5',
+        fill:color,'font-weight':'500',opacity:.8}));
+    }
+  });
+
+  // Annotations for extreme points
+  const extremes=PTS.filter(p=>Math.abs(p[dim])>=7);
+  extremes.forEach(p=>{
+    const[cx,cy]=[xScale(p.i),yScale(p[dim])];
+    const above=p[dim]>0;
+    svg.appendChild(el('line',{x1:cx,y1:cy+(above?-6:6),x2:cx,y2:above?mT+2:mT+iH-2,
+      stroke:color,'stroke-width':.5,opacity:.2,'stroke-dasharray':'2 3'}));
+  });
+}
+
+function showDetail(p){
+  const det=document.getElementById('ea-det');
+  const locEl=document.getElementById('ea-det-loc');
+  const qEl=document.getElementById('ea-det-q');
+  const bodyEl=document.getElementById('ea-det-body');
+  if(!p){
+    locEl.innerHTML='← нажмите точку на графике';
+    qEl.style.display='none';bodyEl.innerHTML='';
+    det.style.borderLeftColor='var(--color-border-tertiary)';return;
+  }
+  const{color}=DIMS[activeDim];
+  const v=p[activeDim];
+  const sign=v>0?'+':'';
+  det.style.borderLeftColor=color;
+  locEl.innerHTML=`<span>${p.loc}</span><span class="ea-det-score" style="color:${color};">${sign}${v}</span>`;
+  qEl.style.display='block';qEl.textContent=p.quote;
+  bodyEl.innerHTML=p.note;
+}
+
+window.setDim=function(dim){
+  activeDim=dim;activeIdx=null;
+  document.querySelectorAll('.ea-dim').forEach(c=>c.classList.toggle('active',c.dataset.dim===dim));
+  redraw();showDetail(null);
+};
+
+redraw();
+})();
+</script>

@@ -1,0 +1,262 @@
+
+<h2 class="sr-only">Дерево состава «Хожения за три моря» по реконструкции Хрусталёва</h2>
+<style>
+.ct{font-size:13px;}
+.ct-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
+.ct-intro b{color:var(--color-text-primary);}
+svg#ct-svg{display:block;width:100%;overflow:visible;}
+.ct-detail{margin-top:10px;padding:11px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);display:none;border-left:3px solid transparent;}
+.ct-detail.open{display:block;}
+.ct-det-h{font-size:13px;font-weight:500;margin-bottom:5px;}
+.ct-det-q{font-size:12px;font-family:var(--font-serif);line-height:1.7;margin-bottom:7px;padding-left:10px;border-left:2px solid var(--color-border-secondary);color:var(--color-text-primary);}
+.ct-det-body{font-size:11px;color:var(--color-text-secondary);line-height:1.6;}
+.ct-det-body b{color:var(--color-text-primary);}
+.ct-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;margin-top:10px;}
+</style>
+
+<div class="ct">
+<div class="ct-intro">
+  Хрусталёв доказывает: «Хожение за три моря» — <b>не цельное авторское сочинение</b>, а стопка разрозненных «тетрадей», найденных после смерти Афанасия. Дьяк Мамырев около 1475 г. переписал их в одну рукопись и вставил в летопись. Каждый блок имел собственный жанр, язык, цель. Нажмите узел чтобы увидеть подробности.
+</div>
+
+<svg id="ct-svg" viewBox="0 0 720 540"></svg>
+
+<div class="ct-detail" id="ct-detail"></div>
+
+<div class="ct-source">
+  По: Хрусталёв Д.Г. «Тетради купца Афанасия. Реконструкция первоначального состава "Хожения за три моря"». СПб.: Нестор-История, 2026, гл. 2–3.
+</div>
+</div>
+
+<script>
+(function(){
+const SVG_NS='http://www.w3.org/2000/svg';
+const svg=document.getElementById('ct-svg');
+function el(tag,a){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] of Object.entries(a))e.setAttribute(k,v);return e;}
+function t(s,a){const e=el('text',a);e.textContent=s;return e;}
+function tspan(s,a){const e=document.createElementNS(SVG_NS,'tspan');for(const[k,v] of Object.entries(a))e.setAttribute(k,v);e.textContent=s;return e;}
+
+// ── Node data ─────────────────────────────────────────────────────────────────
+const NODES=[
+  // Root: original notebooks
+  {id:'root', x:360, y:42, w:180, h:36, rx:8,
+   color:'#2c1810', fill:'rgba(44,24,16,0.12)', stroke:'#2c1810',
+   label:['ОРИГИНАЛЬНЫЕ','«ТЕТРАДИ» АФАНАСИЯ'],
+   labelSize:'9.5', bold:true,
+   detail:{
+     title:'Первоначальный состав — «тетради» купца',
+     quote:'«И преставился Афанасий, а рукописание его оставил — о Индийском царстве, и о вере их, и о правде их»',
+     body:'Хрусталёв: первоначально это была <b>стопка разрозненных бумаг</b> — дневники, маршрутники, заметки. Никакого единого замысла не было. Купец писал по-разному в разных ситуациях: когда плыл — вёл «дорожник»; когда стоял — делал заметки; когда не мог вычислить Пасху — записывал молитвы. Единую «книгу» из этого сделал <b>Василий Мамырев</b> после гибели Афанасия.'
+   }},
+
+  // Layer 1: 7 тетрадей
+  {id:'d1', x:62, y:148, w:130, h:52, rx:6,
+   color:'#1e5a8a', fill:'rgba(30,90,138,0.12)', stroke:'#1e5a8a',
+   label:['«ДОРОЖНИК»','(начало)'],
+   sub:'Тверь → Ормуз',
+   detail:{
+     title:'«Дорожник» — первая часть',
+     quote:'«Пошёл я, Афанасий сын Никитин, от Спаса Святого с его милостию… за три моря»',
+     body:'<b>Жанр:</b> итинерарий (дорожник). Стандартный купеческий формат: откуда вышел, сколько дней шёл, что видел, где торговал. Язык — <b>почти чистый русский</b>. Даты, топонимы, характеристики городов. Хрусталёв: этот блок написан первым и является ядром всего текста.'
+   }},
+  {id:'iv', x:210, y:148, w:130, h:52, rx:6,
+   color:'#6e32a0', fill:'rgba(110,50,160,0.1)', stroke:'#6e32a0',
+   label:['«ИНДИЙСКИЕ','ВЕРЫ»'],
+   sub:'Описание индуизма',
+   detail:{
+     title:'«Индийские веры» — этнографический трактат',
+     quote:'«А вера их — буты, а Христа не знают, а Магомета не знают»',
+     body:'<b>Жанр:</b> этнографическое описание — уникальный для XV в. взгляд русского человека на индуизм. Афанасий описывает богов («буты»), ритуалы, касты, паломничество. Вероятно, написан в Бидаре как отдельный документ. Хрусталёв: этот блок — <b>самостоятельный трактат</b>, а не часть дневника.'
+   }},
+  {id:'zam', x:358, y:148, w:130, h:52, rx:6,
+   color:'#8B5a30', fill:'rgba(139,90,48,0.1)', stroke:'#8B5a30',
+   label:['ЗАМЕТКИ'],
+   sub:'Смесь языков, быт',
+   detail:{
+     title:'Заметки — дневниковые фрагменты',
+     quote:'«Товар мой весь разграблен, а сам остался жив»',
+     body:'<b>Жанр:</b> разрозненные дневниковые записи. Самый хаотичный блок: здесь и торговые сведения, и личные переживания, и иноязычные вставки. Хрусталёв: именно эти фрагменты больше всего варьируются между рукописными списками — <b>переписчики пытались «навести порядок»</b> в том, что не понимали.'
+   }},
+  {id:'mr', x:506, y:148, w:130, h:52, rx:6,
+   color:'#1e8250', fill:'rgba(30,130,80,0.1)', stroke:'#1e8250',
+   label:['«МАРШРУТНИК»'],
+   sub:'Торговый путеводитель',
+   detail:{
+     title:'«Маршрутник» — торговый путеводитель для Южных морей',
+     quote:'«А из Гурмыза до Маскату 4 дни, а из Маскату до Дега 4 дни, а Дег да Гузарат»',
+     body:'<b>Жанр:</b> средневековый «лоция» — список портов, расстояний, товаров. Написан <b>на смеси персидского и татарского</b> с арабскими вставками — деловой язык Индийского океана. Хрусталёв: это <b>отдельный документ</b>, составленный для практических нужд торговцев, а не для литературного текста.'
+   }},
+  {id:'dn', x:62, y:280, w:130, h:52, rx:6,
+   color:'#c0392b', fill:'rgba(192,57,43,0.1)', stroke:'#c0392b',
+   label:['ДНЕВНИКИ'],
+   sub:'Пасхи, посты, молитвы',
+   detail:{
+     title:'Дневники — религиозный и личный дневник',
+     quote:'«Пасхи есмь не ведал — велик день ли, ни Петров день, ни ничего не знаю»',
+     body:'<b>Жанр:</b> личный дневник с хронологическими пометками. Главный источник для датировки Хрусталёва: упоминания Пасх, Рамадана, Ураза-байрама. Самые <b>эмоциональные</b> фрагменты — молитвы на пяти языках. Хрусталёв: дневники велись <b>параллельно</b> с дорожником, как отдельная тетрадь.'
+   }},
+  {id:'lv', x:210, y:280, w:130, h:52, rx:6,
+   color:'#b97314', fill:'rgba(185,115,20,0.1)', stroke:'#b97314',
+   label:['«ЛЕТОПИСЬ','ВОЙН»'],
+   sub:'Бахманидский султанат',
+   detail:{
+     title:'«Летопись войн Бахманидского султаната»',
+     quote:'«Меликтучар воевал Виджаянагар три месяца; побили людей много»',
+     body:'<b>Жанр:</b> политическая хроника. Уникальный источник по истории Индии 1469–1472 гг. — кампании Махмуда Гавана. Хрусталёв: это <b>самый недооценённый блок</b>. Афанасий мог записывать со слов индийских информаторов или сам был свидетелем. Возможно, он служил при дворе и имел доступ к официальной информации.'
+   }},
+  {id:'d2', x:358, y:280, w:130, h:52, rx:6,
+   color:'#1e5a8a', fill:'rgba(30,90,138,0.12)', stroke:'#1e5a8a',
+   label:['«ДОРОЖНИК»','(окончание)'],
+   sub:'Индия → Смоленск',
+   detail:{
+     title:'«Дорожник» — вторая часть',
+     quote:'«Пошёл есмь от Гурмыза к Лару, из Лара к Ширязу»',
+     body:'<b>Жанр:</b> итинерарий — продолжение первой части. Обратный маршрут через Персию, Чёрное море, Кафу. Язык снова <b>более русский</b> — Афанасий возвращается домой и как будто возвращается к родной речи. Хрусталёв: структурно симметричен первой части — обрамляет весь корпус текстов.'
+   }},
+
+  // Layer 2: Мамырев
+  {id:'mam', x:360, y:392, w:180, h:40, rx:8,
+   color:'#5a5a5a', fill:'rgba(90,90,90,0.1)', stroke:'#8a8a8a',
+   label:['ДЬЯК МАМЫРЕВ','~1475–1480'],
+   sub:'компиляция и летопись',
+   detail:{
+     title:'Василий Мамырев — редактор и хранитель',
+     quote:'«Написание сие оставил по себе Афанасий, а нашли его при некоем купчине»',
+     body:'Дьяк Василий Мамырев получил «тетради» от купцов, нашедших тело Афанасия под Смоленском. Он <b>переписал разрозненные бумаги</b>, добавил летописное предисловие и включил текст в Эрмитажную летопись (ок. 1480 г.). Хрусталёв: именно Мамырев придал тексту видимость единства — но швы между «тетрадями» всё равно видны.'
+   }},
+
+  // Layer 3: рукописи
+  {id:'ms-t', x:160, y:490, w:108, h:32, rx:5,
+   color:'#3770be', fill:'rgba(55,112,190,0.1)', stroke:'#3770be',
+   label:['Троицкий','список'],
+   sub:'кон. XV – нач. XVI',
+   detail:{
+     title:'Троицкий список — наиболее полный',
+     quote:'',
+     body:'РГБ, ф. 304.I, № 794. <b>Полнее других</b> — больше иноязычных вставок, точнее дата «6975». Основа академического издания 1986 г. Хрусталёв: ближе всего к оригинальным тетрадям.'
+   }},
+  {id:'ms-l', x:360, y:490, w:108, h:32, rx:5,
+   color:'#1e8250', fill:'rgba(30,130,80,0.1)', stroke:'#1e8250',
+   label:['Летописный','список'],
+   sub:'1480-е гг.',
+   detail:{
+     title:'Летописный список — летописная редакция',
+     quote:'',
+     body:'РГАДА, Эрмитажная летопись. <b>Сокращён</b>, иноязычные вставки частично убраны или «переведены». Добавлено летописное предисловие Мамырева. Более «литературный» язык.'
+   }},
+  {id:'ms-s', x:558, y:490, w:108, h:32, rx:5,
+   color:'#b97314', fill:'rgba(185,115,20,0.1)', stroke:'#b97314',
+   label:['Сухановский','список'],
+   sub:'XVII в.',
+   detail:{
+     title:'Сухановский список — поздняя копия',
+     quote:'',
+     body:'РГБ, ф. 173. Позднейшая копия XVII в. Многочисленные ошибки, осовременивание языка, непонимание иноязычных вставок. <b>Наименее надёжный</b> источник.'
+   }},
+];
+
+// ── Edges ─────────────────────────────────────────────────────────────────────
+// [from_id, to_id, dash?, label?]
+const EDGES=[
+  ['root','d1'],['root','iv'],['root','zam'],['root','mr'],
+  ['root','dn'],['root','lv'],['root','d2'],
+  ['d1','mam'],['iv','mam'],['zam','mam'],['mr','mam'],
+  ['dn','mam'],['lv','mam'],['d2','mam'],
+  ['mam','ms-t'],['mam','ms-l'],['mam','ms-s'],
+];
+
+function getNode(id){return NODES.find(n=>n.id===id);}
+
+// Draw edges first
+EDGES.forEach(([a,b])=>{
+  const na=getNode(a),nb=getNode(b);
+  if(!na||!nb)return;
+  const x1=na.x, y1=na.y+na.h/2+na.h/2-na.h/2+na.h/2; // bottom center
+  const x2=nb.x, y2=nb.y-nb.h/2;
+  // bottom of na → top of nb
+  const by1=na.y+na.h/2;
+  const ty2=nb.y-nb.h/2;
+  const mx=(x1+x2)/2, my=(by1+ty2)/2;
+  const path=`M${x1},${by1} C${x1},${my} ${x2},${my} ${x2},${ty2}`;
+  // colour = blend of both nodes
+  svg.appendChild(el('path',{d:path,fill:'none',stroke:'var(--color-border-tertiary)',
+    'stroke-width':1.2,'stroke-dasharray':a==='mam'?'none':'none',opacity:.6}));
+});
+
+// Draw nodes
+let activeNode=null;
+NODES.forEach(n=>{
+  const g=el('g',{transform:`translate(${n.x},${n.y})`,style:'cursor:pointer;'});
+
+  // Shadow
+  const sh=el('rect',{x:-n.w/2+2,y:-n.h/2+2,width:n.w,height:n.h,rx:n.rx,
+    fill:'rgba(0,0,0,.07)'});
+  g.appendChild(sh);
+
+  // Box
+  const box=el('rect',{x:-n.w/2,y:-n.h/2,width:n.w,height:n.h,rx:n.rx,
+    fill:n.fill,stroke:n.stroke,'stroke-width':1.3});
+  g.appendChild(box);
+
+  // Labels
+  const lines=n.label;
+  const lineH=11;
+  const totalH=lines.length*lineH+(n.sub?10:0);
+  const startY=-totalH/2+lineH/2;
+  lines.forEach((l,i)=>{
+    const tx=t(l,{x:0,y:startY+i*lineH,'text-anchor':'middle',
+      'font-size':n.labelSize||'9','font-weight':n.bold?'700':'600',
+      fill:n.color});
+    g.appendChild(tx);
+  });
+  if(n.sub){
+    g.appendChild(t(n.sub,{x:0,y:startY+lines.length*lineH+1,'text-anchor':'middle',
+      'font-size':'8',fill:n.color,opacity:.65}));
+  }
+
+  // Click
+  g.addEventListener('click',()=>{
+    const det=document.getElementById('ct-detail');
+    if(activeNode===n.id){
+      activeNode=null;det.classList.remove('open');
+      box.setAttribute('stroke-width','1.3');
+    } else {
+      activeNode=n.id;
+      NODES.forEach(nn=>{
+        const b=svg.querySelector(`#box-${nn.id}`);
+        if(b)b.setAttribute('stroke-width','1.3');
+      });
+      box.setAttribute('stroke-width','2.5');
+      const d=n.detail;
+      det.style.borderLeftColor=n.stroke;
+      det.innerHTML=`<div class="ct-det-h" style="color:${n.stroke};">${d.title}</div>`+
+        (d.quote?`<div class="ct-det-q">${d.quote}</div>`:'')+
+        `<div class="ct-det-body">${d.body}</div>`;
+      det.classList.add('open');
+    }
+  });
+  g.addEventListener('mouseenter',()=>{if(activeNode!==n.id)box.setAttribute('opacity','.8');});
+  g.addEventListener('mouseleave',()=>{box.setAttribute('opacity','1');});
+
+  box.setAttribute('id',`box-${n.id}`);
+  svg.appendChild(g);
+});
+
+// Layer labels
+[
+  {y:42, label:'ОРИГИНАЛЬНЫЕ ЗАПИСИ ~1467–1475', x:30},
+  {y:174, label:'СЕМЬ САМОСТОЯТЕЛЬНЫХ БЛОКОВ', x:30},
+  {y:306, label:'(продолжение)', x:30},
+  {y:392, label:'КОМПИЛЯЦИЯ МАМЫРЕВА ~1475', x:30},
+  {y:490, label:'ДОШЕДШИЕ РУКОПИСНЫЕ СПИСКИ', x:30},
+].forEach(l=>{
+  svg.insertBefore(t(l.label,{x:l.x,y:l.y+24,'font-size':'8','font-weight':'500',
+    fill:'var(--color-text-secondary)',opacity:.5,'text-anchor':'start'}),svg.firstChild);
+  if(l.y!==42){
+    svg.insertBefore(el('line',{x1:14,y1:l.y-16,x2:706,y2:l.y-16,
+      stroke:'var(--color-border-tertiary)','stroke-width':.5,'stroke-dasharray':'4 4'}),svg.firstChild);
+  }
+});
+
+})();
+</script>

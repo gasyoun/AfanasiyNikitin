@@ -1,0 +1,310 @@
+
+<h2 class="sr-only">Путь Афанасия Никитина — карта и текст Хожения за три моря</h2>
+<style>
+.af-wrap{display:flex;gap:10px;align-items:flex-start;}
+.af-left{flex:1 1 0;min-width:0;}
+.af-right{flex:0 0 255px;display:flex;flex-direction:column;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;}
+.af-right-head{padding:8px 12px;border-bottom:0.5px solid var(--color-border-tertiary);font-size:11px;font-weight:500;color:var(--color-text-secondary);letter-spacing:.05em;background:var(--color-background-secondary);flex-shrink:0;}
+.af-texts{flex:1;overflow-y:auto;max-height:380px;}
+.af-passage{padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:background .12s;border-left:2.5px solid transparent;}
+.af-passage:hover{background:var(--color-background-secondary);}
+.af-passage.active{border-left-color:#b87020;background:var(--color-background-secondary);}
+.af-pw{font-size:10px;color:var(--color-text-secondary);margin-bottom:3px;display:flex;gap:6px;align-items:center;}
+.af-pn{font-size:10px;font-weight:500;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:3px;padding:0 4px;line-height:1.6;}
+.af-pt{font-size:12px;color:var(--color-text-primary);line-height:1.55;font-family:var(--font-serif);}
+.af-passage.active .af-pt{color:var(--color-text-primary);}
+.af-info{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-top:8px;min-height:54px;border:0.5px solid var(--color-border-tertiary);}
+.af-yr-col{width:185px;flex-shrink:0;}
+.af-yr{font-size:24px;font-weight:500;color:var(--color-text-primary);line-height:1;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:7px;}
+.af-sea{font-size:10px;color:var(--color-text-secondary);margin-top:3px;white-space:nowrap;}
+.af-dist{font-size:10px;color:var(--color-text-secondary);margin-top:1px;font-variant-numeric:tabular-nums;}
+.af-div{width:.5px;background:var(--color-border-tertiary);align-self:stretch;flex-shrink:0;}
+.af-locwrap{flex:1;min-width:0;}
+.af-loc{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;}
+.af-dsc{font-size:11px;color:var(--color-text-secondary);line-height:1.5;}
+.af-slider{display:flex;align-items:center;gap:8px;margin-top:7px;}
+.af-slider input{flex:1;}
+.af-syr{font-size:11px;color:var(--color-text-secondary);min-width:26px;text-align:right;font-variant-numeric:tabular-nums;}
+.af-hint{font-size:10px;color:var(--color-text-secondary);text-align:center;margin-top:4px;opacity:.7;}
+</style>
+<div class="af-wrap">
+  <div class="af-left">
+    <canvas id="mapC" style="display:block;width:100%;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);cursor:pointer;"></canvas>
+    <div class="af-info">
+      <div class="af-yr-col">
+        <div class="af-yr">
+          <span id="yr">1467</span>
+          <a id="dlBtn" download="afanasy_geolocations.md" title="Скачать геолокации" style="width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:4px;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);text-decoration:none;color:var(--color-text-secondary);flex-shrink:0;"><i class="ti ti-download" style="font-size:12px;"></i></a>
+        </div>
+        <div class="af-sea" id="sea">Путь по Руси</div>
+        <div class="af-dist" id="dist">0 вёрст (0 км)</div>
+      </div>
+      <div class="af-div"></div>
+      <div class="af-locwrap">
+        <div class="af-loc" id="loc">Тверь · 1467, весна</div>
+        <div class="af-dsc" id="dsc">Начало пути</div>
+      </div>
+    </div>
+    <div class="af-slider">
+      <button id="btn" onclick="togglePlay()" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i id="ico" class="ti ti-player-play" style="font-size:16px;"></i></button>
+      <input type="range" id="sl" min="0" max="1000" value="0" step="1" oninput="seekTo(+this.value/10)">
+      <span class="af-syr" id="yrL">1467</span>
+    </div>
+    <div class="af-hint">← кликните точку на карте или цитату справа</div>
+  </div>
+
+  <div class="af-right">
+    <div class="af-right-head"><i class="ti ti-book" style="font-size:12px;margin-right:4px;" aria-hidden="true"></i>ХОЖЕНИЕ ЗА ТРИ МОРЯ</div>
+    <div class="af-texts" id="texts"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+(function(){
+const W=520,H=400,PAD=13;
+const C=document.getElementById('mapC');
+C.width=W;C.height=H;
+const ctx=C.getContext('2d');
+const off=document.createElement('canvas');
+off.width=W;off.height=H;
+const oc=off.getContext('2d');
+
+const LON0=26,LON1=84,LAT0=7,LAT1=63;
+function mY(lat){return Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));}
+const mY0=mY(LAT0),mY1=mY(LAT1);
+function project(lon,lat){return[PAD+(lon-LON0)/(LON1-LON0)*(W-2*PAD),PAD+(mY1-mY(lat))/(mY1-mY0)*(H-2*PAD)];}
+function px(lat,lon){return project(lon,lat);}
+
+function hav(la1,lo1,la2,lo2){const R=6371,r=Math.PI/180,a=Math.sin((la2-la1)*r/2)**2+Math.cos(la1*r)*Math.cos(la2*r)*Math.sin((lo2-lo1)*r/2)**2;return 2*R*Math.asin(Math.sqrt(a));}
+const VERST=1.0668;
+
+const WP=[
+  [56.9,35.9, 0,'Тверь','1467, весна','Начало «грешного хожения за три моря»','Путь по Руси'],
+  [56.3,44.0, 5,'Нижний Новгород','1467, лето','Присоединение к посольству ширваншаха','Путь по Руси'],
+  [46.3,48.0,11,'Астрахань','1467, осень','Ограбление татарами — потеря всего товара','Первое море — Каспийское'],
+  [42.1,48.3,17,'Дербент','1467–1468','Безуспешные просьбы о помощи к ширваншаху','Первое море — Каспийское'],
+  [40.4,49.9,22,'Баку','1468','«Где огнь горить неугасимый»','Путь через Персию'],
+  [36.6,52.0,28,'Мазендаран','1468','Шесть месяцев в Сари, горная дорога','Путь через Персию'],
+  [33.0,51.4,34,'Кашан / Йезд','1468–1469','Через персидские города к Ормузу','Путь через Персию'],
+  [27.1,56.5,40,'Ормуз','1469, Пасха','«Тут есть море Индейское»','Второе море — Индийское'],
+  [23.6,58.6,44,'Маскат','1469, весна','6 недель морем до берегов Индии','Второе море — Индийское'],
+  [18.5,73.0,51,'Чаул','1469, лето','Первая земля Индии','Индия'],
+  [19.2,73.9,55,'Джуннар','1469, осень','Угроза смерти, спасение в день Спаса','Индия'],
+  [17.9,77.5,60,'Бидар','1469–1471','Столица Бахманидского султаната','Индия'],
+  [16.1,78.9,68,'Шрисайлам','1471, февраль','«Индийский Иерусалим»','Индия'],
+  [17.9,77.5,73,'Бидар','1471–1472','Триумф Махмуда Гавана','Индия'],
+  [17.5,70.0,79,'Зап. побережье','1472','Прощание с Индией','Второе море — Индийское'],
+  [27.1,56.5,83,'Ормуз','1472–1473','Начало обратного пути','Третье море — Чёрное'],
+  [41.0,39.7,91,'Трабзон','1474','«3-е море Чёрное»','Третье море — Чёрное'],
+  [45.0,35.4,94,'Феодосия (Кафа)','1474–1475','«Пришёл есмь в Кафу»','Третье море — Чёрное'],
+  [54.8,32.0,97,'Смоленск','1475','Конец пути. «Тетради» — дьяку Мамыреву','Конец пути'],
+];
+
+const PASSAGES=[
+  'В лето 6975. Пошёл я, Афанасий сын Никитин, от Спаса Святого с его милостию, от великого князя Михаила Борисовича Тверского и от владыки Геннадия Тверского — за три моря: первое море Дербентское, второе — Индийское, третье — Чёрное.',
+  'В Нижнем пробыл две недели — ждал посла ширванского Асанбега, что шёл с кречетами от великого князя, девяносто кречетов вёз. Поплыли вместе вниз по Волге.',
+  'Побежали татары и взяли один насад, а другой потопили. Двух моих товарищей убили, а товар мой разграбили. Я же, заплакавши, пошёл, куда глаза глядят — ни коня, ни товара, ничего не осталось.',
+  'Пришли есмя в Дербент. Ширваншах принял нас хорошо, да помочь не захотел. И разошлись мы все: кто на Русь, кто в Шемаху, кто в Баку. Я же пошёл в Дербент, из Дербента — в Баку.',
+  'А из Дербенти к Баке, где огнь горить неугасимый. А от Баку пошёл за море. Хвалынское море переплыл в четыре дни, пришёл в Чебукар. Из Чебукара поехал к Сари в Мазандаран.',
+  'В Сари пробыл шесть месяцев. В Мазандаране всё дорого, а народ — разбойный. Пошёл в Амол, потом в Дамавент, потом в Рей. Видел там много крови — всюду шла война.',
+  'Из Кашана месяц. Из Кашана в Наин, из Наина в Йезд — ещё месяц. Из Йезда в Сирчан, в Тарум, в Лар, и наконец — в Ормуз. Ормуз стоит на острове, и море заливает его дважды в сутки.',
+  'Гурмыз есть на острове, и море покрывает его при приливе. Пасху же справил я в Гурмызе — тут Пасха с бесерменским постом пришлась вместе. На четвёртой неделе по Пасхе сел я на таву с конём, и поплыли за море Индийское.',
+  'Шли есмя морем до Маската десять дней, а от Маската до Дега — четыре дни. Шли от Гурмыза шесть недель, пока не пришли в Чивиль. Тут есть первая пристань Индийского государства.',
+  'Тут есть Индийская страна, и люди ходят все наги, и голова не покрыта, и груди обнажены, и волосы заплетены в одну косу. И мужи, и жёны — все чёрны. Куда бы я ни ходил — за мной много людей, дивятся белому человеку.',
+  'Асад-хан взял у меня жеребца и, узнав, что я не бесерменин, а рус, сказал: «Жеребца отдам и тысячу золотых дам — только прими нашу веру». Я отвечал: «Господи! Ты знаешь — нет моей воли на то». Спас меня хорасанец Хасан в самый день Спасов.',
+  'Бедер — стол Гундустанского бесерменского царства. Султан Махмут выезжает с великим двором: пред ним триста слонов в доспехах, да триста коней в золотых попонах, да птиц сто хорасанских на руках. На нём кафтан весь в яхонтах, да на шапке алмаз великий.',
+  'Парват — то их Иерусалим, что наш Иерусалим, то их Парват. И съезжается к нему раз в год всякий люд со всей Индии. Я же ходил с ними пешком, и брахманы дали мне есть, да мяса не дали — говорят, нельзя чужим давать мяса у святого места.',
+  'Прожил я в Индии четыре года, и не нашёл ни перца, ни другого товара. Тот лгал, кто говорил, что тут товара много и дёшево. Я же здесь истратил всё, что имел. Горько мне было в Индии — нет ни с кем поговорить, нет ни попа, ни церкви.',
+  'Пошёл я от Бедера к морю. Прощай, Индия! Путь не ведаю — куда идти из Гундустана? На Ормуз — нет пути, на Хорасан — нет, на Русь — нет пути нигде. Одному Богу ведомо — выйду ли на Русь. О Боже, Аллах, Бог великий!',
+  'Из Гундустана до Гурмыза шли девять недель морем. В Гурмызе был месяц. Из Гурмыза пошёл к Лару, из Лара к Ширазу — две недели. Из Шираза к Испагани четыре дня, из Испагани к Кашану ещё четыре дня. Всё это земли Аг-Кулу.',
+  'А третье море — Чёрное, Стебольское. Шли морем до Трапезонда, добирались двенадцать дней. Tут пограбили нас трапезондские люди, взяли всё из сундука, что вёз из Гурмыза. Аллах, Аллах! Господи, спаси меня, помилуй.',
+  'Приехал есмь в Кафу за девять дней до Филиппова поста. Слава Богу, пришёл здоров. Три моря прошёл. Остальное же — Бог знает. Аминь. Кафа — город христианский, тут много генуэзских купцов, тут выход на Русь.',
+  'И преставился Афанасий, дошедши до Смоленска, не дошедши до Твери. А писание оставил своё — хожение за три моря. Первое море — Дербентское, второе — Индийское, третье — Чёрное. Милостию Божиею прошёл все три.',
+];
+
+const CUM_KM=[0];
+for(let i=1;i<WP.length;i++) CUM_KM.push(CUM_KM[i-1]+hav(WP[i-1][0],WP[i-1][1],WP[i][0],WP[i][1]));
+function cumKmAt(tv){
+  for(let i=0;i<WP.length-1;i++){if(tv>=WP[i][2]&&tv<=WP[i+1][2]){const f=(tv-WP[i][2])/(WP[i+1][2]-WP[i][2]);return CUM_KM[i]+f*(CUM_KM[i+1]-CUM_KM[i]);}}
+  return CUM_KM[CUM_KM.length-1];
+}
+
+const STATES=[
+  {n:'Московское\nкн-во',c:'rgba(190,155,90,0.3)',b:'rgba(130,95,40,0.65)',lp:[41,56],poly:[[30,57],[38,61],[44,60],[50,57],[52,55],[50,52],[44,50],[38,49],[33,51],[30,54]]},
+  {n:'Казань',c:'rgba(180,140,70,0.27)',b:'rgba(130,90,35,0.6)',lp:[53,55],poly:[[50,57],[57,57],[59,55],[56,52],[50,52],[48,54]]},
+  {n:'Астрахань',c:'rgba(200,165,80,0.27)',b:'rgba(150,110,40,0.6)',lp:[49,47],poly:[[46,50],[53,50],[54,47],[52,44],[46,44],[43,46],[44,49]]},
+  {n:'Крым',c:'rgba(195,155,75,0.27)',b:'rgba(145,105,38,0.6)',lp:[34.5,45.5],poly:[[32,47],[37,47],[37,44.5],[34,44],[32,44.5]]},
+  {n:'Ширван',c:'rgba(120,175,110,0.3)',b:'rgba(70,130,55,0.65)',lp:[49.5,40],poly:[[47,38],[49,42],[52,41],[52,38],[49,37]]},
+  {n:'Ак-Коюнлу',c:'rgba(200,135,85,0.27)',b:'rgba(155,88,45,0.62)',lp:[50,35.2],poly:[[38,37],[43,42],[50,42],[56,39],[62,36],[60,30],[54,27],[48,27],[44,30],[38,33],[36,36]]},
+  {n:'Тимуриды',c:'rgba(155,195,130,0.27)',b:'rgba(95,150,65,0.58)',lp:[66,33],poly:[[58,32],[62,38],[68,38],[72,36],[72,30],[68,26],[62,26],[58,28]]},
+  {n:'Делийский\nсултанат',c:'rgba(205,175,100,0.27)',b:'rgba(160,120,48,0.58)',lp:[74,31],poly:[[68,25],[78,28],[80,30],[80,35],[74,36],[70,34],[67,30],[67,27]]},
+  {n:'Гуджарат',c:'rgba(165,205,150,0.27)',b:'rgba(105,162,78,0.58)',lp:[71,22],poly:[[68,20],[74,20],[76,23],[73,25],[69,25],[67,23]]},
+  {n:'Бахманиды',c:'rgba(100,155,210,0.3)',b:'rgba(50,95,175,0.65)',lp:[76.5,17.5],poly:[[73,14],[80,14],[80,20],[77,21],[73,19],[72,17]]},
+  {n:'Виджаянагара',c:'rgba(210,165,110,0.27)',b:'rgba(165,108,55,0.58)',lp:[76,11.5],poly:[[72,8],[80,8],[80,14],[73,14],[70,12]]},
+  {n:'Османы',c:'rgba(215,100,80,0.23)',b:'rgba(175,55,38,0.58)',lp:[35.5,36],poly:[[28,36],[38,38],[42,38],[42,36],[40,33],[36,31],[30,31],[28,33]]},
+  {n:'Мамлюки',c:'rgba(225,195,100,0.23)',b:'rgba(180,140,48,0.58)',lp:[35,27.5],poly:[[30,22],[38,22],[40,30],[36,32],[30,31],[29,25]]},
+];
+
+const CITIES=[
+  {n:'Москва',lon:37.6,lat:55.7,a:'e'},{n:'Константинополь',lon:28.9,lat:41.0,a:'e'},
+  {n:'Тебриз',lon:46.3,lat:38.1,a:'n'},{n:'Каир',lon:31.2,lat:30.1,a:'e'},
+  {n:'Багдад',lon:44.4,lat:33.3,a:'e'},{n:'Исфахан',lon:51.7,lat:32.7,a:'e'},
+  {n:'Мекка',lon:39.8,lat:21.5,a:'e'},{n:'Герат',lon:62.2,lat:34.3,a:'n'},
+  {n:'Самарканд',lon:66.9,lat:39.7,a:'n'},{n:'Казань',lon:49.1,lat:55.8,a:'e'},
+  {n:'Дели',lon:77.2,lat:28.6,a:'e'},{n:'Каликут',lon:75.8,lat:11.2,a:'w'},
+  {n:'Гоа',lon:73.8,lat:15.5,a:'w'},{n:'Кафа',lon:35.4,lat:45.0,a:'e'},
+];
+
+let t=0,playing=false,lastTs=null,mapReady=false,activeWP=-1,prevSeg=-1;
+
+function lerp(a,b,f){return a+(b-a)*f;}
+function curPos(){
+  for(let i=0;i<WP.length-1;i++){if(t>=WP[i][2]&&t<=WP[i+1][2]){const f=(t-WP[i][2])/(WP[i+1][2]-WP[i][2]);return[lerp(WP[i][0],WP[i+1][0],f),lerp(WP[i][1],WP[i+1][1],f)];}}
+  return[WP[WP.length-1][0],WP[WP.length-1][1]];
+}
+function curWPIdx(){let b=0;for(let i=0;i<WP.length;i++)if(WP[i][2]<=t)b=i;return b;}
+
+function polyPath(c,poly){c.beginPath();let f=true;for(const[lo,la] of poly){const[x,y]=project(lo,la);if(f){c.moveTo(x,y);f=false;}else c.lineTo(x,y);}c.closePath();}
+function halo(c,txt,x,y,al){c.textAlign=al;c.strokeStyle='rgba(255,255,255,0.55)';c.lineWidth=2;c.strokeText(txt,x,y);c.fillText(txt,x,y);}
+function labelXY(cx,cy,a){return a==='e'?[cx+4,cy+3]:a==='w'?[cx-4,cy+3]:a==='n'?[cx,cy-4]:[cx,cy+9];}
+function labelAl(a){return a==='e'?'left':a==='w'?'right':'center';}
+
+function buildOffscreen(world){
+  const d3p=d3.geoTransform({point(lo,la){const[x,y]=project(lo,la);this.stream.point(x,y);}});
+  const path=d3.geoPath(d3p,oc);
+  const land=topojson.feature(world,world.objects.land);
+  const borders=topojson.mesh(world,world.objects.countries,(a,b)=>a!==b);
+  oc.save();oc.beginPath();oc.rect(0,0,W,H);oc.clip();
+  oc.fillStyle='#8fb8d0';oc.fillRect(0,0,W,H);
+  oc.beginPath();path(land);oc.fillStyle='#e8e1cc';oc.fill();oc.strokeStyle='#b8a870';oc.lineWidth=0.5;oc.stroke();
+  for(const s of STATES){polyPath(oc,s.poly);oc.fillStyle=s.c;oc.fill();polyPath(oc,s.poly);oc.strokeStyle=s.b;oc.lineWidth=1.1;oc.stroke();}
+  oc.beginPath();path(borders);oc.strokeStyle='rgba(120,100,60,0.18)';oc.lineWidth=0.4;oc.stroke();
+  for(const s of STATES){
+    const[lx,ly]=project(s.lp[0],s.lp[1]);
+    if(lx<PAD+1||lx>W-PAD-1||ly<PAD+1||ly>H-PAD-1)continue;
+    const lines=s.n.split('\n');oc.font='bold 6.5px sans-serif';oc.fillStyle='rgba(22,10,3,0.75)';
+    lines.forEach((l,i)=>halo(oc,l,lx,ly+(i-(lines.length-1)/2)*9,'center'));
+  }
+  for(const city of CITIES){
+    const[cx,cy]=project(city.lon,city.lat);
+    if(cx<PAD+1||cx>W-PAD-1||cy<PAD+1||cy>H-PAD-1)continue;
+    oc.beginPath();oc.arc(cx,cy,2,0,Math.PI*2);oc.fillStyle='rgba(35,15,5,0.65)';oc.fill();
+    const[lx,ly]=labelXY(cx,cy,city.a);
+    oc.font='italic 6.5px sans-serif';oc.fillStyle='rgba(20,8,2,0.75)';
+    halo(oc,city.n,lx,ly,labelAl(city.a));
+  }
+  oc.strokeStyle='rgba(70,100,135,0.09)';oc.lineWidth=0.5;
+  for(let lo=30;lo<=80;lo+=10){const[x,y0]=project(lo,LAT0+.2);const[,y1]=project(lo,LAT1-.2);oc.beginPath();oc.moveTo(x,y0);oc.lineTo(x,y1);oc.stroke();}
+  for(let la=20;la<=60;la+=10){const[x0,y]=project(LON0+.2,la);const[x1]=project(LON1-.2,la);oc.beginPath();oc.moveTo(x0,y);oc.lineTo(x1,y);oc.stroke();}
+  oc.restore();
+}
+
+function drawFrame(){
+  if(!mapReady){ctx.fillStyle='#8fb8d0';ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(0,0,0,0.4)';ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText('Загрузка…',W/2,H/2);return;}
+  ctx.drawImage(off,0,0);
+  ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
+  const seg=curWPIdx();
+  const[clat,clng]=curPos();
+  const[cpx,cpy]=px(clat,clng);
+
+  ctx.setLineDash([3,6]);ctx.strokeStyle='rgba(70,40,15,0.13)';ctx.lineWidth=1.3;
+  ctx.beginPath();let first=true;
+  for(const w of WP){const[x,y]=px(w[0],w[1]);if(first){ctx.moveTo(x,y);first=false;}else ctx.lineTo(x,y);}
+  ctx.stroke();ctx.setLineDash([]);
+
+  ctx.strokeStyle='#8B3510';ctx.lineWidth=2.3;ctx.lineCap='round';ctx.lineJoin='round';
+  ctx.beginPath();const[sx,sy]=px(WP[0][0],WP[0][1]);ctx.moveTo(sx,sy);
+  for(let i=1;i<=seg;i++){const[x,y]=px(WP[i][0],WP[i][1]);ctx.lineTo(x,y);}
+  ctx.lineTo(cpx,cpy);ctx.stroke();
+
+  for(let i=0;i<=seg;i++){
+    const[x,y]=px(WP[i][0],WP[i][1]);
+    const isActive=(i===activeWP);
+    ctx.beginPath();ctx.arc(x,y,isActive?5:3,0,Math.PI*2);
+    ctx.fillStyle=isActive?'#e09520':i===0?'#5C2A10':'#C05520';ctx.fill();
+    ctx.strokeStyle=isActive?'#ffdd80':'#3A1008';ctx.lineWidth=isActive?1.5:0.8;ctx.stroke();
+    const lbl=WP[i][3].split('(')[0].split('/')[0].trim();
+    ctx.font=`${isActive?'bold ':''} 7.5px sans-serif`;ctx.fillStyle='rgba(20,8,2,0.88)';
+    halo(ctx,lbl,x,y-7,'center');
+  }
+
+  const pulse=2.5+Math.sin(Date.now()/280)*1.5;
+  ctx.beginPath();ctx.arc(cpx,cpy,pulse+4,0,Math.PI*2);ctx.fillStyle='rgba(220,140,26,0.2)';ctx.fill();
+  ctx.beginPath();ctx.arc(cpx,cpy,4.5,0,Math.PI*2);ctx.fillStyle='#E09520';ctx.fill();
+  ctx.strokeStyle='#5C2A10';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.restore();
+}
+
+function updateInfo(){
+  const seg=curWPIdx(),yr=Math.floor(1467+t/100*8);
+  const km=cumKmAt(t);
+  document.getElementById('yr').firstChild.textContent=yr;
+  document.getElementById('yrL').textContent=yr;
+  document.getElementById('sea').textContent=WP[seg][6];
+  document.getElementById('dist').textContent=Math.round(km/VERST).toLocaleString('ru')+' вёрст ('+Math.round(km).toLocaleString('ru')+' км)';
+  document.getElementById('loc').textContent=WP[seg][3]+' · '+WP[seg][4];
+  document.getElementById('dsc').textContent=WP[seg][5];
+  document.getElementById('sl').value=Math.round(t*10);
+  if(seg!==prevSeg){prevSeg=seg;setActivePassage(seg,true);}
+}
+
+function setActivePassage(idx,scroll){
+  activeWP=idx;
+  document.querySelectorAll('.af-passage').forEach((el,i)=>{
+    el.classList.toggle('active',i===idx);
+  });
+  if(scroll){
+    const el=document.querySelector(`.af-passage[data-wp="${idx}"]`);
+    if(el)el.scrollIntoView({block:'nearest',behavior:'smooth'});
+  }
+}
+
+function buildTextPanel(){
+  const container=document.getElementById('texts');
+  WP.forEach((w,i)=>{
+    const div=document.createElement('div');
+    div.className='af-passage';
+    div.dataset.wp=i;
+    div.innerHTML=`<div class="af-pw"><span class="af-pn">${i+1}</span><span>${w[3]}</span></div><div class="af-pt">${PASSAGES[i]}</div>`;
+    div.addEventListener('click',()=>{seekTo(w[2]);setActivePassage(i,false);});
+    container.appendChild(div);
+  });
+}
+
+C.addEventListener('click',e=>{
+  const rect=C.getBoundingClientRect();
+  const sx=C.width/rect.width,sy=C.height/rect.height;
+  const mx=(e.clientX-rect.left)*sx,my=(e.clientY-rect.top)*sy;
+  const seg=curWPIdx();
+  let best=Infinity,bestI=-1;
+  for(let i=0;i<=seg;i++){const[x,y]=px(WP[i][0],WP[i][1]);const d=Math.hypot(x-mx,y-my);if(d<best){best=d;bestI=i;}}
+  if(best<18&&bestI>=0){seekTo(WP[bestI][2]);setActivePassage(bestI,true);}
+});
+
+function frame(ts){
+  if(lastTs===null)lastTs=ts;
+  if(playing){const dt=Math.min(ts-lastTs,100);t=Math.min(100,t+dt*0.0007);if(t>=100){t=100;playing=false;updBtn();}}
+  lastTs=ts;drawFrame();updateInfo();
+  requestAnimationFrame(frame);
+}
+function updBtn(){document.getElementById('ico').className=playing?'ti ti-player-pause':'ti ti-player-play';}
+window.togglePlay=function(){playing=!playing;if(playing&&t>=100)t=0;lastTs=null;updBtn();};
+window.seekTo=function(v){t=Math.max(0,Math.min(100,v));playing=false;lastTs=null;updBtn();};
+
+const GEO=WP.map((w,i)=>`| ${i+1} | ${w[3]} | ${w[0]}° N | ${w[1]}° E | ${w[4]} |`).join('\n');
+const blob=new Blob([`# Геолокации пути Афанасия Никитина\n\n| # | Место | Широта | Долгота | Дата |\n|---|-------|--------|---------|------|\n${GEO}\n`],{type:'text/markdown'});
+document.getElementById('dlBtn').href=URL.createObjectURL(blob);
+
+buildTextPanel();
+setActivePassage(0,false);
+
+function waitLib(cb){if(typeof d3!=='undefined'&&typeof topojson!=='undefined')cb();else setTimeout(()=>waitLib(cb),60);}
+waitLib(()=>{
+  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+    .then(r=>r.json()).then(w=>{buildOffscreen(w);mapReady=true;});
+  requestAnimationFrame(frame);
+});
+})();
+</script>

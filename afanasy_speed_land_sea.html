@@ -1,0 +1,183 @@
+
+<h2 class="sr-only">Скорость передвижения Афанасия Никитина — суша против моря, км/день по отрезкам пути</h2>
+<style>
+#spd-wrap{font-size:13px;}
+.spd-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.spd-card{padding:10px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);}
+.spd-card-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;}
+.spd-card-val{font-size:20px;font-weight:500;color:var(--color-text-primary);font-variant-numeric:tabular-nums;}
+.spd-card-sub{font-size:10px;color:var(--color-text-secondary);margin-top:2px;}
+.spd-legend{display:flex;gap:14px;margin-bottom:10px;align-items:center;}
+.spd-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.spd-leg-txt{font-size:11px;color:var(--color-text-secondary);}
+#spd-chart{width:100%;overflow-x:auto;}
+svg#spd-svg{display:block;}
+.spd-bar-river{fill:#4a90c4;}
+.spd-bar-sea{fill:#1d6fa8;}
+.spd-bar-land{fill:#8B5a30;}
+.spd-bar-stay{fill:#bbb;opacity:.5;}
+.spd-tip{position:absolute;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:11px;color:var(--color-text-primary);pointer-events:none;max-width:200px;line-height:1.5;box-shadow:0 2px 8px rgba(0,0,0,.1);}
+</style>
+
+<div id="spd-wrap">
+  <div class="spd-summary">
+    <div class="spd-card"><div class="spd-card-label">Среднее по морю / реке</div><div class="spd-card-val" id="avg-sea">—</div><div class="spd-card-sub">км/день в пути</div></div>
+    <div class="spd-card"><div class="spd-card-label">Среднее по суше</div><div class="spd-card-val" id="avg-land">—</div><div class="spd-card-sub">км/день в пути</div></div>
+    <div class="spd-card"><div class="spd-card-label">Море быстрее суши в</div><div class="spd-card-val" id="ratio">—</div><div class="spd-card-sub">раза</div></div>
+  </div>
+  <div class="spd-legend">
+    <div class="spd-dot spd-bar-river"></div><span class="spd-leg-txt">Река (Волга)</span>
+    <div class="spd-dot spd-bar-sea"></div><span class="spd-leg-txt">Море</span>
+    <div class="spd-dot spd-bar-land"></div><span class="spd-leg-txt">Суша / горы</span>
+    <div class="spd-dot spd-bar-stay"></div><span class="spd-leg-txt">Остановка (жизнь в городе)</span>
+  </div>
+  <div id="spd-chart" style="position:relative;">
+    <svg id="spd-svg"></svg>
+    <div class="spd-tip" id="tip" style="display:none;position:absolute;"></div>
+  </div>
+  <div style="font-size:10px;color:var(--color-text-secondary);margin-top:8px;line-height:1.6;">
+    Длительность отрезков — авторская оценка по хронологии Хрусталёва. «Остановка» = время жизни в городе без движения. Скорость считается только по дням активного пути.
+  </div>
+</div>
+
+<script>
+(function(){
+
+const SEGS=[
+  {from:'Тверь',to:'Нижний\nНовгород',   km:830,  travelDays:55, stayDays:14,  mode:'river', note:'По Волге и Оке. Ждали посла в Нижнем 2 недели.'},
+  {from:'Нижний\nНовгород',to:'Астрахань',km:1500, travelDays:60, stayDays:0,   mode:'river', note:'Вниз по Волге с посольством ширваншаха.'},
+  {from:'Астрахань',to:'Дербент',         km:500,  travelDays:30, stayDays:90,  mode:'sea',   note:'Каспийским морем и берегом. Долгое ожидание помощи в Дербенте.'},
+  {from:'Дербент',to:'Баку',              km:130,  travelDays:5,  stayDays:7,   mode:'land',  note:'Прибрежной дорогой. Короткий отрезок.'},
+  {from:'Баку',to:'Мазендаран',           km:420,  travelDays:10, stayDays:180, mode:'sea',   note:'Каспийским морем. Полгода прожил в Сари — включены как остановка.'},
+  {from:'Мазендаран',to:'Кашан / Йезд',   km:820,  travelDays:60, stayDays:60,  mode:'land',  note:'Через горы Эльбурс, Рей, Кашан (месяц), Йезд (месяц).'},
+  {from:'Кашан / Йезд',to:'Ормуз',        km:900,  travelDays:50, stayDays:30,  mode:'land',  note:'Через Лар и Бендер к Ормузскому проливу.'},
+  {from:'Ормуз',to:'Маскат',              km:580,  travelDays:10, stayDays:0,   mode:'sea',   note:'«Шли есмя до Мошката 10 дни» — сам Афанасий.'},
+  {from:'Маскат',to:'Чаул',               km:2280, travelDays:32, stayDays:0,   mode:'sea',   note:'6 недель Аравийским морем и Индийским океаном.'},
+  {from:'Чаул',to:'Джуннар',              km:100,  travelDays:25, stayDays:30,  mode:'land',  note:'«Пали 8 дни, Умри 10 дни, Джуннар 7 дни» — черепашьим шагом с конём.'},
+  {from:'Джуннар',to:'Бидар',             km:340,  travelDays:30, stayDays:0,   mode:'land',  note:'Через Декканское плоскогорье.'},
+  {from:'Бидар',to:'Шрисайлам\n(Парват)', km:320,  travelDays:30, stayDays:14,  mode:'land',  note:'Паломничество пешком с индийцами. ~320 км в каждую сторону.'},
+  {from:'Шрисайлам',to:'Бидар',           km:320,  travelDays:30, stayDays:0,   mode:'land',  note:'Обратно из паломничества.'},
+  {from:'Бидар',to:'Зап.\nпобережье',     km:430,  travelDays:30, stayDays:0,   mode:'land',  note:'К побережью Аравийского моря. Порт Дабул.'},
+  {from:'Зап.\nпобережье',to:'Ормуз',     km:2000, travelDays:63, stayDays:30,  mode:'sea',   note:'«9 недель морем» обратно. Месяц в Ормузе.'},
+  {from:'Ормуз',to:'Трабзон',             km:3100, travelDays:150,stayDays:30,  mode:'land',  note:'Через Лар, Шираз, Исфахан, Кашан, потом Чёрным морем.'},
+  {from:'Трабзон',to:'Феодосия\n(Кафа)',  km:900,  travelDays:12, stayDays:14,  mode:'sea',   note:'Чёрным морем. «Приехал в Кафу за 9 дней до Филиппова поста».'},
+  {from:'Феодосия\n(Кафа)',to:'Смоленск', km:1250, travelDays:75, stayDays:0,   mode:'land',  note:'Через Крым и степь на Русь. Умер под Смоленском.'},
+];
+
+SEGS.forEach(s=>{s.kmPerDay=+(s.km/s.travelDays).toFixed(1);});
+
+const seaSeg=SEGS.filter(s=>s.mode==='sea'||s.mode==='river');
+const landSeg=SEGS.filter(s=>s.mode==='land');
+const avgSea=seaSeg.reduce((a,s)=>a+s.kmPerDay,0)/seaSeg.length;
+const avgLand=landSeg.reduce((a,s)=>a+s.kmPerDay,0)/landSeg.length;
+document.getElementById('avg-sea').textContent=avgSea.toFixed(1)+' км';
+document.getElementById('avg-land').textContent=avgLand.toFixed(1)+' км';
+document.getElementById('ratio').textContent=(avgSea/avgLand).toFixed(1)+'×';
+
+const SVG_NS='http://www.w3.org/2000/svg';
+const margin={top:24,right:12,bottom:82,left:46};
+const W=660,H=320;
+const iW=W-margin.left-margin.right,iH=H-margin.top-margin.bottom;
+
+const svg=document.getElementById('spd-svg');
+svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+svg.setAttribute('width',W);svg.setAttribute('height',H);
+
+function el(tag,attrs){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] of Object.entries(attrs))e.setAttribute(k,v);return e;}
+function txt(content,attrs){const e=el('text',attrs);e.textContent=content;return e;}
+
+const g=el('g',{transform:`translate(${margin.left},${margin.top})`});
+svg.appendChild(g);
+
+const maxKm=Math.max(...SEGS.map(s=>s.kmPerDay))*1.12;
+const barW=iW/SEGS.length;
+const padRatio=0.18;
+
+function yScale(v){return iH-v/maxKm*iH;}
+
+const colorMap={river:'#4a90c4',sea:'#1d6fa8',land:'#8B5a30'};
+
+SEGS.forEach((s,i)=>{
+  const x=i*barW;
+  const bw=barW*(1-padRatio*2);
+  const bx=x+barW*padRatio;
+
+  const bh=iH-yScale(s.kmPerDay);
+  const by=yScale(s.kmPerDay);
+
+  const rect=el('rect',{x:bx,y:by,width:bw,height:bh,
+    fill:colorMap[s.mode],rx:2,class:`spd-bar-${s.mode}`,
+    style:'cursor:pointer;transition:opacity .12s;'});
+  rect.addEventListener('mouseenter',e=>{rect.style.opacity='.72';showTip(e,s);});
+  rect.addEventListener('mousemove',e=>moveTip(e));
+  rect.addEventListener('mouseleave',()=>{rect.style.opacity='1';hideTip();});
+  g.appendChild(rect);
+
+  if(s.stayDays>0){
+    const sh=Math.min(s.stayDays/365*iH*0.6,18);
+    const sr=el('rect',{x:bx,y:by-sh-2,width:bw,height:sh,
+      fill:'#aaa',rx:2,opacity:.45,style:'cursor:pointer;'});
+    sr.addEventListener('mouseenter',e=>{showTip(e,s,true);});
+    sr.addEventListener('mousemove',e=>moveTip(e));
+    sr.addEventListener('mouseleave',hideTip);
+    g.appendChild(sr);
+  }
+
+  const km=txt(s.kmPerDay.toFixed(0),{
+    x:bx+bw/2,y:by-4,
+    'text-anchor':'middle','font-size':'8',
+    fill:'var(--color-text-secondary)'
+  });
+  g.appendChild(km);
+
+  const fromLines=s.from.split('\n');
+  const toLines=s.to.split('\n');
+  const labelY=iH+11;
+  fromLines.forEach((line,li)=>{
+    g.appendChild(txt(line,{x:bx+bw/2,y:labelY+li*9,'text-anchor':'middle','font-size':'7.5',fill:'var(--color-text-secondary)'}));
+  });
+  const arr=txt('↓',{x:bx+bw/2,y:labelY+fromLines.length*9+1,'text-anchor':'middle','font-size':'7',fill:'var(--color-text-tertiary, #bbb)'});
+  g.appendChild(arr);
+  toLines.forEach((line,li)=>{
+    g.appendChild(txt(line,{x:bx+bw/2,y:labelY+fromLines.length*9+10+li*9,'text-anchor':'middle','font-size':'7.5',fill:'var(--color-text-secondary)'}));
+  });
+});
+
+for(let v=0;v<=maxKm;v+=20){
+  const y=yScale(v);
+  const line=el('line',{x1:0,y1:y,x2:iW,y2:y,stroke:'var(--color-border-tertiary)',
+    'stroke-width':.5,'stroke-dasharray':v===0?'none':'3 4'});
+  g.appendChild(line);
+  if(v>0){g.appendChild(txt(v,{x:-4,y:y+3,'text-anchor':'end','font-size':'9',fill:'var(--color-text-secondary)'}));}
+}
+g.appendChild(txt('км/день',{x:-30,y:-8,'text-anchor':'middle','font-size':'9','font-weight':'500',fill:'var(--color-text-secondary)'}));
+
+const avgSeaLine=el('line',{x1:0,y1:yScale(avgSea),x2:iW,y2:yScale(avgSea),
+  stroke:'#4a90c4','stroke-width':1,'stroke-dasharray':'6 3',opacity:.7});
+g.appendChild(avgSeaLine);
+g.appendChild(txt(`ср. море ${avgSea.toFixed(1)}`,{x:iW+2,y:yScale(avgSea)+3,'font-size':'8',fill:'#4a90c4'}));
+
+const avgLandLine=el('line',{x1:0,y1:yScale(avgLand),x2:iW,y2:yScale(avgLand),
+  stroke:'#8B5a30','stroke-width':1,'stroke-dasharray':'6 3',opacity:.7});
+g.appendChild(avgLandLine);
+g.appendChild(txt(`ср. суша ${avgLand.toFixed(1)}`,{x:iW+2,y:yScale(avgLand)+3,'font-size':'8',fill:'#8B5a30'}));
+
+const tip=document.getElementById('tip');
+const chartDiv=document.getElementById('spd-chart');
+function showTip(e,s,isStay){
+  tip.style.display='block';
+  tip.innerHTML=isStay
+    ?`<b>${s.from.replace('\n',' ')} → ${s.to.replace('\n',' ')}</b><br>Стоянка: ~${s.stayDays} дн.`
+    :`<b>${s.from.replace('\n',' ')} → ${s.to.replace('\n',' ')}</b><br>${s.km} км · ${s.travelDays} дней пути<br><b>${s.kmPerDay} км/день</b><br><span style="color:var(--color-text-secondary)">${s.note}</span>`;
+  moveTip(e);
+}
+function moveTip(e){
+  const r=chartDiv.getBoundingClientRect();
+  let x=e.clientX-r.left+12,y=e.clientY-r.top-10;
+  if(x+210>r.width)x=e.clientX-r.left-220;
+  tip.style.left=x+'px';tip.style.top=y+'px';
+}
+function hideTip(){tip.style.display='none';}
+
+})();
+</script>

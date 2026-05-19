@@ -1,0 +1,296 @@
+
+<h2 class="sr-only">Карта языков «Хожения за три моря» — кликабельный таймлайн с переходом на параллельный текст ИРЛИ</h2>
+<style>
+.lm{font-size:13px;}
+.lm-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px;}
+.lmc{padding:8px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:opacity .12s;user-select:none;}
+.lmc.dim{opacity:.3;}
+.lmc-name{font-size:10px;font-weight:500;margin-bottom:2px;}
+.lmc-pct{font-size:19px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;}
+.lmc-sub{font-size:9px;color:var(--color-text-secondary);margin-top:2px;line-height:1.35;}
+.lmc-bar{height:5px;border-radius:2px;background:var(--color-background-secondary);margin-top:5px;overflow:hidden;}
+.lmc-bar-in{height:100%;border-radius:2px;}
+.lm-leg{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:center;}
+.lm-ld{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+.lm-lt{font-size:10.5px;color:var(--color-text-secondary);}
+.lm-passes{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+.lm-p{padding:10px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);transition:border-color .15s;}
+.lm-p.hi{border-color:rgba(110,50,160,.45);background:var(--color-background-primary);}
+.lm-ph{font-size:10px;color:var(--color-text-secondary);margin-bottom:5px;display:flex;gap:7px;align-items:center;}
+.lm-ploc{font-weight:500;color:var(--color-text-primary);}
+.lm-pt{font-size:13px;line-height:1.8;font-family:var(--font-serif);}
+.lm-pt span{border-radius:2px;padding:0 1px;transition:opacity .2s;}
+span.ru{background:rgba(55,110,190,.14);color:#1a4a8a;}
+span.tt{background:rgba(185,115,20,.14);color:#7a4a00;}
+span.fa{background:rgba(30,130,80,.14);color:#0a5a30;}
+span.ar{background:rgba(110,50,160,.14);color:#5a2a8a;}
+span.hi{background:rgba(190,60,40,.14);color:#8a2010;}
+.lm-tl{margin-bottom:6px;}
+.lm-tl-hint{font-size:10px;color:var(--color-text-secondary);margin-bottom:6px;}
+.lm-tl-row{display:flex;align-items:center;gap:7px;margin-bottom:4px;}
+.lm-tl-lbl{font-size:9px;color:var(--color-text-secondary);width:102px;flex-shrink:0;text-align:right;line-height:1.3;}
+.lm-tl-bar{flex:1;height:16px;border-radius:3px;display:flex;overflow:hidden;cursor:pointer;transition:box-shadow .15s;}
+.lm-tl-bar:hover{box-shadow:0 0 0 1.5px var(--color-border-secondary);}
+.lm-tl-bar.sel{box-shadow:0 0 0 2px #6e32a0;}
+.lm-tl-seg{height:100%;transition:opacity .2s;}
+.lm-detail{margin-top:8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;display:none;}
+.lm-detail.open{display:block;}
+.lm-det-head{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary);}
+.lm-det-title{font-size:12px;font-weight:500;color:var(--color-text-primary);}
+.lm-det-close{cursor:pointer;font-size:16px;color:var(--color-text-secondary);line-height:1;background:none;border:none;padding:0;}
+.lm-det-body{padding:10px 12px;}
+.lm-det-mini{display:flex;height:7px;border-radius:3px;overflow:hidden;margin-bottom:10px;}
+.lm-det-mini-seg{height:100%;}
+.lm-det-pass{font-size:12.5px;font-family:var(--font-serif);line-height:1.75;color:var(--color-text-primary);margin-bottom:10px;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary);}
+.lm-det-meta{font-size:10px;color:var(--color-text-secondary);line-height:1.55;margin-bottom:10px;}
+.lm-det-link{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:6px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);text-decoration:none;color:var(--color-text-primary);background:var(--color-background-secondary);transition:background .12s;}
+.lm-det-link:hover{background:var(--color-background-primary);}
+.lm-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;margin-top:10px;}
+</style>
+
+<div class="lm">
+
+<div class="lm-cards" id="lang-cards">
+  <div class="lmc" data-lang="ru" onclick="toggleLang('ru')" style="border-color:rgba(55,110,190,.35);">
+    <div class="lmc-name" style="color:#1a4a8a;">Русский</div>
+    <div class="lmc-pct" style="color:#1a4a8a;">62%</div>
+    <div class="lmc-sub">повествование, молитвы, лирика</div>
+    <div class="lmc-bar"><div class="lmc-bar-in" style="width:62%;background:#3770be;"></div></div>
+  </div>
+  <div class="lmc" data-lang="tt" onclick="toggleLang('tt')" style="border-color:rgba(185,115,20,.35);">
+    <div class="lmc-name" style="color:#7a4a00;">Татарский</div>
+    <div class="lmc-pct" style="color:#7a4a00;">18%</div>
+    <div class="lmc-sub">практика, описания, молитвы</div>
+    <div class="lmc-bar"><div class="lmc-bar-in" style="width:18%;background:#b97314;"></div></div>
+  </div>
+  <div class="lmc" data-lang="fa" onclick="toggleLang('fa')" style="border-color:rgba(30,130,80,.35);">
+    <div class="lmc-name" style="color:#0a5a30;">Персидский</div>
+    <div class="lmc-pct" style="color:#0a5a30;">9%</div>
+    <div class="lmc-sub">торговля, города, маршрутник</div>
+    <div class="lmc-bar"><div class="lmc-bar-in" style="width:9%;background:#1e8250;"></div></div>
+  </div>
+  <div class="lmc" data-lang="ar" onclick="toggleLang('ar')" style="border-color:rgba(110,50,160,.35);">
+    <div class="lmc-name" style="color:#5a2a8a;">Арабский</div>
+    <div class="lmc-pct" style="color:#5a2a8a;">8%</div>
+    <div class="lmc-sub">религиозные формулы, молитвы</div>
+    <div class="lmc-bar"><div class="lmc-bar-in" style="width:8%;background:#6e32a0;"></div></div>
+  </div>
+  <div class="lmc" data-lang="hi" onclick="toggleLang('hi')" style="border-color:rgba(190,60,40,.35);">
+    <div class="lmc-name" style="color:#8a2010;">Хинди / телугу</div>
+    <div class="lmc-pct" style="color:#8a2010;">3%</div>
+    <div class="lmc-sub">быт Индии, животные, растения</div>
+    <div class="lmc-bar"><div class="lmc-bar-in" style="width:3%;background:#be3c28;"></div></div>
+  </div>
+</div>
+
+<div class="lm-leg">
+  <div class="lm-ld" style="background:rgba(55,110,190,.55);"></div><span class="lm-lt">русский</span>
+  <div class="lm-ld" style="background:rgba(185,115,20,.55);"></div><span class="lm-lt">татарский</span>
+  <div class="lm-ld" style="background:rgba(30,130,80,.55);"></div><span class="lm-lt">персидский</span>
+  <div class="lm-ld" style="background:rgba(110,50,160,.55);"></div><span class="lm-lt">арабский</span>
+  <div class="lm-ld" style="background:rgba(190,60,40,.55);"></div><span class="lm-lt">хинди / телугу</span>
+  <span class="lm-lt" style="margin-left:4px;opacity:.7;">← карточка выше — фильтр; полоса внизу — открыть отрывок</span>
+</div>
+
+<div class="lm-passes" id="passages">
+<div class="lm-p" data-pi="0">
+  <div class="lm-ph"><span class="lm-ploc">Тверь, 1467</span><span>Зачин — почти чистый русский</span></div>
+  <div class="lm-pt"><span class="ru">В лето 6975. Пошёл я, Афанасий сын Никитин, от Спаса Святого</span> <span class="ru">с его милостию, от великого князя Михаила Борисовича Тверского</span> <span class="ru">и от владыки Геннадия Тверского —</span> <span class="ru">за три моря: первое море Дербентское, Хвалитьское;</span> <span class="ru">второе море Индийское; третье море Чёрное, Стебольское.</span></div>
+</div>
+<div class="lm-p" data-pi="1">
+  <div class="lm-ph"><span class="lm-ploc">Дербент, 1467–1468</span><span>Первые татарские вставки — описание потери</span></div>
+  <div class="lm-pt"><span class="ru">И заплакали есмя</span> <span class="ru">да розошлися, кои куды —</span> <span class="ru">у кого есть на Руси, тот пошёл на Русь,</span> <span class="ru">а кой в долгу, тот пошёл куды глаза глядят.</span> <span class="ru">Мне же</span> <span class="tt">пойти было не на что:</span> <span class="ru">кони</span> <span class="tt">сатылды</span> <span class="ru">— проданы были</span> <span class="tt">татарларга.</span></div>
+</div>
+<div class="lm-p" data-pi="2">
+  <div class="lm-ph"><span class="lm-ploc">Баку — Персия, 1468</span><span>Персидские топонимы входят в русский текст</span></div>
+  <div class="lm-pt"><span class="ru">А из Дербенти к</span> <span class="fa">Баке</span><span class="ru">, где огнь горить неугасимый. А от</span> <span class="fa">Баки</span> <span class="ru">ехал есмь к</span> <span class="fa">Чебукару</span><span class="ru">.</span> <span class="ru">Из</span> <span class="fa">Чебукара</span> <span class="ru">поехал к</span> <span class="fa">Сари</span> <span class="ru">в</span> <span class="fa">Мазандаран</span><span class="ru">.</span> <span class="ru">А</span> <span class="fa">Мазандаран</span> <span class="ru">— земля богатая, а люди — разбойные.</span></div>
+</div>
+<div class="lm-p" data-pi="3">
+  <div class="lm-ph"><span class="lm-ploc">Ормуз — Океан, 1469</span><span>Персидский и арабский — язык морской торговли</span></div>
+  <div class="lm-pt"><span class="fa">Гурмыз</span> <span class="ru">есть на острове, а море покрывает его дважды в день.</span> <span class="ru">Тут первая</span> <span class="fa">пристань</span> <span class="fa">Индейскаго</span> <span class="ru">моря.</span> <span class="ru">Сел на</span> <span class="fa">таву</span> <span class="ru">с конём, и пошли есмя</span> <span class="ar">бисмилля</span> <span class="ru">за море</span> <span class="fa">Индейское.</span></div>
+</div>
+<div class="lm-p" data-pi="4">
+  <div class="lm-ph"><span class="lm-ploc">Индия, 1469–1472</span><span>Хинди-слова — для вещей без русских названий</span></div>
+  <div class="lm-pt"><span class="ru">А</span> <span class="hi">мечети</span> <span class="ru">их без</span> <span class="hi">дверей</span><span class="ru">, обращены на восток. Держат в них</span> <span class="hi">буты</span> <span class="ru">великие.</span> <span class="ru">Скотину не бьют никакую: ни</span> <span class="hi">кур</span><span class="ru">, ни</span> <span class="hi">баранов</span><span class="ru">.</span> <span class="ru">Едят же</span> <span class="hi">кичири</span> <span class="ru">— рис с маслом — да</span> <span class="hi">шидри</span><span class="ru">, да</span> <span class="hi">кули</span><span class="ru">.</span></div>
+</div>
+<div class="lm-p" data-pi="5" style="border-color:rgba(110,50,160,.3);">
+  <div class="lm-ph"><span class="lm-ploc">Бидар, ок. 1470</span><span>⚡ Пятиязычная молитва — Афанасий молится всем богам сразу</span></div>
+  <div class="lm-pt"><span class="ru">Милосердый Боже, Боже истинный, Боже великий —</span> <span class="ar">аллах керим,</span> <span class="ar">аллах рахим,</span> <span class="ar">иса рух улло,</span> <span class="ru">вот и нет у меня ни Пасхи, ни праздника никоего,</span> <span class="tt">и я не ведаю — бу кюн пасха</span> <span class="ru">али нет?</span> <span class="ar">Бисмилля рахман рахим.</span> <span class="ru">Господи, Боже мой!</span> <span class="tt">Ярем сенинг</span> <span class="ru">— на тебя уповаю.</span></div>
+</div>
+<div class="lm-p" data-pi="6">
+  <div class="lm-ph"><span class="lm-ploc">Конец «Хожения», 1475</span><span>Финал: русское прощание с арабским аминь</span></div>
+  <div class="lm-pt"><span class="ru">А Русь Бог да блюдёт! Боже, сохрани её.</span> <span class="ru">На этом свете нет страны подобной ей,</span> <span class="ru">хотя</span> <span class="tt">амирове</span> <span class="ru">Русские несправедливы.</span> <span class="ru">Да устроится земля Русская и да будет в ней справедливость.</span> <span class="ar">Аллах акбар. Аминь.</span></div>
+</div>
+</div>
+
+<div class="lm-tl">
+  <div class="lm-tl-hint">Доля языков по разделам — <b>нажмите полосу</b> чтобы открыть фрагмент текста и ссылку на ИРЛИ</div>
+  <div id="tl-rows"></div>
+</div>
+
+<div class="lm-detail" id="detail">
+  <div class="lm-det-head">
+    <div class="lm-det-title" id="det-title"></div>
+    <button class="lm-det-close" onclick="closeDetail()" aria-label="Закрыть">×</button>
+  </div>
+  <div class="lm-det-body">
+    <div class="lm-det-mini" id="det-mini"></div>
+    <div class="lm-det-pass" id="det-pass"></div>
+    <div class="lm-det-meta" id="det-meta"></div>
+    <a class="lm-det-link" id="det-link" href="http://lib.pushkinskijdom.ru/default.aspx?tabid=5068" target="_blank" rel="noopener">
+      <i class="ti ti-external-link" style="font-size:13px;" aria-hidden="true"></i>
+      Параллельный текст в БЛДР ИРЛИ РАН
+    </a>
+  </div>
+</div>
+
+<div class="lm-source">
+  Параллельный текст (древнерусский оригинал + перевод) — <a href="http://lib.pushkinskijdom.ru/default.aspx?tabid=5068" target="_blank" style="color:var(--color-text-primary);">lib.pushkinskijdom.ru</a>, БЛДР, т. 7. Разметка языков по академическому изданию «Хожения» (1986) и Хрусталёву (2026). Проценты — оценочные.
+</div>
+</div>
+
+<script>
+(function(){
+const C={ru:'#3770be',tt:'#b97314',fa:'#1e8250',ar:'#6e32a0',hi:'#be3c28'};
+const KEYS=['ru','tt','fa','ar','hi'];
+const NAMES={ru:'русский',tt:'татарский',fa:'персидский',ar:'арабский',hi:'хинди'};
+
+const SECTIONS=[
+  {label:'Тверь → Астрахань',  ru:88,tt:8, fa:3, ar:1, hi:0, pi:[0],
+   note:'Отплытие из Твери, путь по Волге. Текст почти целиком русский — Афанасий ещё дома.',
+   meta:'Троицкий список, лл. 1–2об. Летописная редакция открывает «Хожение» этим зачином.'},
+  {label:'Каспий / Дербент',   ru:72,tt:14,fa:9, ar:4, hi:1, pi:[0,1],
+   note:'Ограбление на Волге, скитания по Каспийскому побережью. Первые татарские слова — язык степи.',
+   meta:'Троицкий список, лл. 2об.–4. Хрусталёв относит этот фрагмент к «Дорожнику».'},
+  {label:'Персия (1468–1469)', ru:55,tt:12,fa:22,ar:9, hi:2, pi:[2],
+   note:'Дербент, Баку, Мазандаран, путь через персидские города к Ормузу. Персидские топонимы заполняют текст.',
+   meta:'Троицкий список, лл. 4–7. Персидские вставки — транслитерация на слух, без знания алфавита.'},
+  {label:'Ормуз (1469)',        ru:50,tt:10,fa:20,ar:18,hi:2, pi:[3],
+   note:'Первая Пасха в пути. Переправа Индийским океаном. Арабский — язык мореходства и ислама.',
+   meta:'Троицкий список, лл. 7–8об. «Бисмилля» — первое арабское слово в тексте.'},
+  {label:'Индия — год 1',      ru:58,tt:15,fa:8, ar:10,hi:9, pi:[4],
+   note:'Чаул, Джуннар, дорога в Бидар. Хинди-слова появляются там, где нет русских эквивалентов.',
+   meta:'Троицкий список, лл. 8об.–11. Хинди-заимствования — фонетические, не грамматические.'},
+  {label:'Бидар (1469–1471)',   ru:52,tt:20,fa:7, ar:13,hi:8, pi:[5],
+   note:'Жизнь в столице Бахманидов. Главный пятиязычный фрагмент — молитва, смешивающая все пять языков.',
+   meta:'Троицкий список, лл. 11–15об. Пик языкового смешения — богословский кризис Афанасия.'},
+  {label:'Паломничество',      ru:60,tt:16,fa:6, ar:11,hi:7, pi:[4,5],
+   note:'Шрисайлам — «Индийский Иерусалим». Описание индуистских ритуалов — смесь русского с хинди.',
+   meta:'Троицкий список, лл. 15об.–17. Раздел «Индийских вер».'},
+  {label:'Прощание с Индией',  ru:48,tt:22,fa:8, ar:14,hi:8, pi:[5,6],
+   note:'Максимальная доля татарского — Афанасий думает и молится по-татарски, забыв русский церковный.',
+   meta:'Троицкий список, лл. 17–18об. «Путь не ведаю, куда ити из Гундустани».'},
+  {label:'Обратный путь',      ru:62,tt:18,fa:12,ar:7, hi:1, pi:[6],
+   note:'Через Персию назад в Ормуз. Персидский снова растёт — дорога знакома, язык возвращается.',
+   meta:'Троицкий список, лл. 18об.–20. «Маршрутник» — самый персидский по словарю раздел.'},
+  {label:'Чёрное море / Кафа', ru:75,tt:14,fa:5, ar:5, hi:1, pi:[6],
+   note:'Трабзон, Феодосия, конец пути. Русский язык возвращается — Афанасий снова ближе к дому.',
+   meta:'Троицкий список, лл. 20–21. Финальная молитва смешивает русский с арабским «аминь».'},
+];
+
+const container=document.getElementById('tl-rows');
+let selIdx=-1;
+
+SECTIONS.forEach((s,i)=>{
+  const row=document.createElement('div');
+  row.className='lm-tl-row';
+  const lbl=document.createElement('div');
+  lbl.className='lm-tl-lbl';
+  lbl.textContent=s.label;
+  const bar=document.createElement('div');
+  bar.className='lm-tl-bar';
+  bar.dataset.i=i;
+  bar.setAttribute('role','button');
+  bar.setAttribute('tabindex','0');
+  bar.setAttribute('aria-label','Открыть раздел: '+s.label);
+  KEYS.forEach(k=>{
+    const seg=document.createElement('div');
+    seg.className='lm-tl-seg';
+    seg.dataset.lang=k;
+    seg.style.width=s[k]+'%';
+    seg.style.background=C[k];
+    seg.style.opacity='.72';
+    bar.appendChild(seg);
+  });
+  bar.addEventListener('click',()=>openDetail(i,bar));
+  bar.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openDetail(i,bar);});
+  row.appendChild(lbl);
+  row.appendChild(bar);
+  container.appendChild(row);
+});
+
+function openDetail(i,barEl){
+  if(selIdx===i){closeDetail();return;}
+  selIdx=i;
+  document.querySelectorAll('.lm-tl-bar').forEach(b=>b.classList.remove('sel'));
+  barEl.classList.add('sel');
+
+  const s=SECTIONS[i];
+  document.getElementById('det-title').textContent=s.label;
+
+  const mini=document.getElementById('det-mini');
+  mini.innerHTML='';
+  KEYS.forEach(k=>{
+    const seg=document.createElement('div');
+    seg.className='lm-det-mini-seg';
+    seg.style.width=s[k]+'%';
+    seg.style.background=C[k];
+    mini.appendChild(seg);
+  });
+
+  const langLine=KEYS.filter(k=>s[k]>0)
+    .sort((a,b)=>s[b]-s[a])
+    .map(k=>`<span style="color:${C[k]};font-weight:500;">${NAMES[k]} ${s[k]}%</span>`)
+    .join(' · ');
+  document.getElementById('det-meta').innerHTML=langLine+'<br><span style="opacity:.7;">'+s.meta+'</span>';
+
+  const passEl=document.getElementById('det-pass');
+  const pis=s.pi;
+  const allPasses=document.querySelectorAll('.lm-p');
+  let html='';
+  pis.forEach(pi=>{
+    const p=allPasses[pi];
+    if(p){
+      const loc=p.querySelector('.lm-ploc').textContent;
+      html+=`<div style="font-size:10px;color:var(--color-text-secondary);margin-bottom:4px;">${loc}</div>`;
+      html+=p.querySelector('.lm-pt').innerHTML;
+      if(pi!==pis[pis.length-1])html+='<hr style="border:none;border-top:0.5px solid var(--color-border-tertiary);margin:8px 0;">';
+    }
+  });
+  passEl.innerHTML=html;
+
+  document.getElementById('det-pass').querySelectorAll('span').forEach(sp=>{
+    sp.style.background='';sp.style.color='';
+  });
+
+  const det=document.getElementById('detail');
+  det.classList.add('open');
+  det.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  allPasses.forEach((p,pi)=>{
+    p.classList.toggle('hi',pis.includes(pi));
+  });
+}
+
+window.closeDetail=function(){
+  selIdx=-1;
+  document.querySelectorAll('.lm-tl-bar').forEach(b=>b.classList.remove('sel'));
+  document.getElementById('detail').classList.remove('open');
+  document.querySelectorAll('.lm-p').forEach(p=>p.classList.remove('hi'));
+};
+
+let activeLang=null;
+window.toggleLang=function(lang){
+  activeLang=activeLang===lang?null:lang;
+  document.querySelectorAll('.lmc').forEach(c=>c.classList.toggle('dim',activeLang&&c.dataset.lang!==activeLang));
+  document.querySelectorAll('.lm-p').forEach(p=>{
+    p.querySelectorAll('span').forEach(sp=>{
+      sp.style.opacity=activeLang?(sp.classList.contains(activeLang)?'1':'0.18'):'';
+    });
+  });
+  document.querySelectorAll('.lm-tl-seg').forEach(s=>{
+    s.style.opacity=activeLang?(s.dataset.lang===activeLang?'1':'0.12'):'.72';
+  });
+};
+})();
+</script>

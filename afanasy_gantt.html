@@ -1,0 +1,194 @@
+
+<h2 class="sr-only">Гантт-диаграмма путешествия Афанасия Никитина — время в каждом месте 1467–1475</h2>
+<style>
+.gnt{font-size:13px;}
+.gnt-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px;}
+.gnt-card{padding:9px 11px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);}
+.gnt-card-lbl{font-size:10px;color:var(--color-text-secondary);margin-bottom:2px;}
+.gnt-card-val{font-size:18px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--color-text-primary);line-height:1;}
+.gnt-card-sub{font-size:9.5px;color:var(--color-text-secondary);margin-top:2px;}
+.gnt-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:center;}
+.gnt-ld{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.gnt-lt{font-size:11px;color:var(--color-text-secondary);}
+.gnt-wrap{overflow-x:auto;position:relative;}
+svg#gnt-svg{display:block;}
+.gnt-tip{position:fixed;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:11px;color:var(--color-text-primary);pointer-events:none;max-width:240px;line-height:1.55;z-index:99;box-shadow:0 2px 8px rgba(0,0,0,.1);}
+.gnt-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;margin-top:8px;}
+</style>
+
+<div class="gnt">
+<div class="gnt-summary">
+  <div class="gnt-card"><div class="gnt-card-lbl">Всего в пути</div><div class="gnt-card-val">~8 лет</div><div class="gnt-card-sub">1467–1475, ок. 2920 дней</div></div>
+  <div class="gnt-card"><div class="gnt-card-lbl">В движении</div><div class="gnt-card-val">~40%</div><div class="gnt-card-sub">ок. 1170 дней активного пути</div></div>
+  <div class="gnt-card"><div class="gnt-card-lbl">В Индии</div><div class="gnt-card-val">~4 года</div><div class="gnt-card-sub">«четыре Пасхи» — Афанасий</div></div>
+  <div class="gnt-card"><div class="gnt-card-lbl">Самая долгая остановка</div><div class="gnt-card-val">Бидар</div><div class="gnt-card-sub">~760 дней суммарно</div></div>
+</div>
+
+<div class="gnt-legend">
+  <div class="gnt-ld" style="background:#4a90c4;"></div><span class="gnt-lt">Река / море (движение)</span>
+  <div class="gnt-ld" style="background:#8B5a30;"></div><span class="gnt-lt">Суша (движение)</span>
+  <div class="gnt-ld" style="background:#2e7d8a;"></div><span class="gnt-lt">Остановка (жизнь в городе)</span>
+  <div class="gnt-ld" style="background:#6e32a0;border-radius:50%;"></div><span class="gnt-lt">Ключевое событие</span>
+  <span class="gnt-lt" style="margin-left:4px;opacity:.7;">← наведите мышь на полосу</span>
+</div>
+
+<div class="gnt-wrap"><svg id="gnt-svg"></svg></div>
+<div class="gnt-tip" id="gnt-tip" style="display:none;"></div>
+
+<div class="gnt-source">
+  Длительность отрезков — реконструкция по хронологии Хрусталёва (2026). Месяц = 30 дней. Жёлтые ромбы — ключевые события: Пасха в Ормузе, угроза в Джуннаре, продажа коня в Бидаре, паломничество, прощание с Индией, Кафа.
+</div>
+</div>
+
+<script>
+(function(){
+const SVG_NS='http://www.w3.org/2000/svg';
+function el(tag,a){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] of Object.entries(a))e.setAttribute(k,v);return e;}
+function t(s,a){const e=el('text',a);e.textContent=s;return e;}
+
+// Segments: [label, startMonth (from Apr 1467=0), durationMonths, type, note, region]
+// type: river, sea, land, stay
+const SEGS=[
+  {lbl:'Тверь',          s:0,  d:0.5, type:'stay',  reg:'Русь',    note:'Сборы, получение благословения. Отплытие весной 1467.'},
+  {lbl:'Волга до Нижнего',s:0.5,d:2,  type:'river', reg:'Русь',    note:'По Волге с посольством ширваншаха. ~830 км.'},
+  {lbl:'Нижний Новгород',s:2.5,d:0.5, type:'stay',  reg:'Русь',    note:'Ожидание посла Асанбека. 2 недели.'},
+  {lbl:'Волга → Астрахань',s:3, d:2,  type:'river', reg:'Русь',    note:'Вниз по Волге. Ограбление татарами у Астрахани осенью 1467.'},
+  {lbl:'Дербент',        s:5,  d:3,   type:'stay',  reg:'Кавказ',  note:'Безуспешные просьбы к ширваншаху. Осень 1467 — зима 1468.'},
+  {lbl:'Баку',           s:8,  d:0.5, type:'stay',  reg:'Кавказ',  note:'«Где огнь горить неугасимый». Вечные огни Апшерона.'},
+  {lbl:'Баку → Сари',   s:8.5, d:1,  type:'sea',   reg:'Кавказ',  note:'Каспийским морем в Мазандаран.'},
+  {lbl:'Сари / Мазендаран',s:9.5,d:6, type:'stay',  reg:'Персия',  note:'«Пробыл 6 месяцев» — болел, ждал сезона. 1468.'},
+  {lbl:'Горная дорога → Рей',s:15.5,d:2,type:'land',reg:'Персия', note:'Через Амол, Дамавент, Рей. Горный перевал.'},
+  {lbl:'Кашан',          s:17.5,d:1,  type:'stay',  reg:'Персия',  note:'«В Кашане пробыл месяц».'},
+  {lbl:'Йезд',           s:18.5,d:1,  type:'stay',  reg:'Персия',  note:'«В Йезде пробыл месяц».'},
+  {lbl:'Лар → Ормуз',   s:19.5,d:2,  type:'land',  reg:'Персия',  note:'Через Лар и Бендер к Ормузскому проливу.'},
+  {lbl:'Ормуз (1-й)',    s:21.5,d:1.5,type:'stay',  reg:'Персия',  note:'Первая Пасха в пути — 2 апреля 1469. Ждёт попутный корабль.', event:'🐴 Пасха 1469\n2 апр., Ормуз'},
+  {lbl:'Океан → Чаул',  s:23,  d:1.5, type:'sea',   reg:'Океан',   note:'6 недель морем. Маскат → Гуджарат → Чаул.'},
+  {lbl:'Чаул → Джуннар',s:24.5,d:1,  type:'land',  reg:'Индия',   note:'«Пали 8 дни, Умри 10 дни, Джуннар 7 дни».'},
+  {lbl:'Джуннар',        s:25.5,d:1,  type:'stay',  reg:'Индия',   note:'Конфликт с ханом Асадом. Конь конфискован. Спасён в день Спаса.', event:'⚠️ Конфискат коня\nДжуннар, авг. 1469'},
+  {lbl:'Джуннар → Бидар',s:26.5,d:1, type:'land',  reg:'Индия',   note:'Через Декканское плоскогорье.'},
+  {lbl:'Бидар (1-й)',    s:27.5,d:14, type:'stay',  reg:'Индия',   note:'14 ноября 1469 — прибытие. Рождество 1469 — продажа коня за 68 золотых. Живёт в столице Бахманидов.', event:'🐎 Продажа коня\n68 зол., Бидар, дек. 1469'},
+  {lbl:'Паломничество\n→ Шрисайлам',s:41.5,d:1,type:'land',reg:'Индия',note:'Пешком с паломниками. ~320 км.'},
+  {lbl:'Шрисайлам',      s:42.5,d:0.5,type:'stay',  reg:'Индия',   note:'Махашиваратри ~19 февраля 1471. «Индийский Иерусалим».', event:'🛕 Махашиваратри\n19 фев. 1471'},
+  {lbl:'← Обратно в Бидар',s:43,d:1, type:'land',  reg:'Индия',   note:'Обратно пешком.'},
+  {lbl:'Бидар (2-й)',    s:44, d:11,  type:'stay',  reg:'Индия',   note:'Наблюдает кампании Махмуда Гавана. 1 фев. 1472 — взятие Гоа. 19 мая — триумф визиря.', event:'⚔️ Взятие Гоа\n1 фев. 1472'},
+  {lbl:'Бидар → побережье',s:55,d:1, type:'land',  reg:'Индия',   note:'К Аравийскому морю. Порт Дабул.', event:'🌊 Прощание с Индией\n1472'},
+  {lbl:'Океан → Ормуз', s:56,  d:2.5, type:'sea',   reg:'Океан',   note:'«9 недель морем». 1472.'},
+  {lbl:'Ормуз (2-й)',    s:58.5,d:1,  type:'stay',  reg:'Персия',  note:'Начало обратного пути. Месяц в Ормузе.'},
+  {lbl:'Персия обратно', s:59.5,d:5,  type:'land',  reg:'Персия',  note:'Лар → Шираз → Исфахан → Кашан. Примерно 1472–1473.'},
+  {lbl:'Чёрное море',   s:64.5,d:1.5, type:'sea',   reg:'Море',    note:'Трабзон → Феодосия. «12 дней до Трапезонда».'},
+  {lbl:'Феодосия (Кафа)',s:66, d:2,   type:'stay',  reg:'Русь',    note:'«Приехал в Кафу за 9 дней до Филиппова поста» — ок. 6 ноября 1474.', event:'⚓ Прибытие в Кафу\n6 ноя. 1474'},
+  {lbl:'Кафа → Смоленск',s:68, d:3,  type:'land',  reg:'Русь',    note:'Через Крым и степь на Русь. Умер под Смоленском, не дойдя до Твери. 1475.'},
+];
+
+const TOTAL_MONTHS=71; // Apr1467 – ~Mar1475
+const START_YEAR=1467;
+const START_MONTH=4; // April
+
+// Layout
+const ROW_H=20, ROW_GAP=3;
+const M_LEFT=148, M_TOP=44, M_BOTTOM=28;
+const MONTH_W=8.5; // px per month
+const SVG_W=M_LEFT+TOTAL_MONTHS*MONTH_W+40;
+const SVG_H=M_TOP+SEGS.length*(ROW_H+ROW_GAP)+M_BOTTOM;
+
+const svg=document.getElementById('gnt-svg');
+svg.setAttribute('viewBox',`0 0 ${SVG_W} ${SVG_H}`);
+svg.setAttribute('width',SVG_W);svg.setAttribute('height',SVG_H);
+
+const COLOR={river:'#4a90c4',sea:'#1d6fa8',land:'#8B5a30',stay:'#2e7d8a'};
+const REG_COLOR={Русь:'#3770be',Кавказ:'#1e8250',Персия:'#b97314',Океан:'#1d6fa8',Индия:'#be3c28',Море:'#4a90c4'};
+
+// Year/month axis
+for(let m=0;m<=TOTAL_MONTHS;m++){
+  const x=M_LEFT+m*MONTH_W;
+  const absMonth=(START_MONTH-1+m)%12;
+  const yr=START_YEAR+Math.floor((START_MONTH-1+m)/12);
+  // Year label
+  if(absMonth===0){
+    svg.appendChild(el('line',{x1:x,y1:M_TOP-18,x2:x,y2:M_TOP+SEGS.length*(ROW_H+ROW_GAP),stroke:'var(--color-border-secondary)','stroke-width':.8}));
+    svg.appendChild(t(yr,{x:x+2,y:M_TOP-8,'font-size':'10','font-weight':'600',fill:'var(--color-text-primary)'}));
+  }
+  // Quarter lines
+  if(absMonth===3||absMonth===6||absMonth===9){
+    svg.appendChild(el('line',{x1:x,y1:M_TOP-2,x2:x,y2:M_TOP+SEGS.length*(ROW_H+ROW_GAP),stroke:'var(--color-border-tertiary)','stroke-width':.4,'stroke-dasharray':'2 3'}));
+  }
+  // Month tick
+  if(absMonth===0||absMonth===3||absMonth===6||absMonth===9){
+    const mnames=['янв','апр','июл','окт'];
+    const idx=[0,3,6,9].indexOf(absMonth);
+    svg.appendChild(t(mnames[idx],{x:x+1,y:M_TOP-1,'font-size':'7.5',fill:'var(--color-text-secondary)'}));
+  }
+}
+
+// Rows
+const tip=document.getElementById('gnt-tip');
+function showTip(e,s){
+  tip.innerHTML=`<b>${s.lbl.replace('\n',' ')}</b><br><span style="color:var(--color-text-secondary)">${s.reg}</span><br>${s.note}${s.event?`<br><br><b>${s.event}</b>`:''}`;
+  tip.style.display='block';moveTip(e);
+}
+function moveTip(e){let x=e.clientX+12,y=e.clientY-8;if(x+250>window.innerWidth)x=e.clientX-260;tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.display='none';}
+
+SEGS.forEach((s,i)=>{
+  const y=M_TOP+i*(ROW_H+ROW_GAP);
+  const x=M_LEFT+s.s*MONTH_W;
+  const w=Math.max(s.d*MONTH_W,4);
+
+  // Region color stripe on left
+  const rc=REG_COLOR[s.reg]||'#888';
+  svg.appendChild(el('rect',{x:0,y:y,width:3,height:ROW_H,fill:rc,opacity:.7}));
+
+  // Label
+  const lines=s.lbl.split('\n');
+  lines.forEach((l,li)=>svg.appendChild(t(l,{x:M_LEFT-6,y:y+ROW_H/2+(li-(lines.length-1)/2)*10+3,
+    'text-anchor':'end','font-size':'9',fill:'var(--color-text-secondary)'})));
+
+  // Bar
+  const barColor=COLOR[s.type];
+  const bar=el('rect',{x,y:y+2,width:w,height:ROW_H-4,fill:barColor,rx:3,opacity:s.type==='stay'?.75:.85,style:'cursor:pointer;transition:opacity .1s;'});
+  bar.addEventListener('mouseenter',e=>{bar.setAttribute('opacity','1');showTip(e,s);});
+  bar.addEventListener('mousemove',moveTip);
+  bar.addEventListener('mouseleave',()=>{bar.setAttribute('opacity',s.type==='stay'?.75:.85);hideTip();});
+  svg.appendChild(bar);
+
+  // Duration label inside bar if wide enough
+  if(w>30){
+    const dl=s.d>=1?`${s.d} мес.`:`${Math.round(s.d*30)} дн.`;
+    svg.appendChild(t(dl,{x:x+w/2,y:y+ROW_H/2+3.5,'text-anchor':'middle','font-size':'8',fill:'rgba(255,255,255,0.85)'}));
+  }
+
+  // Event diamond
+  if(s.event){
+    const ex=x+w;const ey=y+ROW_H/2;const ds=5;
+    const diamond=el('polygon',{points:`${ex},${ey-ds} ${ex+ds},${ey} ${ex},${ey+ds} ${ex-ds},${ey}`,
+      fill:'#6e32a0',stroke:'rgba(255,255,255,.6)','stroke-width':1});
+    svg.appendChild(diamond);
+  }
+});
+
+// Region labels on right axis
+const regions=['Русь','Кавказ','Персия','Океан','Индия','Океан','Персия','Море','Русь'];
+const regSegs=[
+  {reg:'Русь',    from:0, to:7},
+  {reg:'Кавказ',  from:5, to:9},
+  {reg:'Персия',  from:7, to:13},
+  {reg:'Океан',   from:13,to:14},
+  {reg:'Индия',   from:14,to:22},
+  {reg:'Океан',   from:23,to:24},
+  {reg:'Персия',  from:24,to:26},
+  {reg:'Море',    from:26,to:27},
+  {reg:'Русь',    from:27,to:28},
+];
+
+// Today-line style vertical region separators
+[5,8,13.5,23.5,56,58.5,64.5,66].forEach(ms=>{
+  const x=M_LEFT+ms*MONTH_W;
+  svg.appendChild(el('line',{x1:x,y1:M_TOP,x2:x,y2:M_TOP+SEGS.length*(ROW_H+ROW_GAP),
+    stroke:'var(--color-border-secondary)','stroke-width':.6,'stroke-dasharray':'4 2',opacity:.5}));
+});
+
+// Bottom axis label
+svg.appendChild(t('← месяцы от апреля 1467',{x:M_LEFT,y:SVG_H-6,'font-size':'8.5',fill:'var(--color-text-secondary)'}));
+
+})();
+</script>

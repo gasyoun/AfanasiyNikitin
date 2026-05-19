@@ -1,0 +1,250 @@
+
+<h2 class="sr-only">Экономика путешествия Афанасия Никитина — цены на товары по городам маршрута</h2>
+<style>
+#eco-wrap{font-size:13px;}
+.eco-tabs{display:flex;gap:0;margin-bottom:14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);overflow:hidden;width:fit-content;}
+.eco-tab{padding:7px 16px;font-size:12px;cursor:pointer;background:var(--color-background-secondary);color:var(--color-text-secondary);border:none;border-right:0.5px solid var(--color-border-tertiary);transition:background .12s;}
+.eco-tab:last-child{border-right:none;}
+.eco-tab.active{background:var(--color-background-primary);color:var(--color-text-primary);font-weight:500;}
+.eco-panel{display:none;}
+.eco-panel.active{display:block;}
+.eco-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.eco-card{padding:10px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);}
+.eco-card-label{font-size:10px;color:var(--color-text-secondary);margin-bottom:3px;}
+.eco-card-val{font-size:19px;font-weight:500;font-variant-numeric:tabular-nums;}
+.eco-card-sub{font-size:10px;color:var(--color-text-secondary);margin-top:2px;}
+.loss{color:#c0392b;}
+.gain{color:#27ae60;}
+.neutral{color:var(--color-text-primary);}
+.eco-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.eco-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.eco-leg-txt{font-size:11px;color:var(--color-text-secondary);}
+.eco-source{font-size:10px;color:var(--color-text-secondary);margin-top:10px;line-height:1.6;}
+.horse-row{display:flex;align-items:center;gap:0;margin-bottom:22px;position:relative;}
+.horse-city{font-size:11px;color:var(--color-text-secondary);text-align:center;}
+.horse-val{font-size:13px;font-weight:500;font-variant-numeric:tabular-nums;text-align:center;}
+.horse-bar-wrap{flex:1;position:relative;height:44px;display:flex;align-items:center;}
+.eco-tip{position:absolute;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:11px;color:var(--color-text-primary);pointer-events:none;max-width:220px;line-height:1.55;z-index:10;}
+</style>
+
+<div id="eco-wrap">
+<div class="eco-tabs">
+  <button class="eco-tab active" onclick="switchTab('horse')">Жеребец Афанасия</button>
+  <button class="eco-tab" onclick="switchTab('spices')">Пряности и товары</button>
+  <button class="eco-tab" onclick="switchTab('horses')">Торговля лошадьми</button>
+</div>
+
+<div id="tab-horse" class="eco-panel active">
+  <div class="eco-cards">
+    <div class="eco-card"><div class="eco-card-label">Куплено на Руси (оценка)</div><div class="eco-card-val neutral">~100 зол.</div><div class="eco-card-sub">главный торговый капитал</div></div>
+    <div class="eco-card"><div class="eco-card-label">Продано в Бидаре</div><div class="eco-card-val loss">68 зол.</div><div class="eco-card-sub">«Жеребца продал за 68 золотых»</div></div>
+    <div class="eco-card"><div class="eco-card-label">Убыток по жеребцу</div><div class="eco-card-val loss">−32 зол.</div><div class="eco-card-sub">−32% от вложенного</div></div>
+  </div>
+  <svg id="horse-svg" style="display:block;width:100%;" viewBox="0 0 640 210"></svg>
+  <div class="eco-source">Данные: единственная прямая ценовая цитата — «жеребца своего продал есмь за 68 золотых» (Бидар). Стоимость при покупке и надежда на продажу — оценки по контексту «Хожения» и Хрусталёва. «Золотой» — общее название золотой монеты на маршруте, единица различается по месту.</div>
+</div>
+
+<div id="tab-spices" class="eco-panel">
+  <div class="eco-legend">
+    <div class="eco-dot" style="background:#2e7d8a;"></div><span class="eco-leg-txt">Индия (Бидар/Чаул)</span>
+    <div class="eco-dot" style="background:#8B5a30;"></div><span class="eco-leg-txt">Ормуз (перевалочный порт)</span>
+    <div class="eco-dot" style="background:#5a3e8a;"></div><span class="eco-leg-txt">Персия (Тебриз/Исфахан)</span>
+    <div class="eco-dot" style="background:#b8392b;"></div><span class="eco-leg-txt">Русь (Москва/Тверь)</span>
+  </div>
+  <svg id="spice-svg" style="display:block;width:100%;" viewBox="0 0 640 300"></svg>
+  <div class="eco-source">Цены — реконструкция по данным «маршрутника» из состава «Хожения», арабским источникам XV в. и работам Хрусталёва. Единица: условные «серебряные» за батман (~7–8 кг). Афанасий: «перец и пряные зелья дёшевы», но признаётся — его обманули, ожидал большего. Маржа 8–12× делала пряный путь сверхприбыльным.</div>
+</div>
+
+<div id="tab-horses" class="eco-panel">
+  <div class="eco-cards">
+    <div class="eco-card"><div class="eco-card-label">Арабский конь в Ормузе</div><div class="eco-card-val neutral">60–80 зол.</div><div class="eco-card-sub">закупка для перепродажи</div></div>
+    <div class="eco-card"><div class="eco-card-label">Тот же конь в Индии</div><div class="eco-card-val gain">150–200 зол.</div><div class="eco-card-sub">при удаче — 2–3× прибыль</div></div>
+    <div class="eco-card"><div class="eco-card-label">Конь Афанасия в Бидаре</div><div class="eco-card-val loss">68 зол.</div><div class="eco-card-sub">русский конь — хуже арабского</div></div>
+  </div>
+  <svg id="horse2-svg" style="display:block;width:100%;" viewBox="0 0 640 260"></svg>
+  <div class="eco-source">Торговля лошадьми была главным «товаром» на маршруте Ормуз–Индия. Индийские султанаты не разводили лошадей — им нужны были арабские и иранские скакуны для войны. Афанасий ошибся: привёз русского коня вместо арабского, поэтому выручил меньше. Данные: «Хожение», труды по средневековой индоокеанской торговле.</div>
+</div>
+
+<div class="eco-tip" id="eco-tip" style="display:none;position:fixed;"></div>
+</div>
+
+<script>
+(function(){
+const SVG_NS='http://www.w3.org/2000/svg';
+function el(tag,attrs){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] of Object.entries(attrs))e.setAttribute(k,v);return e;}
+function txt(s,attrs){const e=el('text',attrs);e.textContent=s;return e;}
+
+window.switchTab=function(id){
+  document.querySelectorAll('.eco-tab').forEach((t,i)=>{
+    t.classList.toggle('active',['horse','spices','horses'][i]===id);
+  });
+  document.querySelectorAll('.eco-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+};
+
+const tip=document.getElementById('eco-tip');
+function showTip(e,html){tip.innerHTML=html;tip.style.display='block';moveTip(e);}
+function moveTip(e){
+  let x=e.clientX+14,y=e.clientY-10;
+  if(x+230>window.innerWidth)x=e.clientX-240;
+  tip.style.left=x+'px';tip.style.top=y+'px';
+}
+function hideTip(){tip.style.display='none';}
+
+// ── TAB 1: Horse journey ──────────────────────────────────────────────────────
+(function(){
+  const svg=document.getElementById('horse-svg');
+  const W=640,H=210,m={t:30,r:20,b:40,l:20};
+  const iW=W-m.l-m.r,iH=H-m.t-m.b;
+
+  const steps=[
+    {label:'Тверь\n(покупка)',val:100,type:'cost',note:'Оценочная стоимость русского жеребца. Весь капитал купца — в этом коне.',color:'#5a6e8a'},
+    {label:'Надежда\nна продажу',val:130,type:'hope',note:'Афанасий рассчитывал выручить 100–150 золотых в Индии. Поэтому и поплыл.',color:'#27ae60'},
+    {label:'Джуннар\n(конфискат)',val:0,type:'seized',note:'Хан Асад конфисковал коня и потребовал принять ислам. Возвращён через 5 дней.',color:'#c0392b'},
+    {label:'Бидар\n(продажа)',val:68,type:'sold',note:'«Жеребца своего продал есмь за 68 золотых» — единственная точная цена в тексте.',color:'#c0392b'},
+    {label:'Убыток',val:-32,type:'loss',note:'Потеря ~32 золотых. Афанасий: «А меня горе взяло — нет пути на Русь, и товара нет».',color:'#c0392b'},
+  ];
+
+  const maxV=150;
+  const zero=m.t+iH*(maxV/(maxV+40));
+  const xStep=iW/(steps.length+1);
+
+  steps.forEach((s,i)=>{
+    const x=m.l+xStep*(i+1);
+    const val=s.val;
+    const barH=Math.abs(val)/maxV*iH*0.7;
+    const y=val>=0?zero-barH:zero;
+    const bw=44;
+
+    const g=el('g',{transform:`translate(${x-bw/2},0)`,style:'cursor:pointer;'});
+    const r=el('rect',{x:0,y:Math.min(y,zero),width:bw,height:Math.abs(val===0?4:barH),fill:s.color,rx:3,opacity:.85});
+    r.addEventListener('mouseenter',e=>{r.setAttribute('opacity','.65');showTip(e,`<b>${s.label.replace('\n',' ')}</b><br>${s.note}`);});
+    r.addEventListener('mousemove',moveTip);
+    r.addEventListener('mouseleave',()=>{r.setAttribute('opacity','.85');hideTip();});
+    g.appendChild(r);
+
+    const valLbl=val===0?'конфискован':val<0?`${val} зол.`:`${val} зол.`;
+    g.appendChild(txt(valLbl,{x:bw/2,y:val>=0?Math.min(y,zero)-5:zero+barH+12,'text-anchor':'middle','font-size':'10','font-weight':'500',fill:s.color}));
+
+    const lines=s.label.split('\n');
+    lines.forEach((l,li)=>g.appendChild(txt(l,{x:bw/2,y:zero+20+li*11,'text-anchor':'middle','font-size':'9.5',fill:'var(--color-text-secondary)'})));
+    svg.appendChild(g);
+  });
+
+  const zeroLine=el('line',{x1:m.l,y1:zero,x2:W-m.r,y2:zero,stroke:'var(--color-border-secondary)','stroke-width':1});
+  svg.insertBefore(zeroLine,svg.firstChild);
+  svg.insertBefore(txt('золотых',{x:m.l,y:m.t-8,'font-size':'9',fill:'var(--color-text-secondary)'}),svg.firstChild);
+
+  // connector line between steps
+  const pts=steps.map((s,i)=>{
+    const x=m.l+xStep*(i+1)+22;
+    const val=s.val;
+    const barH=Math.abs(val)/maxV*iH*0.7;
+    return[x,val>=0?zero-barH:zero+barH];
+  });
+  const pathD='M'+pts.filter((_,i)=>i!==2&&steps[i].val!==0).map(p=>p.join(',')).join('L');
+  const path=el('path',{d:pathD,stroke:'#888','stroke-width':1,'stroke-dasharray':'4 3',fill:'none',opacity:.5});
+  svg.insertBefore(path,svg.firstChild);
+})();
+
+// ── TAB 2: Spices ─────────────────────────────────────────────────────────────
+(function(){
+  const svg=document.getElementById('spice-svg');
+  const W=640,H=300,m={t:28,r:140,b:60,l:42};
+  const iW=W-m.l-m.r,iH=H-m.t-m.b;
+
+  const goods=[
+    {name:'Перец',india:3,hormuz:12,persia:22,russia:38,unit:'сер./батман',note:'Главная специя эпохи. В 12× дороже на Руси чем в Индии. «Перец дёшев» — Афанасий.'},
+    {name:'Имбирь',india:2,hormuz:8,persia:15,russia:28,unit:'сер./батман',note:'Второй по важности пряный товар. Аналогичная маржа.'},
+    {name:'Корица',india:4,hormuz:16,persia:28,russia:46,unit:'сер./батман',note:'Привозилась с Цейлона. В Индии — транзитный товар.'},
+    {name:'Гвоздика',india:5,hormuz:20,persia:35,russia:55,unit:'сер./батман',note:'Самая дорогая пряность. С Молуккских островов через Индию.'},
+    {name:'Индиго',india:5,hormuz:18,persia:30,russia:45,unit:'сер./батман',note:'Синий краситель. Афанасий упоминает в «маршрутнике» как выгодный товар.'},
+    {name:'Хлопок\n(ткань)',india:2,hormuz:7,persia:12,russia:22,unit:'сер./батман',note:'Индийские хлопковые ткани — массовый экспортный товар.'},
+  ];
+
+  const colors=['#2e7d8a','#8B5a30','#5a3e8a','#b8392b'];
+  const cities=['Индия','Ормуз','Персия','Русь'];
+  const maxV=60;
+  const gW=iW/goods.length;
+  const barW=gW/(colors.length+1.5);
+
+  goods.forEach((g,gi)=>{
+    const gx=m.l+gi*gW;
+    const vals=[g.india,g.hormuz,g.persia,g.russia];
+    vals.forEach((v,ci)=>{
+      const bx=gx+ci*(barW+1)+barW*0.3;
+      const bh=v/maxV*iH;
+      const by=m.t+iH-bh;
+      const r=el('rect',{x:bx,y:by,width:barW,height:bh,fill:colors[ci],rx:2,opacity:.82,style:'cursor:pointer;'});
+      r.addEventListener('mouseenter',e=>{r.setAttribute('opacity','1');showTip(e,`<b>${g.name.replace('\n',' ')} — ${cities[ci]}</b><br>${v} усл. серебряных/батман<br>Маржа к Индии: ${ci===0?'—':Math.round(v/g.india*10)/10+'×'}<br><span style="color:var(--color-text-secondary)">${g.note}</span>`);});
+      r.addEventListener('mousemove',moveTip);
+      r.addEventListener('mouseleave',()=>{r.setAttribute('opacity','.82');hideTip();});
+      const parent=el('g',{});parent.appendChild(r);
+      if(ci===colors.length-1){
+        parent.appendChild(txt(`${g.russia}`,{x:bx+barW/2,y:by-3,'text-anchor':'middle','font-size':'8.5','font-weight':'500',fill:'#b8392b'}));
+      }
+      svg.appendChild(parent);
+    });
+    const lines=g.name.split('\n');
+    lines.forEach((l,li)=>svg.appendChild(txt(l,{x:gx+gW/2,y:m.t+iH+14+li*10,'text-anchor':'middle','font-size':'9.5',fill:'var(--color-text-secondary)'})));
+  });
+
+  for(let v=0;v<=maxV;v+=10){
+    const y=m.t+iH-v/maxV*iH;
+    svg.appendChild(el('line',{x1:m.l,y1:y,x2:W-m.r,y2:y,stroke:'var(--color-border-tertiary)','stroke-width':.5,'stroke-dasharray':v===0?'none':'3 4'}));
+    if(v>0)svg.appendChild(txt(v,{x:m.l-3,y:y+3,'text-anchor':'end','font-size':'9',fill:'var(--color-text-secondary)'}));
+  }
+  svg.appendChild(txt('усл. серебряных/батман',{x:m.l,y:m.t-10,'font-size':'9',fill:'var(--color-text-secondary)'}));
+
+  // Legend right
+  cities.forEach((c,i)=>{
+    const lx=W-m.r+14,ly=m.t+i*20;
+    svg.appendChild(el('rect',{x:lx,y:ly,width:10,height:10,fill:colors[i],rx:2}));
+    svg.appendChild(txt(c,{x:lx+14,y:ly+8.5,'font-size':'10',fill:'var(--color-text-secondary)'}));
+  });
+  svg.appendChild(txt('Цена одного\nтовара:',{x:W-m.r+14,y:m.t-8,'font-size':'9',fill:'var(--color-text-secondary)'}));
+})();
+
+// ── TAB 3: Horse trade ────────────────────────────────────────────────────────
+(function(){
+  const svg=document.getElementById('horse2-svg');
+  const W=640,H=260,m={t:28,r:20,b:50,l:46};
+  const iW=W-m.l-m.r,iH=H-m.t-m.b;
+
+  const data=[
+    {label:'Арабский конь\nв Ормузе',buy:65,color:'#5a6e8a',note:'Закупочная цена арабского скакуна в Ормузе. Именно их везли торговцы в Индию.'},
+    {label:'Арабский конь\nв Индии (Бидар)',buy:175,color:'#27ae60',note:'Цена перепродажи в индийских султанатах. Прибыль ~150–170%. Бахманиды платили за боевых коней.'},
+    {label:'Иранский конь\nв Ормузе',buy:50,color:'#7a6e4a',note:'Чуть дешевле арабского. Тоже выгодно везти в Индию.'},
+    {label:'Иранский конь\nв Индии',buy:140,color:'#4a8a60',note:'Выгодно, но меньше чем арабский. Маржа ~180%.'},
+    {label:'Русский конь\nАфанасия (Бидар)',buy:68,color:'#c0392b',note:'«Жеребца продал за 68 золотых» — убыток. Русский конь не ценился в Индии: меньше, другой породы.'},
+    {label:'Ожидаемая\nцена коня',buy:120,color:'#e0a020',note:'На что рассчитывал Афанасий при выезде из Твери. Не сбылось.'},
+  ];
+
+  const maxV=200;
+  const bw=iW/(data.length+1);
+
+  data.forEach((d,i)=>{
+    const x=m.l+bw*(i+0.6);
+    const bh=d.buy/maxV*iH;
+    const by=m.t+iH-bh;
+    const barW=bw*0.55;
+    const r=el('rect',{x:x,y:by,width:barW,height:bh,fill:d.color,rx:3,opacity:.85,style:'cursor:pointer;'});
+    r.addEventListener('mouseenter',e=>{r.setAttribute('opacity','1');showTip(e,`<b>${d.label.replace('\n',' ')}</b><br><b>${d.buy} золотых</b><br>${d.note}`);});
+    r.addEventListener('mousemove',moveTip);
+    r.addEventListener('mouseleave',()=>{r.setAttribute('opacity','.85');hideTip();});
+    svg.appendChild(r);
+    svg.appendChild(txt(d.buy,{x:x+barW/2,y:by-4,'text-anchor':'middle','font-size':'10','font-weight':'500',fill:d.color}));
+    const lines=d.label.split('\n');
+    lines.forEach((l,li)=>svg.appendChild(txt(l,{x:x+barW/2,y:m.t+iH+13+li*10,'text-anchor':'middle','font-size':'9',fill:'var(--color-text-secondary)'})));
+  });
+
+  for(let v=0;v<=maxV;v+=50){
+    const y=m.t+iH-v/maxV*iH;
+    svg.appendChild(el('line',{x1:m.l,y1:y,x2:W-m.r,y2:y,stroke:'var(--color-border-tertiary)','stroke-width':.5,'stroke-dasharray':v===0?'none':'3 4'}));
+    svg.appendChild(txt(v,{x:m.l-3,y:y+3,'text-anchor':'end','font-size':'9',fill:'var(--color-text-secondary)'}));
+  }
+  svg.appendChild(txt('золотых',{x:m.l,y:m.t-10,'font-size':'9',fill:'var(--color-text-secondary)'}));
+})();
+
+})();
+</script>

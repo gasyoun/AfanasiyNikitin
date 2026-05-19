@@ -1,0 +1,306 @@
+
+<h2 class="sr-only">Три путешественника к Индии — Афанасий Никитин, Марко Поло, Васко да Гама</h2>
+<style>
+.tv{font-size:13px;}
+.tv-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+.tv-card{padding:10px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:all .13s;user-select:none;border-left:3px solid transparent;}
+.tv-card.active{background:var(--color-background-secondary);}
+.tv-card.dim{opacity:.35;}
+.tv-card-name{font-size:12px;font-weight:600;margin-bottom:2px;}
+.tv-card-years{font-size:10px;color:var(--color-text-secondary);margin-bottom:5px;}
+.tv-card-stats{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+.tv-card-stat{font-size:9.5px;color:var(--color-text-secondary);line-height:1.35;}
+.tv-card-stat b{color:var(--color-text-primary);display:block;font-size:11px;}
+canvas#tv-c{display:block;width:100%;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:8px;cursor:pointer;}
+.tv-info{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);min-height:48px;margin-bottom:8px;font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);}
+.tv-info b{color:var(--color-text-primary);}
+.tv-timeline{margin-bottom:8px;}
+.tv-tl-head{font-size:10px;color:var(--color-text-secondary);margin-bottom:5px;}
+.tv-tl-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.tv-tl-lbl{font-size:9.5px;color:var(--color-text-secondary);width:70px;flex-shrink:0;text-align:right;}
+.tv-tl-bar-wrap{flex:1;height:16px;background:var(--color-background-secondary);border-radius:2px;position:relative;overflow:hidden;}
+.tv-tl-seg{height:100%;position:absolute;border-radius:2px;display:flex;align-items:center;padding-left:4px;}
+.tv-tl-seg-txt{font-size:8.5px;color:rgba(255,255,255,.85);white-space:nowrap;overflow:hidden;}
+.tv-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+</style>
+
+<div class="tv">
+<div class="tv-cards" id="tv-cards">
+  <div class="tv-card active" data-tid="A" style="border-left-color:#E09520;" onclick="toggleTraveler('A')">
+    <div class="tv-card-name" style="color:#b87010;">Афанасий Никитин</div>
+    <div class="tv-card-years">1467–1475 · Тверь → Индия</div>
+    <div class="tv-card-stats">
+      <div class="tv-card-stat"><b>~18 000 км</b>общий путь</div>
+      <div class="tv-card-stat"><b>8 лет</b>в дороге</div>
+      <div class="tv-card-stat"><b>купец</b>род занятий</div>
+      <div class="tv-card-stat"><b>1 чел.</b>без флота</div>
+    </div>
+  </div>
+  <div class="tv-card active" data-tid="M" style="border-left-color:#c0392b;" onclick="toggleTraveler('M')">
+    <div class="tv-card-name" style="color:#8a1010;">Марко Поло</div>
+    <div class="tv-card-years">1271–1295 · Венеция → Китай</div>
+    <div class="tv-card-stats">
+      <div class="tv-card-stat"><b>~24 000 км</b>общий путь</div>
+      <div class="tv-card-stat"><b>24 года</b>в дороге</div>
+      <div class="tv-card-stat"><b>купец</b>род занятий</div>
+      <div class="tv-card-stat"><b>3 чел.</b>семейная экспед.</div>
+    </div>
+  </div>
+  <div class="tv-card active" data-tid="V" style="border-left-color:#1d6fa8;" onclick="toggleTraveler('V')">
+    <div class="tv-card-name" style="color:#0a3a6a;">Васко да Гама</div>
+    <div class="tv-card-years">1497–1499 · Лиссабон → Индия</div>
+    <div class="tv-card-stats">
+      <div class="tv-card-stat"><b>~38 000 км</b>общий путь</div>
+      <div class="tv-card-stat"><b>2 года</b>экспедиция</div>
+      <div class="tv-card-stat"><b>мореплаватель</b>род занятий</div>
+      <div class="tv-card-stat"><b>170 чел.</b>4 корабля</div>
+    </div>
+  </div>
+</div>
+
+<canvas id="tv-c" width="720" height="430"></canvas>
+
+<div class="tv-info" id="tv-info">Нажмите на карточку путешественника или на маршрут на карте.</div>
+
+<div class="tv-timeline">
+  <div class="tv-tl-head">Хронология трёх путешествий (1270–1500)</div>
+  <div class="tv-tl-row">
+    <div class="tv-tl-lbl" style="color:#8a1010;">Марко Поло</div>
+    <div class="tv-tl-bar-wrap">
+      <div class="tv-tl-seg" style="left:3.7%;width:10.5%;background:#c0392b;">
+        <span class="tv-tl-seg-txt">1271–1295</span></div>
+    </div>
+  </div>
+  <div class="tv-tl-row">
+    <div class="tv-tl-lbl" style="color:#b87010;">Афанасий</div>
+    <div class="tv-tl-bar-wrap">
+      <div class="tv-tl-seg" style="left:84.8%;width:3.5%;background:#E09520;">
+        <span class="tv-tl-seg-txt">1467–75</span></div>
+    </div>
+  </div>
+  <div class="tv-tl-row">
+    <div class="tv-tl-lbl" style="color:#0a3a6a;">Васко да Гама</div>
+    <div class="tv-tl-bar-wrap">
+      <div class="tv-tl-seg" style="left:96.5%;width:0.9%;background:#1d6fa8;">
+        <span class="tv-tl-seg-txt">1497–99</span></div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;color:var(--color-text-secondary);padding:2px 0;">
+    <span>1270</span><span>1300</span><span>1330</span><span>1360</span><span>1390</span><span>1420</span><span>1450</span><span>1480</span><span>1500</span>
+  </div>
+</div>
+
+<div class="tv-source">
+  Маршруты — историческая реконструкция. Марко Поло: по «Книге о разнообразии мира» (1298). Васко да Гама: по бортовым журналам Жуана де Са и Алвару Велью (1497–99). Афанасий Никитин: по Хрусталёву (2026). Расстояния приблизительные.
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+(function(){
+const W=720,H=430,PAD=14;
+const C=document.getElementById('tv-c');
+const ctx=C.getContext('2d');
+const off=document.createElement('canvas');
+off.width=W;off.height=H;
+const oc=off.getContext('2d');
+
+// Wider bbox: Lisbon to East China Sea, Cape to Northern Russia
+const LON0=-12,LON1=122,LAT0=-38,LAT1=62;
+function mY(lat){return Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));}
+const mY0=mY(LAT0),mY1=mY(LAT1);
+function project(lon,lat){
+  return[PAD+(lon-LON0)/(LON1-LON0)*(W-2*PAD),
+         PAD+(mY1-mY(lat))/(mY1-mY0)*(H-2*PAD)];
+}
+
+// ── Routes ────────────────────────────────────────────────────────────────────
+const TRAVELERS={
+  A:{
+    id:'A', color:'#E09520', name:'Афанасий Никитин', years:'1467–1475',
+    info:'<b>Афанасий Никитин</b> — тверской купец, первый европеец, подробно описавший Индию. Шёл в одиночку, без государственной поддержки, потеряв всё имущество при ограблении. Провёл в Индии 4 года. За 25 лет до Васко да Гамы.',
+    go:[
+      [56.9,35.9],[56.3,44.0],[46.3,48.0],[42.1,48.3],[40.4,49.9],
+      [36.6,52.0],[33.0,51.4],[27.1,56.5],[23.6,58.6],
+      [18.5,73.0],[19.2,73.9],[17.9,77.5],[16.1,78.9],[17.9,77.5],[17.5,70.0]
+    ],
+    ret:[
+      [17.5,70.0],[27.1,56.5],[33.0,51.4],[36.6,52.0],[41.0,39.7],[45.0,35.4],[54.8,32.0]
+    ],
+    pts:[
+      {lat:56.9,lon:35.9,lbl:'Тверь'},{lat:27.1,lon:56.5,lbl:'Ормуз'},
+      {lat:17.9,lon:77.5,lbl:'Бидар'},{lat:45.0,lon:35.4,lbl:'Кафа'},{lat:54.8,lon:32.0,lbl:'Смоленск'}
+    ]
+  },
+  M:{
+    id:'M', color:'#c0392b', name:'Марко Поло', years:'1271–1295',
+    info:'<b>Марко Поло</b> — венецианский купец, путешествовавший с отцом и дядей. Провёл 17 лет при дворе Хубилай-хана в Китае. Маршрут суходольный на восток, морской на запад. На 200 лет раньше Афанасия.',
+    go:[
+      [45.4,12.3],[32.9,35.1],[27.1,56.5],[36.3,59.6],
+      [39.7,66.9],[39.5,76.0],[40.1,94.7],[39.9,116.4]
+    ],
+    ret:[
+      [39.9,116.4],[24.9,118.6],[1.3,103.8],[7.9,80.7],
+      [11.3,75.8],[27.1,56.5],[32.9,35.1],[45.4,12.3]
+    ],
+    pts:[
+      {lat:45.4,lon:12.3,lbl:'Венеция'},{lat:27.1,lon:56.5,lbl:'Ормуз'},
+      {lat:39.7,lon:66.9,lbl:'Самарканд'},{lat:39.9,lon:116.4,lbl:'Пекин'},
+      {lat:1.3,lon:103.8,lbl:'Малакка'},{lat:11.3,lon:75.8,lbl:'Каликут'}
+    ]
+  },
+  V:{
+    id:'V', color:'#1d6fa8', name:'Васко да Гама', years:'1497–1499',
+    info:'<b>Васко да Гама</b> — португальский мореплаватель, первым из европейцев обогнул Африку и открыл морской путь в Индию. 4 корабля, 170 человек. Достиг Каликута — города, который знал Марко Поло. Прибыл в Индию через 22 года после гибели Афанасия.',
+    go:[
+      [38.7,-9.1],[28.1,-15.4],[14.7,-17.4],[0.0,-10.0],
+      [-15.0,12.0],[-34.4,18.5],[-25.0,32.0],[-15.0,40.7],
+      [-4.1,39.7],[-3.2,40.1],[11.3,75.8]
+    ],
+    ret:[
+      [11.3,75.8],[-3.2,40.1],[-34.4,18.5],[38.7,-9.1]
+    ],
+    pts:[
+      {lat:38.7,lon:-9.1,lbl:'Лиссабон'},{lat:-34.4,lon:18.5,lbl:'Мыс Доброй\nНадежды'},
+      {lat:-4.1,lon:39.7,lbl:'Момбаса'},{lat:11.3,lon:75.8,lbl:'Каликут'}
+    ]
+  }
+};
+
+// Shared waypoint — Hormuz — all three passed through it!
+const HORMUZ={lat:27.1,lon:56.5};
+
+let active={A:true,M:true,V:true},mapReady=false,hovered=null;
+
+function drawRoute(route,color,dashed,alpha){
+  if(!route||route.length<2)return;
+  ctx.save();
+  ctx.globalAlpha=alpha;
+  ctx.strokeStyle=color;
+  ctx.lineWidth=2.2;
+  ctx.lineCap='round';ctx.lineJoin='round';
+  if(dashed)ctx.setLineDash([5,4]);
+  ctx.beginPath();
+  route.forEach(([lat,lon],i)=>{
+    const[x,y]=project(lon,lat);
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+}
+
+function halo(txt,x,y,col){
+  ctx.strokeStyle='rgba(255,255,255,0.6)';ctx.lineWidth=2.2;ctx.strokeText(txt,x,y);
+  ctx.fillStyle=col||'rgba(20,10,5,0.85)';ctx.fillText(txt,x,y);
+}
+
+function drawFrame(){
+  if(!mapReady){
+    ctx.fillStyle='#8fb8d0';ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(0,0,0,.4)';ctx.font='13px sans-serif';ctx.textAlign='center';
+    ctx.fillText('Загрузка карты…',W/2,H/2);return;
+  }
+  ctx.drawImage(off,0,0);
+  ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
+
+  Object.values(TRAVELERS).forEach(tr=>{
+    const a=active[tr.id]?1:0;
+    if(!a)return;
+    const dim=hovered&&hovered!==tr.id?0.2:1;
+    drawRoute(tr.go,tr.color,false,0.82*dim);
+    drawRoute(tr.ret,tr.color,true,0.45*dim);
+    // Waypoint dots
+    tr.pts.forEach(p=>{
+      const[x,y]=project(p.lon,p.lat);
+      ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);
+      ctx.fillStyle=tr.color;ctx.globalAlpha=dim;ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,.6)';ctx.lineWidth=1;ctx.stroke();
+      ctx.globalAlpha=dim;
+      const lines=p.lbl.split('\n');
+      ctx.font='bold 7.5px sans-serif';ctx.textAlign='center';
+      lines.forEach((l,li)=>halo(l,x,y-7-li*9,tr.color));
+      ctx.globalAlpha=1;
+    });
+  });
+
+  // Hormuz shared marker — pulsing
+  const[hx,hy]=project(HORMUZ.lon,HORMUZ.lat);
+  const pulse=2+Math.sin(Date.now()/400)*1.2;
+  ctx.globalAlpha=0.8;
+  ctx.beginPath();ctx.arc(hx,hy,pulse+6,0,Math.PI*2);
+  ctx.fillStyle='rgba(255,220,80,0.3)';ctx.fill();
+  ctx.beginPath();ctx.arc(hx,hy,6,0,Math.PI*2);
+  ctx.fillStyle='#f0c020';ctx.fill();
+  ctx.strokeStyle='rgba(100,70,0,.6)';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.globalAlpha=1;
+  ctx.font='bold 8px sans-serif';ctx.textAlign='center';
+  halo('Ормуз',hx,hy-9,'#7a5000');
+  ctx.font='7px sans-serif';
+  halo('все трое',hx,hy+15,'#7a5000');
+
+  // Legend bottom-right
+  const lx=W-PAD-110,ly=H-PAD-52;
+  ctx.fillStyle='rgba(255,255,255,.75)';
+  ctx.beginPath();ctx.roundRect(lx-6,ly-14,118,60,5);ctx.fill();
+  Object.values(TRAVELERS).forEach((tr,i)=>{
+    const y=ly+i*18;
+    ctx.beginPath();ctx.moveTo(lx,y);ctx.lineTo(lx+20,y);
+    ctx.strokeStyle=tr.color;ctx.lineWidth=2.2;ctx.stroke();
+    ctx.font='8px sans-serif';ctx.fillStyle='rgba(20,10,5,.8)';ctx.textAlign='left';
+    ctx.fillText(tr.name.split(' ')[0]+' '+tr.years,lx+24,y+3);
+  });
+
+  ctx.restore();
+  requestAnimationFrame(drawFrame);
+}
+
+function buildBase(world){
+  const d3p=d3.geoTransform({point(lo,la){const[x,y]=project(lo,la);this.stream.point(x,y);}});
+  const path=d3.geoPath(d3p,oc);
+  const land=topojson.feature(world,world.objects.land);
+  const borders=topojson.mesh(world,world.objects.countries,(a,b)=>a!==b);
+  oc.save();oc.beginPath();oc.rect(0,0,W,H);oc.clip();
+  oc.fillStyle='#8fb8d0';oc.fillRect(0,0,W,H);
+  oc.beginPath();path(land);oc.fillStyle='#e8e1cc';oc.fill();oc.strokeStyle='#b8a870';oc.lineWidth=0.4;oc.stroke();
+  oc.beginPath();path(borders);oc.strokeStyle='rgba(140,120,80,.15)';oc.lineWidth=0.3;oc.stroke();
+  // Graticule
+  oc.strokeStyle='rgba(70,100,135,.07)';oc.lineWidth=0.5;
+  for(let lo=-10;lo<=120;lo+=20){const[x,y0]=project(lo,LAT0+.2);const[,y1]=project(lo,LAT1-.2);oc.beginPath();oc.moveTo(x,y0);oc.lineTo(x,y1);oc.stroke();}
+  for(let la=-30;la<=60;la+=20){const[x0,y]=project(LON0+.2,la);const[x1]=project(LON1-.2,la);oc.beginPath();oc.moveTo(x0,y);oc.lineTo(x1,y);oc.stroke();}
+  oc.restore();
+}
+
+// Card interactions
+window.toggleTraveler=function(id){
+  const allActive=Object.values(active).every(v=>v);
+  if(allActive){
+    // Solo mode
+    Object.keys(active).forEach(k=>active[k]=k===id);
+    hovered=id;
+  } else if(active[id]&&Object.values(active).filter(v=>v).length===1){
+    // Reset all
+    Object.keys(active).forEach(k=>active[k]=true);
+    hovered=null;
+  } else {
+    Object.keys(active).forEach(k=>active[k]=k===id);
+    hovered=id;
+  }
+  document.querySelectorAll('.tv-card').forEach(c=>{
+    const tid=c.dataset.tid;
+    c.classList.toggle('active',active[tid]);
+    c.classList.toggle('dim',!active[tid]);
+  });
+  const tr=TRAVELERS[id];
+  document.getElementById('tv-info').innerHTML=tr.info+
+    `<br><span style="opacity:.7;font-size:10px;">— или нажмите ещё раз чтобы показать всех</span>`;
+};
+
+function waitLib(cb){if(typeof d3!=='undefined'&&typeof topojson!=='undefined')cb();else setTimeout(()=>waitLib(cb),60);}
+waitLib(()=>{
+  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+    .then(r=>r.json()).then(w=>{buildBase(w);mapReady=true;requestAnimationFrame(drawFrame);});
+});
+})();
+</script>

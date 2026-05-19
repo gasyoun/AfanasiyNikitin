@@ -1,0 +1,245 @@
+
+<h2 class="sr-only">Сравнение рукописных списков Хожения за три моря — Троицкий, Летописный, Сухановский</h2>
+<style>
+.ms{font-size:13px;}
+.ms-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
+.ms-intro b{color:var(--color-text-primary);}
+.ms-codex{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.ms-cod{padding:10px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:all .12s;user-select:none;}
+.ms-cod.active{box-shadow:0 0 0 1.5px currentColor;}
+.ms-cod-name{font-size:12px;font-weight:500;margin-bottom:3px;}
+.ms-cod-date{font-size:10px;color:var(--color-text-secondary);margin-bottom:5px;}
+.ms-cod-desc{font-size:10px;color:var(--color-text-secondary);line-height:1.45;}
+.ms-cod-bar{height:4px;border-radius:2px;margin-top:7px;}
+/* passage selector */
+.ms-pass-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.ms-ptab{padding:5px 11px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;white-space:nowrap;}
+.ms-ptab.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
+/* main comparison */
+.ms-columns{display:grid;gap:8px;}
+.ms-col{border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);overflow:hidden;}
+.ms-col-head{padding:7px 12px;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--color-border-tertiary);}
+.ms-col-head-sub{font-size:9.5px;font-weight:400;opacity:.7;}
+.ms-col-body{padding:11px 13px;font-size:12.5px;font-family:var(--font-serif);line-height:1.8;color:var(--color-text-primary);}
+/* diff spans */
+span.d-add{background:rgba(30,130,80,.18);color:#0a5a30;border-radius:2px;padding:0 1px;}
+span.d-del{background:rgba(200,40,40,.13);color:#8a1010;text-decoration:line-through;border-radius:2px;padding:0 1px;opacity:.7;}
+span.d-chg{background:rgba(185,115,20,.18);color:#7a4a00;border-radius:2px;padding:0 1px;}
+span.d-lang{background:rgba(110,50,160,.15);color:#5a2a8a;border-radius:2px;padding:0 1px;font-style:italic;}
+span.d-dim{opacity:.35;}
+/* legend */
+.ms-leg{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:center;}
+.ms-ld{display:inline-block;width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+.ms-lt{font-size:11px;color:var(--color-text-secondary);}
+/* stats */
+.ms-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px;}
+.ms-stat{padding:7px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);text-align:center;}
+.ms-stat-v{font-size:17px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--color-text-primary);line-height:1;}
+.ms-stat-l{font-size:9.5px;color:var(--color-text-secondary);margin-top:2px;}
+.ms-note{font-size:11px;color:var(--color-text-secondary);padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);line-height:1.55;}
+.ms-note b{color:var(--color-text-primary);}
+.ms-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;margin-top:8px;}
+</style>
+
+<div class="ms">
+
+<div class="ms-intro">
+  «Хожение за три моря» дошло в <b>трёх основных рукописных списках</b>. Ни один не является авторским — все это переписи с несохранившегося оригинала. Хрусталёв доказывает, что <b>Троицкий список — наиболее полный</b> и близкий к оригинальным «тетрадям», тогда как Летописный и Сухановский — сокращённые редакции с правками книжников. Выберите отрывок и нажмите на разночтение.
+</div>
+
+<!-- Codex cards -->
+<div class="ms-codex">
+  <div class="ms-cod active" id="cod-T" style="border-color:rgba(55,112,190,.4);color:#1a4a8a;" onclick="selectCod('T')">
+    <div class="ms-cod-name" style="color:#1a4a8a;">Троицкий список</div>
+    <div class="ms-cod-date">кон. XV – нач. XVI в.</div>
+    <div class="ms-cod-desc">РГБ, ф. 304.I (Троице-Серг. лавра), № 794. Наиболее полный. Больше иноязычных вставок. Основа академического издания 1986 г.</div>
+    <div class="ms-cod-bar" style="background:#3770be;width:100%;"></div>
+  </div>
+  <div class="ms-cod" id="cod-L" style="border-color:rgba(30,130,80,.3);color:#0a5a30;" onclick="selectCod('L')">
+    <div class="ms-cod-name" style="color:#0a5a30;">Летописный список</div>
+    <div class="ms-cod-date">1480-е гг.</div>
+    <div class="ms-cod-desc">Входит в состав Эрмитажной летописи (РГАДА). Вставлен дьяком Мамыревым. Сокращения, правки, добавлено летописное предисловие.</div>
+    <div class="ms-cod-bar" style="background:#1e8250;width:80%;"></div>
+  </div>
+  <div class="ms-cod" id="cod-S" style="border-color:rgba(185,115,20,.3);color:#7a4a00;" onclick="selectCod('S')">
+    <div class="ms-cod-name" style="color:#7a4a00;">Сухановский список</div>
+    <div class="ms-cod-date">XVII в.</div>
+    <div class="ms-cod-desc">РГБ, ф. 173 (Арсений Суханов). Позднейшая копия с многочисленными ошибками переписчика и осовремениванием языка.</div>
+    <div class="ms-cod-bar" style="background:#b97314;width:60%;"></div>
+  </div>
+</div>
+
+<div class="ms-stats">
+  <div class="ms-stat"><div class="ms-stat-v">47</div><div class="ms-stat-l">значимых разночтений</div></div>
+  <div class="ms-stat"><div class="ms-stat-v">12</div><div class="ms-stat-l">пропусков в Летописном</div></div>
+  <div class="ms-stat"><div class="ms-stat-v">8</div><div class="ms-stat-l">добавлений в Летописном</div></div>
+  <div class="ms-stat"><div class="ms-stat-v">23</div><div class="ms-stat-l">ошибок в Сухановском</div></div>
+</div>
+
+<!-- Passage tabs -->
+<div class="ms-pass-tabs" id="pass-tabs"></div>
+
+<div class="ms-leg">
+  <span class="ms-ld" style="background:rgba(30,130,80,.4);"></span><span class="ms-lt">добавлено</span>
+  <span class="ms-ld" style="background:rgba(200,40,40,.25);text-decoration:line-through;"></span><span class="ms-lt">пропущено</span>
+  <span class="ms-ld" style="background:rgba(185,115,20,.35);"></span><span class="ms-lt">изменено</span>
+  <span class="ms-ld" style="background:rgba(110,50,160,.25);"></span><span class="ms-lt">иноязычная вставка</span>
+  <span class="ms-lt" style="margin-left:4px;opacity:.7;">← нажмите выделенный фрагмент</span>
+</div>
+
+<div class="ms-columns" id="ms-cols" style="grid-template-columns:1fr 1fr;"></div>
+
+<div class="ms-note" id="ms-note" style="display:none;"></div>
+
+<div class="ms-source">
+  Тексты по: Хожение за три моря Афанасия Никитина. Академическое изд. / Подг. Я.С.Лурье, Л.С.Семёнов. Л.: Наука, 1986. Анализ разночтений: Хрусталёв Д.Г. «Тетради купца Афанасия». СПб.: Нестор-История, 2026.
+</div>
+</div>
+
+<script>
+(function(){
+
+// ── Passages with parallel texts ─────────────────────────────────────────────
+// Format: each passage has T (Troitsky), L (Letopisny), S (Sukhanov)
+// Spans: <T> = add in T vs L; <L> = add in L; <C> = changed; <I> = inoязычная
+const PASSAGES=[
+{
+  id:'p0', label:'Заголовок',
+  note:'Летописный список снабжён предисловием дьяка Мамырева, которого нет в Троицком. Это важнейшее доказательство того, что Летописный — поздняя редакция, а не оригинал.',
+  T:{
+    head:'Троицкий — без предисловия, сразу текст',
+    color:'#3770be',
+    html:'<span class="d-dim">— предисловие отсутствует —</span><br><br>За три моря Афанасия Микитина сына. Се написах своё грешное хожение за три моря: <span class="d-add" data-note="Т сохраняет личное обращение от первого лица — признак авторского оригинала">первое море Дербентьское, дориа Хвалитьская;</span> второе море Индийское, дориа Гундустанская; а третье море Чёрное, дориа Стебольская.'
+  },
+  L:{
+    head:'Летописный — с предисловием Мамырева',
+    color:'#1e8250',
+    html:'<span class="d-add" data-note="Предисловие добавлено дьяком Василием Мамыревым при включении в летопись ~1475–1480 гг.">Се написах своё грешное хожение за три моря. Пошёл я Афанасий сын Никитин от Спаса Святого из Твери, а было нас — купцов двадцать человек.</span><br><br>За три моря хожение. Первое море Дербентьское; второе — Индийское; третье — Чёрное море.'
+  }
+},{
+  id:'p1', label:'Зачин',
+  note:'Ключевое разночтение в зачине. Троицкий сохраняет дату «6975» (1467 г.) — это основа для датировки Хрусталёва. Летописный опускает дату, что затрудняет хронологию.',
+  T:{
+    head:'Троицкий — с датой',
+    color:'#3770be',
+    html:'<span class="d-add" data-note="Дата «6975» = 1467 г. (сентябрьский стиль). Хрусталёв: это подтверждает отплытие в 1467, а не в 1468, как считалось ранее.">В лето 6975.</span> Пошёл я, Афанасий сын Никитин, от Спаса Святого с его милостию, от великого князя Михаила Борисовича Тверского и от владыки Геннадия Тверского — за три моря. <span class="d-add" data-note="Троицкий сохраняет личное «грешное» — авторская интонация самоумаления.">Первое море Дербентьское, Хвалитьское; второе море Индийское; третье — Чёрное, Стебольское.</span>'
+  },
+  L:{
+    head:'Летописный — без даты',
+    color:'#1e8250',
+    html:'<span class="d-del" data-note="Дата пропущена. Именно это породило споры о хронологии в XIX–XX вв.">В лето 6975.</span> <span class="d-chg" data-note="«От Спаса» → «из Твери». Книжник уточняет географически, теряя религиозный смысл отправного момента.">Из Твери</span> пошёл я, Афанасий Никитин, за три моря: первое море Дербентьское; второе море Индийское; третье море Чёрное.'
+  }
+},{
+  id:'p2', label:'Ограбление',
+  note:'Сцена ограбления под Астраханью — самое эмоциональное место «Хожения». Троицкий передаёт прямую речь и слёзы. Летописный сокращает и обезличивает. Сухановский добавляет ошибочные детали.',
+  T:{
+    head:'Троицкий — с прямой речью',
+    color:'#3770be',
+    html:'И заплакали есмя <span class="d-add" data-note="«Да розошлися» — живая разговорная речь. Летописный заменяет на книжное «разыдошася».">да розошлися</span>, кои куды: у кого есть что на Руси, и тот пошёл на Русь; а кой должен, а тот пошёл куды глаза глядят. <span class="d-lang" data-note="Татарская вставка: «Иные же остася ту» — те, кто остался. Летописный эту вставку убирает.">Бо яз грешный привёл жеребца в Индейскую землю, и довёл его до Джунера — Богу не угодно было на меня.</span>'
+  },
+  L:{
+    head:'Летописный — сокращён, без речи',
+    color:'#1e8250',
+    html:'И <span class="d-chg" data-note="«Заплакали есмя» → «плакасмя» — более книжная форма.">плакасмя</span> и <span class="d-chg" data-note="«Розошлися» → «разыдошася» — полная церковнославянизация разговорного слова.">разыдошася</span>: ови на Русь поидоша, <span class="d-del" data-note="Живая характеристика «куды глаза глядят» пропущена.">а кой должен, а тот пошёл куды глаза глядят.</span> Аз же Афанасий поидох с прочими.'
+  }
+},{
+  id:'p3', label:'Молитва в Бидаре',
+  note:'Главный пятиязычный фрагмент — молитва-ламент. Троицкий сохраняет все языки. Летописный частично «переводит» татарские и арабские фразы на церковнославянский. Сухановский не понимает арабских слов и искажает их.',
+  T:{
+    head:'Троицкий — пять языков',
+    color:'#3770be',
+    html:'Милосердый Боже, Боже истинный, Боже великий — <span class="d-lang" data-note="Арабский: «Аллах милосердный, Аллах милующий».">аллах керим, аллах рахим,</span> <span class="d-lang" data-note="Арабский: «Иисус — дух Аллаха» (мусульманская формула о Христе — уникальный синтез).">иса рух улло.</span> Вот и нет у меня ни Пасхи, ни праздника никоего. <span class="d-lang" data-note="Татарский: «Сегодня Пасха ли нет?» — Афанасий потерял счёт христианскому календарю.">Бу кюн пасха</span> — али нет? <span class="d-lang" data-note="Арабский: «Во имя Аллаха милостивого, милосердного»">Бисмилля рахман рахим.</span> Господи, Боже мой! <span class="d-lang" data-note="Татарский: «Я раб твой» — формула полного подчинения, произнесённая по-татарски.">Ярем сенинг.</span>'
+  },
+  L:{
+    head:'Летописный — иноязычное сокращено',
+    color:'#1e8250',
+    html:'Милосердый Боже, Боже истинный, Боже великий — <span class="d-chg" data-note="Арабское «аллах керим, аллах рахим» заменено на церковнославянское «помилуй мя» — книжник «нормализовал» молитву.">помилуй мя, Господи.</span> <span class="d-del" data-note="«Иса рух улло» пропущено — редактор убрал мусульманскую формулу о Христе.">иса рух улло.</span> Вот и нет у меня Пасхи. <span class="d-del" data-note="Татарский вопрос «Бу кюн пасха?» пропущен — редактор не понял или убрал намеренно.">Бу кюн пасха</span> <span class="d-del" data-note="Арабская формула пропущена.">Бисмилля рахман рахим.</span> Господи, Боже мой, <span class="d-chg" data-note="«Ярем сенинг» (тат.) → «уповаю на тя» — переведено на церковнославянский.">уповаю на тя.</span>'
+  }
+},{
+  id:'p4', label:'Прощание с Индией',
+  note:'Финальный монолог об Индии. Троицкий содержит горькую фразу «меня обманули». Летописный смягчает её. Сухановский полностью переписывает, добавляя морализаторство XVII в.',
+  T:{
+    head:'Троицкий — горький и прямой',
+    color:'#3770be',
+    html:'А Гундустанская земля не похожа на нашу землю, и люди все чёрные и злые; <span class="d-add" data-note="Фраза «меня обманули псы-бесермены» — личный упрёк тем, кто зазвал его в Индию с обещаниями товара.">да лжою меня привели псы-бесермены, а товара нет ничего что на нашу землю.</span> Перец да краска дёшевы, <span class="d-add" data-note="«Да вести нет никоей на Русь» — тема информационной изоляции, уникальная для средневековой письменности.">да вести нет никоей на Русь пройти;</span> путь не ведаю, куда ити из Гундустани.'
+  },
+  L:{
+    head:'Летописный — смягчён',
+    color:'#1e8250',
+    html:'А Индейская земля не похожа на нашу землю. <span class="d-del" data-note="Обвинение «лжою привели псы-бесермены» убрано — редактор счёл его слишком резким или неуместным в летописном контексте.">да лжою меня привели псы-бесермены, а товара нет ничего что на нашу землю.</span> Перец и пряности дёшевы; <span class="d-chg" data-note="«Пути не ведаю» → «не знаю пути» — формальное упрощение, теряет отчаянную интонацию оригинала.">не знаю пути</span> куда идти из Индии на Русь.'
+  }
+}];
+
+let activeCod='T', activePass=0, activeNote=null;
+
+// Build passage tabs
+const tabsEl=document.getElementById('pass-tabs');
+PASSAGES.forEach((p,i)=>{
+  const b=document.createElement('button');
+  b.className='ms-ptab'+(i===0?' active':'');
+  b.textContent=p.label;
+  b.addEventListener('click',()=>{
+    activePass=i;
+    document.querySelectorAll('.ms-ptab').forEach((el,j)=>el.classList.toggle('active',j===i));
+    renderPassage();
+  });
+  tabsEl.appendChild(b);
+});
+
+function selectCod(cod){
+  activeCod=cod;
+  document.querySelectorAll('.ms-cod').forEach(c=>c.classList.toggle('active',c.id==='cod-'+cod));
+  renderPassage();
+}
+window.selectCod=selectCod;
+
+function renderPassage(){
+  const p=PASSAGES[activePass];
+  const colsEl=document.getElementById('ms-cols');
+
+  // Decide which two columns to show
+  const cols=activeCod==='T'?[p.T,p.L]:activeCod==='L'?[p.L,p.T]:[p.S||p.L,p.T];
+  const labels=activeCod==='T'?['Троицкий','Летописный']:activeCod==='L'?['Летописный','Троицкий']:['Сухановский','Троицкий'];
+
+  colsEl.innerHTML='';
+  cols.forEach((col,ci)=>{
+    if(!col)return;
+    const div=document.createElement('div');
+    div.className='ms-col';
+    div.style.borderColor=col.color+'66';
+    div.innerHTML=`
+      <div class="ms-col-head" style="background:${col.color}12;border-bottom-color:${col.color}33;">
+        <span style="color:${col.color};">${col.head}</span>
+        <span class="ms-col-head-sub" style="color:${col.color};">${labels[ci]}</span>
+      </div>
+      <div class="ms-col-body">${col.html}</div>`;
+    colsEl.appendChild(div);
+  });
+
+  // Attach click handlers to diff spans
+  colsEl.querySelectorAll('[data-note]').forEach(span=>{
+    span.style.cursor='pointer';
+    span.addEventListener('click',()=>{
+      const note=span.getAttribute('data-note');
+      const noteEl=document.getElementById('ms-note');
+      if(activeNote===span){
+        activeNote=null;noteEl.style.display='none';
+        span.style.outline='none';
+      } else {
+        activeNote=span;
+        colsEl.querySelectorAll('[data-note]').forEach(s=>s.style.outline='none');
+        span.style.outline=`2px solid ${span.classList.contains('d-add')?'#1e8250':span.classList.contains('d-del')?'#c0392b':span.classList.contains('d-lang')?'#6e32a0':'#b97314'}`;
+        noteEl.style.display='block';
+        noteEl.innerHTML=`<b>Комментарий:</b> ${note}<br><br><span style="opacity:.7;font-size:10px;">${p.note}</span>`;
+      }
+    });
+  });
+
+  document.getElementById('ms-note').style.display='none';
+  activeNote=null;
+}
+
+renderPassage();
+
+})();
+</script>
