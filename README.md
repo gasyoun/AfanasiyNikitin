@@ -11,7 +11,7 @@
 
 Атлас основан на монографии историка Д.Г. Хрусталёва 2026 года — первой полной реконструкции первоначального состава «Хожения за три моря» с новой датировкой 1467–1475 гг.
 
-**25 интерактивных визуализаций · Ваниллa JS · Без бэкенда · Работает офлайн**
+**13 готовых HTML-виджетов · Vanilla JS · Без бэкенда · Работает офлайн**
 
 ---
 
@@ -67,9 +67,9 @@
 
 ---
 
-## Полный список визуализаций (25)
+## Готовые визуализации (13)
 
-### 🗺 Картографические
+### 🗺 Картографические (5)
 
 | # | Название | Файл |
 |---|----------|------|
@@ -78,53 +78,34 @@
 | 3 | **Три путешественника** — Афанасий / Марко Поло / Васко да Гама на одной карте | [three_travelers_comparison.html](three_travelers_comparison.html) |
 | 4 | **Торговый маршрутник** — интерактивная карта портов Ормуз→Китай | [afanasy_trade_marshruttnik.html](afanasy_trade_marshruttnik.html) |
 | 5 | **Анимация границ** — политическая карта 1467–1475 (Ак-Коюнлу, Бахманиды, Москва) | [afanasy_borders_animation.html](afanasy_borders_animation.html) |
-| 6 | **Морские переходы** — все морские отрезки с продолжительностью, скоростью, муссонами | [afanasy_sea_voyages.html](afanasy_sea_voyages.html) *(план)* |
-| 7 | **Индия Афанасия** — что видел vs что пропустил (Гоа, Виджаянагар, Каликут) | [afanasy_india_geography.html](afanasy_india_geography.html) *(план)* |
 
-### 📊 Хронологические
+### 📊 Хронологические (4)
 
 | # | Название | Файл |
 |---|----------|------|
-| 8 | **Гантт-диаграмма** — 8 лет по месяцам: движение, стоянки, события | [afanasy_gantt.html](afanasy_gantt.html) |
-| 9 | **Скорость передвижения** — суша vs море, км/день по отрезкам | [afanasy_speed_land_sea.html](afanasy_speed_land_sea.html) |
-| 10 | **Пасхальный хронограф** — 8 Пасх 1467–1474: православная таблица vs реальные наблюдения | [afanasy_pascha_chronograph.html](afanasy_pascha_chronograph.html) *(план)* |
-| 11 | **Двойной календарь** — православные и мусульманские праздники 1467–1475 | [afanasy_calendar_pascha_islam.html](afanasy_calendar_pascha_islam.html) |
-| 12 | **Эмоциональная дуга** — тональность 20 фрагментов «Хожения» по шкале −10…+10 | [afanasy_emotional_arc.html](afanasy_emotional_arc.html) |
+| 6 | **Гантт-диаграмма** — 8 лет по месяцам: движение, стоянки, события | [afanasy_gantt.html](afanasy_gantt.html) |
+| 7 | **Скорость передвижения** — суша vs море, км/день по отрезкам | [afanasy_speed_land_sea.html](afanasy_speed_land_sea.html) |
+| 8 | **Двойной календарь** — православные и мусульманские праздники 1467–1475 | [afanasy_calendar_pascha_islam.html](afanasy_calendar_pascha_islam.html) |
+| 9 | **Эмоциональная дуга** — тональность 20 фрагментов «Хожения» по шкале −10…+10 | [afanasy_emotional_arc.html](afanasy_emotional_arc.html) |
 
-### 💬 Текстовые и лингвистические
-
-| # | Название | Файл |
-|---|----------|------|
-| 13 | **Карта языков текста** — русский/тюркский/персидский/арабский по разделам | [afanasy_language_map_v2.html](afanasy_language_map_v2.html) |
-| 14 | **Состав рукописи** — 104 фрагмента, 7 текстовых слоёв, 9 тетрадей | [afanasy_manuscript_layers.html](afanasy_manuscript_layers.html) *(план)* |
-| 15 | **Реконструкция порядка** — хронологический порядок записи vs порядок в рукописи | [afanasy_text_reconstruction.html](afanasy_text_reconstruction.html) *(план)* |
-| 16 | **Языковая тепловая карта** — публичный «Дорожник» vs личный дневник (нпер. вставки) | [afanasy_language_heatmap.html](afanasy_language_heatmap.html) *(план)* |
-| 17 | **Три рукописи** — Летописная vs Троицкая: параллельный текст, утерянные листы | [afanasy_manuscripts.html](afanasy_manuscripts.html) |
-| 18 | **Дерево состава** — «Хожение» = 7 текстов → Мамырев → 3 списка | [khozheniye_composition_tree.html](khozheniye_composition_tree.html) |
-
-### 👥 Люди и контекст
+### 💬 Текстовые и лингвистические (2)
 
 | # | Название | Файл |
 |---|----------|------|
-| 19 | **Параллель Гаван/Афанасий** — два купца-в-изгнании в Бидаре одновременно | [afanasy_gavan_parallel.html](afanasy_gavan_parallel.html) *(план)* |
-| 20 | **Граф людей** — сеть встреч: Хасан-ходжа, Асад-хан, Махмуд Гаван, Мамырев | [afanasy_people_network.html](afanasy_people_network.html) *(план)* |
-| 21 | **Летопись войн** — военные кампании Бахманидов 1472–1473 (Ф.81–94) | [afanasy_bahmani_wars.html](afanasy_bahmani_wars.html) *(план)* |
-| 22 | **Одиночество пути** — «яз» vs «мы» по сегментам маршрута | [afanasy_journey_pronouns.html](afanasy_journey_pronouns.html) *(план)* |
-| 23 | **Историография** — 200 лет открытий: Мамырев→Карамзин→Лурье→Хрусталёв | [afanasy_historiography.html](afanasy_historiography.html) *(план)* |
+| 10 | **Карта языков текста** — русский/тюркский/персидский/арабский по разделам | [afanasy_language_map_v2.html](afanasy_language_map_v2.html) |
+| 11 | **Три рукописи** — Летописная vs Троицкая: параллельный текст, утерянные листы | [afanasy_manuscripts.html](afanasy_manuscripts.html) |
 
-### 💰 Экономика
+### 👥 Персонажи и структура (1)
 
 | # | Название | Файл |
 |---|----------|------|
-| 24 | **Экономика путешествия** — жеребец, пряности, торговля лошадьми | [afanasy_economics_prices.html](afanasy_economics_prices.html) |
+| 12 | **Дерево состава** — «Хожение» = 7 текстов → Мамырев → 3 списка | [khozheniye_composition_tree.html](khozheniye_composition_tree.html) |
 
-### 🌿 Природа
+### 💰 Экономика (1)
 
 | # | Название | Файл |
 |---|----------|------|
-| 25 | **Бестиарий Индии** — 12 животных и растений в стиле средневекового манускрипта | [afanasy_bestiarium.html](afanasy_bestiarium.html) *(план)* |
-
-> *(план)* — запланировано, данные извлечены из PDF, находится в разработке
+| 13 | **Экономика путешествия** — жеребец, пряности, торговля лошадьми | [afanasy_economics_prices.html](afanasy_economics_prices.html) |
 
 ---
 
@@ -179,4 +160,4 @@
 
 ---
 
-*25 визуализаций (12 готово, 13 в плане) · Vanilla JS · Без бэкенда · Май 2026*
+*13 готовых HTML-виджетов · Vanilla JS · Без бэкенда · Май 2026*
