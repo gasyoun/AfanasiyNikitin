@@ -3,15 +3,15 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-05-19 · Conversation ID: GPT-5.5 Phase 1
-> **Commit:** Phase 1 FIX 4 complete
+> **Last updated:** 2026-05-19 · Conversation ID: GPT-5.5 Phase 2
+> **Commit:** Phase 2 Stage 1 complete
 
 ---
 
-## Current Status: ✅ PHASE 1 COMPLETE — FIX 1 + FIX 2 + FIX 3 + FIX 4 Done
+## Current Status: ✅ PHASE 2 STARTED — Stage 1 Shared CSS Complete
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 is complete: FIX 2 in `afanasy_gantt.html`, FIX 1 in `afanasy_v8_text_map.html`, FIX 3 in `afanasy_calendar_pascha_islam.html`, and FIX 4 in `afanasy_economics_prices.html`.
+Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 is complete: FIX 2 in `afanasy_gantt.html`, FIX 1 in `afanasy_v8_text_map.html`, FIX 3 in `afanasy_calendar_pascha_islam.html`, and FIX 4 in `afanasy_economics_prices.html`. Phase 2 Stage 1 now extracts the shared visualization CSS into `css/atlas.css`.
 
 ---
 
@@ -32,6 +32,8 @@ Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 
 | FIX 3 browser verification | ✅ Done | `python -m http.server 8080`; at 1366×768 clicked Timeline/Events/Convergence, opened the Пасха 8 Маскат card, toggled dark mode light→dark→light, checked console logs and no vertical page scroll |
 | FIX 4 — Economics horse data | ✅ Done | Replaced estimated "зол." horse-loss values with 100 rubles purchase, 68 futuns sale, exactly one year ownership, 2.5 altyns/day in Bidar, and ruble/altyn/dengi conversion notes |
 | FIX 4 browser verification | ✅ Done | `python -m http.server 8080`; at 1366×768 clicked all Economics tabs, opened the horse ledger tooltip, toggled dark mode light→dark→light, checked console logs and no vertical page scroll |
+| Phase 2 Stage 1 — Shared CSS | ✅ Done | Created `css/atlas.css` from the common design-system CSS and replaced duplicated boilerplate in all 13 existing visualization HTML files with a shared stylesheet link |
+| Stage 1 browser verification | ✅ Done | `python -m http.server 8080`; smoke-checked all 13 migrated widgets for `css/atlas.css`, header/back/theme controls, shared body/container styles, and console warnings; toggled dark mode on `three_travelers_comparison.html` |
 
 ### Session 1 (conv `a6b4ceee`) — Core UI Overhaul
 | Task | Status | Notes |
@@ -99,7 +101,7 @@ Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 
 
 ## Files Modified Since Last Clean Commit
 
-> After the Phase 1 FIX 4 commit, tracked files are clean. The pre-existing untracked source files remain intentionally untouched.
+> After the Phase 2 Stage 1 commit, tracked files are clean. The pre-existing untracked source files remain intentionally untouched.
 
 ```
 git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
@@ -111,7 +113,7 @@ git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
 
 ### How the Theme System Works
 1. `index.html` has a `<button id="theme-toggle">` that sets `data-theme="dark"` on `<html>`
-2. CSS variables are defined in `:root {}` (light) and `[data-theme="dark"] {}` (dark) blocks
+2. Visualization CSS variables now live in `css/atlas.css`; `index.html` still has its own inline CSS until a later stage
 3. Each visualization page independently stores/reads `localStorage.getItem('afanasy-theme')` on load
 4. The theme toggle button's state is synced on each page load
 
@@ -128,12 +130,11 @@ git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
 
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
-1. **Phase 2 — Stage 1**: extract shared `css/atlas.css` from duplicated widget CSS
-2. **Phase 2 — Stage 2**: extract shared `js/atlas-data.js` after the map/Gantt data shape settles
-3. **Phase 2 — Stage 3**: extract shared `js/atlas-theme.js`
-4. **A7 / Architecture Stage 4**: localize D3/TopoJSON/world-atlas assets so browser verification is independent of CDN loading
-5. **Phase 3 — FIX 5** manuscript leaf-size proof
-6. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
+1. **Phase 2 — Stage 2**: localize D3, TopoJSON, world-atlas, and Tabler Icons into `lib/`
+2. **Phase 2 — Stage 3**: extract shared `js/atlas-data.js` after the map/Gantt data shape settles
+3. **Phase 2 — Stage 4**: extract shared `js/atlas-theme.js`
+4. **Phase 3 — FIX 5** manuscript leaf-size proof
+5. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
 
 ---
 
