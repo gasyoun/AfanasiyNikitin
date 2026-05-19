@@ -13,6 +13,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Centralized the route map and Gantt timeline datasets into `js/atlas-data.js`; `afanasy_v8_text_map.html` and `afanasy_gantt.html` now consume shared `window.ATLAS` data.
 
 ### Fixed
+- `afanasy_world_before_after.html`: replaced late-added CDN D3/TopoJSON/world-atlas references with bundled local assets.
 - `index.html`: repaired the book-summary download link by pointing it at the existing `tetradi_hrustalev_2026.md` while preserving the Russian download filename.
 - Reconciled public visualization counts around the 13 existing HTML widgets in `index.html`, `README.md`, `index.md`, and `tmp.md`.
 - `index.html`: renumbered homepage visualization cards sequentially from 1 to 12.

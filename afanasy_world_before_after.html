@@ -59,8 +59,8 @@ canvas.wa-c{display:block;width:100%;cursor:pointer;}
 </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="lib/d3.min.js"></script>
+<script src="lib/topojson.min.js"></script>
 <script>
 (function(){
 const W=340,H=280,PAD=12;
@@ -308,7 +308,7 @@ window.switchView=function(){
 
 function waitLib(cb){if(typeof d3!=='undefined'&&typeof topojson!=='undefined')cb();else setTimeout(()=>waitLib(cb),60);}
 waitLib(()=>{
-  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+  fetch('lib/countries-110m.json')
     .then(r=>r.json())
     .then(world=>{
       buildBase(world,ocA,true);
