@@ -23,6 +23,25 @@
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-serif: Georgia, "Times New Roman", serif;
     }
+    [data-theme="dark"] {
+      --color-background-primary: #121212;
+      --color-background-secondary: #1a1a1a;
+      --color-background-tertiary: #222222;
+      --color-border-primary: #c09060;
+      --color-border-secondary: #3a2e26;
+      --color-border-tertiary: #2d241d;
+      --color-text-primary: #ebdcd5;
+      --color-text-secondary: #b8aba3;
+      --color-accent: #e08830;
+    }
+    html[data-theme="dark"] body {
+      background: linear-gradient(135deg, #161210 0%, #0c0908 100%) !important;
+      color: var(--color-text-primary) !important;
+    }
+    html[data-theme="dark"] canvas, html[data-theme="dark"] img {
+      filter: invert(0.88) hue-rotate(180deg) contrast(1.1) brightness(0.95);
+    }
+
 
     * {
       margin: 0;
@@ -150,26 +169,26 @@
     }
 
     /* Original Widget Styles */
-    .ms{font-size:13px;}
-.ms-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
+    .ms{font-size:15px;}
+.ms-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:13.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
 .ms-intro b{color:var(--color-text-primary);}
 .ms-codex{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
 .ms-cod{padding:10px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:all .12s;user-select:none;}
 .ms-cod.active{box-shadow:0 0 0 1.5px currentColor;}
-.ms-cod-name{font-size:12px;font-weight:500;margin-bottom:3px;}
-.ms-cod-date{font-size:10px;color:var(--color-text-secondary);margin-bottom:5px;}
-.ms-cod-desc{font-size:10px;color:var(--color-text-secondary);line-height:1.45;}
+.ms-cod-name{font-size:14.5px;font-weight:500;margin-bottom:3px;}
+.ms-cod-date{font-size:12.5px;color:var(--color-text-secondary);margin-bottom:5px;}
+.ms-cod-desc{font-size:12.5px;color:var(--color-text-secondary);line-height:1.45;}
 .ms-cod-bar{height:4px;border-radius:2px;margin-top:7px;}
 /* passage selector */
 .ms-pass-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
-.ms-ptab{padding:5px 11px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;white-space:nowrap;}
+.ms-ptab{padding:5px 11px;border-radius:20px;font-size:13px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;white-space:nowrap;}
 .ms-ptab.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
 /* main comparison */
 .ms-columns{display:grid;gap:8px;}
 .ms-col{border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);overflow:hidden;}
-.ms-col-head{padding:7px 12px;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--color-border-tertiary);}
-.ms-col-head-sub{font-size:9.5px;font-weight:400;opacity:.7;}
-.ms-col-body{padding:11px 13px;font-size:12.5px;font-family:var(--font-serif);line-height:1.8;color:var(--color-text-primary);}
+.ms-col-head{padding:7px 12px;font-size:13.5px;font-weight:500;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--color-border-tertiary);}
+.ms-col-head-sub{font-size:11.5px;font-weight:400;opacity:.7;}
+.ms-col-body{padding:11px 13px;font-size:15px;font-family:var(--font-serif);line-height:1.8;color:var(--color-text-primary);}
 /* diff spans */
 span.d-add{background:rgba(30,130,80,.18);color:#0a5a30;border-radius:2px;padding:0 1px;}
 span.d-del{background:rgba(200,40,40,.13);color:#8a1010;text-decoration:line-through;border-radius:2px;padding:0 1px;opacity:.7;}
@@ -179,15 +198,15 @@ span.d-dim{opacity:.35;}
 /* legend */
 .ms-leg{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:center;}
 .ms-ld{display:inline-block;width:9px;height:9px;border-radius:2px;flex-shrink:0;}
-.ms-lt{font-size:11px;color:var(--color-text-secondary);}
+.ms-lt{font-size:13px;color:var(--color-text-secondary);}
 /* stats */
 .ms-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px;}
 .ms-stat{padding:7px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);text-align:center;}
-.ms-stat-v{font-size:17px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--color-text-primary);line-height:1;}
-.ms-stat-l{font-size:9.5px;color:var(--color-text-secondary);margin-top:2px;}
-.ms-note{font-size:11px;color:var(--color-text-secondary);padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);line-height:1.55;}
+.ms-stat-v{font-size:22px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--color-text-primary);line-height:1;}
+.ms-stat-l{font-size:12px;color:var(--color-text-secondary);margin-top:2px;}
+.ms-note{font-size:13px;color:var(--color-text-secondary);padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);line-height:1.55;}
 .ms-note b{color:var(--color-text-primary);}
-.ms-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;margin-top:8px;}
+.ms-source{font-size:12.5px;color:var(--color-text-secondary);line-height:1.6;margin-top:8px;}
   </style>
 
   <!-- Tabler Icons -->
@@ -403,5 +422,44 @@ renderPassage();
 
 })();
 </script>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script>
+  (function(){
+    const html = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+    
+    // Ensure Tabler Icons CSS is loaded if not already loaded in the document
+    if (!document.querySelector('link[href*="tabler-icons"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css';
+      document.head.appendChild(link);
+    }
+
+    function updateTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      if (icon) {
+        icon.className = theme === 'dark' ? 'ti ti-sun' : 'ti ti-moon';
+      }
+    }
+    const saved = localStorage.getItem('theme') || 'light';
+    updateTheme(saved);
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme') || 'light';
+        updateTheme(current === 'dark' ? 'light' : 'dark');
+      });
+      toggle.addEventListener('mouseenter', () => { toggle.style.transform = 'scale(1.1)'; });
+      toggle.addEventListener('mouseleave', () => { toggle.style.transform = 'scale(1.0)'; });
+    }
+  })();
+  </script>
+
 </body>
 </html>

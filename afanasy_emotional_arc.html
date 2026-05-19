@@ -23,6 +23,25 @@
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-serif: Georgia, "Times New Roman", serif;
     }
+    [data-theme="dark"] {
+      --color-background-primary: #121212;
+      --color-background-secondary: #1a1a1a;
+      --color-background-tertiary: #222222;
+      --color-border-primary: #c09060;
+      --color-border-secondary: #3a2e26;
+      --color-border-tertiary: #2d241d;
+      --color-text-primary: #ebdcd5;
+      --color-text-secondary: #b8aba3;
+      --color-accent: #e08830;
+    }
+    html[data-theme="dark"] body {
+      background: linear-gradient(135deg, #161210 0%, #0c0908 100%) !important;
+      color: var(--color-text-primary) !important;
+    }
+    html[data-theme="dark"] canvas, html[data-theme="dark"] img {
+      filter: invert(0.88) hue-rotate(180deg) contrast(1.1) brightness(0.95);
+    }
+
 
     * {
       margin: 0;
@@ -349,13 +368,13 @@ function redraw(){
   // Zero line
   svg.appendChild(el('line',{x1:mL,y1:yScale(0),x2:W-mR,y2:yScale(0),
     stroke:'var(--color-border-secondary)','stroke-width':.8,'stroke-dasharray':'4 3'}));
-  svg.appendChild(t('0',{x:mL-4,y:yScale(0)+3,'text-anchor':'end','font-size':'8',fill:'var(--color-text-secondary)'}));
+  svg.appendChild(t('0',{x:mL-4,y:yScale(0)+3.5,'text-anchor':'end','font-size':'10',fill:'var(--color-text-secondary)'}));
 
   // Grid
   [-10,-5,5,10].forEach(v=>{
     const y=yScale(v);
     svg.appendChild(el('line',{x1:mL,y1:y,x2:W-mR,y2:y,stroke:'var(--color-border-tertiary)','stroke-width':.4}));
-    svg.appendChild(t(v>0?'+'+v:v,{x:mL-4,y:y+3,'text-anchor':'end','font-size':'8',fill:'var(--color-text-secondary)'}));
+    svg.appendChild(t(v>0?'+'+v:v,{x:mL-4,y:y+3.5,'text-anchor':'end','font-size':'10',fill:'var(--color-text-secondary)'}));
   });
 
   // Gradient fill area
@@ -382,14 +401,14 @@ function redraw(){
       lastYr=p.year;
       const x=xScale(i);
       svg.appendChild(el('line',{x1:x,y1:mT+iH+2,x2:x,y2:mT+iH+8,stroke:'var(--color-border-secondary)','stroke-width':.8}));
-      svg.appendChild(t(p.year,{x,y:mT+iH+18,'text-anchor':'middle','font-size':'8.5','font-weight':'500',fill:'var(--color-text-secondary)'}));
+      svg.appendChild(t(p.year,{x,y:mT+iH+18,'text-anchor':'middle','font-size':'10.5','font-weight':'500',fill:'var(--color-text-secondary)'}));
     }
   });
 
   // Axis labels
   const{lo,hi}=DIMS[dim];
-  svg.appendChild(t(hi+' +10',{x:mL-4,y:mT-6,'text-anchor':'end','font-size':'8',fill:color,opacity:.7}));
-  svg.appendChild(t(lo+' −10',{x:mL-4,y:H-mB+18,'text-anchor':'end','font-size':'8',fill:color,opacity:.7}));
+  svg.appendChild(t(hi+' +10',{x:mL-4,y:mT-6,'text-anchor':'end','font-size':'10',fill:color,opacity:.7}));
+  svg.appendChild(t(lo+' −10',{x:mL-4,y:H-mB+18,'text-anchor':'end','font-size':'10',fill:color,opacity:.7}));
 
   // Dots + interaction
   PTS.forEach((p,i)=>{
@@ -416,7 +435,7 @@ function redraw(){
     const v=p[dim];
     if(Math.abs(v)>=7||i===0||i===PTS.length-1){
       const lbl=p.loc.split(',')[0].split('—')[0].trim().split(' ')[0];
-      svg.appendChild(t(lbl,{x:cx,y:cy-(v>0?9:14),'text-anchor':'middle','font-size':'7.5',
+      svg.appendChild(t(lbl,{x:cx,y:cy-(v>0?10:16),'text-anchor':'middle','font-size':'9.5',
         fill:color,'font-weight':'500',opacity:.8}));
     }
   });
@@ -459,5 +478,44 @@ window.setDim=function(dim){
 redraw();
 })();
 </script>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script>
+  (function(){
+    const html = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+    
+    // Ensure Tabler Icons CSS is loaded if not already loaded in the document
+    if (!document.querySelector('link[href*="tabler-icons"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css';
+      document.head.appendChild(link);
+    }
+
+    function updateTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      if (icon) {
+        icon.className = theme === 'dark' ? 'ti ti-sun' : 'ti ti-moon';
+      }
+    }
+    const saved = localStorage.getItem('theme') || 'light';
+    updateTheme(saved);
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme') || 'light';
+        updateTheme(current === 'dark' ? 'light' : 'dark');
+      });
+      toggle.addEventListener('mouseenter', () => { toggle.style.transform = 'scale(1.1)'; });
+      toggle.addEventListener('mouseleave', () => { toggle.style.transform = 'scale(1.0)'; });
+    }
+  })();
+  </script>
+
 </body>
 </html>

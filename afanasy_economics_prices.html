@@ -23,6 +23,25 @@
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-serif: Georgia, "Times New Roman", serif;
     }
+    [data-theme="dark"] {
+      --color-background-primary: #121212;
+      --color-background-secondary: #1a1a1a;
+      --color-background-tertiary: #222222;
+      --color-border-primary: #c09060;
+      --color-border-secondary: #3a2e26;
+      --color-border-tertiary: #2d241d;
+      --color-text-primary: #ebdcd5;
+      --color-text-secondary: #b8aba3;
+      --color-accent: #e08830;
+    }
+    html[data-theme="dark"] body {
+      background: linear-gradient(135deg, #161210 0%, #0c0908 100%) !important;
+      color: var(--color-text-primary) !important;
+    }
+    html[data-theme="dark"] canvas, html[data-theme="dark"] img {
+      filter: invert(0.88) hue-rotate(180deg) contrast(1.1) brightness(0.95);
+    }
+
 
     * {
       margin: 0;
@@ -205,10 +224,10 @@
 
 <div id="tab-spices" class="eco-panel">
   <div class="eco-legend">
-    <div class="eco-dot" style="background:#2e7d8a;"></div><span class="eco-leg-txt">Индия (Бидар/Чаул)</span>
-    <div class="eco-dot" style="background:#8B5a30;"></div><span class="eco-leg-txt">Ормуз (перевалочный порт)</span>
-    <div class="eco-dot" style="background:#5a3e8a;"></div><span class="eco-leg-txt">Персия (Тебриз/Исфахан)</span>
-    <div class="eco-dot" style="background:#b8392b;"></div><span class="eco-leg-txt">Русь (Москва/Тверь)</span>
+    <div class="eco-dot" style="background:#be3c28;"></div><span class="eco-leg-txt">Индия (Бидар/Чаул)</span>
+    <div class="eco-dot" style="background:#e0a020;"></div><span class="eco-leg-txt">Ормуз (перевалочный порт)</span>
+    <div class="eco-dot" style="background:#b97314;"></div><span class="eco-leg-txt">Персия (Тебриз/Исфахан)</span>
+    <div class="eco-dot" style="background:#3770be;"></div><span class="eco-leg-txt">Русь (Москва/Тверь)</span>
   </div>
   <svg id="spice-svg" style="display:block;width:100%;" viewBox="0 0 640 300"></svg>
   <div class="eco-source">Цены — реконструкция по данным «маршрутника» из состава «Хожения», арабским источникам XV в. и работам Хрусталёва. Единица: условные «серебряные» за батман (~7–8 кг). Афанасий: «перец и пряные зелья дёшевы», но признаётся — его обманули, ожидал большего. Маржа 8–12× делала пряный путь сверхприбыльным.</div>
@@ -258,10 +277,10 @@ function hideTip(){tip.style.display='none';}
   const iW=W-m.l-m.r,iH=H-m.t-m.b;
 
   const steps=[
-    {label:'Тверь\n(покупка)',val:100,type:'cost',note:'Оценочная стоимость русского жеребца. Весь капитал купца — в этом коне.',color:'#5a6e8a'},
-    {label:'Надежда\nна продажу',val:130,type:'hope',note:'Афанасий рассчитывал выручить 100–150 золотых в Индии. Поэтому и поплыл.',color:'#27ae60'},
+    {label:'Тверь\n(покупка)',val:100,type:'cost',note:'Оценочная стоимость русского жеребца. Весь капитал купца — в этом коне.',color:'#3770be'},
+    {label:'Надежда\nна продажу',val:130,type:'hope',note:'Афанасий рассчитывал выручить 100–150 золотых в Индии. Поэтому и поплыл.',color:'#be3c28'},
     {label:'Джуннар\n(конфискат)',val:0,type:'seized',note:'Хан Асад конфисковал коня и потребовал принять ислам. Возвращён через 5 дней.',color:'#c0392b'},
-    {label:'Бидар\n(продажа)',val:68,type:'sold',note:'«Жеребца своего продал есмь за 68 золотых» — единственная точная цена в тексте.',color:'#c0392b'},
+    {label:'Бидар\n(продажа)',val:68,type:'sold',note:'«Жеребца своего продал есмь за 68 золотых» — единственная точная цена в тексте.',color:'#be3c28'},
     {label:'Убыток',val:-32,type:'loss',note:'Потеря ~32 золотых. Афанасий: «А меня горе взяло — нет пути на Русь, и товара нет».',color:'#c0392b'},
   ];
 
@@ -322,7 +341,7 @@ function hideTip(){tip.style.display='none';}
     {name:'Хлопок\n(ткань)',india:2,hormuz:7,persia:12,russia:22,unit:'сер./батман',note:'Индийские хлопковые ткани — массовый экспортный товар.'},
   ];
 
-  const colors=['#2e7d8a','#8B5a30','#5a3e8a','#b8392b'];
+  const colors=['#be3c28','#e0a020','#b97314','#3770be'];
   const cities=['Индия','Ормуз','Персия','Русь'];
   const maxV=60;
   const gW=iW/goods.length;
@@ -341,7 +360,7 @@ function hideTip(){tip.style.display='none';}
       r.addEventListener('mouseleave',()=>{r.setAttribute('opacity','.82');hideTip();});
       const parent=el('g',{});parent.appendChild(r);
       if(ci===colors.length-1){
-        parent.appendChild(txt(`${g.russia}`,{x:bx+barW/2,y:by-3,'text-anchor':'middle','font-size':'8.5','font-weight':'500',fill:'#b8392b'}));
+        parent.appendChild(txt(`${g.russia}`,{x:bx+barW/2,y:by-3,'text-anchor':'middle','font-size':'8.5','font-weight':'500',fill:'#3770be'}));
       }
       svg.appendChild(parent);
     });
@@ -372,12 +391,12 @@ function hideTip(){tip.style.display='none';}
   const iW=W-m.l-m.r,iH=H-m.t-m.b;
 
   const data=[
-    {label:'Арабский конь\nв Ормузе',buy:65,color:'#5a6e8a',note:'Закупочная цена арабского скакуна в Ормузе. Именно их везли торговцы в Индию.'},
-    {label:'Арабский конь\nв Индии (Бидар)',buy:175,color:'#27ae60',note:'Цена перепродажи в индийских султанатах. Прибыль ~150–170%. Бахманиды платили за боевых коней.'},
-    {label:'Иранский конь\nв Ормузе',buy:50,color:'#7a6e4a',note:'Чуть дешевле арабского. Тоже выгодно везти в Индию.'},
-    {label:'Иранский конь\nв Индии',buy:140,color:'#4a8a60',note:'Выгодно, но меньше чем арабский. Маржа ~180%.'},
+    {label:'Арабский конь\nв Ормузе',buy:65,color:'#e0a020',note:'Закупочная цена арабского скакуна в Ормузе. Именно их везли торговцы в Индию.'},
+    {label:'Арабский конь\nв Индии (Бидар)',buy:175,color:'#be3c28',note:'Цена перепродажи в индийских султанатах. Прибыль ~150–170%. Бахманиды платили за боевых коней.'},
+    {label:'Иранский конь\nв Ормузе',buy:50,color:'#b97314',note:'Чуть дешевле арабского. Тоже выгодно везти в Индию.'},
+    {label:'Иранский конь\nв Индии',buy:140,color:'#be3c28',note:'Выгодно, но меньше чем арабский. Маржа ~180%.'},
     {label:'Русский конь\nАфанасия (Бидар)',buy:68,color:'#c0392b',note:'«Жеребца продал за 68 золотых» — убыток. Русский конь не ценился в Индии: меньше, другой породы.'},
-    {label:'Ожидаемая\nцена коня',buy:120,color:'#e0a020',note:'На что рассчитывал Афанасий при выезде из Твери. Не сбылось.'},
+    {label:'Ожидаемая\nцена коня',buy:120,color:'#3770be',note:'На что рассчитывал Афанасий при выезде из Твери. Не сбылось.'},
   ];
 
   const maxV=200;
@@ -408,5 +427,44 @@ function hideTip(){tip.style.display='none';}
 
 })();
 </script>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script>
+  (function(){
+    const html = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+    
+    // Ensure Tabler Icons CSS is loaded if not already loaded in the document
+    if (!document.querySelector('link[href*="tabler-icons"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css';
+      document.head.appendChild(link);
+    }
+
+    function updateTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      if (icon) {
+        icon.className = theme === 'dark' ? 'ti ti-sun' : 'ti ti-moon';
+      }
+    }
+    const saved = localStorage.getItem('theme') || 'light';
+    updateTheme(saved);
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme') || 'light';
+        updateTheme(current === 'dark' ? 'light' : 'dark');
+      });
+      toggle.addEventListener('mouseenter', () => { toggle.style.transform = 'scale(1.1)'; });
+      toggle.addEventListener('mouseleave', () => { toggle.style.transform = 'scale(1.0)'; });
+    }
+  })();
+  </script>
+
 </body>
 </html>

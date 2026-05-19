@@ -23,6 +23,25 @@
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-serif: Georgia, "Times New Roman", serif;
     }
+    [data-theme="dark"] {
+      --color-background-primary: #121212;
+      --color-background-secondary: #1a1a1a;
+      --color-background-tertiary: #222222;
+      --color-border-primary: #c09060;
+      --color-border-secondary: #3a2e26;
+      --color-border-tertiary: #2d241d;
+      --color-text-primary: #ebdcd5;
+      --color-text-secondary: #b8aba3;
+      --color-accent: #e08830;
+    }
+    html[data-theme="dark"] body {
+      background: linear-gradient(135deg, #161210 0%, #0c0908 100%) !important;
+      color: var(--color-text-primary) !important;
+    }
+    html[data-theme="dark"] canvas, html[data-theme="dark"] img {
+      filter: invert(0.88) hue-rotate(180deg) contrast(1.1) brightness(0.95);
+    }
+
 
     * {
       margin: 0;
@@ -345,15 +364,15 @@ function buildOffscreen(world){
   for(const s of STATES){
     const[lx,ly]=project(s.lp[0],s.lp[1]);
     if(lx<PAD+1||lx>W-PAD-1||ly<PAD+1||ly>H-PAD-1)continue;
-    const lines=s.n.split('\n');oc.font='bold 6.5px sans-serif';oc.fillStyle='rgba(22,10,3,0.75)';
-    lines.forEach((l,i)=>halo(oc,l,lx,ly+(i-(lines.length-1)/2)*9,'center'));
+    const lines=s.n.split('\n');oc.font='bold 9.5px sans-serif';oc.fillStyle='rgba(22,10,3,0.75)';
+    lines.forEach((l,i)=>halo(oc,l,lx,ly+(i-(lines.length-1)/2)*11,'center'));
   }
   for(const city of CITIES){
     const[cx,cy]=project(city.lon,city.lat);
     if(cx<PAD+1||cx>W-PAD-1||cy<PAD+1||cy>H-PAD-1)continue;
-    oc.beginPath();oc.arc(cx,cy,2,0,Math.PI*2);oc.fillStyle='rgba(35,15,5,0.65)';oc.fill();
+    oc.beginPath();oc.arc(cx,cy,2.5,0,Math.PI*2);oc.fillStyle='rgba(35,15,5,0.65)';oc.fill();
     const[lx,ly]=labelXY(cx,cy,city.a);
-    oc.font='italic 6.5px sans-serif';oc.fillStyle='rgba(20,8,2,0.75)';
+    oc.font='italic 9px sans-serif';oc.fillStyle='rgba(20,8,2,0.75)';
     halo(oc,city.n,lx,ly,labelAl(city.a));
   }
   oc.strokeStyle='rgba(70,100,135,0.09)';oc.lineWidth=0.5;
@@ -383,12 +402,12 @@ function drawFrame(){
   for(let i=0;i<=seg;i++){
     const[x,y]=px(WP[i][0],WP[i][1]);
     const isActive=(i===activeWP);
-    ctx.beginPath();ctx.arc(x,y,isActive?5:3,0,Math.PI*2);
+    ctx.beginPath();ctx.arc(x,y,isActive?7:4.5,0,Math.PI*2);
     ctx.fillStyle=isActive?'#e09520':i===0?'#5C2A10':'#C05520';ctx.fill();
     ctx.strokeStyle=isActive?'#ffdd80':'#3A1008';ctx.lineWidth=isActive?1.5:0.8;ctx.stroke();
     const lbl=WP[i][3].split('(')[0].split('/')[0].trim();
-    ctx.font=`${isActive?'bold ':''} 7.5px sans-serif`;ctx.fillStyle='rgba(20,8,2,0.88)';
-    halo(ctx,lbl,x,y-7,'center');
+    ctx.font=`${isActive?'bold ':''} 10px sans-serif`;ctx.fillStyle='rgba(20,8,2,0.88)';
+    halo(ctx,lbl,x,y-9,'center');
   }
 
   const pulse=2.5+Math.sin(Date.now()/280)*1.5;
@@ -459,7 +478,23 @@ const blob=new Blob([`# Геолокации пути Афанасия Ники�
 document.getElementById('dlBtn').href=URL.createObjectURL(blob);
 
 buildTextPanel();
-setActivePassage(0,false);
+
+let initialWP = 0;
+const urlParams = new URLSearchParams(window.location.search);
+const wpParam = urlParams.get('wp');
+if (wpParam !== null) {
+  const wpIdx = parseInt(wpParam, 10);
+  if (wpIdx >= 0 && wpIdx < WP.length) {
+    initialWP = wpIdx;
+    t = WP[wpIdx][2];
+  }
+}
+setActivePassage(initialWP, false);
+if (initialWP > 0) {
+  setTimeout(() => {
+    setActivePassage(initialWP, true);
+  }, 300);
+}
 
 function waitLib(cb){if(typeof d3!=='undefined'&&typeof topojson!=='undefined')cb();else setTimeout(()=>waitLib(cb),60);}
 waitLib(()=>{
@@ -469,5 +504,44 @@ waitLib(()=>{
 });
 })();
 </script>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script>
+  (function(){
+    const html = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+    
+    // Ensure Tabler Icons CSS is loaded if not already loaded in the document
+    if (!document.querySelector('link[href*="tabler-icons"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css';
+      document.head.appendChild(link);
+    }
+
+    function updateTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      if (icon) {
+        icon.className = theme === 'dark' ? 'ti ti-sun' : 'ti ti-moon';
+      }
+    }
+    const saved = localStorage.getItem('theme') || 'light';
+    updateTheme(saved);
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme') || 'light';
+        updateTheme(current === 'dark' ? 'light' : 'dark');
+      });
+      toggle.addEventListener('mouseenter', () => { toggle.style.transform = 'scale(1.1)'; });
+      toggle.addEventListener('mouseleave', () => { toggle.style.transform = 'scale(1.0)'; });
+    }
+  })();
+  </script>
+
 </body>
 </html>

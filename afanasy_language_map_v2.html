@@ -23,6 +23,25 @@
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-serif: Georgia, "Times New Roman", serif;
     }
+    [data-theme="dark"] {
+      --color-background-primary: #121212;
+      --color-background-secondary: #1a1a1a;
+      --color-background-tertiary: #222222;
+      --color-border-primary: #c09060;
+      --color-border-secondary: #3a2e26;
+      --color-border-tertiary: #2d241d;
+      --color-text-primary: #ebdcd5;
+      --color-text-secondary: #b8aba3;
+      --color-accent: #e08830;
+    }
+    html[data-theme="dark"] body {
+      background: linear-gradient(135deg, #161210 0%, #0c0908 100%) !important;
+      color: var(--color-text-primary) !important;
+    }
+    html[data-theme="dark"] canvas, html[data-theme="dark"] img {
+      filter: invert(0.88) hue-rotate(180deg) contrast(1.1) brightness(0.95);
+    }
+
 
     * {
       margin: 0;
@@ -150,24 +169,24 @@
     }
 
     /* Original Widget Styles */
-    .lm{font-size:13px;}
+    .lm{font-size:15px;}
 .lm-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px;}
 .lmc{padding:8px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:opacity .12s;user-select:none;}
 .lmc.dim{opacity:.3;}
-.lmc-name{font-size:10px;font-weight:500;margin-bottom:2px;}
-.lmc-pct{font-size:19px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;}
-.lmc-sub{font-size:9px;color:var(--color-text-secondary);margin-top:2px;line-height:1.35;}
+.lmc-name{font-size:12.5px;font-weight:500;margin-bottom:2px;}
+.lmc-pct{font-size:24px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;}
+.lmc-sub{font-size:11px;color:var(--color-text-secondary);margin-top:2px;line-height:1.35;}
 .lmc-bar{height:5px;border-radius:2px;background:var(--color-background-secondary);margin-top:5px;overflow:hidden;}
 .lmc-bar-in{height:100%;border-radius:2px;}
 .lm-leg{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:center;}
 .lm-ld{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
-.lm-lt{font-size:10.5px;color:var(--color-text-secondary);}
+.lm-lt{font-size:12.5px;color:var(--color-text-secondary);}
 .lm-passes{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
 .lm-p{padding:10px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);transition:border-color .15s;}
 .lm-p.hi{border-color:rgba(110,50,160,.45);background:var(--color-background-primary);}
-.lm-ph{font-size:10px;color:var(--color-text-secondary);margin-bottom:5px;display:flex;gap:7px;align-items:center;}
+.lm-ph{font-size:12.5px;color:var(--color-text-secondary);margin-bottom:5px;display:flex;gap:7px;align-items:center;}
 .lm-ploc{font-weight:500;color:var(--color-text-primary);}
-.lm-pt{font-size:13px;line-height:1.8;font-family:var(--font-serif);}
+.lm-pt{font-size:15px;line-height:1.8;font-family:var(--font-serif);}
 .lm-pt span{border-radius:2px;padding:0 1px;transition:opacity .2s;}
 span.ru{background:rgba(55,110,190,.14);color:#1a4a8a;}
 span.tt{background:rgba(185,115,20,.14);color:#7a4a00;}
@@ -175,9 +194,9 @@ span.fa{background:rgba(30,130,80,.14);color:#0a5a30;}
 span.ar{background:rgba(110,50,160,.14);color:#5a2a8a;}
 span.hi{background:rgba(190,60,40,.14);color:#8a2010;}
 .lm-tl{margin-bottom:6px;}
-.lm-tl-hint{font-size:10px;color:var(--color-text-secondary);margin-bottom:6px;}
+.lm-tl-hint{font-size:12.5px;color:var(--color-text-secondary);margin-bottom:6px;}
 .lm-tl-row{display:flex;align-items:center;gap:7px;margin-bottom:4px;}
-.lm-tl-lbl{font-size:9px;color:var(--color-text-secondary);width:102px;flex-shrink:0;text-align:right;line-height:1.3;}
+.lm-tl-lbl{font-size:11.5px;color:var(--color-text-secondary);width:102px;flex-shrink:0;text-align:right;line-height:1.3;}
 .lm-tl-bar{flex:1;height:16px;border-radius:3px;display:flex;overflow:hidden;cursor:pointer;transition:box-shadow .15s;}
 .lm-tl-bar:hover{box-shadow:0 0 0 1.5px var(--color-border-secondary);}
 .lm-tl-bar.sel{box-shadow:0 0 0 2px #6e32a0;}
@@ -185,16 +204,16 @@ span.hi{background:rgba(190,60,40,.14);color:#8a2010;}
 .lm-detail{margin-top:8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;display:none;}
 .lm-detail.open{display:block;}
 .lm-det-head{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary);}
-.lm-det-title{font-size:12px;font-weight:500;color:var(--color-text-primary);}
-.lm-det-close{cursor:pointer;font-size:16px;color:var(--color-text-secondary);line-height:1;background:none;border:none;padding:0;}
+.lm-det-title{font-size:14.5px;font-weight:500;color:var(--color-text-primary);}
+.lm-det-close{cursor:pointer;font-size:18px;color:var(--color-text-secondary);line-height:1;background:none;border:none;padding:0;}
 .lm-det-body{padding:10px 12px;}
 .lm-det-mini{display:flex;height:7px;border-radius:3px;overflow:hidden;margin-bottom:10px;}
 .lm-det-mini-seg{height:100%;}
-.lm-det-pass{font-size:12.5px;font-family:var(--font-serif);line-height:1.75;color:var(--color-text-primary);margin-bottom:10px;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary);}
-.lm-det-meta{font-size:10px;color:var(--color-text-secondary);line-height:1.55;margin-bottom:10px;}
-.lm-det-link{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:6px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);text-decoration:none;color:var(--color-text-primary);background:var(--color-background-secondary);transition:background .12s;}
+.lm-det-pass{font-size:15px;font-family:var(--font-serif);line-height:1.75;color:var(--color-text-primary);margin-bottom:10px;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary);}
+.lm-det-meta{font-size:12px;color:var(--color-text-secondary);line-height:1.55;margin-bottom:10px;}
+.lm-det-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;padding:6px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);text-decoration:none;color:var(--color-text-primary);background:var(--color-background-secondary);transition:background .12s;}
 .lm-det-link:hover{background:var(--color-background-primary);}
-.lm-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;margin-top:10px;}
+.lm-source{font-size:12px;color:var(--color-text-secondary);line-height:1.6;margin-top:10px;}
   </style>
 
   <!-- Tabler Icons -->
@@ -454,5 +473,44 @@ window.toggleLang=function(lang){
 };
 })();
 </script>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script>
+  (function(){
+    const html = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+    
+    // Ensure Tabler Icons CSS is loaded if not already loaded in the document
+    if (!document.querySelector('link[href*="tabler-icons"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css';
+      document.head.appendChild(link);
+    }
+
+    function updateTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      if (icon) {
+        icon.className = theme === 'dark' ? 'ti ti-sun' : 'ti ti-moon';
+      }
+    }
+    const saved = localStorage.getItem('theme') || 'light';
+    updateTheme(saved);
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme') || 'light';
+        updateTheme(current === 'dark' ? 'light' : 'dark');
+      });
+      toggle.addEventListener('mouseenter', () => { toggle.style.transform = 'scale(1.1)'; });
+      toggle.addEventListener('mouseleave', () => { toggle.style.transform = 'scale(1.0)'; });
+    }
+  })();
+  </script>
+
 </body>
 </html>
