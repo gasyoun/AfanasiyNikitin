@@ -1,0 +1,321 @@
+
+<h2 class="sr-only">Что Афанасий знал до выезда vs что узнал — средневековое русское представление об Азии и реальность</h2>
+<style>
+.wa{font-size:13px;}
+.wa-head{display:flex;gap:8px;margin-bottom:8px;}
+.wa-htab{flex:1;padding:8px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:all .13s;text-align:center;user-select:none;}
+.wa-htab.on{background:var(--color-background-secondary);border-color:var(--color-border-secondary);}
+.wa-htab-title{font-size:12px;font-weight:500;color:var(--color-text-primary);}
+.wa-htab-sub{font-size:10px;color:var(--color-text-secondary);margin-top:2px;}
+.wa-maps{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.wa-map-wrap{position:relative;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);overflow:hidden;}
+.wa-map-label{position:absolute;top:7px;left:10px;font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;pointer-events:none;}
+canvas.wa-c{display:block;width:100%;cursor:pointer;}
+.wa-detail{padding:11px 14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);min-height:70px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;border-left:3px solid var(--color-border-tertiary);transition:border-color .2s;}
+.wa-det-left{min-width:0;flex:1;}
+.wa-det-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;}
+.wa-det-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+.wa-det-col{font-size:11px;line-height:1.55;}
+.wa-det-col-h{font-size:10px;font-weight:500;margin-bottom:3px;padding:2px 7px;border-radius:8px;display:inline-block;}
+.wa-det-col-body{color:var(--color-text-secondary);}
+.wa-det-col-body b{color:var(--color-text-primary);}
+.wa-hint{font-size:10px;color:var(--color-text-secondary);text-align:center;opacity:.65;margin-top:3px;}
+.wa-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+</style>
+
+<div class="wa">
+
+<div class="wa-head">
+  <div class="wa-htab on" id="tab-before">
+    <div class="wa-htab-title">До выезда (1467)</div>
+    <div class="wa-htab-sub">Средневековые русские представления</div>
+  </div>
+  <div class="wa-htab" id="tab-after" onclick="switchView()">
+    <div class="wa-htab-title">После возвращения (1475)</div>
+    <div class="wa-htab-sub">Что узнал Афанасий</div>
+  </div>
+</div>
+
+<div class="wa-maps">
+  <div class="wa-map-wrap">
+    <div class="wa-map-label" style="background:rgba(100,60,20,.15);color:#6a3c10;">До выезда</div>
+    <canvas class="wa-c" id="ca" width="340" height="280"></canvas>
+  </div>
+  <div class="wa-map-wrap">
+    <div class="wa-map-label" style="background:rgba(20,90,140,.15);color:#104a7a;">После</div>
+    <canvas class="wa-c" id="cb" width="340" height="280"></canvas>
+  </div>
+</div>
+<div class="wa-hint">← нажмите место на любой карте</div>
+
+<div class="wa-detail" id="wa-det">
+  <div class="wa-det-left">
+    <div style="font-size:11px;color:var(--color-text-secondary);">Нажмите место на карте — сравните что знали до и что узнал Афанасий</div>
+  </div>
+</div>
+
+<div class="wa-source">
+  Левая карта — реконструкция средневековых русских представлений об Азии по: «Хронограф» XV в., «Хожение игумена Даниила» (1106–1107), «Александрия», «Космография». Правая — реальная картина по «Хожению» Афанасия (1467–1475) и Хрусталёву (2026).
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+(function(){
+const W=340,H=280,PAD=12;
+
+// Bbox: lon 25–85, lat 7–62
+const LON0=24,LON1=86,LAT0=6,LAT1=63;
+function mY(lat){return Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));}
+const mY0=mY(LAT0),mY1=mY(LAT1);
+function project(lon,lat){
+  return[PAD+(lon-LON0)/(LON1-LON0)*(W-2*PAD),
+         PAD+(mY1-mY(lat))/(mY1-mY0)*(H-2*PAD)];
+}
+
+// ── Knowledge points ──────────────────────────────────────────────────────────
+const POINTS=[
+  {id:'india', lon:77.5, lat:17.9,
+   label:'Индия',
+   before:{known:false,
+     myth:'«Страна Индия» — абстрактный далёкий восток. Место, откуда привозят пряности и слоновую кость. Населена «нагими людьми» и дивными зверями.',
+     src:'«Александрия», «Физиолог», торговые слухи'},
+   after:{known:true,
+     real:'Реальный Деккан — Бахманидский султанат с конкретными городами, рынками, кастами, религиями. Афанасий прожил здесь 4 года.',
+     src:'Личный опыт 1469–1472; «Хожение»'}},
+  {id:'hormuz', lon:56.5, lat:27.1,
+   label:'Ормуз',
+   before:{known:false,
+     myth:'Неизвестен. Персидский залив — «конец земли» или «Хвалынское море» (Каспий, с которым путали).',
+     src:'Нет источников'},
+   after:{known:true,
+     real:'«Гурмыз — остров в море». Главный перевалочный порт мира. Здесь пересекаются все торговые пути. Пасха 1469 г. — Афанасий здесь.',
+     src:'Личный опыт 1469 и 1472–1473'}},
+  {id:'caspian', lon:51, lat:41,
+   label:'Каспийское море',
+   before:{known:true,
+     myth:'«Хвалынское море» — известно по новгородской торговле и булгарским маршрутам. Берега — татарские орды.',
+     src:'Торговые связи Руси с Булгаром XIV–XV вв.'},
+   after:{known:true,
+     real:'Афанасий пересёк его дважды. Видел Баку с «вечным огнём», Дербент. Реальная опасность: ограбление на Волге у Астрахани.',
+     src:'Личный опыт 1467–1468'}},
+  {id:'persia', lon:52, lat:33,
+   label:'Персия',
+   before:{known:true,
+     myth:'«Персида» — знакома по летописям и библейским текстам. Страна богатая, далёкая. Конкретные города неизвестны.',
+     src:'Летописи, «Хронограф», библейские тексты'},
+   after:{known:true,
+     real:'Конкретные маршруты: Дербент → Баку → Сари → Амол → Рей → Кашан → Йезд → Лар → Ормуз. Реальные расстояния в днях. Реальные цены.',
+     src:'«Дорожник» и «Маршрутник»; 1468–1469'}},
+  {id:'ocean', lon:65, lat:17,
+   label:'Индийский океан',
+   before:{known:false,
+     myth:'«Море Индийское» — библейский топоним без конкретного содержания. Маршрут туда неизвестен. Считали, что до Индии — по суше через Персию.',
+     src:'«Козьма Индикоплов» (VI в.) — единственный источник'},
+   after:{known:true,
+     real:'Реальное море с муссонами, портами, «тавами». Афанасий плыл 6 недель. Знает Маскат, Гуджарат, Чаул. Первое русское описание Индийского океана.',
+     src:'Личный опыт 1469 и 1472; «Маршрутник»'}},
+  {id:'black', lon:35, lat:43,
+   label:'Чёрное море',
+   before:{known:true,
+     myth:'«Понт Евскийский» или «море Стебольское» — хорошо известно по торговле с Константинополем. Кафа — генуэзский торговый центр.',
+     src:'Новгородская и тверская торговля XV в.'},
+   after:{known:true,
+     real:'«Третье море» пройдено. Трабзон → Кафа. Уже знакомое — Афанасий почти дома. Море, которое ведёт на Русь.',
+     src:'«Хожение» 1474; «3-е море Чёрное, дориа Стебольская»'}},
+  {id:'tver', lon:35.9, lat:56.9,
+   label:'Тверь',
+   before:{known:true,
+     myth:'Родной город. Центр Тверского княжества. Здесь — дом, семья, купеческое дело, церковь.',
+     src:'Знает досконально'},
+   after:{known:true,
+     real:'Не добрался. Умер под Смоленском, не дойдя до Твери. Тверь осталась точкой на горизонте — достигнутой только в тексте.',
+     src:'Предисловие Мамырева'}},
+  {id:'kaffa', lon:35.4, lat:45.0,
+   label:'Кафа (Феодосия)',
+   before:{known:true,
+     myth:'Крупнейший торговый порт Крыма. Генуэзская колония. Связь Руси с Востоком. «Кафинские» купцы хорошо известны в Твери.',
+     src:'Торговые связи Твери с Кафой'},
+   after:{known:true,
+     real:'Афанасий добрался до Кафы ноябрём 1474 г. «Приехал есмь в Кафу». Порог возвращения. Через несколько месяцев — взята Османами (1475).',
+     src:'«Хожение» 1474; последняя запись'}},
+  {id:'china', lon:75, lat:30,
+   label:'Китай (Чин)',
+   before:{known:false,
+     myth:'«Чинское царство» — страна шёлка за Индией. Абстрактный топоним без географии. Иногда путают с Индией.',
+     src:'«Александрия», торговые слухи о шёлке'},
+   after:{known:false,
+     real:'В «маршрутнике» Афанасий пишет «Чин да Мачин» — Китай как дальний предел торгового пути. Сам не был, но знает расстояния и товары.',
+     src:'«Маршрутник» Афанасия — со слов торговцев'}},
+  {id:'arabia', lon:44, lat:21,
+   label:'Аравия / Мекка',
+   before:{known:true,
+     myth:'«Аравия» — страна, откуда пришёл ислам. Мекка — «Ерусалим бесерменский» по русским источникам. Ладан и мирра — аравийские.',
+     src:'Богословские тексты, паломнические описания'},
+   after:{known:false,
+     real:'Афанасий в Аравии не был. Но в «маршрутнике» упоминает Аден как ключевой порт и знает о торговых путях через Красное море.',
+     src:'«Маршрутник»; сведения от арабских торговцев'}},
+];
+
+const CA=document.getElementById('ca');
+const CB=document.getElementById('cb');
+const ctxA=CA.getContext('2d');
+const ctxB=CB.getContext('2d');
+const offA=document.createElement('canvas'),offB=document.createElement('canvas');
+offA.width=W;offA.height=H;offB.width=W;offB.height=H;
+const ocA=offA.getContext('2d');const ocB=offB.getContext('2d');
+
+let mapReady=false, activeId=null;
+
+function buildBase(world,c,isBefore){
+  const d3p=d3.geoTransform({point(lo,la){const[x,y]=project(lo,la);this.stream.point(x,y);}});
+  const path=d3.geoPath(d3p,c);
+  const land=topojson.feature(world,world.objects.land);
+  const borders=topojson.mesh(world,world.objects.countries,(a,b)=>a!==b);
+  c.save();c.beginPath();c.rect(0,0,W,H);c.clip();
+
+  if(isBefore){
+    // Parchment-style map
+    c.fillStyle='#e8dcc0';c.fillRect(0,0,W,H);
+    c.beginPath();path(land);c.fillStyle='#d4c49a';c.fill();
+    c.strokeStyle='#a08840';c.lineWidth=0.6;c.stroke();
+    c.beginPath();path(borders);c.strokeStyle='rgba(120,90,30,.2)';c.lineWidth=0.4;c.stroke();
+    // Vignette-like border
+    for(let i=0;i<4;i++){c.strokeStyle=`rgba(120,90,30,${.06+i*.03})`;c.lineWidth=i+1;c.strokeRect(0,0,W,H);}
+  } else {
+    // Modern map
+    c.fillStyle='#8fb8d0';c.fillRect(0,0,W,H);
+    c.beginPath();path(land);c.fillStyle='#e8e1cc';c.fill();
+    c.strokeStyle='#b8a870';c.lineWidth=0.4;c.stroke();
+    c.beginPath();path(borders);c.strokeStyle='rgba(140,120,80,.15)';c.lineWidth=0.3;c.stroke();
+  }
+  // Graticule
+  c.strokeStyle=isBefore?'rgba(120,90,30,.09)':'rgba(70,100,135,.08)';c.lineWidth=0.5;
+  for(let lo=30;lo<=80;lo+=10){const[x,y0]=project(lo,LAT0+.2);const[,y1]=project(lo,LAT1-.2);c.beginPath();c.moveTo(x,y0);c.lineTo(x,y1);c.stroke();}
+  for(let la=10;la<=60;la+=10){const[x0,y]=project(LON0+.2,la);const[x1]=project(LON1-.2,la);c.beginPath();c.moveTo(x0,y);c.lineTo(x1,y);c.stroke();}
+  c.restore();
+}
+
+function halo(c,txt,x,y,col){
+  c.textAlign='center';
+  c.strokeStyle='rgba(255,255,255,.6)';c.lineWidth=2;c.strokeText(txt,x,y);
+  c.fillStyle=col||'rgba(20,10,5,.85)';c.fillText(txt,x,y);
+}
+
+function drawPoints(c,isBefore,activeId){
+  POINTS.forEach(p=>{
+    const[cx,cy]=project(p.lon,p.lat);
+    const info=isBefore?p.before:p.after;
+    const known=info.known;
+    const isAct=activeId===p.id;
+
+    if(isBefore){
+      // Before: known = dark dot, unknown = question mark
+      if(isAct){c.beginPath();c.arc(cx,cy,10,0,Math.PI*2);c.fillStyle='rgba(120,80,20,.18)';c.fill();}
+      c.beginPath();c.arc(cx,cy,known?5:4,0,Math.PI*2);
+      c.fillStyle=known?'#7a4a10':'rgba(120,80,20,.35)';c.fill();
+      c.strokeStyle=known?'#4a2a08':'rgba(120,80,20,.5)';c.lineWidth=1;c.stroke();
+      c.font='bold 7.5px sans-serif';
+      if(known){halo(c,p.label,cx,cy-8,'#6a3a08');}
+      else {
+        halo(c,'?',cx,cy+3.5,'rgba(100,70,20,.6)');
+        c.font='7px sans-serif';halo(c,p.label,cx,cy-7,'rgba(100,70,20,.45)');
+      }
+    } else {
+      if(isAct){c.beginPath();c.arc(cx,cy,10,0,Math.PI*2);c.fillStyle='rgba(30,100,180,.15)';c.fill();}
+      c.beginPath();c.arc(cx,cy,known?5:3.5,0,Math.PI*2);
+      c.fillStyle=known?'#1d6fa8':'rgba(100,140,180,.45)';c.fill();
+      c.strokeStyle=known?'#0a4070':'rgba(80,120,160,.5)';c.lineWidth=1;c.stroke();
+      c.font='bold 7.5px sans-serif';
+      if(known){halo(c,p.label,cx,cy-8,'#0a4070');}
+      else {
+        c.font='7px sans-serif';halo(c,p.label,cx,cy-7,'rgba(80,120,160,.55)');
+        halo(c,'~',cx,cy+3.5,'rgba(80,120,160,.55)');
+      }
+    }
+  });
+  // Afanasy route on "after" map
+  if(!isBefore){
+    const route=[[56.9,35.9],[46.3,48.0],[42.1,48.3],[40.4,49.9],[36.6,52.0],[33.0,51.4],
+      [27.1,56.5],[18.5,73.0],[17.9,77.5],[16.1,78.9],[17.9,77.5],[17.5,70.0],[27.1,56.5],
+      [33.0,51.4],[41.0,39.7],[45.0,35.4],[54.8,32.0]];
+    c.setLineDash([3,4]);c.strokeStyle='rgba(224,149,32,.5)';c.lineWidth=1.8;
+    c.beginPath();route.forEach(([la,lo],i)=>{const[x,y]=project(lo,la);if(i===0)c.moveTo(x,y);else c.lineTo(x,y);});
+    c.stroke();c.setLineDash([]);
+  }
+}
+
+function drawAll(){
+  // Canvas A
+  ctxA.drawImage(offA,0,0);
+  ctxA.save();ctxA.beginPath();ctxA.rect(0,0,W,H);ctxA.clip();
+  drawPoints(ctxA,true,activeId);ctxA.restore();
+  // Canvas B
+  ctxB.drawImage(offB,0,0);
+  ctxB.save();ctxB.beginPath();ctxB.rect(0,0,W,H);ctxB.clip();
+  drawPoints(ctxB,false,activeId);ctxB.restore();
+}
+
+function getPoint(canvas,ex,ey){
+  const r=canvas.getBoundingClientRect();
+  const mx=(ex-r.left)*(W/r.width),my=(ey-r.top)*(H/r.height);
+  let best=null,bestD=Infinity;
+  POINTS.forEach(p=>{const[cx,cy]=project(p.lon,p.lat);const d=Math.hypot(cx-mx,cy-my);if(d<18&&d<bestD){best=p;bestD=d;}});
+  return best;
+}
+
+function showDet(p){
+  const det=document.getElementById('wa-det');
+  if(!p){
+    det.style.borderLeftColor='var(--color-border-tertiary)';
+    det.innerHTML='<div class="wa-det-left"><div style="font-size:11px;color:var(--color-text-secondary);">Нажмите место на любой карте</div></div>';
+    return;
+  }
+  const b=p.before,a=p.after;
+  det.style.borderLeftColor=a.known?'#1d6fa8':'#8a8a8a';
+  det.innerHTML=`<div class="wa-det-left">
+    <div class="wa-det-name">${p.label}</div>
+    <div class="wa-det-compare">
+      <div class="wa-det-col">
+        <span class="wa-det-col-h" style="background:rgba(120,80,20,.12);color:#6a3a08;">${b.known?'Знал':'Не знал / миф'}</span>
+        <div class="wa-det-col-body">${b.myth}<br><br><i style="opacity:.6;">${b.src}</i></div>
+      </div>
+      <div class="wa-det-col">
+        <span class="wa-det-col-h" style="background:rgba(30,100,180,.12);color:#0a4070;">${a.known?'Узнал лично':'Только слухи'}</span>
+        <div class="wa-det-col-body">${a.real}<br><br><i style="opacity:.6;">${a.src}</i></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+[CA,CB].forEach((cv,idx)=>{
+  cv.addEventListener('click',e=>{
+    const p=getPoint(cv,e.clientX,e.clientY);
+    if(p){activeId=activeId===p.id?null:p.id;}
+    else activeId=null;
+    showDet(activeId?POINTS.find(p=>p.id===activeId):null);
+    drawAll();
+  });
+});
+
+let showingAfter=false;
+window.switchView=function(){
+  showingAfter=!showingAfter;
+  document.getElementById('tab-before').classList.toggle('on',!showingAfter);
+  document.getElementById('tab-after').classList.toggle('on',showingAfter);
+};
+
+function waitLib(cb){if(typeof d3!=='undefined'&&typeof topojson!=='undefined')cb();else setTimeout(()=>waitLib(cb),60);}
+waitLib(()=>{
+  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+    .then(r=>r.json())
+    .then(world=>{
+      buildBase(world,ocA,true);
+      buildBase(world,ocB,false);
+      mapReady=true;
+      drawAll();
+    });
+});
+})();
+</script>

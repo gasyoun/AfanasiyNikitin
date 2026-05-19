@@ -1,0 +1,257 @@
+
+<h2 class="sr-only">Афанасий Никитин в мировой историографии — история открытий и переизданий «Хожения за три моря» от 1475 до 2026 года</h2>
+<style>
+.hi{font-size:13px;}
+.hi-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
+.hi-intro b{color:var(--color-text-primary);}
+.hi-timeline{position:relative;margin-bottom:14px;}
+.hi-track{position:relative;height:6px;background:var(--color-background-secondary);border-radius:3px;border:0.5px solid var(--color-border-tertiary);margin:50px 24px 64px;}
+.hi-seg{position:absolute;height:100%;border-radius:3px;}
+.hi-event{position:absolute;cursor:pointer;transform:translateX(-50%);}
+.hi-event-dot{width:14px;height:14px;border-radius:50%;margin:0 auto;border:2px solid var(--color-background-primary);position:relative;z-index:2;transition:transform .13s;}
+.hi-event:hover .hi-event-dot{transform:scale(1.25);}
+.hi-event.active .hi-event-dot{transform:scale(1.3);box-shadow:0 0 0 3px currentColor;}
+.hi-event-year{font-size:9.5px;font-weight:500;font-variant-numeric:tabular-nums;text-align:center;margin-top:5px;white-space:nowrap;}
+.hi-event-lbl{font-size:8.5px;color:var(--color-text-secondary);text-align:center;margin-top:1px;white-space:nowrap;}
+.hi-event-top{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;}
+.hi-event-top-lbl{font-size:8px;white-space:nowrap;color:var(--color-text-secondary);}
+.hi-era{position:absolute;bottom:-28px;font-size:8.5px;color:var(--color-text-secondary);white-space:nowrap;transform:translateX(-50%);}
+.hi-detail{border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);overflow:hidden;margin-bottom:10px;}
+.hi-det-head{padding:12px 14px;display:flex;align-items:flex-start;gap:14px;border-bottom:0.5px solid var(--color-border-tertiary);}
+.hi-det-year{font-size:36px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;flex-shrink:0;}
+.hi-det-right{flex:1;min-width:0;}
+.hi-det-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;}
+.hi-det-who{font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;}
+.hi-det-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.hi-tag{padding:2px 8px;border-radius:10px;font-size:10px;}
+.hi-det-body{padding:11px 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.hi-det-col h4{font-size:10px;font-weight:500;color:var(--color-text-secondary);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em;}
+.hi-det-col p{font-size:11.5px;color:var(--color-text-secondary);line-height:1.6;margin:0;}
+.hi-det-col p b{color:var(--color-text-primary);}
+.hi-det-quote{padding:10px 14px;border-top:0.5px solid var(--color-border-tertiary);font-size:12px;font-family:var(--font-serif);line-height:1.65;color:var(--color-text-primary);}
+.hi-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.hi-nav-btn{padding:5px 12px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;white-space:nowrap;}
+.hi-nav-btn.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
+.hi-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+</style>
+
+<div class="hi">
+<div class="hi-intro">
+  «Хожение» умирало и воскресало семь раз за 550 лет. Каждое новое открытие отражало эпоху открывателя — и всякий раз из текста извлекали что-то другое: <b>патриотизм, атеизм, востоковедение, постколониализм</b>. Нажмите событие на таймлайне.
+</div>
+
+<div class="hi-nav" id="hi-nav"></div>
+
+<div class="hi-timeline">
+  <div class="hi-track" id="hi-track"></div>
+</div>
+
+<div class="hi-detail" id="hi-det" style="display:none;"></div>
+
+<div class="hi-source">
+  По: Лурье Я.С., Семёнов Л.С. «Хожение за три моря Афанасия Никитина». Л.: Наука, 1986 (вступ. статья). Хрусталёв Д.Г. «Тетради купца Афанасия». СПб.: Нестор-История, 2026, введение. Карамзин Н.М. «История государства Российского», т. VI, прим. 326 (1818).
+</div>
+</div>
+
+<script>
+(function(){
+
+const EVENTS=[
+  {id:'mamyrev', year:1475, era:'Рукопись',
+   title:'Дьяк Мамырев вносит тетради в летопись',
+   who:'Василий Мамырев, дьяк московской канцелярии',
+   color:'#8a7040',
+   tags:[{txt:'Первая фиксация',bg:'rgba(138,112,64,.15)',fg:'#6a5020'}],
+   col1:{h:'Что произошло',
+    txt:'Купцы нашли тело Афанасия под Смоленском и доставили его бумаги в Москву. Мамырев переписал «тетради», добавил летописное предисловие и включил текст в <b>Эрмитажную летопись</b> (ок. 1475–1480).'},
+   col2:{h:'Что это значило',
+    txt:'Текст сохранился — но как <b>летописная вставка</b>, не самостоятельное сочинение. На три века о нём почти никто не вспоминал. Мамырев создал «Хожение» в том виде, в каком мы его знаем.'},
+   quote:'«И преставился Афанасий, а написание оставил своё — хожение за три моря»'},
+  {id:'karamzin', year:1818, era:'Открытие',
+   title:'Карамзин впервые публикует «Хожение»',
+   who:'Николай Михайлович Карамзин, «История государства Российского»',
+   color:'#1e5a8a',
+   tags:[{txt:'Первая публикация',bg:'rgba(30,90,138,.14)',fg:'#0a3a6a'},{txt:'Скептическая оценка',bg:'rgba(192,57,43,.12)',fg:'#8a2010'}],
+   col1:{h:'Что произошло',
+    txt:'Карамзин нашёл текст в Троицком списке и опубликовал его в примечаниях к VI тому «Истории» (1818). <b>Первая публикация за 340 лет</b> после написания.'},
+   col2:{h:'Оценка Карамзина',
+    txt:'«Сей путешественник... не показывает духа наблюдательного». Карамзин считал Афанасия второстепенным купцом, интересным лишь как исторический факт. <b>Недооценил</b> — но дал тексту жизнь.'},
+   quote:'«Никитин доказывает, что Россия в XV веке имела купцов предприимчивых, которые из любви к торговле пускались в самые отдалённые страны»'},
+  {id:'larin', year:1853, era:'Открытие',
+   title:'Первое отдельное издание — Осипов / Сахаров',
+   who:'И.П. Сахаров, «Сказания русского народа», т. 2',
+   color:'#2a7a50',
+   tags:[{txt:'Первая книга',bg:'rgba(42,122,80,.14)',fg:'#0a4a28'}],
+   col1:{h:'Что произошло',
+    txt:'Первое издание «Хожения» как самостоятельного текста. Сахаров включил его в антологию «Сказания русского народа». Начинается <b>научное изучение</b> памятника.'},
+   col2:{h:'Контекст',
+    txt:'Эпоха «открытия» народной словесности — Даль, Буслаев, Афанасьев. Никитин вписывается в нарратив о <b>«простом русском человеке»</b>, достигшем Индии.'},
+   quote:'Текст впервые читают как литературный памятник, а не просто исторический источник'},
+  {id:'sreznevsky', year:1856, era:'Наука',
+   title:'Срезневский: первый научный анализ',
+   who:'И.И. Срезневский, «Хожение за три моря»',
+   color:'#2a7a50',
+   tags:[{txt:'Критический текст',bg:'rgba(42,122,80,.14)',fg:'#0a4a28'}],
+   col1:{h:'Что произошло',
+    txt:'Срезневский публикует первое <b>научно-критическое издание</b> с разночтениями трёх списков. Устанавливает три редакции текста: Троицкую, Летописную, Сухановскую.'},
+   col2:{h:'Значение',
+    txt:'Фундамент всей последующей текстологии. Срезневский первым показал, что перед нами — <b>не один текст, а несколько редакций</b>. Вопрос о составе «Хожения» открыт.'},
+   quote:'«Различные редакции суть доказательство того, что подлинный текст утрачен»'},
+  {id:'soviet48', year:1948, era:'СССР',
+   title:'Советское издание: Никитин — народный герой',
+   who:'Ред. Н.С. Чаев; серия «Литературные памятники», АН СССР',
+   color:'#c0392b',
+   tags:[{txt:'Идеологическое',bg:'rgba(192,57,43,.14)',fg:'#8a2010'},{txt:'Массовое',bg:'rgba(30,90,138,.12)',fg:'#0a3a6a'}],
+   col1:{h:'Что произошло',
+    txt:'Академическое издание с переводом, но в контексте сталинской идеологии. Афанасий превращён в <b>«народного героя»</b>, предшественника советской экспансии на Восток. Огромный тираж.'},
+   col2:{h:'Интерпретация',
+    txt:'Акцент на «простом человеке», «купце из народа», «патриотизме». Иноязычные вставки и религиозный кризис <b>замалчивались или объяснялись «угнетением»</b>. Критика ширваншаха — знак «антифеодального» сознания.'},
+   quote:'«Афанасий Никитин — первый русский путешественник, открывший Индию для русского читателя» (предисловие 1948 г.)'},
+  {id:'soviet60', year:1960, era:'СССР',
+   title:'Фильм «Хождение за три моря» (СССР–Индия)',
+   who:'Реж. Василий Пронин, Котаях Сетхна; совместное производство',
+   color:'#8a3a8a',
+   tags:[{txt:'Кинофильм',bg:'rgba(138,58,138,.14)',fg:'#5a1a5a'},{txt:'Дипломатия',bg:'rgba(30,90,138,.12)',fg:'#0a3a6a'}],
+   col1:{h:'Что произошло',
+    txt:'Первый советско-индийский совместный художественный фильм. Снят в СССР и Индии. Афанасия играет Олег Стриженов. <b>Культурная дипломатия</b> в эпоху Хрущёва — Неру.'},
+   col2:{h:'Значение',
+    txt:'Самый широкий охват аудитории за всю историю «Хожения». Образ Никитина входит в <b>массовое сознание</b>. Фильм демонстрировался в 40+ странах.'},
+   quote:'Первый фильм, снятый одновременно на русском и хинди'},
+  {id:'lurye86', year:1986, era:'Академия',
+   title:'Академическое издание Лурье — Семёнова',
+   who:'Я.С. Лурье, Л.С. Семёнов; серия «Литературные памятники», Наука',
+   color:'#1e5a8a',
+   tags:[{txt:'Научный стандарт',bg:'rgba(30,90,138,.14)',fg:'#0a3a6a'},{txt:'До сих пор основное',bg:'rgba(42,122,80,.14)',fg:'#0a4a28'}],
+   col1:{h:'Что произошло',
+    txt:'<b>Полное критическое издание</b> всех трёх списков с параллельными текстами, переводом, историческим комментарием. 40 лет подготовки. Установлена хронология 1468–1474 гг.'},
+   col2:{h:'Вклад и ограничения',
+    txt:'Золотой стандарт текстологии. Но Хрусталёв позднее покажет, что датировка (1468 вместо 1467) ошибочна, а состав «Хожения» как единого сочинения — иллюзия Мамырева.'},
+   quote:'«Хожение Афанасия Никитина является уникальным памятником — первым в русской литературе произведением, написанным светским автором вне монастырских стен»'},
+  {id:'khrn2026', year:2026, era:'Реконструкция',
+   title:'Хрусталёв: «Тетради купца Афанасия»',
+   who:'Д.Г. Хрусталёв, изд-во «Нестор-История», Санкт-Петербург',
+   color:'#6e32a0',
+   tags:[{txt:'Реконструкция состава',bg:'rgba(110,50,160,.14)',fg:'#4a1a8a'},{txt:'Новая датировка',bg:'rgba(192,57,43,.14)',fg:'#8a2010'},{txt:'2026',bg:'rgba(110,50,160,.22)',fg:'#4a1a8a'}],
+   col1:{h:'Главный тезис',
+    txt:'«Хожение» — <b>не цельное сочинение</b>. Это стопка разрозненных тетрадей, которые Мамырев собрал в единый текст. Выделяет 7 самостоятельных блоков. Новая датировка: <b>1467–1475</b> (а не 1468–1474).'},
+   col2:{h:'Методология',
+    txt:'Астрономический анализ пасхалий и мусульманских праздников. Сопоставление с индийскими хрониками Бахманидов. Лингвистический анализ иноязычных вставок. <b>Первая полная реконструкция состава</b>.'},
+   quote:'«Перед нами не "книга", написанная Афанасием, а рукопись, собранная Мамыревым из тетрадей купца — как попало»'},
+];
+
+const YEAR_START=1475,YEAR_END=2030;
+const SPAN=YEAR_END-YEAR_START;
+const ERA_COLORS={'Рукопись':'#8a7040','Открытие':'#1e5a8a','Наука':'#2a7a50','СССР':'#c0392b','Академия':'#1e5a8a','Реконструкция':'#6e32a0'};
+
+function pct(y){return Math.max(0,Math.min(100,(y-YEAR_START)/SPAN*100));}
+
+// Build nav buttons
+const nav=document.getElementById('hi-nav');
+EVENTS.forEach(ev=>{
+  const b=document.createElement('button');
+  b.className='hi-nav-btn';b.dataset.id=ev.id;
+  b.textContent=ev.year+' — '+ev.title.split(':')[0];
+  b.style.borderLeftColor=ev.color;b.style.borderLeftWidth='2px';
+  b.addEventListener('click',()=>showEvent(ev.id));
+  nav.appendChild(b);
+});
+
+// Build track
+const track=document.getElementById('hi-track');
+
+// Era bands
+const ERAS=[
+  {label:'Рукопись',from:1475,to:1818,color:'rgba(138,112,64,.12)'},
+  {label:'XIX век',from:1818,to:1920,color:'rgba(30,90,138,.1)'},
+  {label:'СССР',from:1920,to:1991,color:'rgba(192,57,43,.1)'},
+  {label:'Наши дни',from:1991,to:2030,color:'rgba(110,50,160,.1)'},
+];
+ERAS.forEach(era=>{
+  const seg=document.createElement('div');
+  seg.className='hi-seg';
+  seg.style.left=pct(era.from)+'%';
+  seg.style.width=(pct(era.to)-pct(era.from))+'%';
+  seg.style.background=era.color;
+  track.appendChild(seg);
+  const lbl=document.createElement('div');
+  lbl.className='hi-era';
+  lbl.style.left=((pct(era.from)+pct(era.to))/2)+'%';
+  lbl.textContent=era.label;
+  track.appendChild(lbl);
+});
+
+// Year axis ticks
+[1500,1600,1700,1800,1900,2000].forEach(y=>{
+  const tick=document.createElement('div');
+  tick.style.cssText=`position:absolute;left:${pct(y)}%;top:100%;margin-top:4px;font-size:8px;color:var(--color-text-secondary);transform:translateX(-50%);`;
+  tick.textContent=y;
+  track.appendChild(tick);
+});
+
+// Event dots
+let activeEvId=null;
+EVENTS.forEach((ev,i)=>{
+  const dot=document.createElement('div');
+  dot.className='hi-event';
+  dot.dataset.id=ev.id;
+  dot.style.left=pct(ev.year)+'%';
+  dot.style.top='-10px';
+  dot.style.color=ev.color;
+
+  const topLbl=document.createElement('div');
+  topLbl.className='hi-event-top';
+  topLbl.innerHTML=`<div class="hi-event-top-lbl">${ev.title.split(':')[0].split('—')[0].trim().slice(0,24)}</div>`;
+  // Alternate above/below to avoid overlap
+  const isAbove=i%2===0;
+  topLbl.style.bottom=isAbove?'calc(100% + 6px)':'auto';
+  topLbl.style.top=isAbove?'auto':'calc(100% + 22px)';
+
+  const dotEl=document.createElement('div');
+  dotEl.className='hi-event-dot';
+  dotEl.style.background=ev.color;
+  dotEl.style.borderColor='var(--color-background-primary)';
+
+  const yr=document.createElement('div');
+  yr.className='hi-event-year';
+  yr.style.color=ev.color;
+  yr.textContent=ev.year;
+
+  dot.appendChild(topLbl);
+  dot.appendChild(dotEl);
+  dot.appendChild(yr);
+  dot.addEventListener('click',()=>showEvent(ev.id));
+  track.appendChild(dot);
+});
+
+function showEvent(id){
+  activeEvId=id;
+  const ev=EVENTS.find(e=>e.id===id);
+  if(!ev)return;
+
+  document.querySelectorAll('.hi-event').forEach(d=>d.classList.toggle('active',d.dataset.id===id));
+  document.querySelectorAll('.hi-nav-btn').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
+
+  const det=document.getElementById('hi-det');
+  det.style.display='block';
+  det.style.borderColor=ev.color+'55';
+  const tagsHtml=ev.tags.map(t=>`<span class="hi-tag" style="background:${t.bg};color:${t.fg};">${t.txt}</span>`).join('');
+  det.innerHTML=`
+    <div class="hi-det-head" style="background:${ev.color}08;">
+      <div class="hi-det-year" style="color:${ev.color};">${ev.year}</div>
+      <div class="hi-det-right">
+        <div class="hi-det-title">${ev.title}</div>
+        <div class="hi-det-who">${ev.who}</div>
+        <div class="hi-det-tags">${tagsHtml}</div>
+      </div>
+    </div>
+    <div class="hi-det-body">
+      <div class="hi-det-col"><h4>${ev.col1.h}</h4><p>${ev.col1.txt}</p></div>
+      <div class="hi-det-col"><h4>${ev.col2.h}</h4><p>${ev.col2.txt}</p></div>
+    </div>
+    <div class="hi-det-quote">${ev.quote}</div>`;
+}
+
+// Open first event by default
+showEvent('mamyrev');
+})();
+</script>

@@ -1,0 +1,326 @@
+
+<h2 class="sr-only">Сеть людей Афанасия Никитина — граф встреч, кто помог и кто навредил</h2>
+<style>
+.pn{font-size:13px;}
+.pn-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:10px;}
+.pn-intro b{color:var(--color-text-primary);}
+.pn-row{display:flex;gap:10px;align-items:flex-start;}
+.pn-graph-wrap{flex:1 1 0;min-width:0;position:relative;}
+canvas#pn-c{display:block;width:100%;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);cursor:pointer;}
+.pn-sidebar{flex:0 0 220px;display:flex;flex-direction:column;gap:7px;}
+.pn-legend{padding:9px 11px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);}
+.pn-leg-h{font-size:10px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px;letter-spacing:.04em;}
+.pn-leg-row{display:flex;align-items:center;gap:7px;margin-bottom:4px;font-size:10.5px;color:var(--color-text-secondary);}
+.pn-leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.pn-leg-line{width:22px;height:2px;flex-shrink:0;border-radius:1px;}
+.pn-detail{padding:10px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);flex:1;min-height:200px;border-left:3px solid transparent;transition:border-color .2s;}
+.pn-det-name{font-size:13px;font-weight:600;margin-bottom:2px;}
+.pn-det-role{font-size:10px;color:var(--color-text-secondary);margin-bottom:8px;}
+.pn-det-quote{font-size:11.5px;font-family:var(--font-serif);line-height:1.65;margin-bottom:7px;padding-left:9px;border-left:2px solid var(--color-border-secondary);color:var(--color-text-primary);}
+.pn-det-body{font-size:11px;color:var(--color-text-secondary);line-height:1.55;}
+.pn-det-body b{color:var(--color-text-primary);}
+.pn-hint{font-size:10px;color:var(--color-text-secondary);text-align:center;margin-top:5px;opacity:.6;}
+.pn-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.pn-f{padding:4px 11px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;white-space:nowrap;}
+.pn-f.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
+</style>
+
+<div class="pn">
+<div class="pn-intro">
+  Афанасий встретил десятки людей за 8 лет. Одни <b style="color:#1e8250;">помогли</b> выжить, другие <b style="color:#c0392b;">навредили</b>, третьи были <b style="color:#8a8a8a;">нейтральны</b>. Нажмите узел чтобы узнать о человеке. Перетаскивайте узлы.
+</div>
+
+<div class="pn-filters" id="pn-filters">
+  <button class="pn-f active" data-f="all" onclick="setFilter('all')">Все</button>
+  <button class="pn-f" data-f="help" onclick="setFilter('help')">Помогли</button>
+  <button class="pn-f" data-f="harm" onclick="setFilter('harm')">Навредили</button>
+  <button class="pn-f" data-f="neutral" onclick="setFilter('neutral')">Нейтральные</button>
+  <button class="pn-f" data-f="indirect" onclick="setFilter('indirect')">Заочные</button>
+</div>
+
+<div class="pn-row">
+  <div class="pn-graph-wrap">
+    <canvas id="pn-c" width="460" height="460"></canvas>
+    <div class="pn-hint">← нажмите узел · перетащите для перестановки</div>
+  </div>
+  <div class="pn-sidebar">
+    <div class="pn-legend">
+      <div class="pn-leg-h">УЗЛЫ</div>
+      <div class="pn-leg-row"><div class="pn-leg-dot" style="background:#e09520;border:2px solid #8a5000;"></div>Афанасий (центр)</div>
+      <div class="pn-leg-row"><div class="pn-leg-dot" style="background:#1e8250;"></div>Помог</div>
+      <div class="pn-leg-row"><div class="pn-leg-dot" style="background:#c0392b;"></div>Навредил</div>
+      <div class="pn-leg-row"><div class="pn-leg-dot" style="background:#5a6e8a;"></div>Нейтральный</div>
+      <div class="pn-leg-row"><div class="pn-leg-dot" style="background:#8a8a8a;border:1px dashed #aaa;"></div>Заочный / косвенный</div>
+      <div class="pn-leg-h" style="margin-top:8px;">СВЯЗИ</div>
+      <div class="pn-leg-row"><div class="pn-leg-line" style="background:#1e8250;"></div>Помощь / спасение</div>
+      <div class="pn-leg-row"><div class="pn-leg-line" style="background:#c0392b;"></div>Угроза / ущерб</div>
+      <div class="pn-leg-row"><div class="pn-leg-line" style="background:#8a8a8a;"></div>Нейтральный контакт</div>
+      <div class="pn-leg-row"><div class="pn-leg-line" style="background:#b97314;border-top:1px dashed #b97314;height:0;"></div>Заочная связь</div>
+    </div>
+    <div class="pn-detail" id="pn-det">
+      <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.6;">Нажмите на узел чтобы узнать о человеке и его роли в судьбе Афанасия.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+const C=document.getElementById('pn-c');
+const ctx=C.getContext('2d');
+const W=460,H=460;
+C.width=W;C.height=H;
+
+// ── Node data ─────────────────────────────────────────────────────────────────
+const NODES=[
+  {id:'af',  label:'Афанасий\nНикитин', role:'Тверской купец, путешественник',
+   type:'self', r:22, x:230, y:230,
+   quote:'«Пошёл я, Афанасий сын Никитин, от Спаса Святого — за три моря»',
+   body:'<b>Тверской купец</b>, мелкий торговец. Ехал продавать жеребца в Индии. Потерял всё на Волге и оказался вынужден идти дальше — назад денег не было. 8 лет. Умер под Смоленском, не дойдя до Твери.',
+   loc:'Тверь → Смоленск'},
+  {id:'boris',label:'Борис\nЗахарьич', role:'Воевода тверской',
+   type:'help', r:13, x:120, y:100,
+   quote:'«От воеводы Бориса Захарьича» — упомянут в числе покровителей',
+   body:'<b>Тверской воевода</b>, один из покровителей отъезда. Дал Афанасию охранную грамоту для путешествия. Без неё купца могли задержать уже у Нижнего.',
+   loc:'Тверь, 1467'},
+  {id:'mikhail',label:'Кн. Михаил\nБорисович', role:'Князь Тверской',
+   type:'help', r:14, x:80, y:200,
+   quote:'«От великого князя Михаила Борисовича Тверского» — благословение',
+   body:'<b>Великий князь Тверской</b> (правил 1461–1485). Дал официальное благословение и, вероятно, охранные грамоты. Без княжеской санкции купеческий выезд за рубеж был затруднён.',
+   loc:'Тверь, 1467'},
+  {id:'asanbeg',label:'Асанбег\nШирванский', role:'Посол ширваншаха',
+   type:'neutral', r:14, x:340, y:100,
+   quote:'«Асанбег — посол ширваньского, шёл с Руси с кречатами»',
+   body:'<b>Посол ширваншаха Фаррух-Ясара</b>. Афанасий пристал к его каравану на Волге — в одиночку плыть было опасно. Когда татары ограбили группу, Асанбег бросил купцов на произвол судьбы и уехал.',
+   loc:'Волга, 1467'},
+  {id:'tatars', label:'Татары\n(астраханские)', role:'Ограбили под Астраханью',
+   type:'harm', r:15, x:380, y:200,
+   quote:'«Побежали татары и взяли один насад, а другой потопили»',
+   body:'<b>Ханские люди астраханского хана</b>. Ограбили оба судна каравана у Астрахани. Афанасий потерял всё — коней, товар, деньги. Именно это ограбление сделало возвращение невозможным: не было средств.',
+   loc:'Астрахань, 1467'},
+  {id:'farrukhyasar',label:'Ширваншах\nФаррух-Ясар', role:'Отказал в помощи',
+   type:'harm', r:14, x:380, y:310,
+   quote:'«Ширваньский шах принял нас хорошо, да помочь не дал»',
+   body:'<b>Ширваншах Фаррух-Ясар</b> (правил 1462–1500). Афанасий умолял его возместить убытки — купцы везли товар по его ходатайству. Отказал. Это окончательно отрезало путь назад.',
+   loc:'Дербент, 1467–1468'},
+  {id:'hassan',  label:'Хасан-ходжа\nХорасанский', role:'Спас от принятия ислама',
+   type:'help', r:17, x:120, y:360,
+   quote:'«Да помог мне Бог — Хасан-ходжа хорасанский, спас меня»',
+   body:'<b>Торговец из Хорасана</b> — единственный человек, которому Афанасий выражает личную благодарность. Вступился перед ханом Асадом в Джуннаре, когда тот конфисковал коня и угрожал смертью. Вернул коня, сохранил жизнь.',
+   loc:'Джуннар, август 1469'},
+  {id:'asad',   label:'Хан Асад\n(Джуннар)', role:'Конфисковал коня, угрожал смертью',
+   type:'harm', r:16, x:340, y:380,
+   quote:'«Хан Асад взял у меня жеребца — узнал, что я не бесерменин»',
+   body:'<b>Местный правитель в Джуннаре</b>. Узнав, что Афанасий — христианин («гяур»), конфисковал его единственный товар — жеребца — и поставил ультиматум: принять ислам или умереть. Спас Хасан-ходжа. Через 5 дней коня вернули.',
+   loc:'Джуннар, 1469'},
+  {id:'mahmud', label:'Махмуд\nГаван', role:'Великий визирь Бахманидов',
+   type:'neutral', r:18, x:230, y:380,
+   quote:'«Меликтучар выступил с войском» — Афанасий хроникёр его походов',
+   body:'<b>Великий визирь (меликтучар) Бахманидского султаната</b> (ок. 1411–1481). Гилянский купец, ставший государственным деятелем. Хрусталёв: возможно, именно он был негласным «протектором» Афанасия при дворе. Афанасий подробно описывает его военные кампании.',
+   loc:'Бидар, 1469–1472'},
+  {id:'sultan',  label:'Султан\nМахмуд III', role:'Правитель Бахманидов',
+   type:'neutral', r:13, x:130, y:300,
+   quote:'«Султан выезжает — пред ним 300 слонов в доспехах»',
+   body:'<b>Бахманидский султан Махмуд III</b>. Афанасий наблюдал его выезды с грандиозной свитой. Прямых контактов не описано, но присутствие при дворе подразумевает хотя бы косвенное знакомство.',
+   loc:'Бидар, 1469–1472'},
+  {id:'brahmins',label:'Брахманы\n(Шрисайлам)', role:'Приняли паломника',
+   type:'help', r:12, x:60, y:310,
+   quote:'«Брахманы дали мне есть, да мяса не дали»',
+   body:'<b>Индуистские жрецы</b> в паломническом центре Шрисайлам. Накормили Афанасия, хотя он — иноверец. Не дали мяса (запрет у места жертвоприношения), но приняли как паломника. Редкий момент межрелигиозного гостеприимства.',
+   loc:'Шрисайлам, 1471'},
+  {id:'mamyrev', label:'Дьяк\nМамырев', role:'Сохранил рукопись',
+   type:'help', r:15, x:230, y:70,
+   quote:'«Написание сие нашли при некоем купчине Афанасии»',
+   body:'<b>Дьяк Василий Мамырев</b>, московский чиновник. Получил «тетради» от купцов, обнаруживших тело Афанасия под Смоленском. Переписал, добавил предисловие, включил в летопись. Без него текст погиб бы. Единственный человек, без которого мы бы ничего не знали об Афанасии.',
+   loc:'Москва, ~1475–1480'},
+  {id:'genadiy', label:'Владыка\nГеннадий', role:'Благословил отъезд',
+   type:'help', r:11, x:160, y:70,
+   quote:'«От владыки Геннадия Тверского» — благословение',
+   body:'<b>Епископ Тверской Геннадий</b>. Дал церковное благословение на путешествие. Для купца XV в. это было существенно — путешествие за море без церковного благословения считалось рискованным духовно.',
+   loc:'Тверь, 1467'},
+  {id:'local',  label:'Купцы\nИндийского океана', role:'Торговые партнёры',
+   type:'neutral', r:11, x:350, y:160,
+   quote:'«Пошёл с таваею — с корабельщиками бесерменскими»',
+   body:'<b>Мусульманские и индийские торговцы</b> Индийского океана. Афанасий плыл на их судах («тавах»), жил среди них, иногда постился вместе. Деловые отношения — без особой теплоты, но без враждебности.',
+   loc:'Ормуз → Индия, 1469'},
+  {id:'karamzin',label:'Карамзин\n(1817)', role:'Открыл текст миру',
+   type:'indirect', r:11, x:310, y:70,
+   quote:'«Сей путешественник... не показывает духа наблюдательного» — Карамзин',
+   body:'<b>Николай Карамзин</b> первым опубликовал «Хожение» в 1817 г. Оценил скептически. Но именно его публикация ввела текст в научный оборот. Без Карамзина Афанасий оставался бы архивной рукописью.',
+   loc:'Россия, 1817'},
+];
+
+// ── Edges ─────────────────────────────────────────────────────────────────────
+const EDGES=[
+  {a:'af',b:'boris',  type:'help',    label:'охранная\nграмота'},
+  {a:'af',b:'mikhail',type:'help',    label:'благо-\nсловение'},
+  {a:'af',b:'genadiy',type:'help',    label:'церковное\nблагосл.'},
+  {a:'af',b:'asanbeg', type:'neutral',label:'попутный\nкараван'},
+  {a:'af',b:'tatars',  type:'harm',   label:'ограбление\n1467'},
+  {a:'af',b:'farrukhyasar',type:'harm',label:'отказ в\nпомощи'},
+  {a:'af',b:'hassan',  type:'help',   label:'спасение\nв Джуннаре'},
+  {a:'af',b:'asad',    type:'harm',   label:'конфискат\nконя'},
+  {a:'af',b:'mahmud',  type:'neutral',label:'дворцовое\nокружение'},
+  {a:'af',b:'sultan',  type:'neutral',label:'при дворе\nБидара'},
+  {a:'af',b:'brahmins',type:'help',   label:'принят\nкак паломник'},
+  {a:'af',b:'local',   type:'neutral',label:'морская\nторговля'},
+  {a:'hassan',b:'asad',type:'harm',   label:'конфликт'},
+  {a:'asanbeg',b:'farrukhyasar',type:'neutral',label:'посольство'},
+  {a:'mahmud',b:'sultan',type:'neutral',label:'визирь'},
+  {a:'af',b:'mamyrev', type:'indirect',label:'посмертная\nпередача'},
+  {a:'mamyrev',b:'karamzin',type:'indirect',label:'летопись\n→ издание'},
+];
+
+const TYPE_COLOR={self:'#e09520',help:'#1e8250',harm:'#c0392b',neutral:'#5a6e8a',indirect:'#9a9a9a'};
+const EDGE_COLOR={help:'#1e8250',harm:'#c0392b',neutral:'#aaaaaa',indirect:'#b97314'};
+
+let activeFilter='all', activeNode=null, dragging=null, dragOffX=0, dragOffY=0;
+
+function nodeVisible(n){
+  if(activeFilter==='all')return true;
+  if(activeFilter==='indirect')return n.type==='indirect';
+  return n.type===activeFilter||n.id==='af';
+}
+
+function edgeVisible(e){
+  if(activeFilter==='all')return true;
+  if(activeFilter==='indirect')return e.type==='indirect';
+  return e.type===activeFilter;
+}
+
+function halo(txt,x,y,col,fnt){
+  ctx.font=fnt||'bold 8px sans-serif';
+  ctx.textAlign='center';
+  ctx.strokeStyle='rgba(255,255,255,0.7)';ctx.lineWidth=2.5;ctx.strokeText(txt,x,y);
+  ctx.fillStyle=col||'rgba(20,10,5,.85)';ctx.fillText(txt,x,y);
+}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+
+  // Edges
+  EDGES.forEach(e=>{
+    if(!edgeVisible(e))return;
+    const na=NODES.find(n=>n.id===e.a);
+    const nb=NODES.find(n=>n.id===e.b);
+    if(!na||!nb||!nodeVisible(na)||!nodeVisible(nb))return;
+    const col=EDGE_COLOR[e.type]||'#aaa';
+    ctx.beginPath();ctx.moveTo(na.x,na.y);ctx.lineTo(nb.x,nb.y);
+    ctx.strokeStyle=col;ctx.lineWidth=e.type==='harm'?2:1.5;
+    if(e.type==='indirect')ctx.setLineDash([5,4]);
+    ctx.globalAlpha=0.45;ctx.stroke();
+    ctx.setLineDash([]);ctx.globalAlpha=1;
+
+    // Edge label midpoint
+    if(e.label){
+      const mx=(na.x+nb.x)/2,my=(na.y+nb.y)/2;
+      const lines=e.label.split('\n');
+      ctx.font='7px sans-serif';ctx.globalAlpha=.55;
+      lines.forEach((l,li)=>halo(l,mx,my+(li-(lines.length-1)/2)*9,col));
+      ctx.globalAlpha=1;
+    }
+  });
+
+  // Arrowheads
+  EDGES.forEach(e=>{
+    if(!edgeVisible(e))return;
+    const na=NODES.find(n=>n.id===e.a);
+    const nb=NODES.find(n=>n.id===e.b);
+    if(!na||!nb||!nodeVisible(na)||!nodeVisible(nb))return;
+    const col=EDGE_COLOR[e.type]||'#aaa';
+    const angle=Math.atan2(nb.y-na.y,nb.x-na.x);
+    const ex=nb.x-Math.cos(angle)*nb.r;
+    const ey=nb.y-Math.sin(angle)*nb.r;
+    ctx.beginPath();ctx.moveTo(ex,ey);
+    ctx.lineTo(ex-7*Math.cos(angle-0.45),ey-7*Math.sin(angle-0.45));
+    ctx.lineTo(ex-7*Math.cos(angle+0.45),ey-7*Math.sin(angle+0.45));
+    ctx.closePath();ctx.fillStyle=col;ctx.globalAlpha=.5;ctx.fill();ctx.globalAlpha=1;
+  });
+
+  // Nodes
+  NODES.forEach(n=>{
+    if(!nodeVisible(n))return;
+    const isActive=activeNode===n.id;
+    const col=TYPE_COLOR[n.type]||'#888';
+
+    if(isActive){
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r+7,0,Math.PI*2);
+      ctx.fillStyle=col;ctx.globalAlpha=.15;ctx.fill();ctx.globalAlpha=1;
+    }
+    ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle=n.type==='self'?'#fff8ec':'var(--color-background-primary)';
+    ctx.fill();
+    ctx.strokeStyle=col;ctx.lineWidth=isActive?2.5:n.type==='indirect'?1.2:1.8;
+    if(n.type==='indirect')ctx.setLineDash([4,3]);
+    ctx.stroke();ctx.setLineDash([]);
+
+    const lines=n.label.split('\n');
+    ctx.font=`${n.r>14?'bold ':''} ${n.r>14?'8':'7.5'}px sans-serif`;
+    lines.forEach((l,li)=>{
+      halo(l,n.x,n.y+(li-(lines.length-1)/2)*10+3.5,col);
+    });
+  });
+}
+
+function getNodeAt(mx,my){
+  for(let i=NODES.length-1;i>=0;i--){
+    const n=NODES[i];
+    if(!nodeVisible(n))continue;
+    if(Math.hypot(mx-n.x,my-n.y)<=n.r+4)return n;
+  }
+  return null;
+}
+
+function showDetail(n){
+  const det=document.getElementById('pn-det');
+  if(!n){det.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary);">Нажмите на узел чтобы узнать о человеке.</div>';det.style.borderLeftColor='var(--color-border-tertiary)';return;}
+  const col=TYPE_COLOR[n.type]||'#888';
+  det.style.borderLeftColor=col;
+  det.innerHTML=`<div class="pn-det-name" style="color:${col};">${n.label.replace('\n',' ')}</div>
+    <div class="pn-det-role">${n.role} · <span style="opacity:.7;">${n.loc}</span></div>
+    <div class="pn-det-quote">${n.quote}</div>
+    <div class="pn-det-body">${n.body}</div>`;
+}
+
+const ratio=C.getBoundingClientRect().width/W||1;
+function evXY(e){
+  const r=C.getBoundingClientRect();
+  const scaleX=W/r.width,scaleY=H/r.height;
+  const src=e.touches?e.touches[0]:e;
+  return[(src.clientX-r.left)*scaleX,(src.clientY-r.top)*scaleY];
+}
+
+C.addEventListener('mousedown',e=>{
+  const[mx,my]=evXY(e);
+  const n=getNodeAt(mx,my);
+  if(n){dragging=n;dragOffX=n.x-mx;dragOffY=n.y-my;}
+});
+C.addEventListener('mousemove',e=>{
+  if(!dragging)return;
+  const[mx,my]=evXY(e);
+  dragging.x=Math.max(dragging.r,Math.min(W-dragging.r,mx+dragOffX));
+  dragging.y=Math.max(dragging.r,Math.min(H-dragging.r,my+dragOffY));
+  draw();
+});
+C.addEventListener('mouseup',e=>{
+  const[mx,my]=evXY(e);
+  if(dragging&&Math.abs(dragging.x-(mx+dragOffX))<4&&Math.abs(dragging.y-(my+dragOffY))<4){
+    activeNode=activeNode===dragging.id?null:dragging.id;
+    showDetail(activeNode?NODES.find(n=>n.id===activeNode):null);
+    draw();
+  }
+  dragging=null;
+});
+
+window.setFilter=function(f){
+  activeFilter=f;activeNode=null;showDetail(null);
+  document.querySelectorAll('.pn-f').forEach(b=>b.classList.toggle('active',b.dataset.f===f));
+  draw();
+};
+
+draw();
+// Auto-spin slightly to show it's interactive
+let spin=0;
+const initPos=NODES.map(n=>({id:n.id,x:n.x,y:n.y}));
+})();
+</script>

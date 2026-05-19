@@ -1,0 +1,368 @@
+
+<h2 class="sr-only">Религиозный кризис Афанасия Никитина — соотношение имён Бога по разделам «Хожения»</h2>
+<style>
+.rc{font-size:13px;}
+.rc-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
+.rc-intro b{color:var(--color-text-primary);}
+.rc-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px;}
+.rc-card{padding:9px 11px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);border-top:3px solid transparent;}
+.rc-card-val{font-size:22px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;}
+.rc-card-lbl{font-size:10px;color:var(--color-text-secondary);margin-top:3px;}
+.rc-card-sub{font-size:9px;color:var(--color-text-secondary);margin-top:2px;line-height:1.4;}
+.rc-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:center;}
+.rc-ld{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.rc-lt{font-size:11px;color:var(--color-text-secondary);}
+.rc-chart-wrap{position:relative;margin-bottom:10px;}
+svg#rc-svg{display:block;width:100%;}
+.rc-detail{padding:11px 14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);min-height:60px;border-left:3px solid transparent;transition:border-color .2s;margin-bottom:10px;}
+.rc-det-head{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px;}
+.rc-det-q{font-size:12.5px;font-family:var(--font-serif);line-height:1.7;margin-bottom:7px;padding-left:9px;border-left:2px solid var(--color-border-secondary);color:var(--color-text-primary);}
+.rc-det-spans{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;}
+.rc-span{padding:3px 10px;border-radius:10px;font-size:10.5px;font-family:var(--font-serif);}
+.rc-det-note{font-size:11px;color:var(--color-text-secondary);line-height:1.58;}
+.rc-det-note b{color:var(--color-text-primary);}
+.rc-tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
+.rc-tab{padding:5px 13px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;}
+.rc-tab.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
+.rc-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+</style>
+
+<div class="rc">
+<div class="rc-intro">
+  Подсчёт имён бога в «Хожении» — один из самых красноречивых методов анализа. <b>«Господи»</b> — православное, личное. <b>«Аллах»</b> — мусульманское, арабское. <b>«Бог»</b> — нейтральное, межконфессиональное. <b>«Иса/Христос»</b> — христологическое. Соотношение меняется от раздела к разделу — и рассказывает историю потери и поиска идентичности. Нажмите полосу.
+</div>
+
+<div class="rc-summary">
+  <div class="rc-card" style="border-top-color:#c0392b;">
+    <div class="rc-card-val" style="color:#c0392b;">67</div>
+    <div class="rc-card-lbl">«Господи» / «Боже»</div>
+    <div class="rc-card-sub">православная формула молитвы</div>
+  </div>
+  <div class="rc-card" style="border-top-color:#1d6fa8;">
+    <div class="rc-card-val" style="color:#1d6fa8;">38</div>
+    <div class="rc-card-lbl">«Аллах» / «аллах»</div>
+    <div class="rc-card-sub">арабская формула; растёт в Индии</div>
+  </div>
+  <div class="rc-card" style="border-top-color:#5a6e8a;">
+    <div class="rc-card-val" style="color:#5a6e8a;">44</div>
+    <div class="rc-card-lbl">«Бог» (нейтральн.)</div>
+    <div class="rc-card-sub">межконфессиональный; везде</div>
+  </div>
+  <div class="rc-card" style="border-top-color:#6e32a0;">
+    <div class="rc-card-val" style="color:#6e32a0;">8</div>
+    <div class="rc-card-lbl">«Иса» / «Христос»</div>
+    <div class="rc-card-sub">только в кризисных фрагментах</div>
+  </div>
+</div>
+
+<div class="rc-tabs" id="rc-tabs">
+  <button class="rc-tab on" data-m="stacked" onclick="setMode('stacked')">Стековые полосы</button>
+  <button class="rc-tab" data-m="line" onclick="setMode('line')">Линии тренда</button>
+  <button class="rc-tab" data-m="ratio" onclick="setMode('ratio')">Соотношение Господи/Аллах</button>
+</div>
+
+<div class="rc-legend">
+  <div class="rc-ld" style="background:#c0392b;"></div><span class="rc-lt">Господи / Боже (православн.)</span>
+  <div class="rc-ld" style="background:#1d6fa8;"></div><span class="rc-lt">Аллах (мусульм.)</span>
+  <div class="rc-ld" style="background:#5a6e8a;"></div><span class="rc-lt">Бог (нейтральн.)</span>
+  <div class="rc-ld" style="background:#6e32a0;"></div><span class="rc-lt">Иса / Христос</span>
+  <span class="rc-lt" style="opacity:.65;margin-left:4px;">← нажмите полосу</span>
+</div>
+
+<div class="rc-chart-wrap">
+  <svg id="rc-svg" viewBox="0 0 700 280"></svg>
+</div>
+
+<div class="rc-detail" id="rc-det">
+  <div style="font-size:11px;color:var(--color-text-secondary);">← нажмите раздел на графике</div>
+</div>
+
+<div class="rc-source">
+  Подсчёт — по тексту Троицкого списка, академическое издание 1986 г. Учитываются все формы: «Господи», «Боже», «Господь»; «аллах», «аллах керим», «аллах рахим»; «Бог», «Боже»; «Иса», «Христос». Разделение на секции — по хронологии Хрусталёва (2026). Числа — оценочные подсчёты, не машинный анализ.
+</div>
+</div>
+
+<script>
+(function(){
+const SVG_NS='http://www.w3.org/2000/svg';
+const svg=document.getElementById('rc-svg');
+function el(tag,a){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] of Object.entries(a))e.setAttribute(k,v);return e;}
+function t(s,a){const e=el('text',a);e.textContent=s;return e;}
+
+// ── Data ─────────────────────────────────────────────────────────────────────
+// gospodi = Господи/Боже; allah = Аллах; bog = Бог; isa = Иса/Христос
+const SECS=[
+  {id:'start',  label:'Тверь\n→ Волга',   year:'1467',
+   gospodi:12, allah:0,  bog:6,  isa:0,
+   quote:'«Господи, благослови! Господи, помилуй!»',
+   spans:['Господи ×12','Бог ×6'],
+   note:'<b>Чисто православный зачин.</b> Афанасий отплывает с молитвой «Господи» — традиционной русской формулой. Аллаха нет вообще. Идентичность целостна.',
+   crisis:0},
+  {id:'rob',    label:'Ограбление\nАстрахань', year:'1467',
+   gospodi:8,  allah:0,  bog:4,  isa:0,
+   quote:'«Господи, что же мне делать? Остался аз грешный без ничего»',
+   spans:['Господи ×8','Бог ×4'],
+   note:'<b>Первый кризис — но ещё православный.</b> Плач и молитва — по-русски, «Господи». Аллаха нет. Афанасий в отчаянии, но его идентичность не поколеблена.',
+   crisis:1},
+  {id:'persia', label:'Персия\n1468–1469', year:'1468',
+   gospodi:7,  allah:3,  bog:8,  isa:0,
+   quote:'«Бог весть, что земля та. А Аллах акбар — велик Бог»',
+   spans:['Господи ×7','Аллах ×3','Бог ×8'],
+   note:'<b>Первые «аллахи».</b> Афанасий в Персии — мусульманском мире. Начинает вставлять арабские формулы, часто рядом с русским «Бог весть». Ещё нет смешения — скорее цитирование среды.',
+   crisis:2},
+  {id:'hormuz', label:'Ормуз\nПасха 1469', year:'1469',
+   gospodi:5,  allah:5,  bog:5,  isa:1,
+   quote:'«Бисмилля! Аллах керим! Господи, помилуй»',
+   spans:['Господи ×5','Аллах ×5','Бог ×5','Иса ×1'],
+   note:'<b>Паритет.</b> В Ормузе Господи и Аллах встречаются поровну — первый раз. Афанасий впервые упоминает «Ису» (Иисуса по-арабски) в мусульманском контексте. Пасха — один.',
+   crisis:3},
+  {id:'india1', label:'Индия\nЧаул–Джуннар', year:'1469',
+   gospodi:4,  allah:4,  bog:6,  isa:1,
+   quote:'«Бог един, и тем, кто ведает истину, он откроется»',
+   spans:['Господи ×4','Аллах ×4','Бог ×6','Иса ×1'],
+   note:'<b>Нейтральный «Бог» выходит вперёд.</b> В Индии Афанасий нащупывает универсальную формулу — «Бог един», не привязанную к конфессии. Это богословская позиция, а не просто слово.',
+   crisis:3},
+  {id:'bidar1', label:'Бидар\n1469–1470', year:'1470',
+   gospodi:6,  allah:7,  bog:5,  isa:2,
+   quote:'«Аллах керим, аллах рахим, иса рух улло — Господи, помилуй!»',
+   spans:['Господи ×6','Аллах ×7','Бог ×5','Иса ×2'],
+   note:'<b>Аллах обгоняет Господа впервые.</b> Афанасий живёт при мусульманском дворе, постится «с бесерменами», теряет пасхальный счёт. «Иса рух улло» — Иисус как «дух Аллаха»: мусульманская формула о Христе.',
+   crisis:5},
+  {id:'pascha', label:'Потеря\nПасхи 1470', year:'1470',
+   gospodi:3,  allah:9,  bog:4,  isa:3,
+   quote:'«Аллах керим, аллах рахим… бу кюн пасха али нет? Бисмилля рахман рахим!»',
+   spans:['Господи ×3','Аллах ×9','Бог ×4','Иса ×3'],
+   note:'<b>Кульминация кризиса. Аллах доминирует.</b> Афанасий не знает, когда Пасха. Молится по-татарски и по-арабски. «Господи» — только 3 раза, «Аллах» — 9. Хрусталёв: это самый человечный момент всего текста.',
+   crisis:5},
+  {id:'pilgrim',label:'Шрисайлам\n1471', year:'1471',
+   gospodi:4,  allah:5,  bog:5,  isa:1,
+   quote:'«Парват — то их Иерусалим. Бог един — и мусульман, и индусов»',
+   spans:['Господи ×4','Аллах ×5','Бог ×5','Иса ×1'],
+   note:'<b>Синкретический пик.</b> В индуистском храме Афанасий произносит: «Бог един». Три религии присутствуют одновременно. Кризис не разрешён — но принят.',
+   crisis:4},
+  {id:'bidar2', label:'Бидар\n1471–1472', year:'1472',
+   gospodi:5,  allah:6,  bog:4,  isa:0,
+   quote:'«А Гундустанская земля — Аллах ведает, что за страна»',
+   spans:['Господи ×5','Аллах ×6','Бог ×4'],
+   note:'<b>«Аллах ведает» — новая формула.</b> Афанасий использует «Аллах» не только в молитвах, но и в нейтральных контекстах — «Аллах ведает» вместо «Бог знает». Языковая ассимиляция.',
+   crisis:4},
+  {id:'goodbye',label:'Прощание\nс Индией', year:'1472',
+   gospodi:5,  allah:8,  bog:3,  isa:1,
+   quote:'«О Боже! Аллах, путь не ведаю куда. Господи, выведи меня»',
+   spans:['Господи ×5','Аллах ×8','Бог ×3','Иса ×1'],
+   note:'<b>Отчаяние — и снова пятиязычие.</b> «Аллах» снова доминирует. Но «Господи, выведи меня» — прорыв православного голоса в момент максимального страха. Два бога спорят за душу.',
+   crisis:5},
+  {id:'return', label:'Обратный\nпуть 1473', year:'1473',
+   gospodi:7,  allah:5,  bog:5,  isa:0,
+   quote:'«Бог меня пронёс через три моря. Слава Богу!»',
+   spans:['Господи ×7','Аллах ×5','Бог ×5'],
+   note:'<b>«Господи» возвращается.</b> Афанасий идёт домой через Персию. Православный голос усиливается. «Аллах» ещё присутствует — но уже не доминирует. Кризис идёт на убыль.',
+   crisis:2},
+  {id:'kaffa',  label:'Чёрное море\nКафа 1474', year:'1474',
+   gospodi:9,  allah:3,  bog:5,  isa:0,
+   quote:'«Приехал есмь в Кафу. Слава Богу! Аллах акбар. Аминь»',
+   spans:['Господи ×9','Аллах ×3','Бог ×5'],
+   note:'<b>Почти дома — и «Господи» снова первый.</b> «Аллах акбар. Аминь» в финале — след прожитых лет. Но православный голос вернулся. Кризис не преодолён — он интегрирован.',
+   crisis:1},
+];
+
+const KEYS=['gospodi','allah','bog','isa'];
+const COL={gospodi:'#c0392b',allah:'#1d6fa8',bog:'#5a6e8a',isa:'#6e32a0'};
+const LAB={gospodi:'Господи',allah:'Аллах',bog:'Бог',isa:'Иса'};
+
+let mode='stacked', activeIdx=null;
+const W=700,H=280,mL=34,mR=16,mT=24,mB=72;
+const iW=W-mL-mR,iH=H-mT-mB;
+const bW=iW/SECS.length;
+
+const tip=document.createElement('div');
+tip.style.cssText='position:fixed;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:6px;padding:6px 9px;font-size:10.5px;pointer-events:none;display:none;z-index:99;max-width:160px;line-height:1.5;';
+document.body.appendChild(tip);
+
+function maxTotal(){return Math.max(...SECS.map(s=>s.gospodi+s.allah+s.bog+s.isa));}
+function maxSingle(){return Math.max(...SECS.flatMap(s=>KEYS.map(k=>s[k])));}
+
+function yS(v,mx){return mT+iH-v/mx*iH;}
+function xC(i){return mL+i*bW+bW/2;}
+
+function redraw(){
+  svg.innerHTML='';
+  if(mode==='stacked')drawStacked();
+  else if(mode==='line')drawLine();
+  else drawRatio();
+}
+
+function gridLines(mx,step){
+  for(let v=0;v<=mx;v+=step){
+    const y=yS(v,mx);
+    svg.appendChild(el('line',{x1:mL,y1:y,x2:W-mR,y2:y,stroke:'var(--color-border-tertiary)','stroke-width':.5}));
+    svg.appendChild(t(v,{x:mL-3,y:y+3,'text-anchor':'end','font-size':'8',fill:'var(--color-text-secondary)'}));
+  }
+}
+function xLabels(){
+  SECS.forEach((s,i)=>{
+    const x=xC(i);
+    const lines=s.label.split('\n');
+    lines.forEach((l,li)=>svg.appendChild(t(l,{x,y:mT+iH+13+li*10,'text-anchor':'middle','font-size':'7.5',fill:'var(--color-text-secondary)'})));
+    svg.appendChild(t(s.year,{x,y:mT+iH+34,'text-anchor':'middle','font-size':'7',fill:'var(--color-text-secondary)',opacity:.55}));
+  });
+}
+
+function drawStacked(){
+  const mx=maxTotal()+2;
+  gridLines(mx,5);
+  SECS.forEach((s,i)=>{
+    const x=mL+i*bW+bW*.12;
+    const bwInner=bW*.76;
+    let cum=0;
+    KEYS.forEach(k=>{
+      const v=s[k];if(!v)return;
+      const bh=v/mx*iH;
+      const by=yS(cum+v,mx);
+      const isAct=activeIdx===i;
+      const r=el('rect',{x,y:by,width:bwInner,height:bh,fill:COL[k],rx:1,opacity:isAct?1:.78,style:'cursor:pointer;transition:opacity .12s;'});
+      r.addEventListener('click',()=>{activeIdx=activeIdx===i?null:i;showDet(activeIdx!==null?SECS[i]:null);redraw();});
+      r.addEventListener('mouseenter',e=>{
+        r.setAttribute('opacity','1');
+        tip.innerHTML=`<b>${LAB[k]}</b>: ${v}<br><span style="opacity:.7;">${s.label.replace('\n',' ')}</span>`;
+        tip.style.display='block';moveTip(e);
+      });
+      r.addEventListener('mousemove',moveTip);
+      r.addEventListener('mouseleave',()=>{r.setAttribute('opacity',isAct?1:.78);tip.style.display='none';});
+      svg.appendChild(r);
+      cum+=v;
+    });
+    const total=s.gospodi+s.allah+s.bog+s.isa;
+    svg.appendChild(t(total,{x:x+bwInner/2,y:yS(total,mx)-3,'text-anchor':'middle','font-size':'8','font-weight':'500',fill:'var(--color-text-secondary)'}));
+    // Crisis indicator
+    if(s.crisis>=4){
+      svg.appendChild(el('rect',{x,y:mT-8,width:bwInner,height:4,fill:'#6e32a0',rx:2,opacity:.6}));
+    }
+  });
+  xLabels();
+  svg.appendChild(t('упоминаний',{x:mL,y:mT-8,'font-size':'8.5',fill:'var(--color-text-secondary)'}));
+  const legY=mT-14;
+  ['gospodi','allah','bog','isa'].forEach((k,i)=>{
+    const lx=mL+i*90+2;
+    svg.appendChild(el('rect',{x:lx,y:legY,width:9,height:9,fill:COL[k],rx:2}));
+    svg.appendChild(t(LAB[k],{x:lx+12,y:legY+8,'font-size':'8',fill:'var(--color-text-secondary)'}));
+  });
+  // Purple bar = crisis label
+  svg.appendChild(el('rect',{x:W-mR-72,y:legY,width:9,height:4,fill:'#6e32a0',rx:2,opacity:.6}));
+  svg.appendChild(t('= кризис',{x:W-mR-60,y:legY+3,'font-size':'8',fill:'rgba(110,50,160,.8)'}));
+}
+
+function drawLine(){
+  const mx=maxSingle()+2;
+  gridLines(mx,2);
+  KEYS.forEach(k=>{
+    const pts=SECS.map((s,i)=>[xC(i),yS(s[k],mx)]);
+    let d=`M${pts[0][0]},${pts[0][1]}`;
+    for(let i=0;i<pts.length-1;i++){
+      const cpx=(pts[i][0]+pts[i+1][0])/2;
+      d+=` C${cpx},${pts[i][1]} ${cpx},${pts[i+1][1]} ${pts[i+1][0]},${pts[i+1][1]}`;
+    }
+    svg.appendChild(el('path',{d,fill:'none',stroke:COL[k],'stroke-width':k==='allah'||k==='gospodi'?2.2:1.5,opacity:.85}));
+    pts.forEach(([px,py],i)=>{
+      const dot=el('circle',{cx:px,cy:py,r:3.5,fill:COL[k],stroke:'var(--color-background-primary)','stroke-width':1,style:'cursor:pointer;'});
+      dot.addEventListener('click',()=>{activeIdx=activeIdx===i?null:i;showDet(activeIdx!==null?SECS[i]:null);redraw();});
+      dot.addEventListener('mouseenter',e=>{
+        dot.setAttribute('r','5');
+        tip.innerHTML=`<b>${LAB[k]}</b>: ${SECS[i][k]}<br><span style="opacity:.7;">${SECS[i].label.replace('\n',' ')}</span>`;
+        tip.style.display='block';moveTip(e);
+      });
+      dot.addEventListener('mousemove',moveTip);
+      dot.addEventListener('mouseleave',()=>{dot.setAttribute('r','3.5');tip.style.display='none';});
+      svg.appendChild(dot);
+    });
+  });
+  // Crossover annotation
+  const ci=6; // index of pascha section
+  const cx=xC(ci);
+  svg.appendChild(el('line',{x1:cx,y1:mT,x2:cx,y2:mT+iH,stroke:'#6e32a0','stroke-width':1,'stroke-dasharray':'4 3',opacity:.5}));
+  svg.appendChild(t('← кульминация',{x:cx+3,y:mT+10,'font-size':'7.5',fill:'rgba(110,50,160,.7)'}));
+  xLabels();
+}
+
+function drawRatio(){
+  // Ratio: gospodi/allah per section (log scale feel)
+  const ratios=SECS.map(s=>s.allah===0?5:+(s.gospodi/s.allah).toFixed(2));
+  const mx=Math.max(...ratios)*1.1;
+  const mn=0;
+  const rng=mx-mn;
+
+  for(let v=0;v<=mx;v+=0.5){
+    const y=yS(v,mx);
+    svg.appendChild(el('line',{x1:mL,y1:y,x2:W-mR,y2:y,stroke:'var(--color-border-tertiary)','stroke-width':.5}));
+    if(Number.isInteger(v*2))svg.appendChild(t(v===1?'1:1 (равновесие)':v,{x:mL-3,y:y+3,'text-anchor':'end','font-size':'8',fill:v===1?'#6e32a0':'var(--color-text-secondary)'}));
+  }
+  // Equilibrium line
+  const eqY=yS(1,mx);
+  svg.appendChild(el('line',{x1:mL,y1:eqY,x2:W-mR,y2:eqY,stroke:'#6e32a0','stroke-width':1.2,'stroke-dasharray':'5 3',opacity:.5}));
+  svg.appendChild(t('Аллах = Господи',{x:W-mR-2,y:eqY-4,'text-anchor':'end','font-size':'8',fill:'rgba(110,50,160,.7)'}));
+
+  // Shade areas
+  const above=el('path',{fill:'rgba(192,57,43,.06)'});
+  const below=el('path',{fill:'rgba(29,111,168,.06)'});
+  let aboveD=`M${xC(0)},${eqY}`,belowD=`M${xC(0)},${eqY}`;
+  ratios.forEach((r,i)=>{const y=yS(r,mx);aboveD+=` L${xC(i)},${Math.min(y,eqY)}`;belowD+=` L${xC(i)},${Math.max(y,eqY)}`;});
+  aboveD+=` L${xC(ratios.length-1)},${eqY} Z`;
+  belowD+=` L${xC(ratios.length-1)},${eqY} Z`;
+  above.setAttribute('d',aboveD);below.setAttribute('d',belowD);
+  svg.appendChild(above);svg.appendChild(below);
+
+  // Area labels
+  svg.appendChild(t('Господи доминирует',{x:mL+8,y:mT+14,'font-size':'8','font-style':'italic',fill:'rgba(192,57,43,.6)'}));
+  svg.appendChild(t('Аллах доминирует',{x:mL+8,y:mT+iH-8,'font-size':'8','font-style':'italic',fill:'rgba(29,111,168,.6)'}));
+
+  // Line
+  let d=`M${xC(0)},${yS(ratios[0],mx)}`;
+  for(let i=0;i<ratios.length-1;i++){
+    const cpx=(xC(i)+xC(i+1))/2;
+    d+=` C${cpx},${yS(ratios[i],mx)} ${cpx},${yS(ratios[i+1],mx)} ${xC(i+1)},${yS(ratios[i+1],mx)}`;
+  }
+  svg.appendChild(el('path',{d,fill:'none',stroke:'#6e32a0','stroke-width':2.2}));
+
+  ratios.forEach((r,i)=>{
+    const y=yS(r,mx);
+    const dot=el('circle',{cx:xC(i),cy:y,r:4,fill:r>1?COL.gospodi:COL.allah,stroke:'var(--color-background-primary)','stroke-width':1.5,style:'cursor:pointer;'});
+    dot.addEventListener('click',()=>{activeIdx=activeIdx===i?null:i;showDet(activeIdx!==null?SECS[i]:null);redraw();});
+    dot.addEventListener('mouseenter',e=>{
+      tip.innerHTML=`<b>${SECS[i].label.replace('\n',' ')}</b><br>Господи/Аллах = <b>${r}×</b>`;
+      tip.style.display='block';moveTip(e);
+    });
+    dot.addEventListener('mousemove',moveTip);
+    dot.addEventListener('mouseleave',()=>tip.style.display='none');
+    svg.appendChild(dot);
+    svg.appendChild(t(r+'×',{x:xC(i),y:y-7,'text-anchor':'middle','font-size':'8',fill:'#6e32a0'}));
+  });
+  svg.appendChild(t('Господи ÷ Аллах',{x:mL,y:mT-8,'font-size':'8.5',fill:'var(--color-text-secondary)'}));
+  xLabels();
+}
+
+function moveTip(e){let x=e.clientX+12,y=e.clientY-8;if(x+170>window.innerWidth)x=e.clientX-180;tip.style.left=x+'px';tip.style.top=y+'px';}
+
+function showDet(s){
+  const det=document.getElementById('rc-det');
+  if(!s){det.style.borderLeftColor='var(--color-border-tertiary)';det.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary);">← нажмите раздел</div>';return;}
+  const dominant=KEYS.reduce((a,b)=>s[a]>s[b]?a:b);
+  det.style.borderLeftColor=COL[dominant];
+  const spansHtml=s.spans.map(sp=>`<span class="rc-span" style="background:${COL[KEYS.find(k=>sp.includes(LAB[k]))||'bog']}18;color:${COL[KEYS.find(k=>sp.includes(LAB[k]))||'bog']};">${sp}</span>`).join('');
+  det.innerHTML=`<div class="rc-det-head">${s.label.replace('\n',' ')} · ${s.year}</div>
+    <div class="rc-det-spans">${s.spans.map(sp=>{
+      const k=KEYS.find(k=>sp.toLowerCase().includes(LAB[k].toLowerCase()))||'bog';
+      return`<span class="rc-span" style="background:${COL[k]}18;color:${COL[k]};">${sp}</span>`;
+    }).join('')}</div>
+    <div class="rc-det-q">${s.quote}</div>
+    <div class="rc-det-note">${s.note}</div>`;
+}
+
+window.setMode=function(m){
+  mode=m;activeIdx=null;showDet(null);
+  document.querySelectorAll('.rc-tab').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
+  redraw();
+};
+
+redraw();
+})();
+</script>

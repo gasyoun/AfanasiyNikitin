@@ -1,0 +1,412 @@
+
+<h2 class="sr-only">Торговый маршрутник Афанасия Никитина — расстояния, цены, конвертер валют</h2>
+<style>
+.tg{font-size:13px;}
+.tg-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:10px;}
+.tg-intro b{color:var(--color-text-primary);}
+.tg-top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.tg-picker{padding:10px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);}
+.tg-picker-h{font-size:10px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px;}
+.tg-city-grid{display:flex;flex-wrap:wrap;gap:5px;}
+.tg-city-btn{padding:4px 10px;border-radius:16px;font-size:11px;cursor:pointer;border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-secondary);transition:all .12s;white-space:nowrap;}
+.tg-city-btn.on-buy{background:rgba(30,130,80,.15);color:#0a5a30;border-color:rgba(30,130,80,.5);}
+.tg-city-btn.on-sell{background:rgba(192,57,43,.12);color:#8a1010;border-color:rgba(192,57,43,.4);}
+.tg-city-btn.disabled{opacity:.25;cursor:not-allowed;pointer-events:none;}
+.tg-ctrl-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:10px;}
+.tg-clear-btn{padding:5px 13px;border-radius:16px;font-size:11px;cursor:pointer;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all .12s;white-space:nowrap;}
+.tg-clear-btn:hover{background:var(--color-background-primary);color:var(--color-text-primary);}
+/* Result + Rate side by side */
+.tg-mid{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;}
+.tg-result{flex:1 1 0;padding:10px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);}
+.tg-rate-box{flex:0 0 210px;padding:9px 11px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:10px;color:var(--color-text-secondary);line-height:1.7;}
+.tg-rate-box b{color:var(--color-text-primary);}
+.tg-rate-title{font-size:10px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;}
+.tg-rate-row{display:flex;justify-content:space-between;gap:6px;padding:2px 0;border-bottom:0.5px solid var(--color-border-tertiary);}
+.tg-rate-row:last-child{border-bottom:none;}
+.tg-rate-lbl{color:var(--color-text-secondary);}
+.tg-rate-val{font-weight:500;font-variant-numeric:tabular-nums;color:var(--color-text-primary);}
+.tg-profit-bar{height:8px;border-radius:4px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);overflow:hidden;margin:5px 0;}
+.tg-profit-fill{height:100%;border-radius:4px;transition:width .4s;}
+.tg-filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+.tg-f{padding:4px 11px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;}
+.tg-f.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
+.tg-f.disabled{opacity:.25;cursor:not-allowed;pointer-events:none;}
+.tg-table-wrap{overflow-x:auto;margin-bottom:10px;}
+table.tg-tbl{width:100%;border-collapse:collapse;font-size:12px;}
+table.tg-tbl th{padding:7px 10px;text-align:left;font-size:10px;font-weight:500;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-secondary);white-space:nowrap;background:var(--color-background-secondary);}
+table.tg-tbl td{padding:7px 10px;border-bottom:0.5px solid var(--color-border-tertiary);vertical-align:middle;}
+table.tg-tbl tr.data-row:hover td{background:var(--color-background-secondary);}
+.tg-good-name{font-weight:500;color:var(--color-text-primary);}
+.tg-good-cat{font-size:9.5px;color:var(--color-text-secondary);margin-top:1px;}
+.tg-price{font-variant-numeric:tabular-nums;text-align:right;cursor:help;}
+.tg-price.cheap{color:#1e8250;}.tg-price.exp{color:#c0392b;}
+.tg-margin{font-variant-numeric:tabular-nums;font-weight:500;text-align:right;}
+.tg-margin.great{color:#1e8250;}.tg-margin.good{color:#b97314;}.tg-margin.bad{color:#c0392b;}
+.tg-bar-cell{width:70px;}
+.tg-mini-bar{height:6px;border-radius:3px;background:var(--color-background-secondary);}
+.tg-mini-fill{height:100%;border-radius:3px;}
+.tg-badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:9.5px;}
+.tg-km{font-size:10px;color:var(--color-text-secondary);white-space:nowrap;}
+.tg-km span{font-weight:500;color:var(--color-text-primary);}
+.tg-detail-row{display:none;}
+.tg-detail-inner{padding:9px 10px 10px 30px;background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary);}
+.tg-det-quote{font-size:12px;font-family:var(--font-serif);line-height:1.65;margin-bottom:5px;padding-left:8px;border-left:2px solid var(--color-border-secondary);color:var(--color-text-primary);}
+.tg-det-tip{font-size:11px;color:var(--color-text-secondary);line-height:1.55;}
+.tg-det-tip b{color:var(--color-text-primary);}
+.tg-det-dist{margin-top:6px;padding:5px 8px;background:var(--color-background-primary);border-radius:5px;border:0.5px solid var(--color-border-tertiary);font-size:10.5px;color:var(--color-text-secondary);line-height:1.55;}
+.tg-det-dist b{color:var(--color-text-primary);}
+/* Tooltip */
+.cv-tip{position:fixed;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:9px 11px;font-size:11px;color:var(--color-text-primary);pointer-events:none;z-index:999;box-shadow:0 3px 12px rgba(0,0,0,.12);min-width:190px;display:none;line-height:1.6;}
+.cv-tip-title{font-weight:500;margin-bottom:5px;}
+.cv-tip-row{display:flex;justify-content:space-between;gap:12px;}
+.cv-tip-lbl{color:var(--color-text-secondary);}
+.cv-tip-val{font-weight:500;font-variant-numeric:tabular-nums;}
+.cv-tip-note{font-size:10px;color:var(--color-text-secondary);margin-top:5px;border-top:0.5px solid var(--color-border-tertiary);padding-top:4px;}
+.tg-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+</style>
+
+<div class="tg">
+<div class="tg-intro">
+  Выберите <b>город закупки</b> — остаются только релевантные города продажи. Серые = нет маршрута. <b>Наведите на цену</b> — перевод в USD и ₽. Расстояния — по средневековым торговым путям XV в.
+</div>
+
+<div class="tg-top">
+  <div class="tg-picker">
+    <div class="tg-picker-h">🛒 Купить в:</div>
+    <div class="tg-city-grid" id="buy-cities"></div>
+  </div>
+  <div class="tg-picker">
+    <div class="tg-picker-h">💰 Продать в:</div>
+    <div class="tg-city-grid" id="sell-cities"></div>
+  </div>
+</div>
+
+<div class="tg-ctrl-row">
+  <button class="tg-clear-btn" onclick="clearAll()">✕ Снять все выделения</button>
+  <span style="font-size:10px;color:var(--color-text-secondary);" id="sel-status">— не выбрано —</span>
+</div>
+
+<div class="tg-mid">
+  <div class="tg-result" id="tg-result" style="display:none;"></div>
+  <div class="tg-rate-box">
+    <div class="tg-rate-title">Курс золотого</div>
+    <div class="tg-rate-row"><span class="tg-rate-lbl">1 зол. = 3.5 г золота</span></div>
+    <div class="tg-rate-row"><span class="tg-rate-lbl">Золото (14.05.2026)</span><span class="tg-rate-val">$151.18/г</span></div>
+    <div class="tg-rate-row"><span class="tg-rate-lbl">1 зол. в USD</span><span class="tg-rate-val" id="r-usd">$529</span></div>
+    <div class="tg-rate-row"><span class="tg-rate-lbl">USD/RUB</span><span class="tg-rate-val">₽73.51</span></div>
+    <div class="tg-rate-row"><span class="tg-rate-lbl">1 зол. в RUB</span><span class="tg-rate-val" id="r-rub">₽38 896</span></div>
+    <div style="font-size:9px;color:var(--color-text-secondary);margin-top:5px;opacity:.7;">Обновлять раз в неделю</div>
+  </div>
+</div>
+
+<div class="tg-filters" id="tg-filters"></div>
+
+<div class="tg-table-wrap">
+  <table class="tg-tbl"><thead><tr>
+    <th style="width:22px;"></th>
+    <th>Товар</th>
+    <th>Купить в</th>
+    <th class="tg-price">Цена закупки</th>
+    <th>Продать в</th>
+    <th class="tg-price">Цена продажи</th>
+    <th class="tg-margin">Маржа</th>
+    <th class="tg-bar-cell">Выгода</th>
+    <th>Путь</th>
+    <th>Риск</th>
+  </tr></thead>
+  <tbody id="tg-tbody"></tbody></table>
+</div>
+
+<div class="tg-source" id="tg-source"></div>
+</div>
+
+<div class="cv-tip" id="cv-tip"></div>
+
+<script>
+(function(){
+
+// ── Rates ─────────────────────────────────────────────────────────────────────
+const GOLD_GRAM_USD=151.18, USD_RUB=73.51, DUCAT_G=3.5, RATES_DATE='14 мая 2026';
+const ZOL_USD=Math.round(DUCAT_G*GOLD_GRAM_USD);
+const ZOL_RUB=Math.round(ZOL_USD*USD_RUB);
+document.getElementById('r-usd').textContent='$'+ZOL_USD.toLocaleString('ru');
+document.getElementById('r-rub').textContent='₽'+ZOL_RUB.toLocaleString('ru');
+document.getElementById('tg-source').innerHTML=
+  `* 1 зол. ≈ 3.5 г золота · $${ZOL_USD} USD · ₽${ZOL_RUB.toLocaleString('ru')} РФ · данные: ${RATES_DATE}. `+
+  `Расстояния — по средневековым торговым путям XV в. (Великий шёлковый путь, арабские морские лоции ибн Маджида, Шёлковый путь по Деккану).`;
+
+function zolUSD(z){return Math.round(z*ZOL_USD);}
+function zolRUB(z){return Math.round(z*ZOL_RUB);}
+
+// ── Historical road distances (km, medieval trade routes, ~XV c.) ──────────────
+// Sources: Ibn Majid sailing distances, Silk Road overland routes, Deccan trade roads
+// Format: 'BuyCity|SellCity': { km, days, mode, via, note }
+const DIST={
+  'Тверь|Бидар':     {km:9500, days:390, mode:'суша+море', via:'Волга → Каспий → Персия → Ормуз → Индия',
+    note:'Полный маршрут Афанасия. Волга (1900 км) + Каспий + персидские дороги (3400 км) + Индийский океан (2900 км) + Деккан (600 км). Афанасий шёл ~2 года с остановками.'},
+  'Персия|Бидар':    {km:4600, days:90,  mode:'море',       via:'Шираз → Ормуз → море → Чаул → Деккан',
+    note:'Ормузский пролив + 6 недель Индийским океаном + 300 км сушей. Основной маршрут торговцев лошадьми.'},
+  'Ормуз|Бидар':     {km:3200, days:55,  mode:'море+суша',  via:'Ормуз → море → Чаул (1800 км) → Деккан (600 км)',
+    note:'6 недель морем до Чаула, потом 25 дней сушей. Именно этот путь прошёл Афанасий в 1469 г.'},
+  'Ормуз|Персия':    {km:580,  days:12,  mode:'суша',       via:'Ормуз → Лар → Шираз',
+    note:'Короткий сухопутный переход вдоль побережья через Лар. Афанасий шёл этим путём дважды.'},
+  'Ормуз|Гуджарат':  {km:1400, days:14,  mode:'море',       via:'Ормуз → Маскат → Диу (Гуджарат)',
+    note:'14 дней попутным муссоном. «Шли до Маскату 10 дни, от Маскату до Дега 4 дни» — Афанасий.'},
+  'Каликут|Аден':    {km:3800, days:25,  mode:'море',       via:'Каликут → Аравийское море → Аден',
+    note:'Прямой морской путь по Аравийскому морю с попутным юго-западным муссоном (июнь–сентябрь). Главная артерия пряной торговли.'},
+  'Каликут|Персия':  {km:5300, days:65,  mode:'море',       via:'Каликут → Ормуз (4000 км море) → Шираз (1300 км суша)',
+    note:'Длинный маршрут через Ормуз. Пряности, шёлк, краски шли этим путём в Персию и далее в Европу.'},
+  'Каликут|Тверь':   {km:14000,days:500, mode:'море+суша',  via:'Каликут → Ормуз → Персия → Каспий → Волга → Тверь',
+    note:'Полный обратный маршрут Афанасия. Именно это расстояние он не смог пройти напрямую — слишком далеко, слишком опасно, слишком нет денег.'},
+  'Гуджарат|Персия': {km:3900, days:45,  mode:'море',       via:'Камбей/Диу → Ормуз → Шираз',
+    note:'Основной маршрут для хлопка и индиго из Гуджарата в Персию. Через Ормузский пролив.'},
+  'Гуджарат|Аден':   {km:3200, days:22,  mode:'море',       via:'Камбей → Аравийское море → Аден',
+    note:'Прямой морской путь. Гуджаратские купцы держали здесь торговые фактории.'},
+  'Бидар|Аден':      {km:4600, days:65,  mode:'суша+море',  via:'Бидар → побережье (400 км суша) → Дабул → море → Аден',
+    note:'Сначала 300–400 км сушей до портов Конкана, потом морем. Слоновая кость шла этим путём.'},
+  'Бидар|Персия':    {km:5100, days:80,  mode:'суша+море',  via:'Бидар → Чаул → море → Ормуз → Шираз',
+    note:'Обратный маршрут Афанасия из Индии. «И поидох до Гурмыза 9 дни» — это уже от побережья.'},
+  'Персия|Каликут':  {km:5300, days:65,  mode:'суша+море',  via:'Шираз → Ормуз → море → Каликут',
+    note:'Персидские и арабские торговцы регулярно ходили этим маршрутом за пряностями.'},
+};
+
+function getDist(buy,sell){return DIST[buy+'|'+sell]||null;}
+
+// ── Goods ─────────────────────────────────────────────────────────────────────
+const GOODS=[
+  {id:'horse_arab', name:'Арабский конь',        cat:'Лошади',   tag:'horses',   afanasy:true,
+   buy:'Ормуз',    bp:65,  sell:'Бидар',    sp:180, risk:'высокий',       rc:'#c0392b',
+   q:'«Кони же дёшевы в Гурмызе, а в Индии — дороги»',
+   n:'<b>Самый выгодный товар маршрута.</b> Риск: конь может погибнуть в море — тогда убыток полный.'},
+  {id:'horse_iran', name:'Иранский конь',         cat:'Лошади',   tag:'horses',   afanasy:false,
+   buy:'Персия',   bp:48,  sell:'Бидар',    sp:130, risk:'высокий',       rc:'#c0392b',
+   q:'«Гурмыз же пристань великая — всякого товара в нём много»',
+   n:'Чуть хуже арабского, но маржа высокая. Путь длиннее — через Шираз и Ормуз.'},
+  {id:'horse_rus',  name:'Русский конь',           cat:'Лошади',   tag:'horses',   afanasy:true,
+   buy:'Тверь',    bp:100, sell:'Бидар',    sp:68,  risk:'очень высокий', rc:'#8a1010',
+   q:'«Жеребца своего продал есмь за 68 золотых — меня обманули»',
+   n:'<b>Ошибка Афанасия.</b> 9 500 км пути — и убыток. Русский конь не ценился в Индии.'},
+  {id:'pepper',     name:'Чёрный перец',           cat:'Пряности', tag:'spices',   afanasy:true,
+   buy:'Каликут',  bp:3,   sell:'Аден',     sp:28,  risk:'средний',       rc:'#b97314',
+   q:'«Перец дёшев — а товара нет, что бы на Русь»',
+   n:'Главная пряность эпохи. Монопольный контроль мамлюков через Аден.'},
+  {id:'ginger',     name:'Имбирь',                 cat:'Пряности', tag:'spices',   afanasy:true,
+   buy:'Каликут',  bp:2,   sell:'Аден',     sp:18,  risk:'средний',       rc:'#b97314',
+   q:'«Имбирь да перец — в садах растут»',
+   n:'Второй по важности пряный товар. Афанасий видел его растущим.'},
+  {id:'cinnamon',   name:'Корица',                 cat:'Пряности', tag:'spices',   afanasy:false,
+   buy:'Каликут',  bp:4,   sell:'Аден',     sp:40,  risk:'средний',       rc:'#b97314',
+   q:'«Шейлань — добывают рубины и корицу»',
+   n:'Цейлонская корица — самая дорогая пряность.'},
+  {id:'cloves',     name:'Гвоздика',               cat:'Пряности', tag:'spices',   afanasy:false,
+   buy:'Каликут',  bp:5,   sell:'Аден',     sp:55,  risk:'высокий',       rc:'#c0392b',
+   q:'«Молдива — пристань великая, меж Индией и Китаем»',
+   n:'Молуккские острова → Малакка → Каликут → Аден. Самая большая маржа.'},
+  {id:'pepper_pers',name:'Перец (в Персию)',        cat:'Пряности', tag:'spices',   afanasy:false,
+   buy:'Каликут',  bp:3,   sell:'Персия',   sp:22,  risk:'средний',       rc:'#b97314',
+   q:'«А пряные зелья — в Гундустане дёшевы»',
+   n:'Маршрут через Ормуз в Персию — короче, чем через Аден.'},
+  {id:'spices_tvr', name:'Пряности на Русь',        cat:'Пряности', tag:'spices',   afanasy:true,
+   buy:'Каликут',  bp:3,   sell:'Тверь',    sp:38,  risk:'очень высокий', rc:'#8a1010',
+   q:'«А товара того нет, что на Русь пройти»',
+   n:'<b>Мечта Афанасия.</b> 14 000 км пути делали прямой экспорт практически невозможным.'},
+  {id:'indigo',     name:'Индиго',                 cat:'Ткани',    tag:'textiles', afanasy:true,
+   buy:'Гуджарат', bp:5,   sell:'Персия',   sp:30,  risk:'низкий',        rc:'#1e8250',
+   q:'«Краска синяя дёшева — а её много»',
+   n:'Синий краситель. Устойчив, не портится в море.'},
+  {id:'cotton',     name:'Хлопковые ткани',         cat:'Ткани',    tag:'textiles', afanasy:true,
+   buy:'Гуджарат', bp:6,   sell:'Аден',     sp:28,  risk:'низкий',        rc:'#1e8250',
+   q:'«Ткани хлопчатые — дёшевы и добры»',
+   n:'Самый надёжный товар. Не портится, спрос везде.'},
+  {id:'cotton2',    name:'Хлопок (в Персию)',        cat:'Ткани',    tag:'textiles', afanasy:false,
+   buy:'Гуджарат', bp:6,   sell:'Персия',   sp:22,  risk:'низкий',        rc:'#1e8250',
+   q:'«Гузарат — великое государство индийское»',
+   n:'Хлопок из Гуджарата через Ормуз в Персию.'},
+  {id:'silk',       name:'Шёлк китайский',          cat:'Ткани',    tag:'textiles', afanasy:false,
+   buy:'Каликут',  bp:20,  sell:'Персия',   sp:75,  risk:'средний',       rc:'#b97314',
+   q:'«Чин да Мачин — великое государство, шёлку много»',
+   n:'Транзитный товар из Китая.'},
+  {id:'pearls',     name:'Жемчуг',                 cat:'Роскошь',  tag:'luxury',   afanasy:false,
+   buy:'Ормуз',    bp:30,  sell:'Персия',   sp:80,  risk:'высокий',       rc:'#c0392b',
+   q:'«Гурмыз — жемчугу много»',
+   n:'Персидский залив — главный источник жемчуга.'},
+  {id:'rubies',     name:'Рубины цейлонские',       cat:'Роскошь',  tag:'luxury',   afanasy:false,
+   buy:'Каликут',  bp:40,  sell:'Персия',   sp:130, risk:'очень высокий', rc:'#8a1010',
+   q:'«Шейлань — добывают рубины»',
+   n:'Огромная маржа — и огромный риск.'},
+  {id:'ivory',      name:'Слоновая кость',          cat:'Роскошь',  tag:'luxury',   afanasy:true,
+   buy:'Бидар',    bp:15,  sell:'Аден',     sp:55,  risk:'средний',       rc:'#b97314',
+   q:'«Слонов много у них — на бой идут с людьми на слонах»',
+   n:'Бивни шли на Ближний Восток и в Европу.'},
+  {id:'ivory2',     name:'Слоновая кость (Персия)', cat:'Роскошь',  tag:'luxury',   afanasy:false,
+   buy:'Бидар',    bp:15,  sell:'Персия',   sp:42,  risk:'средний',       rc:'#b97314',
+   q:'«Слоновая кость ценится в Персии»',
+   n:'Через Ормуз в Персию — быстрее, чем до Адена.'},
+  {id:'dates',      name:'Финики',                 cat:'Прочее',   tag:'other',    afanasy:true,
+   buy:'Ормуз',    bp:2,   sell:'Гуджарат', sp:8,   risk:'низкий',        rc:'#1e8250',
+   q:'«Финики дёшевы — ест их скот и люди»',
+   n:'Базовый товар. Надёжно. Не портится.'},
+  {id:'copper',     name:'Медь',                   cat:'Прочее',   tag:'other',    afanasy:false,
+   buy:'Персия',   bp:10,  sell:'Каликут',  sp:35,  risk:'низкий',        rc:'#1e8250',
+   q:'«Медь да железо — из Персии везут»',
+   n:'Металл, которого в Индии мало.'},
+];
+
+const ALL_CATS=['Все','Пряности','Лошади','Ткани','Роскошь','Прочее','Упоминает Афанасий'];
+let buyCity=null,sellCity=null,activeCat='Все',openId=null;
+const ALL_BUY=[...new Set(GOODS.map(g=>g.buy))].sort();
+const ALL_SELL=[...new Set(GOODS.map(g=>g.sell))].sort();
+
+function sellFor(b){if(!b)return new Set(ALL_SELL);return new Set(GOODS.filter(g=>g.buy===b).map(g=>g.sell));}
+function buyFor(s){if(!s)return new Set(ALL_BUY);return new Set(GOODS.filter(g=>g.sell===s).map(g=>g.buy));}
+function catsAvail(){
+  const base=GOODS.filter(g=>(buyCity?g.buy===buyCity:true)&&(sellCity?g.sell===sellCity:true));
+  const av=new Set(['Все']);
+  base.forEach(g=>{av.add(g.cat);if(g.afanasy)av.add('Упоминает Афанасий');});
+  return av;
+}
+function activeGoods(){
+  return GOODS.filter(g=>{
+    if(buyCity&&g.buy!==buyCity)return false;
+    if(sellCity&&g.sell!==sellCity)return false;
+    if(activeCat==='Все')return true;
+    if(activeCat==='Упоминает Афанасий')return g.afanasy;
+    return g.cat===activeCat;
+  });
+}
+function margin(g){return Math.round((g.sp-g.bp)/g.bp*100);}
+function mClass(m){return m>=100?'great':m>=30?'good':'bad';}
+function mColor(m){return m>=100?'#1e8250':m>=30?'#b97314':'#c0392b';}
+
+// Tooltip
+const tip=document.getElementById('cv-tip');
+function showPriceTip(e,zol,label){
+  const u=zolUSD(zol),r=zolRUB(zol);
+  tip.innerHTML=`<div class="cv-tip-title">${zol} зол. — ${label}</div>
+    <div class="cv-tip-row"><span class="cv-tip-lbl">Золотых</span><span class="cv-tip-val">${zol}</span></div>
+    <div class="cv-tip-row"><span class="cv-tip-lbl">USD (2026)</span><span class="cv-tip-val">$${u.toLocaleString('ru')}</span></div>
+    <div class="cv-tip-row"><span class="cv-tip-lbl">RUB (2026)</span><span class="cv-tip-val">₽${r.toLocaleString('ru')}</span></div>
+    <div class="cv-tip-note">1 зол.≈3.5 г·$${ZOL_USD}/зол·${RATES_DATE}</div>`;
+  tip.style.display='block';moveTip(e);
+}
+function moveTip(e){let x=e.clientX+14,y=e.clientY-10;if(x+210>window.innerWidth)x=e.clientX-220;tip.style.left=x+'px';tip.style.top=y+'px';}
+document.addEventListener('mousemove',moveTip);
+function hideTip(){tip.style.display='none';}
+
+function renderCityBtns(){
+  const vS=sellFor(buyCity),vB=buyFor(sellCity);
+  ['buy','sell'].forEach(type=>{
+    const el=document.getElementById(type+'-cities');
+    el.innerHTML='';
+    const list=type==='buy'?ALL_BUY:ALL_SELL;
+    const valid=type==='buy'?vB:vS;
+    const sel=type==='buy'?buyCity:sellCity;
+    list.forEach(c=>{
+      const b=document.createElement('button');
+      b.className='tg-city-btn';
+      if(c===sel)b.classList.add(type==='buy'?'on-buy':'on-sell');
+      else if((type==='buy'?sellCity:buyCity)&&!valid.has(c))b.classList.add('disabled');
+      b.textContent=c;
+      b.addEventListener('click',()=>{
+        if(type==='buy'){buyCity=buyCity===c?null:c;if(buyCity&&sellCity&&!sellFor(buyCity).has(sellCity))sellCity=null;}
+        else{sellCity=sellCity===c?null:c;if(sellCity&&buyCity&&!buyFor(sellCity).has(buyCity))buyCity=null;}
+        if(!catsAvail().has(activeCat))activeCat='Все';
+        openId=null;render();
+      });
+      el.appendChild(b);
+    });
+  });
+}
+
+function renderStatus(){
+  const p=[];if(buyCity)p.push('📦 '+buyCity);if(sellCity)p.push('💰 '+sellCity);
+  document.getElementById('sel-status').textContent=p.length?p.join(' → '):'— не выбрано —';
+}
+
+function renderFilters(){
+  const avail=catsAvail();
+  const el=document.getElementById('tg-filters');el.innerHTML='';
+  ALL_CATS.forEach(cat=>{
+    const b=document.createElement('button');b.className='tg-f';
+    if(cat===activeCat)b.classList.add('on');
+    if(!avail.has(cat))b.classList.add('disabled');
+    b.textContent=cat;
+    b.addEventListener('click',()=>{activeCat=cat;openId=null;render();});
+    el.appendChild(b);
+  });
+}
+
+function renderResult(){
+  const el=document.getElementById('tg-result');
+  if(!buyCity&&!sellCity){el.style.display='none';return;}
+  const goods=GOODS.filter(g=>(buyCity?g.buy===buyCity:true)&&(sellCity?g.sell===sellCity:true)).sort((a,b)=>margin(b)-margin(a));
+  if(!goods.length){el.style.display='none';return;}
+  el.style.display='block';
+  const best=goods[0],m=margin(best);
+  const dKey=best.buy+'|'+best.sell;const dist=DIST[dKey];
+  const profitUSD=zolUSD(best.sp)-zolUSD(best.bp);
+  const profitRUB=zolRUB(best.sp)-zolRUB(best.bp);
+  el.innerHTML=`<div style="font-size:10px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;">Расчёт маршрута</div>
+    <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px;">
+      <span style="font-size:11px;color:var(--color-text-secondary);">Лучший товар:</span>
+      <span style="font-size:14px;font-weight:500;">${best.name}</span>
+      <span class="tg-margin ${mClass(m)}" style="font-size:14px;">${m>0?'+':''}${m}%</span>
+    </div>
+    <div class="tg-profit-bar"><div class="tg-profit-fill" style="width:${Math.min(100,Math.max(0,m)/3)}%;background:${mColor(m)};"></div></div>
+    <div style="font-size:10.5px;color:var(--color-text-secondary);margin-bottom:6px;">Прибыль: <b style="color:${mColor(m)};">+$${profitUSD.toLocaleString('ru')}</b> · <b style="color:${mColor(m)};">+₽${profitRUB.toLocaleString('ru')}</b>${dist?` · <b>${dist.km.toLocaleString('ru')} км</b> · ~${dist.days} дн.`:''}</div>
+    <div style="display:grid;grid-template-columns:repeat(${Math.min(goods.length,3)},1fr);gap:6px;">
+      ${goods.slice(0,3).map(g=>{const mg=margin(g);const d=DIST[g.buy+'|'+g.sell];return`<div style="padding:6px 8px;border-radius:6px;border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);">
+        <div style="font-size:11px;font-weight:500;">${g.name}</div>
+        <div style="font-size:10px;color:${mColor(mg)};font-weight:500;margin-top:1px;">${mg>0?'+':''}${mg}%</div>
+        <div style="font-size:9.5px;color:var(--color-text-secondary);">${d?d.km.toLocaleString('ru')+' км · ':''} $${(zolUSD(g.sp)-zolUSD(g.bp)).toLocaleString('ru')}</div>
+      </div>`;}).join('')}
+    </div>`;
+}
+
+function renderTable(){
+  const tbody=document.getElementById('tg-tbody');tbody.innerHTML='';
+  const goods=activeGoods().sort((a,b)=>margin(b)-margin(a));
+  const maxM=goods.length?Math.max(...goods.map(g=>Math.abs(margin(g))),1):1;
+  if(!goods.length){
+    const r=document.createElement('tr');
+    r.innerHTML='<td colspan="10" style="text-align:center;padding:20px;color:var(--color-text-secondary);font-size:11px;">Нет товаров по выбранным фильтрам</td>';
+    tbody.appendChild(r);return;
+  }
+  goods.forEach(g=>{
+    const m=margin(g);const isOpen=openId===g.id;
+    const dist=getDist(g.buy,g.sell);
+    const tr=document.createElement('tr');tr.className='data-row';tr.style.cursor='pointer';
+    tr.innerHTML=`
+      <td style="color:var(--color-text-secondary);font-size:11px;text-align:center;">${isOpen?'▼':'▶'}</td>
+      <td><div class="tg-good-name">${g.name}${g.afanasy?` <span style="font-size:9px;color:#8a5000;background:rgba(138,112,64,.12);padding:1px 5px;border-radius:8px;">упомин.</span>`:''}</div><div class="tg-good-cat">${g.cat}</div></td>
+      <td><span style="padding:2px 7px;border-radius:10px;font-size:11px;background:rgba(30,130,80,.1);color:#0a5a30;">${g.buy}</span></td>
+      <td class="tg-price cheap" data-zol="${g.bp}" data-label="закупка в ${g.buy}">${g.bp} зол.</td>
+      <td><span style="padding:2px 7px;border-radius:10px;font-size:11px;background:rgba(192,57,43,.1);color:#8a1010;">${g.sell}</span></td>
+      <td class="tg-price exp" data-zol="${g.sp}" data-label="продажа в ${g.sell}">${g.sp} зол.</td>
+      <td class="tg-margin ${mClass(m)}">${m>0?'+':''}${m}%</td>
+      <td class="tg-bar-cell"><div class="tg-mini-bar"><div class="tg-mini-fill" style="width:${Math.abs(m)/maxM*100}%;background:${mColor(m)};"></div></div></td>
+      <td class="tg-km">${dist?`<span>${dist.km.toLocaleString('ru')}</span> км<br>~${dist.days} дн.`:'—'}</td>
+      <td><span class="tg-badge" style="background:${g.rc}18;color:${g.rc};">${g.risk}</span></td>`;
+    tr.querySelectorAll('[data-zol]').forEach(td=>{
+      td.addEventListener('mouseenter',e=>{showPriceTip(e,+td.dataset.zol,td.dataset.label);e.stopPropagation();});
+      td.addEventListener('mouseleave',hideTip);
+      td.addEventListener('click',e=>e.stopPropagation());
+    });
+    const detTr=document.createElement('tr');
+    detTr.className='tg-detail-row';detTr.style.display=isOpen?'table-row':'none';
+    detTr.innerHTML=`<td colspan="10"><div class="tg-detail-inner">
+      <div class="tg-det-quote">${g.q}</div>
+      <div class="tg-det-tip">${g.n}</div>
+      ${dist?`<div class="tg-det-dist">📍 <b>${g.buy} → ${g.sell}</b> · <b>${dist.km.toLocaleString('ru')} км</b> · ~${dist.days} дней пути · ${dist.mode}<br>
+        <span style="opacity:.7;">Маршрут: ${dist.via}</span><br>${dist.note}</div>`:''}
+    </div></td>`;
+    tr.addEventListener('click',()=>{openId=openId===g.id?null:g.id;render();});
+    tbody.appendChild(tr);tbody.appendChild(detTr);
+  });
+}
+
+function render(){renderCityBtns();renderStatus();renderFilters();renderResult();renderTable();}
+window.clearAll=function(){buyCity=null;sellCity=null;activeCat='Все';openId=null;render();};
+render();
+})();
+</script>
