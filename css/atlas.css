@@ -1,38 +1,38 @@
 /* Shared Atlas Design System */
 :root {
-      --color-background-primary: #ffffff;
-      --color-background-secondary: #fdfbf7;
-      --color-background-tertiary: #f5eedf;
-      --color-border-primary: #8b5a30;
-      --color-border-secondary: #dcd0ba;
-      --color-border-tertiary: #e9e0cf;
-      --color-text-primary: #2c1810;
-      --color-text-secondary: #6e5e54;
-      --color-accent: #b87020;
-      --border-radius-lg: 12px;
-      --border-radius-md: 8px;
-      --border-radius-sm: 4px;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --font-serif: Georgia, "Times New Roman", serif;
-    }
-    [data-theme="dark"] {
-      --color-background-primary: #121212;
-      --color-background-secondary: #1a1a1a;
-      --color-background-tertiary: #222222;
-      --color-border-primary: #c09060;
-      --color-border-secondary: #3a2e26;
-      --color-border-tertiary: #2d241d;
-      --color-text-primary: #ebdcd5;
-      --color-text-secondary: #b8aba3;
-      --color-accent: #e08830;
-    }
-    html[data-theme="dark"] body {
-      background: linear-gradient(135deg, #161210 0%, #0c0908 100%) !important;
-      color: var(--color-text-primary) !important;
-    }
-    html[data-theme="dark"] canvas, html[data-theme="dark"] img {
-      filter: invert(0.88) hue-rotate(180deg) contrast(1.1) brightness(0.95);
-    }
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #fdfbf7;
+    --color-background-tertiary: #f5eedf;
+    --color-border-primary: #8b5a30;
+    --color-border-secondary: #dcd0ba;
+    --color-border-tertiary: #e9e0cf;
+    --color-text-primary: #2c1810;
+    --color-text-secondary: #6e5e54;
+    --color-accent: #b87020;
+    --border-radius-lg: 12px;
+    --border-radius-md: 8px;
+    --border-radius-sm: 4px;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-serif: Georgia, "Times New Roman", serif;
+}
+[data-theme="dark"] {
+    --color-background-primary: #121212;
+    --color-background-secondary: #1a1a1a;
+    --color-background-tertiary: #222222;
+    --color-border-primary: #c09060;
+    --color-border-secondary: #3a2e26;
+    --color-border-tertiary: #2d241d;
+    --color-text-primary: #ebdcd5;
+    --color-text-secondary: #b8aba3;
+    --color-accent: #e08830;
+}
+html[data-theme="dark"] body {
+    background: linear-gradient(135deg, #161210 0%, #0c0908 100%) !important;
+    color: var(--color-text-primary) !important;
+}
+html[data-theme="dark"] canvas, html[data-theme="dark"] img {
+    filter: invert(0.88) hue-rotate(180deg) contrast(1.1) brightness(0.95);
+}
 
 
     * {
@@ -140,6 +140,7 @@
 
     /* Responsive grid columns for widgets */
     @media (max-width: 768px) {
+      /* Original widgets */
       .af-wrap, .tm-row, .tv-cards, .ms-codex, .ms-stats, .ms-columns, .gnt-summary, .spd-summary {
         grid-template-columns: 1fr !important;
         flex-direction: column !important;
@@ -148,6 +149,24 @@
         width: 100% !important;
         flex: 1 1 auto !important;
       }
+      /* Bestiary */
+      .bs-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .bs-detail { flex-direction: column !important; }
+      .bs-det-art { width: 100% !important; max-width: 120px; }
+      /* Citations */
+      .ci-cards { grid-template-columns: repeat(2, 1fr) !important; }
+      /* Editions */
+      .ew-db { grid-template-columns: 1fr !important; }
+      .ew-dh { flex-direction: column !important; }
+      /* Religious crisis */
+      .rc-summary { grid-template-columns: repeat(2, 1fr) !important; }
+      /* Trade guide */
+      .tg-top { grid-template-columns: 1fr !important; }
+      .tg-mid { flex-direction: column !important; }
+      .tg-rate-box { flex: 1 1 auto !important; width: 100% !important; }
+      /* World before/after */
+      .wa-maps { grid-template-columns: 1fr !important; }
+      .wa-det-compare { grid-template-columns: 1fr !important; }
     }
 
     /* Interactive elements: tactile styles */
@@ -155,7 +174,7 @@
       cursor: pointer;
       transition: all 0.15s ease;
     }
-    button:hover {
+    .vis-container button:hover {
       opacity: 0.9;
       background: var(--color-background-tertiary);
     }
