@@ -22,6 +22,7 @@ Current work is Phase 0 from `FIX_PLAN.md`: A1–A4 credibility and dark-mode fi
 |------|--------|-------|
 | A1 — Broken download link in index | ✅ Done | `index.html` now links to existing `tetradi_hrustalev_2026.md` and keeps the Russian download filename |
 | A2 — Reconcile visualization counts | ✅ Done | Public counts now use 13 existing HTML widgets in `index.html`, `README.md`, `index.md`, and `tmp.md` |
+| A3 — Renumber index cards | ✅ Done | `index.html` card badges now run 1–12 sequentially |
 
 ### Session 1 (conv `a6b4ceee`) — Core UI Overhaul
 | Task | Status | Notes |
@@ -117,11 +118,11 @@ git status: nothing to commit, working tree clean
 
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
-1. **A3 — Renumber index cards** sequentially from 1–12
-2. **A4 — Replace `color: #333`** in visualization pages with `var(--color-text-secondary)`
-3. **Phase 1 — FIX 2** Gantt return-route and India-phase data corrections
-4. **Phase 1 — FIX 1** map waypoint additions and Dabhol correction
-5. **Phase 1 — FIX 3** calendar Easter observations
+1. **A4 — Replace `color: #333`** in visualization pages with `var(--color-text-secondary)`
+2. **Phase 1 — FIX 2** Gantt return-route and India-phase data corrections
+3. **Phase 1 — FIX 1** map waypoint additions and Dabhol correction
+4. **Phase 1 — FIX 3** calendar Easter observations
+5. **Phase 1 — FIX 4** economics horse and daily-cost data
 
 ---
 
