@@ -3,15 +3,15 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-05-19 · Conversation ID: GPT-5.5 Phase 0  
-> **Commit:** Phase 0 quick fixes complete locally
+> **Last updated:** 2026-05-19 · Conversation ID: GPT-5.5 Phase 1
+> **Commit:** Phase 1 FIX 2 complete locally
 
 ---
 
-## Current Status: ✅ PHASE 0 COMPLETE — Browser Verified
+## Current Status: ✅ PHASE 1 STARTED — FIX 2 Complete
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes.
+Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 has started with FIX 2 in `afanasy_gantt.html`.
 
 ---
 
@@ -25,6 +25,7 @@ Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 
 | A3 — Renumber index cards | ✅ Done | `index.html` card badges now run 1–12 sequentially |
 | A4 — Hardcoded `color: #333` | ✅ Done | 12 visualization pages now use `var(--color-text-secondary)` for body text |
 | Browser verification | ✅ Done | `python -m http.server 8080`; index links/cards/footer, theme toggles on 12 affected widgets, Gantt→Map deep-link presence, and console logs checked |
+| FIX 2 — Gantt chronology | ✅ Done | Split India years into Bidar phases, Gulbarga, Kallur, Dabhol; replaced collapsed return block with 1474 Somalia/Maskat, Persian, Black Sea, and Kaffa segments; added key event diamonds |
 
 ### Session 1 (conv `a6b4ceee`) — Core UI Overhaul
 | Task | Status | Notes |
@@ -92,10 +93,10 @@ Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 
 
 ## Files Modified Since Last Clean Commit
 
-> As of `9e006c0`, all files are committed. Working tree is clean.
+> After the Phase 1 FIX 2 commit, tracked files are clean. The pre-existing untracked source files remain intentionally untouched.
 
 ```
-git status: nothing to commit, working tree clean
+git status: branch ahead of origin; untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
 ```
 
 ---
@@ -121,10 +122,10 @@ git status: nothing to commit, working tree clean
 
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
-1. **Phase 1 — FIX 2** Gantt return-route and India-phase data corrections
-2. **Phase 1 — FIX 1** map waypoint additions and Dabhol correction
-3. **Phase 1 — FIX 3** calendar Easter observations
-4. **Phase 1 — FIX 4** economics horse and daily-cost data
+1. **Phase 1 — FIX 1** map waypoint additions and Dabhol correction
+2. **Phase 1 — FIX 3** calendar Easter observations
+3. **Phase 1 — FIX 4** economics horse and daily-cost data
+4. **Phase 1 — FIX 5** manuscript leaf-size proof
 5. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
 
 ---

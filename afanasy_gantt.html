@@ -201,7 +201,7 @@ svg text.gnt-lbl:hover { fill: var(--color-accent) !important; text-decoration: 
   <div class="gnt-card"><div class="gnt-card-lbl">Всего в пути</div><div class="gnt-card-val">~8 лет</div><div class="gnt-card-sub">1467–1475, ок. 2920 дней</div></div>
   <div class="gnt-card"><div class="gnt-card-lbl">В движении</div><div class="gnt-card-val">~40%</div><div class="gnt-card-sub">ок. 1170 дней активного пути</div></div>
   <div class="gnt-card"><div class="gnt-card-lbl">В Индии</div><div class="gnt-card-val">~4 года</div><div class="gnt-card-sub">«четыре Пасхи» — Афанасий</div></div>
-  <div class="gnt-card"><div class="gnt-card-lbl">Самая долгая остановка</div><div class="gnt-card-val">Бидар</div><div class="gnt-card-sub">~760 дней суммарно</div></div>
+  <div class="gnt-card"><div class="gnt-card-lbl">Самая долгая остановка</div><div class="gnt-card-val">Бидар</div><div class="gnt-card-sub">~37 месяцев суммарно</div></div>
 </div>
 
 <div class="gnt-legend">
@@ -216,7 +216,7 @@ svg text.gnt-lbl:hover { fill: var(--color-accent) !important; text-decoration: 
 <div class="gnt-tip" id="gnt-tip" style="display:none;"></div>
 
 <div class="gnt-source">
-  Длительность отрезков — реконструкция по хронологии Хрусталёва (2026). Месяц = 30 дней. Жёлтые ромбы — ключевые события. Нажмите на название города или отрезок пути, чтобы перейти к соответствующей точке на карте.
+  Длительность отрезков — реконструкция по хронологии Хрусталёва (2026). Месяц = 30 дней. Фиолетовые ромбы — ключевые события. Нажмите на название города или отрезок пути, чтобы перейти к соответствующей точке на карте.
 </div>
 </div>
   </div>
@@ -227,7 +227,11 @@ const SVG_NS='http://www.w3.org/2000/svg';
 function el(tag,a){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] of Object.entries(a))e.setAttribute(k,v);return e;}
 function t(s,a){const e=el('text',a);e.textContent=s;return e;}
 
-// Segments: [label, startMonth (from Apr 1467=0), durationMonths, type, note, region]
+const START_YEAR=1467;
+const START_MONTH=4; // April
+function M(year,month,day=1){return (year-START_YEAR)*12+(month-START_MONTH)+(day-1)/30;}
+
+// Segments: start month from Apr 1467, duration in 30-day months.
 // type: river, sea, land, stay
 const SEGS=[
   {lbl:'Тверь',          s:0,  d:0.5, type:'stay',  reg:'Русь',    note:'Сборы, получение благословения. Отплытие весной 1467.'},
@@ -241,34 +245,66 @@ const SEGS=[
   {lbl:'Горная дорога → Рей',s:15.5,d:2,type:'land',reg:'Персия', note:'Через Амол, Дамавент, Рей. Горный перевал.'},
   {lbl:'Кашан',          s:17.5,d:1,  type:'stay',  reg:'Персия',  note:'«В Кашане пробыл месяц».'},
   {lbl:'Йезд',           s:18.5,d:1,  type:'stay',  reg:'Персия',  note:'«В Йезде пробыл месяц».'},
-  {lbl:'Лар → Ормуз',   s:19.5,d:2,  type:'land',  reg:'Персия',  note:'Через Лар и Бендер к Ормузскому проливу.'},
-  {lbl:'Ормуз (1-й)',    s:21.5,d:1.5,type:'stay',  reg:'Персия',  note:'Первая Пасха в пути — 2 апреля 1469. Ждёт попутный корабль.', event:'🐴 Пасха 1469\n2 апр., Ормуз'},
-  {lbl:'Океан → Чаул',  s:23,  d:1.5, type:'sea',   reg:'Океан',   note:'6 недель морем. Маскат → Гуджарат → Чаул.'},
-  {lbl:'Чаул → Джуннар',s:24.5,d:1,  type:'land',  reg:'Индия',   note:'«Пали 8 дни, Умри 10 дни, Джуннар 7 дни».'},
-  {lbl:'Джуннар',        s:25.5,d:1,  type:'stay',  reg:'Индия',   note:'Конфликт с ханом Асадом. Конь конфискован. Спасён в день Спаса.', event:'⚠️ Конфискат коня\nДжуннар, авг. 1469'},
-  {lbl:'Джуннар → Бидар',s:26.5,d:1, type:'land',  reg:'Индия',   note:'Через Декканское плоскогорье.'},
-  {lbl:'Бидар (1-й)',    s:27.5,d:14, type:'stay',  reg:'Индия',   note:'14 ноября 1469 — прибытие. Рождество 1469 — продажа коня за 68 золотых. Живёт в столице Бахманидов.', event:'🐎 Продажа коня\n68 зол., Бидар, дек. 1469'},
-  {lbl:'Паломничество\n→ Шрисайлам',s:41.5,d:1,type:'land',reg:'Индия',note:'Пешком с паломниками. ~320 км.'},
-  {lbl:'Шрисайлам',      s:42.5,d:0.5,type:'stay',  reg:'Индия',   note:'Махашиваратри ~19 февраля 1471. «Индийский Иерусалим».', event:'🛕 Махашиваратри\n19 фев. 1471'},
-  {lbl:'← Обратно в Бидар',s:43,d:1, type:'land',  reg:'Индия',   note:'Обратно пешком.'},
-  {lbl:'Бидар (2-й)',    s:44, d:11,  type:'stay',  reg:'Индия',   note:'Наблюдает кампании Махмуда Гавана. 1 фев. 1472 — взятие Гоа. 19 мая — триумф визиря.', event:'⚔️ Взятие Гоа\n1 фев. 1472'},
-  {lbl:'Бидар → побережье',s:55,d:1, type:'land',  reg:'Индия',   note:'К Аравийскому морю. Порт Дабул.', event:'🌊 Прощание с Индией\n1472'},
-  {lbl:'Океан → Ормуз', s:56,  d:2.5, type:'sea',   reg:'Океан',   note:'«9 недель морем». 1472.'},
-  {lbl:'Ормуз (2-й)',    s:58.5,d:1,  type:'stay',  reg:'Персия',  note:'Начало обратного пути. Месяц в Ормузе.'},
-  {lbl:'Персия обратно', s:59.5,d:5,  type:'land',  reg:'Персия',  note:'Лар → Шираз → Исфахан → Кашан. Примерно 1472–1473.'},
-  {lbl:'Чёрное море',   s:64.5,d:1.5, type:'sea',   reg:'Море',    note:'Трабзон → Феодосия. «12 дней до Трапезонда».'},
-  {lbl:'Феодосия (Кафа)',s:66, d:2,   type:'stay',  reg:'Русь',    note:'«Приехал в Кафу за 9 дней до Филиппова поста» — ок. 6 ноября 1474.', event:'⚓ Прибытие в Кафу\n6 ноя. 1474'},
-  {lbl:'Кафа → Смоленск',s:68, d:3,  type:'land',  reg:'Русь',    note:'Через Крым и степь на Русь. Умер под Смоленском, не дойдя до Твери. 1475.'},
+  {lbl:'Лар → Ормуз',   s:21.5,d:1.5,type:'land',  reg:'Персия',  note:'Через Лар и Бендер к Ормузскому проливу.'},
+  {lbl:'Ормуз (1-й)',    s:M(1469,3,1),d:1.3,type:'stay',reg:'Персия',note:'Пасха 2 апреля 1469. Ждёт попутный корабль в Индию.'},
+  {lbl:'Океан → Чаул',  s:M(1469,4,10),d:1.5,type:'sea',reg:'Океан',note:'6 недель морем. Маскат → Гуджарат → Чаул.'},
+  {lbl:'Чаул → Джуннар',s:M(1469,5,25),d:1.5,type:'land',reg:'Индия',note:'«Пали 8 дни, Умри 10 дни, Джуннар 7 дни».'},
+  {lbl:'Джуннар',        s:M(1469,7,10),d:1.2,type:'stay',reg:'Индия',note:'Конфликт с ханом Асадом. Конь конфискован. Спасён в день Спаса.'},
+  {lbl:'Джуннар → Бидар',s:M(1469,8,15),d:1,type:'land',reg:'Индия',note:'Через Декканское плоскогорье.'},
+  {lbl:'Бидар I-a',      s:M(1469,9,15),d:M(1469,11,14)-M(1469,9,15),type:'stay',reg:'Индия',note:'15 сентября — 14 ноября 1469: прибытие в столицу Бахманидов.'},
+  {lbl:'Бидар I-b',      s:M(1469,11,14),d:M(1470,1,1)-M(1469,11,14),type:'stay',reg:'Индия',note:'14 ноября 1469 — январь 1470. На Рождество конь продан за 68 футунов.'},
+  {lbl:'Бидар I-c',      s:M(1470,1,1),d:M(1470,8,1)-M(1470,1,1),type:'stay',reg:'Индия',note:'Январь — август 1470. Пишет «Дорожник», пытается уйти из Индии.'},
+  {lbl:'Бидар I-d',      s:M(1470,8,1),d:M(1471,2,1)-M(1470,8,1),type:'stay',reg:'Индия',note:'Август 1470 — февраль 1471. Аландская ярмарка в октябре 1470.'},
+  {lbl:'Паломничество\n→ Парват',s:M(1471,2,1),d:1,type:'land',reg:'Индия',note:'Февраль — март 1471. Махашиваратри 19 февраля 1471, «Индийский Иерусалим».'},
+  {lbl:'Бидар II',       s:M(1471,3,1),d:M(1472,11,1)-M(1471,3,1),type:'stay',reg:'Индия',note:'Март 1471 — ноябрь 1472. Военная хроника, взятие Гоа и возвращение Махмуда Гавана.'},
+  {lbl:'Бидар → Гулбарга',s:M(1472,11,1),d:3,type:'land',reg:'Индия',note:'Султан отправляется к Виджаянагару в декабре 1472; путь к лагерям Декана.'},
+  {lbl:'Гулбарга',       s:M(1473,2,1),d:M(1473,8,1)-M(1473,2,1),type:'stay',reg:'Индия',note:'Февраль — август 1473. «Пятая Пасха», решение идти домой.'},
+  {lbl:'Каллур',         s:M(1473,3,1),d:M(1473,8,1)-M(1473,3,1),type:'stay',reg:'Индия',note:'Март — август 1473. Алмазные копи — заявленная торговая цель.'},
+  {lbl:'Декан → Дабхол', s:M(1473,8,1),d:M(1473,11,1)-M(1473,8,1),type:'land',reg:'Индия',note:'От внутренних районов Декана к порту Дабхол.'},
+  {lbl:'Дабхол',         s:M(1473,11,1),d:M(1474,1,25)-M(1473,11,1),type:'stay',reg:'Индия',note:'Ноябрь 1473 — январь 1474. Ожидание корабля, фактический порт отплытия из Индии.'},
+  {lbl:'Дабхол → Сомали',s:M(1474,1,25),d:1,type:'sea',reg:'Океан',note:'Конец января — февраль 1474. Открытый океан, около месяца без видимой земли.'},
+  {lbl:'«Эфиопия»\n(Сомали)',s:M(1474,2,25),d:0.17,type:'stay',reg:'Океан',note:'Февраль 1474. Пять дней у сомалийского берега, выкуп местным жителям.'},
+  {lbl:'Сомали → Маскат',s:M(1474,3,29),d:0.4,type:'sea',reg:'Океан',note:'Около 12 дней до Маската. 10 апреля 1474 — Пасха №8.'},
+  {lbl:'Маскат → Ормуз', s:M(1474,4,10),d:0.3,type:'sea',reg:'Океан',note:'10–19 апреля 1474. Переход к Ормузу.'},
+  {lbl:'Ормуз (2-й)',    s:M(1474,4,19),d:M(1474,5,9)-M(1474,4,19),type:'stay',reg:'Персия',note:'19 апреля — 9 мая 1474. Вторая остановка в Ормузе.'},
+  {lbl:'Лар',            s:M(1474,5,9),d:0.1,type:'stay',reg:'Персия',note:'Май 1474. Три дня в Ларе.'},
+  {lbl:'Шираз',          s:M(1474,5,12),d:0.63,type:'land',reg:'Персия',note:'Май — июнь 1474. 12 дней пути и 7 дней стоянки.'},
+  {lbl:'Эберку',         s:M(1474,6,1),d:0.83,type:'land',reg:'Персия',note:'Июнь 1474. 15 дней пути и 10 дней стоянки в Эберку.'},
+  {lbl:'Йезд',           s:M(1474,7,1),d:0.57,type:'land',reg:'Персия',note:'Июль 1474. 9 дней пути и 8 дней стоянки.'},
+  {lbl:'Исфахан',        s:M(1474,7,18),d:0.37,type:'land',reg:'Персия',note:'Июль 1474. 5 дней пути и 6 дней стоянки.'},
+  {lbl:'Кашан',          s:M(1474,7,29),d:0.17,type:'stay',reg:'Персия',note:'Июль — август 1474. Пять дней стоянки.'},
+  {lbl:'Кум → Султания\n→ Тебриз',s:M(1474,8,5),d:0.4,type:'land',reg:'Персия',note:'Август 1474. Транзит через Кум, Султанию и Тебриз.'},
+  {lbl:'Стан Узун-Хасана',s:M(1474,8,18),d:0.33,type:'stay',reg:'Персия',note:'Август 1474. Десять дней в стане Узун-Хасана у Урмии.'},
+  {lbl:'Арцынцан',       s:M(1474,9,1),d:0.25,type:'land',reg:'Персия',note:'Сентябрь 1474. Переход через Эрзинджан перед Трапезундом.'},
+  {lbl:'Трабзон',        s:M(1474,9,25),d:0.17,type:'stay',reg:'Море',note:'Конец сентября — начало октября 1474. Пять дней в Трапезунде.'},
+  {lbl:'Платана',        s:M(1474,10,1),d:M(1474,10,20)-M(1474,10,1),type:'stay',reg:'Море',note:'1–20 октября 1474. Ожидание благоприятного ветра у Трапезунда.'},
+  {lbl:'Чёрное море\n→ Балаклава',s:M(1474,10,20),d:M(1474,11,1)-M(1474,10,20),type:'sea',reg:'Море',note:'20 октября — 1 ноября 1474. Переход через Чёрное море.'},
+  {lbl:'Гурзуф',         s:M(1474,11,1),d:M(1474,11,6)-M(1474,11,1),type:'stay',reg:'Море',note:'1–6 ноября 1474. Крымская остановка после шторма.'},
+  {lbl:'Феодосия (Кафа)',s:M(1474,11,6),d:M(1475,1,1)-M(1474,11,6),type:'stay',reg:'Русь',note:'6 ноября 1474 — январь 1475. Пишет заключительный раздел «Дорожника».'},
+  {lbl:'Кафа → Смоленск',s:M(1475,1,1),d:3,type:'land',reg:'Русь',note:'Через Крым и степь на Русь. Умер под Смоленском, не дойдя до Твери. 1475.'},
 ];
 
-const TOTAL_MONTHS=71; // Apr1467 – ~Mar1475
-const START_YEAR=1467;
-const START_MONTH=4; // April
+const EVENTS=[
+  {anchor:'Ормуз (1-й)',s:M(1469,4,2),wp:7,text:'Пасха 1469',note:'2 апреля 1469, Ормуз.'},
+  {anchor:'Джуннар',s:M(1469,8,6),wp:10,text:'Конфискация коня',note:'Джуннар, август 1469; спасение через Хасана-хорасанца.'},
+  {anchor:'Бидар I-b',s:M(1469,12,25),wp:11,text:'Продажа коня',note:'Рождество 1469, Бидар: конь продан за 68 футунов.'},
+  {anchor:'Паломничество\n→ Парват',s:M(1471,2,19),wp:12,text:'Махашиваратри',note:'19 февраля 1471, Парват / Шрисайлам.'},
+  {anchor:'Бидар II',s:M(1472,2,1),wp:13,text:'Взятие Гоа',note:'Махмуд Гаван берёт Гоа; известие приходит в Бидар.'},
+  {anchor:'Бидар II',s:M(1472,5,19),wp:13,text:'Возвращение Гавана',note:'19 мая 1472, триумфальное возвращение Махмуда Гавана.'},
+  {anchor:'Бидар II',s:M(1472,6,26),wp:13,text:'Возвращение орисских воевод',note:'26 июня 1472, военные новости в Бидаре.'},
+  {anchor:'Бидар II',s:M(1472,9,13),wp:13,text:'Гаван идёт к Виджаянагару',note:'13 сентября 1472, Аланд.'},
+  {anchor:'Бидар → Гулбарга',s:M(1472,12,1),wp:13,text:'Султан идёт к Виджаянагару',note:'Декабрь 1472, выступление султана.'},
+  {anchor:'Гулбарга',s:M(1473,3,15),wp:13,text:'Султан и Гаван вернулись',note:'15 марта 1473, Гулбарга.'},
+  {anchor:'Сомали → Маскат',s:M(1474,4,10),wp:8,text:'Пасха №8',note:'10 апреля 1474, Маскат; дата снова исправлена христианами.'},
+  {anchor:'Феодосия (Кафа)',s:M(1474,11,6),wp:17,text:'Прибытие в Кафу',note:'6 ноября 1474, за девять дней до Филиппова поста.'},
+];
+
+const TOTAL_MONTHS=96; // Apr 1467 – Mar 1475
 
 // Layout
-const ROW_H=20, ROW_GAP=3;
-const M_LEFT=148, M_TOP=44, M_BOTTOM=28;
-const MONTH_W=8.5; // px per month
+const ROW_H=13, ROW_GAP=1;
+const M_LEFT=154, M_TOP=40, M_BOTTOM=26;
+const MONTH_W=7.6; // px per month
 const SVG_W=M_LEFT+TOTAL_MONTHS*MONTH_W+40;
 const SVG_H=M_TOP+SEGS.length*(ROW_H+ROW_GAP)+M_BOTTOM;
 
@@ -329,21 +365,40 @@ const CITY_TO_WP = {
   'Чаул': 9,
   'Джуннар': 10,
   'Джуннар → Бидар': 11,
-  'Бидар (1-й)': 11,
-  'Паломничество\n→ Шрисайлам': 12,
-  'Шрисайлам': 12,
-  '← Обратно в Бидар': 13,
-  'Бидар (2-й)': 13,
-  'Бидар → побережье': 14,
-  'Океан → Ормуз': 15,
+  'Бидар I-a': 11,
+  'Бидар I-b': 11,
+  'Бидар I-c': 11,
+  'Бидар I-d': 11,
+  'Паломничество\n→ Парват': 12,
+  'Бидар II': 13,
+  'Бидар → Гулбарга': 13,
+  'Гулбарга': 13,
+  'Каллур': 13,
+  'Декан → Дабхол': 14,
+  'Дабхол': 14,
+  'Дабхол → Сомали': 14,
+  '«Эфиопия»\n(Сомали)': 15,
+  'Сомали → Маскат': 8,
+  'Маскат → Ормуз': 8,
   'Ормуз (2-й)': 15,
-  'Персия обратно': 15,
-  'Чёрное море': 16,
+  'Лар': 15,
+  'Шираз': 15,
+  'Эберку': 15,
+  'Исфахан': 15,
+  'Кум → Султания\n→ Тебриз': 15,
+  'Стан Узун-Хасана': 15,
+  'Арцынцан': 16,
+  'Трабзон': 16,
+  'Платана': 16,
+  'Чёрное море\n→ Балаклава': 17,
+  'Гурзуф': 17,
   'Феодосия (Кафа)': 17,
   'Кафа → Смоленск': 18
 };
 
+const rowByLabel = new Map();
 SEGS.forEach((s,i)=>{
+  rowByLabel.set(s.lbl,i);
   const y=M_TOP+i*(ROW_H+ROW_GAP);
   const x=M_LEFT+s.s*MONTH_W;
   const w=Math.max(s.d*MONTH_W,4);
@@ -358,8 +413,8 @@ SEGS.forEach((s,i)=>{
   // Label
   const lines=s.lbl.split('\n');
   lines.forEach((l,li)=>{
-    const textNode = t(l,{x:M_LEFT-6,y:y+ROW_H/2+(li-(lines.length-1)/2)*10+3,
-      'text-anchor':'end','font-size':'9',fill:'var(--color-text-secondary)', 'class':'gnt-lbl'});
+    const textNode = t(l,{x:M_LEFT-6,y:y+ROW_H/2+(li-(lines.length-1)/2)*8+2.5,
+      'text-anchor':'end','font-size':'7.4',fill:'var(--color-text-secondary)', 'class':'gnt-lbl'});
     link.appendChild(textNode);
   });
   svg.appendChild(link);
@@ -377,35 +432,29 @@ SEGS.forEach((s,i)=>{
 
   // Duration label inside bar if wide enough
   if(w>30){
-    const dl=s.d>=1?`${s.d} мес.`:`${Math.round(s.d*30)} дн.`;
-    svg.appendChild(t(dl,{x:x+w/2,y:y+ROW_H/2+3.5,'text-anchor':'middle','font-size':'8',fill:'rgba(255,255,255,0.85)',style:'pointer-events:none;'}));
-  }
-
-  // Event diamond
-  if(s.event){
-    const ex=x+w;const ey=y+ROW_H/2;const ds=5;
-    const diamond=el('polygon',{points:`${ex},${ey-ds} ${ex+ds},${ey} ${ex},${ey+ds} ${ex-ds},${ey}`,
-      fill:'#6e32a0',stroke:'rgba(255,255,255,.6)','stroke-width':1});
-    svg.appendChild(diamond);
+    const dl=s.d>=1?`${Math.round(s.d*10)/10} мес.`:`${Math.round(s.d*30)} дн.`;
+    svg.appendChild(t(dl,{x:x+w/2,y:y+ROW_H/2+2.5,'text-anchor':'middle','font-size':'6.5',fill:'rgba(255,255,255,0.85)',style:'pointer-events:none;'}));
   }
 });
 
-// Region labels on right axis
-const regions=['Русь','Кавказ','Персия','Океан','Индия','Океан','Персия','Море','Русь'];
-const regSegs=[
-  {reg:'Русь',    from:0, to:7},
-  {reg:'Кавказ',  from:5, to:9},
-  {reg:'Персия',  from:7, to:13},
-  {reg:'Океан',   from:13,to:14},
-  {reg:'Индия',   from:14,to:22},
-  {reg:'Океан',   from:23,to:24},
-  {reg:'Персия',  from:24,to:26},
-  {reg:'Море',    from:26,to:27},
-  {reg:'Русь',    from:27,to:28},
-];
+EVENTS.forEach(ev=>{
+  const row = rowByLabel.get(ev.anchor);
+  if(row === undefined) return;
+  const x=M_LEFT+ev.s*MONTH_W;
+  const y=M_TOP+row*(ROW_H+ROW_GAP)+ROW_H/2;
+  const ds=4.2;
+  const diamond=el('polygon',{points:`${x},${y-ds} ${x+ds},${y} ${x},${y+ds} ${x-ds},${y}`,
+    fill:'#6e32a0',stroke:'rgba(255,255,255,.7)','stroke-width':1,style:'cursor:pointer;'});
+  diamond.addEventListener('mouseenter',e=>showTip(e,{lbl:ev.text,reg:'Событие',note:ev.note}));
+  diamond.addEventListener('mousemove',moveTip);
+  diamond.addEventListener('mouseleave',hideTip);
+  const link=el('a',{href:`afanasy_v8_text_map.html?wp=${ev.wp}`});
+  link.appendChild(diamond);
+  svg.appendChild(link);
+});
 
-// Today-line style vertical region separators
-[5,8,13.5,23.5,56,58.5,64.5,66].forEach(ms=>{
+// Major route-phase separators
+[5,8,23,29.5,46,67,79,81.8,84.3,89.8,91.2,93].forEach(ms=>{
   const x=M_LEFT+ms*MONTH_W;
   svg.appendChild(el('line',{x1:x,y1:M_TOP,x2:x,y2:M_TOP+SEGS.length*(ROW_H+ROW_GAP),
     stroke:'var(--color-border-secondary)','stroke-width':.6,'stroke-dasharray':'4 2',opacity:.5}));

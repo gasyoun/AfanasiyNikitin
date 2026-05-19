@@ -12,6 +12,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Reconciled public visualization counts around the 13 existing HTML widgets in `index.html`, `README.md`, `index.md`, and `tmp.md`.
 - `index.html`: renumbered homepage visualization cards sequentially from 1 to 12.
 - Replaced hardcoded `body { color: #333; }` with `var(--color-text-secondary)` across the 12 affected visualization pages.
+- `afanasy_gantt.html`: expanded the Khrustalev timeline with Bidar phases, Gulbarga, Kallur, Dabhol, the 1474 Somalia/Maskat return, the Persian return chain, Black Sea stops, and dated event markers.
 
 ---
 
