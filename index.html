@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Афанасий Никитин — интерактивный атлас</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f1e8 0%, #e8dcc8 100%);
+      color: #333;
+      line-height: 1.6;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid rgba(0,0,0,0.1);
+    }
+    h1 { font-size: 2.5em; margin-bottom: 10px; color: #2c1810; }
+    .subtitle { font-size: 1.1em; color: #666; margin-bottom: 20px; }
+    .book-ref { font-size: 0.95em; color: #888; font-style: italic; }
+    .live-demo {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #b87020;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    .live-demo:hover { background: #a0591b; }
+
+    .section { margin-bottom: 50px; }
+    .section h2 { font-size: 1.4em; margin-bottom: 20px; color: #2c1810; display: flex; align-items: center; gap: 10px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-color: #b87020;
+    }
+    .card-num {
+      display: inline-block;
+      background: #f0e6d2;
+      color: #b87020;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .card h3 { font-size: 1.1em; margin-bottom: 10px; color: #2c1810; }
+    .card p { font-size: 0.95em; color: #666; }
+
+    .files-section {
+      background: #f9f7f4;
+      border-radius: 8px;
+      padding: 30px;
+      margin-top: 40px;
+    }
+    .files-section h2 { margin-bottom: 20px; }
+    .file-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+    .file-item {
+      padding: 15px;
+      background: white;
+      border-radius: 6px;
+      border-left: 4px solid #b87020;
+    }
+    .file-item a {
+      color: #b87020;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .file-item a:hover { text-decoration: underline; }
+    .file-desc { font-size: 0.9em; color: #666; margin-top: 8px; }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      color: #999;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🗺 Афанасий Никитин — интерактивный атлас</h1>
+    <p class="subtitle">Визуализации к книге Д.Г. Хрусталёва «Тетради купца Афанасия»</p>
+    <p class="book-ref">СПб.: Нестор-История, 2026</p>
+    <a href="#maps" class="live-demo">↓ Перейти к визуализациям</a>
+  </header>
+
+  <section class="section" id="maps">
+    <h2>🗺️ Картографические (5)</h2>
+    <div class="grid">
+      <a href="afanasy_v8_text_map.html" class="card">
+        <div class="card-num">1</div>
+        <h3>Тайм-лапс на карте</h3>
+        <p>Анимированный маршрут 1467–1475 с кликабельным текстом «Хожения»</p>
+      </a>
+      <a href="afanasy_video_export.html" class="card">
+        <div class="card-num">2</div>
+        <h3>Экспорт видео</h3>
+        <p>Запись тайм-лапса в .webm через MediaRecorder API</p>
+      </a>
+      <a href="three_travelers_comparison.html" class="card">
+        <div class="card-num">3</div>
+        <h3>Три путешественника</h3>
+        <p>Афанасий vs Марко Поло vs Васко да Гама на одной карте</p>
+      </a>
+      <a href="afanasy_trade_marshruttnik.html" class="card">
+        <div class="card-num">5</div>
+        <h3>Торговый маршрутник</h3>
+        <p>Интерактивная карта портов Ормуз → Китай с товарами</p>
+      </a>
+      <a href="afanasy_borders_animation.html" class="card">
+        <div class="card-num">6</div>
+        <h3>Анимация границ 1467–1475</h3>
+        <p>Политическая карта меняется в реальном времени</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>📊 Хронологические и количественные (4)</h2>
+    <div class="grid">
+      <a href="afanasy_gantt.html" class="card">
+        <div class="card-num">7</div>
+        <h3>Гантт-диаграмма</h3>
+        <p>8 лет путешествия по месяцам: движение vs стоянка</p>
+      </a>
+      <a href="afanasy_speed_land_sea.html" class="card">
+        <div class="card-num">8</div>
+        <h3>Скорость: суша vs море</h3>
+        <p>18 отрезков. Море в 3.5× быстрее суши</p>
+      </a>
+      <a href="afanasy_calendar_pascha_islam.html" class="card">
+        <div class="card-num">9</div>
+        <h3>Календарь Пасх</h3>
+        <p>Православные Пасхи и мусульманские праздники 1467–1475</p>
+      </a>
+      <a href="afanasy_emotional_arc.html" class="card">
+        <div class="card-num">10</div>
+        <h3>Эмоциональная дуга</h3>
+        <p>20 фрагментов по шкале −10…+10. Четыре измерения</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>💬 Текстовые и лингвистические (3)</h2>
+    <div class="grid">
+      <a href="afanasy_language_map_v2.html" class="card">
+        <div class="card-num">11</div>
+        <h3>Карта языков текста</h3>
+        <p>Русский / татарский / персидский / арабский / хинди</p>
+      </a>
+      <a href="afanasy_religious_crisis.html" class="card">
+        <div class="card-num">12</div>
+        <h3>Религиозный кризис</h3>
+        <p>«Господи» vs «Аллах» — три режима просмотра</p>
+      </a>
+      <a href="afanasy_manuscripts.html" class="card">
+        <div class="card-num">13</div>
+        <h3>Сравнение рукописей</h3>
+        <p>Троицкий vs Летописный список с цветной разметкой</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>👥 Персонажи и структура (1)</h2>
+    <div class="grid">
+      <a href="khozheniye_composition_tree.html" class="card">
+        <div class="card-num">15</div>
+        <h3>Дерево состава «Хожения»</h3>
+        <p>7 тетрадей → Мамырев → 3 рукописных списка</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>💰 Экономика и торговля (1)</h2>
+    <div class="grid">
+      <a href="afanasy_economics_prices.html" class="card">
+        <div class="card-num">18</div>
+        <h3>Экономика путешествия</h3>
+        <p>Жеребец Афанасия: история продажи и торговля</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="files-section">
+    <h2>📥 Скачиваемые файлы</h2>
+    <div class="file-list">
+      <div class="file-item">
+        <a href="Тетради_купца_Афанасия.md" download>📖 Тетради_купца_Афанасия.md</a>
+        <div class="file-desc">Полный конспект книги Хрусталёва: структура, хронология, герои, выводы</div>
+      </div>
+      <div class="file-item">
+        <a href="afanasy_geolocations.md" download>📍 afanasy_geolocations.md</a>
+        <div class="file-desc">Геолокации 19 точек маршрута + GeoJSON для ГИС</div>
+      </div>
+      <div class="file-item">
+        <a href="afanasy_journey_data.md" download>📅 afanasy_journey_data.md</a>
+        <div class="file-desc">Данные тайм-лапса: координаты, даты, описания, моря</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>14 интерактивных визуализаций · Vanilla JS · D3.js · Canvas API</p>
+    <p style="margin-top: 10px; color: #bbb;">По книге: Д.Г. Хрусталёв «Тетради купца Афанасия» (СПб.: Нестор-История, 2026)</p>
+  </footer>
+</div>
+</body>
+</html>
