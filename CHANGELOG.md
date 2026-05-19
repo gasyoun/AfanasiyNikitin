@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+### Fixed
+- `index.html`: repaired the book-summary download link by pointing it at the existing `tetradi_hrustalev_2026.md` while preserving the Russian download filename.
+
+---
+
 ## [1.2.0] — 2026-05-19
 
 ### Added

@@ -3,19 +3,24 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-05-19 · Conversation ID: `e8363c9a-a8ce-43e2-8e8e-8c82e6a049ab`  
-> **Commit:** `9e006c0` — UI/UX overhaul (pushed to `main`)
+> **Last updated:** 2026-05-19 · Conversation ID: GPT-5.5 Phase 0  
+> **Commit:** Phase 0 quick fixes in progress
 
 ---
 
-## Current Status: ✅ STABLE — Awaiting Next Feature Request
+## Current Status: 🔄 PHASE 0 IN PROGRESS — Quick Fixes
 
-All changes from the two 2026-05-19 sessions have been committed and pushed to GitHub Pages.  
-The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**
+The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
+Current work is Phase 0 from `FIX_PLAN.md`: A1–A4 credibility and dark-mode fixes.
 
 ---
 
 ## What Was Completed (Sessions 2026-05-19)
+
+### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
+| Task | Status | Notes |
+|------|--------|-------|
+| A1 — Broken download link in index | ✅ Done | `index.html` now links to existing `tetradi_hrustalev_2026.md` and keeps the Russian download filename |
 
 ### Session 1 (conv `a6b4ceee`) — Core UI Overhaul
 | Task | Status | Notes |
@@ -111,11 +116,11 @@ git status: nothing to commit, working tree clean
 
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
-1. **Add `afanasy_world_before_after.html`** — "before/after knowledge map" listed in README but not built
-2. **Add `afanasy_religious_crisis.html`** — "Господи vs Аллах" term frequency chart (removed from index due to missing file)
-3. **PWA Service Worker** — cache all 14 HTML files + CDN libraries for offline use
-4. **SVG export buttons** — add per-chart "download as SVG/PNG" button
-5. **Index search** — full-text search across visualization titles and descriptions on `index.html`
+1. **A2 — Reconcile visualization counts** in `index.html`, `README.md`, `index.md`, and `tmp.md` around the actual 13 HTML widgets
+2. **A3 — Renumber index cards** sequentially from 1–12
+3. **A4 — Replace `color: #333`** in visualization pages with `var(--color-text-secondary)`
+4. **Phase 1 — FIX 2** Gantt return-route and India-phase data corrections
+5. **Phase 1 — FIX 1** map waypoint additions and Dabhol correction
 
 ---
 
