@@ -1,43 +1,121 @@
-<!DOCTYPE html>
-<html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Путь Афанасия Никитина — экспорт видео</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Афанасий Никитин — Экспорт видео</title>
 <style>
+  :root {
+    --color-background-primary: #231c12;
+    --color-background-secondary: #1d170e;
+    --color-border-secondary: #3a2e1e;
+    --color-border-tertiary: #4c3c2b;
+    --color-text-primary: #d4c4a0;
+    --color-text-secondary: #8a7a60;
+    --color-accent: #c87820;
+    --border-radius-lg: 12px;
+    --border-radius-md: 6px;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:#1a1410;color:#e8dcc8;font-family:'Georgia',serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;}
-  h1{font-size:18px;font-weight:400;letter-spacing:0.08em;margin-bottom:4px;color:#d4c4a0;}
-  .sub{font-size:11px;color:#8a7a60;margin-bottom:16px;letter-spacing:0.05em;}
-  canvas{border-radius:8px;border:1px solid #3a2e1e;display:block;}
+  body{
+    background: linear-gradient(135deg, #1f1812 0%, #120e0a 100%);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  /* Premium Container */
+  .vis-container {
+    width: 100%;
+    max-width: 960px;
+    background: var(--color-background-primary);
+    border: 1px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Header */
+  .vis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.5px solid var(--color-border-tertiary);
+    padding-bottom: 12px;
+    margin-bottom: 8px;
+  }
+
+  .vis-header h1 {
+    font-size: 1.4rem;
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .back-btn:hover {
+    color: #ffd4a0;
+  }
+
+  canvas{
+    border-radius:8px;
+    border:1px solid var(--color-border-secondary);
+    display:block;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: calc(100vh - 350px);
+    object-fit: contain;
+  }
   .controls{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap;justify-content:center;}
-  .info-bar{display:flex;gap:14px;align-items:flex-start;padding:10px 16px;background:#231c12;border-radius:6px;border:1px solid #3a2e1e;margin-top:10px;width:735px;min-height:58px;}
+  .info-bar{display:flex;gap:14px;align-items:flex-start;padding:10px 16px;background:var(--color-background-secondary);border-radius:6px;border:1px solid var(--color-border-secondary);margin-top:10px;width:100%;min-height:58px;}
   .left-col{width:190px;flex-shrink:0;}
-  #yr{font-size:26px;font-weight:400;color:#d4c4a0;line-height:1;font-variant-numeric:tabular-nums;}
-  #sea{font-size:10px;color:#8a7a60;margin-top:4px;white-space:nowrap;}
-  #dist{font-size:10px;color:#8a7a60;margin-top:2px;font-variant-numeric:tabular-nums;white-space:nowrap;}
-  .divider{width:1px;background:#3a2e1e;align-self:stretch;flex-shrink:0;}
+  #yr{font-size:26px;font-weight:400;color:var(--color-text-primary);line-height:1;font-variant-numeric:tabular-nums;}
+  #sea{font-size:10px;color:var(--color-text-secondary);margin-top:4px;white-space:nowrap;}
+  #dist{font-size:10px;color:var(--color-text-secondary);margin-top:2px;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .divider{width:1px;background:var(--color-border-secondary);align-self:stretch;flex-shrink:0;}
   .right-col{flex:1;min-width:0;}
-  #loc{font-size:13px;font-weight:700;color:#d4c4a0;margin-bottom:3px;}
-  #dsc{font-size:12px;color:#8a7a60;line-height:1.55;}
-  .slider-row{display:flex;align-items:center;gap:10px;width:735px;margin-top:8px;}
-  input[type=range]{flex:1;accent-color:#c87820;}
-  #yrL{font-size:12px;color:#8a7a60;min-width:30px;text-align:right;font-variant-numeric:tabular-nums;}
-  button{padding:8px 18px;border-radius:5px;border:1px solid #5a3e1e;background:#2e2010;color:#d4c4a0;font-family:inherit;font-size:13px;cursor:pointer;transition:background 0.15s;}
-  button:hover{background:#3e2e18;}
+  #loc{font-size:13px;font-weight:700;color:var(--color-text-primary);margin-bottom:3px;}
+  #dsc{font-size:12px;color:var(--color-text-secondary);line-height:1.55;}
+  .slider-row{display:flex;align-items:center;gap:10px;width:100%;margin-top:8px;}
+  input[type=range]{flex:1;accent-color:var(--color-accent);}
+  #yrL{font-size:12px;color:var(--color-text-secondary);min-width:30px;text-align:right;font-variant-numeric:tabular-nums;}
+  button{padding:8px 18px;border-radius:5px;border:1px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-family:inherit;font-size:13px;cursor:pointer;transition:background 0.15s;}
+  button:hover{background:var(--color-border-secondary);}
   button.primary{background:#7a3510;border-color:#a04520;color:#ffd4a0;}
   button.primary:hover{background:#903e18;}
   button:disabled{opacity:0.4;cursor:not-allowed;}
   .rec-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e04020;margin-right:6px;animation:blink 1s infinite;}
   @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
-  #status{font-size:11px;color:#8a7a60;margin-top:8px;height:16px;text-align:center;}
-  .speed-label{font-size:11px;color:#8a7a60;}
-  select{background:#2e2010;color:#d4c4a0;border:1px solid #5a3e1e;border-radius:4px;padding:6px 10px;font-family:inherit;font-size:12px;}
-  .note{font-size:10px;color:#6a5a40;max-width:735px;text-align:center;margin-top:12px;line-height:1.6;}
+  #status{font-size:11px;color:var(--color-text-secondary);margin-top:8px;height:16px;text-align:center;}
+  .speed-label{font-size:11px;color:var(--color-text-secondary);}
+  select{background:var(--color-background-secondary);color:var(--color-text-primary);border:1px solid var(--color-border-tertiary);border-radius:4px;padding:6px 10px;font-family:inherit;font-size:12px;}
+  .note{font-size:10px;color:#6a5a40;max-width:100%;text-align:center;margin-top:12px;line-height:1.6;}
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 </head>
 <body>
-<h1>ПУТЬ АФАНАСИЯ НИКИТИНА · 1467–1475</h1>
-<p class="sub">Тетради купца Афанасия · Хрусталёв Д.Г. · СПб., 2026 · Экспорт видео</p>
+  <div class="vis-container">
+    <header class="vis-header">
+      <h1>Экспорт видео</h1>
+      <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Вернуться в атлас</a>
+    </header>
 
 <canvas id="mapC" width="735" height="510"></canvas>
 
@@ -77,6 +155,7 @@
   Конвертировать в MP4: <code>ffmpeg -i afanasy_timelapse.webm -c:v libx264 -crf 18 afanasy_timelapse.mp4</code><br>
   Или загрузите .webm на <a href="https://cloudconvert.com" style="color:#c87820;" target="_blank">cloudconvert.com</a> для конвертации онлайн.
 </p>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
