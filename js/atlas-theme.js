@@ -4,13 +4,6 @@
   const toggle = document.getElementById('theme-toggle');
   const icon = document.getElementById('theme-icon');
 
-  if (!document.querySelector('link[href*="tabler-icons"]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'lib/tabler-icons.min.css';
-    document.head.appendChild(link);
-  }
-
   function updateTheme(theme) {
     html.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
