@@ -103,58 +103,57 @@
 
 ---
 
-## Готовые визуализации (21)
+## Готовые визуализации (20)
 
-### 🗺 Картографические (5)
+### 🗺 Картографические (4)
 
 | # | Название | Файл |
 |---|----------|------|
 | 1 | **Тайм-лапс** — анимированный маршрут 1467–1475, историческая карта, цитаты «Хожения» | [afanasy_v8_text_map.html](afanasy_v8_text_map.html) |
-| 2 | **Экспорт видео** — запись тайм-лапса в .webm через MediaRecorder API | [afanasy_video_export.html](afanasy_video_export.html) |
-| 3 | **Три путешественника** — Афанасий / Марко Поло / Васко да Гама на одной карте | [three_travelers_comparison.html](three_travelers_comparison.html) |
-| 4 | **Торговый маршрутник** — интерактивная карта портов Ормуз→Китай | [afanasy_trade_marshruttnik.html](afanasy_trade_marshruttnik.html) |
-| 5 | **Анимация границ** — политическая карта 1467–1475 (Ак-Коюнлу, Бахманиды, Москва) | [afanasy_borders_animation.html](afanasy_borders_animation.html) |
+| 2 | **Три путешественника** — Афанасий / Марко Поло / Васко да Гама на одной карте | [three_travelers_comparison.html](three_travelers_comparison.html) |
+| 3 | **Торговый маршрутник** — интерактивная карта портов Ормуз→Китай | [afanasy_trade_marshruttnik.html](afanasy_trade_marshruttnik.html) |
+| 4 | **Анимация границ** — политическая карта 1467–1475 (Ак-Коюнлу, Бахманиды, Москва) | [afanasy_borders_animation.html](afanasy_borders_animation.html) |
 
 ### 📊 Хронологические (4)
 
 | # | Название | Файл |
 |---|----------|------|
-| 6 | **Гантт-диаграмма** — 8 лет по месяцам: движение, стоянки, события | [afanasy_gantt.html](afanasy_gantt.html) |
-| 7 | **Скорость передвижения** — суша vs море, км/день по отрезкам | [afanasy_speed_land_sea.html](afanasy_speed_land_sea.html) |
-| 8 | **Двойной календарь** — православные и мусульманские праздники 1467–1475 | [afanasy_calendar_pascha_islam.html](afanasy_calendar_pascha_islam.html) |
-| 9 | **Эмоциональная дуга** — тональность 20 фрагментов «Хожения» по шкале −10…+10 | [afanasy_emotional_arc.html](afanasy_emotional_arc.html) |
+| 5 | **Гантт-диаграмма** — 8 лет по месяцам: движение, стоянки, события | [afanasy_gantt.html](afanasy_gantt.html) |
+| 6 | **Скорость передвижения** — суша vs море, км/день по отрезкам | [afanasy_speed_land_sea.html](afanasy_speed_land_sea.html) |
+| 7 | **Двойной календарь** — православные и мусульманские праздники 1467–1475 | [afanasy_calendar_pascha_islam.html](afanasy_calendar_pascha_islam.html) |
+| 8 | **Эмоциональная дуга** — тональность 20 фрагментов «Хожения» по шкале −10…+10 | [afanasy_emotional_arc.html](afanasy_emotional_arc.html) |
 
 ### 💬 Текстовые и лингвистические (3)
 
 | # | Название | Файл |
 |---|----------|------|
-| 10 | **Карта языков текста** — русский/тюркский/персидский/арабский по разделам | [afanasy_language_map_v2.html](afanasy_language_map_v2.html) |
-| 11 | **Три рукописи** — Летописная vs Троицкая: параллельный текст, утерянные листы | [afanasy_manuscripts.html](afanasy_manuscripts.html) |
-| 14 | **Религиозный кризис** — соотношение православных и мусульманских имён Бога по разделам «Хожения» | [afanasy_religious_crisis.html](afanasy_religious_crisis.html) |
+| 9 | **Карта языков текста** — русский/тюркский/персидский/арабский по разделам | [afanasy_language_map_v2.html](afanasy_language_map_v2.html) |
+| 10 | **Три рукописи** — Летописная vs Троицкая: параллельный текст, утерянные листы | [afanasy_manuscripts.html](afanasy_manuscripts.html) |
+| 11 | **Религиозный кризис** — соотношение православных и мусульманских имён Бога по разделам «Хожения» | [afanasy_religious_crisis.html](afanasy_religious_crisis.html) |
 
 ### 👥 Персонажи и структура (5)
 
 | # | Название | Файл |
 |---|----------|------|
 | 12 | **Дерево состава** — «Хожение» = 7 текстов → Мамырев → 3 списка | [khozheniye_composition_tree.html](khozheniye_composition_tree.html) |
-| 15 | **Сеть людей** — граф встреч: кто помог Афанасию и кто навредил в пути | [afanasy_people_network.html](afanasy_people_network.html) |
-| 16 | **Историография «Хожения»** — история открытий и переизданий текста от 1475 до 2026 года | [afanasy_historiography.html](afanasy_historiography.html) |
-| 17 | **40 изданий за 208 лет** — переведено на 20 языков; история публикаций | [afanasy_editions_v3.html](afanasy_editions_v3.html) |
-| 18 | **До и после: Афанасий и Азия** — что знал до отъезда vs что узнал; средневековое русское представление об Азии | [afanasy_world_before_after.html](afanasy_world_before_after.html) |
+| 13 | **Сеть людей** — граф встреч: кто помог Афанасию и кто навредил в пути | [afanasy_people_network.html](afanasy_people_network.html) |
+| 14 | **Историография «Хожения»** — история открытий и переизданий текста от 1475 до 2026 года | [afanasy_historiography.html](afanasy_historiography.html) |
+| 15 | **40 изданий за 208 лет** — переведено на 20 языков; история публикаций | [afanasy_editions_v3.html](afanasy_editions_v3.html) |
+| 16 | **До и после: Афанасий и Азия** — что знал до отъезда vs что узнал; средневековое русское представление об Азии | [afanasy_world_before_after.html](afanasy_world_before_after.html) |
 
 ### 💰 Экономика и торговля (2)
 
 | # | Название | Файл |
 |---|----------|------|
-| 13 | **Экономика путешествия** — жеребец, пряности, торговля лошадьми | [afanasy_economics_prices.html](afanasy_economics_prices.html) |
-| 19 | **Торговый маршрутник** — расстояния, цены, конвертер валют; почему торговый план провалился | [afanasy_trade_guide_v4.html](afanasy_trade_guide_v4.html) |
+| 17 | **Экономика путешествия** — жеребец, пряности, торговля лошадьми | [afanasy_economics_prices.html](afanasy_economics_prices.html) |
+| 18 | **Торговый маршрутник** — расстояния, цены, конвертер валют; почему торговый план провалился | [afanasy_trade_guide_v4.html](afanasy_trade_guide_v4.html) |
 
 ### 📈 Статистические (2)
 
 | # | Название | Файл |
 |---|----------|------|
-| 20 | **Бестиарий Индии** — флора и фауна, впервые описанные для русского читателя: слон, кокос, попугай | [afanasy_bestiary.html](afanasy_bestiary.html) |
-| 21 | **Цитирование по десятилетиям** — «Хожение» в науке 1818–2026: академические волны популярности | [afanasy_citations_v2.html](afanasy_citations_v2.html) |
+| 19 | **Бестиарий Индии** — флора и фауна, впервые описанные для русского читателя: слон, кокос, попугай | [afanasy_bestiary.html](afanasy_bestiary.html) |
+| 20 | **Цитирование по десятилетиям** — «Хожение» в науке 1818–2026: академические волны популярности | [afanasy_citations_v2.html](afanasy_citations_v2.html) |
 
 ---
 
