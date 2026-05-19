@@ -1,6 +1,12 @@
-
-<h2 class="sr-only">Что Афанасий знал до выезда vs что узнал — средневековое русское представление об Азии и реальность</h2>
-<style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>До и после: Афанасий и Азия — Афанасий Никитин</title>
+  <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+  <style>
 .wa{font-size:13px;}
 .wa-head{display:flex;gap:8px;margin-bottom:8px;}
 .wa-htab{flex:1;padding:8px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:all .13s;text-align:center;user-select:none;}
@@ -22,8 +28,16 @@ canvas.wa-c{display:block;width:100%;cursor:pointer;}
 .wa-hint{font-size:10px;color:var(--color-text-secondary);text-align:center;opacity:.65;margin-top:3px;}
 .wa-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
 </style>
+</head>
+<body>
+  <div class="vis-container">
+    <div class="vis-header">
+      <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Вернуться в атлас</a>
+      <h1>До и после: Афанасий и Азия</h1>
+    </div>
 
-<div class="wa">
+    <h2 class="sr-only">Что Афанасий знал до выезда vs что узнал — средневековое русское представление об Азии и реальность</h2>
+    <div class="wa">
 
 <div class="wa-head">
   <div class="wa-htab on" id="tab-before">
@@ -319,3 +333,12 @@ waitLib(()=>{
 });
 })();
 </script>
+  </div>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+</body>
+</html>

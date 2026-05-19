@@ -1,6 +1,12 @@
-
-<h2 class="sr-only">Сеть людей Афанасия Никитина — граф встреч, кто помог и кто навредил</h2>
-<style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сеть людей — Афанасий Никитин</title>
+  <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+  <style>
 .pn{font-size:13px;}
 .pn-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:10px;}
 .pn-intro b{color:var(--color-text-primary);}
@@ -24,8 +30,16 @@ canvas#pn-c{display:block;width:100%;border-radius:var(--border-radius-lg);borde
 .pn-f{padding:4px 11px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;white-space:nowrap;}
 .pn-f.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
 </style>
+</head>
+<body>
+  <div class="vis-container">
+    <div class="vis-header">
+      <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Вернуться в атлас</a>
+      <h1>Сеть людей</h1>
+    </div>
 
-<div class="pn">
+    <h2 class="sr-only">Сеть людей Афанасия Никитина — граф встреч, кто помог и кто навредил</h2>
+    <div class="pn">
 <div class="pn-intro">
   Афанасий встретил десятки людей за 8 лет. Одни <b style="color:#1e8250;">помогли</b> выжить, другие <b style="color:#c0392b;">навредили</b>, третьи были <b style="color:#8a8a8a;">нейтральны</b>. Нажмите узел чтобы узнать о человеке. Перетаскивайте узлы.
 </div>
@@ -324,3 +338,12 @@ let spin=0;
 const initPos=NODES.map(n=>({id:n.id,x:n.x,y:n.y}));
 })();
 </script>
+  </div>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+</body>
+</html>

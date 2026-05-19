@@ -1,5 +1,12 @@
-
-<style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Цитирование по десятилетиям — Афанасий Никитин</title>
+  <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+  <style>
 .ci{font-size:13px;}
 .ci-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
 .ci-intro b{color:var(--color-text-primary);}
@@ -23,8 +30,16 @@ canvas#ci-c{display:block;width:100%;border-radius:var(--border-radius-md);}
 .ci-det-n b{color:var(--color-text-primary);}
 .ci-src{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
 </style>
+</head>
+<body>
+  <div class="vis-container">
+    <div class="vis-header">
+      <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Вернуться в атлас</a>
+      <h1>Цитирование по десятилетиям</h1>
+    </div>
 
-<div class="ci">
+    <h2 class="sr-only">Цитирование по десятилетиям</h2>
+    <div class="ci">
 <div class="ci-intro">
   <b>550 лет молчания, пять волн интереса.</b> Оценочное число научных публикаций, переводов и упоминаний «Хожения» по десятилетиям. Нажмите столбец.
 </div>
@@ -274,3 +289,12 @@ window.setMode=function(m){
 buildLeg();draw();
 })();
 </script>
+  </div>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+</body>
+</html>

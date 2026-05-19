@@ -1,5 +1,12 @@
-
-<style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>40 изданий за 208 лет — Афанасий Никитин</title>
+  <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+  <style>
 .ew{font-size:13px;}
 .ew-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
 .ew-intro b{color:var(--color-text-primary);}
@@ -34,8 +41,16 @@
 .ew-dd b{color:var(--color-text-primary);}
 .ew-src{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
 </style>
+</head>
+<body>
+  <div class="vis-container">
+    <div class="vis-header">
+      <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Вернуться в атлас</a>
+      <h1>40 изданий за 208 лет</h1>
+    </div>
 
-<div class="ew">
+    <h2 class="sr-only">40 изданий за 208 лет</h2>
+    <div class="ew">
 <div class="ew-intro">
   За 208 лет «Хожение» издавалось более <b>40 раз</b> и переведено на <b>20 языков</b>. Каждое поколение находило в тексте своё. <b>Нажмите обложку</b> чтобы узнать об издании.
 </div>
@@ -244,7 +259,7 @@ const EDS=[
  who:'Я.С. Лурье, Л.С. Семёнов · Серия «Литературные памятники» · Наука, Ленинград, 1986',
  tags:[{t:'Академический стандарт',bg:'rgba(30,90,138,.18)',fg:'#0a3a6a'},{t:'Три списка полностью',bg:'rgba(42,122,80,.12)',fg:'#0a4a28'},{t:'Эталон до 2026',bg:'rgba(30,90,138,.1)',fg:'#1a4a7a'}],
  c1:{h:'Что произошло',txt:'<b>Полное критическое издание</b>: все три рукописных списка параллельно, современный перевод, 200+ страниц комментария, указатели. 40 лет работы двух крупнейших специалистов.'},
- c2:{h:'Вклад и ограничения',txt:'Золотой стандарт на 40 лет. Датировка <b>1468–1474</b> — на год неточна (Хрусталёв исправит). Иноязычные вставки всех пяти языков полностью транслитерированы впервые.'},
+ c2:{h:'Вклад и ограничения',txt:'Золотой стандарт на 40 лет. Датировка — на год неточна (Хрусталёв исправит). Иноязычные вставки всех пяти языков полностью транслитерированы впервые.'},
  q:'«Уникальный памятник — первое в русской литературе произведение, написанное светским автором вне монастырских стен»',
  disc:'🔍 Открытие: полная транслитерация пяти языков. Нерешённый вопрос: единство состава — ответит Хрусталёв.'},
 {id:'ex2004', year:2004, color:'#2a6a2a', short:'Эксмо\n2004', coverFn:cover_eksmo,
@@ -323,3 +338,12 @@ function showDet(ed){
 }
 })();
 </script>
+  </div>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+</body>
+</html>

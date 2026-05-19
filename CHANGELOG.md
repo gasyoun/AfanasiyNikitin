@@ -14,6 +14,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Extracted the repeated dark/light theme toggle script into `js/atlas-theme.js` for the index and 13 established visualization pages.
 
 ### Fixed
+- Wrapped the eight newly added widget pages in the standard standalone atlas shell with shared CSS, local Tabler Icons, back navigation, and the shared theme toggle.
+- `index.html`/`README.md`: reconciled the expanded atlas count to 21 HTML widgets and renumbered homepage cards 1–20 in display order.
+- Removed explicit legacy journey-date range strings from README and the new historiography/editions widgets while preserving the note that Khrustalev corrected the older chronology.
 - `afanasy_world_before_after.html`: replaced late-added CDN D3/TopoJSON/world-atlas references with bundled local assets.
 - `index.html`: repaired the book-summary download link by pointing it at the existing `tetradi_hrustalev_2026.md` while preserving the Russian download filename.
 - Reconciled public visualization counts around the 13 existing HTML widgets in `index.html`, `README.md`, `index.md`, and `tmp.md`.
