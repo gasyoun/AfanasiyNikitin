@@ -250,6 +250,72 @@ Split Bidar into 5 phases:
 
 ---
 
+## Concrete bugs (A-series) — found in code audit 2026-05-19
+
+These are NOT in the data-correctness fixes above. They are real bugs in current code/links/metadata that any user can hit today. Most are 30-minute fixes.
+
+### A1 — Broken download link in index 🟢
+**File:** `index.html:241`
+**Problem:** `<a href="Тетради_купца_Афанасия.md">` — file does not exist in repo. Only `tetradi_hrustalev_2026.md` (12 KB) exists.
+**Fix options:** (a) rename `tetradi_hrustalev_2026.md` → `Тетради_купца_Афанасия.md`, or (b) change href to `tetradi_hrustalev_2026.md`. Option (a) preserves user-facing filename in the download dialog.
+**Effort:** 5 min
+**Status:** ⬜
+
+### A2 — Visualization count contradicts itself 🟢
+**Problem:** Four different counts in the same repo:
+- `index.html:260` footer: "14 интерактивных визуализаций"
+- `index.html` body: 12 cards rendered
+- `README.md` / `index.md`: "21–25 visualizations"
+- `tmp.md`: "19 визуализаций"
+- Filesystem: 13 widget `.html` files
+**Fix:** Pick the truth (13 = files that exist) and update all four. Defer the aspirational "25" to ROADMAP only.
+**Effort:** 15 min
+**Status:** ⬜
+
+### A3 — Non-sequential card numbering 🟢
+**File:** `index.html`
+**Problem:** Card numbers are `1, 3, 5, 6, 7, 8, 9, 10, 11, 13, 15, 18` — skips 2, 4, 12, 14, 16, 17, 19+. Looks broken; users assume widgets are missing.
+**Fix:** Renumber 1–12 sequentially, OR drop the `.card-num` badge entirely. Renumbering is safer (preserves the "category catalogue" feel).
+**Effort:** 10 min
+**Status:** ⬜
+
+### A4 — Hardcoded `color: #333` defeats dark mode 🟢
+**Files:** 12 widget HTML files (all except `index.html`)
+**Problem:** Every widget has `body { color: #333; }` hardcoded instead of `var(--color-text-secondary)`. Dark-mode body text falls back to `#333` on dark background — readability bug.
+**Fix:** Replace `color: #333` → `color: var(--color-text-secondary)` in 12 files.
+**Verify:** `grep -l "color: #333" *.html` returns 12 matches.
+**Effort:** 15 min
+**Status:** ⬜
+
+### A5 — Dark-mode canvas filter inverts on-canvas labels 🟡
+**Files:** All widgets with `<canvas>` (map, borders, video export, three travelers)
+**Problem:** `html[data-theme="dark"] canvas { filter: invert(0.88) hue-rotate(180deg) contrast(1.1) brightness(0.95); }` is applied to the rasterized canvas, which includes labels drawn ONTO the canvas (city names, region polygons, waypoint titles). They end up inverted alongside the basemap.
+**Fix:** Stop CSS-filtering canvas. Instead, the canvas itself should detect `data-theme="dark"` and use a dark palette internally (e.g. `ctx.fillStyle = isDark ? '#e8e1cc' : '#1a1a1a'` for text).
+**Effort:** ~2h (per canvas widget — start with `afanasy_v8_text_map.html`)
+**Status:** ⬜ (noted in AI_STATE as "low priority"; should be raised — labels actually become unreadable)
+
+### A6 — Six widgets referenced but not built 🔵
+**Files referenced in `README.md`, `index.md`, `ROADMAP.md`:**
+- `afanasy_world_before_after.html` — pre-journey myths vs experience
+- `afanasy_religious_crisis.html` — Господи/Аллах/Бог frequency
+- `afanasy_social_network.html` — D3 force graph of named people
+- `afanasy_historiography.html` — 1475→2026 reception timeline
+- `afanasy_bestiary.html` — 12 SVG illuminated cards
+- `afanasy_citations_stats.html` — citations per decade
+
+**Fix options:** (a) build them (covered by ROADMAP Phase 3), or (b) remove from README/index.md until built. Recommend (b) for honesty until they ship.
+**Effort:** 30 min for option (b); 20–40h for option (a)
+**Status:** ⬜
+
+### A7 — CDN single point of failure 🔵
+**Files:** All 13 widgets
+**Problem:** D3 (`cdnjs`), TopoJSON (`cdnjs`), world-atlas (`jsdelivr`), Tabler Icons (`jsdelivr`) — 4 external CDNs, no local fallback. Offline / conference / firewalled-school demo fails silently (basemap doesn't render).
+**Fix:** Download libraries into `lib/`. This is Stage 4 of `GEMINI_FLASH_HANDOFF.md`.
+**Effort:** ~1h
+**Status:** ⬜
+
+---
+
 ## Cross-cutting fixes 🔵
 
 ### Cross-linking
@@ -270,6 +336,10 @@ None of the 12 visualizations link to each other (except Gantt→Map via `?wp=N`
 
 | Priority | Fix | Effort | Impact |
 |----------|-----|--------|--------|
+| 0 | A1 — Broken download link | 5 min | High — user-visible 404 |
+| 0 | A2 — Reconcile viz count | 15 min | High — credibility |
+| 0 | A3 — Renumber cards 1–12 | 10 min | Medium — looks broken |
+| 0 | A4 — `color: #333` → CSS var | 15 min | High — dark-mode regression |
 | 1 | FIX 2 — Gantt: split return + India phases | 4h | High — most viewed |
 | 2 | FIX 1 — Map: 9 missing waypoints | 3h | High — entry point |
 | 3 | FIX 3 — Calendar: 8 Easter markers | 2h | High — core thesis |
@@ -279,9 +349,12 @@ None of the 12 visualizations link to each other (except Gantt→Map via `?wp=N`
 | 7 | FIX 7 — Composition tree: chronological order | 3h | Medium |
 | 8 | FIX 8 — Three travelers: add Gavan | 3h | High — visual |
 | 9 | FIX 9 — Index: 25 items | 2h | High — navigation |
-| 10 | Cross-linking | 4h | Medium |
+| 10 | A5 — Dark canvas labels | 2h | Medium — readability |
+| 11 | A7 — Local CDN fallback | 1h | Medium — offline demo |
+| 12 | A6 — Remove or build 6 phantom widgets | 30 min – 40h | Medium — honesty |
+| 13 | Cross-linking | 4h | Medium |
 
-**Total estimated effort: ~26h**
+**Total estimated effort: ~27h (was 26h; A-series adds ~4h of small fixes + 30 min of doc cleanup)**
 
 ---
 
