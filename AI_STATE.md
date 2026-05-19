@@ -8,10 +8,10 @@ It records the current state of work, decisions made, and context needed to cont
 
 ---
 
-## Current Status: ✅ PHASE 1 STARTED — FIX 1 + FIX 2 + FIX 3 + FIX 4 Complete
+## Current Status: ✅ PHASE 1 COMPLETE — FIX 1 + FIX 2 + FIX 3 + FIX 4 Done
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 now has FIX 2 in `afanasy_gantt.html`, FIX 1 in `afanasy_v8_text_map.html`, FIX 3 in `afanasy_calendar_pascha_islam.html`, and FIX 4 in `afanasy_economics_prices.html`.
+Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 is complete: FIX 2 in `afanasy_gantt.html`, FIX 1 in `afanasy_v8_text_map.html`, FIX 3 in `afanasy_calendar_pascha_islam.html`, and FIX 4 in `afanasy_economics_prices.html`.
 
 ---
 
@@ -128,9 +128,12 @@ git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
 
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
-1. **Phase 1 — FIX 5** manuscript leaf-size proof
-2. **A7 / Architecture Stage 4**: localize D3/TopoJSON/world-atlas assets so browser verification is independent of CDN loading
-3. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
+1. **Phase 2 — Stage 1**: extract shared `css/atlas.css` from duplicated widget CSS
+2. **Phase 2 — Stage 2**: extract shared `js/atlas-data.js` after the map/Gantt data shape settles
+3. **Phase 2 — Stage 3**: extract shared `js/atlas-theme.js`
+4. **A7 / Architecture Stage 4**: localize D3/TopoJSON/world-atlas assets so browser verification is independent of CDN loading
+5. **Phase 3 — FIX 5** manuscript leaf-size proof
+6. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
 
 ---
 
