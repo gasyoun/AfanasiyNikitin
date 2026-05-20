@@ -118,7 +118,7 @@ Split Bidar into 5 phases:
 
 **Data source:** Chapter 2 §4, pp.67–82; Chapter 4 chronology
 **Effort:** ~2h
-**Status:** ⬜
+**Status:** ✅ Done — calendar now has the eight Khrustalev Easter observations, parallel true/observed Pascha tracks, drift markers, and the 1470 Lent/Ramadan annotation.
 
 ---
 
@@ -312,7 +312,7 @@ These are NOT in the data-correctness fixes above. They are real bugs in current
 **Problem:** D3 (`cdnjs`), TopoJSON (`cdnjs`), world-atlas (`jsdelivr`), Tabler Icons (`jsdelivr`) — 4 external CDNs, no local fallback. Offline / conference / firewalled-school demo fails silently (basemap doesn't render).
 **Fix:** Download libraries into `lib/`. This is Stage 4 of `GEMINI_FLASH_HANDOFF.md`.
 **Effort:** ~1h
-**Status:** ⬜
+**Status:** ✅ Done — D3, TopoJSON, world-atlas, and Tabler Icons are bundled under `lib/`; current HTML pages and `sw.js` reference local assets.
 
 ---
 

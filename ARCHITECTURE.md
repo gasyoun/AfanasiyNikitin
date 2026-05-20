@@ -30,16 +30,16 @@ AfanasiyNikitin/
 └── .git/
 ```
 
-### 1.2 Per-Page Structure (All 14 pages follow this pattern)
+### 1.2 Per-Page Structure (All 21 pages follow this pattern)
 
 ```
 ┌─────────────────────────────────────────────┐
 │  <head>                                     │
 │    :root { CSS variables — light theme }    │
 │    [data-theme="dark"] { dark overrides }   │
-│    Base layout styles (body, container)     │
+│    <link rel="stylesheet" href="css/atlas.css"> │
 │    Widget-specific styles (.af-*, .tm-*…)   │
-│    Tabler Icons CDN link                    │
+│    Local Tabler Icons link                  │
 │  </head>                                    │
 │  <body>                                     │
 │    .vis-container                           │
@@ -47,11 +47,11 @@ AfanasiyNikitin/
 │        <h1> Widget title </h1>              │
 │        <a class="back-btn"> ← Atlas </a>    │
 │      [Widget HTML: canvas / svg / divs]     │
-│    <script src="d3 CDN">                    │
-│    <script src="topojson CDN">              │
+│    <script src="lib/d3.min.js">             │
+│    <script src="lib/topojson.min.js">       │
 │    <script> (function(){ ... })() </script> │
 │    <!-- Theme toggle button -->             │
-│    <script> theme toggle IIFE </script>     │
+│    <script src="js/atlas-theme.js">         │
 │  </body>                                    │
 └─────────────────────────────────────────────┘
 ```
@@ -66,14 +66,14 @@ AfanasiyNikitin/
 | **HTML + CSS Grid** | language_map, economics_prices, trade_marshruttnik | Pure DOM, no canvas |
 | **Canvas + D3** | three_travelers_comparison | D3 projection → Canvas draw |
 
-### 1.4 External Dependencies
+### 1.4 Bundled Dependencies
 
-| Library | Version | CDN | Used By |
-|---------|---------|-----|---------|
-| D3.js | 7.8.5 | cdnjs.cloudflare.com | 4 pages (maps, charts) |
-| TopoJSON | 3.0.2 | cdnjs.cloudflare.com | 3 pages (maps) |
-| world-atlas | 2 (110m) | cdn.jsdelivr.net | 3 pages (map base layer) |
-| Tabler Icons | latest | cdn.jsdelivr.net | all 14 pages (icons) |
+| Library | Version | Local file | Used By |
+|---------|---------|------------|---------|
+| D3.js | 7.8.5 | `lib/d3.min.js` | maps and charts |
+| TopoJSON | 3.0.2 | `lib/topojson.min.js` | cartographic pages |
+| world-atlas | 2 (110m) | `lib/countries-110m.json` | map base layers |
+| Tabler Icons | 3.34.0 | `lib/tabler-icons.min.css` + font files | atlas shell icons |
 
 ### 1.5 Data Storage
 
@@ -119,12 +119,9 @@ Every page contains ~150 lines of **identical boilerplate**:
 - `afanasy_gantt.html` has its own copy of city names and `CITY_TO_WP` mapping  
 - **No single source of truth for journey data**
 
-### 2.3 CDN Single Point of Failure
+### 2.3 CDN Single Point of Failure — Resolved
 
-All cartographic pages **fail silently** if CDN is unreachable:
-- D3, TopoJSON, world-atlas, Tabler Icons all from external CDNs
-- No local fallback
-- No offline/PWA support
+Phase 2 Stage 2 moved D3, TopoJSON, world-atlas, and Tabler Icons into `lib/`; current HTML pages load local assets and the PWA shell can cache them for offline demos.
 
 ### 2.4 No Shared State
 

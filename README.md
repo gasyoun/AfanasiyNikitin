@@ -266,7 +266,7 @@
 - **Хрусталёв Д.Г.** «Тетради купца Афанасия». СПб.: Нестор-История, 2026.
 - **Хожение за три моря Афанасия Никитина.** / Подг. Лурье, Семёнов. Л.: Наука, 1986.
 - **Текст БЛДР ИРЛИ:** http://lib.pushkinskijdom.ru/default.aspx?tabid=5068
-- **World Atlas** (TopoJSON, 110m): https://cdn.jsdelivr.net/npm/world-atlas@2/
+- **World Atlas** (TopoJSON, 110m): bundled locally as `lib/countries-110m.json` (source: world-atlas v2)
 
 ---
 

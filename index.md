@@ -127,8 +127,8 @@
 - **Хожение за три моря.** Акад. изд. / Лурье, Семёнов. Л.: Наука, 1986.
 - **БЛДР ИРЛИ:** http://lib.pushkinskijdom.ru/default.aspx?tabid=5068
 - **Ибн Маджид** «Книга польз» (ок. 1490) — морские расстояния
-- **World Atlas** (TopoJSON 110m): cdn.jsdelivr.net/npm/world-atlas@2/
+- **World Atlas** (TopoJSON 110m): bundled locally as `lib/countries-110m.json` (source: world-atlas v2)
 
 ---
 
-*13 готовых HTML-виджетов · 5 скачиваемых файлов · Vanilla JS · Май 2026*
+*21 готовый HTML-виджет · 5 скачиваемых файлов · Vanilla JS · Май 2026*
