@@ -27,6 +27,8 @@
     --text-2xl:  2rem;
     /* Chart dark-mode helpers */
     --color-chart-silence: rgba(0,0,0,0.04);
+    --color-chart-on-data: rgba(255,255,255,0.85);
+    --color-chart-on-data-soft: rgba(255,255,255,0.7);
 }
 
 [data-theme="dark"] {
