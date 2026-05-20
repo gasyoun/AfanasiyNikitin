@@ -126,13 +126,13 @@ function hideTip(){tip.style.display='none';}
   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
 
   const entries=[
-    {date:'дек. 1468',place:'Лар / Таром',title:'Покупка',value:'100 руб.',color:'#3770be',
+    {date:'дек. 1468',place:'Лар / Таром',title:'Покупка',value:'100 руб.',color:'var(--viz-region-russia)',
      note:'Ф.21: жеребец куплен за 100 рублей на выходе к Ормузу. Это главный торговый капитал всего индийского замысла.'},
-    {date:'авг. 1469',place:'Джуннар',title:'Конфискация',value:'5 дней',color:'#b97314',
+    {date:'авг. 1469',place:'Джуннар',title:'Конфискация',value:'5 дней',color:'var(--viz-region-persia)',
      note:'Асад-хан забирает жеребца и возвращает через ходатайство Хасана-хорасанца; это превращает товар в личный риск.'},
-    {date:'25 дек. 1469',place:'Бидар',title:'Продажа',value:'68 фут.',color:'#be3c28',wp:12,
+    {date:'25 дек. 1469',place:'Бидар',title:'Продажа',value:'68 фут.',color:'var(--viz-region-india)',wp:12,
      note:'Ф.39: на Рождество жеребец продан за 68 футунов. Хрусталёв датирует продажу 25 декабря 1469.'},
-    {date:'1469–1470',place:'Бидар',title:'Расходы',value:'2,5 алт./день',color:'#c0392b',wp:12,
+    {date:'1469–1470',place:'Бидар',title:'Расходы',value:'2,5 алт./день',color:'var(--viz-economic-loss)',wp:12,
      note:'Ф.80: жизнь в Бидаре стоит 2,5 алтына в день, то есть 15 денег. За год это около 27 рублей.'},
   ];
 
@@ -183,7 +183,7 @@ function hideTip(){tip.style.display='none';}
     {name:'Хлопок\n(ткань)',india:2,hormuz:7,persia:12,russia:22,unit:'сер./батман',note:'Индийские хлопковые ткани — массовый экспортный товар.'},
   ];
 
-  const colors=['#be3c28','#e0a020','#b97314','#3770be'];
+  const colors=['var(--viz-region-india)','var(--viz-region-sea-arabian)','var(--viz-region-persia)','var(--viz-region-russia)'];
   const cities=['Индия','Ормуз','Персия','Русь'];
   const maxV=60;
   const gW=iW/goods.length;
@@ -202,7 +202,7 @@ function hideTip(){tip.style.display='none';}
       r.addEventListener('mouseleave',()=>{r.setAttribute('opacity','.82');hideTip();});
       const parent=el('g',{});parent.appendChild(r);
       if(ci===colors.length-1){
-        parent.appendChild(txt(`${g.russia}`,{x:bx+barW/2,y:by-3,'text-anchor':'middle','font-size':'8.5','font-weight':'500',fill:'#3770be'})); // --viz-region-russia
+        parent.appendChild(txt(`${g.russia}`,{x:bx+barW/2,y:by-3,'text-anchor':'middle','font-size':'8.5','font-weight':'500',fill:'var(--viz-region-russia)'}));
       }
       svg.appendChild(parent);
     });
@@ -233,12 +233,12 @@ function hideTip(){tip.style.display='none';}
   const iW=W-m.l-m.r,iH=H-m.t-m.b;
 
   const data=[
-    {label:'Арабский конь\nв Ормузе',buy:65,color:'#e0a020',note:'Закупочная цена арабского скакуна в Ормузе. Именно их везли торговцы в Индию.'},
-    {label:'Арабский конь\nв Индии (Бидар)',buy:175,color:'#be3c28',wp:12,note:'Цена перепродажи в индийских султанатах. Прибыль ~150–170%. Бахманиды платили за боевых коней.'},
-    {label:'Иранский конь\nв Ормузе',buy:50,color:'#b97314',note:'Чуть дешевле арабского. Тоже выгодно везти в Индию.'},
-    {label:'Иранский конь\nв Индии',buy:140,color:'#be3c28',note:'Выгодно, но меньше чем арабский. Маржа ~180%.'},
-    {label:'Русский конь\nАфанасия (Бидар)',buy:68,unit:'футунов',color:'#c0392b',wp:12,note:'Ф.39: «жеребца продал» за 68 футунов. Русский конь не ценился в Индии как арабский боевой скакун.'},
-    {label:'Ожидаемая\nцена коня',buy:120,color:'#3770be',note:'На что рассчитывал Афанасий при выезде из Твери. Не сбылось.'},
+    {label:'Арабский конь\nв Ормузе',buy:65,color:'var(--viz-region-sea-arabian)',note:'Закупочная цена арабского скакуна в Ормузе. Именно их везли торговцы в Индию.'},
+    {label:'Арабский конь\nв Индии (Бидар)',buy:175,color:'var(--viz-region-india)',wp:12,note:'Цена перепродажи в индийских султанатах. Прибыль ~150–170%. Бахманиды платили за боевых коней.'},
+    {label:'Иранский конь\nв Ормузе',buy:50,color:'var(--viz-region-persia)',note:'Чуть дешевле арабского. Тоже выгодно везти в Индию.'},
+    {label:'Иранский конь\nв Индии',buy:140,color:'var(--viz-region-india)',note:'Выгодно, но меньше чем арабский. Маржа ~180%.'},
+    {label:'Русский конь\nАфанасия (Бидар)',buy:68,unit:'футунов',color:'var(--viz-economic-loss)',wp:12,note:'Ф.39: «жеребца продал» за 68 футунов. Русский конь не ценился в Индии как арабский боевой скакун.'},
+    {label:'Ожидаемая\nцена коня',buy:120,color:'var(--viz-region-russia)',note:'На что рассчитывал Афанасий при выезде из Твери. Не сбылось.'},
   ];
 
   const maxV=200;

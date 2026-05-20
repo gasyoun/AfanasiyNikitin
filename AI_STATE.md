@@ -100,7 +100,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Speed chart enlarged | ✅ Done | 660→860 wide |
 | Calendar charts enlarged | ✅ Done | 640→900 and 660→900 |
 | Emotional arc font sizes up | ✅ Done | 7→10px |
-| Economics colors aligned | ✅ Done | regional palette |
+| Economics colors aligned | ✅ Done | regional palette + shared `--viz-region-*` / `--viz-economic-*` variables for SVG fills |
 | Language map, manuscripts, tree — fonts up | ✅ Done | 13→15px base |
 | Fix broken HTML in video export | ✅ Done | stray `<` removed |
 | Remove non-existent religious crisis card | ✅ Done | index.html |
