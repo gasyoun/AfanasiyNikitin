@@ -35,10 +35,6 @@ html[data-theme="dark"] body {
     color: var(--color-text-primary) !important;
 }
 
-html[data-theme="dark"] canvas, html[data-theme="dark"] img {
-    filter: invert(0.88) hue-rotate(180deg) contrast(1.1) brightness(0.95);
-}
-
 * {
     margin: 0;
     padding: 0;

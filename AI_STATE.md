@@ -4,7 +4,7 @@ This file is maintained by AI assistants (Antigravity/Claude) working on this re
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
 > **Last updated:** 2026-05-20 · Conversation ID: GPT-5.5 follow-up after Claude Haiku Phase 4 + FIX 5–8
-> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), plus PWA asset follow-up
+> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), beb79bd (PWA), plus A5 map follow-up
 
 ---
 
@@ -34,6 +34,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | FIX 5 — Manuscript leaf proof | ✅ Done | Two identical gaps (Ф. 11–14 & Ф. 41–44, ~1160 chars each) prove 1 lost leaf. Visual: side-by-side gaps + formula 1160=2×580. Table: page formats (Etterov 850/page, Trinity 700/page, proto-source 580/page), total 36,500 chars = 72 pages = 9 notebooks |
 | FIX 6 — Silence zone + pronouns | ✅ Done | Grey zone (Mar 1471 – May 1472): 13+ months no writings. New 5th dimension "Одиночество" (яз/я один +10 vs есмя/мы −10). All 20 points tagged: Tver alone, Volga together, robbery destroys group, Bidar alone, prayer alone, sea together, Kaffa alone. Zone visualized as grey rect between points 14–15 |
 | FIX 7 — Chronological order | ✅ Done | Toggle button switches between manuscript order (7 blocks → Mamyrev → 3 copies) and chronological writing order (7 periods: Persia 1468–69 → India 1469 → India 1470 → Dorozhnik 1470 → Aland+Parwat 1470–71 → SILENCE 1471–72 → War chronicle 1472–73 → Kaffa 1474). All nodes have detailed metadata about genre, language, manuscript page numbers (Ф.N). |
+| A5 — Map canvas dark palette | ✅ Done | Removed the shared CSS inversion filter and made `afanasy_v8_text_map.html` rebuild its Canvas basemap with light/dark palettes from `data-theme`; verified `?wp=18` opens Dabhol and dark-mode canvas filter is `none` |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
@@ -116,7 +117,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 
 | Issue | Severity | File | Notes |
 |-------|----------|------|-------|
-| Dark mode canvas filter on map | Low | `afanasy_v8_text_map.html` | CSS `filter: invert()` not applied to Canvas pixels; only the container flips |
+| Remaining canvas dark palettes | Medium | `three_travelers_comparison.html`, `afanasy_borders_animation.html`, `afanasy_trade_marshruttnik.html`, `afanasy_video_export.html` | Main map is fixed; remaining Canvas widgets still need the same no-filter/theme-aware drawing audit |
 | Existing 1366×768 page scroll | Medium | multiple widgets | Browser check showed several pages still have `documentElement.scrollHeight > 768`; `.vis-container` itself did not overflow. Needs layout pass outside Phase 0. |
 | Mobile touch targets | Low | all pages | Not tested on phone; touch targets may be too small |
 | New widget color-token audit | Medium | 8 newly added widgets | The newly committed widgets now have atlas shells, but their internal chart/data colors still need a CSS-token pass before considering them fully compliant with new-widget conventions |
@@ -160,10 +161,12 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 1. ✅ **FIX 5** — Manuscripts: leaf-size proof + two-gap visualization (DONE)
 2. ✅ **FIX 6** — Emotional arc: silence zone (1471–1472) + pronoun analysis (DONE)
 3. ✅ **FIX 7** — Composition tree: chronological writing order toggle (DONE)
+4. ✅ **A5 map** — remove CSS canvas inversion and add map-owned dark palette (DONE)
 
 **Then (Phase 3 new visualizations):**
-1. **Phase 3.1** — World before/after: myths vs experience (8h)
-2. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)
+1. **A5 remaining canvases** — apply theme-aware drawing to travelers, borders, trade route, and video export canvases
+2. **Phase 3.1** — World before/after: myths vs experience (8h)
+3. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)
 
 **Mobile testing (Phase 4):**
 - Test PWA install on Android (Chrome: should show Install prompt)
