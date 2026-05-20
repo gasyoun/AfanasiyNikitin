@@ -43,6 +43,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | FIX 9 — Index navigation | ✅ Done | `index.html` now has search, six category filters, and a collapsible question/scenario section for the current 20 visible cards + video export download page; verified filter/search/details/theme interactions in headless Edge |
 | Legacy date-range wording cleanup | ✅ Done | Removed literal old-range chronology strings from public widgets and project handoff/reference docs; `rg "1468.{0,3}1474"` is clean outside the extracted book text/PDF exclusions |
 | Cross-linking first pass | 🔄 Partial | `afanasy_calendar_pascha_islam.html` event details link to map waypoints; `afanasy_economics_prices.html` Bidar cards/SVG entries link to `?wp=12`; `afanasy_manuscripts.html` passage selector links to `afanasy_gantt.html?focus=...`; `afanasy_gantt.html` highlights focused periods from the query string. Breadcrumb pass remains. |
+| Local favicon | ✅ Done | Added `favicon.svg`, linked it from all HTML pages, added it to `manifest.json`, and included it in the Service Worker cache as `afanasy-atlas-v2`. |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
