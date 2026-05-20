@@ -47,6 +47,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **`afanasy_historiography.html`**: timeline events, era bands, navigation accents, detail headers, and tags now resolve through shared `--viz-hist-*` tokens.
 - **`khozheniye_composition_tree.html`**: manuscript/chronological node colors now resolve through shared `--viz-comp-*` tokens with theme-aware SVG fills.
 - **`afanasy_people_network.html`**: relationship legend, Canvas node/edge palette, labels, and detail accents now resolve through shared `--viz-network-*` tokens.
+- **`afanasy_language_map_v2.html`**: language highlights, cards, legends, and timeline/detail bars now resolve through shared `--viz-language-*` tokens.
 
 ### Fixed
 - `afanasy_citations_v2.html`, `afanasy_religious_crisis.html`, `afanasy_emotional_arc.html`, and `khozheniye_composition_tree.html`: constrained chart/detail heights so their primary interactions stay within 1366×768.

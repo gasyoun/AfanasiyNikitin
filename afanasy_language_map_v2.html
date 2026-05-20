@@ -24,24 +24,26 @@
 .lm-lt{font-size:11px;color:var(--color-text-secondary);}
 .lm-passes{grid-area:passages;display:flex;flex-direction:column;gap:5px;margin-bottom:0;max-height:406px;overflow-y:auto;padding-right:3px;}
 .lm-p{padding:7px 9px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);transition:border-color .15s;}
-.lm-p.hi{border-color:rgba(110,50,160,.45);background:var(--color-background-primary);}
+.lm-p.hi{border-color:color-mix(in srgb, var(--viz-language-arabic) 45%, transparent);background:var(--color-background-primary);}
+.lm-p-prayer{border-color:color-mix(in srgb, var(--viz-language-arabic) 30%, transparent);}
 .lm-ph{font-size:10.5px;color:var(--color-text-secondary);margin-bottom:4px;display:flex;gap:6px;align-items:center;}
 .lm-ploc{font-weight:500;color:var(--color-text-primary);}
 .lm-pt{font-size:12.5px;line-height:1.45;font-family:var(--font-serif);}
 .lm-pt span{border-radius:2px;padding:0 1px;transition:opacity .2s;}
 /* Language-specific text highlighting — mapped to design system regions/emotions */
-span.ru{background:rgba(55,110,190,.14);color:#1a4a8a;} /* --viz-region-russia */
-span.tt{background:rgba(185,115,20,.14);color:#7a4a00;} /* --viz-region-persia */
-span.fa{background:rgba(30,130,80,.14);color:#0a5a30;} /* --viz-emotion-hope */
-span.ar{background:rgba(110,50,160,.14);color:#5a2a8a;} /* --viz-emotion-total */
-span.hi{background:rgba(190,60,40,.14);color:#8a2010;} /* --viz-emotion-faith */
+span.ru{--lm-color:var(--viz-language-russian);--lm-text:var(--viz-language-russian-text);}
+span.tt{--lm-color:var(--viz-language-tatar);--lm-text:var(--viz-language-tatar-text);}
+span.fa{--lm-color:var(--viz-language-persian);--lm-text:var(--viz-language-persian-text);}
+span.ar{--lm-color:var(--viz-language-arabic);--lm-text:var(--viz-language-arabic-text);}
+span.hi{--lm-color:var(--viz-language-indic);--lm-text:var(--viz-language-indic-text);}
+span.ru,span.tt,span.fa,span.ar,span.hi{background:color-mix(in srgb, var(--lm-color) 14%, transparent);color:var(--lm-text);}
 .lm-tl{grid-area:timeline;margin-bottom:0;}
 .lm-tl-hint{font-size:11px;color:var(--color-text-secondary);margin-bottom:5px;}
 .lm-tl-row{display:flex;align-items:center;gap:6px;margin-bottom:3px;}
 .lm-tl-lbl{font-size:10.5px;color:var(--color-text-secondary);width:92px;flex-shrink:0;text-align:right;line-height:1.2;}
 .lm-tl-bar{flex:1;height:14px;border-radius:3px;display:flex;overflow:hidden;cursor:pointer;transition:box-shadow .15s;}
 .lm-tl-bar:hover{box-shadow:0 0 0 1.5px var(--color-border-secondary);}
-.lm-tl-bar.sel{box-shadow:0 0 0 2px #6e32a0;}
+.lm-tl-bar.sel{box-shadow:0 0 0 2px var(--viz-language-arabic);}
 .lm-tl-seg{height:100%;transition:opacity .2s;}
 .lm-detail{grid-area:detail;margin-top:0;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;display:none;max-height:196px;}
 .lm-detail.open{display:block;}
@@ -57,27 +59,24 @@ span.hi{background:rgba(190,60,40,.14);color:#8a2010;} /* --viz-emotion-faith */
 .lm-det-link:hover{background:var(--color-background-primary);}
 .lm-source{grid-area:source;font-size:10px;color:var(--color-text-secondary);line-height:1.3;margin-top:0;max-height:28px;overflow-y:auto;}
 /* Language card classes */
-.lmc-ru{border-color:rgba(55,110,190,.35);}
-.lmc-ru .lmc-name, .lmc-ru .lmc-pct{color:#1a4a8a;}
-.lmc-ru .lmc-bar-in{background:#3770be;}
-.lmc-tt{border-color:rgba(185,115,20,.35);}
-.lmc-tt .lmc-name, .lmc-tt .lmc-pct{color:#7a4a00;}
-.lmc-tt .lmc-bar-in{background:#b97314;}
-.lmc-fa{border-color:rgba(30,130,80,.35);}
-.lmc-fa .lmc-name, .lmc-fa .lmc-pct{color:#0a5a30;}
-.lmc-fa .lmc-bar-in{background:#1e8250;}
-.lmc-ar{border-color:rgba(110,50,160,.35);}
-.lmc-ar .lmc-name, .lmc-ar .lmc-pct{color:#5a2a8a;}
-.lmc-ar .lmc-bar-in{background:#6e32a0;}
-.lmc-hi{border-color:rgba(190,60,40,.35);}
-.lmc-hi .lmc-name, .lmc-hi .lmc-pct{color:#8a2010;}
-.lmc-hi .lmc-bar-in{background:#be3c28;}
+.lmc-ru{--lm-color:var(--viz-language-russian);--lm-text:var(--viz-language-russian-text);}
+.lmc-tt{--lm-color:var(--viz-language-tatar);--lm-text:var(--viz-language-tatar-text);}
+.lmc-fa{--lm-color:var(--viz-language-persian);--lm-text:var(--viz-language-persian-text);}
+.lmc-ar{--lm-color:var(--viz-language-arabic);--lm-text:var(--viz-language-arabic-text);}
+.lmc-hi{--lm-color:var(--viz-language-indic);--lm-text:var(--viz-language-indic-text);}
+.lmc-ru,.lmc-tt,.lmc-fa,.lmc-ar,.lmc-hi{border-color:color-mix(in srgb, var(--lm-color) 35%, transparent);}
+.lmc-ru .lmc-name,.lmc-ru .lmc-pct,
+.lmc-tt .lmc-name,.lmc-tt .lmc-pct,
+.lmc-fa .lmc-name,.lmc-fa .lmc-pct,
+.lmc-ar .lmc-name,.lmc-ar .lmc-pct,
+.lmc-hi .lmc-name,.lmc-hi .lmc-pct{color:var(--lm-text);}
+.lmc-ru .lmc-bar-in,.lmc-tt .lmc-bar-in,.lmc-fa .lmc-bar-in,.lmc-ar .lmc-bar-in,.lmc-hi .lmc-bar-in{background:var(--lm-color);}
 /* Legend dots */
-.lm-ld-ru{background:rgba(55,110,190,.55);}
-.lm-ld-tt{background:rgba(185,115,20,.55);}
-.lm-ld-fa{background:rgba(30,130,80,.55);}
-.lm-ld-ar{background:rgba(110,50,160,.55);}
-.lm-ld-hi{background:rgba(190,60,40,.55);}
+.lm-ld-ru{background:color-mix(in srgb, var(--viz-language-russian) 55%, transparent);}
+.lm-ld-tt{background:color-mix(in srgb, var(--viz-language-tatar) 55%, transparent);}
+.lm-ld-fa{background:color-mix(in srgb, var(--viz-language-persian) 55%, transparent);}
+.lm-ld-ar{background:color-mix(in srgb, var(--viz-language-arabic) 55%, transparent);}
+.lm-ld-hi{background:color-mix(in srgb, var(--viz-language-indic) 55%, transparent);}
 @media (max-width: 900px){
   .lm{display:block;}
   .lm-cards{grid-template-columns:repeat(2,1fr);margin-bottom:8px;}
@@ -160,7 +159,7 @@ span.hi{background:rgba(190,60,40,.14);color:#8a2010;} /* --viz-emotion-faith */
   <div class="lm-ph"><span class="lm-ploc">Индия, 1469–1472</span><span>Хинди-слова — для вещей без русских названий</span></div>
   <div class="lm-pt"><span class="ru">А</span> <span class="hi">мечети</span> <span class="ru">их без</span> <span class="hi">дверей</span><span class="ru">, обращены на восток. Держат в них</span> <span class="hi">буты</span> <span class="ru">великие.</span> <span class="ru">Скотину не бьют никакую: ни</span> <span class="hi">кур</span><span class="ru">, ни</span> <span class="hi">баранов</span><span class="ru">.</span> <span class="ru">Едят же</span> <span class="hi">кичири</span> <span class="ru">— рис с маслом — да</span> <span class="hi">шидри</span><span class="ru">, да</span> <span class="hi">кули</span><span class="ru">.</span></div>
 </div>
-<div class="lm-p" data-pi="5" style="border-color:rgba(110,50,160,.3);">
+<div class="lm-p lm-p-prayer" data-pi="5">
   <div class="lm-ph"><span class="lm-ploc">Бидар, ок. 1470</span><span>⚡ Пятиязычная молитва — Афанасий молится всем богам сразу</span></div>
   <div class="lm-pt"><span class="ru">Милосердый Боже, Боже истинный, Боже великий —</span> <span class="ar">аллах керим,</span> <span class="ar">аллах рахим,</span> <span class="ar">иса рух улло,</span> <span class="ru">вот и нет у меня ни Пасхи, ни праздника никоего,</span> <span class="tt">и я не ведаю — бу кюн пасха</span> <span class="ru">али нет?</span> <span class="ar">Бисмилля рахман рахим.</span> <span class="ru">Господи, Боже мой!</span> <span class="tt">Ярем сенинг</span> <span class="ru">— на тебя уповаю.</span></div>
 </div>
@@ -199,7 +198,21 @@ span.hi{background:rgba(190,60,40,.14);color:#8a2010;} /* --viz-emotion-faith */
 
   <script>
 (function(){
-const C={ru:'#3770be',tt:'#b97314',fa:'#1e8250',ar:'#6e32a0',hi:'#be3c28'};
+const C={
+  ru:'--viz-language-russian',
+  tt:'--viz-language-tatar',
+  fa:'--viz-language-persian',
+  ar:'--viz-language-arabic',
+  hi:'--viz-language-indic'
+};
+const CT={
+  ru:'--viz-language-russian-text',
+  tt:'--viz-language-tatar-text',
+  fa:'--viz-language-persian-text',
+  ar:'--viz-language-arabic-text',
+  hi:'--viz-language-indic-text'
+};
+const cssVar=name=>`var(${name})`;
 const KEYS=['ru','tt','fa','ar','hi'];
 const NAMES={ru:'русский',tt:'татарский',fa:'персидский',ar:'арабский',hi:'хинди'};
 
@@ -256,7 +269,7 @@ SECTIONS.forEach((s,i)=>{
     seg.className='lm-tl-seg';
     seg.dataset.lang=k;
     seg.style.width=s[k]+'%';
-    seg.style.background=C[k];
+    seg.style.background=cssVar(C[k]);
     seg.style.opacity='.72';
     bar.appendChild(seg);
   });
@@ -282,13 +295,13 @@ function openDetail(i,barEl){
     const seg=document.createElement('div');
     seg.className='lm-det-mini-seg';
     seg.style.width=s[k]+'%';
-    seg.style.background=C[k];
+    seg.style.background=cssVar(C[k]);
     mini.appendChild(seg);
   });
 
   const langLine=KEYS.filter(k=>s[k]>0)
     .sort((a,b)=>s[b]-s[a])
-    .map(k=>`<span style="color:${C[k]};font-weight:500;">${NAMES[k]} ${s[k]}%</span>`)
+    .map(k=>`<span style="color:${cssVar(CT[k])};font-weight:500;">${NAMES[k]} ${s[k]}%</span>`)
     .join(' · ');
   document.getElementById('det-meta').innerHTML=langLine+'<br><span style="opacity:.7;">'+s.meta+'</span>';
 

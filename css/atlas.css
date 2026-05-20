@@ -127,6 +127,18 @@
     --viz-network-neutral: #5a6e8a;
     --viz-network-indirect: #8a8a8a;
     --viz-network-indirect-edge: #b97314;
+
+    /* Language map */
+    --viz-language-russian: var(--viz-region-russia);
+    --viz-language-russian-text: #1a4a8a;
+    --viz-language-tatar: var(--viz-region-persia);
+    --viz-language-tatar-text: #7a4a00;
+    --viz-language-persian: var(--viz-emotion-hope);
+    --viz-language-persian-text: #0a5a30;
+    --viz-language-arabic: var(--viz-emotion-total);
+    --viz-language-arabic-text: #5a2a8a;
+    --viz-language-indic: var(--viz-region-india);
+    --viz-language-indic-text: #8a2010;
 }
 
 [data-theme="dark"] {
@@ -134,6 +146,11 @@
     --viz-comp-editor: #b8aba3;
     --viz-comp-editor-text: #b8aba3;
     --viz-comp-silence: #b8aba3;
+    --viz-language-russian-text: #8fb7f0;
+    --viz-language-tatar-text: #d8aa62;
+    --viz-language-persian-text: #7bd99a;
+    --viz-language-arabic-text: #c69af0;
+    --viz-language-indic-text: #ee9a87;
 }
 
 html[data-theme="dark"] body {
