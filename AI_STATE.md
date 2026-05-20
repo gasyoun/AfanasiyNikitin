@@ -4,7 +4,7 @@ This file is maintained by AI assistants (Antigravity/Claude) working on this re
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
 > **Last updated:** 2026-05-20 · Conversation ID: GPT-5.5 follow-up after Claude Haiku Phase 4 + FIX 5–8
-> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), beb79bd (PWA), 5d7caaa (A5 map), 88545c7 (date wording), plus A5 travelers follow-up
+> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), beb79bd (PWA), 5d7caaa (A5 map), 88545c7 (date wording), d4d9c33 (A5 travelers), plus A5 borders follow-up
 
 ---
 
@@ -36,6 +36,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | FIX 7 — Chronological order | ✅ Done | Toggle button switches between manuscript order (7 blocks → Mamyrev → 3 copies) and chronological writing order (7 periods: Persia 1468–69 → India 1469 → India 1470 → Dorozhnik 1470 → Aland+Parwat 1470–71 → SILENCE 1471–72 → War chronicle 1472–73 → Kaffa 1474). All nodes have detailed metadata about genre, language, manuscript page numbers (Ф.N). |
 | A5 — Map canvas dark palette | ✅ Done | Removed the shared CSS inversion filter and made `afanasy_v8_text_map.html` rebuild its Canvas basemap with light/dark palettes from `data-theme`; verified `?wp=18` opens Dabhol and dark-mode canvas filter is `none` |
 | A5 — Travelers canvas dark palette | ✅ Done | `three_travelers_comparison.html` now rebuilds its basemap/labels/legend from the active theme; verified 4-card toggle behavior and dark-mode Canvas redraw in headless Edge |
+| A5 — Borders canvas dark palette | ✅ Done | `afanasy_borders_animation.html` now rebuilds its basemap, labels, active traveler marker, and year overlay from the active theme; verified play/pause, event click, and dark-mode Canvas redraw in headless Edge |
 | Legacy date-range wording cleanup | ✅ Done | Removed literal old-range chronology strings from public widgets and project handoff/reference docs; `rg "1468.{0,3}1474"` is clean outside the extracted book text/PDF exclusions |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
@@ -119,7 +120,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 
 | Issue | Severity | File | Notes |
 |-------|----------|------|-------|
-| Remaining canvas dark palettes | Medium | `afanasy_borders_animation.html`, `afanasy_trade_marshruttnik.html`, `afanasy_video_export.html`, `afanasy_world_before_after.html` | Main map and four-travelers map are fixed; remaining Canvas widgets still need the same no-filter/theme-aware drawing audit |
+| Remaining canvas dark palettes | Medium | `afanasy_trade_marshruttnik.html`, `afanasy_video_export.html`, `afanasy_world_before_after.html` | Main map, four-travelers map, and borders animation are fixed; remaining Canvas widgets still need the same no-filter/theme-aware drawing audit |
 | Existing 1366×768 page scroll | Medium | multiple widgets | Browser check showed several pages still have `documentElement.scrollHeight > 768`; `.vis-container` itself did not overflow. Needs layout pass outside Phase 0. |
 | Mobile touch targets | Low | all pages | Not tested on phone; touch targets may be too small |
 | New widget color-token audit | Medium | 8 newly added widgets | The newly committed widgets now have atlas shells, but their internal chart/data colors still need a CSS-token pass before considering them fully compliant with new-widget conventions |
@@ -166,7 +167,7 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 4. ✅ **A5 map** — remove CSS canvas inversion and add map-owned dark palette (DONE)
 
 **Then (Phase 3 new visualizations):**
-1. **A5 remaining canvases** — apply theme-aware drawing to borders, trade route, video export, and world before/after canvases
+1. **A5 remaining canvases** — apply theme-aware drawing to trade route, video export, and world before/after canvases
 2. **Phase 3.1** — World before/after: myths vs experience (8h)
 3. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)
 
