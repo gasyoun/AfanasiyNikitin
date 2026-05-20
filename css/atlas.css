@@ -91,6 +91,12 @@
     --viz-citation-wave-cultural: #8a3a8a;
     --viz-citation-wave-current: #6e32a0;
     --viz-citation-neutral: #8a8a8a;
+
+    /* Religious crisis */
+    --viz-religion-gospodi: #c0392b;
+    --viz-religion-allah: #1d6fa8;
+    --viz-religion-bog: #5a6e8a;
+    --viz-religion-isa: #6e32a0;
 }
 
 html[data-theme="dark"] body {

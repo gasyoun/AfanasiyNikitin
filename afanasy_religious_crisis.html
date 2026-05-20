@@ -21,7 +21,7 @@
 .rc-lt{font-size:11px;color:var(--color-text-secondary);}
 .rc-chart-wrap{position:relative;margin-bottom:10px;}
 svg#rc-svg{display:block;width:100%;height:280px!important;}
-.rc-detail{padding:11px 14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);min-height:60px;border-left:3px solid transparent;transition:border-color .2s;margin-bottom:10px;}
+.rc-detail{padding:11px 14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);min-height:60px;max-height:78px;overflow-y:auto;border-left:3px solid transparent;transition:border-color .2s;margin-bottom:10px;}
 .rc-det-head{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px;}
 .rc-det-q{font-size:12.5px;font-family:var(--font-serif);line-height:1.7;margin-bottom:7px;padding-left:9px;border-left:2px solid var(--color-border-secondary);color:var(--color-text-primary);}
 .rc-det-spans{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;}
@@ -33,19 +33,19 @@ svg#rc-svg{display:block;width:100%;height:280px!important;}
 .rc-tab.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
 .rc-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
 /* Religious concept colors */
-.rc-card-gospodi{border-top-color:#c0392b;}
-.rc-card-gospodi .rc-card-val{color:#c0392b;}
-.rc-card-allah{border-top-color:#1d6fa8;}
-.rc-card-allah .rc-card-val{color:#1d6fa8;}
-.rc-card-bog{border-top-color:#5a6e8a;}
-.rc-card-bog .rc-card-val{color:#5a6e8a;}
-.rc-card-isa{border-top-color:#6e32a0;}
-.rc-card-isa .rc-card-val{color:#6e32a0;}
+.rc-card-gospodi{border-top-color:var(--viz-religion-gospodi);}
+.rc-card-gospodi .rc-card-val{color:var(--viz-religion-gospodi);}
+.rc-card-allah{border-top-color:var(--viz-religion-allah);}
+.rc-card-allah .rc-card-val{color:var(--viz-religion-allah);}
+.rc-card-bog{border-top-color:var(--viz-religion-bog);}
+.rc-card-bog .rc-card-val{color:var(--viz-religion-bog);}
+.rc-card-isa{border-top-color:var(--viz-religion-isa);}
+.rc-card-isa .rc-card-val{color:var(--viz-religion-isa);}
 /* Legend dots */
-.rc-ld-gospodi{background:#c0392b;}
-.rc-ld-allah{background:#1d6fa8;}
-.rc-ld-bog{background:#5a6e8a;}
-.rc-ld-isa{background:#6e32a0;}
+.rc-ld-gospodi{background:var(--viz-religion-gospodi);}
+.rc-ld-allah{background:var(--viz-religion-allah);}
+.rc-ld-bog{background:var(--viz-religion-bog);}
+.rc-ld-isa{background:var(--viz-religion-isa);}
   </style>
 </head>
 <body>
@@ -198,9 +198,26 @@ const SECS=[
 const KEYS=['gospodi','allah','bog','isa'];
 const LAB={gospodi:'Господи',allah:'Аллах',bog:'Бог',isa:'Иса'};
 
-function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
-function getColors(){return{gospodi:'#c0392b',allah:'#1d6fa8',bog:'#5a6e8a',isa:'#6e32a0'};}
-const COL=getColors();
+function cssVar(name,fallback){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||fallback;}
+function alpha(color,value){
+  const c=color.trim();
+  if(c.startsWith('#')){
+    const hex=c.slice(1);
+    const full=hex.length===3?hex.split('').map(ch=>ch+ch).join(''):hex.slice(0,6);
+    const num=parseInt(full,16);
+    return `rgba(${(num>>16)&255},${(num>>8)&255},${num&255},${value})`;
+  }
+  const rgb=c.match(/^rgba?\(([^)]+)\)$/);
+  if(rgb)return `rgba(${rgb[1].split(',').slice(0,3).join(',')},${value})`;
+  return c;
+}
+function getColors(){return{
+  gospodi:cssVar('--viz-religion-gospodi','#c0392b'),
+  allah:cssVar('--viz-religion-allah','#1d6fa8'),
+  bog:cssVar('--viz-religion-bog','#5a6e8a'),
+  isa:cssVar('--viz-religion-isa','#6e32a0')
+};}
+let COL=getColors();
 
 let mode='stacked', activeIdx=null;
 const W=700,H=280,mL=34,mR=16,mT=24,mB=72;
@@ -281,7 +298,7 @@ function drawStacked(){
   });
   // Purple bar = crisis label
   svg.appendChild(el('rect',{x:W-mR-72,y:legY,width:9,height:4,fill:COL.isa,rx:2,opacity:.6}));
-  svg.appendChild(t('= кризис',{x:W-mR-60,y:legY+3,'font-size':'8',fill:'rgba(110,50,160,.8)'}));
+  svg.appendChild(t('= кризис',{x:W-mR-60,y:legY+3,'font-size':'8',fill:alpha(COL.isa,.8)}));
 }
 
 function drawLine(){
@@ -312,7 +329,7 @@ function drawLine(){
   const ci=6; // index of pascha section
   const cx=xC(ci);
   svg.appendChild(el('line',{x1:cx,y1:mT,x2:cx,y2:mT+iH,stroke:COL.isa,'stroke-width':1,'stroke-dasharray':'4 3',opacity:.5}));
-  svg.appendChild(t('← кульминация',{x:cx+3,y:mT+10,'font-size':'7.5',fill:'rgba(110,50,160,.7)'}));
+  svg.appendChild(t('← кульминация',{x:cx+3,y:mT+10,'font-size':'7.5',fill:alpha(COL.isa,.7)}));
   xLabels();
 }
 
@@ -331,11 +348,11 @@ function drawRatio(){
   // Equilibrium line
   const eqY=yS(1,mx);
   svg.appendChild(el('line',{x1:mL,y1:eqY,x2:W-mR,y2:eqY,stroke:COL.isa,'stroke-width':1.2,'stroke-dasharray':'5 3',opacity:.5}));
-  svg.appendChild(t('Аллах = Господи',{x:W-mR-2,y:eqY-4,'text-anchor':'end','font-size':'8',fill:'rgba(110,50,160,.7)'}));
+  svg.appendChild(t('Аллах = Господи',{x:W-mR-2,y:eqY-4,'text-anchor':'end','font-size':'8',fill:alpha(COL.isa,.7)}));
 
   // Shade areas
-  const above=el('path',{fill:'rgba(192,57,43,.06)'});
-  const below=el('path',{fill:'rgba(29,111,168,.06)'});
+  const above=el('path',{fill:alpha(COL.gospodi,.06)});
+  const below=el('path',{fill:alpha(COL.allah,.06)});
   let aboveD=`M${xC(0)},${eqY}`,belowD=`M${xC(0)},${eqY}`;
   ratios.forEach((r,i)=>{const y=yS(r,mx);aboveD+=` L${xC(i)},${Math.min(y,eqY)}`;belowD+=` L${xC(i)},${Math.max(y,eqY)}`;});
   aboveD+=` L${xC(ratios.length-1)},${eqY} Z`;
@@ -344,8 +361,8 @@ function drawRatio(){
   svg.appendChild(above);svg.appendChild(below);
 
   // Area labels
-  svg.appendChild(t('Господи доминирует',{x:mL+8,y:mT+14,'font-size':'8','font-style':'italic',fill:'rgba(192,57,43,.6)'}));
-  svg.appendChild(t('Аллах доминирует',{x:mL+8,y:mT+iH-8,'font-size':'8','font-style':'italic',fill:'rgba(29,111,168,.6)'}));
+  svg.appendChild(t('Господи доминирует',{x:mL+8,y:mT+14,'font-size':'8','font-style':'italic',fill:alpha(COL.gospodi,.6)}));
+  svg.appendChild(t('Аллах доминирует',{x:mL+8,y:mT+iH-8,'font-size':'8','font-style':'italic',fill:alpha(COL.allah,.6)}));
 
   // Line
   let d=`M${xC(0)},${yS(ratios[0],mx)}`;
@@ -379,11 +396,10 @@ function showDet(s){
   if(!s){det.style.borderLeftColor='var(--color-border-tertiary)';det.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary);">← нажмите раздел</div>';return;}
   const dominant=KEYS.reduce((a,b)=>s[a]>s[b]?a:b);
   det.style.borderLeftColor=COL[dominant];
-  const spansHtml=s.spans.map(sp=>`<span class="rc-span" style="background:${COL[KEYS.find(k=>sp.includes(LAB[k]))||'bog']}18;color:${COL[KEYS.find(k=>sp.includes(LAB[k]))||'bog']};">${sp}</span>`).join('');
   det.innerHTML=`<div class="rc-det-head">${s.label.replace('\n',' ')} · ${s.year}</div>
     <div class="rc-det-spans">${s.spans.map(sp=>{
       const k=KEYS.find(k=>sp.toLowerCase().includes(LAB[k].toLowerCase()))||'bog';
-      return`<span class="rc-span" style="background:${COL[k]}18;color:${COL[k]};">${sp}</span>`;
+      return`<span class="rc-span" style="background:${alpha(COL[k],.12)};color:${COL[k]};">${sp}</span>`;
     }).join('')}</div>
     <div class="rc-det-q">${s.quote}</div>
     <div class="rc-det-note">${s.note}</div>`;
@@ -396,6 +412,11 @@ window.setMode=function(m){
 };
 
 redraw();
+new MutationObserver(()=>{
+  COL=getColors();
+  showDet(activeIdx!==null?SECS[activeIdx]:null);
+  redraw();
+}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 })();
 </script>
   </div>

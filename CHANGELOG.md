@@ -43,6 +43,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **`afanasy_economics_prices.html`**: SVG region/economics fills now use shared `--viz-region-*` and `--viz-economic-*` variables instead of inline hex colors.
 - **`afanasy_calendar_pascha_islam.html`**: holiday legend and SVG fills now use shared `--viz-calendar-*` variables instead of widget-local hex colors.
 - **`afanasy_citations_v2.html`**: citation cards, series, wave markers, legends, and Canvas labels now resolve through shared `--viz-citation-*` tokens and redraw correctly after a theme toggle.
+- **`afanasy_religious_crisis.html`**: religious concept cards, legend dots, SVG annotations, ratio shading, and detail badges now resolve through shared `--viz-religion-*` tokens.
 
 ### Fixed
 - `afanasy_citations_v2.html`, `afanasy_religious_crisis.html`, `afanasy_emotional_arc.html`, and `khozheniye_composition_tree.html`: constrained chart/detail heights so their primary interactions stay within 1366×768.
