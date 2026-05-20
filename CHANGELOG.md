@@ -40,6 +40,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Footer**: hardcoded `color: #bbb` → `var(--color-text-secondary)` for dark-mode compatibility.
 - **ROADMAP.md**: marked Phases 2b, 3, 4 as complete; updated priority summary.
 - **`afanasy_economics_prices.html`**: SVG region/economics fills now use shared `--viz-region-*` and `--viz-economic-*` variables instead of inline hex colors.
+- **`afanasy_calendar_pascha_islam.html`**: holiday legend and SVG fills now use shared `--viz-calendar-*` variables instead of widget-local hex colors.
 
 ### Fixed
 - `afanasy_citations_v2.html`, `afanasy_religious_crisis.html`, `afanasy_emotional_arc.html`, and `khozheniye_composition_tree.html`: constrained chart/detail heights so their primary interactions stay within 1366×768.

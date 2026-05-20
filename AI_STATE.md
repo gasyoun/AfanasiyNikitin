@@ -99,6 +99,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Gantt labels → clickable map links | ✅ Done | `?wp=N` deep links |
 | Speed chart enlarged | ✅ Done | 660→860 wide |
 | Calendar charts enlarged | ✅ Done | 640→900 and 660→900 |
+| Calendar colors tokenized | ✅ Done | holiday legend and SVG fills now use shared `--viz-calendar-*` variables |
 | Emotional arc font sizes up | ✅ Done | 7→10px |
 | Economics colors aligned | ✅ Done | regional palette + shared `--viz-region-*` / `--viz-economic-*` variables for SVG fills |
 | Language map, manuscripts, tree — fonts up | ✅ Done | 13→15px base |

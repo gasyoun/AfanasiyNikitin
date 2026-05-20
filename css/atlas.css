@@ -70,6 +70,16 @@
     /* Economics (gains/losses) */
     --viz-economic-loss: #c0392b;
     --viz-economic-gain: #27ae60;
+
+    /* Calendar / religious observances */
+    --viz-calendar-drift: #c0392b;
+    --viz-calendar-match: #1e8250;
+    --viz-calendar-ramadan: #8b5a30;
+    --viz-calendar-uraza: #1d6fa8;
+    --viz-calendar-kurban: #1e8250;
+    --viz-calendar-mahashivaratri: #6e32a0;
+    --viz-calendar-location: #e0a020;
+    --viz-calendar-location-stroke: #c08000;
 }
 
 html[data-theme="dark"] body {

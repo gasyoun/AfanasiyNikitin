@@ -74,12 +74,12 @@ svg.tl-svg{display:block;}
   <div class="leg-row">
     <div class="leg-dot" style="background:transparent;border:2px dashed var(--color-border-primary);"></div><span class="leg-txt">Истинная православная Пасха</span>
     <div class="leg-dot" style="background:var(--color-accent);"></div><span class="leg-txt">Пасха по счёту Афанасия</span>
-    <div class="leg-dot" style="background:var(--viz-emotion-faith);"></div><span class="leg-txt">Сдвиг даты</span>
-    <div class="leg-dot" style="background:var(--viz-emotion-wonder);border-radius:2px;"></div><span class="leg-txt">Ураза-байрам (окончание Рамадана)</span>
-    <div class="leg-dot" style="background:var(--viz-emotion-hope);border-radius:2px;"></div><span class="leg-txt">Курбан-байрам</span>
-    <div class="leg-dot" style="background:var(--viz-emotion-pronoun);border-radius:3px;"></div><span class="leg-txt">Рамадан (пост)</span>
-    <div class="leg-dot" style="background:var(--viz-emotion-total);border-radius:2px;"></div><span class="leg-txt">Махашиваратри</span>
-    <div class="leg-dot" style="background:var(--viz-region-sea-arabian);border-radius:50%;width:8px;height:8px;border:1.5px solid #c08000;"></div><span class="leg-txt">Местонахождение Афанасия</span>
+    <div class="leg-dot" style="background:var(--viz-calendar-drift);"></div><span class="leg-txt">Сдвиг даты</span>
+    <div class="leg-dot" style="background:var(--viz-calendar-uraza);border-radius:2px;"></div><span class="leg-txt">Ураза-байрам (окончание Рамадана)</span>
+    <div class="leg-dot" style="background:var(--viz-calendar-kurban);border-radius:2px;"></div><span class="leg-txt">Курбан-байрам</span>
+    <div class="leg-dot" style="background:var(--viz-calendar-ramadan);border-radius:3px;"></div><span class="leg-txt">Рамадан (пост)</span>
+    <div class="leg-dot" style="background:var(--viz-calendar-mahashivaratri);border-radius:2px;"></div><span class="leg-txt">Махашиваратри</span>
+    <div class="leg-dot" style="background:var(--viz-calendar-location);border-radius:50%;width:8px;height:8px;border:1.5px solid var(--viz-calendar-location-stroke);"></div><span class="leg-txt">Местонахождение Афанасия</span>
   </div>
   <div class="tl-wrap"><svg id="tl-svg" class="tl-svg"></svg></div>
   <div id="tl-detail" class="hol-detail" style="margin-top:8px;"></div>
@@ -153,7 +153,7 @@ function driftLabel(drift){
 }
 
 function driftColor(drift){
-  return drift===0?'#1e8250':'#c0392b';
+  return drift===0?'var(--viz-calendar-match)':'var(--viz-calendar-drift)';
 }
 
 const EASTER_WP=[0,5,8,12,12,15,16,9];
@@ -177,27 +177,27 @@ const EVENTS=[
   ...EASTER_EVENTS,
   {id:'r1469',type:'ramadan',year:1469,month:11,day:null,
    label:'Рамадан 1469',dateStr:'октябрь–ноябрь 1469',loc:'Бидар',
-   color:'#8B5a30',shape:'rect',wp:12,
+   color:'var(--viz-calendar-ramadan)',shape:'rect',wp:12,
    quote:'«Бесерменской пост в ноябре». Афанасий отмечает начало Рамадана по мусульманскому календарю.',
    analysis:'<b>Привязка к году.</b> Рамадан 874 г.х. начался ок. 1 ноября 1469 г. Совпадает с описанием у Афанасия.'},
   {id:'u1470',type:'uraza',year:1470,month:4,day:3,
    label:'Ураза-байрам 1470',dateStr:'3 апреля 1470',loc:'Бидар',
-   color:'#1d6fa8',shape:'rect',wp:12,
+   color:'var(--viz-calendar-uraza)',shape:'rect',wp:12,
    quote:'«Ураз-байрам бесерменской» — Афанасий отмечает его как ориентир вместо собственной Пасхи.',
    analysis:'<b>Замена Пасхи.</b> Ураза-байрам 3 апреля 1470 г. — через 12 дней после Пасхи 22 марта. Афанасий спутал их или сознательно «перешёл» на мусульманский праздник. Хрусталёв: именно это «постился с бесерменами в неделю».'},
   {id:'k1470',type:'kurban',year:1470,month:6,day:10,
    label:'Курбан-байрам 1470',dateStr:'10 июня 1470',loc:'Бидар',
-   color:'#1e8250',shape:'rect',wp:12,
+   color:'var(--viz-calendar-kurban)',shape:'rect',wp:12,
    quote:'«Курмабаим день бесерменской». Афанасий фиксирует второй главный мусульманский праздник.',
    analysis:'<b>Двойная привязка.</b> Курбан-байрам 875 г.х. = ок. 10 июня 1470. Вместе с Ураза-байрамом даёт год с двух сторон.'},
   {id:'s1471',type:'shiva',year:1471,month:2,day:19,
    label:'Махашиваратри',dateStr:'~19 февраля 1471',loc:'Шрисайлам (Парват)',
-   color:'#6e32a0',shape:'diamond',wp:14,
+   color:'var(--viz-calendar-mahashivaratri)',shape:'diamond',wp:14,
    quote:'«И ту есть Парват — святое место индуское… и съезжается к нему всякий люд со всей Индии». Афанасий попал на главный праздник Шивы.',
    analysis:'<b>Индуистский якорь.</b> Махашиваратри в 1471 г. приходилась на ~19 февраля. Афанасий вышел из Бидара «в начале февраля» и шёл пешком месяц (~320 км) — приход точно совпадает с праздником.'},
   {id:'r1470',type:'ramadan',year:1470,month:3,day:4,
    label:'Рамадан 1470',dateStr:'~4 марта 1470',loc:'Бидар',
-   color:'#8B5a30',shape:'rect',wp:12,
+   color:'var(--viz-calendar-ramadan)',shape:'rect',wp:12,
    quote:'«Пост бесерменской в марте». Рамадан и православный Великий пост начались одновременно.',
    analysis:'<b>Главное совпадение.</b> В 1470 г. Рамадан начался 4 марта, православный Великий пост — 5 марта. «Постился с бесерменами» — Афанасий соблюдал оба поста почти одновременно. Такое совпадение случается редко и даёт абсолютный год.'},
 ];
@@ -261,11 +261,11 @@ const EVENTS=[
     const x1=xScale(r.year,r.ms);
     const x2=xScale(r.year,r.ms+r.dur);
     const rect=el('rect',{x:x1,y:journeyY+24,width:Math.max(x2-x1,18),height:16,
-      fill:'#8B5a30',rx:2,opacity:.6});
+      fill:'var(--viz-calendar-ramadan)',rx:2,opacity:.6});
     svg.appendChild(rect);
     const lines=r.label.split('\n');
     lines.forEach((l,i)=>svg.appendChild(t(l,{x:(x1+Math.max(x2,x1+18))/2,y:journeyY+24+11+i*11,
-      'text-anchor':'middle','font-size':'9.5',fill:'#5a3010','font-weight':'500'})));
+      'text-anchor':'middle','font-size':'9.5',fill:'var(--viz-calendar-ramadan)','font-weight':'500'})));
   });
 
   // Location labels
@@ -278,7 +278,7 @@ const EVENTS=[
   ];
   locs.forEach(l=>{
     const x=xScale(l.year,l.m);
-    svg.appendChild(el('circle',{cx:x,cy:journeyY,r:5,fill:'#e0a020',stroke:'#c08000','stroke-width':1.2}));
+    svg.appendChild(el('circle',{cx:x,cy:journeyY,r:5,fill:'var(--viz-calendar-location)',stroke:'var(--viz-calendar-location-stroke)','stroke-width':1.2}));
     svg.appendChild(t(l.label,{x,y:journeyY-10,'text-anchor':'middle','font-size':'9',fill:'var(--color-text-secondary)','font-weight':'500'}));
   });
 
@@ -309,9 +309,9 @@ const EVENTS=[
 
   // Convergence highlight
   const cx=xScale(1470,3.1);
-  const hl=el('rect',{x:cx-12,y:m.t+6,width:40,height:iH-12,fill:'#6e32a0',opacity:.07,rx:4});
+  const hl=el('rect',{x:cx-12,y:m.t+6,width:40,height:iH-12,fill:'var(--viz-calendar-mahashivaratri)',opacity:.07,rx:4});
   svg.insertBefore(hl,svg.firstChild);
-  svg.appendChild(t('← совпадение\nпостов 1470',{x:cx+14,y:m.t+20,'font-size':'9.5','font-weight':'600',fill:'#5a2a8a','text-anchor':'start'}));
+  svg.appendChild(t('← совпадение\nпостов 1470',{x:cx+14,y:m.t+20,'font-size':'9.5','font-weight':'600',fill:'var(--viz-calendar-mahashivaratri)','text-anchor':'start'}));
 })();
 
 function mapHref(ev){
@@ -383,11 +383,11 @@ function showTlDetail(ev){
   const URAZAJD=[null,null,324,93,83,72,62,null];
 
   const ROWS=[
-    {label:'Великий пост\n(православный)',color:'#c0392b',vals:PASCHAJD.map(p=>p?p-48:null)},
-    {label:'Пасха\n(православная)', color:'#c0392b',vals:PASCHAJD,marker:true},
+    {label:'Великий пост\n(православный)',color:'var(--viz-calendar-drift)',vals:PASCHAJD.map(p=>p?p-48:null)},
+    {label:'Пасха\n(православная)', color:'var(--viz-calendar-drift)',vals:PASCHAJD,marker:true},
     {label:'Пасха\nу Афанасия', color:'var(--color-accent)',vals:OBSERVEDPASCHAJD,marker:true},
-    {label:'Рамадан\n(начало)',       color:'#8B5a30',vals:RAMADANJD},
-    {label:'Ураза-байрам',            color:'#1d6fa8',vals:URAZAJD},
+    {label:'Рамадан\n(начало)',       color:'var(--viz-calendar-ramadan)',vals:RAMADANJD},
+    {label:'Ураза-байрам',            color:'var(--viz-calendar-uraza)',vals:URAZAJD},
   ];
 
   const minDay=1,maxDay=365;
@@ -413,46 +413,46 @@ function showTlDetail(ev){
     const lentStart=xD(PASCHAJD[yi]-48);
     const lentEnd=xD(PASCHAJD[yi]);
     if(lentStart&&lentEnd){
-      SVG.appendChild(el('rect',{x:lentStart,y:y-8,width:lentEnd-lentStart,height:16,fill:'#c0392b',rx:2,opacity:.2}));
+      SVG.appendChild(el('rect',{x:lentStart,y:y-8,width:lentEnd-lentStart,height:16,fill:'var(--viz-calendar-drift)',rx:2,opacity:.2}));
     }
     // Ramadan bar
     if(RAMADANJD[yi]){
       const rS=xD(RAMADANJD[yi]);
       const rE=xD(RAMADANJD[yi]+30);
-      SVG.appendChild(el('rect',{x:rS,y:y-8,width:rE-rS,height:16,fill:'#8B5a30',rx:2,opacity:.22}));
+      SVG.appendChild(el('rect',{x:rS,y:y-8,width:rE-rS,height:16,fill:'var(--viz-calendar-ramadan)',rx:2,opacity:.22}));
     }
     // True and observed Pascha dots
     const px=xD(PASCHAJD[yi]);
     const ox=xD(OBSERVEDPASCHAJD[yi]);
     const drift=OBSERVEDPASCHAJD[yi]-PASCHAJD[yi];
     SVG.appendChild(el('line',{x1:px,y1:y-10,x2:ox,y2:y+10,stroke:driftColor(drift),'stroke-width':1.5,opacity:drift===0 ? .25 : .75}));
-    SVG.appendChild(el('circle',{cx:px,cy:y-10,r:7,fill:'var(--color-background-primary)',stroke:'#c0392b','stroke-width':2,opacity:.95}));
+    SVG.appendChild(el('circle',{cx:px,cy:y-10,r:7,fill:'var(--color-background-primary)',stroke:'var(--viz-calendar-drift)','stroke-width':2,opacity:.95}));
     SVG.appendChild(el('circle',{cx:ox,cy:y+10,r:6.5,fill:driftColor(drift),opacity:.9}));
 
     // Uraza dot
     if(URAZAJD[yi]){
-      SVG.appendChild(el('circle',{cx:xD(URAZAJD[yi]),cy:y,r:6.5,fill:'#1d6fa8',opacity:.85}));
+      SVG.appendChild(el('circle',{cx:xD(URAZAJD[yi]),cy:y,r:6.5,fill:'var(--viz-calendar-uraza)',opacity:.85}));
     }
 
     // Convergence highlight 1470
     if(yr===1470){
       const cx=xD(63);
-      SVG.appendChild(el('rect',{x:cx-6,y:y-24,width:60,height:48,fill:'#6e32a0',rx:4,opacity:.12}));
-      SVG.appendChild(t('← 4/5 марта',{x:cx+58,y:y-5,'font-size':'10.5','font-weight':'bold',fill:'#6e32a0'}));
-      SVG.appendChild(t('рамадан + пост',{x:cx+58,y:y+8,'font-size':'9.5',fill:'#6e32a0'}));
+      SVG.appendChild(el('rect',{x:cx-6,y:y-24,width:60,height:48,fill:'var(--viz-calendar-mahashivaratri)',rx:4,opacity:.12}));
+      SVG.appendChild(t('← 4/5 марта',{x:cx+58,y:y-5,'font-size':'10.5','font-weight':'bold',fill:'var(--viz-calendar-mahashivaratri)'}));
+      SVG.appendChild(t('рамадан + пост',{x:cx+58,y:y+8,'font-size':'9.5',fill:'var(--viz-calendar-mahashivaratri)'}));
     }
   });
 
   // Legend
   const lItems=[
-    {c:'rgba(192,57,43,.2)',label:'Великий пост / Рамадан (период)',rect:true},
-    {c:'#c0392b',label:'Истинная Пасха'},
+    {c:'var(--viz-calendar-drift)',label:'Великий пост / Рамадан (период)',rect:true,opacity:.2},
+    {c:'var(--viz-calendar-drift)',label:'Истинная Пасха'},
     {c:'var(--color-accent)',label:'Пасха у Афанасия'},
-    {c:'#1d6fa8',label:'Ураза-байрам'},
+    {c:'var(--viz-calendar-uraza)',label:'Ураза-байрам'},
   ];
   lItems.forEach((li,i)=>{
     const lx=m.l+i*(iW/4),ly=m.t+iH+32;
-    if(li.rect)SVG.appendChild(el('rect',{x:lx,y:ly,width:12,height:12,fill:li.c,rx:2}));
+    if(li.rect)SVG.appendChild(el('rect',{x:lx,y:ly,width:12,height:12,fill:li.c,rx:2,opacity:li.opacity ?? 1}));
     else SVG.appendChild(el('circle',{cx:lx+6,cy:ly+6,r:6,fill:li.c}));
     SVG.appendChild(t(li.label,{x:lx+18,y:ly+10,'font-size':'11','font-weight':'500',fill:'var(--color-text-secondary)'}));
   });
