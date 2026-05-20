@@ -204,7 +204,7 @@ const TRAVELERS={
   },
   G:{
     id:'G', color:'#6b4c8a', name:'Махмуд Гаван', years:'1453–1481',
-    info:'<b>Махмуд Гаван</b> — персидский дипломат и визирь султана Биdара. Прибыл в Индию в 1453, оставался там 28 лет. Афанасий присутствовал при его триумфальном возвращении из военной кампании (19 мая 1472). Гаван пережил Афанасия на 6 лет (казнён в 1481). Глава 5 «Тетрадей» посвящена параллельной биографии этих двух незнакомцев, встретившихся в Биdаре.',
+    info:'<b>Махмуд Гаван</b> — персидский дипломат и визирь султана Бидара. Прибыл в Индию в 1453, оставался там 28 лет. Афанасий присутствовал при его триумфальном возвращении из военной кампании (19 мая 1472). Гаван пережил Афанасия на 6 лет (казнён в 1481). Глава 5 «Тетрадей» посвящена параллельной биографии этих двух незнакомцев, встретившихся в Бидаре.',
     go:[
       [36.8,49.6],[30.0,31.2],[33.5,36.3],[17.5,73.2],[17.9,77.5]
     ],
@@ -222,7 +222,30 @@ const TRAVELERS={
 // Shared waypoint — Hormuz — all three passed through it!
 const HORMUZ={lat:27.1,lon:56.5};
 
-let active={A:true,M:true,V:true,G:true},mapReady=false,hovered=null;
+let active={A:true,M:true,V:true,G:true},mapReady=false,hovered=null,cachedWorld=null,baseTheme=null;
+
+function themeKey(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';}
+function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
+function mapPalette(){
+  const dark=themeKey()==='dark';
+  return {
+    sea: dark?'#18323d':'#8fb8d0',
+    land: cssVar('--color-background-tertiary') || (dark?'#222222':'#f5eedf'),
+    landStroke: dark?'rgba(192,144,96,0.35)':'#b8a870',
+    border: dark?'rgba(235,220,213,0.14)':'rgba(140,120,80,.15)',
+    grid: dark?'rgba(235,220,213,.08)':'rgba(70,100,135,.07)',
+    labelHalo: dark?'rgba(18,18,18,.82)':'rgba(255,255,255,0.65)',
+    label: dark?'rgba(235,220,213,.9)':'rgba(20,10,5,0.85)',
+    loadingText: dark?'rgba(235,220,213,.72)':'rgba(0,0,0,.4)',
+    pointStroke: dark?'rgba(18,18,18,.85)':'rgba(255,255,255,.6)',
+    sharedHalo: dark?'rgba(224,136,48,.24)':'rgba(255,220,80,0.3)',
+    sharedPoint: cssVar('--color-accent-hover') || (dark?'#f0a040':'#a0591b'),
+    sharedStroke: dark?'rgba(240,200,120,.9)':'rgba(100,70,0,.6)',
+    sharedLabel: dark?'rgba(235,220,213,.95)':'#7a5000',
+    legendBg: dark?'rgba(18,18,18,.78)':'rgba(255,255,255,.75)',
+    legendLabel: dark?'rgba(235,220,213,.88)':'rgba(20,10,5,.8)'
+  };
+}
 
 function drawRoute(route,color,dashed,alpha){
   if(!route||route.length<2)return;
@@ -242,17 +265,19 @@ function drawRoute(route,color,dashed,alpha){
   ctx.restore();
 }
 
-function halo(txt,x,y,col){
-  ctx.strokeStyle='rgba(255,255,255,0.6)';ctx.lineWidth=2.2;ctx.strokeText(txt,x,y);
-  ctx.fillStyle=col||'rgba(20,10,5,0.85)';ctx.fillText(txt,x,y);
+function halo(txt,x,y,col,p=mapPalette()){
+  ctx.strokeStyle=p.labelHalo;ctx.lineWidth=2.2;ctx.strokeText(txt,x,y);
+  ctx.fillStyle=col||p.label;ctx.fillText(txt,x,y);
 }
 
 function drawFrame(){
+  const pal=mapPalette();
   if(!mapReady){
-    ctx.fillStyle='#8fb8d0';ctx.fillRect(0,0,W,H);
-    ctx.fillStyle='rgba(0,0,0,.4)';ctx.font='13px sans-serif';ctx.textAlign='center';
+    ctx.fillStyle=pal.sea;ctx.fillRect(0,0,W,H);
+    ctx.fillStyle=pal.loadingText;ctx.font='13px sans-serif';ctx.textAlign='center';
     ctx.fillText('Загрузка карты…',W/2,H/2);return;
   }
+  if(cachedWorld&&baseTheme!==themeKey())buildBase(cachedWorld);
   ctx.drawImage(off,0,0);
   ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
 
@@ -267,11 +292,11 @@ function drawFrame(){
       const[x,y]=project(p.lon,p.lat);
       ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);
       ctx.fillStyle=tr.color;ctx.globalAlpha=dim;ctx.fill();
-      ctx.strokeStyle='rgba(255,255,255,.6)';ctx.lineWidth=1;ctx.stroke();
+      ctx.strokeStyle=pal.pointStroke;ctx.lineWidth=1;ctx.stroke();
       ctx.globalAlpha=dim;
       const lines=p.lbl.split('\n');
       ctx.font='bold 7.5px sans-serif';ctx.textAlign='center';
-      lines.forEach((l,li)=>halo(l,x,y-7-li*9,tr.color));
+      lines.forEach((l,li)=>halo(l,x,y-7-li*9,tr.color,pal));
       ctx.globalAlpha=1;
     });
   });
@@ -281,26 +306,26 @@ function drawFrame(){
   const pulse=2+Math.sin(Date.now()/400)*1.2;
   ctx.globalAlpha=0.8;
   ctx.beginPath();ctx.arc(hx,hy,pulse+6,0,Math.PI*2);
-  ctx.fillStyle='rgba(255,220,80,0.3)';ctx.fill();
+  ctx.fillStyle=pal.sharedHalo;ctx.fill();
   ctx.beginPath();ctx.arc(hx,hy,6,0,Math.PI*2);
-  ctx.fillStyle='#f0c020';ctx.fill();
-  ctx.strokeStyle='rgba(100,70,0,.6)';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle=pal.sharedPoint;ctx.fill();
+  ctx.strokeStyle=pal.sharedStroke;ctx.lineWidth=1.5;ctx.stroke();
   ctx.globalAlpha=1;
   ctx.font='bold 8px sans-serif';ctx.textAlign='center';
-  halo('Ормуз',hx,hy-9,'#7a5000');
+  halo('Ормуз',hx,hy-9,pal.sharedLabel,pal);
   ctx.font='7px sans-serif';
-  halo('все трое',hx,hy+15,'#7a5000');
+  halo('все трое',hx,hy+15,pal.sharedLabel,pal);
 
   // Legend bottom-right
   const legCount=Object.values(TRAVELERS).length;
   const lx=W-PAD-130,ly=H-PAD-52;
-  ctx.fillStyle='rgba(255,255,255,.75)';
+  ctx.fillStyle=pal.legendBg;
   ctx.beginPath();ctx.roundRect(lx-6,ly-14,138,14+legCount*18,5);ctx.fill();
   Object.values(TRAVELERS).forEach((tr,i)=>{
     const y=ly+i*18;
     ctx.beginPath();ctx.moveTo(lx,y);ctx.lineTo(lx+20,y);
     ctx.strokeStyle=tr.color;ctx.lineWidth=2.2;ctx.stroke();
-    ctx.font='8px sans-serif';ctx.fillStyle='rgba(20,10,5,.8)';ctx.textAlign='left';
+    ctx.font='8px sans-serif';ctx.fillStyle=pal.legendLabel;ctx.textAlign='left';
     ctx.fillText(tr.name.split(' ')[0]+' '+tr.years,lx+24,y+3);
   });
 
@@ -309,16 +334,19 @@ function drawFrame(){
 }
 
 function buildBase(world){
+  cachedWorld=world;
+  baseTheme=themeKey();
+  const p=mapPalette();
   const d3p=d3.geoTransform({point(lo,la){const[x,y]=project(lo,la);this.stream.point(x,y);}});
   const path=d3.geoPath(d3p,oc);
   const land=topojson.feature(world,world.objects.land);
   const borders=topojson.mesh(world,world.objects.countries,(a,b)=>a!==b);
   oc.save();oc.beginPath();oc.rect(0,0,W,H);oc.clip();
-  oc.fillStyle='#8fb8d0';oc.fillRect(0,0,W,H);
-  oc.beginPath();path(land);oc.fillStyle='#e8e1cc';oc.fill();oc.strokeStyle='#b8a870';oc.lineWidth=0.4;oc.stroke();
-  oc.beginPath();path(borders);oc.strokeStyle='rgba(140,120,80,.15)';oc.lineWidth=0.3;oc.stroke();
+  oc.fillStyle=p.sea;oc.fillRect(0,0,W,H);
+  oc.beginPath();path(land);oc.fillStyle=p.land;oc.fill();oc.strokeStyle=p.landStroke;oc.lineWidth=0.4;oc.stroke();
+  oc.beginPath();path(borders);oc.strokeStyle=p.border;oc.lineWidth=0.3;oc.stroke();
   // Graticule
-  oc.strokeStyle='rgba(70,100,135,.07)';oc.lineWidth=0.5;
+  oc.strokeStyle=p.grid;oc.lineWidth=0.5;
   for(let lo=-10;lo<=120;lo+=20){const[x,y0]=project(lo,LAT0+.2);const[,y1]=project(lo,LAT1-.2);oc.beginPath();oc.moveTo(x,y0);oc.lineTo(x,y1);oc.stroke();}
   for(let la=-30;la<=60;la+=20){const[x0,y]=project(LON0+.2,la);const[x1]=project(LON1-.2,la);oc.beginPath();oc.moveTo(x0,y);oc.lineTo(x1,y);oc.stroke();}
   oc.restore();
