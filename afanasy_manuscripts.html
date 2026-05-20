@@ -61,6 +61,8 @@ span.d-dim{opacity:.35;}
 .ms-proof-fact b{display:block;color:var(--color-text-primary);font-size:12px;margin-bottom:2px;}
 .ms-note{font-size:13px;color:var(--color-text-secondary);padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);line-height:1.55;}
 .ms-note b{color:var(--color-text-primary);}
+.ms-gantt-link{margin-left:auto;padding:4px 8px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-sm);background:var(--color-background-tertiary);color:var(--color-accent);font-size:12px;font-weight:600;text-decoration:none;}
+.ms-gantt-link:hover{background:var(--color-background-primary);border-color:var(--color-accent);}
 .ms-source{font-size:12.5px;color:var(--color-text-secondary);line-height:1.6;margin-top:8px;}
   </style>
 
@@ -143,6 +145,7 @@ span.d-dim{opacity:.35;}
   <span class="ms-ld" style="background:rgba(185,115,20,.35);"></span><span class="ms-lt">изменено</span>
   <span class="ms-ld" style="background:rgba(110,50,160,.25);"></span><span class="ms-lt">иноязычная вставка</span>
   <span class="ms-lt" style="margin-left:4px;opacity:.7;">← нажмите выделенный фрагмент</span>
+  <a id="ms-gantt-link" class="ms-gantt-link" href="afanasy_gantt.html?focus=start">Период в Гантте</a>
 </div>
 
 <div class="ms-columns" id="ms-cols" style="grid-template-columns:1fr 1fr;"></div>
@@ -164,6 +167,7 @@ span.d-dim{opacity:.35;}
 const PASSAGES=[
 {
   id:'p0', label:'Заголовок',
+  gantt:'start',
   note:'Летописный список снабжён предисловием дьяка Мамырева, которого нет в Троицком. Это важнейшее доказательство того, что Летописный — поздняя редакция, а не оригинал.',
   T:{
     head:'Троицкий — без предисловия, сразу текст',
@@ -177,6 +181,7 @@ const PASSAGES=[
   }
 },{
   id:'p1', label:'Зачин',
+  gantt:'start',
   note:'Ключевое разночтение в зачине. Троицкий сохраняет дату «6975» (1467 г.) — это основа для датировки Хрусталёва. Летописный опускает дату, что затрудняет хронологию.',
   T:{
     head:'Троицкий — с датой',
@@ -190,6 +195,7 @@ const PASSAGES=[
   }
 },{
   id:'p2', label:'Ограбление',
+  gantt:'robbery',
   note:'Сцена ограбления под Астраханью — самое эмоциональное место «Хожения». Троицкий передаёт прямую речь и слёзы. Летописный сокращает и обезличивает. Сухановский добавляет ошибочные детали.',
   T:{
     head:'Троицкий — с прямой речью',
@@ -203,6 +209,7 @@ const PASSAGES=[
   }
 },{
   id:'p3', label:'Молитва в Бидаре',
+  gantt:'bidar',
   note:'Главный пятиязычный фрагмент — молитва-ламент. Троицкий сохраняет все языки. Летописный частично «переводит» татарские и арабские фразы на церковнославянский. Сухановский не понимает арабских слов и искажает их.',
   T:{
     head:'Троицкий — пять языков',
@@ -216,6 +223,7 @@ const PASSAGES=[
   }
 },{
   id:'p4', label:'Прощание с Индией',
+  gantt:'dabhol',
   note:'Финальный монолог об Индии. Троицкий содержит горькую фразу «меня обманули». Летописный смягчает её. Сухановский полностью переписывает, добавляя морализаторство XVII в.',
   T:{
     head:'Троицкий — горький и прямой',
@@ -230,6 +238,12 @@ const PASSAGES=[
 }];
 
 let activeCod='T', activePass=0, activeNote=null;
+const GANTT_FOCUS_LABEL={
+  start:'начало пути',
+  robbery:'ограбление под Астраханью',
+  bidar:'Бидарский период',
+  dabhol:'выход из Индии'
+};
 
 // Build passage tabs
 const tabsEl=document.getElementById('pass-tabs');
@@ -255,6 +269,9 @@ window.selectCod=selectCod;
 function renderPassage(){
   const p=PASSAGES[activePass];
   const colsEl=document.getElementById('ms-cols');
+  const ganttLink=document.getElementById('ms-gantt-link');
+  ganttLink.href=`afanasy_gantt.html?focus=${encodeURIComponent(p.gantt)}`;
+  ganttLink.textContent=`Гантт: ${GANTT_FOCUS_LABEL[p.gantt]}`;
 
   // Decide which two columns to show
   const cols=activeCod==='T'?[p.T,p.L]:activeCod==='L'?[p.L,p.T]:[p.S||p.L,p.T];

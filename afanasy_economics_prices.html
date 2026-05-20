@@ -33,6 +33,8 @@
 .horse-val{font-size:13px;font-weight:500;font-variant-numeric:tabular-nums;text-align:center;}
 .horse-bar-wrap{flex:1;position:relative;height:44px;display:flex;align-items:center;}
 .eco-tip{position:absolute;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:11px;color:var(--color-text-primary);pointer-events:none;max-width:220px;line-height:1.55;z-index:10;}
+.eco-map-link{display:inline-flex;margin-top:5px;padding:3px 7px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-sm);background:var(--color-background-tertiary);color:var(--color-accent);font-size:10px;font-weight:600;text-decoration:none;}
+.eco-map-link:hover{background:var(--color-background-primary);border-color:var(--color-accent);}
   </style>
 
   <!-- Tabler Icons -->
@@ -55,9 +57,9 @@
 <div id="tab-horse" class="eco-panel active">
   <div class="eco-cards">
     <div class="eco-card"><div class="eco-card-label">Покупка жеребца</div><div class="eco-card-val neutral">100 руб.</div><div class="eco-card-sub">декабрь 1468, Лар / Таром</div></div>
-    <div class="eco-card"><div class="eco-card-label">Продажа в Бидаре</div><div class="eco-card-val loss">68 фут.</div><div class="eco-card-sub">Рождество, 25 декабря 1469</div></div>
+    <div class="eco-card"><div class="eco-card-label">Продажа в Бидаре</div><div class="eco-card-val loss">68 фут.</div><div class="eco-card-sub">Рождество, 25 декабря 1469</div><a class="eco-map-link" href="afanasy_v8_text_map.html?wp=12">Бидар на карте</a></div>
     <div class="eco-card"><div class="eco-card-label">Жеребец был у купца</div><div class="eco-card-val neutral">1 год</div><div class="eco-card-sub">расчёт Хрусталёва</div></div>
-    <div class="eco-card"><div class="eco-card-label">Расходы в Бидаре</div><div class="eco-card-val loss">2,5 алт.</div><div class="eco-card-sub">15 денег в день</div></div>
+    <div class="eco-card"><div class="eco-card-label">Расходы в Бидаре</div><div class="eco-card-val loss">2,5 алт.</div><div class="eco-card-sub">15 денег в день</div><a class="eco-map-link" href="afanasy_v8_text_map.html?wp=12">Бидар на карте</a></div>
   </div>
   <svg id="horse-svg" style="display:block;width:100%;" viewBox="0 0 640 230"></svg>
   <div class="eco-source">Данные: Ф.21 — покупка жеребца за 100 рублей; Ф.39 — продажа за 68 футунов в Бидаре; Ф.80 — расходы 2,5 алтына в день. Пересчёт: 1 рубль = 200 денег, 1 алтын = 6 денег, значит 2,5 алтына = 15 денег в день и около 27 рублей в год.</div>
@@ -78,7 +80,7 @@
   <div class="eco-cards">
     <div class="eco-card"><div class="eco-card-label">Арабский конь в Ормузе</div><div class="eco-card-val neutral">60–80 зол.</div><div class="eco-card-sub">закупка для перепродажи</div></div>
     <div class="eco-card"><div class="eco-card-label">Тот же конь в Индии</div><div class="eco-card-val gain">150–200 зол.</div><div class="eco-card-sub">при удаче — 2–3× прибыль</div></div>
-    <div class="eco-card"><div class="eco-card-label">Конь Афанасия в Бидаре</div><div class="eco-card-val loss">68 фут.</div><div class="eco-card-sub">русский конь — хуже арабского</div></div>
+    <div class="eco-card"><div class="eco-card-label">Конь Афанасия в Бидаре</div><div class="eco-card-val loss">68 фут.</div><div class="eco-card-sub">русский конь — хуже арабского</div><a class="eco-map-link" href="afanasy_v8_text_map.html?wp=12">Бидар на карте</a></div>
   </div>
   <svg id="horse2-svg" style="display:block;width:100%;" viewBox="0 0 640 260"></svg>
   <div class="eco-source">Торговля лошадьми была главным «товаром» на маршруте Ормуз–Индия. Индийские султанаты не разводили лошадей — им нужны были арабские и иранские скакуны для войны. Афанасий ошибся: привёз русского коня вместо арабского, поэтому выручил 68 футунов. Данные: «Хожение», Ф.39 и труды по средневековой индоокеанской торговле.</div>
@@ -93,6 +95,10 @@
 const SVG_NS='http://www.w3.org/2000/svg';
 function el(tag,attrs){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] of Object.entries(attrs))e.setAttribute(k,v);return e;}
 function txt(s,attrs){const e=el('text',attrs);e.textContent=s;return e;}
+function mapHref(wp){return `afanasy_v8_text_map.html?wp=${wp}`;}
+function mapHint(wp){
+  return wp===undefined ? '' : '<br><span style="color:var(--color-accent);font-weight:600;">Нажмите, чтобы открыть место на карте.</span>';
+}
 
 window.switchTab=function(id){
   document.querySelectorAll('.eco-tab').forEach((t,i)=>{
@@ -123,9 +129,9 @@ function hideTip(){tip.style.display='none';}
      note:'Ф.21: жеребец куплен за 100 рублей на выходе к Ормузу. Это главный торговый капитал всего индийского замысла.'},
     {date:'авг. 1469',place:'Джуннар',title:'Конфискация',value:'5 дней',color:'#b97314',
      note:'Асад-хан забирает жеребца и возвращает через ходатайство Хасана-хорасанца; это превращает товар в личный риск.'},
-    {date:'25 дек. 1469',place:'Бидар',title:'Продажа',value:'68 фут.',color:'#be3c28',
+    {date:'25 дек. 1469',place:'Бидар',title:'Продажа',value:'68 фут.',color:'#be3c28',wp:12,
      note:'Ф.39: на Рождество жеребец продан за 68 футунов. Хрусталёв датирует продажу 25 декабря 1469.'},
-    {date:'1469–1470',place:'Бидар',title:'Расходы',value:'2,5 алт./день',color:'#c0392b',
+    {date:'1469–1470',place:'Бидар',title:'Расходы',value:'2,5 алт./день',color:'#c0392b',wp:12,
      note:'Ф.80: жизнь в Бидаре стоит 2,5 алтына в день, то есть 15 денег. За год это около 27 рублей.'},
   ];
 
@@ -137,8 +143,12 @@ function hideTip(){tip.style.display='none';}
     const x=startX+i*((endX-startX)/(entries.length-1));
     const g=el('g',{style:'cursor:pointer;'});
     const c=el('circle',{cx:x,cy:y,r:16,fill:entry.color,opacity:.88,stroke:'var(--color-background-primary)','stroke-width':2});
-    g.addEventListener('mouseenter',e=>{c.setAttribute('opacity','1');showTip(e,`<b>${entry.title} · ${entry.place}</b><br><b>${entry.value}</b><br>${entry.note}`);});
-    g.addEventListener('click',e=>{c.setAttribute('opacity','1');showTip(e,`<b>${entry.title} · ${entry.place}</b><br><b>${entry.value}</b><br>${entry.note}`);});
+    const tipHtml=`<b>${entry.title} · ${entry.place}</b><br><b>${entry.value}</b><br>${entry.note}${mapHint(entry.wp)}`;
+    g.addEventListener('mouseenter',e=>{c.setAttribute('opacity','1');showTip(e,tipHtml);});
+    g.addEventListener('click',e=>{
+      if(entry.wp!==undefined){window.location.href=mapHref(entry.wp);return;}
+      c.setAttribute('opacity','1');showTip(e,tipHtml);
+    });
     g.addEventListener('mousemove',moveTip);
     g.addEventListener('mouseleave',()=>{c.setAttribute('opacity','.88');hideTip();});
     g.appendChild(c);
@@ -223,10 +233,10 @@ function hideTip(){tip.style.display='none';}
 
   const data=[
     {label:'Арабский конь\nв Ормузе',buy:65,color:'#e0a020',note:'Закупочная цена арабского скакуна в Ормузе. Именно их везли торговцы в Индию.'},
-    {label:'Арабский конь\nв Индии (Бидар)',buy:175,color:'#be3c28',note:'Цена перепродажи в индийских султанатах. Прибыль ~150–170%. Бахманиды платили за боевых коней.'},
+    {label:'Арабский конь\nв Индии (Бидар)',buy:175,color:'#be3c28',wp:12,note:'Цена перепродажи в индийских султанатах. Прибыль ~150–170%. Бахманиды платили за боевых коней.'},
     {label:'Иранский конь\nв Ормузе',buy:50,color:'#b97314',note:'Чуть дешевле арабского. Тоже выгодно везти в Индию.'},
     {label:'Иранский конь\nв Индии',buy:140,color:'#be3c28',note:'Выгодно, но меньше чем арабский. Маржа ~180%.'},
-    {label:'Русский конь\nАфанасия (Бидар)',buy:68,unit:'футунов',color:'#c0392b',note:'Ф.39: «жеребца продал» за 68 футунов. Русский конь не ценился в Индии как арабский боевой скакун.'},
+    {label:'Русский конь\nАфанасия (Бидар)',buy:68,unit:'футунов',color:'#c0392b',wp:12,note:'Ф.39: «жеребца продал» за 68 футунов. Русский конь не ценился в Индии как арабский боевой скакун.'},
     {label:'Ожидаемая\nцена коня',buy:120,color:'#3770be',note:'На что рассчитывал Афанасий при выезде из Твери. Не сбылось.'},
   ];
 
@@ -239,7 +249,8 @@ function hideTip(){tip.style.display='none';}
     const by=m.t+iH-bh;
     const barW=bw*0.55;
     const r=el('rect',{x:x,y:by,width:barW,height:bh,fill:d.color,rx:3,opacity:.85,style:'cursor:pointer;'});
-    r.addEventListener('mouseenter',e=>{r.setAttribute('opacity','1');showTip(e,`<b>${d.label.replace('\n',' ')}</b><br><b>${d.buy} ${d.unit||'золотых'}</b><br>${d.note}`);});
+    r.addEventListener('mouseenter',e=>{r.setAttribute('opacity','1');showTip(e,`<b>${d.label.replace('\n',' ')}</b><br><b>${d.buy} ${d.unit||'золотых'}</b><br>${d.note}${mapHint(d.wp)}`);});
+    r.addEventListener('click',()=>{if(d.wp!==undefined)window.location.href=mapHref(d.wp);});
     r.addEventListener('mousemove',moveTip);
     r.addEventListener('mouseleave',()=>{r.setAttribute('opacity','.85');hideTip();});
     svg.appendChild(r);

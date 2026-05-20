@@ -36,6 +36,8 @@ svg.tl-svg{display:block;}
 .hol-det-quote{font-size:11px;font-family:var(--font-serif);line-height:1.45;color:var(--color-text-primary);margin-bottom:5px;padding-left:9px;border-left:2px solid var(--color-border-secondary);}
 .hol-det-analysis{font-size:10.5px;color:var(--color-text-secondary);line-height:1.45;}
 .hol-det-analysis b{color:var(--color-text-primary);}
+.hol-map-link{display:inline-flex;align-items:center;gap:4px;margin-top:7px;padding:4px 8px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-sm);background:var(--color-background-tertiary);color:var(--color-accent);font-size:11px;font-weight:600;text-decoration:none;}
+.hol-map-link:hover{background:var(--color-background-primary);border-color:var(--color-accent);}
 /* Convergence chart */
 .conv-wrap{margin-bottom:10px;}
 .conv-hint{font-size:10px;color:var(--color-text-secondary);margin-bottom:6px;}
@@ -153,6 +155,7 @@ function driftColor(drift){
   return drift===0?'#1e8250':'#c0392b';
 }
 
+const EASTER_WP=[0,5,8,12,12,15,16,9];
 const EASTER_EVENTS=EASTER_OBSERVATIONS.map(o=>({
   id:`e${o.n}`,
   type:'easter',
@@ -164,6 +167,7 @@ const EASTER_EVENTS=EASTER_OBSERVATIONS.map(o=>({
   loc:o.loc,
   color:driftColor(o.drift),
   shape:o.drift===0?'circle':'diamond',
+  wp:EASTER_WP[o.n-1],
   quote:o.quote,
   analysis:`${o.analysis}<br><b>Сдвиг:</b> ${driftLabel(o.drift)}.`
 }));
@@ -172,27 +176,27 @@ const EVENTS=[
   ...EASTER_EVENTS,
   {id:'r1469',type:'ramadan',year:1469,month:11,day:null,
    label:'Рамадан 1469',dateStr:'октябрь–ноябрь 1469',loc:'Бидар',
-   color:'#8B5a30',shape:'rect',
+   color:'#8B5a30',shape:'rect',wp:12,
    quote:'«Бесерменской пост в ноябре». Афанасий отмечает начало Рамадана по мусульманскому календарю.',
    analysis:'<b>Привязка к году.</b> Рамадан 874 г.х. начался ок. 1 ноября 1469 г. Совпадает с описанием у Афанасия.'},
   {id:'u1470',type:'uraza',year:1470,month:4,day:3,
    label:'Ураза-байрам 1470',dateStr:'3 апреля 1470',loc:'Бидар',
-   color:'#1d6fa8',shape:'rect',
+   color:'#1d6fa8',shape:'rect',wp:12,
    quote:'«Ураз-байрам бесерменской» — Афанасий отмечает его как ориентир вместо собственной Пасхи.',
    analysis:'<b>Замена Пасхи.</b> Ураза-байрам 3 апреля 1470 г. — через 12 дней после Пасхи 22 марта. Афанасий спутал их или сознательно «перешёл» на мусульманский праздник. Хрусталёв: именно это «постился с бесерменами в неделю».'},
   {id:'k1470',type:'kurban',year:1470,month:6,day:10,
    label:'Курбан-байрам 1470',dateStr:'10 июня 1470',loc:'Бидар',
-   color:'#1e8250',shape:'rect',
+   color:'#1e8250',shape:'rect',wp:12,
    quote:'«Курмабаим день бесерменской». Афанасий фиксирует второй главный мусульманский праздник.',
    analysis:'<b>Двойная привязка.</b> Курбан-байрам 875 г.х. = ок. 10 июня 1470. Вместе с Ураза-байрамом даёт год с двух сторон.'},
   {id:'s1471',type:'shiva',year:1471,month:2,day:19,
    label:'Махашиваратри',dateStr:'~19 февраля 1471',loc:'Шрисайлам (Парват)',
-   color:'#6e32a0',shape:'diamond',
+   color:'#6e32a0',shape:'diamond',wp:14,
    quote:'«И ту есть Парват — святое место индуское… и съезжается к нему всякий люд со всей Индии». Афанасий попал на главный праздник Шивы.',
    analysis:'<b>Индуистский якорь.</b> Махашиваратри в 1471 г. приходилась на ~19 февраля. Афанасий вышел из Бидара «в начале февраля» и шёл пешком месяц (~320 км) — приход точно совпадает с праздником.'},
   {id:'r1470',type:'ramadan',year:1470,month:3,day:4,
    label:'Рамадан 1470',dateStr:'~4 марта 1470',loc:'Бидар',
-   color:'#8B5a30',shape:'rect',
+   color:'#8B5a30',shape:'rect',wp:12,
    quote:'«Пост бесерменской в марте». Рамадан и православный Великий пост начались одновременно.',
    analysis:'<b>Главное совпадение.</b> В 1470 г. Рамадан начался 4 марта, православный Великий пост — 5 марта. «Постился с бесерменами» — Афанасий соблюдал оба поста почти одновременно. Такое совпадение случается редко и даёт абсолютный год.'},
 ];
@@ -309,11 +313,25 @@ const EVENTS=[
   svg.appendChild(t('← совпадение\nпостов 1470',{x:cx+14,y:m.t+20,'font-size':'9.5','font-weight':'600',fill:'#5a2a8a','text-anchor':'start'}));
 })();
 
+function mapHref(ev){
+  return ev.wp===undefined ? '' : `afanasy_v8_text_map.html?wp=${ev.wp}`;
+}
+
+function mapLink(ev){
+  const href=mapHref(ev);
+  return href ? `<a class="hol-map-link" href="${href}">Открыть место на карте</a>` : '';
+}
+
+function detailHtml(ev,withLoc){
+  return `<div class="hol-det-h">${ev.label} · ${ev.dateStr}${withLoc ? ` · ${ev.loc}` : ''}</div>
+    <div class="hol-det-quote">${ev.quote}</div>
+    <div class="hol-det-analysis">${ev.analysis}</div>
+    ${mapLink(ev)}`;
+}
+
 function showTlDetail(ev){
   const d=document.getElementById('tl-detail');
-  d.innerHTML=`<div class="hol-det-h">${ev.label} · ${ev.dateStr} · ${ev.loc}</div>
-    <div class="hol-det-quote">${ev.quote}</div>
-    <div class="hol-det-analysis">${ev.analysis}</div>`;
+  d.innerHTML=detailHtml(ev,true);
   d.style.borderLeftColor=ev.color;
   d.style.borderLeftWidth='3px';
   d.classList.add('open');
@@ -336,9 +354,7 @@ function showTlDetail(ev){
       document.querySelectorAll('.hol-card').forEach(c=>c.classList.remove('sel'));
       card.classList.add('sel');
       const d=document.getElementById('hol-detail');
-      d.innerHTML=`<div class="hol-det-h">${ev.label} · ${ev.dateStr}</div>
-        <div class="hol-det-quote">${ev.quote}</div>
-        <div class="hol-det-analysis">${ev.analysis}</div>`;
+      d.innerHTML=detailHtml(ev,false);
       d.style.borderLeftColor=ev.color;
       d.style.borderLeftWidth='3px';
       d.classList.add('open');

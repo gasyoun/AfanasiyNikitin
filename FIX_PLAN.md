@@ -165,7 +165,7 @@ Split Bidar into 5 phases:
 
 **Data source:** Chapter 3 final section, pp.141–143
 **Effort:** ~2h
-**Status:** ⬜
+**Status:** ✅ Done — manuscript widget now includes the leaf-size proof, two identical gap visualization, and 9-notebook reconstruction.
 
 ---
 
@@ -186,7 +186,7 @@ Split Bidar into 5 phases:
 
 **Data source:** Chapter 3, p.143; Conclusion, pp.227–229
 **Effort:** ~2h
-**Status:** ⬜
+**Status:** ✅ Done — emotional arc now marks the 1471–1472 silence zone and adds the pronoun/loneliness dimension.
 
 ---
 
@@ -215,7 +215,7 @@ Split Bidar into 5 phases:
 
 **Data source:** Chapter 3, p.144
 **Effort:** ~3h
-**Status:** ⬜
+**Status:** ✅ Done — composition tree now supports manuscript-order vs chronological-writing-order views.
 
 ---
 
@@ -231,7 +231,7 @@ Split Bidar into 5 phases:
 
 **Data source:** Chapter 5, pp.156–226
 **Effort:** ~3h
-**Status:** ⬜
+**Status:** ✅ Done — traveler comparison now includes Mahmud Gavan as the fourth route and timeline.
 
 ---
 
@@ -259,7 +259,7 @@ These are NOT in the data-correctness fixes above. They are real bugs in current
 **Problem:** `<a href="Тетради_купца_Афанасия.md">` — file does not exist in repo. Only `tetradi_hrustalev_2026.md` (12 KB) exists.
 **Fix options:** (a) rename `tetradi_hrustalev_2026.md` → `Тетради_купца_Афанасия.md`, or (b) change href to `tetradi_hrustalev_2026.md`. Option (a) preserves user-facing filename in the download dialog.
 **Effort:** 5 min
-**Status:** ⬜
+**Status:** ✅ Done — `index.html` links to the existing `tetradi_hrustalev_2026.md` and preserves the Russian download filename.
 
 ### A2 — Visualization count contradicts itself 🟢
 **Problem:** Four different counts in the same repo:
@@ -270,14 +270,14 @@ These are NOT in the data-correctness fixes above. They are real bugs in current
 - Filesystem: 13 widget `.html` files
 **Fix:** Pick the truth (13 = files that exist) and update all four. Defer the aspirational "25" to ROADMAP only.
 **Effort:** 15 min
-**Status:** ⬜
+**Status:** ✅ Done — public navigation/docs now use the current 21-widget atlas count, with aspirational counts kept out of active links.
 
 ### A3 — Non-sequential card numbering 🟢
 **File:** `index.html`
 **Problem:** Card numbers are `1, 3, 5, 6, 7, 8, 9, 10, 11, 13, 15, 18` — skips 2, 4, 12, 14, 16, 17, 19+. Looks broken; users assume widgets are missing.
 **Fix:** Renumber 1–12 sequentially, OR drop the `.card-num` badge entirely. Renumbering is safer (preserves the "category catalogue" feel).
 **Effort:** 10 min
-**Status:** ⬜
+**Status:** ✅ Done — homepage card numbers were renumbered sequentially in display order.
 
 ### A4 — Hardcoded `color: #333` defeats dark mode 🟢
 **Files:** 12 widget HTML files (all except `index.html`)
@@ -285,7 +285,7 @@ These are NOT in the data-correctness fixes above. They are real bugs in current
 **Fix:** Replace `color: #333` → `color: var(--color-text-secondary)` in 12 files.
 **Verify:** `grep -l "color: #333" *.html` returns 12 matches.
 **Effort:** 15 min
-**Status:** ⬜
+**Status:** ✅ Done — hardcoded `body { color: #333; }` instances were replaced with `var(--color-text-secondary)`.
 
 ### A5 — Dark-mode canvas filter inverts on-canvas labels 🟡
 **Files:** All widgets with `<canvas>` (map, borders, video export, three travelers, trade, world before/after)
@@ -328,7 +328,7 @@ None of the 12 visualizations link to each other (except Gantt→Map via `?wp=N`
 - All pages: breadcrumb showing current viz name + link to atlas index
 
 **Effort:** ~4h total across all files
-**Status:** ⬜
+**Status:** 🔄 Partial — calendar event details now link to matching map waypoints, Bidar economics entries link to `?wp=12`, and manuscript passages link into focused Gantt periods. The all-pages breadcrumb pass remains.
 
 ---
 
