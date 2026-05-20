@@ -54,6 +54,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Borders animation compaction | ✅ Done | `afanasy_borders_animation.html` uses a shorter Canvas and a compact two-column event list; verified event click, theme toggle, and console in headless Edge at `scrollHeight <= 768`. |
 | Language map compaction | ✅ Done | `afanasy_language_map_v2.html` uses a two-column desktop layout with bounded passage/detail panels; verified language filter, timeline detail open/close, theme toggle, and console in headless Edge at `scrollHeight <= 768`. |
 | Trade guide compaction | ✅ Done | `afanasy_trade_guide_v4.html` uses compact city/rate/result controls and an internally scrollable goods table; verified filtering, row detail, price tooltip, theme toggle, and console in headless Edge at `scrollHeight <= 768`. |
+| Citation colors tokenized | ✅ Done | `afanasy_citations_v2.html` now uses shared `--viz-citation-*` variables for cards, data series, wave markers, legends, and Canvas text/lines; verified tabs, chart click, theme toggle, no scroll, and clean console in headless Edge. |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
@@ -139,7 +140,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 |-------|----------|------|-------|
 | Existing 1366×768 page scroll | Resolved | multiple widgets | Compact shell and widget-specific passes now fit the audited 1366×768 pages without document-level vertical scroll. |
 | Mobile touch targets | Low | all pages | Not tested on phone; touch targets may be too small |
-| New widget color-token audit | Medium | 8 newly added widgets | The newly committed widgets now have atlas shells, but their internal chart/data colors still need a CSS-token pass before considering them fully compliant with new-widget conventions |
+| New widget color-token audit | Medium | remaining new widgets | Citation, economics, calendar, and language-map colors now use shared tokens; remaining internal chart/data colors still need CSS-token passes before considering the newer widgets fully compliant with conventions |
 | `scratch/theme_injector.py` not committed to repo | Resolved | — | Committed in `9e006c0` |
 | PWA device install/offline reload | Medium | `manifest.json`, `sw.js` | Static files are present; needs Android Chrome / iPhone Safari install and offline reload validation |
 
@@ -187,6 +188,7 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 8. ✅ **A6** — phantom widget link audit/status sync (DONE)
 9. ✅ **Cross-linking** — Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt focus links, and all-pages breadcrumbs are done
 10. ✅ **No-scroll layout** — shared shell + four chart widgets + video export + trade map + travelers + manuscripts + bestiary + borders + language map + trade guide compacted and browser-verified at 1366×768
+11. 🔄 **Color-token audit** — citations/economics/calendar/language map are done; continue with historiography, composition tree, and comparison widgets in small verified commits
 
 **Then (Phase 3 new visualizations):**
 1. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)

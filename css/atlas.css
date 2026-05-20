@@ -80,6 +80,17 @@
     --viz-calendar-mahashivaratri: #6e32a0;
     --viz-calendar-location: #e0a020;
     --viz-calendar-location-stroke: #c08000;
+
+    /* Citation history */
+    --viz-citation-publication: #1e5a8a;
+    --viz-citation-foreign: #1e8250;
+    --viz-citation-translation: #b97314;
+    --viz-citation-wave-early: #2a7a50;
+    --viz-citation-wave-anniversary: #b97314;
+    --viz-citation-wave-soviet: #c0392b;
+    --viz-citation-wave-cultural: #8a3a8a;
+    --viz-citation-wave-current: #6e32a0;
+    --viz-citation-neutral: #8a8a8a;
 }
 
 html[data-theme="dark"] body {

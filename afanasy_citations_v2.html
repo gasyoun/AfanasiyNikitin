@@ -46,10 +46,10 @@ canvas#ci-c{display:block;width:100%;height:270px!important;border-radius:var(--
 </div>
 
 <div class="ci-cards">
-  <div class="ci-card" style="border-top-color:#1e5a8a;"><div class="ci-v" style="color:#1e5a8a;">550+</div><div class="ci-l">лет изучения</div></div>
-  <div class="ci-card" style="border-top-color:#1e8250;"><div class="ci-v" style="color:#1e8250;">20+</div><div class="ci-l">языков перевода</div></div>
-  <div class="ci-card" style="border-top-color:#c0392b;"><div class="ci-v" style="color:#c0392b;">5</div><div class="ci-l">волн интереса</div></div>
-  <div class="ci-card" style="border-top-color:#6e32a0;"><div class="ci-v" style="color:#6e32a0;">2026</div><div class="ci-l">последнее открытие</div></div>
+  <div class="ci-card" style="border-top-color:var(--viz-citation-publication);"><div class="ci-v" style="color:var(--viz-citation-publication);">550+</div><div class="ci-l">лет изучения</div></div>
+  <div class="ci-card" style="border-top-color:var(--viz-citation-foreign);"><div class="ci-v" style="color:var(--viz-citation-foreign);">20+</div><div class="ci-l">языков перевода</div></div>
+  <div class="ci-card" style="border-top-color:var(--viz-citation-wave-soviet);"><div class="ci-v" style="color:var(--viz-citation-wave-soviet);">5</div><div class="ci-l">волн интереса</div></div>
+  <div class="ci-card" style="border-top-color:var(--viz-citation-wave-current);"><div class="ci-v" style="color:var(--viz-citation-wave-current);">2026</div><div class="ci-l">последнее открытие</div></div>
 </div>
 
 <div class="ci-tabs">
@@ -72,59 +72,81 @@ const W=700,H=300,mL=42,mR=16,mT=30,mB=55;
 const iW=W-mL-mR,iH=H-mT-mB;
 
 const DEC=[
-  {lb:'1810-е',  total:2,  ru:2,  fo:0,  tr:0, cl:'#1e5a8a',
+  {lb:'1810-е',  total:2,  ru:2,  fo:0,  tr:0, cl:'--viz-citation-publication',
    ev:['1818 — Карамзин: первая публикация в «Истории государства Российского»'],
    nt:'Единственная публикация за десятилетие. Карамзин вводит текст в оборот, но относится скептически.'},
-  {lb:'1820–40-е',total:5, ru:5,  fo:0,  tr:0, cl:'#1e5a8a',
+  {lb:'1820–40-е',total:5, ru:5,  fo:0,  tr:0, cl:'--viz-citation-publication',
    ev:['1821 — первые отклики в журналах','1840-е — упоминания в востоковедных трудах'],
    nt:'Медленное распространение: несколько журнальных статей, упоминания в трудах по истории торговли.'},
-  {lb:'1850–60-е',total:18,ru:14, fo:4,  tr:1, cl:'#2a7a50',
+  {lb:'1850–60-е',total:18,ru:14, fo:4,  tr:1, cl:'--viz-citation-wave-early',
    ev:['1853 — Сахаров: первое отдельное издание','1857 — Срезневский: три рукописных списка','1860 — первые европейские упоминания'],
    nt:'<b>Первый научный расцвет.</b> Срезневский открывает три списка. Европейцы замечают текст.'},
-  {lb:'1870–90-е',total:22,ru:16, fo:6,  tr:2, cl:'#2a7a50',
+  {lb:'1870–90-е',total:22,ru:16, fo:6,  tr:2, cl:'--viz-citation-wave-early',
    ev:['1872 — первый немецкий перевод','1880-е — индийские учёные замечают «Летопись Бахманидов»','1890-е — сравнения с Марко Поло'],
    nt:'Немецкий перевод открывает текст европейской науке. Индийские историки ценят бахманидский раздел.'},
-  {lb:'1900–10-е',total:35,ru:24, fo:11, tr:3, cl:'#b97314',
+  {lb:'1900–10-е',total:35,ru:24, fo:11, tr:3, cl:'--viz-citation-wave-anniversary',
    ev:['1908 — юбилейное тверское издание (500 лет)','1910 — первый английский перевод','1912 — французский','1915 — японский'],
    nt:'<b>Вторая волна: юбилейный бум.</b> 500-летие путешествия. Переводы на все крупные языки.'},
-  {lb:'1920–30-е',total:28,ru:22, fo:6,  tr:1, cl:'#c0392b',
+  {lb:'1920–30-е',total:28,ru:22, fo:6,  tr:1, cl:'--viz-citation-wave-soviet',
    ev:['1928 — включение в школьные программы СССР','1930-е — марксистская интерпретация'],
    nt:'Советская переориентация. Публикаций много, но идеологически ограничены.'},
-  {lb:'1940–50-е',total:55,ru:48, fo:7,  tr:2, cl:'#c0392b',
+  {lb:'1940–50-е',total:55,ru:48, fo:7,  tr:2, cl:'--viz-citation-wave-soviet',
    ev:['1948 — академическое издание АН СССР, огромный тираж','1955 — обязательная школьная программа','1957 — хинди-перевод'],
    nt:'<b>Третья волна: сталинский пик.</b> Массовое издание 1948 г. «Хожение» = обязательный школьный текст.'},
-  {lb:'1960–70-е',total:72,ru:52, fo:20, tr:5, cl:'#8a3a8a',
+  {lb:'1960–70-е',total:72,ru:52, fo:20, tr:5, cl:'--viz-citation-wave-cultural',
    ev:['1960 — советско-индийский фильм','1963 — польский перевод','1970 — памятник в Твери','1971 — теплоход «Афанасий Никитин»'],
    nt:'<b>Культурный пик.</b> Фильм даёт новый импульс. Памятник, теплоход — Афанасий = советский символ.'},
-  {lb:'1980-е',  total:48,ru:36, fo:12, tr:3, cl:'#1e5a8a',
+  {lb:'1980-е',  total:48,ru:36, fo:12, tr:3, cl:'--viz-citation-publication',
    ev:['1986 — академическое издание Лурье–Семёнова (золотой стандарт)','1988 — индийское исследование бахманидского контекста'],
    nt:'<b>Академическая консолидация.</b> Издание 1986 г. — стандарт на 40 лет.'},
-  {lb:'1990-е',  total:22,ru:18, fo:4,  tr:1, cl:'#8a8a8a',
+  {lb:'1990-е',  total:22,ru:18, fo:4,  tr:1, cl:'--viz-citation-neutral',
    ev:['1991 — распад СССР: советский нарратив теряет смысл','1998 — первые интернет-публикации текста'],
    nt:'<b>Спад после распада СССР.</b> Идеологическая рамка исчезла. Текст ждёт переосмысления.'},
-  {lb:'2000–10-е',total:65,ru:44, fo:21, tr:4, cl:'#2a7a50',
+  {lb:'2000–10-е',total:65,ru:44, fo:21, tr:4, cl:'--viz-citation-wave-early',
    ev:['2004 — массовые издания Эксмо и АСТ','2008 — 540-летие: конференции в Твери и Бидаре','2010 — совместные индийско-российские проекты'],
    nt:'<b>Четвёртая волна: цифровизация.</b> Интернет, Google Scholar, международные проекты.'},
-  {lb:'2020-е',  total:88,ru:58, fo:30, tr:3, cl:'#6e32a0',
+  {lb:'2020-е',  total:88,ru:58, fo:30, tr:3, cl:'--viz-citation-wave-current',
    ev:['2020 — постколониальные прочтения в западной медиевистике','2021 — конференция в Твери: 550-летие','2026 — Хрусталёв: реконструкция состава, новая датировка'],
    nt:'<b>Пятая волна: постколониальный и текстологический ренессанс.</b> Хрусталёв пересматривает всё.'},
 ];
 
 const CATS=[
-  {k:'ru', color:'#1e5a8a', lb:'Российская наука'},
-  {k:'fo', color:'#1e8250', lb:'Зарубежная наука'},
-  {k:'tr', color:'#b97314', lb:'Переводы'},
+  {k:'ru', color:'--viz-citation-publication', lb:'Российская наука'},
+  {k:'fo', color:'--viz-citation-foreign', lb:'Зарубежная наука'},
+  {k:'tr', color:'--viz-citation-translation', lb:'Переводы'},
 ];
 
 const WAVES=[
-  {i:2, lb:'① 1857\nСрезневский', cl:'#2a7a50'},
-  {i:4, lb:'② 1908\nЮбилей',      cl:'#b97314'},
-  {i:6, lb:'③ 1948\nАН СССР',     cl:'#c0392b'},
-  {i:7, lb:'④ 1960\nФильм',       cl:'#8a3a8a'},
-  {i:11,lb:'⑤ 2026\nХрусталёв',  cl:'#6e32a0'},
+  {i:2, lb:'① 1857\nСрезневский', cl:'--viz-citation-wave-early'},
+  {i:4, lb:'② 1908\nЮбилей',      cl:'--viz-citation-wave-anniversary'},
+  {i:6, lb:'③ 1948\nАН СССР',     cl:'--viz-citation-wave-soviet'},
+  {i:7, lb:'④ 1960\nФильм',       cl:'--viz-citation-wave-cultural'},
+  {i:11,lb:'⑤ 2026\nХрусталёв',  cl:'--viz-citation-wave-current'},
 ];
 
 let mode='bar', activeIdx=null;
+
+function cssVal(name,fallback){
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+}
+function colorOf(token,fallback){
+  if(!token)return fallback;
+  return token.startsWith('--') ? cssVal(token,fallback) : token;
+}
+function alpha(color,value){
+  const c=color.trim();
+  if(c.startsWith('#')){
+    const hex=c.slice(1);
+    const full=hex.length===3 ? hex.split('').map(ch=>ch+ch).join('') : hex.slice(0,6);
+    const num=parseInt(full,16);
+    return `rgba(${(num>>16)&255},${(num>>8)&255},${num&255},${value})`;
+  }
+  const rgb=c.match(/^rgba?\(([^)]+)\)$/);
+  if(rgb){
+    return `rgba(${rgb[1].split(',').slice(0,3).join(',')},${value})`;
+  }
+  return c;
+}
 
 function bW(){return iW/DEC.length;}
 function xC(i){return mL+i*bW()+bW()/2;}
@@ -134,8 +156,8 @@ function yS(v){return mT+iH-v/maxV()*iH;}
 function halo(txt,x,y,col,fnt){
   ctx.font=fnt||'bold 7.5px sans-serif';
   ctx.textAlign='center';
-  ctx.strokeStyle='rgba(255,255,255,.6)';ctx.lineWidth=2;ctx.strokeText(txt,x,y);
-  ctx.fillStyle=col;ctx.fillText(txt,x,y);
+  ctx.strokeStyle=alpha(cssVal('--color-background-primary','#fff'),.7);ctx.lineWidth=2;ctx.strokeText(txt,x,y);
+  ctx.fillStyle=colorOf(col,col);ctx.fillText(txt,x,y);
 }
 
 function drawGrid(){
@@ -143,75 +165,76 @@ function drawGrid(){
   ctx.font='8px sans-serif';
   [20,40,60,80].filter(v=>v<mx).forEach(v=>{
     const y=yS(v);
-    ctx.strokeStyle='var(--color-border-tertiary,#e5e5e5)';
+    ctx.strokeStyle=cssVal('--color-border-tertiary','#e5e5e5');
     ctx.lineWidth=.5;ctx.setLineDash([3,4]);
     ctx.beginPath();ctx.moveTo(mL,y);ctx.lineTo(W-mR,y);ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle='rgba(100,100,100,.55)';ctx.textAlign='right';
+    ctx.fillStyle=alpha(cssVal('--color-text-secondary','#5e4e44'),.72);ctx.textAlign='right';
     ctx.fillText(v,mL-4,y+3);
   });
-  ctx.strokeStyle='rgba(150,150,150,.4)';ctx.lineWidth=.8;ctx.setLineDash([]);
+  ctx.strokeStyle=alpha(cssVal('--color-text-secondary','#5e4e44'),.32);ctx.lineWidth=.8;ctx.setLineDash([]);
   ctx.beginPath();ctx.moveTo(mL,mT+iH);ctx.lineTo(W-mR,mT+iH);ctx.stroke();
-  ctx.fillStyle='rgba(100,100,100,.5)';ctx.font='8.5px sans-serif';ctx.textAlign='left';
+  ctx.fillStyle=alpha(cssVal('--color-text-secondary','#5e4e44'),.72);ctx.font='8.5px sans-serif';ctx.textAlign='left';
   ctx.fillText('публикаций',mL,mT-10);
 }
 
 function drawXlabels(){
-  ctx.font='7.5px sans-serif';ctx.fillStyle='rgba(100,100,100,.7)';
+  ctx.font='7.5px sans-serif';ctx.fillStyle=alpha(cssVal('--color-text-secondary','#5e4e44'),.82);
   DEC.forEach((d,i)=>{ctx.textAlign='center';ctx.fillText(d.lb,xC(i),mT+iH+14);});
 }
 
 function drawBar(){
   const bwi=bW()*.76;
   WAVES.forEach(w=>{
-    ctx.fillStyle=w.cl;ctx.globalAlpha=.04;
+    ctx.fillStyle=colorOf(w.cl);ctx.globalAlpha=.04;
     ctx.fillRect(mL+w.i*bW(),mT,bW(),iH);ctx.globalAlpha=1;
   });
   DEC.forEach((d,i)=>{
     const x=mL+i*bW()+bW()*.12,bh=d.total/maxV()*iH,by=yS(d.total);
     const isA=activeIdx===i;
-    ctx.fillStyle=d.cl;ctx.globalAlpha=isA?1:.72;
+    ctx.fillStyle=colorOf(d.cl);ctx.globalAlpha=isA?1:.72;
     ctx.beginPath();ctx.roundRect(x,by,bwi,bh,2);ctx.fill();ctx.globalAlpha=1;
-    if(d.total>10){ctx.font='8px sans-serif';ctx.fillStyle='rgba(80,80,80,.6)';ctx.textAlign='center';ctx.fillText(d.total,x+bwi/2,by-3);}
+    if(d.total>10){ctx.font='8px sans-serif';ctx.fillStyle=alpha(cssVal('--color-text-secondary','#5e4e44'),.7);ctx.textAlign='center';ctx.fillText(d.total,x+bwi/2,by-3);}
     const w=WAVES.find(w=>w.i===i);
-    if(w){ctx.beginPath();ctx.arc(x+bwi/2,by-11,3.5,0,Math.PI*2);ctx.fillStyle=w.cl;ctx.fill();}
+    if(w){ctx.beginPath();ctx.arc(x+bwi/2,by-11,3.5,0,Math.PI*2);ctx.fillStyle=colorOf(w.cl);ctx.fill();}
   });
   WAVES.forEach(w=>{
     const d=DEC[w.i],x=xC(w.i),y=yS(d.total)-18;
     const lines=w.lb.split('\n');
     ctx.font='bold 6.5px sans-serif';
-    lines.forEach((l,li)=>{ctx.fillStyle=w.cl;ctx.textAlign='center';ctx.fillText(l,x,y+li*9);});
+    lines.forEach((l,li)=>{ctx.fillStyle=colorOf(w.cl);ctx.textAlign='center';ctx.fillText(l,x,y+li*9);});
   });
 }
 
 function drawArea(){
+  const waveCurrent=colorOf('--viz-citation-wave-current','#6e32a0');
   const pts=DEC.map((d,i)=>[xC(i),yS(d.total)]);
   const zY=mT+iH;
   ctx.beginPath();ctx.moveTo(mL,zY);
   pts.forEach(([x,y])=>ctx.lineTo(x,y));
   ctx.lineTo(W-mR,zY);ctx.closePath();
   const g=ctx.createLinearGradient(0,mT,0,mT+iH);
-  g.addColorStop(0,'rgba(110,50,160,.45)');g.addColorStop(1,'rgba(110,50,160,.02)');
+  g.addColorStop(0,alpha(waveCurrent,.45));g.addColorStop(1,alpha(waveCurrent,.02));
   ctx.fillStyle=g;ctx.fill();
   ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);
   for(let i=0;i<pts.length-1;i++){
     const cpx=(pts[i][0]+pts[i+1][0])/2;
     ctx.bezierCurveTo(cpx,pts[i][1],cpx,pts[i+1][1],pts[i+1][0],pts[i+1][1]);
   }
-  ctx.strokeStyle='#6e32a0';ctx.lineWidth=2.2;ctx.stroke();
+  ctx.strokeStyle=waveCurrent;ctx.lineWidth=2.2;ctx.stroke();
   pts.forEach(([px,py],i)=>{
     const isA=activeIdx===i;
     ctx.beginPath();ctx.arc(px,py,isA?5.5:3.5,0,Math.PI*2);
-    ctx.fillStyle=isA?'#6e32a0':'var(--color-background-primary,#fff)';
-    ctx.strokeStyle='#6e32a0';ctx.lineWidth=1.8;ctx.fill();ctx.stroke();
-    ctx.font='8px sans-serif';ctx.fillStyle='#6e32a0';ctx.textAlign='center';
+    ctx.fillStyle=isA?waveCurrent:cssVal('--color-background-primary','#fff');
+    ctx.strokeStyle=waveCurrent;ctx.lineWidth=1.8;ctx.fill();ctx.stroke();
+    ctx.font='8px sans-serif';ctx.fillStyle=waveCurrent;ctx.textAlign='center';
     ctx.fillText(DEC[i].total,px,py-8);
   });
   WAVES.forEach(w=>{
     const[px,py]=pts[w.i];
-    ctx.strokeStyle=w.cl;ctx.lineWidth=.8;ctx.setLineDash([3,3]);
+    ctx.strokeStyle=colorOf(w.cl);ctx.lineWidth=.8;ctx.setLineDash([3,3]);
     ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(px,mT+4);ctx.stroke();ctx.setLineDash([]);
-    ctx.font='bold 6.5px sans-serif';ctx.fillStyle=w.cl;ctx.textAlign='center';
+    ctx.font='bold 6.5px sans-serif';ctx.fillStyle=colorOf(w.cl);ctx.textAlign='center';
     w.lb.split('\n').forEach((l,li)=>ctx.fillText(l,px,mT+4+li*9));
   });
 }
@@ -225,7 +248,7 @@ function drawCats(){
     CATS.forEach(c=>{
       const v=d[c.k];if(!v)return;
       const bh=v/maxV()*iH,by=yS(cum+v);
-      ctx.fillStyle=c.color;ctx.globalAlpha=isA?1:.78;
+      ctx.fillStyle=colorOf(c.color);ctx.globalAlpha=isA?1:.78;
       ctx.beginPath();ctx.roundRect(x,by,bwi,bh,1);ctx.fill();ctx.globalAlpha=1;
       cum+=v;
     });
@@ -245,13 +268,17 @@ function buildLeg(){
   const el=document.getElementById('ci-leg');el.innerHTML='';
   if(mode==='cats'){
     CATS.forEach(c=>{
-      const d=document.createElement('div');d.className='ci-ld';d.style.background=c.color;
+      const d=document.createElement('div');d.className='ci-ld';d.style.background=colorOf(c.color);
       const s=document.createElement('span');s.className='ci-lt';s.textContent=c.lb;
       el.appendChild(d);el.appendChild(s);
     });
   } else {
-    [['#1e5a8a','Публикации'],['#6e32a0','Пик волны'],['rgba(110,50,160,.15)','Волна интереса']].forEach(([col,lb])=>{
-      const d=document.createElement('div');d.className='ci-ld';d.style.background=col;
+    [
+      ['--viz-citation-publication','Публикации'],
+      ['--viz-citation-wave-current','Пик волны'],
+      [alpha(colorOf('--viz-citation-wave-current','#6e32a0'),.15),'Волна интереса']
+    ].forEach(([col,lb])=>{
+      const d=document.createElement('div');d.className='ci-ld';d.style.background=colorOf(col,col);
       const s=document.createElement('span');s.className='ci-lt';s.textContent=lb;
       el.appendChild(d);el.appendChild(s);
     });
@@ -275,8 +302,9 @@ C.addEventListener('click',e=>{
 function showDet(d){
   const el=document.getElementById('ci-det');
   if(!d){el.style.borderLeftColor='var(--color-border-tertiary)';el.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary);">← нажмите период на графике</div>';return;}
-  el.style.borderLeftColor=d.cl;
-  el.innerHTML=`<div class="ci-det-h">${d.lb} · <span style="color:${d.cl};">${d.total} публикаций</span> · РФ: ${d.ru} · Иностр.: ${d.fo} · Переводы: ${d.tr}</div>`+
+  const detColor=colorOf(d.cl);
+  el.style.borderLeftColor=detColor;
+  el.innerHTML=`<div class="ci-det-h">${d.lb} · <span style="color:${detColor};">${d.total} публикаций</span> · РФ: ${d.ru} · Иностр.: ${d.fo} · Переводы: ${d.tr}</div>`+
     d.ev.map(ev=>`<div class="ci-det-ev">${ev}</div>`).join('')+
     `<div class="ci-det-n">${d.nt}</div>`;
 }
@@ -288,6 +316,11 @@ window.setMode=function(m){
 };
 
 buildLeg();draw();
+new MutationObserver(()=>{
+  buildLeg();
+  showDet(activeIdx!==null?DEC[activeIdx]:null);
+  draw();
+}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 })();
 </script>
   </div>
