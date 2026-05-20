@@ -31,6 +31,23 @@ canvas#tv-c{display:block;width:100%;height:300px!important;border-radius:var(--
 .tv-tl-seg{height:100%;position:absolute;border-radius:2px;display:flex;align-items:center;padding-left:4px;}
 .tv-tl-seg-txt{font-size:8.5px;color:rgba(255,255,255,.85);white-space:nowrap;overflow:hidden;}
 .tv-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+/* Traveler card colors */
+.tv-card-a{border-left-color:var(--viz-region-sea-arabian);}
+.tv-card-a .tv-card-name{color:var(--viz-region-sea-arabian);}
+.tv-card-m{border-left-color:var(--viz-economic-loss);}
+.tv-card-m .tv-card-name{color:var(--viz-economic-loss);}
+.tv-card-v{border-left-color:var(--viz-region-ocean);}
+.tv-card-v .tv-card-name{color:var(--viz-region-ocean);}
+.tv-card-g{border-left-color:var(--viz-emotion-total);}
+.tv-card-g .tv-card-name{color:var(--viz-emotion-total);}
+.tv-tl-lbl-a{color:var(--viz-region-sea-arabian);}
+.tv-tl-lbl-m{color:var(--viz-economic-loss);}
+.tv-tl-lbl-v{color:var(--viz-region-ocean);}
+.tv-tl-lbl-g{color:var(--viz-emotion-total);}
+.tv-tl-seg-a{background:var(--viz-region-sea-arabian);}
+.tv-tl-seg-m{background:var(--viz-economic-loss);}
+.tv-tl-seg-v{background:var(--viz-region-ocean);}
+.tv-tl-seg-g{background:var(--viz-emotion-total);}
   </style>
 
   <!-- Tabler Icons -->
@@ -45,8 +62,8 @@ canvas#tv-c{display:block;width:100%;height:300px!important;border-radius:var(--
 
     <div class="tv">
 <div class="tv-cards" id="tv-cards">
-  <div class="tv-card active" data-tid="A" style="border-left-color:#E09520;" onclick="toggleTraveler('A')">
-    <div class="tv-card-name" style="color:#b87010;">Афанасий Никитин</div>
+  <div class="tv-card active tv-card-a" data-tid="A" onclick="toggleTraveler('A')">
+    <div class="tv-card-name">Афанасий Никитин</div>
     <div class="tv-card-years">1467–1475 · Тверь → Индия</div>
     <div class="tv-card-stats">
       <div class="tv-card-stat"><b>~18 000 км</b>общий путь</div>
@@ -55,8 +72,8 @@ canvas#tv-c{display:block;width:100%;height:300px!important;border-radius:var(--
       <div class="tv-card-stat"><b>1 чел.</b>без флота</div>
     </div>
   </div>
-  <div class="tv-card active" data-tid="M" style="border-left-color:#c0392b;" onclick="toggleTraveler('M')">
-    <div class="tv-card-name" style="color:#8a1010;">Марко Поло</div>
+  <div class="tv-card active tv-card-m" data-tid="M" onclick="toggleTraveler('M')">
+    <div class="tv-card-name">Марко Поло</div>
     <div class="tv-card-years">1271–1295 · Венеция → Китай</div>
     <div class="tv-card-stats">
       <div class="tv-card-stat"><b>~24 000 км</b>общий путь</div>
@@ -65,8 +82,8 @@ canvas#tv-c{display:block;width:100%;height:300px!important;border-radius:var(--
       <div class="tv-card-stat"><b>3 чел.</b>семейная экспед.</div>
     </div>
   </div>
-  <div class="tv-card active" data-tid="V" style="border-left-color:#1d6fa8;" onclick="toggleTraveler('V')">
-    <div class="tv-card-name" style="color:#0a3a6a;">Васко да Гама</div>
+  <div class="tv-card active tv-card-v" data-tid="V" onclick="toggleTraveler('V')">
+    <div class="tv-card-name">Васко да Гама</div>
     <div class="tv-card-years">1497–1499 · Лиссабон → Индия</div>
     <div class="tv-card-stats">
       <div class="tv-card-stat"><b>~38 000 км</b>общий путь</div>
@@ -75,8 +92,8 @@ canvas#tv-c{display:block;width:100%;height:300px!important;border-radius:var(--
       <div class="tv-card-stat"><b>170 чел.</b>4 корабля</div>
     </div>
   </div>
-  <div class="tv-card active" data-tid="G" style="border-left-color:#6b4c8a;" onclick="toggleTraveler('G')">
-    <div class="tv-card-name" style="color:#4a2f5a;">Махмуд Гаван</div>
+  <div class="tv-card active tv-card-g" data-tid="G" onclick="toggleTraveler('G')">
+    <div class="tv-card-name">Махмуд Гаван</div>
     <div class="tv-card-years">1453–1481 · Иран → Индия</div>
     <div class="tv-card-stats">
       <div class="tv-card-stat"><b>~5 000 км</b>общий путь</div>
@@ -94,30 +111,30 @@ canvas#tv-c{display:block;width:100%;height:300px!important;border-radius:var(--
 <div class="tv-timeline">
   <div class="tv-tl-head">Хронология четырёх путешествий (1270–1500)</div>
   <div class="tv-tl-row">
-    <div class="tv-tl-lbl" style="color:#8a1010;">Марко Поло</div>
+    <div class="tv-tl-lbl tv-tl-lbl-m">Марко Поло</div>
     <div class="tv-tl-bar-wrap">
-      <div class="tv-tl-seg" style="left:3.7%;width:10.5%;background:#c0392b;">
+      <div class="tv-tl-seg tv-tl-seg-m" style="left:3.7%;width:10.5%;">
         <span class="tv-tl-seg-txt">1271–1295</span></div>
     </div>
   </div>
   <div class="tv-tl-row">
-    <div class="tv-tl-lbl" style="color:#4a2f5a;">Махмуд Гаван</div>
+    <div class="tv-tl-lbl tv-tl-lbl-g">Махмуд Гаван</div>
     <div class="tv-tl-bar-wrap">
-      <div class="tv-tl-seg" style="left:71.8%;width:11.9%;background:#6b4c8a;">
+      <div class="tv-tl-seg tv-tl-seg-g" style="left:71.8%;width:11.9%;">
         <span class="tv-tl-seg-txt">1453–1481</span></div>
     </div>
   </div>
   <div class="tv-tl-row">
-    <div class="tv-tl-lbl" style="color:#b87010;">Афанасий</div>
+    <div class="tv-tl-lbl tv-tl-lbl-a">Афанасий</div>
     <div class="tv-tl-bar-wrap">
-      <div class="tv-tl-seg" style="left:84.8%;width:3.5%;background:#E09520;">
+      <div class="tv-tl-seg tv-tl-seg-a" style="left:84.8%;width:3.5%;">
         <span class="tv-tl-seg-txt">1467–75</span></div>
     </div>
   </div>
   <div class="tv-tl-row">
-    <div class="tv-tl-lbl" style="color:#0a3a6a;">Васко да Гама</div>
+    <div class="tv-tl-lbl tv-tl-lbl-v">Васко да Гама</div>
     <div class="tv-tl-bar-wrap">
-      <div class="tv-tl-seg" style="left:96.5%;width:0.9%;background:#1d6fa8;">
+      <div class="tv-tl-seg tv-tl-seg-v" style="left:96.5%;width:0.9%;">
         <span class="tv-tl-seg-txt">1497–99</span></div>
     </div>
   </div>
@@ -155,7 +172,7 @@ function project(lon,lat){
 // ── Routes ────────────────────────────────────────────────────────────────────
 const TRAVELERS={
   A:{
-    id:'A', color:'#E09520', name:'Афанасий Никитин', years:'1467–1475',
+    id:'A', colorVar:'--viz-region-sea-arabian', name:'Афанасий Никитин', years:'1467–1475',
     info:'<b>Афанасий Никитин</b> — тверской купец, первый европеец, подробно описавший Индию. Шёл в одиночку, без государственной поддержки, потеряв всё имущество при ограблении. Провёл в Индии 4 года. За 25 лет до Васко да Гамы.',
     go:[
       [56.9,35.9],[56.3,44.0],[46.3,48.0],[42.1,48.3],[40.4,49.9],
@@ -171,7 +188,7 @@ const TRAVELERS={
     ]
   },
   M:{
-    id:'M', color:'#c0392b', name:'Марко Поло', years:'1271–1295',
+    id:'M', colorVar:'--viz-economic-loss', name:'Марко Поло', years:'1271–1295',
     info:'<b>Марко Поло</b> — венецианский купец, путешествовавший с отцом и дядей. Провёл 17 лет при дворе Хубилай-хана в Китае. Маршрут суходольный на восток, морской на запад. На 200 лет раньше Афанасия.',
     go:[
       [45.4,12.3],[32.9,35.1],[27.1,56.5],[36.3,59.6],
@@ -188,7 +205,7 @@ const TRAVELERS={
     ]
   },
   V:{
-    id:'V', color:'#1d6fa8', name:'Васко да Гама', years:'1497–1499',
+    id:'V', colorVar:'--viz-region-ocean', name:'Васко да Гама', years:'1497–1499',
     info:'<b>Васко да Гама</b> — португальский мореплаватель, первым из европейцев обогнул Африку и открыл морской путь в Индию. 4 корабля, 170 человек. Достиг Каликута — города, который знал Марко Поло. Прибыл в Индию через 22 года после гибели Афанасия.',
     go:[
       [38.7,-9.1],[28.1,-15.4],[14.7,-17.4],[0.0,-10.0],
@@ -204,7 +221,7 @@ const TRAVELERS={
     ]
   },
   G:{
-    id:'G', color:'#6b4c8a', name:'Махмуд Гаван', years:'1453–1481',
+    id:'G', colorVar:'--viz-emotion-total', name:'Махмуд Гаван', years:'1453–1481',
     info:'<b>Махмуд Гаван</b> — персидский дипломат и визирь султана Бидара. Прибыл в Индию в 1453, оставался там 28 лет. Афанасий присутствовал при его триумфальном возвращении из военной кампании (19 мая 1472). Гаван пережил Афанасия на 6 лет (казнён в 1481). Глава 5 «Тетрадей» посвящена параллельной биографии этих двух незнакомцев, встретившихся в Бидаре.',
     go:[
       [36.8,49.6],[30.0,31.2],[33.5,36.3],[17.5,73.2],[17.9,77.5]
@@ -227,6 +244,7 @@ let active={A:true,M:true,V:true,G:true},mapReady=false,hovered=null,cachedWorld
 
 function themeKey(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';}
 function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
+function getTravelerColor(tr){return cssVar(tr.colorVar);}
 function mapPalette(){
   const dark=themeKey()==='dark';
   return {
@@ -286,18 +304,18 @@ function drawFrame(){
     const a=active[tr.id]?1:0;
     if(!a)return;
     const dim=hovered&&hovered!==tr.id?0.2:1;
-    drawRoute(tr.go,tr.color,false,0.82*dim);
-    drawRoute(tr.ret,tr.color,true,0.45*dim);
+    drawRoute(tr.go,getTravelerColor(tr),false,0.82*dim);
+    drawRoute(tr.ret,getTravelerColor(tr),true,0.45*dim);
     // Waypoint dots
     tr.pts.forEach(p=>{
       const[x,y]=project(p.lon,p.lat);
       ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);
-      ctx.fillStyle=tr.color;ctx.globalAlpha=dim;ctx.fill();
+      ctx.fillStyle=getTravelerColor(tr);ctx.globalAlpha=dim;ctx.fill();
       ctx.strokeStyle=pal.pointStroke;ctx.lineWidth=1;ctx.stroke();
       ctx.globalAlpha=dim;
       const lines=p.lbl.split('\n');
       ctx.font='bold 7.5px sans-serif';ctx.textAlign='center';
-      lines.forEach((l,li)=>halo(l,x,y-7-li*9,tr.color,pal));
+      lines.forEach((l,li)=>halo(l,x,y-7-li*9,getTravelerColor(tr),pal));
       ctx.globalAlpha=1;
     });
   });
@@ -325,7 +343,7 @@ function drawFrame(){
   Object.values(TRAVELERS).forEach((tr,i)=>{
     const y=ly+i*18;
     ctx.beginPath();ctx.moveTo(lx,y);ctx.lineTo(lx+20,y);
-    ctx.strokeStyle=tr.color;ctx.lineWidth=2.2;ctx.stroke();
+    ctx.strokeStyle=getTravelerColor(tr);ctx.lineWidth=2.2;ctx.stroke();
     ctx.font='8px sans-serif';ctx.fillStyle=pal.legendLabel;ctx.textAlign='left';
     ctx.fillText(tr.name.split(' ')[0]+' '+tr.years,lx+24,y+3);
   });
