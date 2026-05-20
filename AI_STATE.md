@@ -49,6 +49,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Video export compaction | ✅ Done | `afanasy_video_export.html` canvas/controls/status/note now fit within 1366×768; verified play button, slider, speed select, theme toggle, and console in headless Edge. |
 | Trade map compaction | ✅ Done | `afanasy_trade_marshruttnik.html` canvas/detail panel now fit within 1366×768; verified filter click, map click, theme toggle, and console in headless Edge. |
 | Travelers compaction | ✅ Done | `three_travelers_comparison.html` cards/canvas now fit within 1366×768; verified Mahmud Gavan solo toggle, reset-to-all, theme toggle, and console in headless Edge. |
+| Manuscripts compaction | ✅ Done | `afanasy_manuscripts.html` uses a two-column desktop layout with bounded proof/comparison panels; verified passage tab, diff note, Gantt link, theme toggle, and console in headless Edge at `scrollHeight <= 768`. |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
@@ -131,7 +132,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 
 | Issue | Severity | File | Notes |
 |-------|----------|------|-------|
-| Existing 1366×768 page scroll | Medium | multiple widgets | Compact shell and chart/video/trade/travelers passes fixed near-threshold pages; remaining overflow pages: trade guide, language map, borders animation, bestiary, and manuscripts. |
+| Existing 1366×768 page scroll | Medium | multiple widgets | Compact shell and chart/video/trade/travelers/manuscripts passes fixed near-threshold pages; remaining overflow pages: trade guide, language map, borders animation, and bestiary. |
 | Mobile touch targets | Low | all pages | Not tested on phone; touch targets may be too small |
 | New widget color-token audit | Medium | 8 newly added widgets | The newly committed widgets now have atlas shells, but their internal chart/data colors still need a CSS-token pass before considering them fully compliant with new-widget conventions |
 | `scratch/theme_injector.py` not committed to repo | Resolved | — | Committed in `9e006c0` |
@@ -180,7 +181,7 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 7. ✅ **A7** — local asset/CDN documentation sync (DONE)
 8. ✅ **A6** — phantom widget link audit/status sync (DONE)
 9. 🔄 **Cross-linking** — Calendar→Map, Economics→Map, and Manuscripts→Gantt done; all-pages breadcrumb pass remains
-10. 🔄 **No-scroll layout** — shared shell + four chart widgets + video export + trade map + travelers compacted; remaining overflow pages need widget-specific compaction
+10. 🔄 **No-scroll layout** — shared shell + four chart widgets + video export + trade map + travelers + manuscripts compacted; remaining overflow pages need widget-specific compaction
 
 **Then (Phase 3 new visualizations):**
 1. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)

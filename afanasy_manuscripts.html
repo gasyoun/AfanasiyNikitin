@@ -10,22 +10,24 @@
   <link rel="stylesheet" href="css/atlas.css">
   <style>
     /* Original Widget Styles */
-    .ms{font-size:15px;}
-.ms-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:13.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
+    .ms{font-size:15px;display:grid;grid-template-columns:320px 1fr;gap:8px 10px;align-items:start;}
+.ms-intro{grid-column:1/-1;padding:8px 11px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:12.5px;line-height:1.45;color:var(--color-text-secondary);margin-bottom:0;}
 .ms-intro b{color:var(--color-text-primary);}
-.ms-codex{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
-.ms-cod{padding:10px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:all .12s;user-select:none;}
+.ms-side{grid-column:1;display:flex;flex-direction:column;gap:8px;min-width:0;}
+.ms-main{grid-column:2;display:flex;flex-direction:column;gap:8px;min-width:0;}
+.ms-codex{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:0;}
+.ms-cod{padding:6px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:all .12s;user-select:none;}
 .ms-cod.active{box-shadow:0 0 0 1.5px currentColor;}
-.ms-cod-name{font-size:14.5px;font-weight:500;margin-bottom:3px;}
-.ms-cod-date{font-size:12.5px;color:var(--color-text-secondary);margin-bottom:5px;}
-.ms-cod-desc{font-size:12.5px;color:var(--color-text-secondary);line-height:1.45;}
-.ms-cod-bar{height:4px;border-radius:2px;margin-top:7px;}
+.ms-cod-name{font-size:11px;font-weight:500;margin-bottom:2px;line-height:1.2;}
+.ms-cod-date{font-size:9.5px;color:var(--color-text-secondary);margin-bottom:4px;line-height:1.25;}
+.ms-cod-desc{display:none;font-size:12.5px;color:var(--color-text-secondary);line-height:1.45;}
+.ms-cod-bar{height:3px;border-radius:2px;margin-top:5px;}
 /* passage selector */
-.ms-pass-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.ms-pass-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:0;}
 .ms-ptab{padding:5px 11px;border-radius:20px;font-size:13px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;white-space:nowrap;}
 .ms-ptab.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
 /* main comparison */
-.ms-columns{display:grid;gap:8px;}
+.ms-columns{display:grid;gap:8px;max-height:245px;overflow-y:auto;}
 .ms-col{border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);overflow:hidden;}
 .ms-col-head{padding:7px 12px;font-size:13.5px;font-weight:500;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--color-border-tertiary);}
 .ms-col-head-sub{font-size:11.5px;font-weight:400;opacity:.7;}
@@ -37,15 +39,15 @@ span.d-chg{background:rgba(185,115,20,.18);color:#7a4a00;border-radius:2px;paddi
 span.d-lang{background:rgba(110,50,160,.15);color:#5a2a8a;border-radius:2px;padding:0 1px;font-style:italic;}
 span.d-dim{opacity:.35;}
 /* legend */
-.ms-leg{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:center;}
+.ms-leg{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:0;align-items:center;}
 .ms-ld{display:inline-block;width:9px;height:9px;border-radius:2px;flex-shrink:0;}
 .ms-lt{font-size:13px;color:var(--color-text-secondary);}
 /* stats */
-.ms-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px;}
-.ms-stat{padding:7px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);text-align:center;}
-.ms-stat-v{font-size:22px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--color-text-primary);line-height:1;}
-.ms-stat-l{font-size:12px;color:var(--color-text-secondary);margin-top:2px;}
-.ms-proof{padding:9px 11px;background:var(--color-background-tertiary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);margin-bottom:12px;}
+.ms-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:0;}
+.ms-stat{padding:6px 5px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);text-align:center;}
+.ms-stat-v{font-size:17px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--color-text-primary);line-height:1;}
+.ms-stat-l{font-size:9.5px;color:var(--color-text-secondary);margin-top:2px;line-height:1.25;}
+.ms-proof{padding:7px 9px;background:var(--color-background-tertiary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);margin-bottom:0;max-height:245px;overflow-y:auto;}
 .ms-proof-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:7px;}
 .ms-proof-title{font-size:13.5px;font-weight:600;color:var(--color-text-primary);line-height:1.35;}
 .ms-proof-ref{color:var(--color-text-secondary);font-weight:400;}
@@ -57,14 +59,22 @@ span.d-dim{opacity:.35;}
 .ms-gap-bar{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:5px;}
 .ms-gap-bar span{display:block;padding:3px 0;background:var(--color-accent);color:var(--color-background-primary);font-size:11.5px;text-align:center;font-variant-numeric:tabular-nums;}
 .ms-gap-note{font-size:11.5px;line-height:1.45;color:var(--color-text-secondary);}
-.ms-proof-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.ms-proof-facts{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;}
 .ms-proof-fact{padding:5px 7px;background:var(--color-background-secondary);border-radius:var(--border-radius-sm);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.35;color:var(--color-text-secondary);}
 .ms-proof-fact b{display:block;color:var(--color-text-primary);font-size:12px;margin-bottom:2px;}
-.ms-note{font-size:13px;color:var(--color-text-secondary);padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);line-height:1.55;}
+.ms-note{font-size:12px;color:var(--color-text-secondary);padding:7px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);line-height:1.45;max-height:88px;overflow-y:auto;}
 .ms-note b{color:var(--color-text-primary);}
 .ms-gantt-link{margin-left:auto;padding:4px 8px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-sm);background:var(--color-background-tertiary);color:var(--color-accent);font-size:12px;font-weight:600;text-decoration:none;}
 .ms-gantt-link:hover{background:var(--color-background-primary);border-color:var(--color-accent);}
-.ms-source{font-size:12.5px;color:var(--color-text-secondary);line-height:1.6;margin-top:8px;}
+.ms-source{font-size:11px;color:var(--color-text-secondary);line-height:1.45;margin-top:0;}
+@media (max-width:900px){
+  .ms{display:block;}
+  .ms-intro,.ms-side,.ms-main,.ms-codex,.ms-pass-tabs,.ms-leg,.ms-columns,.ms-stats,.ms-proof,.ms-note,.ms-source{grid-column:auto;margin-bottom:10px;}
+  .ms-side,.ms-main{display:block;}
+  .ms-codex{grid-template-columns:1fr;}
+  .ms-cod-desc{display:block;}
+  .ms-columns{max-height:none;overflow:visible;}
+}
   </style>
 
   <!-- Tabler Icons -->
@@ -83,6 +93,7 @@ span.d-dim{opacity:.35;}
   «Хожение за три моря» дошло в <b>трёх основных рукописных списках</b>. Ни один не является авторским — все это переписи с несохранившегося оригинала. Хрусталёв доказывает, что <b>Троицкий список — наиболее полный</b> и близкий к оригинальным «тетрадям», тогда как Летописный и Сухановский — сокращённые редакции с правками книжников. Выберите отрывок и нажмите на разночтение.
 </div>
 
+<div class="ms-side">
 <!-- Codex cards -->
 <div class="ms-codex">
   <div class="ms-cod active" id="cod-T" style="border-color:rgba(55,112,190,.4);color:#1a4a8a;" onclick="selectCod('T')">
@@ -137,6 +148,8 @@ span.d-dim{opacity:.35;}
   </div>
 </div>
 
+</div>
+<div class="ms-main">
 <!-- Passage tabs -->
 <div class="ms-pass-tabs" id="pass-tabs"></div>
 
@@ -155,6 +168,7 @@ span.d-dim{opacity:.35;}
 
 <div class="ms-source">
   Тексты по: Хожение за три моря Афанасия Никитина. Академическое изд. / Подг. Я.С.Лурье, Л.С.Семёнов. Л.: Наука, 1986. Анализ разночтений: Хрусталёв Д.Г. «Тетради купца Афанасия». СПб.: Нестор-История, 2026.
+</div>
 </div>
 </div>
   </div>
