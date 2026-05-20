@@ -22,8 +22,8 @@
 .eco-card-label{font-size:10px;color:var(--color-text-secondary);margin-bottom:3px;}
 .eco-card-val{font-size:19px;font-weight:500;font-variant-numeric:tabular-nums;}
 .eco-card-sub{font-size:10px;color:var(--color-text-secondary);margin-top:2px;}
-.loss{color:#c0392b;}
-.gain{color:#27ae60;}
+.loss{color:var(--viz-economic-loss);}
+.gain{color:var(--viz-economic-gain);}
 .neutral{color:var(--color-text-primary);}
 .eco-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
 .eco-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
@@ -68,10 +68,10 @@
 
 <div id="tab-spices" class="eco-panel">
   <div class="eco-legend">
-    <div class="eco-dot" style="background:#be3c28;"></div><span class="eco-leg-txt">Индия (Бидар/Чаул)</span>
-    <div class="eco-dot" style="background:#e0a020;"></div><span class="eco-leg-txt">Ормуз (перевалочный порт)</span>
-    <div class="eco-dot" style="background:#b97314;"></div><span class="eco-leg-txt">Персия (Тебриз/Исфахан)</span>
-    <div class="eco-dot" style="background:#3770be;"></div><span class="eco-leg-txt">Русь (Москва/Тверь)</span>
+    <div class="eco-dot" style="background:var(--viz-region-india);"></div><span class="eco-leg-txt">Индия (Бидар/Чаул)</span>
+    <div class="eco-dot" style="background:var(--viz-region-sea-arabian);"></div><span class="eco-leg-txt">Ормуз (перевалочный порт)</span>
+    <div class="eco-dot" style="background:var(--viz-region-persia);"></div><span class="eco-leg-txt">Персия (Тебриз/Исфахан)</span>
+    <div class="eco-dot" style="background:var(--viz-region-russia);"></div><span class="eco-leg-txt">Русь (Москва/Тверь)</span>
   </div>
   <svg id="spice-svg" style="display:block;width:100%;" viewBox="0 0 640 300"></svg>
   <div class="eco-source">Цены — реконструкция по данным «маршрутника» из состава «Хожения», арабским источникам XV в. и работам Хрусталёва. Единица: условные «серебряные» за батман (~7–8 кг). Афанасий: «перец и пряные зелья дёшевы», но признаётся — его обманули, ожидал большего. Маржа 8–12× делала пряный путь сверхприбыльным.</div>
@@ -202,7 +202,7 @@ function hideTip(){tip.style.display='none';}
       r.addEventListener('mouseleave',()=>{r.setAttribute('opacity','.82');hideTip();});
       const parent=el('g',{});parent.appendChild(r);
       if(ci===colors.length-1){
-        parent.appendChild(txt(`${g.russia}`,{x:bx+barW/2,y:by-3,'text-anchor':'middle','font-size':'8.5','font-weight':'500',fill:'#3770be'}));
+        parent.appendChild(txt(`${g.russia}`,{x:bx+barW/2,y:by-3,'text-anchor':'middle','font-size':'8.5','font-weight':'500',fill:'#3770be'})); // --viz-region-russia
       }
       svg.appendChild(parent);
     });

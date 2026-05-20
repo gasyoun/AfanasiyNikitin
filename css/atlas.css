@@ -66,6 +66,10 @@
     --viz-region-india: #be3c28;
     --viz-region-ottoman: #4a7c59;
     --viz-region-ocean: #4a90c4;
+
+    /* Economics (gains/losses) */
+    --viz-economic-loss: #c0392b;
+    --viz-economic-gain: #27ae60;
 }
 
 html[data-theme="dark"] body {
