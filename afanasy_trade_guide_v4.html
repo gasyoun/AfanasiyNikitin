@@ -49,6 +49,11 @@ table.tg-tbl tr.data-row:hover td{background:var(--color-background-secondary);}
 .tg-price.cheap{color:#1e8250;}.tg-price.exp{color:#c0392b;}
 .tg-margin{font-variant-numeric:tabular-nums;font-weight:500;text-align:right;}
 .tg-margin.great{color:#1e8250;}.tg-margin.good{color:#b97314;}.tg-margin.bad{color:#c0392b;}
+/* trade guide risk colors */
+.tg-risk-high{color:#c0392b;}.tg-risk-vhigh{color:#8a1010;}.tg-risk-med{color:#b97314;}.tg-risk-low{color:#1e8250;}
+.tg-afanasy-badge{color:#8a5000;background:rgba(138,112,64,.12);}
+.tg-city-buy-badge{background:rgba(30,130,80,.1);color:#0a5a30;}
+.tg-city-sell-badge{background:rgba(192,57,43,.1);color:#8a1010;}
 .tg-bar-cell{width:70px;}
 .tg-mini-bar{height:6px;border-radius:3px;background:var(--color-background-secondary);}
 .tg-mini-fill{height:100%;border-radius:3px;}
@@ -140,6 +145,20 @@ table.tg-tbl tr.data-row:hover td{background:var(--color-background-secondary);}
 <script>
 (function(){
 
+// Trade guide colors
+const TGC={
+  riskHigh:'#c0392b',
+  riskVeryHigh:'#8a1010',
+  riskMed:'#b97314',
+  riskLow:'#1e8250',
+  marginGreat:'#1e8250',
+  marginGood:'#b97314',
+  marginBad:'#c0392b',
+  afanasyBadge:'#8a5000',
+  buyBadge:'#0a5a30',
+  sellBadge:'#8a1010'
+};
+
 // ── Rates ─────────────────────────────────────────────────────────────────────
 const GOLD_GRAM_USD=151.18, USD_RUB=73.51, DUCAT_G=3.5, RATES_DATE='14 мая 2026';
 const ZOL_USD=Math.round(DUCAT_G*GOLD_GRAM_USD);
@@ -190,79 +209,79 @@ function getDist(buy,sell){return DIST[buy+'|'+sell]||null;}
 // ── Goods ─────────────────────────────────────────────────────────────────────
 const GOODS=[
   {id:'horse_arab', name:'Арабский конь',        cat:'Лошади',   tag:'horses',   afanasy:true,
-   buy:'Ормуз',    bp:65,  sell:'Бидар',    sp:180, risk:'высокий',       rc:'#c0392b',
+   buy:'Ормуз',    bp:65,  sell:'Бидар',    sp:180, risk:'высокий',       rc:TGC.riskHigh,
    q:'«Кони же дёшевы в Гурмызе, а в Индии — дороги»',
    n:'<b>Самый выгодный товар маршрута.</b> Риск: конь может погибнуть в море — тогда убыток полный.'},
   {id:'horse_iran', name:'Иранский конь',         cat:'Лошади',   tag:'horses',   afanasy:false,
-   buy:'Персия',   bp:48,  sell:'Бидар',    sp:130, risk:'высокий',       rc:'#c0392b',
+   buy:'Персия',   bp:48,  sell:'Бидар',    sp:130, risk:'высокий',       rc:TGC.riskHigh,
    q:'«Гурмыз же пристань великая — всякого товара в нём много»',
    n:'Чуть хуже арабского, но маржа высокая. Путь длиннее — через Шираз и Ормуз.'},
   {id:'horse_rus',  name:'Русский конь',           cat:'Лошади',   tag:'horses',   afanasy:true,
-   buy:'Тверь',    bp:100, sell:'Бидар',    sp:68,  risk:'очень высокий', rc:'#8a1010',
+   buy:'Тверь',    bp:100, sell:'Бидар',    sp:68,  risk:'очень высокий', rc:TGC.riskVeryHigh,
    q:'«Жеребца своего продал есмь за 68 золотых — меня обманули»',
    n:'<b>Ошибка Афанасия.</b> 9 500 км пути — и убыток. Русский конь не ценился в Индии.'},
   {id:'pepper',     name:'Чёрный перец',           cat:'Пряности', tag:'spices',   afanasy:true,
-   buy:'Каликут',  bp:3,   sell:'Аден',     sp:28,  risk:'средний',       rc:'#b97314',
+   buy:'Каликут',  bp:3,   sell:'Аден',     sp:28,  risk:'средний',       rc:TGC.riskMed,
    q:'«Перец дёшев — а товара нет, что бы на Русь»',
    n:'Главная пряность эпохи. Монопольный контроль мамлюков через Аден.'},
   {id:'ginger',     name:'Имбирь',                 cat:'Пряности', tag:'spices',   afanasy:true,
-   buy:'Каликут',  bp:2,   sell:'Аден',     sp:18,  risk:'средний',       rc:'#b97314',
+   buy:'Каликут',  bp:2,   sell:'Аден',     sp:18,  risk:'средний',       rc:TGC.riskMed,
    q:'«Имбирь да перец — в садах растут»',
    n:'Второй по важности пряный товар. Афанасий видел его растущим.'},
   {id:'cinnamon',   name:'Корица',                 cat:'Пряности', tag:'spices',   afanasy:false,
-   buy:'Каликут',  bp:4,   sell:'Аден',     sp:40,  risk:'средний',       rc:'#b97314',
+   buy:'Каликут',  bp:4,   sell:'Аден',     sp:40,  risk:'средний',       rc:TGC.riskMed,
    q:'«Шейлань — добывают рубины и корицу»',
    n:'Цейлонская корица — самая дорогая пряность.'},
   {id:'cloves',     name:'Гвоздика',               cat:'Пряности', tag:'spices',   afanasy:false,
-   buy:'Каликут',  bp:5,   sell:'Аден',     sp:55,  risk:'высокий',       rc:'#c0392b',
+   buy:'Каликут',  bp:5,   sell:'Аден',     sp:55,  risk:'высокий',       rc:TGC.riskHigh,
    q:'«Молдива — пристань великая, меж Индией и Китаем»',
    n:'Молуккские острова → Малакка → Каликут → Аден. Самая большая маржа.'},
   {id:'pepper_pers',name:'Перец (в Персию)',        cat:'Пряности', tag:'spices',   afanasy:false,
-   buy:'Каликут',  bp:3,   sell:'Персия',   sp:22,  risk:'средний',       rc:'#b97314',
+   buy:'Каликут',  bp:3,   sell:'Персия',   sp:22,  risk:'средний',       rc:TGC.riskMed,
    q:'«А пряные зелья — в Гундустане дёшевы»',
    n:'Маршрут через Ормуз в Персию — короче, чем через Аден.'},
   {id:'spices_tvr', name:'Пряности на Русь',        cat:'Пряности', tag:'spices',   afanasy:true,
-   buy:'Каликут',  bp:3,   sell:'Тверь',    sp:38,  risk:'очень высокий', rc:'#8a1010',
+   buy:'Каликут',  bp:3,   sell:'Тверь',    sp:38,  risk:'очень высокий', rc:TGC.riskVeryHigh,
    q:'«А товара того нет, что на Русь пройти»',
    n:'<b>Мечта Афанасия.</b> 14 000 км пути делали прямой экспорт практически невозможным.'},
   {id:'indigo',     name:'Индиго',                 cat:'Ткани',    tag:'textiles', afanasy:true,
-   buy:'Гуджарат', bp:5,   sell:'Персия',   sp:30,  risk:'низкий',        rc:'#1e8250',
+   buy:'Гуджарат', bp:5,   sell:'Персия',   sp:30,  risk:'низкий',        rc:TGC.riskLow,
    q:'«Краска синяя дёшева — а её много»',
    n:'Синий краситель. Устойчив, не портится в море.'},
   {id:'cotton',     name:'Хлопковые ткани',         cat:'Ткани',    tag:'textiles', afanasy:true,
-   buy:'Гуджарат', bp:6,   sell:'Аден',     sp:28,  risk:'низкий',        rc:'#1e8250',
+   buy:'Гуджарат', bp:6,   sell:'Аден',     sp:28,  risk:'низкий',        rc:TGC.riskLow,
    q:'«Ткани хлопчатые — дёшевы и добры»',
    n:'Самый надёжный товар. Не портится, спрос везде.'},
   {id:'cotton2',    name:'Хлопок (в Персию)',        cat:'Ткани',    tag:'textiles', afanasy:false,
-   buy:'Гуджарат', bp:6,   sell:'Персия',   sp:22,  risk:'низкий',        rc:'#1e8250',
+   buy:'Гуджарат', bp:6,   sell:'Персия',   sp:22,  risk:'низкий',        rc:TGC.riskLow,
    q:'«Гузарат — великое государство индийское»',
    n:'Хлопок из Гуджарата через Ормуз в Персию.'},
   {id:'silk',       name:'Шёлк китайский',          cat:'Ткани',    tag:'textiles', afanasy:false,
-   buy:'Каликут',  bp:20,  sell:'Персия',   sp:75,  risk:'средний',       rc:'#b97314',
+   buy:'Каликут',  bp:20,  sell:'Персия',   sp:75,  risk:'средний',       rc:TGC.riskMed,
    q:'«Чин да Мачин — великое государство, шёлку много»',
    n:'Транзитный товар из Китая.'},
   {id:'pearls',     name:'Жемчуг',                 cat:'Роскошь',  tag:'luxury',   afanasy:false,
-   buy:'Ормуз',    bp:30,  sell:'Персия',   sp:80,  risk:'высокий',       rc:'#c0392b',
+   buy:'Ормуз',    bp:30,  sell:'Персия',   sp:80,  risk:'высокий',       rc:TGC.riskHigh,
    q:'«Гурмыз — жемчугу много»',
    n:'Персидский залив — главный источник жемчуга.'},
   {id:'rubies',     name:'Рубины цейлонские',       cat:'Роскошь',  tag:'luxury',   afanasy:false,
-   buy:'Каликут',  bp:40,  sell:'Персия',   sp:130, risk:'очень высокий', rc:'#8a1010',
+   buy:'Каликут',  bp:40,  sell:'Персия',   sp:130, risk:'очень высокий', rc:TGC.riskVeryHigh,
    q:'«Шейлань — добывают рубины»',
    n:'Огромная маржа — и огромный риск.'},
   {id:'ivory',      name:'Слоновая кость',          cat:'Роскошь',  tag:'luxury',   afanasy:true,
-   buy:'Бидар',    bp:15,  sell:'Аден',     sp:55,  risk:'средний',       rc:'#b97314',
+   buy:'Бидар',    bp:15,  sell:'Аден',     sp:55,  risk:'средний',       rc:TGC.riskMed,
    q:'«Слонов много у них — на бой идут с людьми на слонах»',
    n:'Бивни шли на Ближний Восток и в Европу.'},
   {id:'ivory2',     name:'Слоновая кость (Персия)', cat:'Роскошь',  tag:'luxury',   afanasy:false,
-   buy:'Бидар',    bp:15,  sell:'Персия',   sp:42,  risk:'средний',       rc:'#b97314',
+   buy:'Бидар',    bp:15,  sell:'Персия',   sp:42,  risk:'средний',       rc:TGC.riskMed,
    q:'«Слоновая кость ценится в Персии»',
    n:'Через Ормуз в Персию — быстрее, чем до Адена.'},
   {id:'dates',      name:'Финики',                 cat:'Прочее',   tag:'other',    afanasy:true,
-   buy:'Ормуз',    bp:2,   sell:'Гуджарат', sp:8,   risk:'низкий',        rc:'#1e8250',
+   buy:'Ормуз',    bp:2,   sell:'Гуджарат', sp:8,   risk:'низкий',        rc:TGC.riskLow,
    q:'«Финики дёшевы — ест их скот и люди»',
    n:'Базовый товар. Надёжно. Не портится.'},
   {id:'copper',     name:'Медь',                   cat:'Прочее',   tag:'other',    afanasy:false,
-   buy:'Персия',   bp:10,  sell:'Каликут',  sp:35,  risk:'низкий',        rc:'#1e8250',
+   buy:'Персия',   bp:10,  sell:'Каликут',  sp:35,  risk:'низкий',        rc:TGC.riskLow,
    q:'«Медь да железо — из Персии везут»',
    n:'Металл, которого в Индии мало.'},
 ];
@@ -291,7 +310,7 @@ function activeGoods(){
 }
 function margin(g){return Math.round((g.sp-g.bp)/g.bp*100);}
 function mClass(m){return m>=100?'great':m>=30?'good':'bad';}
-function mColor(m){return m>=100?'#1e8250':m>=30?'#b97314':'#c0392b';}
+function mColor(m){return m>=100?TGC.marginGreat:m>=30?TGC.marginGood:TGC.marginBad;}
 
 // Tooltip
 const tip=document.getElementById('cv-tip');
@@ -393,10 +412,10 @@ function renderTable(){
     const tr=document.createElement('tr');tr.className='data-row';tr.style.cursor='pointer';
     tr.innerHTML=`
       <td style="color:var(--color-text-secondary);font-size:11px;text-align:center;">${isOpen?'▼':'▶'}</td>
-      <td><div class="tg-good-name">${g.name}${g.afanasy?` <span style="font-size:9px;color:#8a5000;background:rgba(138,112,64,.12);padding:1px 5px;border-radius:8px;">упомин.</span>`:''}</div><div class="tg-good-cat">${g.cat}</div></td>
-      <td><span style="padding:2px 7px;border-radius:10px;font-size:11px;background:rgba(30,130,80,.1);color:#0a5a30;">${g.buy}</span></td>
+      <td><div class="tg-good-name">${g.name}${g.afanasy?` <span class="tg-afanasy-badge" style="font-size:9px;padding:1px 5px;border-radius:8px;">упомин.</span>`:''}</div><div class="tg-good-cat">${g.cat}</div></td>
+      <td><span class="tg-city-buy-badge" style="padding:2px 7px;border-radius:10px;font-size:11px;">${g.buy}</span></td>
       <td class="tg-price cheap" data-zol="${g.bp}" data-label="закупка в ${g.buy}">${g.bp} зол.</td>
-      <td><span style="padding:2px 7px;border-radius:10px;font-size:11px;background:rgba(192,57,43,.1);color:#8a1010;">${g.sell}</span></td>
+      <td><span class="tg-city-sell-badge" style="padding:2px 7px;border-radius:10px;font-size:11px;">${g.sell}</span></td>
       <td class="tg-price exp" data-zol="${g.sp}" data-label="продажа в ${g.sell}">${g.sp} зол.</td>
       <td class="tg-margin ${mClass(m)}">${m>0?'+':''}${m}%</td>
       <td class="tg-bar-cell"><div class="tg-mini-bar"><div class="tg-mini-fill" style="width:${Math.abs(m)/maxM*100}%;background:${mColor(m)};"></div></div></td>
