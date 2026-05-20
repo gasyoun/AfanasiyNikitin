@@ -14,7 +14,7 @@
 .ea-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
 .ea-intro b{color:var(--color-text-primary);}
 .ea-chart-wrap{position:relative;margin-bottom:10px;}
-svg#ea-svg{display:block;width:100%;height:300px!important;}
+svg#ea-svg{display:block;width:100%;height:285px!important;}
 .ea-detail{padding:11px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);margin-bottom:10px;min-height:58px;border-left:3px solid transparent;transition:border-color .2s;}
 .ea-det-loc{font-size:10px;color:var(--color-text-secondary);margin-bottom:4px;display:flex;gap:8px;align-items:center;}
 .ea-det-score{font-size:11px;font-weight:600;}
@@ -164,29 +164,30 @@ const PTS=[
    quote:'«Меликтучар воевал Виджаянагар»',
    note:'<b>МОЛЧАНИЕ ЗАКАНЧИВАЕТСЯ здесь.</b> Возвращение к письму: хроника военных кампаний. Возможно, служба при дворе завершена.'},
   {i:16, loc:'Прощание с Индией', year:1472,
-   total:-4, hope:-6, faith:-3, wonder:2,
+   total:-4, hope:-6, faith:-3, wonder:2, pronoun:10,
    quote:'«Путь не ведаю, куда ити из Гундустани»',
    note:'<b>Третий кризис — безысходность:</b> «лжою привели псы-бесермены». Разочарование. Денег нет, пути домой нет. Горечь.'},
   {i:17, loc:'Обратный путь — Персия', year:1473,
-   total:2, hope:5, faith:4, wonder:2,
+   total:2, hope:5, faith:4, wonder:2, pronoun:8,
    quote:'«Из Гурмыза к Лару, из Лара к Ширязу»',
    note:'<b>Надежда нарастает:</b> Афанасий идёт домой. Знакомые города, знакомые дороги. Деловой тон возвращается.'},
   {i:18, loc:'Чёрное море — Трабзон', year:1474,
-   total:4, hope:7, faith:5, wonder:1,
+   total:4, hope:7, faith:5, wonder:1, pronoun:5,
    quote:'«3-е море Чёрное, дориа Стебольская»',
    note:'<b>Почти дома:</b> три моря пройдены. «Меня бог пронёс через три моря» — торжество и облегчение.'},
   {i:19, loc:'Кафа — последняя запись', year:1474,
-   total:3, hope:6, faith:6, wonder:0,
+   total:3, hope:6, faith:6, wonder:0, pronoun:10,
    quote:'«Приехал есмь в Кафу за девять дней до Филиппова поста»',
    note:'<b>Финал текста:</b> Афанасий в Кафе, на пороге Руси. Умер «под Смоленском» — этой записи в тексте нет, она в предисловии Мамырева. Текст обрывается на надежде.'},
 ];
 
+const cssVar=name=>`var(${name})`;
 const DIMS={
-  total:{color:'#6e32a0', label:'Общий тон', lo:'отчаяние', hi:'радость'},
-  hope: {color:'#1e8250', label:'Надежда', lo:'тревога',   hi:'надежда'},
-  faith:{color:'#c0392b', label:'Вера',     lo:'сомнение', hi:'вера'},
-  wonder:{color:'#1d6fa8',label:'Удивление',lo:'скука',    hi:'удивление'},
-  pronoun:{color:'#8b5a30',label:'Одиночество', lo:'мы вместе', hi:'я один'},
+  total:{color:cssVar('--viz-emotion-total'), label:'Общий тон', lo:'отчаяние', hi:'радость'},
+  hope: {color:cssVar('--viz-emotion-hope'), label:'Надежда', lo:'тревога',   hi:'надежда'},
+  faith:{color:cssVar('--viz-emotion-faith'), label:'Вера',     lo:'сомнение', hi:'вера'},
+  wonder:{color:cssVar('--viz-emotion-wonder'),label:'Удивление',lo:'скука',    hi:'удивление'},
+  pronoun:{color:cssVar('--viz-emotion-pronoun'),label:'Одиночество', lo:'мы вместе', hi:'я один'},
 };
 
 let activeDim='total', activeIdx=null;
@@ -216,9 +217,9 @@ function redraw(){
   const silenceStart=xScale(14);
   const silenceEnd=xScale(15);
   svg.appendChild(el('rect',{x:silenceStart,y:mT,width:silenceEnd-silenceStart,height:iH,
-    fill:'rgba(0,0,0,0.04)', stroke:'rgba(0,0,0,0.08)', 'stroke-width':'0.5', 'stroke-dasharray':'3 2'}));
+    fill:'var(--color-chart-silence)', stroke:'color-mix(in srgb, var(--color-text-primary) 8%, transparent)', 'stroke-width':'0.5', 'stroke-dasharray':'3 2'}));
   svg.appendChild(t('молчание\n13+ мес',{x:(silenceStart+silenceEnd)/2,y:mT+15,
-    'text-anchor':'middle','font-size':'10','font-weight':'500',fill:'rgba(0,0,0,0.3)','pointer-events':'none'}));
+    'text-anchor':'middle','font-size':'10','font-weight':'500',fill:'color-mix(in srgb, var(--color-text-primary) 30%, transparent)','pointer-events':'none'}));
 
   // Zero line
   svg.appendChild(el('line',{x1:mL,y1:yScale(0),x2:W-mR,y2:yScale(0),

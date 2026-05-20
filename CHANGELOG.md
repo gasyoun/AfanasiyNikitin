@@ -50,8 +50,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **`afanasy_language_map_v2.html`**: language highlights, cards, legends, and timeline/detail bars now resolve through shared `--viz-language-*` tokens.
 - **`afanasy_speed_land_sea.html`**: stay markers, label arrows, and tooltip shadow now use shared atlas variables instead of widget-local colors.
 - **`afanasy_manuscripts.html`**: manuscript-list colors and diff highlights now resolve through shared `--viz-manuscript-*` variables, including dynamic column headers and note outlines.
+- **`afanasy_emotional_arc.html`**: emotional-dimension colors and the silence zone now resolve through shared atlas variables instead of widget-local color literals.
 
 ### Fixed
+- `afanasy_emotional_arc.html`: added the missing pronoun/loneliness values for the final four route points, removing SVG `NaN` rendering errors when selecting "Одиночество"; slightly reduced chart height so the active detail view stays within 1366×768.
 - `afanasy_citations_v2.html`, `afanasy_religious_crisis.html`, `afanasy_emotional_arc.html`, and `khozheniye_composition_tree.html`: constrained chart/detail heights so their primary interactions stay within 1366×768.
 - `afanasy_video_export.html`: compacted the preview canvas, controls, status line, and note so playback/slider/theme interactions fit within 1366×768.
 - `afanasy_trade_marshruttnik.html`: constrained the trade-map canvas and details panel so filter/map/theme interactions fit within 1366×768.
