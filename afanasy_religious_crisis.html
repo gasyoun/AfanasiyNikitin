@@ -32,6 +32,20 @@ svg#rc-svg{display:block;width:100%;height:280px!important;}
 .rc-tab{padding:5px 13px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;}
 .rc-tab.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
 .rc-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+/* Religious concept colors */
+.rc-card-gospodi{border-top-color:#c0392b;}
+.rc-card-gospodi .rc-card-val{color:#c0392b;}
+.rc-card-allah{border-top-color:#1d6fa8;}
+.rc-card-allah .rc-card-val{color:#1d6fa8;}
+.rc-card-bog{border-top-color:#5a6e8a;}
+.rc-card-bog .rc-card-val{color:#5a6e8a;}
+.rc-card-isa{border-top-color:#6e32a0;}
+.rc-card-isa .rc-card-val{color:#6e32a0;}
+/* Legend dots */
+.rc-ld-gospodi{background:#c0392b;}
+.rc-ld-allah{background:#1d6fa8;}
+.rc-ld-bog{background:#5a6e8a;}
+.rc-ld-isa{background:#6e32a0;}
   </style>
 </head>
 <body>
@@ -48,23 +62,23 @@ svg#rc-svg{display:block;width:100%;height:280px!important;}
 </div>
 
 <div class="rc-summary">
-  <div class="rc-card" style="border-top-color:#c0392b;">
-    <div class="rc-card-val" style="color:#c0392b;">67</div>
+  <div class="rc-card rc-card-gospodi">
+    <div class="rc-card-val">67</div>
     <div class="rc-card-lbl">«Господи» / «Боже»</div>
     <div class="rc-card-sub">православная формула молитвы</div>
   </div>
-  <div class="rc-card" style="border-top-color:#1d6fa8;">
-    <div class="rc-card-val" style="color:#1d6fa8;">38</div>
+  <div class="rc-card rc-card-allah">
+    <div class="rc-card-val">38</div>
     <div class="rc-card-lbl">«Аллах» / «аллах»</div>
     <div class="rc-card-sub">арабская формула; растёт в Индии</div>
   </div>
-  <div class="rc-card" style="border-top-color:#5a6e8a;">
-    <div class="rc-card-val" style="color:#5a6e8a;">44</div>
+  <div class="rc-card rc-card-bog">
+    <div class="rc-card-val">44</div>
     <div class="rc-card-lbl">«Бог» (нейтральн.)</div>
     <div class="rc-card-sub">межконфессиональный; везде</div>
   </div>
-  <div class="rc-card" style="border-top-color:#6e32a0;">
-    <div class="rc-card-val" style="color:#6e32a0;">8</div>
+  <div class="rc-card rc-card-isa">
+    <div class="rc-card-val">8</div>
     <div class="rc-card-lbl">«Иса» / «Христос»</div>
     <div class="rc-card-sub">только в кризисных фрагментах</div>
   </div>
@@ -77,10 +91,10 @@ svg#rc-svg{display:block;width:100%;height:280px!important;}
 </div>
 
 <div class="rc-legend">
-  <div class="rc-ld" style="background:#c0392b;"></div><span class="rc-lt">Господи / Боже (православн.)</span>
-  <div class="rc-ld" style="background:#1d6fa8;"></div><span class="rc-lt">Аллах (мусульм.)</span>
-  <div class="rc-ld" style="background:#5a6e8a;"></div><span class="rc-lt">Бог (нейтральн.)</span>
-  <div class="rc-ld" style="background:#6e32a0;"></div><span class="rc-lt">Иса / Христос</span>
+  <div class="rc-ld rc-ld-gospodi"></div><span class="rc-lt">Господи / Боже (православн.)</span>
+  <div class="rc-ld rc-ld-allah"></div><span class="rc-lt">Аллах (мусульм.)</span>
+  <div class="rc-ld rc-ld-bog"></div><span class="rc-lt">Бог (нейтральн.)</span>
+  <div class="rc-ld rc-ld-isa"></div><span class="rc-lt">Иса / Христос</span>
   <span class="rc-lt" style="opacity:.65;margin-left:4px;">← нажмите полосу</span>
 </div>
 
@@ -182,8 +196,11 @@ const SECS=[
 ];
 
 const KEYS=['gospodi','allah','bog','isa'];
-const COL={gospodi:'#c0392b',allah:'#1d6fa8',bog:'#5a6e8a',isa:'#6e32a0'};
 const LAB={gospodi:'Господи',allah:'Аллах',bog:'Бог',isa:'Иса'};
+
+function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
+function getColors(){return{gospodi:'#c0392b',allah:'#1d6fa8',bog:'#5a6e8a',isa:'#6e32a0'};}
+const COL=getColors();
 
 let mode='stacked', activeIdx=null;
 const W=700,H=280,mL=34,mR=16,mT=24,mB=72;
@@ -251,7 +268,7 @@ function drawStacked(){
     svg.appendChild(t(total,{x:x+bwInner/2,y:yS(total,mx)-3,'text-anchor':'middle','font-size':'8','font-weight':'500',fill:'var(--color-text-secondary)'}));
     // Crisis indicator
     if(s.crisis>=4){
-      svg.appendChild(el('rect',{x,y:mT-8,width:bwInner,height:4,fill:'#6e32a0',rx:2,opacity:.6}));
+      svg.appendChild(el('rect',{x,y:mT-8,width:bwInner,height:4,fill:COL.isa,rx:2,opacity:.6}));
     }
   });
   xLabels();
@@ -263,7 +280,7 @@ function drawStacked(){
     svg.appendChild(t(LAB[k],{x:lx+12,y:legY+8,'font-size':'8',fill:'var(--color-text-secondary)'}));
   });
   // Purple bar = crisis label
-  svg.appendChild(el('rect',{x:W-mR-72,y:legY,width:9,height:4,fill:'#6e32a0',rx:2,opacity:.6}));
+  svg.appendChild(el('rect',{x:W-mR-72,y:legY,width:9,height:4,fill:COL.isa,rx:2,opacity:.6}));
   svg.appendChild(t('= кризис',{x:W-mR-60,y:legY+3,'font-size':'8',fill:'rgba(110,50,160,.8)'}));
 }
 
@@ -294,7 +311,7 @@ function drawLine(){
   // Crossover annotation
   const ci=6; // index of pascha section
   const cx=xC(ci);
-  svg.appendChild(el('line',{x1:cx,y1:mT,x2:cx,y2:mT+iH,stroke:'#6e32a0','stroke-width':1,'stroke-dasharray':'4 3',opacity:.5}));
+  svg.appendChild(el('line',{x1:cx,y1:mT,x2:cx,y2:mT+iH,stroke:COL.isa,'stroke-width':1,'stroke-dasharray':'4 3',opacity:.5}));
   svg.appendChild(t('← кульминация',{x:cx+3,y:mT+10,'font-size':'7.5',fill:'rgba(110,50,160,.7)'}));
   xLabels();
 }
@@ -309,11 +326,11 @@ function drawRatio(){
   for(let v=0;v<=mx;v+=0.5){
     const y=yS(v,mx);
     svg.appendChild(el('line',{x1:mL,y1:y,x2:W-mR,y2:y,stroke:'var(--color-border-tertiary)','stroke-width':.5}));
-    if(Number.isInteger(v*2))svg.appendChild(t(v===1?'1:1 (равновесие)':v,{x:mL-3,y:y+3,'text-anchor':'end','font-size':'8',fill:v===1?'#6e32a0':'var(--color-text-secondary)'}));
+    if(Number.isInteger(v*2))svg.appendChild(t(v===1?'1:1 (равновесие)':v,{x:mL-3,y:y+3,'text-anchor':'end','font-size':'8',fill:v===1?COL.isa:'var(--color-text-secondary)'}));
   }
   // Equilibrium line
   const eqY=yS(1,mx);
-  svg.appendChild(el('line',{x1:mL,y1:eqY,x2:W-mR,y2:eqY,stroke:'#6e32a0','stroke-width':1.2,'stroke-dasharray':'5 3',opacity:.5}));
+  svg.appendChild(el('line',{x1:mL,y1:eqY,x2:W-mR,y2:eqY,stroke:COL.isa,'stroke-width':1.2,'stroke-dasharray':'5 3',opacity:.5}));
   svg.appendChild(t('Аллах = Господи',{x:W-mR-2,y:eqY-4,'text-anchor':'end','font-size':'8',fill:'rgba(110,50,160,.7)'}));
 
   // Shade areas
@@ -336,7 +353,7 @@ function drawRatio(){
     const cpx=(xC(i)+xC(i+1))/2;
     d+=` C${cpx},${yS(ratios[i],mx)} ${cpx},${yS(ratios[i+1],mx)} ${xC(i+1)},${yS(ratios[i+1],mx)}`;
   }
-  svg.appendChild(el('path',{d,fill:'none',stroke:'#6e32a0','stroke-width':2.2}));
+  svg.appendChild(el('path',{d,fill:'none',stroke:COL.isa,'stroke-width':2.2}));
 
   ratios.forEach((r,i)=>{
     const y=yS(r,mx);
@@ -349,7 +366,7 @@ function drawRatio(){
     dot.addEventListener('mousemove',moveTip);
     dot.addEventListener('mouseleave',()=>tip.style.display='none');
     svg.appendChild(dot);
-    svg.appendChild(t(r+'×',{x:xC(i),y:y-7,'text-anchor':'middle','font-size':'8',fill:'#6e32a0'}));
+    svg.appendChild(t(r+'×',{x:xC(i),y:y-7,'text-anchor':'middle','font-size':'8',fill:COL.isa}));
   });
   svg.appendChild(t('Господи ÷ Аллах',{x:mL,y:mT-8,'font-size':'8.5',fill:'var(--color-text-secondary)'}));
   xLabels();
