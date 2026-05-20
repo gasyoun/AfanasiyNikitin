@@ -3,8 +3,8 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-05-20 · Conversation ID: Claude Haiku Phase 4 + FIX 8
-> **Commit:** 6ceaf32 (FIX 8 complete), Phase 2 Stage 4 complete
+> **Last updated:** 2026-05-20 · Conversation ID: Claude Haiku Phase 4 + FIX 8 + FIX 5
+> **Commits:** 579480b (FIX 5), 6ceaf32 (FIX 8), Phase 2 Stage 4 complete
 
 ---
 
@@ -31,6 +31,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | FIX 8 — Mahmud Gavan | ✅ Done | 4-traveler comparison added: route (Gilan→Cairo→Damascus→Bidar→Goa→Vijayanagara), timeline, interactive toggle, legend |
 | Gavan data integration | ✅ Done | Coordinates verified (36.8°N 49.6°E to 15.3°N 78.5°E), color (#6b4c8a), years 1453–1481 |
 | Three → Four travelers | ✅ Done | Grid expanded to 4 columns, toggleTraveler logic updated, legend scales dynamically |
+| FIX 5 — Manuscript leaf proof | ✅ Done | Two identical gaps (Ф. 11–14 & Ф. 41–44, ~1160 chars each) prove 1 lost leaf. Visual: side-by-side gaps + formula 1160=2×580. Table: page formats (Etterov 850/page, Trinity 700/page, proto-source 580/page), total 36,500 chars = 72 pages = 9 notebooks |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
@@ -156,7 +157,7 @@ git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
 **Priority (today):**
-1. **FIX 5** — Manuscripts: leaf-size proof + two-gap visualization (2h)
+1. ✅ **FIX 5** — Manuscripts: leaf-size proof + two-gap visualization (DONE)
 2. **FIX 6** — Emotional arc: silence zone (1471–1472) + pronoun analysis (2h)
 3. **FIX 7** — Composition tree: chronological writing order toggle (3h)
 
