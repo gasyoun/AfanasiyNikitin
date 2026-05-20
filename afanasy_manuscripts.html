@@ -44,6 +44,21 @@ span.d-dim{opacity:.35;}
 .ms-stat{padding:7px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);text-align:center;}
 .ms-stat-v{font-size:22px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--color-text-primary);line-height:1;}
 .ms-stat-l{font-size:12px;color:var(--color-text-secondary);margin-top:2px;}
+.ms-proof{padding:9px 11px;background:var(--color-background-tertiary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);margin-bottom:12px;}
+.ms-proof-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:7px;}
+.ms-proof-title{font-size:13.5px;font-weight:600;color:var(--color-text-primary);line-height:1.35;}
+.ms-proof-ref{color:var(--color-text-secondary);font-weight:400;}
+.ms-proof-formula{font-size:12px;color:var(--color-accent);font-weight:600;white-space:nowrap;}
+.ms-gap-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.ms-gap{padding:7px 8px;background:var(--color-background-primary);border-radius:var(--border-radius-sm);border:0.5px solid var(--color-border-tertiary);}
+.ms-gap-top{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--color-text-primary);margin-bottom:5px;}
+.ms-gap-top span{color:var(--color-text-secondary);}
+.ms-gap-bar{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:5px;}
+.ms-gap-bar span{display:block;padding:3px 0;background:var(--color-accent);color:var(--color-background-primary);font-size:11.5px;text-align:center;font-variant-numeric:tabular-nums;}
+.ms-gap-note{font-size:11.5px;line-height:1.45;color:var(--color-text-secondary);}
+.ms-proof-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.ms-proof-fact{padding:5px 7px;background:var(--color-background-secondary);border-radius:var(--border-radius-sm);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.35;color:var(--color-text-secondary);}
+.ms-proof-fact b{display:block;color:var(--color-text-primary);font-size:12px;margin-bottom:2px;}
 .ms-note{font-size:13px;color:var(--color-text-secondary);padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);line-height:1.55;}
 .ms-note b{color:var(--color-text-primary);}
 .ms-source{font-size:12.5px;color:var(--color-text-secondary);line-height:1.6;margin-top:8px;}
@@ -92,6 +107,31 @@ span.d-dim{opacity:.35;}
   <div class="ms-stat"><div class="ms-stat-v">12</div><div class="ms-stat-l">пропусков в Летописном</div></div>
   <div class="ms-stat"><div class="ms-stat-v">8</div><div class="ms-stat-l">добавлений в Летописном</div></div>
   <div class="ms-stat"><div class="ms-stat-v">23</div><div class="ms-stat-l">ошибок в Сухановском</div></div>
+</div>
+
+<div class="ms-proof">
+  <div class="ms-proof-head">
+    <div class="ms-proof-title">Количественное доказательство утраченного листа протографа <span class="ms-proof-ref">(гл. 3, с. 141–142)</span></div>
+    <div class="ms-proof-formula">1160 знаков = 2 страницы × 580</div>
+  </div>
+  <div class="ms-gap-row">
+    <div class="ms-gap">
+      <div class="ms-gap-top"><b>Пропуск I</b><span>Ф. 11–14</span></div>
+      <div class="ms-gap-bar"><span>≈580</span><span>≈580</span></div>
+      <div class="ms-gap-note">После «И Алильбегъ того часа люди отслал» до «а поимает его море».</div>
+    </div>
+    <div class="ms-gap">
+      <div class="ms-gap-top"><b>Пропуск II</b><span>Ф. 41–44</span></div>
+      <div class="ms-gap-bar"><span>≈580</span><span>≈580</span></div>
+      <div class="ms-gap-note">После «а длина еѧ двѣ сажени» до «в четвертые, человекъ».</div>
+    </div>
+  </div>
+  <div class="ms-proof-facts">
+    <div class="ms-proof-fact"><b>29×19 см / 850</b>Эттеров список: знаков на страницу</div>
+    <div class="ms-proof-fact"><b>20×13 см / 700</b>Троицкий список: знаков на страницу</div>
+    <div class="ms-proof-fact"><b>36 500 / 72</b>Объём текста и страниц протографа</div>
+    <div class="ms-proof-fact"><b>9 тетрадей</b>72 страницы = 9 тетрадей по 8 страниц</div>
+  </div>
 </div>
 
 <!-- Passage tabs -->

@@ -165,6 +165,11 @@
     .q-group ul li:last-child { border-bottom: none; }
     .q-group ul li::before { content: "→"; position: absolute; left: 0; color: var(--color-accent); font-size: 0.85em; top: 6px; }
   </style>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#8b5a30">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Атлас Афанасия">
 </head>
 <body>
 <div class="container">
@@ -484,6 +489,14 @@
     <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
   </button>
   <script src="js/atlas-theme.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('[PWA] Service Worker зарегистрирован:', reg))
+        .catch(err => console.log('[PWA] Service Worker ошибка:', err));
+    }
+  </script>
 
 </body>
 </html>
