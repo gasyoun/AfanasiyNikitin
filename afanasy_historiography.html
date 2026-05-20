@@ -71,12 +71,36 @@
 <script>
 (function(){
 
+const HIST_FALLBACKS={
+  '--viz-hist-manuscript':'#8a7040',
+  '--viz-hist-discovery':'#1e5a8a',
+  '--viz-hist-scholarship':'#2a7a50',
+  '--viz-hist-soviet':'#c0392b',
+  '--viz-hist-cultural':'#8a3a8a',
+  '--viz-hist-reconstruction':'#6e32a0'
+};
+function cssVal(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||HIST_FALLBACKS[name]||name;}
+function colorValue(token){return token.startsWith('--')?cssVal(token):token;}
+function colorCss(token){return token.startsWith('--')?`var(${token})`:token;}
+function alpha(color,value){
+  const c=colorValue(color).trim();
+  if(c.startsWith('#')){
+    const hex=c.slice(1);
+    const full=hex.length===3?hex.split('').map(ch=>ch+ch).join(''):hex.slice(0,6);
+    const num=parseInt(full,16);
+    return `rgba(${(num>>16)&255},${(num>>8)&255},${num&255},${value})`;
+  }
+  const rgb=c.match(/^rgba?\(([^)]+)\)$/);
+  if(rgb)return `rgba(${rgb[1].split(',').slice(0,3).join(',')},${value})`;
+  return c;
+}
+
 const EVENTS=[
   {id:'mamyrev', year:1475, era:'Рукопись',
    title:'Дьяк Мамырев вносит тетради в летопись',
    who:'Василий Мамырев, дьяк московской канцелярии',
-   color:'#8a7040',
-   tags:[{txt:'Первая фиксация',bg:'rgba(138,112,64,.15)',fg:'#6a5020'}],
+   color:'--viz-hist-manuscript',
+   tags:[{txt:'Первая фиксация',tone:'--viz-hist-manuscript',alpha:.15}],
    col1:{h:'Что произошло',
     txt:'Купцы нашли тело Афанасия под Смоленском и доставили его бумаги в Москву. Мамырев переписал «тетради», добавил летописное предисловие и включил текст в <b>Эрмитажную летопись</b> (ок. 1475–1480).'},
    col2:{h:'Что это значило',
@@ -85,8 +109,8 @@ const EVENTS=[
   {id:'karamzin', year:1818, era:'Открытие',
    title:'Карамзин впервые публикует «Хожение»',
    who:'Николай Михайлович Карамзин, «История государства Российского»',
-   color:'#1e5a8a',
-   tags:[{txt:'Первая публикация',bg:'rgba(30,90,138,.14)',fg:'#0a3a6a'},{txt:'Скептическая оценка',bg:'rgba(192,57,43,.12)',fg:'#8a2010'}],
+   color:'--viz-hist-discovery',
+   tags:[{txt:'Первая публикация',tone:'--viz-hist-discovery',alpha:.14},{txt:'Скептическая оценка',tone:'--viz-hist-soviet',alpha:.12}],
    col1:{h:'Что произошло',
     txt:'Карамзин нашёл текст в Троицком списке и опубликовал его в примечаниях к VI тому «Истории» (1818). <b>Первая публикация за 340 лет</b> после написания.'},
    col2:{h:'Оценка Карамзина',
@@ -95,8 +119,8 @@ const EVENTS=[
   {id:'larin', year:1853, era:'Открытие',
    title:'Первое отдельное издание — Осипов / Сахаров',
    who:'И.П. Сахаров, «Сказания русского народа», т. 2',
-   color:'#2a7a50',
-   tags:[{txt:'Первая книга',bg:'rgba(42,122,80,.14)',fg:'#0a4a28'}],
+   color:'--viz-hist-scholarship',
+   tags:[{txt:'Первая книга',tone:'--viz-hist-scholarship',alpha:.14}],
    col1:{h:'Что произошло',
     txt:'Первое издание «Хожения» как самостоятельного текста. Сахаров включил его в антологию «Сказания русского народа». Начинается <b>научное изучение</b> памятника.'},
    col2:{h:'Контекст',
@@ -105,8 +129,8 @@ const EVENTS=[
   {id:'sreznevsky', year:1856, era:'Наука',
    title:'Срезневский: первый научный анализ',
    who:'И.И. Срезневский, «Хожение за три моря»',
-   color:'#2a7a50',
-   tags:[{txt:'Критический текст',bg:'rgba(42,122,80,.14)',fg:'#0a4a28'}],
+   color:'--viz-hist-scholarship',
+   tags:[{txt:'Критический текст',tone:'--viz-hist-scholarship',alpha:.14}],
    col1:{h:'Что произошло',
     txt:'Срезневский публикует первое <b>научно-критическое издание</b> с разночтениями трёх списков. Устанавливает три редакции текста: Троицкую, Летописную, Сухановскую.'},
    col2:{h:'Значение',
@@ -115,8 +139,8 @@ const EVENTS=[
   {id:'soviet48', year:1948, era:'СССР',
    title:'Советское издание: Никитин — народный герой',
    who:'Ред. Н.С. Чаев; серия «Литературные памятники», АН СССР',
-   color:'#c0392b',
-   tags:[{txt:'Идеологическое',bg:'rgba(192,57,43,.14)',fg:'#8a2010'},{txt:'Массовое',bg:'rgba(30,90,138,.12)',fg:'#0a3a6a'}],
+   color:'--viz-hist-soviet',
+   tags:[{txt:'Идеологическое',tone:'--viz-hist-soviet',alpha:.14},{txt:'Массовое',tone:'--viz-hist-discovery',alpha:.12}],
    col1:{h:'Что произошло',
     txt:'Академическое издание с переводом, но в контексте сталинской идеологии. Афанасий превращён в <b>«народного героя»</b>, предшественника советской экспансии на Восток. Огромный тираж.'},
    col2:{h:'Интерпретация',
@@ -125,8 +149,8 @@ const EVENTS=[
   {id:'soviet60', year:1960, era:'СССР',
    title:'Фильм «Хождение за три моря» (СССР–Индия)',
    who:'Реж. Василий Пронин, Котаях Сетхна; совместное производство',
-   color:'#8a3a8a',
-   tags:[{txt:'Кинофильм',bg:'rgba(138,58,138,.14)',fg:'#5a1a5a'},{txt:'Дипломатия',bg:'rgba(30,90,138,.12)',fg:'#0a3a6a'}],
+   color:'--viz-hist-cultural',
+   tags:[{txt:'Кинофильм',tone:'--viz-hist-cultural',alpha:.14},{txt:'Дипломатия',tone:'--viz-hist-discovery',alpha:.12}],
    col1:{h:'Что произошло',
     txt:'Первый советско-индийский совместный художественный фильм. Снят в СССР и Индии. Афанасия играет Олег Стриженов. <b>Культурная дипломатия</b> в эпоху Хрущёва — Неру.'},
    col2:{h:'Значение',
@@ -135,8 +159,8 @@ const EVENTS=[
   {id:'lurye86', year:1986, era:'Академия',
    title:'Академическое издание Лурье — Семёнова',
    who:'Я.С. Лурье, Л.С. Семёнов; серия «Литературные памятники», Наука',
-   color:'#1e5a8a',
-   tags:[{txt:'Научный стандарт',bg:'rgba(30,90,138,.14)',fg:'#0a3a6a'},{txt:'До сих пор основное',bg:'rgba(42,122,80,.14)',fg:'#0a4a28'}],
+   color:'--viz-hist-discovery',
+   tags:[{txt:'Научный стандарт',tone:'--viz-hist-discovery',alpha:.14},{txt:'До сих пор основное',tone:'--viz-hist-scholarship',alpha:.14}],
    col1:{h:'Что произошло',
     txt:'<b>Полное критическое издание</b> всех трёх списков с параллельными текстами, переводом, историческим комментарием. 40 лет подготовки. Установлена традиционная хронология, позднее пересмотренная Хрусталёвым.'},
    col2:{h:'Вклад и ограничения',
@@ -145,8 +169,8 @@ const EVENTS=[
   {id:'khrn2026', year:2026, era:'Реконструкция',
    title:'Хрусталёв: «Тетради купца Афанасия»',
    who:'Д.Г. Хрусталёв, изд-во «Нестор-История», Санкт-Петербург',
-   color:'#6e32a0',
-   tags:[{txt:'Реконструкция состава',bg:'rgba(110,50,160,.14)',fg:'#4a1a8a'},{txt:'Новая датировка',bg:'rgba(192,57,43,.14)',fg:'#8a2010'},{txt:'2026',bg:'rgba(110,50,160,.22)',fg:'#4a1a8a'}],
+   color:'--viz-hist-reconstruction',
+   tags:[{txt:'Реконструкция состава',tone:'--viz-hist-reconstruction',alpha:.14},{txt:'Новая датировка',tone:'--viz-hist-soviet',alpha:.14},{txt:'2026',tone:'--viz-hist-reconstruction',alpha:.22}],
    col1:{h:'Главный тезис',
     txt:'«Хожение» — <b>не цельное сочинение</b>. Это стопка разрозненных тетрадей, которые Мамырев собрал в единый текст. Выделяет 7 самостоятельных блоков. Новая датировка: <b>1467–1475</b>.'},
    col2:{h:'Методология',
@@ -156,8 +180,6 @@ const EVENTS=[
 
 const YEAR_START=1475,YEAR_END=2030;
 const SPAN=YEAR_END-YEAR_START;
-const ERA_COLORS={'Рукопись':'#8a7040','Открытие':'#1e5a8a','Наука':'#2a7a50','СССР':'#c0392b','Академия':'#1e5a8a','Реконструкция':'#6e32a0'};
-
 function pct(y){return Math.max(0,Math.min(100,(y-YEAR_START)/SPAN*100));}
 
 // Build nav buttons
@@ -166,7 +188,7 @@ EVENTS.forEach(ev=>{
   const b=document.createElement('button');
   b.className='hi-nav-btn';b.dataset.id=ev.id;
   b.textContent=ev.year+' — '+ev.title.split(':')[0];
-  b.style.borderLeftColor=ev.color;b.style.borderLeftWidth='2px';
+  b.style.borderLeftColor=colorCss(ev.color);b.style.borderLeftWidth='2px';
   b.addEventListener('click',()=>showEvent(ev.id));
   nav.appendChild(b);
 });
@@ -176,17 +198,17 @@ const track=document.getElementById('hi-track');
 
 // Era bands
 const ERAS=[
-  {label:'Рукопись',from:1475,to:1818,color:'rgba(138,112,64,.12)'},
-  {label:'XIX век',from:1818,to:1920,color:'rgba(30,90,138,.1)'},
-  {label:'СССР',from:1920,to:1991,color:'rgba(192,57,43,.1)'},
-  {label:'Наши дни',from:1991,to:2030,color:'rgba(110,50,160,.1)'},
+  {label:'Рукопись',from:1475,to:1818,color:'--viz-hist-manuscript',alpha:.12},
+  {label:'XIX век',from:1818,to:1920,color:'--viz-hist-discovery',alpha:.1},
+  {label:'СССР',from:1920,to:1991,color:'--viz-hist-soviet',alpha:.1},
+  {label:'Наши дни',from:1991,to:2030,color:'--viz-hist-reconstruction',alpha:.1},
 ];
 ERAS.forEach(era=>{
   const seg=document.createElement('div');
   seg.className='hi-seg';
   seg.style.left=pct(era.from)+'%';
   seg.style.width=(pct(era.to)-pct(era.from))+'%';
-  seg.style.background=era.color;
+  seg.style.background=alpha(era.color,era.alpha);
   track.appendChild(seg);
   const lbl=document.createElement('div');
   lbl.className='hi-era';
@@ -211,7 +233,7 @@ EVENTS.forEach((ev,i)=>{
   dot.dataset.id=ev.id;
   dot.style.left=pct(ev.year)+'%';
   dot.style.top='-10px';
-  dot.style.color=ev.color;
+  dot.style.color=colorCss(ev.color);
 
   const topLbl=document.createElement('div');
   topLbl.className='hi-event-top';
@@ -223,12 +245,12 @@ EVENTS.forEach((ev,i)=>{
 
   const dotEl=document.createElement('div');
   dotEl.className='hi-event-dot';
-  dotEl.style.background=ev.color;
+  dotEl.style.background=colorCss(ev.color);
   dotEl.style.borderColor='var(--color-background-primary)';
 
   const yr=document.createElement('div');
   yr.className='hi-event-year';
-  yr.style.color=ev.color;
+  yr.style.color=colorCss(ev.color);
   yr.textContent=ev.year;
 
   dot.appendChild(topLbl);
@@ -247,12 +269,16 @@ function showEvent(id){
   document.querySelectorAll('.hi-nav-btn').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
 
   const det=document.getElementById('hi-det');
+  const evColor=colorValue(ev.color);
   det.style.display='block';
-  det.style.borderColor=ev.color+'55';
-  const tagsHtml=ev.tags.map(t=>`<span class="hi-tag" style="background:${t.bg};color:${t.fg};">${t.txt}</span>`).join('');
+  det.style.borderColor=alpha(evColor,.35);
+  const tagsHtml=ev.tags.map(t=>{
+    const tone=colorValue(t.tone);
+    return `<span class="hi-tag" style="background:${alpha(tone,t.alpha||.14)};color:${tone};">${t.txt}</span>`;
+  }).join('');
   det.innerHTML=`
-    <div class="hi-det-head" style="background:${ev.color}08;">
-      <div class="hi-det-year" style="color:${ev.color};">${ev.year}</div>
+    <div class="hi-det-head" style="background:${alpha(evColor,.08)};">
+      <div class="hi-det-year" style="color:${evColor};">${ev.year}</div>
       <div class="hi-det-right">
         <div class="hi-det-title">${ev.title}</div>
         <div class="hi-det-who">${ev.who}</div>
