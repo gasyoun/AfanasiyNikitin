@@ -3,15 +3,15 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-05-20 · Conversation ID: Claude Haiku Phase 4 + FIX 8 + FIX 5 + FIX 6
-> **Commits:** e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), Phase 2 Stage 4 complete
+> **Last updated:** 2026-05-20 · Conversation ID: GPT-5.5 follow-up after Claude Haiku Phase 4 + FIX 5–8
+> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), plus PWA asset follow-up
 
 ---
 
-## Current Status: ✅ PHASE 2 COMPLETE + FIX 8 DONE — PWA & Mahmud Gavan Added
+## Current Status: ✅ PHASE 2 COMPLETE + FIX 5–8 DONE — PWA Shell Added
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 1–4 data corrections. Phase 2 complete: shared CSS in `css/atlas.css`, bundled local assets in `lib/`, shared map/Gantt data in `js/atlas-data.js`, and shared theme logic in `js/atlas-theme.js`. Phase 4.1–4.2 PWA: `manifest.json`, `sw.js` Service Worker, offline support verified. **FIX 8 complete**: Mahmud Gavan added as 4th traveler in `three_travelers_comparison.html` with full route and interactive legend.
+Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 1–4 data corrections. Phase 2 complete: shared CSS in `css/atlas.css`, bundled local assets in `lib/`, shared map/Gantt data in `js/atlas-data.js`, and shared theme logic in `js/atlas-theme.js`. Phase 4.1–4.2 PWA shell exists: `manifest.json`, `sw.js` Service Worker, cache list aligned to the current widget filenames. FIX 5–8 are complete: manuscript leaf proof, emotional silence/pronouns, composition chronological toggle, and Mahmud Gavan as 4th traveler.
 
 ---
 
@@ -20,12 +20,12 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 ### Session 4 (Claude Haiku 4.5) — Phase 4 PWA + FIX 8 Gavan
 | Task | Status | Notes |
 |------|--------|-------|
-| Phase 4.1 — PWA Service Worker | ✅ Done | Created `sw.js` with install/activate/fetch handlers, caches ~20 assets |
+| Phase 4.1 — PWA Service Worker | ✅ Done | Created `sw.js` with install/activate/fetch handlers, caches the current 21 widget pages plus shared assets |
 | Phase 4.2 — PWA Manifest | ✅ Done | Created `manifest.json` with app icons (SVG), theme colors, metadata |
 | Phase 4.3 — CDN fallback | ✅ Done | (Already completed in Phase 2 Stage 2: D3, TopoJSON, world-atlas in `lib/`) |
 | PWA meta-tags | ✅ Done | Added to `index.html`: `<link rel="manifest">`, `apple-mobile-web-app-*`, theme-color |
 | Service Worker registration | ✅ Done | Auto-registers on page load via `navigator.serviceWorker.register()` |
-| Offline verification | ✅ Done | Test script confirms all cached assets accessible, SW activates cleanly |
+| Offline verification | ⚠️ Partial | Static asset-list verification passes; Android/iPhone install and true offline reload still need device/browser testing |
 | Android PWA install | ⚠️ Pending | To test: open on Android, tap Install, test offline mode |
 | iPhone Home Screen add | ⚠️ Pending | To test: open in Safari, Share → Add to Home Screen, test offline |
 | FIX 8 — Mahmud Gavan | ✅ Done | 4-traveler comparison added: route (Gilan→Cairo→Damascus→Bidar→Goa→Vijayanagara), timeline, interactive toggle, legend |
@@ -33,6 +33,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Three → Four travelers | ✅ Done | Grid expanded to 4 columns, toggleTraveler logic updated, legend scales dynamically |
 | FIX 5 — Manuscript leaf proof | ✅ Done | Two identical gaps (Ф. 11–14 & Ф. 41–44, ~1160 chars each) prove 1 lost leaf. Visual: side-by-side gaps + formula 1160=2×580. Table: page formats (Etterov 850/page, Trinity 700/page, proto-source 580/page), total 36,500 chars = 72 pages = 9 notebooks |
 | FIX 6 — Silence zone + pronouns | ✅ Done | Grey zone (Mar 1471 – May 1472): 13+ months no writings. New 5th dimension "Одиночество" (яз/я один +10 vs есмя/мы −10). All 20 points tagged: Tver alone, Volga together, robbery destroys group, Bidar alone, prayer alone, sea together, Kaffa alone. Zone visualized as grey rect between points 14–15 |
+| FIX 7 — Chronological order | ✅ Done | Toggle button switches between manuscript order (7 blocks → Mamyrev → 3 copies) and chronological writing order (7 periods: Persia 1468–69 → India 1469 → India 1470 → Dorozhnik 1470 → Aland+Parwat 1470–71 → SILENCE 1471–72 → War chronicle 1472–73 → Kaffa 1474). All nodes have detailed metadata about genre, language, manuscript page numbers (Ф.N). |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
@@ -105,7 +106,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 - Stats/legend panels should be **horizontal**, not vertical sidebars
 
 ### Data Integrity
-- All dates follow **Khrustalev 2026** dating: journey 1467–1475 (not 1468–1474)
+- All dates follow **Khrustalev 2026** dating: journey 1467–1475, not the older chronology
 - Gold coin rate: 1 зол. = $529 USD = ₽38 900 (as of May 14, 2026 gold price $151.18/g)
 - `GOLD_GRAM_USD` and `USD_RUB` constants in `afanasy_trade_marshruttnik.html` need weekly update
 
@@ -115,23 +116,21 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 
 | Issue | Severity | File | Notes |
 |-------|----------|------|-------|
-| `afanasy_world_before_after.html` — not in current repo | Medium | — | Listed in README but file doesn't exist yet |
-| `afanasy_religious_crisis.html` — not in repo | Low | — | Removed from `index.html`; may be created later |
 | Dark mode canvas filter on map | Low | `afanasy_v8_text_map.html` | CSS `filter: invert()` not applied to Canvas pixels; only the container flips |
 | Existing 1366×768 page scroll | Medium | multiple widgets | Browser check showed several pages still have `documentElement.scrollHeight > 768`; `.vis-container` itself did not overflow. Needs layout pass outside Phase 0. |
 | Mobile touch targets | Low | all pages | Not tested on phone; touch targets may be too small |
 | New widget color-token audit | Medium | 8 newly added widgets | The newly committed widgets now have atlas shells, but their internal chart/data colors still need a CSS-token pass before considering them fully compliant with new-widget conventions |
 | `scratch/theme_injector.py` not committed to repo | Resolved | — | Committed in `9e006c0` |
-| PWA offline capability | Future | — | Service Worker not implemented yet |
+| PWA device install/offline reload | Medium | `manifest.json`, `sw.js` | Static files are present; needs Android Chrome / iPhone Safari install and offline reload validation |
 
 ---
 
 ## Files Modified Since Last Clean Commit
 
-> After the Phase 2 Stage 4 commit, tracked files are clean. The pre-existing PDF and extracted book text remain intentionally untracked.
+> After the PWA asset follow-up commit, tracked files should be clean. Local diagnostic helpers may remain untracked and should not be published unless intentionally converted into docs.
 
 ```
-git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
+git status: untracked check_sw.html and test_pwa.js may remain; do not stage by default
 ```
 
 ---
@@ -160,7 +159,7 @@ git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
 **Priority (today):**
 1. ✅ **FIX 5** — Manuscripts: leaf-size proof + two-gap visualization (DONE)
 2. ✅ **FIX 6** — Emotional arc: silence zone (1471–1472) + pronoun analysis (DONE)
-3. **FIX 7** — Composition tree: chronological writing order toggle (3h)
+3. ✅ **FIX 7** — Composition tree: chronological writing order toggle (DONE)
 
 **Then (Phase 3 new visualizations):**
 1. **Phase 3.1** — World before/after: myths vs experience (8h)

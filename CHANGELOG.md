@@ -7,6 +7,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Added PWA metadata and a Service Worker cache shell so the atlas can be installed and served from local cached assets when available.
+
 ### Changed
 - Extracted the shared visualization design system into `css/atlas.css`; all 13 existing widget HTML files now link to the shared stylesheet and keep only widget-specific CSS inline.
 - Bundled D3 v7, TopoJSON 3, world-atlas 110m data, and Tabler Icons under `lib/`; all current HTML pages now reference local assets instead of external CDNs.
@@ -14,6 +17,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Extracted the repeated dark/light theme toggle script into `js/atlas-theme.js` for the index and 13 established visualization pages.
 
 ### Fixed
+- `sw.js`: aligned the offline cache list with the current widget filenames and bundled icon font file.
+- `khozheniye_composition_tree.html`: added a manuscript-order vs chronological-writing-order toggle for the composition tree.
+- `afanasy_emotional_arc.html`: added the 1471–1472 silence zone and the loneliness/pronoun analysis dimension.
+- `afanasy_manuscripts.html`: added the Khrustalev chapter 3 quantitative leaf-size proof, including the two ~1160-character gaps and 9-notebook reconstruction.
+- `three_travelers_comparison.html`: added Mahmud Gavan as the fourth comparative route.
 - Wrapped the eight newly added widget pages in the standard standalone atlas shell with shared CSS, local Tabler Icons, back navigation, and the shared theme toggle.
 - `index.html`/`README.md`: reconciled the expanded atlas count to 21 HTML widgets and renumbered homepage cards 1–20 in display order.
 - Removed explicit legacy journey-date range strings from README and the new historiography/editions widgets while preserving the note that Khrustalev corrected the older chronology.
