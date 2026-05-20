@@ -30,6 +30,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `afanasy_bestiary.html`: compacted the illuminated-card grid and bounded the detail panel so card selection and theme interactions fit within 1366×768.
 - `afanasy_borders_animation.html`: compacted the border-animation canvas and event list so event clicks and theme interactions fit within 1366×768.
 - `afanasy_language_map_v2.html`: switched the language map to a two-column desktop layout with bounded passages and detail panels so filters, timeline clicks, and theme interactions fit within 1366×768.
+- `afanasy_trade_guide_v4.html`: compacted the city pickers, rate/result panels, and made the goods table internally scrollable so filtering, row details, price tooltips, and theme interactions fit within 1366×768.
 - `afanasy_video_export.html`: added theme-aware Canvas basemap, route, waypoint, marker, label, loading, and video HUD colors for light/dark mode.
 - `afanasy_world_before_after.html`: added theme-aware Canvas palettes for both before/after maps, route, markers, labels, and active highlights in dark mode.
 - `afanasy_trade_marshruttnik.html`: added theme-aware Canvas basemap, route, port, label, and legend colors for dark mode; replaced an invalid CSS-variable string used as a Canvas fill color.
