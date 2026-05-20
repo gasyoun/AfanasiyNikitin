@@ -33,6 +33,7 @@
   button.primary:hover{background:#903e18;}
   button:disabled{opacity:0.4;cursor:not-allowed;}
   .rec-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e04020;margin-right:6px;animation:blink 1s infinite;}
+  .link-help{color:#c87820;}
   @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
   #status{font-size:11px;color:var(--color-text-secondary);margin-top:5px;height:14px;text-align:center;}
   .speed-label{font-size:11px;color:var(--color-text-secondary);}
@@ -84,7 +85,7 @@
 <p class="note">
   Нажмите «Записать видео» — анимация запустится автоматически и в конце скачается файл <strong>afanasy_timelapse.webm</strong>.<br>
   Конвертировать в MP4: <code>ffmpeg -i afanasy_timelapse.webm -c:v libx264 -crf 18 afanasy_timelapse.mp4</code><br>
-  Или загрузите .webm на <a href="https://cloudconvert.com" style="color:#c87820;" target="_blank">cloudconvert.com</a> для конвертации онлайн.
+  Или загрузите .webm на <a href="https://cloudconvert.com" class="link-help" target="_blank">cloudconvert.com</a> для конвертации онлайн.
 </p>
 </div>
 
