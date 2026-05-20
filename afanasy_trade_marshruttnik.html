@@ -23,9 +23,9 @@ canvas#tm-c{display:block;width:100%;height:300px!important;border-radius:var(--
 .tm-det-quote{font-size:11.5px;font-family:var(--font-serif);line-height:1.45;margin-bottom:5px;padding-left:8px;border-left:2px solid var(--color-border-secondary);color:var(--color-text-primary);}
 .tm-det-goods{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px;}
 .tm-good{padding:2px 8px;border-radius:12px;font-size:10px;white-space:nowrap;}
-.tm-good.buy{background:rgba(30,130,80,.15);color:#0a5a30;border:0.5px solid rgba(30,130,80,.3);}
+.tm-good.buy{background:rgba(39,174,96,.15);color:#0a5a30;border:0.5px solid rgba(39,174,96,.3);}
 .tm-good.sell{background:rgba(192,57,43,.12);color:#8a1010;border:0.5px solid rgba(192,57,43,.25);}
-.tm-good.transit{background:rgba(55,112,190,.12);color:#1a3a8a;border:0.5px solid rgba(55,112,190,.25);}
+.tm-good.transit{background:rgba(74,144,196,.15);color:#1a3a8a;border:0.5px solid rgba(74,144,196,.3);}
 .tm-det-note{font-size:11px;color:var(--color-text-secondary);line-height:1.55;}
 .tm-det-note b{color:var(--color-text-primary);}
 .tm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;}
@@ -79,9 +79,9 @@ canvas#tm-c{display:block;width:100%;height:300px!important;border-radius:var(--
 </div>
 
 <div class="tm-legend">
-  <div class="tm-ld" style="background:#E09520;border:2px solid #8a5000;"></div><span class="tm-lt">Афанасий был здесь</span>
-  <div class="tm-ld" style="background:#1d6fa8;"></div><span class="tm-lt">Порт в маршрутнике</span>
-  <div class="tm-ld" style="background:#6e32a0;width:11px;height:11px;border-radius:2px;"></div><span class="tm-lt">Крупный торговый центр</span>
+  <div class="tm-ld" style="background:var(--viz-region-sea-arabian);border:2px solid #8a5000;"></div><span class="tm-lt">Афанасий был здесь</span>
+  <div class="tm-ld" style="background:var(--viz-region-ocean);"></div><span class="tm-lt">Порт в маршрутнике</span>
+  <div class="tm-ld" style="background:var(--viz-emotion-total);width:11px;height:11px;border-radius:2px;"></div><span class="tm-lt">Крупный торговый центр</span>
   <div class="tm-lt" style="margin-left:4px;opacity:.7;">Размер кружка = торговое значение</div>
 </div>
 
@@ -222,6 +222,9 @@ function mapPalette(){
     routeAfanasy: dark?'rgba(240,160,64,.76)':'rgba(224,149,32,.7)',
     routeAden: dark?'rgba(120,180,220,.42)':'rgba(100,150,200,.35)',
     portFill: cssVar('--color-background-primary') || (dark?'#121212':'#ffffff'),
+    portVisited: cssVar('--viz-region-sea-arabian') || '#e0a020',
+    portMarshrutnik: cssVar('--viz-region-ocean') || '#4a90c4',
+    portMajor: cssVar('--viz-emotion-total') || '#6e32a0',
     activeHaloAlpha: dark?0.22:0.15,
     legendLabel: dark?'rgba(235,220,213,.82)':'rgba(20,10,5,.7)'
   };
@@ -294,7 +297,8 @@ function drawFrame(){
     if(!portVisible(p))return;
     const[cx,cy]=project(p.lon,p.lat);
     const isActive=activePort===p.id;
-    const col=p.visited?'#E09520':p.type==='major'?'#6e32a0':'#1d6fa8';
+    const pal=mapPalette();
+    const col=p.visited?pal.portVisited:p.type==='major'?pal.portMajor:pal.portMarshrutnik;
 
     if(isActive){ctx.beginPath();ctx.arc(cx,cy,p.r+6,0,Math.PI*2);ctx.fillStyle=col;ctx.globalAlpha=mapPalette().activeHaloAlpha;ctx.fill();ctx.globalAlpha=1;}
     ctx.beginPath();ctx.arc(cx,cy,p.r,0,Math.PI*2);
@@ -344,7 +348,8 @@ function showDetail(p){
     det.style.borderLeftColor='var(--color-border-tertiary)';
     fpv.textContent='—';return;
   }
-  const col=p.visited?'#E09520':p.type==='major'?'#6e32a0':'#1d6fa8';
+  const pal=mapPalette();
+  const col=p.visited?pal.portVisited:p.type==='major'?pal.portMajor:pal.portMarshrutnik;
   det.style.borderLeftColor=col;
   fpv.textContent=p.daysFromPrev>0?p.daysFromPrev+' дн.':'старт';
   const goodsHtml=[

@@ -24,6 +24,10 @@ canvas.wa-c{display:block;width:100%;cursor:pointer;}
 .wa-det-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
 .wa-det-col{font-size:11px;line-height:1.55;}
 .wa-det-col-h{font-size:10px;font-weight:500;margin-bottom:3px;padding:2px 7px;border-radius:8px;display:inline-block;}
+.wa-map-label.before{background:rgba(100,60,20,.15);color:#6a3c10;}
+.wa-map-label.after{background:rgba(20,90,140,.15);color:#104a7a;}
+.wa-det-col-h.before{background:rgba(120,80,20,.12);color:#6a3a08;}
+.wa-det-col-h.after{background:rgba(30,100,180,.12);color:#0a4070;}
 .wa-det-col-body{color:var(--color-text-secondary);}
 .wa-det-col-body b{color:var(--color-text-primary);}
 .wa-hint{font-size:10px;color:var(--color-text-secondary);text-align:center;opacity:.65;margin-top:3px;}
@@ -53,11 +57,11 @@ canvas.wa-c{display:block;width:100%;cursor:pointer;}
 
 <div class="wa-maps">
   <div class="wa-map-wrap">
-    <div class="wa-map-label" style="background:rgba(100,60,20,.15);color:#6a3c10;">До выезда</div>
+    <div class="wa-map-label before">До выезда</div>
     <canvas class="wa-c" id="ca" width="340" height="280"></canvas>
   </div>
   <div class="wa-map-wrap">
-    <div class="wa-map-label" style="background:rgba(20,90,140,.15);color:#104a7a;">После</div>
+    <div class="wa-map-label after">После</div>
     <canvas class="wa-c" id="cb" width="340" height="280"></canvas>
   </div>
 </div>
@@ -198,6 +202,7 @@ function mapPalette(){
     beforeUnknownStroke: dark?'rgba(210,162,95,.62)':'rgba(120,80,20,.5)',
     beforeText: dark?'rgba(235,220,213,.9)':'#6a3a08',
     beforeDimText: dark?'rgba(235,220,213,.62)':'rgba(100,70,20,.55)',
+    beforeBorderColor: dark?'rgba(192,144,96,.5)':'rgba(120,80,20,.4)',
     afterSea: dark?'#18323d':'#8fb8d0',
     afterLand: cssVar('--color-background-tertiary') || (dark?'#222222':'#f5eedf'),
     afterStroke: dark?'rgba(192,144,96,.35)':'#b8a870',
@@ -208,6 +213,7 @@ function mapPalette(){
     afterUnknownStroke: dark?'rgba(125,198,242,.55)':'rgba(80,120,160,.5)',
     afterText: dark?'rgba(235,220,213,.92)':'#0a4070',
     afterDimText: dark?'rgba(180,220,245,.66)':'rgba(80,120,160,.55)',
+    afterBorderColor: dark?'rgba(125,198,242,.5)':'rgba(30,100,180,.35)',
     labelHalo: dark?'rgba(18,18,18,.82)':'rgba(255,255,255,.65)',
     beforeActive: dark?'rgba(210,162,95,.24)':'rgba(120,80,20,.18)',
     afterActive: dark?'rgba(125,198,242,.22)':'rgba(30,100,180,.15)',
@@ -328,16 +334,17 @@ function showDet(p){
     return;
   }
   const b=p.before,a=p.after;
-  det.style.borderLeftColor=a.known?'#1d6fa8':'#8a8a8a';
+  const pal=mapPalette();
+  det.style.borderLeftColor=a.known?pal.afterBorderColor:pal.beforeBorderColor;
   det.innerHTML=`<div class="wa-det-left">
     <div class="wa-det-name">${p.label}</div>
     <div class="wa-det-compare">
       <div class="wa-det-col">
-        <span class="wa-det-col-h" style="background:rgba(120,80,20,.12);color:#6a3a08;">${b.known?'Знал':'Не знал / миф'}</span>
+        <span class="wa-det-col-h before">${b.known?'Знал':'Не знал / миф'}</span>
         <div class="wa-det-col-body">${b.myth}<br><br><i style="opacity:.6;">${b.src}</i></div>
       </div>
       <div class="wa-det-col">
-        <span class="wa-det-col-h" style="background:rgba(30,100,180,.12);color:#0a4070;">${a.known?'Узнал лично':'Только слухи'}</span>
+        <span class="wa-det-col-h after">${a.known?'Узнал лично':'Только слухи'}</span>
         <div class="wa-det-col-body">${a.real}<br><br><i style="opacity:.6;">${a.src}</i></div>
       </div>
     </div>
