@@ -4,7 +4,7 @@ This file is maintained by AI assistants (Antigravity/Claude) working on this re
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
 > **Last updated:** 2026-05-20 · Conversation ID: GPT-5.5 follow-up after Claude Haiku Phase 4 + FIX 5–8
-> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), beb79bd (PWA), plus A5 map follow-up
+> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), beb79bd (PWA), 5d7caaa (A5 map), plus legacy-date wording follow-up
 
 ---
 
@@ -35,6 +35,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | FIX 6 — Silence zone + pronouns | ✅ Done | Grey zone (Mar 1471 – May 1472): 13+ months no writings. New 5th dimension "Одиночество" (яз/я один +10 vs есмя/мы −10). All 20 points tagged: Tver alone, Volga together, robbery destroys group, Bidar alone, prayer alone, sea together, Kaffa alone. Zone visualized as grey rect between points 14–15 |
 | FIX 7 — Chronological order | ✅ Done | Toggle button switches between manuscript order (7 blocks → Mamyrev → 3 copies) and chronological writing order (7 periods: Persia 1468–69 → India 1469 → India 1470 → Dorozhnik 1470 → Aland+Parwat 1470–71 → SILENCE 1471–72 → War chronicle 1472–73 → Kaffa 1474). All nodes have detailed metadata about genre, language, manuscript page numbers (Ф.N). |
 | A5 — Map canvas dark palette | ✅ Done | Removed the shared CSS inversion filter and made `afanasy_v8_text_map.html` rebuild its Canvas basemap with light/dark palettes from `data-theme`; verified `?wp=18` opens Dabhol and dark-mode canvas filter is `none` |
+| Legacy date-range wording cleanup | ✅ Done | Removed literal old-range chronology strings from public widgets and project handoff/reference docs; `rg "1468.{0,3}1474"` is clean outside the extracted book text/PDF exclusions |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |

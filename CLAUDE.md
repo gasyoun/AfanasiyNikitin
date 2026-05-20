@@ -189,7 +189,7 @@ Do not adjust without updating all route visualizations that depend on this view
 
 ## Scholarly Context
 
-The project is grounded in Dmitri Khrustalev's 2026 monograph which revises the traditional dating of Afanasiy Nikitin's journey from **1468–1474** to **1467–1475** using:
+The project is grounded in Dmitri Khrustalev's 2026 monograph which revises the traditional dating of Afanasiy Nikitin's journey to **1467–1475** using:
 
 - Astronomical analysis of Paschal dates (Easter 1469 in Hormuz)
 - Overlap of Orthodox Lent and Ramadan (~4 March 1470)

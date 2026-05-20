@@ -28,7 +28,7 @@ Khrustalev reconstructs 8 Easters with exact dates and locations:
 
 **Visualization:** Horizontal timeline 1467–1474. Two parallel tracks: Orthodox Paschal table (true dates) vs. Afanasiy's actual celebrations (observed dates). Gap between tracks grows as he loses the calendar. Color shifts from green (accurate) to red (drift). Islamic Ramadan/Bayram bars shown below. Clicking each Easter shows the text quote.
 
-**Why unique:** This is the mathematical proof of Khrustalev's 1467–1475 dating (vs. previous 1468–1474). Core argument of Chapter 2 §4 and Chapter 4.
+**Why unique:** This is the mathematical proof of Khrustalev's 1467–1475 dating versus the previous chronology. Core argument of Chapter 2 §4 and Chapter 4.
 
 ---
 
@@ -248,7 +248,7 @@ Timeline of how the text was discovered, edited, and reinterpreted:
 | 1926 | Trubetskoy: first compositional analysis (ignored) |
 | 1948 | First academic edition (Adrianova-Peretz, AN USSR) |
 | 1958 | 2nd edition |
-| 1978 | Semenov revises dates to 1468–1474 |
+| 1978 | Semenov revises the traditional dating |
 | 1983 | Trubetskoy rediscovered |
 | 1986 | 3rd academic edition (Lurye + Semenov) |
 | 1986 | Soviet film «Хождение за три моря» |
@@ -256,7 +256,7 @@ Timeline of how the text was discovered, edited, and reinterpreted:
 | 2025 | Gorodilin: argues 1467 departure |
 | 2026 | Khrustalev: full reconstruction, dates 1467–1475 |
 
-**Visualization:** Vertical scrolling timeline with illustrations. Each entry = card with what changed and why. Show the date range evolution as a horizontal bar that shifts over time: 1466–1472 → 1468–1474 → 1467–1475.
+**Visualization:** Vertical scrolling timeline with illustrations. Each entry = card with what changed and why. Show the date-range evolution as a horizontal bar that shifts over time from earlier reconstructions to Khrustalev's 1467–1475 chronology.
 
 ---
 

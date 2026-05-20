@@ -22,7 +22,7 @@ The full scholarly source is `scratch/book_text.txt` (271 pages, 928K chars, ext
 
 ## Critical constraints (do not violate)
 
-- **Dates:** Khrustalev 2026 dating is **1467–1475** (NOT the older 1468–1474). If you see "1468–1474" anywhere, it's a regression.
+- **Dates:** Khrustalev 2026 dating is **1467–1475**, not the older chronology. Literal old-range strings in public files are a regression marker.
 - **No build step.** Do not introduce npm, webpack, vite, React, Vue, TypeScript, or any compilation. Static HTML served by GitHub Pages is the deployment.
 - **No new external dependencies.** Only D3 v7, TopoJSON 3, world-atlas 110m, Tabler Icons are allowed. Prefer making them local (`lib/`) over adding more CDNs.
 - **No URL breakage.** All `.html` filenames stay the same — they are bookmarked, embedded, and referenced from external sites.

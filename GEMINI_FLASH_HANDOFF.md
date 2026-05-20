@@ -15,7 +15,7 @@
 3. **Test after each stage** — run `python -m http.server 8080` and verify in browser
 4. **Commit after each stage** — one commit per stage with descriptive message
 5. **Do not remove inline widget CSS** — only remove the shared boilerplate CSS blocks
-6. **Data integrity** — dates follow Khrustalev 2026: journey is 1467–1475 (not 1468–1474)
+6. **Data integrity** — dates follow Khrustalev 2026: journey is 1467–1475, not the older chronology
 
 ---
 
