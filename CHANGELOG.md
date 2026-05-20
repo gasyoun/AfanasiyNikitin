@@ -27,6 +27,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `afanasy_trade_marshruttnik.html`: constrained the trade-map canvas and details panel so filter/map/theme interactions fit within 1366×768.
 - `three_travelers_comparison.html`: compacted traveler cards and map height so four-traveler toggles fit within 1366×768.
 - `afanasy_manuscripts.html`: switched the manuscript comparison to a two-column desktop layout with bounded proof/comparison panels so passage, note, Gantt-link, and theme interactions fit within 1366×768.
+- `afanasy_bestiary.html`: compacted the illuminated-card grid and bounded the detail panel so card selection and theme interactions fit within 1366×768.
 - `afanasy_video_export.html`: added theme-aware Canvas basemap, route, waypoint, marker, label, loading, and video HUD colors for light/dark mode.
 - `afanasy_world_before_after.html`: added theme-aware Canvas palettes for both before/after maps, route, markers, labels, and active highlights in dark mode.
 - `afanasy_trade_marshruttnik.html`: added theme-aware Canvas basemap, route, port, label, and legend colors for dark mode; replaced an invalid CSS-variable string used as a Canvas fill color.
