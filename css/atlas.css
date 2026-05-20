@@ -36,6 +36,11 @@
     --viz-sea: #1d6fa8;
     --viz-land: #8b5a30;
     --viz-stay: #bbb;
+    --viz-emotion-total: #6e32a0;
+    --viz-emotion-hope: #1e8250;
+    --viz-emotion-faith: #c0392b;
+    --viz-emotion-wonder: #1d6fa8;
+    --viz-emotion-pronoun: #8b5a30;
 }
 
 html[data-theme="dark"] body {

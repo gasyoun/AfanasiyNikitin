@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Афанасий Никитин — Эмоциональная дуга</title>
   
-  <!-- CSS Variables & Base Styles -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<!-- CSS Variables & Base Styles -->
   <link rel="stylesheet" href="css/atlas.css">
   <style>
     /* Original Widget Styles */
@@ -46,27 +47,27 @@ svg#ea-svg{display:block;width:100%;}
 
 <div class="ea-dims" id="ea-dims">
   <div class="ea-dim active" data-dim="total" onclick="setDim('total')">
-    <div class="ea-dim-dot" style="background:#6e32a0;"></div>
+    <div class="ea-dim-dot" style="background:var(--viz-emotion-total);"></div>
     <div class="ea-dim-name">Общий тон</div>
     <div class="ea-dim-sub">−10 (отчаяние) → +10 (радость)</div>
   </div>
   <div class="ea-dim" data-dim="hope" onclick="setDim('hope')">
-    <div class="ea-dim-dot" style="background:#1e8250;"></div>
+    <div class="ea-dim-dot" style="background:var(--viz-emotion-hope);"></div>
     <div class="ea-dim-name">Надежда / тревога</div>
     <div class="ea-dim-sub">вернуться на Русь</div>
   </div>
   <div class="ea-dim" data-dim="faith" onclick="setDim('faith')">
-    <div class="ea-dim-dot" style="background:#c0392b;"></div>
+    <div class="ea-dim-dot" style="background:var(--viz-emotion-faith);"></div>
     <div class="ea-dim-name">Вера / сомнение</div>
     <div class="ea-dim-sub">христианская идентичность</div>
   </div>
   <div class="ea-dim" data-dim="wonder" onclick="setDim('wonder')">
-    <div class="ea-dim-dot" style="background:#1d6fa8;"></div>
+    <div class="ea-dim-dot" style="background:var(--viz-emotion-wonder);"></div>
     <div class="ea-dim-name">Удивление / скука</div>
     <div class="ea-dim-sub">взгляд этнографа</div>
   </div>
   <div class="ea-dim" data-dim="pronoun" onclick="setDim('pronoun')">
-    <div class="ea-dim-dot" style="background:#8b5a30;"></div>
+    <div class="ea-dim-dot" style="background:var(--viz-emotion-pronoun);"></div>
     <div class="ea-dim-name">Одиночество</div>
     <div class="ea-dim-sub">я один (яз) ↔ мы вместе (есмя)</div>
   </div>
