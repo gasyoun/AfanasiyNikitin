@@ -60,6 +60,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Composition tree colors tokenized | ✅ Done | `khozheniye_composition_tree.html` now uses shared `--viz-comp-*` variables and theme-aware SVG fill helpers for manuscript and chronological views; verified node click, order toggle, dark mode, no scroll, and clean console in headless Edge. |
 | People network colors tokenized | ✅ Done | `afanasy_people_network.html` now uses shared `--viz-network-*` variables for legend, Canvas nodes/edges/labels, and detail accents; verified filter, node click, dark mode, no scroll, and clean console in headless Edge. |
 | Language map colors tokenized | ✅ Done | `afanasy_language_map_v2.html` now uses shared `--viz-language-*` variables for highlighted text, cards, legend dots, timeline segments, and detail mini-bars; verified language filter, timeline detail open, dark mode, no scroll, and clean console in headless Edge. |
+| Speed chart colors tokenized | ✅ Done | `afanasy_speed_land_sea.html` now uses shared variables for stay markers, label arrows, and tooltip shadow; verified SVG variable fill, tooltip hover, dark mode, no scroll, and clean console in headless Edge. |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
@@ -193,7 +194,7 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 8. ✅ **A6** — phantom widget link audit/status sync (DONE)
 9. ✅ **Cross-linking** — Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt focus links, and all-pages breadcrumbs are done
 10. ✅ **No-scroll layout** — shared shell + four chart widgets + video export + trade map + travelers + manuscripts + bestiary + borders + language map + trade guide compacted and browser-verified at 1366×768
-11. 🔄 **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree/people network are done; continue with remaining comparison widgets and trade widgets in small verified commits
+11. 🔄 **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree/people network/speed chart are done; continue with remaining comparison widgets, trade widgets, and SVG-cover widgets in small verified commits
 
 **Then (Phase 3 new visualizations):**
 1. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)
