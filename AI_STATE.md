@@ -4,7 +4,7 @@ This file is maintained by AI assistants (Antigravity/Claude) working on this re
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
 > **Last updated:** 2026-05-20 · Conversation ID: GPT-5.5 follow-up after Claude Haiku Phase 4 + FIX 5–8
-> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), beb79bd (PWA), 5d7caaa (A5 map), 88545c7 (date wording), d4d9c33 (A5 travelers), 2fd59e9 (A5 borders), e0a5932 (A5 trade), cd782f7 (A5 world before/after), 91a2c17 (A5 video export), 4d40812 (FIX 9 index navigation), plus A7 documentation sync
+> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), beb79bd (PWA), 5d7caaa (A5 map), 88545c7 (date wording), d4d9c33 (A5 travelers), 2fd59e9 (A5 borders), e0a5932 (A5 trade), cd782f7 (A5 world before/after), 91a2c17 (A5 video export), 4d40812 (FIX 9 index navigation), d7cd25c (A7 docs/local assets), plus A6 link-audit status sync
 
 ---
 
@@ -171,6 +171,7 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 5. ✅ **A5 remaining canvases** — world before/after and video export theme-aware Canvas palettes (DONE)
 6. ✅ **FIX 9** — current 21-widget index navigation with search/category filters (DONE)
 7. ✅ **A7** — local asset/CDN documentation sync (DONE)
+8. ✅ **A6** — phantom widget link audit/status sync (DONE)
 
 **Then (Phase 3 new visualizations):**
 1. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)

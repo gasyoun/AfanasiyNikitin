@@ -141,7 +141,7 @@ Split Bidar into 5 phases:
 
 **Data source:** Ф.21, Ф.39, Ф.80; Conclusion pp.230–231
 **Effort:** ~1h
-**Status:** ⬜
+**Status:** ✅ Done — economics widget now uses the exact Khrustalev horse purchase/sale values, one-year ownership, Bidar daily cost, and ruble/altyn/dengi conversions.
 
 ---
 
@@ -305,7 +305,7 @@ These are NOT in the data-correctness fixes above. They are real bugs in current
 
 **Fix options:** (a) build them (covered by ROADMAP Phase 3), or (b) remove from README/index.md until built. Recommend (b) for honesty until they ship.
 **Effort:** 30 min for option (b); 20–40h for option (a)
-**Status:** ⬜
+**Status:** ✅ Done — README/index/sw HTML links now resolve to existing pages; the current atlas has 21 built HTML widgets, and the older phantom filenames are no longer public navigation links.
 
 ### A7 — CDN single point of failure 🔵
 **Files:** All 13 widgets
