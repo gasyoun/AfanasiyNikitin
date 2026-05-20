@@ -4,14 +4,14 @@ This file is maintained by AI assistants (Antigravity/Claude) working on this re
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
 > **Last updated:** 2026-05-20 · Conversation ID: GPT-5.5 follow-up after Claude Haiku Phase 4 + FIX 5–8
-> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), beb79bd (PWA), 5d7caaa (A5 map), 88545c7 (date wording), d4d9c33 (A5 travelers), 2fd59e9 (A5 borders), e0a5932 (A5 trade), cd782f7 (A5 world before/after), plus A5 video export follow-up
+> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), beb79bd (PWA), 5d7caaa (A5 map), 88545c7 (date wording), d4d9c33 (A5 travelers), 2fd59e9 (A5 borders), e0a5932 (A5 trade), cd782f7 (A5 world before/after), 91a2c17 (A5 video export), plus FIX 9 index navigation follow-up
 
 ---
 
-## Current Status: ✅ PHASE 2 COMPLETE + FIX 5–8 DONE + A5 CANVAS AUDIT COMPLETE
+## Current Status: ✅ PHASE 2 COMPLETE + FIX 5–9 DONE + A5 CANVAS AUDIT COMPLETE
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 1–4 data corrections. Phase 2 complete: shared CSS in `css/atlas.css`, bundled local assets in `lib/`, shared map/Gantt data in `js/atlas-data.js`, and shared theme logic in `js/atlas-theme.js`. Phase 4.1–4.2 PWA shell exists: `manifest.json`, `sw.js` Service Worker, cache list aligned to the current widget filenames. FIX 5–8 are complete: manuscript leaf proof, emotional silence/pronouns, composition chronological toggle, and Mahmud Gavan as 4th traveler. A5 is complete across all Canvas widgets: no shared CSS inversion filter remains, and each Canvas page now draws its own light/dark palette.
+Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 1–4 data corrections. Phase 2 complete: shared CSS in `css/atlas.css`, bundled local assets in `lib/`, shared map/Gantt data in `js/atlas-data.js`, and shared theme logic in `js/atlas-theme.js`. Phase 4.1–4.2 PWA shell exists: `manifest.json`, `sw.js` Service Worker, cache list aligned to the current widget filenames. FIX 5–9 are complete: manuscript leaf proof, emotional silence/pronouns, composition chronological toggle, Mahmud Gavan as 4th traveler, and current 21-widget index navigation. A5 is complete across all Canvas widgets: no shared CSS inversion filter remains, and each Canvas page now draws its own light/dark palette.
 
 ---
 
@@ -40,6 +40,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | A5 — Trade canvas dark palette | ✅ Done | `afanasy_trade_marshruttnik.html` now rebuilds its basemap, routes, ports, labels, and legend from the active theme; replaced an invalid CSS-variable string used as a Canvas fill color; verified filter and port interactions in headless Edge |
 | A5 — World before/after canvas dark palette | ✅ Done | `afanasy_world_before_after.html` now redraws both before/after Canvas maps, route, markers, labels, and active highlights from the active theme; verified India click, after-tab toggle, and dark-mode Canvas redraw in headless Edge |
 | A5 — Video export canvas dark palette | ✅ Done | `afanasy_video_export.html` now rebuilds its offscreen basemap and overlay palette from the active theme; verified play/pause, slider, speed select, short MediaRecorder start/stop, and dark-mode Canvas redraw in headless Edge |
+| FIX 9 — Index navigation | ✅ Done | `index.html` now has search, six category filters, and a collapsible question/scenario section for the current 20 visible cards + video export download page; verified filter/search/details/theme interactions in headless Edge |
 | Legacy date-range wording cleanup | ✅ Done | Removed literal old-range chronology strings from public widgets and project handoff/reference docs; `rg "1468.{0,3}1474"` is clean outside the extracted book text/PDF exclusions |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
@@ -168,6 +169,7 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 3. ✅ **FIX 7** — Composition tree: chronological writing order toggle (DONE)
 4. ✅ **A5 map** — remove CSS canvas inversion and add map-owned dark palette (DONE)
 5. ✅ **A5 remaining canvases** — world before/after and video export theme-aware Canvas palettes (DONE)
+6. ✅ **FIX 9** — current 21-widget index navigation with search/category filters (DONE)
 
 **Then (Phase 3 new visualizations):**
 1. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)

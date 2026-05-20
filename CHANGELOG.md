@@ -8,6 +8,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- `index.html`: added search, category filters, and a collapsible question/scenario section for navigating the current 21-widget atlas.
 - Added PWA metadata and a Service Worker cache shell so the atlas can be installed and served from local cached assets when available.
 
 ### Changed

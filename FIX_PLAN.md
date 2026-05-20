@@ -29,7 +29,7 @@
 
 **Effort:** ~3h
 
-**Status:** ⬜
+**Status:** ✅ Done — route map now has 28 waypoints, including Lar, Aland, Gulbarga, Kallur, Dabhol, Somalia, Erzinjan, Platana, and Balaklava/Gurzuf; the generic west-coast placeholder was corrected to Dabhol.
 
 ---
 
@@ -92,7 +92,7 @@ Split Bidar into 5 phases:
 
 **Data source:** Chapter 4, pp.148–155
 **Effort:** ~4h
-**Status:** ⬜
+**Status:** ✅ Done — Gantt now includes the 19-segment return breakdown, Bidar phases, Gulbarga, Kallur, Dabhol, Somalia/Maskat, Black Sea stops, dated markers, and updated map deep links.
 
 ---
 
@@ -246,7 +246,7 @@ Split Bidar into 5 phases:
 - Add search/filter by category
 
 **Effort:** ~2h
-**Status:** ⬜
+**Status:** ✅ Done — adjusted for the current 21-widget atlas rather than the superseded 25-item plan: `index.html` already groups the visible cards into six sections, now adds search/category filters and a collapsible question/scenario section.
 
 ---
 
@@ -348,7 +348,7 @@ None of the 12 visualizations link to each other (except Gantt→Map via `?wp=N`
 | 6 | FIX 6 — Emotional arc: silence + pronouns | 2h | Medium |
 | 7 | FIX 7 — Composition tree: chronological order | 3h | Medium |
 | 8 | FIX 8 — Three travelers: add Gavan | 3h | High — visual |
-| 9 | FIX 9 — Index: 25 items | 2h | High — navigation |
+| 9 | FIX 9 — Index navigation | 2h | High — navigation |
 | 10 | A5 — Dark canvas labels | 2h | Medium — readability |
 | 11 | A7 — Local CDN fallback | 1h | Medium — offline demo |
 | 12 | A6 — Remove or build 6 phantom widgets | 30 min – 40h | Medium — honesty |
