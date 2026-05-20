@@ -31,18 +31,18 @@ canvas#pn-c{display:block;width:100%;border-radius:var(--border-radius-lg);borde
 .pn-f{padding:4px 11px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;white-space:nowrap;}
 .pn-f.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
 /* Relationship type colors */
-.pn-leg-dot-afanasiy{background:#e09520;border:2px solid #8a5000;}
-.pn-leg-dot-help{background:#1e8250;}
-.pn-leg-dot-harm{background:#c0392b;}
-.pn-leg-dot-neutral{background:#5a6e8a;}
-.pn-leg-dot-indirect{background:#8a8a8a;border:1px dashed #aaa;}
-.pn-leg-line-help{background:#1e8250;}
-.pn-leg-line-harm{background:#c0392b;}
-.pn-leg-line-neutral{background:#8a8a8a;}
-.pn-leg-line-indirect{border-top:1px dashed #b97314;height:0;}
-.pn-help-text{color:#1e8250;}
-.pn-harm-text{color:#c0392b;}
-.pn-neutral-text{color:#8a8a8a;}
+.pn-leg-dot-afanasiy{background:var(--viz-network-self);border:2px solid var(--viz-network-self-stroke);}
+.pn-leg-dot-help{background:var(--viz-network-help);}
+.pn-leg-dot-harm{background:var(--viz-network-harm);}
+.pn-leg-dot-neutral{background:var(--viz-network-neutral);}
+.pn-leg-dot-indirect{background:var(--viz-network-indirect);border:1px dashed var(--color-border-secondary);}
+.pn-leg-line-help{background:var(--viz-network-help);}
+.pn-leg-line-harm{background:var(--viz-network-harm);}
+.pn-leg-line-neutral{background:var(--viz-network-indirect);}
+.pn-leg-line-indirect{border-top:1px dashed var(--viz-network-indirect-edge);height:0;}
+.pn-help-text{color:var(--viz-network-help);}
+.pn-harm-text{color:var(--viz-network-harm);}
+.pn-neutral-text{color:var(--viz-network-indirect);}
   </style>
 </head>
 <body>
@@ -199,8 +199,26 @@ const EDGES=[
   {a:'mamyrev',b:'karamzin',type:'indirect',label:'летопись\n→ издание'},
 ];
 
-const TYPE_COLOR={self:'#e09520',help:'#1e8250',harm:'#c0392b',neutral:'#5a6e8a',indirect:'#9a9a9a'};
-const EDGE_COLOR={help:'#1e8250',harm:'#c0392b',neutral:'#aaaaaa',indirect:'#b97314'};
+const TYPE_TOKEN={self:'--viz-network-self',help:'--viz-network-help',harm:'--viz-network-harm',neutral:'--viz-network-neutral',indirect:'--viz-network-indirect'};
+const EDGE_TOKEN={help:'--viz-network-help',harm:'--viz-network-harm',neutral:'--viz-network-indirect',indirect:'--viz-network-indirect-edge'};
+
+function cssVal(name,fallback){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||fallback;}
+function colorOf(token,fallback){
+  if(!token)return fallback;
+  return token.startsWith('--')?cssVal(token,fallback):token;
+}
+function alpha(color,value){
+  const c=color.trim();
+  if(c.startsWith('#')){
+    const hex=c.slice(1);
+    const full=hex.length===3?hex.split('').map(ch=>ch+ch).join(''):hex.slice(0,6);
+    const num=parseInt(full,16);
+    return `rgba(${(num>>16)&255},${(num>>8)&255},${num&255},${value})`;
+  }
+  const rgb=c.match(/^rgba?\(([^)]+)\)$/);
+  if(rgb)return `rgba(${rgb[1].split(',').slice(0,3).join(',')},${value})`;
+  return c;
+}
 
 let activeFilter='all', activeNode=null, dragging=null, dragOffX=0, dragOffY=0;
 
@@ -219,8 +237,8 @@ function edgeVisible(e){
 function halo(txt,x,y,col,fnt){
   ctx.font=fnt||'bold 8px sans-serif';
   ctx.textAlign='center';
-  ctx.strokeStyle='rgba(255,255,255,0.7)';ctx.lineWidth=2.5;ctx.strokeText(txt,x,y);
-  ctx.fillStyle=col||'rgba(20,10,5,.85)';ctx.fillText(txt,x,y);
+  ctx.strokeStyle=alpha(cssVal('--color-background-primary','#fff'),.72);ctx.lineWidth=2.5;ctx.strokeText(txt,x,y);
+  ctx.fillStyle=col||cssVal('--color-text-primary','#2c1810');ctx.fillText(txt,x,y);
 }
 
 function draw(){
@@ -232,7 +250,7 @@ function draw(){
     const na=NODES.find(n=>n.id===e.a);
     const nb=NODES.find(n=>n.id===e.b);
     if(!na||!nb||!nodeVisible(na)||!nodeVisible(nb))return;
-    const col=EDGE_COLOR[e.type]||'#aaa';
+    const col=colorOf(EDGE_TOKEN[e.type],cssVal('--color-border-secondary','#aaa'));
     ctx.beginPath();ctx.moveTo(na.x,na.y);ctx.lineTo(nb.x,nb.y);
     ctx.strokeStyle=col;ctx.lineWidth=e.type==='harm'?2:1.5;
     if(e.type==='indirect')ctx.setLineDash([5,4]);
@@ -255,7 +273,7 @@ function draw(){
     const na=NODES.find(n=>n.id===e.a);
     const nb=NODES.find(n=>n.id===e.b);
     if(!na||!nb||!nodeVisible(na)||!nodeVisible(nb))return;
-    const col=EDGE_COLOR[e.type]||'#aaa';
+    const col=colorOf(EDGE_TOKEN[e.type],cssVal('--color-border-secondary','#aaa'));
     const angle=Math.atan2(nb.y-na.y,nb.x-na.x);
     const ex=nb.x-Math.cos(angle)*nb.r;
     const ey=nb.y-Math.sin(angle)*nb.r;
@@ -269,14 +287,14 @@ function draw(){
   NODES.forEach(n=>{
     if(!nodeVisible(n))return;
     const isActive=activeNode===n.id;
-    const col=TYPE_COLOR[n.type]||'#888';
+    const col=colorOf(TYPE_TOKEN[n.type],cssVal('--color-border-primary','#888'));
 
     if(isActive){
       ctx.beginPath();ctx.arc(n.x,n.y,n.r+7,0,Math.PI*2);
       ctx.fillStyle=col;ctx.globalAlpha=.15;ctx.fill();ctx.globalAlpha=1;
     }
     ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
-    ctx.fillStyle=n.type==='self'?'#fff8ec':'var(--color-background-primary)';
+    ctx.fillStyle=n.type==='self'?alpha(col,.12):cssVal('--color-background-primary','#fff');
     ctx.fill();
     ctx.strokeStyle=col;ctx.lineWidth=isActive?2.5:n.type==='indirect'?1.2:1.8;
     if(n.type==='indirect')ctx.setLineDash([4,3]);
@@ -302,7 +320,7 @@ function getNodeAt(mx,my){
 function showDetail(n){
   const det=document.getElementById('pn-det');
   if(!n){det.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary);">Нажмите на узел чтобы узнать о человеке.</div>';det.style.borderLeftColor='var(--color-border-tertiary)';return;}
-  const col=TYPE_COLOR[n.type]||'#888';
+  const col=colorOf(TYPE_TOKEN[n.type],cssVal('--color-border-primary','#888'));
   det.style.borderLeftColor=col;
   det.innerHTML=`<div class="pn-det-name" style="color:${col};">${n.label.replace('\n',' ')}</div>
     <div class="pn-det-role">${n.role} · <span style="opacity:.7;">${n.loc}</span></div>
@@ -347,6 +365,7 @@ window.setFilter=function(f){
 };
 
 draw();
+new MutationObserver(()=>draw()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 // Auto-spin slightly to show it's interactive
 let spin=0;
 const initPos=NODES.map(n=>({id:n.id,x:n.x,y:n.y}));

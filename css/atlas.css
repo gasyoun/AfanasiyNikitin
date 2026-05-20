@@ -118,6 +118,15 @@
     --viz-comp-editor-text: #5a5a5a;
     --viz-comp-troitsky: #3770be;
     --viz-comp-silence: #888888;
+
+    /* People network */
+    --viz-network-self: #e09520;
+    --viz-network-self-stroke: #8a5000;
+    --viz-network-help: #1e8250;
+    --viz-network-harm: #c0392b;
+    --viz-network-neutral: #5a6e8a;
+    --viz-network-indirect: #8a8a8a;
+    --viz-network-indirect-edge: #b97314;
 }
 
 [data-theme="dark"] {

@@ -58,6 +58,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Religious crisis colors tokenized | ✅ Done | `afanasy_religious_crisis.html` now uses shared `--viz-religion-*` variables for cards, legend, SVG annotations, ratio shading, and detail badges; verified all three tabs, graph click, theme toggle, no scroll, and clean console in headless Edge. |
 | Historiography colors tokenized | ✅ Done | `afanasy_historiography.html` now uses shared `--viz-hist-*` variables for timeline events, era bands, nav accents, detail headers, and tags; verified event selection, dark mode, no scroll, and clean console in headless Edge. |
 | Composition tree colors tokenized | ✅ Done | `khozheniye_composition_tree.html` now uses shared `--viz-comp-*` variables and theme-aware SVG fill helpers for manuscript and chronological views; verified node click, order toggle, dark mode, no scroll, and clean console in headless Edge. |
+| People network colors tokenized | ✅ Done | `afanasy_people_network.html` now uses shared `--viz-network-*` variables for legend, Canvas nodes/edges/labels, and detail accents; verified filter, node click, dark mode, no scroll, and clean console in headless Edge. |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
@@ -143,7 +144,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 |-------|----------|------|-------|
 | Existing 1366×768 page scroll | Resolved | multiple widgets | Compact shell and widget-specific passes now fit the audited 1366×768 pages without document-level vertical scroll. |
 | Mobile touch targets | Low | all pages | Not tested on phone; touch targets may be too small |
-| New widget color-token audit | Medium | remaining new widgets | Citation, economics, calendar, language-map, religious-crisis, historiography, and composition-tree colors now use shared tokens; remaining internal chart/data colors still need CSS-token passes before considering the newer widgets fully compliant with conventions |
+| New widget color-token audit | Medium | remaining new widgets | Citation, economics, calendar, language-map, religious-crisis, historiography, composition-tree, and people-network colors now use shared tokens; remaining internal chart/data colors still need CSS-token passes before considering the newer widgets fully compliant with conventions |
 | `scratch/theme_injector.py` not committed to repo | Resolved | — | Committed in `9e006c0` |
 | PWA device install/offline reload | Medium | `manifest.json`, `sw.js` | Static files are present; needs Android Chrome / iPhone Safari install and offline reload validation |
 
@@ -191,7 +192,7 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 8. ✅ **A6** — phantom widget link audit/status sync (DONE)
 9. ✅ **Cross-linking** — Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt focus links, and all-pages breadcrumbs are done
 10. ✅ **No-scroll layout** — shared shell + four chart widgets + video export + trade map + travelers + manuscripts + bestiary + borders + language map + trade guide compacted and browser-verified at 1366×768
-11. 🔄 **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree are done; continue with remaining comparison/network widgets in small verified commits
+11. 🔄 **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree/people network are done; continue with remaining comparison widgets and trade widgets in small verified commits
 
 **Then (Phase 3 new visualizations):**
 1. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)
