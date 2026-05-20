@@ -30,6 +30,19 @@ canvas#pn-c{display:block;width:100%;border-radius:var(--border-radius-lg);borde
 .pn-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
 .pn-f{padding:4px 11px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;white-space:nowrap;}
 .pn-f.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
+/* Relationship type colors */
+.pn-leg-dot-afanasiy{background:#e09520;border:2px solid #8a5000;}
+.pn-leg-dot-help{background:#1e8250;}
+.pn-leg-dot-harm{background:#c0392b;}
+.pn-leg-dot-neutral{background:#5a6e8a;}
+.pn-leg-dot-indirect{background:#8a8a8a;border:1px dashed #aaa;}
+.pn-leg-line-help{background:#1e8250;}
+.pn-leg-line-harm{background:#c0392b;}
+.pn-leg-line-neutral{background:#8a8a8a;}
+.pn-leg-line-indirect{border-top:1px dashed #b97314;height:0;}
+.pn-help-text{color:#1e8250;}
+.pn-harm-text{color:#c0392b;}
+.pn-neutral-text{color:#8a8a8a;}
   </style>
 </head>
 <body>
@@ -42,7 +55,7 @@ canvas#pn-c{display:block;width:100%;border-radius:var(--border-radius-lg);borde
     <h2 class="sr-only">Сеть людей Афанасия Никитина — граф встреч, кто помог и кто навредил</h2>
     <div class="pn">
 <div class="pn-intro">
-  Афанасий встретил десятки людей за 8 лет. Одни <b style="color:#1e8250;">помогли</b> выжить, другие <b style="color:#c0392b;">навредили</b>, третьи были <b style="color:#8a8a8a;">нейтральны</b>. Нажмите узел чтобы узнать о человеке. Перетаскивайте узлы.
+  Афанасий встретил десятки людей за 8 лет. Одни <b class="pn-help-text">помогли</b> выжить, другие <b class="pn-harm-text">навредили</b>, третьи были <b class="pn-neutral-text">нейтральны</b>. Нажмите узел чтобы узнать о человеке. Перетаскивайте узлы.
 </div>
 
 <div class="pn-filters" id="pn-filters">
@@ -61,16 +74,16 @@ canvas#pn-c{display:block;width:100%;border-radius:var(--border-radius-lg);borde
   <div class="pn-sidebar">
     <div class="pn-legend">
       <div class="pn-leg-h">УЗЛЫ</div>
-      <div class="pn-leg-row"><div class="pn-leg-dot" style="background:#e09520;border:2px solid #8a5000;"></div>Афанасий (центр)</div>
-      <div class="pn-leg-row"><div class="pn-leg-dot" style="background:#1e8250;"></div>Помог</div>
-      <div class="pn-leg-row"><div class="pn-leg-dot" style="background:#c0392b;"></div>Навредил</div>
-      <div class="pn-leg-row"><div class="pn-leg-dot" style="background:#5a6e8a;"></div>Нейтральный</div>
-      <div class="pn-leg-row"><div class="pn-leg-dot" style="background:#8a8a8a;border:1px dashed #aaa;"></div>Заочный / косвенный</div>
+      <div class="pn-leg-row"><div class="pn-leg-dot pn-leg-dot-afanasiy"></div>Афанасий (центр)</div>
+      <div class="pn-leg-row"><div class="pn-leg-dot pn-leg-dot-help"></div>Помог</div>
+      <div class="pn-leg-row"><div class="pn-leg-dot pn-leg-dot-harm"></div>Навредил</div>
+      <div class="pn-leg-row"><div class="pn-leg-dot pn-leg-dot-neutral"></div>Нейтральный</div>
+      <div class="pn-leg-row"><div class="pn-leg-dot pn-leg-dot-indirect"></div>Заочный / косвенный</div>
       <div class="pn-leg-h" style="margin-top:8px;">СВЯЗИ</div>
-      <div class="pn-leg-row"><div class="pn-leg-line" style="background:#1e8250;"></div>Помощь / спасение</div>
-      <div class="pn-leg-row"><div class="pn-leg-line" style="background:#c0392b;"></div>Угроза / ущерб</div>
-      <div class="pn-leg-row"><div class="pn-leg-line" style="background:#8a8a8a;"></div>Нейтральный контакт</div>
-      <div class="pn-leg-row"><div class="pn-leg-line" style="background:#b97314;border-top:1px dashed #b97314;height:0;"></div>Заочная связь</div>
+      <div class="pn-leg-row"><div class="pn-leg-line pn-leg-line-help"></div>Помощь / спасение</div>
+      <div class="pn-leg-row"><div class="pn-leg-line pn-leg-line-harm"></div>Угроза / ущерб</div>
+      <div class="pn-leg-row"><div class="pn-leg-line pn-leg-line-neutral"></div>Нейтральный контакт</div>
+      <div class="pn-leg-row"><div class="pn-leg-line pn-leg-line-indirect"></div>Заочная связь</div>
     </div>
     <div class="pn-detail" id="pn-det">
       <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.6;">Нажмите на узел чтобы узнать о человеке и его роли в судьбе Афанасия.</div>
