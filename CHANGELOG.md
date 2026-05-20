@@ -12,6 +12,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Cross-linked related widgets: calendar event details now open the matching route-map waypoint; Bidar economics entries open Bidar on the map; manuscript passages open a focused Gantt timeline period.
 - `index.html`: added search, category filters, and a collapsible question/scenario section for navigating the current 21-widget atlas.
 - Added PWA metadata and a Service Worker cache shell so the atlas can be installed and served from local cached assets when available.
+- **Web fonts**: Inter (body/UI) + Playfair Display (headings) via Google Fonts `@import` in `atlas.css`.
+- **Keyboard shortcuts** on all 22 pages: `Esc` → return to atlas, `D` → toggle dark/light theme.
+- **Accessibility**: `aria-label` on all theme toggle buttons; global `:focus-visible` outline styles; `button:active` press feedback.
+- **Hero gradient** on index.html header with animated radial glow pulse.
+- **Sticky filter bar** on index.html (`position: sticky; backdrop-filter: blur(12px)`).
+- **Page entry animation**: `fadeSlideIn` 0.35s ease-out on `.vis-container` and `.container`.
+- **Type scale CSS variables**: `--text-xs` through `--text-2xl` in `atlas.css`.
+- **Chart dark-mode variable**: `--color-chart-silence` for light/dark-safe chart fills.
+- **Meta description** tag on index.html for SEO.
 
 ### Changed
 - Tightened the shared visualization shell spacing in `css/atlas.css`, bringing the map, Gantt, people network, and several compact widgets back within a 1366×768 viewport.
@@ -20,6 +29,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Bundled D3 v7, TopoJSON 3, world-atlas 110m data, and Tabler Icons under `lib/`; all current HTML pages now reference local assets instead of external CDNs.
 - Centralized the route map and Gantt timeline datasets into `js/atlas-data.js`; `afanasy_v8_text_map.html` and `afanasy_gantt.html` now consume shared `window.ATLAS` data.
 - Extracted the repeated dark/light theme toggle script into `js/atlas-theme.js` for the index and 13 established visualization pages.
+- **`--color-text-secondary`** darkened from `#6e5e54` to `#5e4e44` for WCAG AA contrast compliance.
+- **`--font-sans`** updated to `'Inter', -apple-system, …` (was system-stack only).
+- **`--font-display`** added: `'Playfair Display', Georgia, serif` — applied to all `h1`/`h2` headings.
+- **Card hover effect** upgraded to parchment-tone glow shadow with `:active` press feedback and smooth cubic-bezier transition.
+- **Theme toggle button**: removed inline `transition` from all 21 sub-pages (now CSS-driven with spring cubic-bezier + rotate on active).
+- **Mobile responsive**: bestiary grid 2-col → 3-col; filter pills min-height 44px; emotional arc dims 4-col → 2-col.
+- **Global**: `font-variant-numeric: tabular-nums`, `-webkit-font-smoothing: antialiased`, `scroll-behavior: smooth`.
+- **Smooth scroll**: filter pill click on index.html now scrolls to first visible section.
+- **Footer**: hardcoded `color: #bbb` → `var(--color-text-secondary)` for dark-mode compatibility.
+- **ROADMAP.md**: marked Phases 2b, 3, 4 as complete; updated priority summary.
 
 ### Fixed
 - `afanasy_citations_v2.html`, `afanasy_religious_crisis.html`, `afanasy_emotional_arc.html`, and `khozheniye_composition_tree.html`: constrained chart/detail heights so their primary interactions stay within 1366×768.
@@ -55,6 +74,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `afanasy_v8_text_map.html`: added the missing Khrustalev route waypoints (Lar, Aland, Gulbarga, Kallur, Dabhol, Somalia, Erzinjan, Platana, Balaklava/Gurzuf), replaced the generic west-coast placeholder with Dabhol, and re-indexed Gantt deep links to the new 28-point route.
 - `afanasy_calendar_pascha_islam.html`: added the eight Khrustalev Easter observations with parallel true/observed Pascha tracks, drift markers, the 1470 Ramadan/Lent annotation, and compact no-scroll layouts for all calendar tabs.
 - `afanasy_economics_prices.html`: replaced estimated horse-loss values with the exact Khrustalev data: 100 rubles purchase, 68 futuns sale, one-year ownership, 2.5 altyns per day in Bidar, and ruble/altyn/dengi conversions.
+- **`index.html`**: added missing `<link rel="stylesheet" href="lib/tabler-icons.min.css">` — theme toggle icon was invisible on the main page.
+- **`index.html`**: replaced hardcoded `style="color: #bbb;"` in footer with `var(--color-text-secondary)` for dark-mode compatibility.
 
 ---
 

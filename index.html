@@ -4,23 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Афанасий Никитин — интерактивный атлас</title>
+  <meta name="description" content="Первый интерактивный атлас путешествия Афанасия Никитина (1467–1475). 21 визуализация по книге Хрусталёва.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
   <style>
     body {
       display: block;
       line-height: 1.6;
       transition: background 0.3s, color 0.3s;
     }
-    .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+    .container {
+      max-width: 1200px; margin: 0 auto; padding: 40px 20px;
+      animation: fadeSlideIn 0.35s ease-out;
+    }
     header {
       text-align: center;
       margin-bottom: 50px;
-      padding-bottom: 30px;
+      padding: 48px 32px 30px;
       border-bottom: 2px solid var(--color-border-tertiary);
+      background: linear-gradient(135deg, rgba(139,90,48,0.06) 0%, rgba(184,112,32,0.03) 100%);
+      border-radius: var(--border-radius-lg);
+      position: relative;
+      overflow: hidden;
     }
-    h1 { font-size: 2.5em; margin-bottom: 10px; color: var(--color-text-primary); }
-    .subtitle { font-size: 1.1em; color: var(--color-text-secondary); margin-bottom: 20px; }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(184,112,32,0.05), transparent 60%);
+      animation: heroGlow 8s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes heroGlow {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(20px, -10px) scale(1.1); }
+    }
+    h1 { font-family: var(--font-display); font-size: 2.5em; margin-bottom: 10px; color: var(--color-text-primary); position: relative; }
+    .subtitle { font-size: 1.1em; color: var(--color-text-secondary); margin-bottom: 20px; position: relative; }
     .book-ref { font-size: 0.95em; color: var(--color-text-secondary); font-style: italic; opacity: 0.8; }
     .live-demo {
       display: inline-block;
@@ -43,6 +65,11 @@
       background: var(--color-background-secondary);
       border: 1px solid var(--color-border-secondary);
       border-radius: var(--border-radius-md);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     .atlas-search {
       width: 100%;
@@ -83,7 +110,7 @@
     }
 
     .section { margin-bottom: 50px; }
-    .section h2 { font-size: 1.4em; margin-bottom: 20px; color: var(--color-text-primary); display: flex; align-items: center; gap: 10px; }
+    .section h2 { font-family: var(--font-display); font-size: 1.4em; margin-bottom: 20px; color: var(--color-text-primary); display: flex; align-items: center; gap: 10px; }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -96,13 +123,18 @@
       padding: 20px;
       text-decoration: none;
       color: inherit;
-      transition: all 0.3s;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      touch-action: manipulation;
     }
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 24px rgba(139,90,48,0.12), 0 0 0 1px rgba(184,112,32,0.15);
       border-color: var(--color-accent);
+    }
+    .card:active {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139,90,48,0.1);
     }
     .card-num {
       display: inline-block;
@@ -161,7 +193,7 @@
       border-radius: 8px;
       padding: 30px;
     }
-    .overview > h2 { font-size: 1.4em; margin-bottom: 24px; color: var(--color-text-primary); }
+    .overview > h2 { font-family: var(--font-display); font-size: 1.4em; margin-bottom: 24px; color: var(--color-text-primary); }
     .overview-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -562,15 +594,24 @@
 
   <footer>
     <p>21 интерактивный HTML-виджет · Vanilla JS · D3.js · Canvas API · М.Ю. Гасунс</p>
-    <p style="margin-top: 10px; color: #bbb;">По книге: Д.Г. Хрусталёв «Тетради купца Афанасия» (СПб.: Нестор-История, 2026)</p>
+    <p style="margin-top: 10px; color: var(--color-text-secondary); opacity: 0.7;">По книге: Д.Г. Хрусталёв «Тетради купца Афанасия» (СПб.: Нестор-История, 2026)</p>
   </footer>
 </div>
 
   <!-- Floating Theme Toggle -->
-  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15);" title="Переключить тему">
     <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
   </button>
   <script src="js/atlas-theme.js"></script>
+
+  <!-- Keyboard shortcuts -->
+  <script>
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+        document.getElementById('theme-toggle')?.click();
+      }
+    });
+  </script>
 
   <script>
     (function(){
@@ -615,6 +656,9 @@
           active = button.dataset.filter;
           buttons.forEach(btn => btn.classList.toggle('active', btn === button));
           applyFilters();
+          // Smooth scroll to first visible section
+          const firstVisible = sections.find(s => !s.hidden);
+          if (firstVisible) firstVisible.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
       });
       search.addEventListener('input', applyFilters);

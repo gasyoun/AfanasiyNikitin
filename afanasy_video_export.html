@@ -478,10 +478,18 @@ requestAnimationFrame(frame);
 </script>
 
   <!-- Floating Theme Toggle -->
-  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15);" title="Переключить тему">
     <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
   </button>
   <script src="js/atlas-theme.js"></script>
+  <script>
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') location.href = 'index.html';
+      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+        document.getElementById('theme-toggle')?.click();
+      }
+    });
+  </script>
 
 </body>
 </html>

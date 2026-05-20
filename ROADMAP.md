@@ -34,41 +34,62 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
 ---
 
-## Phase 3 — Missing Visualizations ⬜ Planned
+## Phase 2b — UI/UX Upgrade ✅ Complete (2026-05-20)
 
-These widgets are described in `README.md` and `index.md` but do not yet exist as files.
-
-| # | Item | Priority | Description |
-|---|------|----------|-------------|
-| 3.1 | `afanasy_world_before_after.html` | 🔴 High | Two side-by-side maps: medieval myths (pre-journey knowledge) vs. personal experience. Click a location to compare "what Afanasiy knew" vs "what he found". Requires Canvas split-panel or SVG overlay approach |
-| 3.2 | `afanasy_religious_crisis.html` | 🔴 High | «Господи» vs «Аллах» vs «Бог» vs «Иса» term frequency by text section. Three modes: stacked bars, lines, ratio. Climax: 1470 — Arabic exceeds Russian |
-| 3.3 | `afanasy_social_network.html` | 🟡 Medium | D3 force graph of people Afanasiy met: Hasan-Khoja, Asad-Khan, Mahmud Gavan, the Shah. Draggable nodes, edge weights = interaction strength, filter by role (helped / harmed / mentioned) |
-| 3.4 | `afanasy_historiography.html` | 🟡 Medium | Timeline: who "discovered" Afanasiy — 1475 (Mamyrev) → 1818 (Karamzin) → 1853 → 1948 (USSR) → 1960 (film) → 1986 (academic) → 2026 (Khrustalev). Clickable nodes with quotes |
-| 3.5 | `afanasy_bestiary.html` | 🟡 Medium | 12 SVG "bestiary" cards in medieval manuscript style: elephant, parrot, mongoose, cobra, coconut, pepper, ginger, indigo, monkey, peacock, date palm, cotton. First mentions in Russian literature |
-| 3.6 | `afanasy_citations_stats.html` | 🟢 Low | Citation trends: how often Afanasiy Nikitin is cited in academic literature by decade. D3 line or bar chart with milestone annotations |
+| # | Item | Status | Notes |
+|---|------|--------|-------|
+| 2b.1 | Web fonts (Inter + Playfair Display) | 🟢 Done | Google Fonts via `@import` in `atlas.css` |
+| 2b.2 | Fix Tabler Icons on index.html | 🟢 Done | Missing `<link>` tag — theme toggle icon was invisible |
+| 2b.3 | Fix hardcoded dark-mode colors | 🟢 Done | Footer `#bbb` → `var(--color-text-secondary)` |
+| 2b.4 | WCAG contrast improvement | 🟢 Done | `--color-text-secondary` darkened `#6e5e54` → `#5e4e44` |
+| 2b.5 | Hero gradient on index header | 🟢 Done | Warm parchment gradient + animated radial glow |
+| 2b.6 | Sticky filter bar | 🟢 Done | `position: sticky` with `backdrop-filter: blur(12px)` |
+| 2b.7 | Page entry animation | 🟢 Done | `fadeSlideIn` 0.35s on `.vis-container` and `.container` |
+| 2b.8 | Keyboard shortcuts (all 22 pages) | 🟢 Done | `Esc` → atlas, `D` → toggle theme |
+| 2b.9 | Accessibility (`aria-label`, `:focus-visible`) | 🟢 Done | All theme toggles + global focus styles |
+| 2b.10 | Mobile tap targets | 🟢 Done | 44px filter pills, 3-col bestiary, 2-col emotion dims |
+| 2b.11 | Card hover glow | 🟢 Done | Parchment-tone shadow + `:active` press feedback |
+| 2b.12 | Theme toggle animation | 🟢 Done | Spring cubic-bezier + rotate on active |
+| 2b.13 | Smooth scroll on filter click | 🟢 Done | Scrolls to first visible section |
+| 2b.14 | Type scale CSS variables | 🟢 Done | `--text-xs` through `--text-2xl` |
+| 2b.15 | Global tabular numerals | 🟢 Done | `font-variant-numeric: tabular-nums` |
+| 2b.16 | Meta description tag | 🟢 Done | SEO on index.html |
 
 ---
 
-## Phase 4 — Offline & Performance ⬜ Planned
+## Phase 3 — Missing Visualizations ✅ Complete (2026-05-19)
 
-| # | Item | Priority | Description |
+| # | Item | Status | Notes |
 |---|------|----------|-------------|
-| 4.1 | **PWA Service Worker** (`sw.js`) | 🔴 High | Cache all 14 HTML files + D3/TopoJSON CDN libraries. Enables fully offline use — critical for lectures and conference demos without internet |
-| 4.2 | **`manifest.json`** | 🟡 Medium | Installable as a home-screen app on Android and iOS |
-| 4.3 | **CDN fallback** | 🟡 Medium | Bundle D3 and TopoJSON locally as `/lib/d3.min.js` — CDN failure currently breaks all cartographic pages |
-| 4.4 | **Canvas performance on mobile** | 🟢 Low | `afanasy_v8_text_map` draws ~800 map features per frame; add `devicePixelRatio` awareness and reduce detail on mobile |
+| 3.1 | `afanasy_world_before_after.html` | 🟢 Done | Two side-by-side Canvas maps: medieval myths vs personal experience |
+| 3.2 | `afanasy_religious_crisis.html` | 🟢 Done | «Господи» vs «Аллах» vs «Бог» term frequency by section |
+| 3.3 | `afanasy_people_network.html` | 🟢 Done | Force graph of people: helped / harmed / mentioned |
+| 3.4 | `afanasy_historiography.html` | 🟢 Done | Timeline 1475–2026 with clickable nodes |
+| 3.5 | `afanasy_bestiary.html` | 🟢 Done | 12 SVG bestiary cards in medieval manuscript style |
+| 3.6 | `afanasy_citations_v2.html` | 🟢 Done | Citation trends by decade with milestone annotations |
+
+---
+
+## Phase 4 — Offline & Performance ✅ Complete (2026-05-19)
+
+| # | Item | Status | Notes |
+|---|------|--------|-------|
+| 4.1 | **PWA Service Worker** (`sw.js`) | 🟢 Done | Caches all 21 HTML files + local D3/TopoJSON assets |
+| 4.2 | **`manifest.json`** | 🟢 Done | Installable as home-screen app |
+| 4.3 | **CDN fallback** | 🟢 Done | D3, TopoJSON, world-atlas bundled locally in `lib/` |
+| 4.4 | **Canvas performance on mobile** | ⬜ Planned | `devicePixelRatio` awareness and detail reduction |
 
 ---
 
 ## Phase 5 — Scholarly Features ⬜ Planned
 
-| # | Item | Priority | Description |
-|---|------|----------|-------------|
-| 5.1 | **Full-text search** | 🔴 High | Search bar on `index.html` that matches visualization titles, descriptions, and key terms (toponyms, person names). No backend — index baked into JS |
-| 5.2 | **Toponym / person index** | 🟡 Medium | Cross-visualization panel: click "Ормуз" → highlights all relevant points across map, Gantt, trade chart, calendar simultaneously |
-| 5.3 | **Text passage viewer** | 🟡 Medium | Sidebar with the original "Khozheniye" text synchronized to the map animation — currently partially implemented in `afanasy_v8_text_map.html` but needs polish |
-| 5.4 | **Citation export** | 🟢 Low | Each visualization gets a "Cite this" button generating BibTeX / footnote for academic papers |
-| 5.5 | **English localization** | 🟢 Low | Language toggle RU/EN. All UI strings externalized to JSON. Academic audience is international |
+| # | Item | Status | Notes |
+|---|------|--------|-------|
+| 5.1 | **Full-text search** | 🟢 Done | Search bar + category filter pills on `index.html` |
+| 5.2 | **Toponym / person index** | ⬜ Planned | Cross-visualization panel: click "Ормуз" → highlights across map, Gantt, trade chart |
+| 5.3 | **Text passage viewer** | ⬜ Planned | Sidebar with original text synchronized to map animation |
+| 5.4 | **Citation export** | ⬜ Planned | BibTeX / footnote for academic papers |
+| 5.5 | **English localization** | ⬜ Planned | Language toggle RU/EN |
 
 ---
 
@@ -106,30 +127,20 @@ These widgets are described in `README.md` and `index.md` but do not yet exist a
 
 ```
 🔴 High priority (do next):
-  3.1 World before/after map
-  3.2 Religious crisis chart
-  4.1 PWA Service Worker
-  5.1 Full-text search on index
-
-🟡 Medium priority:
-  3.3 Social network graph
-  3.4 Historiography timeline
-  3.5 Bestiary cards
-  4.2 PWA manifest
-  4.3 Local CDN bundle
-  5.2 Toponym index
-  5.3 Text passage viewer polish
+  5.2 Toponym / person index
   6.1 SVG/PNG export buttons
 
-🟢 Low priority / nice-to-have:
-  3.6 Citation statistics
+🟡 Medium priority:
   4.4 Mobile canvas optimization
-  5.4 Citation export
+  5.3 Text passage viewer polish
   5.5 English localization
   6.2 iframe embed snippets
+
+🟢 Low priority / nice-to-have:
+  5.4 Citation export
   6.3 Print stylesheet
 ```
 
 ---
 
-*Maintained by Antigravity AI · Last updated 2026-05-19*
+*Maintained by Antigravity AI · Last updated 2026-05-20*

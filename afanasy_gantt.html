@@ -50,10 +50,10 @@ svg text.gnt-focused-label{fill:var(--color-accent);}
 </div>
 
 <div class="gnt-legend">
-  <div class="gnt-ld" style="background:#4a90c4;"></div><span class="gnt-lt">Река / море (движение)</span>
-  <div class="gnt-ld" style="background:#8B5a30;"></div><span class="gnt-lt">Суша (движение)</span>
-  <div class="gnt-ld" style="background:#2e7d8a;"></div><span class="gnt-lt">Остановка (жизнь в городе)</span>
-  <div class="gnt-ld" style="background:#6e32a0;border-radius:50%;"></div><span class="gnt-lt">Ключевое событие</span>
+  <div class="gnt-ld" style="background:var(--viz-river);"></div><span class="gnt-lt">Река / море (движение)</span>
+  <div class="gnt-ld" style="background:var(--viz-land);"></div><span class="gnt-lt">Суша (движение)</span>
+  <div class="gnt-ld" style="background:var(--viz-stay);"></div><span class="gnt-lt">Остановка (жизнь в городе)</span>
+  <div class="gnt-ld" style="background:var(--viz-emotion-total);border-radius:50%;"></div><span class="gnt-lt">Ключевое событие</span>
   <span class="gnt-lt" style="margin-left:4px;opacity:.7;">← наведите мышь на полосу</span>
 </div>
 
@@ -120,8 +120,16 @@ const svg=document.getElementById('gnt-svg');
 svg.setAttribute('viewBox',`0 0 ${SVG_W} ${SVG_H}`);
 svg.setAttribute('width',SVG_W);svg.setAttribute('height',SVG_H);
 
-const COLOR={river:'#4a90c4',sea:'#1d6fa8',land:'#8B5a30',stay:'#2e7d8a'};
-const REG_COLOR={Русь:'#3770be',Кавказ:'#1e8250',Персия:'#b97314',Океан:'#1d6fa8',Индия:'#be3c28',Море:'#4a90c4'};
+// Colors aligned to shared design system (css/atlas.css --viz-* variables)
+const COLOR={river:'#4a90c4',sea:'#1d6fa8',land:'#8B5a30',stay:'#bbb'};
+const REG_COLOR={
+  Русь:'#3770be',        // --viz-region-russia
+  Кавказ:'#1e8250',      // --viz-region-caucasus
+  Персия:'#b97314',      // --viz-region-persia
+  Индия:'#be3c28',       // --viz-region-india
+  Море:'#4a90c4',        // --viz-region-ocean
+  Кафа:'#4a7c59'         // --viz-region-ottoman (Black Sea)
+};
 
 // Year/month axis
 for(let m=0;m<=TOTAL_MONTHS;m++){
@@ -215,6 +223,7 @@ EVENTS.forEach(ev=>{
   const ds=4.2;
   const diamond=el('polygon',{points:`${x},${y-ds} ${x+ds},${y} ${x},${y+ds} ${x-ds},${y}`,
     fill:'#6e32a0',stroke:'rgba(255,255,255,.7)','stroke-width':1,style:'cursor:pointer;'});
+  // #6e32a0 = --viz-emotion-total (event marker)
   diamond.addEventListener('mouseenter',e=>showTip(e,{lbl:ev.text,reg:'Событие',note:ev.note}));
   diamond.addEventListener('mousemove',moveTip);
   diamond.addEventListener('mouseleave',hideTip);
@@ -237,10 +246,18 @@ svg.appendChild(t('← месяцы от апреля 1467',{x:M_LEFT,y:SVG_H-6,
 </script>
 
   <!-- Floating Theme Toggle -->
-  <button id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;" title="Переключить тему">
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15);" title="Переключить тему">
     <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
   </button>
   <script src="js/atlas-theme.js"></script>
+  <script>
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') location.href = 'index.html';
+      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+        document.getElementById('theme-toggle')?.click();
+      }
+    });
+  </script>
 
 </body>
 </html>
