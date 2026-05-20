@@ -30,6 +30,14 @@
     --color-accent-hover: #f0a040;
 }
 
+/* Data visualization colors (semantic) */
+:root {
+    --viz-river: #4a90c4;
+    --viz-sea: #1d6fa8;
+    --viz-land: #8b5a30;
+    --viz-stay: #bbb;
+}
+
 html[data-theme="dark"] body {
     background: linear-gradient(135deg, #161210 0%, #0c0908 100%) !important;
     color: var(--color-text-primary) !important;

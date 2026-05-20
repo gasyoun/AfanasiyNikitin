@@ -20,10 +20,12 @@
 .spd-leg-txt{font-size:11px;color:var(--color-text-secondary);}
 #spd-chart{width:100%;overflow-x:auto;}
 svg#spd-svg{display:block;}
-.spd-bar-river{fill:#4a90c4;}
-.spd-bar-sea{fill:#1d6fa8;}
-.spd-bar-land{fill:#8B5a30;}
-.spd-bar-stay{fill:#bbb;opacity:.5;}
+.spd-bar-river{fill:var(--viz-river);}
+.spd-bar-sea{fill:var(--viz-sea);}
+.spd-bar-land{fill:var(--viz-land);}
+.spd-bar-stay{fill:var(--viz-stay);opacity:.5;}
+.spd-avg-line-sea{stroke:var(--viz-sea);}
+.spd-avg-line-land{stroke:var(--viz-land);}
 .spd-tip{position:absolute;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:11px;color:var(--color-text-primary);pointer-events:none;max-width:200px;line-height:1.5;box-shadow:0 2px 8px rgba(0,0,0,.1);}
   </style>
 
@@ -114,8 +116,6 @@ const padRatio=0.18;
 
 function yScale(v){return iH-v/maxKm*iH;}
 
-const colorMap={river:'#4a90c4',sea:'#1d6fa8',land:'#8B5a30'};
-
 SEGS.forEach((s,i)=>{
   const x=i*barW;
   const bw=barW*(1-padRatio*2);
@@ -125,7 +125,7 @@ SEGS.forEach((s,i)=>{
   const by=yScale(s.kmPerDay);
 
   const rect=el('rect',{x:bx,y:by,width:bw,height:bh,
-    fill:colorMap[s.mode],rx:2,class:`spd-bar-${s.mode}`,
+    rx:2,class:`spd-bar-${s.mode}`,
     style:'cursor:pointer;transition:opacity .12s;'});
   rect.addEventListener('mouseenter',e=>{rect.style.opacity='.72';showTip(e,s);});
   rect.addEventListener('mousemove',e=>moveTip(e));
@@ -172,14 +172,18 @@ for(let v=0;v<=maxKm;v+=20){
 g.appendChild(txt('км/день',{x:-25,y:-10,'text-anchor':'middle','font-size':'10','font-weight':'500',fill:'var(--color-text-secondary)'}));
 
 const avgSeaLine=el('line',{x1:0,y1:yScale(avgSea),x2:iW,y2:yScale(avgSea),
-  stroke:'#4a90c4','stroke-width':1.2,'stroke-dasharray':'6 3',opacity:.75});
+  'stroke-width':1.2,'stroke-dasharray':'6 3',opacity:.75,class:'spd-avg-line-sea'});
 g.appendChild(avgSeaLine);
-g.appendChild(txt(`ср. море ${avgSea.toFixed(1)}`,{x:iW+4,y:yScale(avgSea)+3.5,'font-size':'10','font-weight':'500',fill:'#4a90c4'}));
+const avgSeaTxt=txt(`ср. море ${avgSea.toFixed(1)}`,{x:iW+4,y:yScale(avgSea)+3.5,'font-size':'10','font-weight':'500'});
+avgSeaTxt.setAttribute('style','fill:var(--viz-sea);');
+g.appendChild(avgSeaTxt);
 
 const avgLandLine=el('line',{x1:0,y1:yScale(avgLand),x2:iW,y2:yScale(avgLand),
-  stroke:'#8B5a30','stroke-width':1.2,'stroke-dasharray':'6 3',opacity:.75});
+  'stroke-width':1.2,'stroke-dasharray':'6 3',opacity:.75,class:'spd-avg-line-land'});
 g.appendChild(avgLandLine);
-g.appendChild(txt(`ср. суша ${avgLand.toFixed(1)}`,{x:iW+4,y:yScale(avgLand)+3.5,'font-size':'10','font-weight':'500',fill:'#8B5a30'}));
+const avgLandTxt=txt(`ср. суша ${avgLand.toFixed(1)}`,{x:iW+4,y:yScale(avgLand)+3.5,'font-size':'10','font-weight':'500'});
+avgLandTxt.setAttribute('style','fill:var(--viz-land);');
+g.appendChild(avgLandTxt);
 
 const tip=document.getElementById('tip');
 const chartDiv=document.getElementById('spd-chart');
