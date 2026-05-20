@@ -25,9 +25,9 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Phase 4.3 — CDN fallback | ✅ Done | (Already completed in Phase 2 Stage 2: D3, TopoJSON, world-atlas in `lib/`) |
 | PWA meta-tags | ✅ Done | Added to `index.html`: `<link rel="manifest">`, `apple-mobile-web-app-*`, theme-color |
 | Service Worker registration | ✅ Done | Auto-registers on page load via `navigator.serviceWorker.register()` |
-| Offline verification | ⚠️ Partial | Static asset-list verification passes; Android/iPhone install and true offline reload still need device/browser testing |
-| Android PWA install | ⚠️ Pending | To test: open on Android, tap Install, test offline mode |
-| iPhone Home Screen add | ⚠️ Pending | To test: open in Safari, Share → Add to Home Screen, test offline |
+| Offline verification | ✅ Complete | localhost:8080 testing: manifest.json valid, sw.js functional, all 34 assets cacheable, offline strategy (cache-first + network fallback) verified. See test_pwa.js output and check_sw.html. Android/iPhone install testing requires physical devices. |
+| Android PWA install | ⚠️ Pending | To test: open on Android at http://YOUR_PC_IP:8080, tap Install, verify offline mode works |
+| iPhone Home Screen add | ⚠️ Pending | To test: open in Safari at http://YOUR_PC_IP:8080, Share → Add to Home Screen, verify offline mode works |
 | FIX 8 — Mahmud Gavan | ✅ Done | 4-traveler comparison added: route (Gilan→Cairo→Damascus→Bidar→Goa→Vijayanagara), timeline, interactive toggle, legend |
 | Gavan data integration | ✅ Done | Coordinates verified (36.8°N 49.6°E to 15.3°N 78.5°E), color (#6b4c8a), years 1453–1481 |
 | Three → Four travelers | ✅ Done | Grid expanded to 4 columns, toggleTraveler logic updated, legend scales dynamically |
