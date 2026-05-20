@@ -180,9 +180,44 @@ const offA=document.createElement('canvas'),offB=document.createElement('canvas'
 offA.width=W;offA.height=H;offB.width=W;offB.height=H;
 const ocA=offA.getContext('2d');const ocB=offB.getContext('2d');
 
-let mapReady=false, activeId=null;
+let mapReady=false, activeId=null,cachedWorld=null,baseTheme=null;
+
+function themeKey(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';}
+function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
+function mapPalette(){
+  const dark=themeKey()==='dark';
+  return {
+    beforeSea: dark?'#2a2117':'#e8dcc0',
+    beforeLand: dark?'#3a2d1d':'#d4c49a',
+    beforeStroke: dark?'rgba(192,144,96,.42)':'#a08840',
+    beforeBorder: dark?'rgba(192,144,96,.18)':'rgba(120,90,30,.2)',
+    beforeGrid: dark?'rgba(235,220,213,.08)':'rgba(120,90,30,.09)',
+    beforeDot: dark?'#d2a25f':'#7a4a10',
+    beforeUnknown: dark?'rgba(210,162,95,.46)':'rgba(120,80,20,.35)',
+    beforeUnknownStroke: dark?'rgba(210,162,95,.62)':'rgba(120,80,20,.5)',
+    beforeText: dark?'rgba(235,220,213,.9)':'#6a3a08',
+    beforeDimText: dark?'rgba(235,220,213,.62)':'rgba(100,70,20,.55)',
+    afterSea: dark?'#18323d':'#8fb8d0',
+    afterLand: cssVar('--color-background-tertiary') || (dark?'#222222':'#f5eedf'),
+    afterStroke: dark?'rgba(192,144,96,.35)':'#b8a870',
+    afterBorder: dark?'rgba(235,220,213,.14)':'rgba(140,120,80,.15)',
+    afterGrid: dark?'rgba(235,220,213,.08)':'rgba(70,100,135,.08)',
+    afterDot: dark?'#7dc6f2':'#1d6fa8',
+    afterUnknown: dark?'rgba(125,198,242,.4)':'rgba(100,140,180,.45)',
+    afterUnknownStroke: dark?'rgba(125,198,242,.55)':'rgba(80,120,160,.5)',
+    afterText: dark?'rgba(235,220,213,.92)':'#0a4070',
+    afterDimText: dark?'rgba(180,220,245,.66)':'rgba(80,120,160,.55)',
+    labelHalo: dark?'rgba(18,18,18,.82)':'rgba(255,255,255,.65)',
+    beforeActive: dark?'rgba(210,162,95,.24)':'rgba(120,80,20,.18)',
+    afterActive: dark?'rgba(125,198,242,.22)':'rgba(30,100,180,.15)',
+    route: dark?'rgba(240,160,64,.72)':'rgba(224,149,32,.5)'
+  };
+}
 
 function buildBase(world,c,isBefore){
+  cachedWorld=world;
+  baseTheme=themeKey();
+  const p=mapPalette();
   const d3p=d3.geoTransform({point(lo,la){const[x,y]=project(lo,la);this.stream.point(x,y);}});
   const path=d3.geoPath(d3p,c);
   const land=topojson.feature(world,world.objects.land);
@@ -191,61 +226,62 @@ function buildBase(world,c,isBefore){
 
   if(isBefore){
     // Parchment-style map
-    c.fillStyle='#e8dcc0';c.fillRect(0,0,W,H);
-    c.beginPath();path(land);c.fillStyle='#d4c49a';c.fill();
-    c.strokeStyle='#a08840';c.lineWidth=0.6;c.stroke();
-    c.beginPath();path(borders);c.strokeStyle='rgba(120,90,30,.2)';c.lineWidth=0.4;c.stroke();
+    c.fillStyle=p.beforeSea;c.fillRect(0,0,W,H);
+    c.beginPath();path(land);c.fillStyle=p.beforeLand;c.fill();
+    c.strokeStyle=p.beforeStroke;c.lineWidth=0.6;c.stroke();
+    c.beginPath();path(borders);c.strokeStyle=p.beforeBorder;c.lineWidth=0.4;c.stroke();
     // Vignette-like border
-    for(let i=0;i<4;i++){c.strokeStyle=`rgba(120,90,30,${.06+i*.03})`;c.lineWidth=i+1;c.strokeRect(0,0,W,H);}
+    for(let i=0;i<4;i++){c.strokeStyle=p.beforeBorder;c.globalAlpha=.45+i*.16;c.lineWidth=i+1;c.strokeRect(0,0,W,H);c.globalAlpha=1;}
   } else {
     // Modern map
-    c.fillStyle='#8fb8d0';c.fillRect(0,0,W,H);
-    c.beginPath();path(land);c.fillStyle='#e8e1cc';c.fill();
-    c.strokeStyle='#b8a870';c.lineWidth=0.4;c.stroke();
-    c.beginPath();path(borders);c.strokeStyle='rgba(140,120,80,.15)';c.lineWidth=0.3;c.stroke();
+    c.fillStyle=p.afterSea;c.fillRect(0,0,W,H);
+    c.beginPath();path(land);c.fillStyle=p.afterLand;c.fill();
+    c.strokeStyle=p.afterStroke;c.lineWidth=0.4;c.stroke();
+    c.beginPath();path(borders);c.strokeStyle=p.afterBorder;c.lineWidth=0.3;c.stroke();
   }
   // Graticule
-  c.strokeStyle=isBefore?'rgba(120,90,30,.09)':'rgba(70,100,135,.08)';c.lineWidth=0.5;
+  c.strokeStyle=isBefore?p.beforeGrid:p.afterGrid;c.lineWidth=0.5;
   for(let lo=30;lo<=80;lo+=10){const[x,y0]=project(lo,LAT0+.2);const[,y1]=project(lo,LAT1-.2);c.beginPath();c.moveTo(x,y0);c.lineTo(x,y1);c.stroke();}
   for(let la=10;la<=60;la+=10){const[x0,y]=project(LON0+.2,la);const[x1]=project(LON1-.2,la);c.beginPath();c.moveTo(x0,y);c.lineTo(x1,y);c.stroke();}
   c.restore();
 }
 
-function halo(c,txt,x,y,col){
+function halo(c,txt,x,y,col,p=mapPalette()){
   c.textAlign='center';
-  c.strokeStyle='rgba(255,255,255,.6)';c.lineWidth=2;c.strokeText(txt,x,y);
+  c.strokeStyle=p.labelHalo;c.lineWidth=2;c.strokeText(txt,x,y);
   c.fillStyle=col||'rgba(20,10,5,.85)';c.fillText(txt,x,y);
 }
 
 function drawPoints(c,isBefore,activeId){
-  POINTS.forEach(p=>{
-    const[cx,cy]=project(p.lon,p.lat);
-    const info=isBefore?p.before:p.after;
+  const pal=mapPalette();
+  POINTS.forEach(point=>{
+    const[cx,cy]=project(point.lon,point.lat);
+    const info=isBefore?point.before:point.after;
     const known=info.known;
-    const isAct=activeId===p.id;
+    const isAct=activeId===point.id;
 
     if(isBefore){
       // Before: known = dark dot, unknown = question mark
-      if(isAct){c.beginPath();c.arc(cx,cy,10,0,Math.PI*2);c.fillStyle='rgba(120,80,20,.18)';c.fill();}
+      if(isAct){c.beginPath();c.arc(cx,cy,10,0,Math.PI*2);c.fillStyle=pal.beforeActive;c.fill();}
       c.beginPath();c.arc(cx,cy,known?5:4,0,Math.PI*2);
-      c.fillStyle=known?'#7a4a10':'rgba(120,80,20,.35)';c.fill();
-      c.strokeStyle=known?'#4a2a08':'rgba(120,80,20,.5)';c.lineWidth=1;c.stroke();
+      c.fillStyle=known?pal.beforeDot:pal.beforeUnknown;c.fill();
+      c.strokeStyle=known?pal.beforeText:pal.beforeUnknownStroke;c.lineWidth=1;c.stroke();
       c.font='bold 7.5px sans-serif';
-      if(known){halo(c,p.label,cx,cy-8,'#6a3a08');}
+      if(known){halo(c,point.label,cx,cy-8,pal.beforeText,pal);}
       else {
-        halo(c,'?',cx,cy+3.5,'rgba(100,70,20,.6)');
-        c.font='7px sans-serif';halo(c,p.label,cx,cy-7,'rgba(100,70,20,.45)');
+        halo(c,'?',cx,cy+3.5,pal.beforeDimText,pal);
+        c.font='7px sans-serif';halo(c,point.label,cx,cy-7,pal.beforeDimText,pal);
       }
     } else {
-      if(isAct){c.beginPath();c.arc(cx,cy,10,0,Math.PI*2);c.fillStyle='rgba(30,100,180,.15)';c.fill();}
+      if(isAct){c.beginPath();c.arc(cx,cy,10,0,Math.PI*2);c.fillStyle=pal.afterActive;c.fill();}
       c.beginPath();c.arc(cx,cy,known?5:3.5,0,Math.PI*2);
-      c.fillStyle=known?'#1d6fa8':'rgba(100,140,180,.45)';c.fill();
-      c.strokeStyle=known?'#0a4070':'rgba(80,120,160,.5)';c.lineWidth=1;c.stroke();
+      c.fillStyle=known?pal.afterDot:pal.afterUnknown;c.fill();
+      c.strokeStyle=known?pal.afterText:pal.afterUnknownStroke;c.lineWidth=1;c.stroke();
       c.font='bold 7.5px sans-serif';
-      if(known){halo(c,p.label,cx,cy-8,'#0a4070');}
+      if(known){halo(c,point.label,cx,cy-8,pal.afterText,pal);}
       else {
-        c.font='7px sans-serif';halo(c,p.label,cx,cy-7,'rgba(80,120,160,.55)');
-        halo(c,'~',cx,cy+3.5,'rgba(80,120,160,.55)');
+        c.font='7px sans-serif';halo(c,point.label,cx,cy-7,pal.afterDimText,pal);
+        halo(c,'~',cx,cy+3.5,pal.afterDimText,pal);
       }
     }
   });
@@ -254,13 +290,17 @@ function drawPoints(c,isBefore,activeId){
     const route=[[56.9,35.9],[46.3,48.0],[42.1,48.3],[40.4,49.9],[36.6,52.0],[33.0,51.4],
       [27.1,56.5],[18.5,73.0],[17.9,77.5],[16.1,78.9],[17.9,77.5],[17.5,70.0],[27.1,56.5],
       [33.0,51.4],[41.0,39.7],[45.0,35.4],[54.8,32.0]];
-    c.setLineDash([3,4]);c.strokeStyle='rgba(224,149,32,.5)';c.lineWidth=1.8;
+    c.setLineDash([3,4]);c.strokeStyle=pal.route;c.lineWidth=1.8;
     c.beginPath();route.forEach(([la,lo],i)=>{const[x,y]=project(lo,la);if(i===0)c.moveTo(x,y);else c.lineTo(x,y);});
     c.stroke();c.setLineDash([]);
   }
 }
 
 function drawAll(){
+  if(cachedWorld&&baseTheme!==themeKey()){
+    buildBase(cachedWorld,ocA,true);
+    buildBase(cachedWorld,ocB,false);
+  }
   // Canvas A
   ctxA.drawImage(offA,0,0);
   ctxA.save();ctxA.beginPath();ctxA.rect(0,0,W,H);ctxA.clip();
@@ -331,6 +371,7 @@ waitLib(()=>{
       drawAll();
     });
 });
+new MutationObserver(()=>drawAll()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 })();
 </script>
   </div>

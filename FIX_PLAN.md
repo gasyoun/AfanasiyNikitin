@@ -288,11 +288,11 @@ These are NOT in the data-correctness fixes above. They are real bugs in current
 **Status:** ⬜
 
 ### A5 — Dark-mode canvas filter inverts on-canvas labels 🟡
-**Files:** All widgets with `<canvas>` (map, borders, video export, three travelers)
+**Files:** All widgets with `<canvas>` (map, borders, video export, three travelers, trade, world before/after)
 **Problem:** `html[data-theme="dark"] canvas { filter: invert(0.88) hue-rotate(180deg) contrast(1.1) brightness(0.95); }` is applied to the rasterized canvas, which includes labels drawn ONTO the canvas (city names, region polygons, waypoint titles). They end up inverted alongside the basemap.
 **Fix:** Stop CSS-filtering canvas. Instead, the canvas itself should detect `data-theme="dark"` and use a dark palette internally (e.g. `ctx.fillStyle = isDark ? '#e8e1cc' : '#1a1a1a'` for text).
 **Effort:** ~2h (per canvas widget — start with `afanasy_v8_text_map.html`)
-**Status:** 🟡 Partial — `css/atlas.css` no longer applies the global canvas inversion filter; `afanasy_v8_text_map.html`, `three_travelers_comparison.html`, `afanasy_borders_animation.html`, and `afanasy_trade_marshruttnik.html` now redraw basemaps/labels with theme-aware Canvas palettes. Remaining canvas widgets still need the same audit.
+**Status:** 🟡 Partial — `css/atlas.css` no longer applies the global canvas inversion filter; `afanasy_v8_text_map.html`, `three_travelers_comparison.html`, `afanasy_borders_animation.html`, `afanasy_trade_marshruttnik.html`, and `afanasy_world_before_after.html` now redraw basemaps/labels with theme-aware Canvas palettes. Only `afanasy_video_export.html` still needs the same audit.
 
 ### A6 — Six widgets referenced but not built 🔵
 **Files referenced in `README.md`, `index.md`, `ROADMAP.md`:**
