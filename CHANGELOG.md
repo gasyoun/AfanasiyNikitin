@@ -17,6 +17,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Extracted the repeated dark/light theme toggle script into `js/atlas-theme.js` for the index and 13 established visualization pages.
 
 ### Fixed
+- `afanasy_trade_marshruttnik.html`: added theme-aware Canvas basemap, route, port, label, and legend colors for dark mode; replaced an invalid CSS-variable string used as a Canvas fill color.
 - `afanasy_borders_animation.html`: added theme-aware Canvas basemap, labels, active traveler marker, and year overlay colors for dark mode.
 - `three_travelers_comparison.html`: added theme-aware Canvas basemap, labels, shared Hormuz marker, and legend colors for dark mode; corrected the Mahmud Gavan/Bidar typo.
 - Removed literal old-range chronology strings from the calendar widget and project handoff/reference docs; public wording now keeps Khrustalev's 1467–1475 dating as the only explicit range.

@@ -201,7 +201,30 @@ const ROUTE_AFANASY=[
 ];
 const ROUTE_ADEN=[[56.46,27.08],[45.04,12.82]];
 
-let activeFilter='all', activePort=null, mapReady=false;
+let activeFilter='all', activePort=null, mapReady=false,cachedWorld=null,baseTheme=null;
+
+function themeKey(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';}
+function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
+function mapPalette(){
+  const dark=themeKey()==='dark';
+  return {
+    sea: dark?'#18323d':'#7aafc8',
+    land: cssVar('--color-background-tertiary') || (dark?'#222222':'#f5eedf'),
+    landStroke: dark?'rgba(192,144,96,0.35)':'#b8a870',
+    border: dark?'rgba(235,220,213,0.14)':'rgba(140,120,80,.15)',
+    grid: dark?'rgba(235,220,213,.08)':'rgba(70,100,135,.07)',
+    regionLabel: dark?'rgba(235,220,213,.36)':'rgba(40,60,80,.35)',
+    labelHalo: dark?'rgba(18,18,18,.82)':'rgba(255,255,255,.65)',
+    label: dark?'rgba(235,220,213,.9)':'rgba(20,10,5,.85)',
+    loadingText: dark?'rgba(235,220,213,.72)':'rgba(0,0,0,.4)',
+    routeTrade: dark?'rgba(224,136,48,.42)':'rgba(185,115,20,.4)',
+    routeAfanasy: dark?'rgba(240,160,64,.76)':'rgba(224,149,32,.7)',
+    routeAden: dark?'rgba(120,180,220,.42)':'rgba(100,150,200,.35)',
+    portFill: cssVar('--color-background-primary') || (dark?'#121212':'#ffffff'),
+    activeHaloAlpha: dark?0.22:0.15,
+    legendLabel: dark?'rgba(235,220,213,.82)':'rgba(20,10,5,.7)'
+  };
+}
 
 function portVisible(p){
   if(activeFilter==='all')return true;
@@ -214,21 +237,23 @@ function portVisible(p){
 }
 
 function buildBase(world){
+  cachedWorld=world;
+  baseTheme=themeKey();
+  const p=mapPalette();
   const d3p=d3.geoTransform({point(lo,la){const[x,y]=project(lo,la);this.stream.point(x,y);}});
   const path=d3.geoPath(d3p,oc);
   const land=topojson.feature(world,world.objects.land);
   const borders=topojson.mesh(world,world.objects.countries,(a,b)=>a!==b);
   oc.save();oc.beginPath();oc.rect(0,0,W,H);oc.clip();
-  // Darker ocean for contrast
-  oc.fillStyle='#7aafc8';oc.fillRect(0,0,W,H);
-  oc.beginPath();path(land);oc.fillStyle='#e8e1cc';oc.fill();oc.strokeStyle='#b8a870';oc.lineWidth=0.4;oc.stroke();
-  oc.beginPath();path(borders);oc.strokeStyle='rgba(140,120,80,.15)';oc.lineWidth=0.3;oc.stroke();
+  oc.fillStyle=p.sea;oc.fillRect(0,0,W,H);
+  oc.beginPath();path(land);oc.fillStyle=p.land;oc.fill();oc.strokeStyle=p.landStroke;oc.lineWidth=0.4;oc.stroke();
+  oc.beginPath();path(borders);oc.strokeStyle=p.border;oc.lineWidth=0.3;oc.stroke();
   // Graticule
-  oc.strokeStyle='rgba(70,100,135,.07)';oc.lineWidth=0.5;
+  oc.strokeStyle=p.grid;oc.lineWidth=0.5;
   for(let lo=50;lo<=120;lo+=10){const[x,y0]=project(lo,LAT0+.2);const[,y1]=project(lo,LAT1-.2);oc.beginPath();oc.moveTo(x,y0);oc.lineTo(x,y1);oc.stroke();}
   for(let la=-10;la<=30;la+=10){const[x0,y]=project(LON0+.2,la);const[x1]=project(LON1-.2,la);oc.beginPath();oc.moveTo(x0,y);oc.lineTo(x1,y);oc.stroke();}
   // Region labels
-  oc.font='bold 9px sans-serif';oc.fillStyle='rgba(40,60,80,.35)';oc.textAlign='center';
+  oc.font='bold 9px sans-serif';oc.fillStyle=p.regionLabel;oc.textAlign='center';
   [['Аравийское\nморе',65,18],['Бенгальский\nзалив',89,13],['Индийский океан',78,3]].forEach(([l,lo,la])=>{
     const[x,y]=project(lo,la);
     l.split('\n').forEach((line,i)=>oc.fillText(line,x,y+i*10));
@@ -237,26 +262,29 @@ function buildBase(world){
 }
 
 function drawRoutes(){
+  const p=mapPalette();
   // Main trade route
   ctx.setLineDash([4,4]);
-  ctx.strokeStyle='rgba(185,115,20,.4)';ctx.lineWidth=1.5;
+  ctx.strokeStyle=p.routeTrade;ctx.lineWidth=1.5;
   ctx.beginPath();ROUTE_MAIN.forEach(([lo,la],i)=>{const[x,y]=project(lo,la);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
   ctx.stroke();
   // Afanasy route
   ctx.setLineDash([]);
-  ctx.strokeStyle='rgba(224,149,32,.7)';ctx.lineWidth=2.2;
+  ctx.strokeStyle=p.routeAfanasy;ctx.lineWidth=2.2;
   ctx.beginPath();ROUTE_AFANASY.forEach(([lo,la],i)=>{const[x,y]=project(lo,la);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
   ctx.stroke();
   // Aden branch
-  ctx.setLineDash([5,4]);ctx.strokeStyle='rgba(100,150,200,.35)';ctx.lineWidth=1.2;
+  ctx.setLineDash([5,4]);ctx.strokeStyle=p.routeAden;ctx.lineWidth=1.2;
   ctx.beginPath();ROUTE_ADEN.forEach(([lo,la],i)=>{const[x,y]=project(lo,la);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
   ctx.stroke();ctx.setLineDash([]);
 }
 
-function halo(txt,x,y,col){ctx.strokeStyle='rgba(255,255,255,.65)';ctx.lineWidth=2;ctx.textAlign='center';ctx.strokeText(txt,x,y);ctx.fillStyle=col||'rgba(20,10,5,.85)';ctx.fillText(txt,x,y);}
+function halo(txt,x,y,col,p=mapPalette()){ctx.strokeStyle=p.labelHalo;ctx.lineWidth=2;ctx.textAlign='center';ctx.strokeText(txt,x,y);ctx.fillStyle=col||p.label;ctx.fillText(txt,x,y);}
 
 function drawFrame(){
-  if(!mapReady){ctx.fillStyle='#7aafc8';ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(0,0,0,.4)';ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('Загрузка…',W/2,H/2);return;}
+  const p=mapPalette();
+  if(!mapReady){ctx.fillStyle=p.sea;ctx.fillRect(0,0,W,H);ctx.fillStyle=p.loadingText;ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('Загрузка…',W/2,H/2);return;}
+  if(cachedWorld&&baseTheme!==themeKey())buildBase(cachedWorld);
   ctx.drawImage(off,0,0);
   ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
   drawRoutes();
@@ -267,23 +295,23 @@ function drawFrame(){
     const isActive=activePort===p.id;
     const col=p.visited?'#E09520':p.type==='major'?'#6e32a0':'#1d6fa8';
 
-    if(isActive){ctx.beginPath();ctx.arc(cx,cy,p.r+6,0,Math.PI*2);ctx.fillStyle=col;ctx.globalAlpha=.15;ctx.fill();ctx.globalAlpha=1;}
+    if(isActive){ctx.beginPath();ctx.arc(cx,cy,p.r+6,0,Math.PI*2);ctx.fillStyle=col;ctx.globalAlpha=mapPalette().activeHaloAlpha;ctx.fill();ctx.globalAlpha=1;}
     ctx.beginPath();ctx.arc(cx,cy,p.r,0,Math.PI*2);
-    ctx.fillStyle='var(--color-background-primary)';ctx.fill();
+    ctx.fillStyle=mapPalette().portFill;ctx.fill();
     ctx.strokeStyle=col;ctx.lineWidth=isActive?2.5:1.8;ctx.stroke();
 
     const lines=p.name.split('\n');
     ctx.font=`bold ${p.r>10?8:7.5}px sans-serif`;
-    lines.forEach((l,i)=>halo(l,cx,cy+(i-(lines.length-1)/2)*9+3,col));
+    lines.forEach((l,i)=>halo(l,cx,cy+(i-(lines.length-1)/2)*9+3,col,mapPalette()));
   });
 
   // Legend
-  [[1,'— маршрутник Афанасия','rgba(224,149,32,.7)',false],[2,'— торговый путь Ормуз→Китай','rgba(185,115,20,.4)',true]].forEach(([i,lbl,col,dash],idx)=>{
+  [[1,'— маршрутник Афанасия',p.routeAfanasy,false],[2,'— торговый путь Ормуз→Китай',p.routeTrade,true]].forEach(([i,lbl,col,dash],idx)=>{
     const lx=PAD+5,ly=H-PAD-10-idx*14;
     ctx.strokeStyle=col;ctx.lineWidth=idx===0?1.5:2;
     if(dash)ctx.setLineDash([4,4]);
     ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(lx+22,ly);ctx.stroke();ctx.setLineDash([]);
-    ctx.font='8px sans-serif';ctx.fillStyle='rgba(20,10,5,.7)';ctx.textAlign='left';ctx.fillText(lbl,lx+26,ly+3);
+    ctx.font='8px sans-serif';ctx.fillStyle=p.legendLabel;ctx.textAlign='left';ctx.fillText(lbl,lx+26,ly+3);
   });
 
   ctx.restore();
@@ -345,6 +373,7 @@ waitLib(()=>{
   fetch('lib/countries-110m.json')
     .then(r=>r.json()).then(w=>{buildBase(w);mapReady=true;drawFrame();});
 });
+new MutationObserver(()=>drawFrame()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 })();
 </script>
 
