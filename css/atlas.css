@@ -139,6 +139,22 @@
     --viz-language-arabic-text: #5a2a8a;
     --viz-language-indic: var(--viz-region-india);
     --viz-language-indic-text: #8a2010;
+
+    /* Manuscript comparison */
+    --viz-manuscript-troitsky: var(--viz-region-russia);
+    --viz-manuscript-troitsky-text: #1a4a8a;
+    --viz-manuscript-letopisny: var(--viz-emotion-hope);
+    --viz-manuscript-letopisny-text: #0a5a30;
+    --viz-manuscript-sukhanov: var(--viz-region-persia);
+    --viz-manuscript-sukhanov-text: #7a4a00;
+    --viz-manuscript-added: var(--viz-emotion-hope);
+    --viz-manuscript-added-text: #0a5a30;
+    --viz-manuscript-deleted: var(--viz-economic-loss);
+    --viz-manuscript-deleted-text: #8a1010;
+    --viz-manuscript-changed: var(--viz-region-persia);
+    --viz-manuscript-changed-text: #7a4a00;
+    --viz-manuscript-language: var(--viz-emotion-total);
+    --viz-manuscript-language-text: #5a2a8a;
 }
 
 [data-theme="dark"] {
@@ -151,6 +167,13 @@
     --viz-language-persian-text: #7bd99a;
     --viz-language-arabic-text: #c69af0;
     --viz-language-indic-text: #ee9a87;
+    --viz-manuscript-troitsky-text: #8fb7f0;
+    --viz-manuscript-letopisny-text: #7bd99a;
+    --viz-manuscript-sukhanov-text: #d8aa62;
+    --viz-manuscript-added-text: #7bd99a;
+    --viz-manuscript-deleted-text: #ee9a87;
+    --viz-manuscript-changed-text: #d8aa62;
+    --viz-manuscript-language-text: #c69af0;
 }
 
 html[data-theme="dark"] body {

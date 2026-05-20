@@ -33,23 +33,23 @@
 .ms-col-head-sub{font-size:11.5px;font-weight:400;opacity:.7;}
 .ms-col-body{padding:11px 13px;font-size:15px;font-family:var(--font-serif);line-height:1.8;color:var(--color-text-primary);}
 /* diff spans */
-span.d-add{background:rgba(30,130,80,.18);color:#0a5a30;border-radius:2px;padding:0 1px;}
-span.d-del{background:rgba(200,40,40,.13);color:#8a1010;text-decoration:line-through;border-radius:2px;padding:0 1px;opacity:.7;}
-span.d-chg{background:rgba(185,115,20,.18);color:#7a4a00;border-radius:2px;padding:0 1px;}
-span.d-lang{background:rgba(110,50,160,.15);color:#5a2a8a;border-radius:2px;padding:0 1px;font-style:italic;}
+span.d-add{--ms-color:var(--viz-manuscript-added);--ms-text:var(--viz-manuscript-added-text);background:color-mix(in srgb, var(--ms-color) 18%, transparent);color:var(--ms-text);border-radius:2px;padding:0 1px;}
+span.d-del{--ms-color:var(--viz-manuscript-deleted);--ms-text:var(--viz-manuscript-deleted-text);background:color-mix(in srgb, var(--ms-color) 13%, transparent);color:var(--ms-text);text-decoration:line-through;border-radius:2px;padding:0 1px;opacity:.7;}
+span.d-chg{--ms-color:var(--viz-manuscript-changed);--ms-text:var(--viz-manuscript-changed-text);background:color-mix(in srgb, var(--ms-color) 18%, transparent);color:var(--ms-text);border-radius:2px;padding:0 1px;}
+span.d-lang{--ms-color:var(--viz-manuscript-language);--ms-text:var(--viz-manuscript-language-text);background:color-mix(in srgb, var(--ms-color) 15%, transparent);color:var(--ms-text);border-radius:2px;padding:0 1px;font-style:italic;}
 span.d-dim{opacity:.35;}
 /* manuscript codex types */
-.ms-cod-troitsky{color:#1a4a8a;border-color:rgba(55,112,190,.4);}
-.ms-cod-troitsky .ms-cod-bar{background:#3770be;}
-.ms-cod-letopisny{color:#0a5a30;border-color:rgba(30,130,80,.3);}
-.ms-cod-letopisny .ms-cod-bar{background:#1e8250;}
-.ms-cod-sukhanov{color:#7a4a00;border-color:rgba(185,115,20,.3);}
-.ms-cod-sukhanov .ms-cod-bar{background:#b97314;}
+.ms-cod-troitsky{--ms-color:var(--viz-manuscript-troitsky);--ms-text:var(--viz-manuscript-troitsky-text);color:var(--ms-text);border-color:color-mix(in srgb, var(--ms-color) 40%, transparent);}
+.ms-cod-troitsky .ms-cod-bar{background:var(--ms-color);}
+.ms-cod-letopisny{--ms-color:var(--viz-manuscript-letopisny);--ms-text:var(--viz-manuscript-letopisny-text);color:var(--ms-text);border-color:color-mix(in srgb, var(--ms-color) 30%, transparent);}
+.ms-cod-letopisny .ms-cod-bar{background:var(--ms-color);}
+.ms-cod-sukhanov{--ms-color:var(--viz-manuscript-sukhanov);--ms-text:var(--viz-manuscript-sukhanov-text);color:var(--ms-text);border-color:color-mix(in srgb, var(--ms-color) 30%, transparent);}
+.ms-cod-sukhanov .ms-cod-bar{background:var(--ms-color);}
 /* legend dots */
-.ms-ld-add{background:rgba(30,130,80,.4);}
-.ms-ld-del{background:rgba(200,40,40,.25);text-decoration:line-through;}
-.ms-ld-chg{background:rgba(185,115,20,.35);}
-.ms-ld-lang{background:rgba(110,50,160,.25);}
+.ms-ld-add{background:color-mix(in srgb, var(--viz-manuscript-added) 40%, transparent);}
+.ms-ld-del{background:color-mix(in srgb, var(--viz-manuscript-deleted) 25%, transparent);text-decoration:line-through;}
+.ms-ld-chg{background:color-mix(in srgb, var(--viz-manuscript-changed) 35%, transparent);}
+.ms-ld-lang{background:color-mix(in srgb, var(--viz-manuscript-language) 25%, transparent);}
 /* legend */
 .ms-leg{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:0;align-items:center;}
 .ms-ld{display:inline-block;width:9px;height:9px;border-radius:2px;flex-shrink:0;}
@@ -189,14 +189,16 @@ span.d-dim{opacity:.35;}
 (function(){
 
 // Color palette for manuscript types
+const cssVar=name=>`var(${name})`;
+const alpha=(color,pct)=>`color-mix(in srgb, ${color} ${pct}%, transparent)`;
 const MSC={
-  troitsky:'#3770be',
-  letopisny:'#1e8250',
-  sukhanov:'#b97314',
-  added:'#1e8250',
-  deleted:'#c0392b',
-  changed:'#b97314',
-  language:'#6e32a0'
+  troitsky:cssVar('--viz-manuscript-troitsky'),
+  letopisny:cssVar('--viz-manuscript-letopisny'),
+  sukhanov:cssVar('--viz-manuscript-sukhanov'),
+  added:cssVar('--viz-manuscript-added'),
+  deleted:cssVar('--viz-manuscript-deleted'),
+  changed:cssVar('--viz-manuscript-changed'),
+  language:cssVar('--viz-manuscript-language')
 };
 
 // ── Passages with parallel texts ─────────────────────────────────────────────
@@ -320,9 +322,9 @@ function renderPassage(){
     if(!col)return;
     const div=document.createElement('div');
     div.className='ms-col';
-    div.style.borderColor=col.color+'66';
+    div.style.borderColor=alpha(col.color,40);
     div.innerHTML=`
-      <div class="ms-col-head" style="background:${col.color}12;border-bottom-color:${col.color}33;">
+      <div class="ms-col-head" style="background:${alpha(col.color,7)};border-bottom-color:${alpha(col.color,20)};">
         <span style="color:${col.color};">${col.head}</span>
         <span class="ms-col-head-sub" style="color:${col.color};">${labels[ci]}</span>
       </div>
