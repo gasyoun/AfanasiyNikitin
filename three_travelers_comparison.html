@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Афанасий Никитин — Три путешественника</title>
+  <title>Афанасий Никитин — Четыре путешественника</title>
   
   <!-- CSS Variables & Base Styles -->
   <link rel="stylesheet" href="css/atlas.css">
   <style>
     /* Original Widget Styles */
     .tv{font-size:13px;}
-.tv-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+.tv-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
 .tv-card{padding:10px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:all .13s;user-select:none;border-left:3px solid transparent;}
 .tv-card.active{background:var(--color-background-secondary);}
 .tv-card.dim{opacity:.35;}
@@ -38,7 +38,7 @@ canvas#tv-c{display:block;width:100%;border-radius:var(--border-radius-lg);borde
 <body>
   <div class="vis-container">
     <header class="vis-header">
-      <h1>Три путешественника</h1>
+      <h1>Четыре путешественника</h1>
       <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Вернуться в атлас</a>
     </header>
 
@@ -74,19 +74,36 @@ canvas#tv-c{display:block;width:100%;border-radius:var(--border-radius-lg);borde
       <div class="tv-card-stat"><b>170 чел.</b>4 корабля</div>
     </div>
   </div>
+  <div class="tv-card active" data-tid="G" style="border-left-color:#6b4c8a;" onclick="toggleTraveler('G')">
+    <div class="tv-card-name" style="color:#4a2f5a;">Махмуд Гаван</div>
+    <div class="tv-card-years">1453–1481 · Иран → Индия</div>
+    <div class="tv-card-stats">
+      <div class="tv-card-stat"><b>~5 000 км</b>общий путь</div>
+      <div class="tv-card-stat"><b>28 лет</b>в Индии</div>
+      <div class="tv-card-stat"><b>визирь</b>род занятий</div>
+      <div class="tv-card-stat"><b>1 чел.</b>дипломат</div>
+    </div>
+  </div>
 </div>
 
 <canvas id="tv-c" width="720" height="430"></canvas>
 
-<div class="tv-info" id="tv-info">Нажмите на карточку путешественника или на маршрут на карте.</div>
+<div class="tv-info" id="tv-info">Сравнение четырёх маршрутов. Нажмите на карточку путешественника, чтобы включить соло-режим.</div>
 
 <div class="tv-timeline">
-  <div class="tv-tl-head">Хронология трёх путешествий (1270–1500)</div>
+  <div class="tv-tl-head">Хронология четырёх путешествий (1270–1500)</div>
   <div class="tv-tl-row">
     <div class="tv-tl-lbl" style="color:#8a1010;">Марко Поло</div>
     <div class="tv-tl-bar-wrap">
       <div class="tv-tl-seg" style="left:3.7%;width:10.5%;background:#c0392b;">
         <span class="tv-tl-seg-txt">1271–1295</span></div>
+    </div>
+  </div>
+  <div class="tv-tl-row">
+    <div class="tv-tl-lbl" style="color:#4a2f5a;">Махмуд Гаван</div>
+    <div class="tv-tl-bar-wrap">
+      <div class="tv-tl-seg" style="left:71.8%;width:11.9%;background:#6b4c8a;">
+        <span class="tv-tl-seg-txt">1453–1481</span></div>
     </div>
   </div>
   <div class="tv-tl-row">
@@ -109,7 +126,7 @@ canvas#tv-c{display:block;width:100%;border-radius:var(--border-radius-lg);borde
 </div>
 
 <div class="tv-source">
-  Маршруты — историческая реконструкция. Марко Поло: по «Книге о разнообразии мира» (1298). Васко да Гама: по бортовым журналам Жуана де Са и Алвару Велью (1497–99). Афанасий Никитин: по Хрусталёву (2026). Расстояния приблизительные.
+  Маршруты — историческая реконструкция. Марко Поло: по «Книге о разнообразии мира» (1298). Васко да Гама: по бортовым журналам Жуана де Са и Алвару Велью (1497–99). Афанасий Никитин и Махмуд Гаван: по Хрусталёву (2026). Гаван оставался в Индии с 1453 по 1481 год; Афанасий вёл подробные записи об их встречах в Бидаре (1469–1473).
 </div>
 </div>
   </div>
@@ -184,13 +201,28 @@ const TRAVELERS={
       {lat:38.7,lon:-9.1,lbl:'Лиссабон'},{lat:-34.4,lon:18.5,lbl:'Мыс Доброй\nНадежды'},
       {lat:-4.1,lon:39.7,lbl:'Момбаса'},{lat:11.3,lon:75.8,lbl:'Каликут'}
     ]
+  },
+  G:{
+    id:'G', color:'#6b4c8a', name:'Махмуд Гаван', years:'1453–1481',
+    info:'<b>Махмуд Гаван</b> — персидский дипломат и визирь султана Биdара. Прибыл в Индию в 1453, оставался там 28 лет. Афанасий присутствовал при его триумфальном возвращении из военной кампании (19 мая 1472). Гаван пережил Афанасия на 6 лет (казнён в 1481). Глава 5 «Тетрадей» посвящена параллельной биографии этих двух незнакомцев, встретившихся в Биdаре.',
+    go:[
+      [36.8,49.6],[30.0,31.2],[33.5,36.3],[17.5,73.2],[17.9,77.5]
+    ],
+    ret:[
+      [17.9,77.5],[15.3,73.8],[15.3,78.5],[17.9,77.5]
+    ],
+    pts:[
+      {lat:36.8,lon:49.6,lbl:'Гилян'},{lat:30.0,lon:31.2,lbl:'Каир'},
+      {lat:33.5,lon:36.3,lbl:'Дамаск'},{lat:17.9,lon:77.5,lbl:'Бидар'},
+      {lat:15.3,lon:73.8,lbl:'Гоа'},{lat:15.3,lon:78.5,lbl:'Виджаянагара'}
+    ]
   }
 };
 
 // Shared waypoint — Hormuz — all three passed through it!
 const HORMUZ={lat:27.1,lon:56.5};
 
-let active={A:true,M:true,V:true},mapReady=false,hovered=null;
+let active={A:true,M:true,V:true,G:true},mapReady=false,hovered=null;
 
 function drawRoute(route,color,dashed,alpha){
   if(!route||route.length<2)return;
@@ -260,9 +292,10 @@ function drawFrame(){
   halo('все трое',hx,hy+15,'#7a5000');
 
   // Legend bottom-right
-  const lx=W-PAD-110,ly=H-PAD-52;
+  const legCount=Object.values(TRAVELERS).length;
+  const lx=W-PAD-130,ly=H-PAD-52;
   ctx.fillStyle='rgba(255,255,255,.75)';
-  ctx.beginPath();ctx.roundRect(lx-6,ly-14,118,60,5);ctx.fill();
+  ctx.beginPath();ctx.roundRect(lx-6,ly-14,138,14+legCount*18,5);ctx.fill();
   Object.values(TRAVELERS).forEach((tr,i)=>{
     const y=ly+i*18;
     ctx.beginPath();ctx.moveTo(lx,y);ctx.lineTo(lx+20,y);
@@ -294,7 +327,7 @@ function buildBase(world){
 // Card interactions
 window.toggleTraveler=function(id){
   const activeCount = Object.values(active).filter(v=>v).length;
-  const allActive = activeCount === 3;
+  const allActive = activeCount === 4;
   
   if (allActive) {
     Object.keys(active).forEach(k => active[k] = (k === id));
@@ -320,8 +353,8 @@ window.toggleTraveler=function(id){
   });
 
   const activeIds = Object.keys(active).filter(k => active[k]);
-  if (activeIds.length === 3) {
-    document.getElementById('tv-info').innerHTML = 'Сравнение трёх маршрутов. Нажмите на любого путешественника, чтобы включить соло-режим.';
+  if (activeIds.length === 4) {
+    document.getElementById('tv-info').innerHTML = 'Сравнение четырёх маршрутов. Нажмите на любого путешественника, чтобы включить соло-режим.';
   } else if (activeIds.length === 1) {
     const tr = TRAVELERS[activeIds[0]];
     document.getElementById('tv-info').innerHTML = tr.info + 
