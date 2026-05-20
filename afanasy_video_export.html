@@ -174,8 +174,59 @@ const CITIES=[
   {n:'Гоа',lon:73.8,lat:15.5,a:'w'},{n:'Кафа',lon:35.4,lat:45.0,a:'e'},
 ];
 
-let t=0,playing=false,lastTs=null,mapReady=false;
+let t=0,playing=false,lastTs=null,mapReady=false,cachedWorld=null,offTheme=null;
 let recorder=null,recChunks=[];
+
+function themeKey(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';}
+function cssVar(name,fallback){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||fallback;}
+function mapPalette(){
+  const dark=themeKey()==='dark';
+  return {
+    dark,
+    sea: dark?'#1c3a52':'#d9e6ee',
+    land: dark?'#2e2618':'#eadfca',
+    landStroke: dark?'#5a4a30':'#b79b64',
+    border: dark?'rgba(180,150,80,0.15)':'rgba(130,95,45,0.23)',
+    regionText: dark?'rgba(220,190,130,0.85)':'rgba(92,62,24,0.82)',
+    cityDot: dark?'rgba(220,190,130,0.8)':'rgba(132,88,32,0.82)',
+    cityText: dark?'rgba(210,180,120,0.85)':'rgba(86,58,26,0.8)',
+    grid: dark?'rgba(80,120,160,0.1)':'rgba(92,118,132,0.18)',
+    gridText: dark?'rgba(150,130,90,0.4)':'rgba(86,72,48,0.52)',
+    watermark: dark?'rgba(200,170,100,0.35)':'rgba(116,86,42,0.4)',
+    halo: dark?'rgba(0,0,0,0.45)':'rgba(255,250,235,0.78)',
+    hudBg: dark?'rgba(10,6,2,0.62)':'rgba(255,250,236,0.82)',
+    hudYear: dark?'#d4b870':'#7a3510',
+    hudMain: dark?'#e8d8b0':cssVar('--color-text-primary','#2a1a10'),
+    hudDim: dark?'#8a7a60':cssVar('--color-text-secondary','#604d32'),
+    routeFuture: dark?'rgba(180,130,50,0.15)':'rgba(122,82,36,0.22)',
+    routeGlow: dark?'rgba(200,100,30,0.4)':'rgba(190,96,28,0.22)',
+    routeDone: dark?'#c87830':'#a94f18',
+    startPoint: dark?'#8B4010':'#7a3510',
+    point: dark?'#d07030':'#b45a1f',
+    pointStroke: dark?'#ffd080':'#fff3d0',
+    routeLabel: dark?'rgba(220,190,130,0.9)':'rgba(94,58,22,0.82)',
+    markerGlow: dark?'rgba(255,180,30,0.6)':'rgba(255,176,48,0.38)',
+    markerHalo: dark?'rgba(255,160,30,0.2)':'rgba(255,176,48,0.24)',
+    markerFill: dark?'#ffb030':'#d97818',
+    markerStroke: dark?'#fff0a0':'#fff3d0',
+    loadingBg: dark?'#1a1410':'#eadfca',
+    loadingText: dark?'rgba(200,170,100,0.5)':'rgba(116,86,42,0.65)',
+    stateFills: dark?null:[
+      'rgba(184,136,64,0.28)','rgba(190,150,78,0.25)','rgba(204,166,82,0.24)',
+      'rgba(198,152,78,0.24)','rgba(108,164,96,0.25)','rgba(204,134,82,0.24)',
+      'rgba(130,180,102,0.23)','rgba(206,174,92,0.24)','rgba(126,185,118,0.24)',
+      'rgba(82,142,200,0.25)','rgba(210,162,104,0.24)','rgba(206,96,74,0.22)',
+      'rgba(218,184,86,0.22)'
+    ],
+    stateBorders: dark?null:[
+      'rgba(120,82,34,0.48)','rgba(128,88,34,0.42)','rgba(145,98,38,0.43)',
+      'rgba(140,96,36,0.42)','rgba(68,122,54,0.48)','rgba(150,82,42,0.45)',
+      'rgba(88,138,58,0.42)','rgba(150,108,42,0.42)','rgba(96,150,72,0.42)',
+      'rgba(48,92,168,0.48)','rgba(154,98,52,0.42)','rgba(166,52,36,0.42)',
+      'rgba(170,128,42,0.42)'
+    ]
+  };
+}
 
 function lerp(a,b,f){return a+(b-a)*f;}
 function curPos(){
@@ -194,68 +245,71 @@ function polyPath(c,poly){
   for(const[lo,la] of poly){const[x,y]=project(lo,la);if(f){c.moveTo(x,y);f=false;}else c.lineTo(x,y);}
   c.closePath();
 }
-function halo(c,txt,x,y,al){
-  c.textAlign=al;c.strokeStyle='rgba(0,0,0,0.45)';c.lineWidth=2.5;c.strokeText(txt,x,y);c.fillText(txt,x,y);
+function halo(c,txt,x,y,al,p=mapPalette()){
+  c.textAlign=al;c.strokeStyle=p.halo;c.lineWidth=2.5;c.strokeText(txt,x,y);c.fillText(txt,x,y);
 }
 function labelXY(cx,cy,a){return a==='e'?[cx+5,cy+3]:a==='w'?[cx-5,cy+3]:a==='n'?[cx,cy-5]:[cx,cy+10];}
 function labelAl(a){return a==='e'?'left':a==='w'?'right':'center';}
 
 function buildOffscreen(world){
+  cachedWorld=world;
+  offTheme=themeKey();
+  const pal=mapPalette();
   const d3proj=d3.geoTransform({point(lo,la){const[x,y]=project(lo,la);this.stream.point(x,y);}});
   const path=d3.geoPath(d3proj,oc);
   const land=topojson.feature(world,world.objects.land);
   const borders=topojson.mesh(world,world.objects.countries,(a,b)=>a!==b);
   oc.save();oc.beginPath();oc.rect(0,0,W,H);oc.clip();
 
-  // Dark-mode ocean for video aesthetics
-  oc.fillStyle='#1c3a52';oc.fillRect(0,0,W,H);
-  oc.beginPath();path(land);oc.fillStyle='#2e2618';oc.fill();oc.strokeStyle='#5a4a30';oc.lineWidth=0.5;oc.stroke();
+  oc.fillStyle=pal.sea;oc.fillRect(0,0,W,H);
+  oc.beginPath();path(land);oc.fillStyle=pal.land;oc.fill();oc.strokeStyle=pal.landStroke;oc.lineWidth=0.5;oc.stroke();
 
-  for(const s of STATES){
-    polyPath(oc,s.poly);oc.fillStyle=s.c;oc.fill();
-    polyPath(oc,s.poly);oc.strokeStyle=s.b;oc.lineWidth=1.2;oc.stroke();
-  }
-  oc.beginPath();path(borders);oc.strokeStyle='rgba(180,150,80,0.15)';oc.lineWidth=0.4;oc.stroke();
+  STATES.forEach((s,i)=>{
+    polyPath(oc,s.poly);oc.fillStyle=pal.dark?s.c:pal.stateFills[i%pal.stateFills.length];oc.fill();
+    polyPath(oc,s.poly);oc.strokeStyle=pal.dark?s.b:pal.stateBorders[i%pal.stateBorders.length];oc.lineWidth=1.2;oc.stroke();
+  });
+  oc.beginPath();path(borders);oc.strokeStyle=pal.border;oc.lineWidth=0.4;oc.stroke();
 
   for(const s of STATES){
     const[lx,ly]=project(s.lp[0],s.lp[1]);
     if(lx<PAD+2||lx>W-PAD-2||ly<PAD+2||ly>H-PAD-2)continue;
     const lines=s.n.split('\n');
-    oc.font='bold 7.5px Georgia,serif';oc.fillStyle='rgba(220,190,130,0.85)';
-    lines.forEach((l,i)=>halo(oc,l,lx,ly+(i-(lines.length-1)/2)*10,'center'));
+    oc.font='bold 7.5px Georgia,serif';oc.fillStyle=pal.regionText;
+    lines.forEach((l,i)=>halo(oc,l,lx,ly+(i-(lines.length-1)/2)*10,'center',pal));
   }
   for(const city of CITIES){
     const[cx,cy]=project(city.lon,city.lat);
     if(cx<PAD+1||cx>W-PAD-1||cy<PAD+1||cy>H-PAD-1)continue;
     oc.beginPath();oc.arc(cx,cy,2.3,0,Math.PI*2);
-    oc.fillStyle='rgba(220,190,130,0.8)';oc.fill();
+    oc.fillStyle=pal.cityDot;oc.fill();
     const[lx,ly]=labelXY(cx,cy,city.a);
-    oc.font='italic 7px Georgia,serif';oc.fillStyle='rgba(210,180,120,0.85)';
-    halo(oc,city.n,lx,ly,labelAl(city.a));
+    oc.font='italic 7px Georgia,serif';oc.fillStyle=pal.cityText;
+    halo(oc,city.n,lx,ly,labelAl(city.a),pal);
   }
   // Graticule
-  oc.strokeStyle='rgba(80,120,160,0.1)';oc.lineWidth=0.5;
+  oc.strokeStyle=pal.grid;oc.lineWidth=0.5;
   for(let lo=30;lo<=80;lo+=10){
     const[x,y0]=project(lo,LAT0+0.2);const[,y1]=project(lo,LAT1-0.2);
     oc.beginPath();oc.moveTo(x,y0);oc.lineTo(x,y1);oc.stroke();
-    oc.font='8px Georgia,serif';oc.fillStyle='rgba(150,130,90,0.4)';oc.textAlign='center';
+    oc.font='8px Georgia,serif';oc.fillStyle=pal.gridText;oc.textAlign='center';
     oc.fillText(lo+'°E',x,H-4);
   }
   for(let la=20;la<=60;la+=10){
     const[x0,y]=project(LON0+0.2,la);const[x1]=project(LON1-0.2,la);
     oc.beginPath();oc.moveTo(x0,y);oc.lineTo(x1,y);oc.stroke();
-    oc.font='8px Georgia,serif';oc.fillStyle='rgba(150,130,90,0.4)';oc.textAlign='left';
+    oc.font='8px Georgia,serif';oc.fillStyle=pal.gridText;oc.textAlign='left';
     oc.fillText(la+'°N',3,y+3);
   }
 
   // Title watermark
-  oc.font='bold 11px Georgia,serif';oc.fillStyle='rgba(200,170,100,0.35)';oc.textAlign='right';
+  oc.font='bold 11px Georgia,serif';oc.fillStyle=pal.watermark;oc.textAlign='right';
   oc.fillText('ПУТЬ АФАНАСИЯ НИКИТИНА · 1467–1475',W-PAD,H-PAD+13);
 
   oc.restore();
 }
 
 function drawOverlay(){
+  const pal=mapPalette();
   // Subtitle bar at bottom
   const seg=curWPIdx();
   const km=cumKmAt(t);
@@ -263,40 +317,41 @@ function drawOverlay(){
   const yr=Math.floor(1467+t/100*8);
 
   // Bottom HUD
-  ctx.fillStyle='rgba(10,6,2,0.62)';
+  ctx.fillStyle=pal.hudBg;
   ctx.beginPath();ctx.roundRect(PAD,H-PAD-46,W-2*PAD,42,6);ctx.fill();
 
-  ctx.font='bold 22px Georgia,serif';ctx.fillStyle='#d4b870';ctx.textAlign='left';
+  ctx.font='bold 22px Georgia,serif';ctx.fillStyle=pal.hudYear;ctx.textAlign='left';
   ctx.fillText(yr,PAD+12,H-PAD-20);
 
-  ctx.font='10px Georgia,serif';ctx.fillStyle='#8a7a60';
+  ctx.font='10px Georgia,serif';ctx.fillStyle=pal.hudDim;
   ctx.fillText(WP[seg][6],PAD+12,H-PAD-8);
 
-  ctx.font='bold 13px Georgia,serif';ctx.fillStyle='#e8d8b0';ctx.textAlign='center';
+  ctx.font='bold 13px Georgia,serif';ctx.fillStyle=pal.hudMain;ctx.textAlign='center';
   ctx.fillText(WP[seg][3]+' · '+WP[seg][4],W/2,H-PAD-26);
 
-  ctx.font='10px Georgia,serif';ctx.fillStyle='#8a7a60';ctx.textAlign='center';
+  ctx.font='10px Georgia,serif';ctx.fillStyle=pal.hudDim;ctx.textAlign='center';
   const shortDsc=WP[seg][5].length>90?WP[seg][5].slice(0,88)+'…':WP[seg][5];
   ctx.fillText(shortDsc,W/2,H-PAD-10);
 
-  ctx.font='10px Georgia,serif';ctx.fillStyle='#8a7a60';ctx.textAlign='right';
+  ctx.font='10px Georgia,serif';ctx.fillStyle=pal.hudDim;ctx.textAlign='right';
   ctx.fillText(versts.toLocaleString('ru')+' вёрст ('+Math.round(km).toLocaleString('ru')+' км)',W-PAD-12,H-PAD-8);
 }
 
 function drawRoute(){
+  const pal=mapPalette();
   const seg=curWPIdx();
   const[clat,clng]=curPos();
   const[cpx,cpy]=px(clat,clng);
 
   ctx.setLineDash([4,7]);
-  ctx.strokeStyle='rgba(180,130,50,0.15)';ctx.lineWidth=1.5;
+  ctx.strokeStyle=pal.routeFuture;ctx.lineWidth=1.5;
   ctx.beginPath();let first=true;
   for(const w of WP){const[x,y]=px(w[0],w[1]);if(first){ctx.moveTo(x,y);first=false;}else ctx.lineTo(x,y);}
   ctx.stroke();ctx.setLineDash([]);
 
   // Glow effect on traveled route
-  ctx.shadowColor='rgba(200,100,30,0.4)';ctx.shadowBlur=6;
-  ctx.strokeStyle='#c87830';ctx.lineWidth=2.8;ctx.lineCap='round';ctx.lineJoin='round';
+  ctx.shadowColor=pal.routeGlow;ctx.shadowBlur=6;
+  ctx.strokeStyle=pal.routeDone;ctx.lineWidth=2.8;ctx.lineCap='round';ctx.lineJoin='round';
   ctx.beginPath();
   const[sx,sy]=px(WP[0][0],WP[0][1]);ctx.moveTo(sx,sy);
   for(let i=1;i<=seg;i++){const[x,y]=px(WP[i][0],WP[i][1]);ctx.lineTo(x,y);}
@@ -306,30 +361,32 @@ function drawRoute(){
   for(let i=0;i<=seg;i++){
     const[x,y]=px(WP[i][0],WP[i][1]);
     ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);
-    ctx.fillStyle=i===0?'#8B4010':'#d07030';ctx.fill();
-    ctx.strokeStyle='#ffd080';ctx.lineWidth=0.8;ctx.stroke();
+    ctx.fillStyle=i===0?pal.startPoint:pal.point;ctx.fill();
+    ctx.strokeStyle=pal.pointStroke;ctx.lineWidth=0.8;ctx.stroke();
     const lbl=WP[i][3].split('(')[0].split('/')[0].trim();
-    ctx.font='bold 8px Georgia,serif';ctx.fillStyle='rgba(220,190,130,0.9)';
-    halo(ctx,lbl,x,y-7,'center');
+    ctx.font='bold 8px Georgia,serif';ctx.fillStyle=pal.routeLabel;
+    halo(ctx,lbl,x,y-7,'center',pal);
   }
 
   // Pulsing marker
   const pulse=3+Math.sin(Date.now()/280)*1.8;
-  ctx.shadowColor='rgba(255,180,30,0.6)';ctx.shadowBlur=12;
+  ctx.shadowColor=pal.markerGlow;ctx.shadowBlur=12;
   ctx.beginPath();ctx.arc(cpx,cpy,pulse+5,0,Math.PI*2);
-  ctx.fillStyle='rgba(255,160,30,0.2)';ctx.fill();
+  ctx.fillStyle=pal.markerHalo;ctx.fill();
   ctx.beginPath();ctx.arc(cpx,cpy,5.5,0,Math.PI*2);
-  ctx.fillStyle='#ffb030';ctx.fill();
-  ctx.strokeStyle='#fff0a0';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle=pal.markerFill;ctx.fill();
+  ctx.strokeStyle=pal.markerStroke;ctx.lineWidth=1.5;ctx.stroke();
   ctx.shadowBlur=0;
 }
 
 function drawFrame(){
+  const pal=mapPalette();
   if(!mapReady){
-    ctx.fillStyle='#1a1410';ctx.fillRect(0,0,W,H);
-    ctx.fillStyle='rgba(200,170,100,0.5)';ctx.font='13px Georgia,serif';ctx.textAlign='center';
+    ctx.fillStyle=pal.loadingBg;ctx.fillRect(0,0,W,H);
+    ctx.fillStyle=pal.loadingText;ctx.font='13px Georgia,serif';ctx.textAlign='center';
     ctx.fillText('Загрузка карты…',W/2,H/2);return;
   }
+  if(cachedWorld&&offTheme!==themeKey())buildOffscreen(cachedWorld);
   ctx.drawImage(off,0,0);
   ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
   drawRoute();
@@ -414,6 +471,8 @@ fetch('lib/countries-110m.json')
     buildOffscreen(w);mapReady=true;
     document.getElementById('status').textContent='Карта загружена. Готово к записи.';
   });
+new MutationObserver(()=>{if(cachedWorld){buildOffscreen(cachedWorld);drawFrame();}})
+  .observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 requestAnimationFrame(frame);
 </script>
 

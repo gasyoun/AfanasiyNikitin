@@ -17,6 +17,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Extracted the repeated dark/light theme toggle script into `js/atlas-theme.js` for the index and 13 established visualization pages.
 
 ### Fixed
+- `afanasy_video_export.html`: added theme-aware Canvas basemap, route, waypoint, marker, label, loading, and video HUD colors for light/dark mode.
 - `afanasy_world_before_after.html`: added theme-aware Canvas palettes for both before/after maps, route, markers, labels, and active highlights in dark mode.
 - `afanasy_trade_marshruttnik.html`: added theme-aware Canvas basemap, route, port, label, and legend colors for dark mode; replaced an invalid CSS-variable string used as a Canvas fill color.
 - `afanasy_borders_animation.html`: added theme-aware Canvas basemap, labels, active traveler marker, and year overlay colors for dark mode.
