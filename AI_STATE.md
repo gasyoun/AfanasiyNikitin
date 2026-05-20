@@ -3,19 +3,34 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-05-19 · Conversation ID: GPT-5.5 Phase 2
-> **Commit:** Phase 2 Stage 4 complete
+> **Last updated:** 2026-05-20 · Conversation ID: Claude Haiku Phase 4 + FIX 8
+> **Commit:** 6ceaf32 (FIX 8 complete), Phase 2 Stage 4 complete
 
 ---
 
-## Current Status: ✅ PHASE 2 COMPLETE — Shared CSS, Assets, Data, and Theme Extracted
+## Current Status: ✅ PHASE 2 COMPLETE + FIX 8 DONE — PWA & Mahmud Gavan Added
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Phase 0 from `FIX_PLAN.md` is implemented and browser-verified locally: A1–A4 credibility and dark-mode fixes. Phase 1 is complete: FIX 2 in `afanasy_gantt.html`, FIX 1 in `afanasy_v8_text_map.html`, FIX 3 in `afanasy_calendar_pascha_islam.html`, and FIX 4 in `afanasy_economics_prices.html`. Phase 2 is complete for the established atlas pages: shared CSS in `css/atlas.css`, bundled local assets in `lib/`, shared map/Gantt data in `js/atlas-data.js`, and shared theme logic in `js/atlas-theme.js`.
+Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 1–4 data corrections. Phase 2 complete: shared CSS in `css/atlas.css`, bundled local assets in `lib/`, shared map/Gantt data in `js/atlas-data.js`, and shared theme logic in `js/atlas-theme.js`. Phase 4.1–4.2 PWA: `manifest.json`, `sw.js` Service Worker, offline support verified. **FIX 8 complete**: Mahmud Gavan added as 4th traveler in `three_travelers_comparison.html` with full route and interactive legend.
 
 ---
 
-## What Was Completed (Sessions 2026-05-19)
+## What Was Completed (Sessions 2026-05-19, 2026-05-20)
+
+### Session 4 (Claude Haiku 4.5) — Phase 4 PWA + FIX 8 Gavan
+| Task | Status | Notes |
+|------|--------|-------|
+| Phase 4.1 — PWA Service Worker | ✅ Done | Created `sw.js` with install/activate/fetch handlers, caches ~20 assets |
+| Phase 4.2 — PWA Manifest | ✅ Done | Created `manifest.json` with app icons (SVG), theme colors, metadata |
+| Phase 4.3 — CDN fallback | ✅ Done | (Already completed in Phase 2 Stage 2: D3, TopoJSON, world-atlas in `lib/`) |
+| PWA meta-tags | ✅ Done | Added to `index.html`: `<link rel="manifest">`, `apple-mobile-web-app-*`, theme-color |
+| Service Worker registration | ✅ Done | Auto-registers on page load via `navigator.serviceWorker.register()` |
+| Offline verification | ✅ Done | Test script confirms all cached assets accessible, SW activates cleanly |
+| Android PWA install | ⚠️ Pending | To test: open on Android, tap Install, test offline mode |
+| iPhone Home Screen add | ⚠️ Pending | To test: open in Safari, Share → Add to Home Screen, test offline |
+| FIX 8 — Mahmud Gavan | ✅ Done | 4-traveler comparison added: route (Gilan→Cairo→Damascus→Bidar→Goa→Vijayanagara), timeline, interactive toggle, legend |
+| Gavan data integration | ✅ Done | Coordinates verified (36.8°N 49.6°E to 15.3°N 78.5°E), color (#6b4c8a), years 1453–1481 |
+| Three → Four travelers | ✅ Done | Grid expanded to 4 columns, toggleTraveler logic updated, legend scales dynamically |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
@@ -140,9 +155,19 @@ git status: untracked hrustalev_tetradi_2026.pdf and scratch/book_text.txt
 
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
-1. **New widget audit**: replace remaining hardcoded chart/interface colors in the eight newly added widgets with design tokens or documented data-color variables
-2. **Phase 3 — FIX 5** manuscript leaf-size proof
-3. **Layout follow-up**: investigate existing 1366×768 document scroll on map/travelers/trade/borders/Gantt/emotional/language/manuscripts/tree pages
+**Priority (today):**
+1. **FIX 5** — Manuscripts: leaf-size proof + two-gap visualization (2h)
+2. **FIX 6** — Emotional arc: silence zone (1471–1472) + pronoun analysis (2h)
+3. **FIX 7** — Composition tree: chronological writing order toggle (3h)
+
+**Then (Phase 3 new visualizations):**
+1. **Phase 3.1** — World before/after: myths vs experience (8h)
+2. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)
+
+**Mobile testing (Phase 4):**
+- Test PWA install on Android (Chrome: should show Install prompt)
+- Test PWA add on iPhone (Safari: Share → Add to Home Screen)
+- Verify offline mode works on both platforms
 
 ---
 
