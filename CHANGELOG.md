@@ -45,6 +45,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **`afanasy_citations_v2.html`**: citation cards, series, wave markers, legends, and Canvas labels now resolve through shared `--viz-citation-*` tokens and redraw correctly after a theme toggle.
 - **`afanasy_religious_crisis.html`**: religious concept cards, legend dots, SVG annotations, ratio shading, and detail badges now resolve through shared `--viz-religion-*` tokens.
 - **`afanasy_historiography.html`**: timeline events, era bands, navigation accents, detail headers, and tags now resolve through shared `--viz-hist-*` tokens.
+- **`khozheniye_composition_tree.html`**: manuscript/chronological node colors now resolve through shared `--viz-comp-*` tokens with theme-aware SVG fills.
 
 ### Fixed
 - `afanasy_citations_v2.html`, `afanasy_religious_crisis.html`, `afanasy_emotional_arc.html`, and `khozheniye_composition_tree.html`: constrained chart/detail heights so their primary interactions stay within 1366×768.

@@ -61,12 +61,40 @@ const svg=document.getElementById('ct-svg');
 function el(tag,a){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] of Object.entries(a))e.setAttribute(k,v);return e;}
 function t(s,a){const e=el('text',a);e.textContent=s;return e;}
 function tspan(s,a){const e=document.createElementNS(SVG_NS,'tspan');for(const[k,v] of Object.entries(a))e.setAttribute(k,v);e.textContent=s;return e;}
+const COMP_FALLBACKS={
+  '--viz-comp-root':'#2c1810',
+  '--viz-comp-route':'#1e5a8a',
+  '--viz-comp-faith':'#6e32a0',
+  '--viz-comp-notes':'#8b5a30',
+  '--viz-comp-trade':'#1e8250',
+  '--viz-comp-diary':'#c0392b',
+  '--viz-comp-chronicle':'#b97314',
+  '--viz-comp-editor':'#8a8a8a',
+  '--viz-comp-editor-text':'#5a5a5a',
+  '--viz-comp-troitsky':'#3770be',
+  '--viz-comp-silence':'#888888'
+};
+function cssVal(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||COMP_FALLBACKS[name]||name;}
+function colorCss(token){return token&&token.startsWith('--')?`var(${token})`:token;}
+function colorValue(token){return token&&token.startsWith('--')?cssVal(token):token;}
+function alphaColor(token,value){
+  const c=colorValue(token).trim();
+  if(c.startsWith('#')){
+    const hex=c.slice(1);
+    const full=hex.length===3?hex.split('').map(ch=>ch+ch).join(''):hex.slice(0,6);
+    const num=parseInt(full,16);
+    return `rgba(${(num>>16)&255},${(num>>8)&255},${num&255},${value})`;
+  }
+  const rgb=c.match(/^rgba?\(([^)]+)\)$/);
+  if(rgb)return `rgba(${rgb[1].split(',').slice(0,3).join(',')},${value})`;
+  return c;
+}
 
 // ── Node data ─────────────────────────────────────────────────────────────────
 const NODES=[
   // Root: original notebooks
   {id:'root', x:360, y:42, w:210, h:42, rx:8,
-   color:'#2c1810', fill:'rgba(44,24,16,0.12)', stroke:'#2c1810',
+   color:'--viz-comp-root', fill:'--viz-comp-root', fillAlpha:.12, stroke:'--viz-comp-root',
    label:['ОРИГИНАЛЬНЫЕ','«ТЕТРАДИ» АФАНАСИЯ'],
    labelSize:'11.5', bold:true,
    detail:{
@@ -77,7 +105,7 @@ const NODES=[
 
   // Layer 1: 7 тетрадей
   {id:'d1', x:62, y:148, w:142, h:56, rx:6,
-   color:'#1e5a8a', fill:'rgba(30,90,138,0.12)', stroke:'#1e5a8a',
+   color:'--viz-comp-route', fill:'--viz-comp-route', fillAlpha:.12, stroke:'--viz-comp-route',
    label:['«ДОРОЖНИК»','(начало)'],
    sub:'Тверь → Ормуз',
    detail:{
@@ -86,7 +114,7 @@ const NODES=[
      body:'<b>Жанр:</b> итинерарий (дорожник). Стандартный купеческий формат: откуда вышел, сколько дней шёл, что видел, где торговал. Язык — <b>почти чистый русский</b>. Даты, топонимы, характеристики городов. Хрусталёв: этот блок написан первым и является ядром всего текста.'
    }},
   {id:'iv', x:210, y:148, w:142, h:56, rx:6,
-   color:'#6e32a0', fill:'rgba(110,50,160,0.1)', stroke:'#6e32a0',
+   color:'--viz-comp-faith', fill:'--viz-comp-faith', fillAlpha:.1, stroke:'--viz-comp-faith',
    label:['«ИНДИЙСКИЕ','ВЕРЫ»'],
    sub:'Описание индуизма',
    detail:{
@@ -95,7 +123,7 @@ const NODES=[
      body:'<b>Жанр:</b> этнографическое описание — уникальный для XV в. взгляд русского человека на индуизм. Афанасий описывает богов («буты»), ритуалы, касты, паломничество. Вероятно, написан в Бидаре как отдельный документ. Хрусталёв: этот блок — <b>самостоятельный трактат</b>, а не часть дневника.'
    }},
   {id:'zam', x:358, y:148, w:142, h:56, rx:6,
-   color:'#8B5a30', fill:'rgba(139,90,48,0.1)', stroke:'#8B5a30',
+   color:'--viz-comp-notes', fill:'--viz-comp-notes', fillAlpha:.1, stroke:'--viz-comp-notes',
    label:['ЗАМЕТКИ'],
    sub:'Смесь языков, быт',
    detail:{
@@ -104,7 +132,7 @@ const NODES=[
      body:'<b>Жанр:</b> разрозненные дневниковые записи. Самый хаотичный блок: здесь и торговые сведения, и личные переживания, и иноязычные вставки. Хрусталёв: именно эти фрагменты больше всего варьируются между рукописными списками — <b>переписчики пытались «навести порядок»</b> в том, что не понимали.'
    }},
   {id:'mr', x:506, y:148, w:142, h:56, rx:6,
-   color:'#1e8250', fill:'rgba(30,130,80,0.1)', stroke:'#1e8250',
+   color:'--viz-comp-trade', fill:'--viz-comp-trade', fillAlpha:.1, stroke:'--viz-comp-trade',
    label:['«МАРШРУТНИК»'],
    sub:'Торговый путеводитель',
    detail:{
@@ -113,7 +141,7 @@ const NODES=[
      body:'<b>Жанр:</b> средневековый «лоция» — список портов, расстояний, товаров. Написан <b>на смеси персидского и татарского</b> с арабскими вставками — деловой язык Индийского океана. Хрусталёв: это <b>отдельный документ</b>, составленный для практических нужд торговцев, а не для литературного текста.'
    }},
   {id:'dn', x:62, y:280, w:142, h:56, rx:6,
-   color:'#c0392b', fill:'rgba(192,57,43,0.1)', stroke:'#c0392b',
+   color:'--viz-comp-diary', fill:'--viz-comp-diary', fillAlpha:.1, stroke:'--viz-comp-diary',
    label:['ДНЕВНИКИ'],
    sub:'Пасхи, посты, молитвы',
    detail:{
@@ -122,7 +150,7 @@ const NODES=[
      body:'<b>Жанр:</b> личный дневник с хронологическими пометками. Главный источник для датировки Хрусталёва: упоминания Пасх, Рамадана, Ураза-байрама. Самые <b>эмоциональные</b> фрагменты — молитвы на пяти языках. Хрусталёв: дневники велись <b>параллельно</b> с дорожником, как отдельная тетрадь.'
    }},
   {id:'lv', x:210, y:280, w:142, h:56, rx:6,
-   color:'#b97314', fill:'rgba(185,115,20,0.1)', stroke:'#b97314',
+   color:'--viz-comp-chronicle', fill:'--viz-comp-chronicle', fillAlpha:.1, stroke:'--viz-comp-chronicle',
    label:['«ЛЕТОПИСЬ','ВОЙН»'],
    sub:'Бахманидский султанат',
    detail:{
@@ -131,7 +159,7 @@ const NODES=[
      body:'<b>Жанр:</b> политическая хроника. Уникальный источник по истории Индии 1469–1472 гг. — кампании Махмуда Гавана. Хрусталёв: это <b>самый недооценённый блок</b>. Афанасий мог записывать со слов индийских информаторов или сам был свидетелем. Возможно, он служил при дворе и имел доступ к официальной информации.'
    }},
   {id:'d2', x:358, y:280, w:142, h:56, rx:6,
-   color:'#1e5a8a', fill:'rgba(30,90,138,0.12)', stroke:'#1e5a8a',
+   color:'--viz-comp-route', fill:'--viz-comp-route', fillAlpha:.12, stroke:'--viz-comp-route',
    label:['«ДОРОЖНИК»','(окончание)'],
    sub:'Индия → Смоленск',
    detail:{
@@ -142,7 +170,7 @@ const NODES=[
 
   // Layer 2: Мамырев
   {id:'mam', x:360, y:392, w:210, h:46, rx:8,
-   color:'#5a5a5a', fill:'rgba(90,90,90,0.1)', stroke:'#8a8a8a',
+   color:'--viz-comp-editor-text', fill:'--viz-comp-editor', fillAlpha:.1, stroke:'--viz-comp-editor',
    label:['ДЬЯК МАМЫРЕВ','~1475–1480'],
    sub:'компиляция и летопись',
    detail:{
@@ -153,7 +181,7 @@ const NODES=[
 
   // Layer 3: рукописи
   {id:'ms-t', x:160, y:490, w:120, h:36, rx:5,
-   color:'#3770be', fill:'rgba(55,112,190,0.1)', stroke:'#3770be',
+   color:'--viz-comp-troitsky', fill:'--viz-comp-troitsky', fillAlpha:.1, stroke:'--viz-comp-troitsky',
    label:['Троицкий','список'],
    sub:'кон. XV – нач. XVI',
    detail:{
@@ -162,7 +190,7 @@ const NODES=[
      body:'РГБ, ф. 304.I, № 794. <b>Полнее других</b> — больше иноязычных вставок, точнее дата «6975». Основа академического издания 1986 г. Хрусталёв: ближе всего к оригинальным тетрадям.'
    }},
   {id:'ms-l', x:360, y:490, w:120, h:36, rx:5,
-   color:'#1e8250', fill:'rgba(30,130,80,0.1)', stroke:'#1e8250',
+   color:'--viz-comp-trade', fill:'--viz-comp-trade', fillAlpha:.1, stroke:'--viz-comp-trade',
    label:['Летописный','список'],
    sub:'1480-е гг.',
    detail:{
@@ -171,7 +199,7 @@ const NODES=[
      body:'РГАДА, Эрмитажная летопись. <b>Сокращён</b>, иноязычные вставки частично убраны или «переведены». Добавлено летописное предисловие Мамырева. Более «литературный» язык.'
    }},
   {id:'ms-s', x:558, y:490, w:120, h:36, rx:5,
-   color:'#b97314', fill:'rgba(185,115,20,0.1)', stroke:'#b97314',
+   color:'--viz-comp-chronicle', fill:'--viz-comp-chronicle', fillAlpha:.1, stroke:'--viz-comp-chronicle',
    label:['Сухановский','список'],
    sub:'XVII в.',
    detail:{
@@ -185,7 +213,7 @@ const NODES=[
 // Порядок написания фрагментов по главе 3, стр. 144
 const CHRONO_NODES=[
   {id:'root', x:360, y:42, w:210, h:42, rx:8,
-   color:'#2c1810', fill:'rgba(44,24,16,0.12)', stroke:'#2c1810',
+   color:'--viz-comp-root', fill:'--viz-comp-root', fillAlpha:.12, stroke:'--viz-comp-root',
    label:['АФАНАСИЙ ПИСАЛ','В ТОМ ПОРЯДКЕ'],
    labelSize:'11.5', bold:true,
    detail:{
@@ -196,7 +224,7 @@ const CHRONO_NODES=[
 
   // Period 1: Persia 1468–1469 (Ф.52–66 Маршрутник)
   {id:'p1', x:120, y:148, w:150, h:68, rx:6,
-   color:'#b97314', fill:'rgba(185,115,20,0.1)', stroke:'#b97314',
+   color:'--viz-comp-chronicle', fill:'--viz-comp-chronicle', fillAlpha:.1, stroke:'--viz-comp-chronicle',
    label:['ПЕРСИЯ','1468–1469'],
    sub:'Ф.52–66 Маршрутник',
    detail:{
@@ -207,7 +235,7 @@ const CHRONO_NODES=[
 
   // Period 2: India 1469 (Ф.26, 23–24, 32–33, 29, 35, 34, 36–42, 51)
   {id:'p2', x:300, y:148, w:150, h:68, rx:6,
-   color:'#6e32a0', fill:'rgba(110,50,160,0.1)', stroke:'#6e32a0',
+   color:'--viz-comp-faith', fill:'--viz-comp-faith', fillAlpha:.1, stroke:'--viz-comp-faith',
    label:['ИНДИЯ','1469'],
    sub:'Ф.26, 23–24, 32–33, 29, 35, 34, 36–42, 51',
    detail:{
@@ -218,7 +246,7 @@ const CHRONO_NODES=[
 
   // Period 3: India 1470 (Ф.71–78)
   {id:'p3', x:480, y:148, w:150, h:68, rx:6,
-   color:'#1e8250', fill:'rgba(30,130,80,0.1)', stroke:'#1e8250',
+   color:'--viz-comp-trade', fill:'--viz-comp-trade', fillAlpha:.1, stroke:'--viz-comp-trade',
    label:['ИНДИЯ','1470'],
    sub:'Ф.71–78 второй дневник',
    detail:{
@@ -229,7 +257,7 @@ const CHRONO_NODES=[
 
   // Period 4: Dorozhnik 1470 (Ф.3–22, 25–28, 79–80)
   {id:'p4', x:660, y:148, w:150, h:68, rx:6,
-   color:'#1e5a8a', fill:'rgba(30,90,138,0.12)', stroke:'#1e5a8a',
+   color:'--viz-comp-route', fill:'--viz-comp-route', fillAlpha:.12, stroke:'--viz-comp-route',
    label:['ДОРОЖНИК','1470'],
    sub:'Ф.3–22, 25–28, 79–80 черновик',
    detail:{
@@ -240,7 +268,7 @@ const CHRONO_NODES=[
 
   // Period 5: Aland+Parwat 1470–1471 (Ф.30–31, 46–48, 43–45, 49–50, 68–70)
   {id:'p5', x:90, y:280, w:150, h:68, rx:6,
-   color:'#c0392b', fill:'rgba(192,57,43,0.1)', stroke:'#c0392b',
+   color:'--viz-comp-diary', fill:'--viz-comp-diary', fillAlpha:.1, stroke:'--viz-comp-diary',
    label:['АЛАН+ПАРВАТ','1470–1471'],
    sub:'Ф.30–31, 46–48, 43–45, 49–50, 68–70',
    detail:{
@@ -251,7 +279,7 @@ const CHRONO_NODES=[
 
   // Period 6: War chronicle 1472–1473 (Ф.67, 81–82, 84, 85–86, 83, 87–89, 92–94, 90–91)
   {id:'p6', x:270, y:280, w:150, h:68, rx:6,
-   color:'#b97314', fill:'rgba(185,115,20,0.1)', stroke:'#b97314',
+   color:'--viz-comp-chronicle', fill:'--viz-comp-chronicle', fillAlpha:.1, stroke:'--viz-comp-chronicle',
    label:['ЛЕТОПИСЬ','1472–1473'],
    sub:'Ф.67, 81–82, 84, 85–86, 83, 87–89, 92–94',
    detail:{
@@ -262,7 +290,7 @@ const CHRONO_NODES=[
 
   // Period 7: Kaffa 1474 (Ф.104, 103, 1, 95–102, 2)
   {id:'p7', x:450, y:280, w:150, h:68, rx:6,
-   color:'#1e5a8a', fill:'rgba(30,90,138,0.12)', stroke:'#1e5a8a',
+   color:'--viz-comp-route', fill:'--viz-comp-route', fillAlpha:.12, stroke:'--viz-comp-route',
    label:['КАФА','1474'],
    sub:'Ф.104, 103, 1, 95–102, 2',
    detail:{
@@ -273,7 +301,7 @@ const CHRONO_NODES=[
 
   // Silence (МОЛЧАНИЕ 1471–1472)
   {id:'silence', x:630, y:280, w:150, h:68, rx:6,
-   color:'#888888', fill:'rgba(100,100,100,0.08)', stroke:'#aaaaaa',
+   color:'--viz-comp-silence', fill:'--viz-comp-silence', fillAlpha:.08, stroke:'--viz-comp-editor',
    label:['МОЛЧАНИЕ','1471–1472'],
    sub:'— нет записей —',
    detail:{
@@ -338,12 +366,12 @@ nodes.forEach(n=>{
 
   // Shadow
   const sh=el('rect',{x:-n.w/2+2,y:-n.h/2+2,width:n.w,height:n.h,rx:n.rx,
-    fill:'rgba(0,0,0,.07)'});
+    fill:'var(--color-chart-silence)'});
   g.appendChild(sh);
 
   // Box
   const box=el('rect',{x:-n.w/2,y:-n.h/2,width:n.w,height:n.h,rx:n.rx,
-    fill:n.fill,stroke:n.stroke,'stroke-width':1.3});
+    fill:alphaColor(n.fill||n.stroke,n.fillAlpha??.1),stroke:colorCss(n.stroke),'stroke-width':1.3});
   g.appendChild(box);
 
   // Labels
@@ -354,12 +382,12 @@ nodes.forEach(n=>{
   lines.forEach((l,i)=>{
     const tx=t(l,{x:0,y:startY+i*lineH,'text-anchor':'middle',
       'font-size':n.labelSize||'11','font-weight':n.bold?'700':'600',
-      fill:n.color});
+      fill:colorCss(n.color)});
     g.appendChild(tx);
   });
   if(n.sub){
     g.appendChild(t(n.sub,{x:0,y:startY+lines.length*lineH+2,'text-anchor':'middle',
-      'font-size':'9.5',fill:n.color,opacity:.65}));
+      'font-size':'9.5',fill:colorCss(n.color),opacity:.65}));
   }
 
   // Click
@@ -376,8 +404,8 @@ nodes.forEach(n=>{
       });
       box.setAttribute('stroke-width','2.5');
       const d=n.detail;
-      det.style.borderLeftColor=n.stroke;
-      det.innerHTML=`<div class="ct-det-h" style="color:${n.stroke};">${d.title}</div>`+
+      det.style.borderLeftColor=colorCss(n.stroke);
+      det.innerHTML=`<div class="ct-det-h" style="color:${colorCss(n.stroke)};">${d.title}</div>`+
         (d.quote?`<div class="ct-det-q">${d.quote}</div>`:'')+
         `<div class="ct-det-body">${d.body}</div>`;
       det.classList.add('open');
@@ -427,6 +455,10 @@ window.toggleOrder = function(){
 };
 
 redraw();
+new MutationObserver(()=>{
+  document.getElementById('ct-detail').classList.remove('open');
+  redraw();
+}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
 })();
 </script>

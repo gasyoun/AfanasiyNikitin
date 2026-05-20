@@ -105,6 +105,26 @@
     --viz-hist-soviet: #c0392b;
     --viz-hist-cultural: #8a3a8a;
     --viz-hist-reconstruction: #6e32a0;
+
+    /* Composition tree */
+    --viz-comp-root: #2c1810;
+    --viz-comp-route: #1e5a8a;
+    --viz-comp-faith: #6e32a0;
+    --viz-comp-notes: #8b5a30;
+    --viz-comp-trade: #1e8250;
+    --viz-comp-diary: #c0392b;
+    --viz-comp-chronicle: #b97314;
+    --viz-comp-editor: #8a8a8a;
+    --viz-comp-editor-text: #5a5a5a;
+    --viz-comp-troitsky: #3770be;
+    --viz-comp-silence: #888888;
+}
+
+[data-theme="dark"] {
+    --viz-comp-root: #ebdcd5;
+    --viz-comp-editor: #b8aba3;
+    --viz-comp-editor-text: #b8aba3;
+    --viz-comp-silence: #b8aba3;
 }
 
 html[data-theme="dark"] body {
