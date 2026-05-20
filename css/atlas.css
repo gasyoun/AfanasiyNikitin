@@ -152,6 +152,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
     border-bottom: 1.5px solid var(--color-border-tertiary);
     padding-bottom: 8px;
     margin-bottom: 4px;
@@ -163,6 +164,38 @@ body {
     font-size: 1.4rem;
     color: var(--color-text-primary);
     font-weight: 700;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.atlas-breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 45%;
+    min-width: 0;
+    font-size: var(--text-xs);
+    line-height: 1.2;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+
+.atlas-breadcrumb .back-btn {
+    flex-shrink: 0;
+    font-size: var(--text-xs);
+}
+
+.atlas-breadcrumb-sep {
+    flex-shrink: 0;
+    color: var(--color-border-primary);
+}
+
+.atlas-breadcrumb-current {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .back-btn {
@@ -178,6 +211,22 @@ body {
 
 .back-btn:hover {
     color: var(--color-accent-hover);
+}
+
+@media (max-width: 720px) {
+    .vis-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .vis-header h1 {
+        white-space: normal;
+    }
+
+    .atlas-breadcrumb {
+        max-width: 100%;
+    }
 }
 
 /* Scrollbars */
