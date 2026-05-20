@@ -11,7 +11,7 @@ It records the current state of work, decisions made, and context needed to cont
 ## Current Status: ✅ PHASE 2 COMPLETE + FIX 5–9 DONE + A5 CANVAS AUDIT COMPLETE + CROSS-LINKING PASS
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 1–4 data corrections. Phase 2 complete: shared CSS in `css/atlas.css`, bundled local assets in `lib/`, shared map/Gantt data in `js/atlas-data.js`, and shared theme logic in `js/atlas-theme.js`. Phase 4.1–4.2 PWA shell exists: `manifest.json`, `sw.js` Service Worker, cache list aligned to the current widget filenames. FIX 5–9 are complete: manuscript leaf proof, emotional silence/pronouns, composition chronological toggle, Mahmud Gavan as 4th traveler, and current 21-widget index navigation. A5 is complete across all Canvas widgets: no shared CSS inversion filter remains, and each Canvas page now draws its own light/dark palette. Cross-linking first pass is implemented for Calendar→Map, Economics→Map, and Manuscripts→Gantt; all-pages breadcrumbs remain for a later pass.
+Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 1–4 data corrections. Phase 2 complete: shared CSS in `css/atlas.css`, bundled local assets in `lib/`, shared map/Gantt data in `js/atlas-data.js`, and shared theme logic in `js/atlas-theme.js`. Phase 4.1–4.2 PWA shell exists: `manifest.json`, `sw.js` Service Worker, cache list aligned to the current widget filenames. FIX 5–9 are complete: manuscript leaf proof, emotional silence/pronouns, composition chronological toggle, Mahmud Gavan as 4th traveler, and current 21-widget index navigation. A5 is complete across all Canvas widgets: no shared CSS inversion filter remains, and each Canvas page now draws its own light/dark palette. Cross-linking is complete: Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt focus links, and all-widget breadcrumbs are implemented.
 
 ---
 
@@ -42,7 +42,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | A5 — Video export canvas dark palette | ✅ Done | `afanasy_video_export.html` now rebuilds its offscreen basemap and overlay palette from the active theme; verified play/pause, slider, speed select, short MediaRecorder start/stop, and dark-mode Canvas redraw in headless Edge |
 | FIX 9 — Index navigation | ✅ Done | `index.html` now has search, six category filters, and a collapsible question/scenario section for the current 20 visible cards + video export download page; verified filter/search/details/theme interactions in headless Edge |
 | Legacy date-range wording cleanup | ✅ Done | Removed literal old-range chronology strings from public widgets and project handoff/reference docs; `rg "1468.{0,3}1474"` is clean outside the extracted book text/PDF exclusions |
-| Cross-linking first pass | 🔄 Partial | `afanasy_calendar_pascha_islam.html` event details link to map waypoints; `afanasy_economics_prices.html` Bidar cards/SVG entries link to `?wp=12`; `afanasy_manuscripts.html` passage selector links to `afanasy_gantt.html?focus=...`; `afanasy_gantt.html` highlights focused periods from the query string. Breadcrumb pass remains. |
+| Cross-linking | ✅ Done | `afanasy_calendar_pascha_islam.html` event details link to map waypoints; `afanasy_economics_prices.html` Bidar cards/SVG entries link to `?wp=12`; `afanasy_manuscripts.html` passage selector links to `afanasy_gantt.html?focus=...`; `afanasy_gantt.html` highlights focused periods from the query string; all 21 widget pages now show an `Атлас / текущая визуализация` breadcrumb back to `index.html`. |
 | Local favicon | ✅ Done | Added `favicon.svg`, linked it from all HTML pages, added it to `manifest.json`, and included it in the Service Worker cache as `afanasy-atlas-v2`. |
 | Compact atlas shell | 🔄 Partial | Tightened shared body/container/header spacing in `css/atlas.css`; 1366×768 audit now fits map, Gantt, people network, calendar, economics, editions, historiography, speed, and world before/after. Larger text-heavy widgets still need page-specific layout passes. |
 | Chart height compaction | ✅ Done | Constrained citations, religious crisis, emotional arc, and composition tree charts/details; verified their primary interactions stay at `scrollHeight <= 768` in headless Edge. |
@@ -185,7 +185,7 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 6. ✅ **FIX 9** — current 21-widget index navigation with search/category filters (DONE)
 7. ✅ **A7** — local asset/CDN documentation sync (DONE)
 8. ✅ **A6** — phantom widget link audit/status sync (DONE)
-9. 🔄 **Cross-linking** — Calendar→Map, Economics→Map, and Manuscripts→Gantt done; all-pages breadcrumb pass remains
+9. ✅ **Cross-linking** — Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt focus links, and all-pages breadcrumbs are done
 10. ✅ **No-scroll layout** — shared shell + four chart widgets + video export + trade map + travelers + manuscripts + bestiary + borders + language map + trade guide compacted and browser-verified at 1366×768
 
 **Then (Phase 3 new visualizations):**

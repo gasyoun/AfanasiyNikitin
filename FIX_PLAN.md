@@ -328,7 +328,7 @@ None of the 12 visualizations link to each other (except Gantt→Map via `?wp=N`
 - All pages: breadcrumb showing current viz name + link to atlas index
 
 **Effort:** ~4h total across all files
-**Status:** 🔄 Partial — calendar event details now link to matching map waypoints, Bidar economics entries link to `?wp=12`, and manuscript passages link into focused Gantt periods. The all-pages breadcrumb pass remains.
+**Status:** ✅ Done — calendar event details now link to matching map waypoints, Bidar economics entries link to `?wp=12`, manuscript passages link into focused Gantt periods, and all 21 widget pages show an `Атлас / текущая визуализация` breadcrumb linking back to `index.html`.
 
 ---
 

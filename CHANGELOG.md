@@ -21,6 +21,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Type scale CSS variables**: `--text-xs` through `--text-2xl` in `atlas.css`.
 - **Chart dark-mode variable**: `--color-chart-silence` for light/dark-safe chart fills.
 - **Meta description** tag on index.html for SEO.
+- Added compact `Атлас / текущая визуализация` breadcrumbs to all 21 widget pages.
 
 ### Changed
 - Tightened the shared visualization shell spacing in `css/atlas.css`, bringing the map, Gantt, people network, and several compact widgets back within a 1366×768 viewport.
