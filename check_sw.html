@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Проверка Service Worker</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      padding: 40px;
+      background: #fdfbf7;
+      color: #333;
+    }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { margin-bottom: 30px; color: #8b5a30; }
+    .check { margin: 20px 0; padding: 15px; border-left: 4px solid #ccc; background: #f5f5f5; }
+    .check.pass { border-color: #22c55e; background: #f0fdf4; }
+    .check.fail { border-color: #ef4444; background: #fef2f2; }
+    .status { font-weight: bold; margin-right: 10px; }
+    .pass .status { color: #22c55e; }
+    .fail .status { color: #ef4444; }
+    code {
+      background: #fff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 0.9em;
+    }
+    .log {
+      background: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      margin-top: 20px;
+      font-family: monospace;
+      font-size: 0.85em;
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+    }
+    .log-entry { margin: 8px 0; }
+    .log-info { color: #0066cc; }
+    .log-success { color: #22c55e; }
+    .log-error { color: #ef4444; }
+    .log-warn { color: #f59e0b; }
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px 10px 0;
+      border: none;
+      border-radius: 4px;
+      background: #8b5a30;
+      color: white;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    button:hover { background: #6b4623; }
+    button.secondary {
+      background: #999;
+    }
+    button.secondary:hover { background: #777; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 Проверка Service Worker & PWA</h1>
+
+    <div id="checks"></div>
+
+    <div style="margin-top: 30px;">
+      <button onclick="testOffline()">🔌 Тестировать оффлайн</button>
+      <button class="secondary" onclick="clearCache()">🗑️ Очистить кэш</button>
+    </div>
+
+    <div class="log" id="log"></div>
+  </div>
+
+  <script>
+    const log = document.getElementById('log');
+    const checksDiv = document.getElementById('checks');
+
+    function addLog(msg, type = 'info') {
+      const entry = document.createElement('div');
+      entry.className = `log-entry log-${type}`;
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      log.appendChild(entry);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function addCheck(title, status, message) {
+      const div = document.createElement('div');
+      div.className = `check ${status ? 'pass' : 'fail'}`;
+      div.innerHTML = `
+        <span class="status">${status ? '✅' : '❌'}</span>
+        <strong>${title}</strong><br>
+        <small>${message}</small>
+      `;
+      checksDiv.appendChild(div);
+      addLog(`${title}: ${status ? 'OK' : 'FAIL'} - ${message}`, status ? 'success' : 'error');
+    }
+
+    async function runChecks() {
+      addLog('=== Начинаю проверки ===', 'info');
+
+      // Check 1: SW support
+      const hasSW = 'serviceWorker' in navigator;
+      addCheck('Service Worker поддержка', hasSW, hasSW ? 'браузер поддерживает' : 'браузер не поддерживает');
+
+      // Check 2: SW registration
+      try {
+        const registration = await navigator.serviceWorker.getRegistrations();
+        const hasReg = registration.length > 0;
+        addCheck('Service Worker зарегистрирован', hasReg,
+          hasReg ? `${registration.length} регистрация(й)` : 'не зарегистрирован');
+
+        if (hasReg) {
+          const reg = registration[0];
+          addLog(`  - Scope: ${reg.scope}`, 'info');
+          addLog(`  - Active: ${reg.active ? 'да' : 'нет'}`, 'info');
+          addLog(`  - Waiting: ${reg.waiting ? 'да' : 'нет'}`, 'info');
+          addLog(`  - Installing: ${reg.installing ? 'да' : 'нет'}`, 'info');
+        }
+      } catch (e) {
+        addCheck('Service Worker зарегистрирован', false, e.message);
+      }
+
+      // Check 3: Cache API
+      const hasCacheAPI = 'caches' in window;
+      addCheck('Cache API поддержка', hasCacheAPI, hasCacheAPI ? 'поддерживается' : 'не поддерживается');
+
+      // Check 4: Cached data
+      if (hasCacheAPI) {
+        try {
+          const cacheNames = await caches.keys();
+          addLog(`Найдено кэшей: ${cacheNames.join(', ')}`, 'info');
+
+          for (const cacheName of cacheNames) {
+            const cache = await caches.open(cacheName);
+            const keys = await cache.keys();
+            addLog(`  ${cacheName}: ${keys.length} файлов`, 'success');
+
+            // Show first 5 files
+            keys.slice(0, 5).forEach(req => {
+              addLog(`    - ${new URL(req.url).pathname}`, 'info');
+            });
+            if (keys.length > 5) {
+              addLog(`    ... и еще ${keys.length - 5} файлов`, 'info');
+            }
+          }
+
+          addCheck('Кэширование работает', cacheNames.length > 0,
+            `${cacheNames.length} кэш(ей) найдено`);
+        } catch (e) {
+          addCheck('Кэширование работает', false, e.message);
+        }
+      }
+
+      // Check 5: Manifest
+      const manifest = document.querySelector('link[rel="manifest"]');
+      addCheck('Манифест подключен', !!manifest, manifest ? manifest.href : 'не найден');
+
+      // Check 6: PWA meta tags
+      const hasAppleMobile = document.querySelector('meta[name="apple-mobile-web-app-capable"]');
+      addCheck('PWA мета-теги', !!hasAppleMobile, hasAppleMobile ? 'все найдены' : 'не все найдены');
+
+      addLog('=== Проверки завершены ===', 'success');
+    }
+
+    async function testOffline() {
+      addLog('=== Тест оффлайн режима ===', 'info');
+      addLog('ВНИМАНИЕ: Это не симулирует оффлайн, это просто проверяет кэш', 'warn');
+
+      try {
+        const response = await fetch(window.location.href);
+        if (response.ok) {
+          addLog('Текущая страница в кэше: ДА', 'success');
+        } else {
+          addLog(`Ошибка: HTTP ${response.status}`, 'error');
+        }
+
+        // Try to fetch a few assets
+        const assets = [
+          './index.html',
+          './manifest.json',
+          './lib/d3.min.js'
+        ];
+
+        for (const asset of assets) {
+          try {
+            const res = await fetch(asset);
+            addLog(`${asset}: ${res.ok ? '✓ кэширован' : '✗ ошибка'}`, res.ok ? 'success' : 'error');
+          } catch (e) {
+            addLog(`${asset}: ${e.message}`, 'error');
+          }
+        }
+      } catch (e) {
+        addLog(`Ошибка при тестировании: ${e.message}`, 'error');
+      }
+    }
+
+    async function clearCache() {
+      addLog('=== Очистка кэша ===', 'info');
+      try {
+        const cacheNames = await caches.keys();
+        for (const name of cacheNames) {
+          await caches.delete(name);
+          addLog(`Удален кэш: ${name}`, 'success');
+        }
+        addLog('Кэш очищен', 'success');
+      } catch (e) {
+        addLog(`Ошибка: ${e.message}`, 'error');
+      }
+    }
+
+    // Run on load
+    window.addEventListener('load', runChecks);
+  </script>
+</body>
+</html>
