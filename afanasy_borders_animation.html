@@ -29,7 +29,7 @@ canvas#brdC{display:block;width:100%;height:300px!important;border-radius:var(--
 .brd-ev-row{display:flex;align-items:flex-start;gap:8px;padding:5px 8px;border-bottom:0.5px solid var(--color-border-tertiary);font-size:10px;cursor:pointer;transition:background .1s;}
 .brd-ev-row:nth-last-child(-n+2){border-bottom:none;}
 .brd-ev-row:hover{background:var(--color-background-secondary);}
-.brd-ev-row.active{background:var(--color-background-secondary);border-left:2.5px solid #6e32a0;}
+.brd-ev-row.active{background:var(--color-background-secondary);border-left:2.5px solid var(--color-accent);}
 .brd-ev-yr{font-variant-numeric:tabular-nums;font-weight:500;color:var(--color-text-primary);min-width:32px;flex-shrink:0;}
 .brd-ev-txt{color:var(--color-text-secondary);line-height:1.3;}
 .brd-ev-txt b{color:var(--color-text-primary);}
@@ -96,34 +96,34 @@ function project(lon,lat){return[PAD+(lon-LON0)/(LON1-LON0)*(W-2*PAD),PAD+(mY1-m
 const EVENTS=[
   {t:0,   year:1467, name:'Начало путешествия', short:'Старт',
    desc:'Афанасий отплывает из Твери. Московское кн-во расширяется, Казань под угрозой.',
-   color:'#5a6e8a'},
+   color:'var(--viz-network-neutral)'},
   {t:0.5, year:1468, name:'Поход Ивана III на Казань',short:'Казань под угрозой',
    desc:'Иван III организует поход на Казанское ханство. Афанасий в это время идёт через Персию — его родина воюет у него за спиной.',
-   color:'#c0392b'},
+   color:'var(--viz-economic-loss)'},
   {t:1.2, year:1469, name:'Мир с Казанью', short:'Русско-казанский мир',
    desc:'Казанский хан Ибрагим заключает мир с Москвой. Афанасий в Ормузе и Индии — не знает об этом.',
-   color:'#1e8250'},
+   color:'var(--viz-emotion-hope)'},
   {t:1.8, year:1470, name:'Распад Ак-Коюнлу начинается',short:'Ак-Коюнлу слабеет',
    desc:'Узун Хасан (Ак-Коюнлу) воюет с Османами на западе. Центральная Персия, по которой шёл Афанасий, нестабильна.',
-   color:'#b97314'},
+   color:'var(--viz-region-persia)'},
   {t:2.5, year:1471, name:'Новгород vs Москва',short:'Битва при Шелони',
    desc:'Иван III разбивает Новгород при Шелони. Москва поглощает Новгородскую республику. Русь меняется, пока Афанасий в Индии.',
-   color:'#c0392b'},
+   color:'var(--viz-economic-loss)'},
   {t:3.0, year:1472, name:'Бахманиды: взятие Гоа',short:'Гоа взят Махмудом Гаваном',
    desc:'Визирь Махмуд Гаван захватывает Гоа у Виджаянагары. Афанасий в Бидаре — вероятно, свидетель триумфального въезда.',
-   color:'#1d6fa8'},
+   color:'var(--viz-emotion-wonder)'},
   {t:3.6, year:1473, name:'Битва при Терджане',short:'Османы разбивают Ак-Коюнлу',
    desc:'Мехмед II побеждает Узун Хасана при Терджане. Ак-Коюнлу теряет западные территории. Балканы и Анатолия — под Османами.',
-   color:'#c0392b'},
+   color:'var(--viz-economic-loss)'},
   {t:4.5, year:1474, name:'Осада Кафы Османами',short:'Угроза Кафе',
    desc:'Османский флот угрожает Кафе (Феодосии). Афанасий прибывает в Кафу именно в этот момент — за несколько месяцев до её падения.',
-   color:'#e74c3c'},
+   color:'var(--viz-economic-loss)'},
   {t:5.5, year:1475, name:'Падение Кафы',short:'Кафа → Османская империя',
    desc:'Кедюк Ахмед-паша берёт Кафу. Генуэзская колония уничтожена. Афанасий умер в том же году — не дожил до известия.',
-   color:'#c0392b'},
+   color:'var(--viz-economic-loss)'},
   {t:6.5, year:1476, name:'Новгород окончательно присоединён',short:'Конец Новгородской республики',
    desc:'Иван III ликвидирует вечевой строй Новгорода. Московское государство оформляется как единая держава.',
-   color:'#3770be'},
+   color:'var(--viz-region-russia)'},
 ];
 
 // ── States per time interval ──────────────────────────────────────────────────
@@ -226,21 +226,21 @@ let t=0,playing=false,lastTs=null,mapReady=false,selEvent=0,cachedWorld=null,bas
 function themeKey(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';}
 function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
 function mapPalette(){
-  const dark=themeKey()==='dark';
   return {
-    sea: dark?'#18323d':'#8fb8d0',
-    land: cssVar('--color-background-tertiary') || (dark?'#222222':'#f5eedf'),
-    landStroke: dark?'rgba(192,144,96,0.35)':'#b8a870',
-    grid: dark?'rgba(235,220,213,0.08)':'rgba(70,100,135,0.08)',
-    labelHalo: dark?'rgba(18,18,18,0.82)':'rgba(255,255,255,0.65)',
-    label: dark?'rgba(235,220,213,0.86)':'rgba(22,10,3,0.75)',
-    changedLabel: dark?'rgba(255,150,130,0.92)':'rgba(180,40,20,0.85)',
-    loadingText: dark?'rgba(235,220,213,0.72)':'rgba(0,0,0,.4)',
-    activeHalo: dark?'rgba(224,136,48,0.22)':'rgba(220,140,26,0.2)',
-    activePoint: cssVar('--color-accent-hover') || (dark?'#f0a040':'#a0591b'),
-    activeStroke: dark?'rgba(240,200,120,0.9)':'#5C2A10',
-    waypointLabel: dark?'rgba(235,220,213,0.9)':'rgba(20,8,2,.85)',
-    yearLabel: dark?'rgba(235,220,213,0.55)':'rgba(20,8,2,0.55)'
+    sea: cssVar('--viz-world-after-sea'),
+    land: cssVar('--viz-world-after-land'),
+    landStroke: cssVar('--viz-world-after-stroke'),
+    grid: cssVar('--viz-world-after-grid'),
+    labelHalo: cssVar('--viz-world-label-halo'),
+    label: cssVar('--viz-world-after-text'),
+    changedLabel: cssVar('--viz-manuscript-deleted-text'),
+    loadingText: cssVar('--color-text-secondary'),
+    activeHalo: cssVar('--viz-world-route'),
+    activePoint: cssVar('--color-accent-hover'),
+    activeStroke: cssVar('--color-border-primary'),
+    waypointLabel: cssVar('--color-text-primary'),
+    yearLabel: cssVar('--viz-world-after-dim-text'),
+    expansionArrow: cssVar('--viz-economic-loss')
   };
 }
 
@@ -305,7 +305,9 @@ function drawFrame(){
 
   // Ottoman expansion arrows after 1473
   if(t>=6){
-    ctx.strokeStyle='rgba(215,80,60,0.6)';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+    ctx.save();
+    ctx.globalAlpha=0.62;
+    ctx.strokeStyle=p.expansionArrow;ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
     [[37,38,41,39],[39,39,43,37],[36,37,38,35]].forEach(([x1,y1,x2,y2])=>{
       const[ax,ay]=project(x1,y1);const[bx,by]=project(x2,y2);
       ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();
@@ -314,9 +316,10 @@ function drawFrame(){
       ctx.beginPath();ctx.moveTo(bx,by);
       ctx.lineTo(bx-8*Math.cos(angle-0.4),by-8*Math.sin(angle-0.4));
       ctx.lineTo(bx-8*Math.cos(angle+0.4),by-8*Math.sin(angle+0.4));
-      ctx.closePath();ctx.fillStyle='rgba(215,80,60,0.6)';ctx.fill();
+      ctx.closePath();ctx.fillStyle=p.expansionArrow;ctx.fill();
     });
     ctx.setLineDash([]);
+    ctx.restore();
   }
 
   // Afanasy position
@@ -385,14 +388,14 @@ EVENTS.forEach((ev,i)=>{
 
 // Legend
 const legendItems=[
-  {c:'rgba(190,155,90,0.5)',label:'Московское кн-во'},
-  {c:'rgba(215,100,80,0.4)',label:'Османы'},
-  {c:'rgba(100,155,210,0.5)',label:'Бахманиды'},
-  {c:'rgba(200,135,85,0.4)',label:'Ак-Коюнлу'},
-  {c:'rgba(155,195,130,0.5)',label:'Тимуриды'},
-  {c:'rgba(180,140,70,0.4)',label:'Казань'},
-  {c:'rgba(210,165,110,0.5)',label:'Виджаянагара'},
-  {c:'rgba(225,195,100,0.4)',label:'Мамлюки'},
+  {c:'color-mix(in srgb,var(--viz-region-russia) 50%,transparent)',label:'Московское кн-во'},
+  {c:'color-mix(in srgb,var(--viz-economic-loss) 42%,transparent)',label:'Османы'},
+  {c:'color-mix(in srgb,var(--viz-emotion-wonder) 50%,transparent)',label:'Бахманиды'},
+  {c:'color-mix(in srgb,var(--viz-region-persia) 45%,transparent)',label:'Ак-Коюнлу'},
+  {c:'color-mix(in srgb,var(--viz-emotion-hope) 40%,transparent)',label:'Тимуриды'},
+  {c:'color-mix(in srgb,var(--viz-region-persia) 38%,transparent)',label:'Казань'},
+  {c:'color-mix(in srgb,var(--viz-region-sea-arabian) 45%,transparent)',label:'Виджаянагара'},
+  {c:'color-mix(in srgb,var(--viz-calendar-location) 40%,transparent)',label:'Мамлюки'},
 ];
 const legEl=document.getElementById('brd-legend');
 legendItems.forEach(li=>{

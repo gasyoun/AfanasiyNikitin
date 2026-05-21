@@ -25,6 +25,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 - Tightened the shared visualization shell spacing in `css/atlas.css`, bringing the map, Gantt, people network, and several compact widgets back within a 1366×768 viewport.
+- `afanasy_borders_animation.html`: moved event accents, legend swatches, Canvas basemap colors, labels, active marker, and Ottoman expansion arrows onto shared atlas color tokens.
 - Updated README/index/architecture documentation to describe bundled local atlas assets and the current 21-widget count.
 - Extracted the shared visualization design system into `css/atlas.css`; all 13 existing widget HTML files now link to the shared stylesheet and keep only widget-specific CSS inline.
 - Bundled D3 v7, TopoJSON 3, world-atlas 110m data, and Tabler Icons under `lib/`; all current HTML pages now reference local assets instead of external CDNs.
