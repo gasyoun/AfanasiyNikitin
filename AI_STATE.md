@@ -3,15 +3,33 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-05-21 · Conversation ID: GPT-5.5 autonomous color-token audit follow-up
-> **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), beb79bd (PWA), 5d7caaa (A5 map), 88545c7 (date wording), d4d9c33 (A5 travelers), 2fd59e9 (A5 borders), e0a5932 (A5 trade), cd782f7 (A5 world before/after), 91a2c17 (A5 video export), 4d40812 (FIX 9 index navigation), d7cd25c (A7 docs/local assets), plus A6 link-audit and cross-linking status sync
+> **Last updated:** 2026-05-21 · Conversation ID: GPT-5.5 roadmap + handoff refresh
+> **Latest pushed commit:** `7125f8e` (`refactor: tokenize service worker check colors`) on `main`
 
 ---
 
-## Current Status: ✅ PHASE 2 COMPLETE + FIX 5–9 DONE + A5 CANVAS AUDIT COMPLETE + CROSS-LINKING PASS
+## Current Status: ✅ PHASE 2 COMPLETE + FIX 5–9 DONE + A5 CANVAS AUDIT COMPLETE + CROSS-LINKING + COLOR AUDIT CLEAN
 
 The site is live at **https://gasyoun.github.io/AfanasiyNikitin/**.  
-Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 1–4 data corrections. Phase 2 complete: shared CSS in `css/atlas.css`, bundled local assets in `lib/`, shared map/Gantt data in `js/atlas-data.js`, and shared theme logic in `js/atlas-theme.js`. Phase 4.1–4.2 PWA shell exists: `manifest.json`, `sw.js` Service Worker, cache list aligned to the current widget filenames. FIX 5–9 are complete: manuscript leaf proof, emotional silence/pronouns, composition chronological toggle, Mahmud Gavan as 4th traveler, and current 21-widget index navigation. A5 is complete across all Canvas widgets: no shared CSS inversion filter remains, and each Canvas page now draws its own light/dark palette. Cross-linking is complete: Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt focus links, and all-widget breadcrumbs are implemented.
+Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 1–4 data corrections. Phase 2 complete: shared CSS in `css/atlas.css`, bundled local assets in `lib/`, shared map/Gantt data in `js/atlas-data.js`, and shared theme logic in `js/atlas-theme.js`. Phase 4.1–4.2 PWA shell exists: `manifest.json`, `sw.js` Service Worker, cache list aligned to the current widget filenames. FIX 5–9 are complete: manuscript leaf proof, emotional silence/pronouns, composition chronological toggle, Mahmud Gavan as 4th traveler, and current 21-widget index navigation. A5 is complete across all Canvas widgets: no shared CSS inversion filter remains, and each Canvas page now draws its own light/dark palette. Cross-linking is complete: Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt focus links, and all-widget breadcrumbs are implemented. The 2026-05-21 color-token/shadow audit is complete for the audited pages: the old `color: #333`, theme-toggle shadow, Canvas `c:'rgba'`/`b:'rgba'`, and `1468–1474` regression audit patterns are clean.
+
+---
+
+## New Chat Handoff (2026-05-21)
+
+**Do not redo:** Phase 0 quick fixes, FIX 1–9, A5–A7, Phase 2 architecture migration, local asset bundling, shared data/theme, cross-linking, no-scroll desktop compaction, Canvas dark-mode palette work, color-token cleanup, and shared shadow-token cleanup are already implemented and pushed.
+
+**Start here:**
+1. `git status --short --branch` should show `## main...origin/main` and no local edits.
+2. Run `python -m http.server 8080` before browser verification.
+3. Use headless Edge/CDP or a normal browser; verify changed pages at 1366×768, theme toggle, relevant interactions, and clean console.
+4. Keep commits small and push directly to `origin main` unless the human asks for a branch/PR.
+
+**Best next work:**
+1. Real-device PWA validation: Android Chrome install prompt, iPhone Safari Add to Home Screen, offline reload.
+2. Optional live-site smoke test after GitHub Pages deploy.
+3. Phase 5/6 roadmap work: toponym/person index, SVG/PNG export buttons, text passage viewer polish, English localization, iframe snippets.
+4. Broad hardcoded-color review only if it finds real theme/readability issues; many remaining hex/rgba values are intentional local palette variables or index decoration.
 
 ---
 
@@ -173,7 +191,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 |-------|----------|------|-------|
 | Existing 1366×768 page scroll | Resolved | multiple widgets | Compact shell and widget-specific passes now fit the audited 1366×768 pages without document-level vertical scroll. |
 | Mobile touch targets | Low | all pages | Not tested on phone; touch targets may be too small |
-| New widget color-token audit | Medium | remaining new widgets | Citation, economics, calendar, language-map, religious-crisis, historiography, composition-tree, and people-network colors now use shared tokens; remaining internal chart/data colors still need CSS-token passes before considering the newer widgets fully compliant with conventions |
+| New widget color-token audit | Resolved | audited widgets | Shared chart/data/shadow token cleanup is complete for the audited pages; remaining literal colors are mostly local palette variables or index decoration and should only be changed if they cause a real theme/readability issue |
 | `scratch/theme_injector.py` not committed to repo | Resolved | — | Committed in `9e006c0` |
 | PWA device install/offline reload | Medium | `manifest.json`, `sw.js` | Static files are present; needs Android Chrome / iPhone Safari install and offline reload validation |
 
@@ -181,10 +199,11 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 
 ## Files Modified Since Last Clean Commit
 
-> After the PWA asset follow-up commit, tracked files should be clean. Local diagnostic helpers may remain untracked and should not be published unless intentionally converted into docs.
+> After commit `7125f8e`, tracked files should be clean. `check_sw.html` is now intentionally tracked as the standalone Service Worker/PWA diagnostic page. Temporary CDP verification scripts under `scratch/verify_*.cjs` were deleted before commits.
 
 ```
-git status: untracked check_sw.html and test_pwa.js may remain; do not stage by default
+git status --short --branch
+# expected: ## main...origin/main
 ```
 
 ---
@@ -221,10 +240,13 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 8. ✅ **A6** — phantom widget link audit/status sync (DONE)
 9. ✅ **Cross-linking** — Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt focus links, and all-pages breadcrumbs are done
 10. ✅ **No-scroll layout** — shared shell + four chart widgets + video export + trade map + travelers + manuscripts + bestiary + borders + language map + trade guide compacted and browser-verified at 1366×768
-11. 🔄 **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree/people network/speed chart/manuscripts/emotional arc/Gantt/world before-after/four travelers/trade guide/trade map/border animation incl. state palette/edition covers/route map/video export incl. state palette/bestiary SVG are done; shared shadow-token cleanup is complete for the audited pages; continue with any remaining legacy data palette cleanup in small verified commits
+11. ✅ **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree/people network/speed chart/manuscripts/emotional arc/Gantt/world before-after/four travelers/trade guide/trade map/border animation incl. state palette/edition covers/route map/video export incl. state palette/bestiary SVG are done; shared shadow-token cleanup is complete for the audited pages; old audit patterns are clean
 
-**Then (Phase 3 new visualizations):**
-1. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)
+**Then (roadmap work):**
+1. **PWA real-device validation** — Android Chrome install, iPhone Safari Add to Home Screen, offline reload
+2. **Live GitHub Pages smoke test** — index + representative widgets after deploy
+3. **Phase 5.2** — Toponym / person index across widgets
+4. **Phase 6.1** — SVG/PNG export buttons
 
 **Mobile testing (Phase 4):**
 - Test PWA install on Android (Chrome: should show Install prompt)

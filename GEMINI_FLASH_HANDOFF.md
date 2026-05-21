@@ -8,6 +8,33 @@
 
 ---
 
+## 2026-05-21 UPDATE — DO NOT REDO THIS PLAN
+
+This file is now a **historical architecture-migration plan**, not the current task list. Stages 1–5 and the later search/navigation/PWA/theme/data work were already completed and pushed. The current source of truth for a new chat is:
+
+1. `AI_STATE.md` — operational handoff and last-known-good state
+2. `ROADMAP.md` — remaining strategic work
+3. `FIX_PLAN.md` — completed scholarly/bug fix menu; use only for reference unless a regression appears
+4. `CLAUDE.md` — project conventions
+
+Current completed state:
+- Shared design system: `css/atlas.css`
+- Local assets: `lib/d3.min.js`, `lib/topojson.min.js`, `lib/countries-110m.json`, `lib/tabler-icons.min.css`, Tabler fonts
+- Shared data: `js/atlas-data.js`
+- Shared theme toggle: `js/atlas-theme.js`
+- PWA shell: `manifest.json`, `sw.js`, `favicon.svg`, `check_sw.html`
+- Index navigation: current 21-widget atlas with search/category filters/scenario section
+- Cross-linking: Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt→Map focus/deep links, breadcrumbs
+- Verification: desktop 1366×768 no-scroll and dark-mode checks done for the audited widgets; color-token/shadow audit patterns are clean
+
+Remaining work for a fresh chat:
+1. Real-device PWA validation on Android Chrome and iPhone Safari
+2. Live GitHub Pages smoke test after deploy
+3. Optional roadmap features: toponym/person index, SVG/PNG export buttons, text passage viewer polish, English localization, iframe snippets
+4. Optional broad hardcoded-color review only if it finds real readability/theme issues
+
+---
+
 ## CRITICAL RULES
 
 1. **Never break existing URLs** — all `.html` filenames stay the same
@@ -511,5 +538,5 @@ git push --force
 
 ---
 
-*Handoff prepared by Antigravity AI · 2026-05-19*  
-*Target agent: Gemini Flash · Estimated stages: 7 · No npm required*
+*Original handoff prepared by Antigravity AI · 2026-05-19*
+*Updated by GPT-5.5 · 2026-05-21 · Historical plan retained for reference; no npm required*

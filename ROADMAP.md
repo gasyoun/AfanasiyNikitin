@@ -3,17 +3,19 @@
 Development roadmap for the interactive atlas. Items are grouped by phase and priority.  
 Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
+> **Current snapshot (2026-05-21):** the public atlas has 21 HTML widget pages plus `index.html` and `check_sw.html`. Phase 0–3 scholarly/data work, Phase 2 architecture migration, local assets, shared theme/data, cross-linking, no-scroll desktop layout, Canvas dark-mode palettes, color-token audit, and shared shadow-token cleanup are complete and pushed to `main`.
+
 ---
 
 ## Phase 1 — Foundation ✅ Complete (May 2026)
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| 1.1 | 14 interactive visualization widgets | 🟢 Done | All 14 HTML pages live |
+| 1.1 | Interactive visualization widgets | 🟢 Done | Started as 14 pages; current public atlas has 21 widget pages |
 | 1.2 | GitHub Pages deployment | 🟢 Done | https://gasyoun.github.io/AfanasiyNikitin/ |
 | 1.3 | `index.html` navigation hub | 🟢 Done | Cards by category |
 | 1.4 | Academic documentation set | 🟢 Done | README, CLAUDE, index.md, use cases |
-| 1.5 | 19-waypoint geodata | 🟢 Done | `afanasy_geolocations.md`, `afanasy_journey_data.md` |
+| 1.5 | Journey geodata | 🟢 Done | Route data expanded to 28 map waypoints and shared through `js/atlas-data.js` |
 
 ---
 
@@ -70,7 +72,7 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
 ---
 
-## Phase 4 — Offline & Performance ✅ Complete (2026-05-19)
+## Phase 4 — Offline & Performance 🟡 Mostly Complete (2026-05-21)
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
@@ -78,6 +80,7 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 | 4.2 | **`manifest.json`** | 🟢 Done | Installable as home-screen app |
 | 4.3 | **CDN fallback** | 🟢 Done | D3, TopoJSON, world-atlas bundled locally in `lib/` |
 | 4.4 | **Canvas performance on mobile** | ⬜ Planned | `devicePixelRatio` awareness and detail reduction |
+| 4.5 | **Real-device PWA validation** | ⬜ Planned | Android Chrome install prompt + iPhone Safari Add to Home Screen + offline reload |
 
 ---
 
@@ -113,6 +116,18 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
 ---
 
+## Phase 8 — Current Technical Cleanup 🟡 Ongoing
+
+| # | Item | Status | Notes |
+|---|------|--------|-------|
+| 8.1 | Desktop no-scroll audit | 🟢 Done | Audited at 1366×768 in headless Edge across the compacted widget set |
+| 8.2 | Canvas dark-mode palettes | 🟢 Done | CSS inversion removed; Canvas widgets draw theme-aware palettes internally |
+| 8.3 | Color-token audit | 🟢 Done | Shared chart/data/shadow tokens now cover the audited pages; legacy audit patterns are clean |
+| 8.4 | Broad hardcoded-color review | ⬜ Planned | Optional: inspect remaining local palette definitions/index decorative CSS; avoid churn unless a real theme/readability issue appears |
+| 8.5 | Full live GitHub Pages smoke test | ⬜ Planned | After Pages deploy, verify live index, representative widgets, Service Worker, and console |
+
+---
+
 ## Cancelled / Deferred
 
 | Item | Reason |
@@ -127,20 +142,23 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
 ```
 🔴 High priority (do next):
+  4.5 Real-device PWA validation
   5.2 Toponym / person index
   6.1 SVG/PNG export buttons
 
 🟡 Medium priority:
   4.4 Mobile canvas optimization
+  8.5 Full live GitHub Pages smoke test
   5.3 Text passage viewer polish
   5.5 English localization
   6.2 iframe embed snippets
 
 🟢 Low priority / nice-to-have:
+  8.4 Broad hardcoded-color review
   5.4 Citation export
   6.3 Print stylesheet
 ```
 
 ---
 
-*Maintained by Antigravity AI · Last updated 2026-05-20*
+*Maintained by Antigravity AI · Last updated 2026-05-21*

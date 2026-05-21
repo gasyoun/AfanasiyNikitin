@@ -41,6 +41,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `three_travelers_comparison.html`, `afanasy_world_before_after.html`, `afanasy_trade_marshruttnik.html`: moved theme-toggle shadows to the shared `--shadow-floating-control` token.
 - `css/atlas.css`, `afanasy_trade_guide_v4.html`, `khozheniye_composition_tree.html`: added shared popover/detail shadow tokens and moved the trade tooltip plus composition detail panel/theme toggle onto them.
 - `check_sw.html`: moved the Service Worker/PWA utility page colors into local CSS variables.
+- Updated `ROADMAP.md`, `AI_STATE.md`, and `GEMINI_FLASH_HANDOFF.md` for a new-chat handoff: current completed phases, pushed state, clean audit patterns, and next recommended work.
 - Updated README/index/architecture documentation to describe bundled local atlas assets and the current 21-widget count.
 - Extracted the shared visualization design system into `css/atlas.css`; all 13 existing widget HTML files now link to the shared stylesheet and keep only widget-specific CSS inline.
 - Bundled D3 v7, TopoJSON 3, world-atlas 110m data, and Tabler Icons under `lib/`; all current HTML pages now reference local assets instead of external CDNs.
