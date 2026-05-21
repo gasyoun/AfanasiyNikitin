@@ -20,8 +20,8 @@
 .tv-card-stats{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
 .tv-card-stat{font-size:9.5px;color:var(--color-text-secondary);line-height:1.35;}
 .tv-card-stat b{color:var(--color-text-primary);display:block;font-size:11px;}
-canvas#tv-c{display:block;width:100%;height:300px!important;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:8px;cursor:pointer;}
-.tv-info{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);min-height:48px;margin-bottom:8px;font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);}
+canvas#tv-c{display:block;width:100%;height:292px!important;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:8px;cursor:pointer;}
+.tv-info{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);height:58px;overflow-y:auto;margin-bottom:8px;font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);}
 .tv-info b{color:var(--color-text-primary);}
 .tv-timeline{margin-bottom:8px;}
 .tv-tl-head{font-size:10px;color:var(--color-text-secondary);margin-bottom:5px;}
@@ -29,7 +29,7 @@ canvas#tv-c{display:block;width:100%;height:300px!important;border-radius:var(--
 .tv-tl-lbl{font-size:9.5px;color:var(--color-text-secondary);width:70px;flex-shrink:0;text-align:right;}
 .tv-tl-bar-wrap{flex:1;height:16px;background:var(--color-background-secondary);border-radius:2px;position:relative;overflow:hidden;}
 .tv-tl-seg{height:100%;position:absolute;border-radius:2px;display:flex;align-items:center;padding-left:4px;}
-.tv-tl-seg-txt{font-size:8.5px;color:rgba(255,255,255,.85);white-space:nowrap;overflow:hidden;}
+.tv-tl-seg-txt{font-size:8.5px;color:var(--color-chart-on-data);white-space:nowrap;overflow:hidden;}
 .tv-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
 /* Traveler card colors */
 .tv-card-a{border-left-color:var(--viz-region-sea-arabian);}
@@ -246,23 +246,22 @@ function themeKey(){return document.documentElement.getAttribute('data-theme')==
 function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
 function getTravelerColor(tr){return cssVar(tr.colorVar);}
 function mapPalette(){
-  const dark=themeKey()==='dark';
   return {
-    sea: dark?'#18323d':'#8fb8d0',
-    land: cssVar('--color-background-tertiary') || (dark?'#222222':'#f5eedf'),
-    landStroke: dark?'rgba(192,144,96,0.35)':'#b8a870',
-    border: dark?'rgba(235,220,213,0.14)':'rgba(140,120,80,.15)',
-    grid: dark?'rgba(235,220,213,.08)':'rgba(70,100,135,.07)',
-    labelHalo: dark?'rgba(18,18,18,.82)':'rgba(255,255,255,0.65)',
-    label: dark?'rgba(235,220,213,.9)':'rgba(20,10,5,0.85)',
-    loadingText: dark?'rgba(235,220,213,.72)':'rgba(0,0,0,.4)',
-    pointStroke: dark?'rgba(18,18,18,.85)':'rgba(255,255,255,.6)',
-    sharedHalo: dark?'rgba(224,136,48,.24)':'rgba(255,220,80,0.3)',
-    sharedPoint: cssVar('--color-accent-hover') || (dark?'#f0a040':'#a0591b'),
-    sharedStroke: dark?'rgba(240,200,120,.9)':'rgba(100,70,0,.6)',
-    sharedLabel: dark?'rgba(235,220,213,.95)':'#7a5000',
-    legendBg: dark?'rgba(18,18,18,.78)':'rgba(255,255,255,.75)',
-    legendLabel: dark?'rgba(235,220,213,.88)':'rgba(20,10,5,.8)'
+    sea: cssVar('--viz-world-after-sea'),
+    land: cssVar('--viz-world-after-land') || cssVar('--color-background-tertiary'),
+    landStroke: cssVar('--viz-world-after-stroke'),
+    border: cssVar('--viz-world-after-border'),
+    grid: cssVar('--viz-world-after-grid'),
+    labelHalo: cssVar('--viz-world-label-halo'),
+    label: cssVar('--color-text-primary'),
+    loadingText: cssVar('--color-text-secondary'),
+    pointStroke: cssVar('--color-background-primary'),
+    sharedHalo: cssVar('--viz-world-route'),
+    sharedPoint: cssVar('--color-accent-hover'),
+    sharedStroke: cssVar('--color-border-primary'),
+    sharedLabel: cssVar('--color-accent-hover'),
+    legendBg: cssVar('--color-background-primary'),
+    legendLabel: cssVar('--color-text-primary')
   };
 }
 
