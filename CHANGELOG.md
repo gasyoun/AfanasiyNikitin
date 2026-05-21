@@ -31,6 +31,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `afanasy_editions_v3.html`: moved generated SVG book-cover colors and edition detail accents into local CSS variables while preserving the existing reconstructed cover palettes.
 - `afanasy_v8_text_map.html`: moved the route-map Canvas basemap, route, waypoint, and passage-active colors onto shared world/accent/text tokens.
 - `afanasy_video_export.html`: moved the video-export Canvas/HUD route palette into local CSS variables and aligned record/link accents with shared atlas tokens.
+- `afanasy_video_export.html`: moved light/dark historical-state Canvas polygon colors into local `--ve-state-*` variables.
 - `afanasy_bestiary.html`: moved generated SVG illustration colors into local CSS variables while preserving the existing bestiary artwork.
 - Updated README/index/architecture documentation to describe bundled local atlas assets and the current 21-widget count.
 - Extracted the shared visualization design system into `css/atlas.css`; all 13 existing widget HTML files now link to the shared stylesheet and keep only widget-specific CSS inline.
