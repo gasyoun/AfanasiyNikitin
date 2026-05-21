@@ -5,6 +5,64 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/atlas.css">
   <style>
+:root{
+  --ve-sea-light:#d9e6ee;
+  --ve-sea-dark:#1c3a52;
+  --ve-land-light:#eadfca;
+  --ve-land-dark:#2e2618;
+  --ve-land-stroke-light:#b79b64;
+  --ve-land-stroke-dark:#5a4a30;
+  --ve-border-light:rgba(130,95,45,0.23);
+  --ve-border-dark:rgba(180,150,80,0.15);
+  --ve-region-text-light:rgba(92,62,24,0.82);
+  --ve-region-text-dark:rgba(220,190,130,0.85);
+  --ve-city-dot-light:rgba(132,88,32,0.82);
+  --ve-city-dot-dark:rgba(220,190,130,0.8);
+  --ve-city-text-light:rgba(86,58,26,0.8);
+  --ve-city-text-dark:rgba(210,180,120,0.85);
+  --ve-grid-light:rgba(92,118,132,0.18);
+  --ve-grid-dark:rgba(80,120,160,0.1);
+  --ve-grid-text-light:rgba(86,72,48,0.52);
+  --ve-grid-text-dark:rgba(150,130,90,0.4);
+  --ve-watermark-light:rgba(116,86,42,0.4);
+  --ve-watermark-dark:rgba(200,170,100,0.35);
+  --ve-halo-light:rgba(255,250,235,0.78);
+  --ve-halo-dark:rgba(0,0,0,0.45);
+  --ve-hud-bg-light:rgba(255,250,236,0.82);
+  --ve-hud-bg-dark:rgba(10,6,2,0.62);
+  --ve-hud-year-light:#7a3510;
+  --ve-hud-year-dark:#d4b870;
+  --ve-hud-main-light:var(--color-text-primary);
+  --ve-hud-main-dark:#e8d8b0;
+  --ve-hud-dim-light:var(--color-text-secondary);
+  --ve-hud-dim-dark:#8a7a60;
+  --ve-route-future-light:rgba(122,82,36,0.22);
+  --ve-route-future-dark:rgba(180,130,50,0.15);
+  --ve-route-glow-light:rgba(190,96,28,0.22);
+  --ve-route-glow-dark:rgba(200,100,30,0.4);
+  --ve-route-done-light:#a94f18;
+  --ve-route-done-dark:#c87830;
+  --ve-start-point-light:#7a3510;
+  --ve-start-point-dark:#8b4010;
+  --ve-point-light:#b45a1f;
+  --ve-point-dark:#d07030;
+  --ve-point-stroke-light:#fff3d0;
+  --ve-point-stroke-dark:#ffd080;
+  --ve-route-label-light:rgba(94,58,22,0.82);
+  --ve-route-label-dark:rgba(220,190,130,0.9);
+  --ve-marker-glow-light:rgba(255,176,48,0.38);
+  --ve-marker-glow-dark:rgba(255,180,30,0.6);
+  --ve-marker-halo-light:rgba(255,176,48,0.24);
+  --ve-marker-halo-dark:rgba(255,160,30,0.2);
+  --ve-marker-fill-light:#d97818;
+  --ve-marker-fill-dark:#ffb030;
+  --ve-marker-stroke-light:#fff3d0;
+  --ve-marker-stroke-dark:#fff0a0;
+  --ve-loading-bg-light:#eadfca;
+  --ve-loading-bg-dark:#1a1410;
+  --ve-loading-text-light:rgba(116,86,42,0.65);
+  --ve-loading-text-dark:rgba(200,170,100,0.5);
+}
   canvas{
     border-radius:8px;
     border:1px solid var(--color-border-secondary);
@@ -29,11 +87,11 @@
   #yrL{font-size:12px;color:var(--color-text-secondary);min-width:30px;text-align:right;font-variant-numeric:tabular-nums;}
   button{padding:8px 18px;border-radius:5px;border:1px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-family:inherit;font-size:13px;cursor:pointer;transition:background 0.15s;}
   button:hover{background:var(--color-border-secondary);}
-  button.primary{background:#7a3510;border-color:#a04520;color:#ffd4a0;}
-  button.primary:hover{background:#903e18;}
+  button.primary{background:var(--color-accent);border-color:var(--color-accent-hover);color:var(--color-background-primary);}
+  button.primary:hover{background:var(--color-accent-hover);}
   button:disabled{opacity:0.4;cursor:not-allowed;}
-  .rec-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e04020;margin-right:6px;animation:blink 1s infinite;}
-  .link-help{color:#c87820;}
+  .rec-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--viz-economic-loss);margin-right:6px;animation:blink 1s infinite;}
+  .link-help{color:var(--color-accent-hover);}
   @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
   #status{font-size:11px;color:var(--color-text-secondary);margin-top:5px;height:14px;text-align:center;}
   .speed-label{font-size:11px;color:var(--color-text-secondary);}
@@ -180,39 +238,40 @@ let t=0,playing=false,lastTs=null,mapReady=false,cachedWorld=null,offTheme=null;
 let recorder=null,recChunks=[];
 
 function themeKey(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';}
-function cssVar(name,fallback){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||fallback;}
+function cssVar(name,fallback=''){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||fallback;}
+function ve(name,dark){return cssVar(`--ve-${name}-${dark?'dark':'light'}`);}
 function mapPalette(){
   const dark=themeKey()==='dark';
   return {
     dark,
-    sea: dark?'#1c3a52':'#d9e6ee',
-    land: dark?'#2e2618':'#eadfca',
-    landStroke: dark?'#5a4a30':'#b79b64',
-    border: dark?'rgba(180,150,80,0.15)':'rgba(130,95,45,0.23)',
-    regionText: dark?'rgba(220,190,130,0.85)':'rgba(92,62,24,0.82)',
-    cityDot: dark?'rgba(220,190,130,0.8)':'rgba(132,88,32,0.82)',
-    cityText: dark?'rgba(210,180,120,0.85)':'rgba(86,58,26,0.8)',
-    grid: dark?'rgba(80,120,160,0.1)':'rgba(92,118,132,0.18)',
-    gridText: dark?'rgba(150,130,90,0.4)':'rgba(86,72,48,0.52)',
-    watermark: dark?'rgba(200,170,100,0.35)':'rgba(116,86,42,0.4)',
-    halo: dark?'rgba(0,0,0,0.45)':'rgba(255,250,235,0.78)',
-    hudBg: dark?'rgba(10,6,2,0.62)':'rgba(255,250,236,0.82)',
-    hudYear: dark?'#d4b870':'#7a3510',
-    hudMain: dark?'#e8d8b0':cssVar('--color-text-primary','#2a1a10'),
-    hudDim: dark?'#8a7a60':cssVar('--color-text-secondary','#604d32'),
-    routeFuture: dark?'rgba(180,130,50,0.15)':'rgba(122,82,36,0.22)',
-    routeGlow: dark?'rgba(200,100,30,0.4)':'rgba(190,96,28,0.22)',
-    routeDone: dark?'#c87830':'#a94f18',
-    startPoint: dark?'#8B4010':'#7a3510',
-    point: dark?'#d07030':'#b45a1f',
-    pointStroke: dark?'#ffd080':'#fff3d0',
-    routeLabel: dark?'rgba(220,190,130,0.9)':'rgba(94,58,22,0.82)',
-    markerGlow: dark?'rgba(255,180,30,0.6)':'rgba(255,176,48,0.38)',
-    markerHalo: dark?'rgba(255,160,30,0.2)':'rgba(255,176,48,0.24)',
-    markerFill: dark?'#ffb030':'#d97818',
-    markerStroke: dark?'#fff0a0':'#fff3d0',
-    loadingBg: dark?'#1a1410':'#eadfca',
-    loadingText: dark?'rgba(200,170,100,0.5)':'rgba(116,86,42,0.65)',
+    sea: ve('sea',dark),
+    land: ve('land',dark),
+    landStroke: ve('land-stroke',dark),
+    border: ve('border',dark),
+    regionText: ve('region-text',dark),
+    cityDot: ve('city-dot',dark),
+    cityText: ve('city-text',dark),
+    grid: ve('grid',dark),
+    gridText: ve('grid-text',dark),
+    watermark: ve('watermark',dark),
+    halo: ve('halo',dark),
+    hudBg: ve('hud-bg',dark),
+    hudYear: ve('hud-year',dark),
+    hudMain: ve('hud-main',dark),
+    hudDim: ve('hud-dim',dark),
+    routeFuture: ve('route-future',dark),
+    routeGlow: ve('route-glow',dark),
+    routeDone: ve('route-done',dark),
+    startPoint: ve('start-point',dark),
+    point: ve('point',dark),
+    pointStroke: ve('point-stroke',dark),
+    routeLabel: ve('route-label',dark),
+    markerGlow: ve('marker-glow',dark),
+    markerHalo: ve('marker-halo',dark),
+    markerFill: ve('marker-fill',dark),
+    markerStroke: ve('marker-stroke',dark),
+    loadingBg: ve('loading-bg',dark),
+    loadingText: ve('loading-text',dark),
     stateFills: dark?null:[
       'rgba(184,136,64,0.28)','rgba(190,150,78,0.25)','rgba(204,166,82,0.24)',
       'rgba(198,152,78,0.24)','rgba(108,164,96,0.25)','rgba(204,134,82,0.24)',
