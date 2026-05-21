@@ -17,7 +17,7 @@
 .af-texts{flex:1;overflow-y:auto;max-height:380px;}
 .af-passage{padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:background .12s;border-left:2.5px solid transparent;}
 .af-passage:hover{background:var(--color-background-secondary);}
-.af-passage.active{border-left-color:#b87020;background:var(--color-background-secondary);}
+.af-passage.active{border-left-color:var(--color-accent);background:var(--color-background-secondary);}
 .af-pw{font-size:10px;color:var(--color-text-secondary);margin-bottom:3px;display:flex;gap:6px;align-items:center;}
 .af-pn{font-size:10px;font-weight:500;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:3px;padding:0 4px;line-height:1.6;}
 .af-pt{font-size:12px;color:var(--color-text-primary);line-height:1.55;font-family:var(--font-serif);}
@@ -116,27 +116,26 @@ let t=0,playing=false,lastTs=null,mapReady=false,activeWP=-1,prevSeg=-1,cachedWo
 function themeKey(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';}
 function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
 function mapPalette(){
-  const dark=themeKey()==='dark';
   return {
-    sea: dark?'#18323d':'#8fb8d0',
-    land: cssVar('--color-background-tertiary') || (dark?'#222222':'#f5eedf'),
-    landStroke: dark?'rgba(192,144,96,0.35)':'#b8a870',
-    countryBorder: dark?'rgba(235,220,213,0.14)':'rgba(120,100,60,0.18)',
-    grid: dark?'rgba(235,220,213,0.09)':'rgba(70,100,135,0.09)',
-    labelHalo: dark?'rgba(18,18,18,0.8)':'rgba(255,255,255,0.65)',
-    regionLabel: dark?'rgba(235,220,213,0.86)':'rgba(22,10,3,0.75)',
-    cityPoint: dark?'rgba(235,220,213,0.72)':'rgba(35,15,5,0.65)',
-    cityLabel: dark?'rgba(235,220,213,0.8)':'rgba(20,8,2,0.75)',
-    loadingText: dark?'rgba(235,220,213,0.72)':'rgba(0,0,0,0.4)',
-    routeGhost: dark?'rgba(235,220,213,0.2)':'rgba(70,40,15,0.13)',
-    routeActive: cssVar('--color-accent') || (dark?'#e08830':'#b87020'),
-    activePoint: cssVar('--color-accent-hover') || (dark?'#f0a040':'#a0591b'),
-    activeHalo: dark?'rgba(224,136,48,0.22)':'rgba(220,140,26,0.2)',
-    activeStroke: dark?'rgba(240,200,120,0.9)':'#ffdd80',
-    startPoint: dark?'#c09060':'#5C2A10',
-    point: dark?'#e08830':'#C05520',
-    pointStroke: dark?'#121212':'#3A1008',
-    waypointLabel: dark?'rgba(235,220,213,0.9)':'rgba(20,8,2,0.88)'
+    sea: cssVar('--viz-world-after-sea'),
+    land: cssVar('--viz-world-after-land'),
+    landStroke: cssVar('--viz-world-after-stroke'),
+    countryBorder: cssVar('--viz-world-after-border'),
+    grid: cssVar('--viz-world-after-grid'),
+    labelHalo: cssVar('--viz-world-label-halo'),
+    regionLabel: cssVar('--viz-world-after-text'),
+    cityPoint: cssVar('--viz-world-before-dot'),
+    cityLabel: cssVar('--color-text-primary'),
+    loadingText: cssVar('--color-text-secondary'),
+    routeGhost: cssVar('--viz-world-after-border'),
+    routeActive: cssVar('--color-accent'),
+    activePoint: cssVar('--color-accent-hover'),
+    activeHalo: cssVar('--viz-world-before-active'),
+    activeStroke: cssVar('--color-text-primary'),
+    startPoint: cssVar('--color-border-primary'),
+    point: cssVar('--color-accent'),
+    pointStroke: cssVar('--color-text-primary'),
+    waypointLabel: cssVar('--color-text-primary')
   };
 }
 
