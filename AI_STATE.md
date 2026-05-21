@@ -87,6 +87,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Shared shadow token batch 5 | ✅ Done | `afanasy_manuscripts.html`, `afanasy_speed_land_sea.html`, and `afanasy_trade_guide_v4.html` now use `--shadow-floating-control` for the theme-toggle shadow; verified all three pages load, theme toggles, and clean console in headless Edge. |
 | Shared shadow token batch 6 | ✅ Done | `three_travelers_comparison.html`, `afanasy_world_before_after.html`, and `afanasy_trade_marshruttnik.html` now use `--shadow-floating-control` for the theme-toggle shadow; verified all three pages load, theme toggles, and clean console in headless Edge. |
 | Shared shadow token cleanup complete | ✅ Done | Added `--shadow-popover` and `--shadow-detail-panel`; `afanasy_trade_guide_v4.html` tooltip and `khozheniye_composition_tree.html` detail panel/theme toggle now use shared shadow tokens; verified both pages load, theme toggles, and clean console in headless Edge. |
+| Service Worker check colors tokenized | ✅ Done | `check_sw.html` now uses local CSS variables for the standalone PWA diagnostic page palette; verified the page loads and its checks/log render in headless Edge. |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
