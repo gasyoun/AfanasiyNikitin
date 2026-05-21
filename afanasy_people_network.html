@@ -202,10 +202,10 @@ const EDGES=[
 const TYPE_TOKEN={self:'--viz-network-self',help:'--viz-network-help',harm:'--viz-network-harm',neutral:'--viz-network-neutral',indirect:'--viz-network-indirect'};
 const EDGE_TOKEN={help:'--viz-network-help',harm:'--viz-network-harm',neutral:'--viz-network-indirect',indirect:'--viz-network-indirect-edge'};
 
-function cssVal(name,fallback){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||fallback;}
+function cssVal(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
 function colorOf(token,fallback){
   if(!token)return fallback;
-  return token.startsWith('--')?cssVal(token,fallback):token;
+  return token.startsWith('--')?cssVal(token):token;
 }
 function alpha(color,value){
   const c=color.trim();
@@ -237,8 +237,8 @@ function edgeVisible(e){
 function halo(txt,x,y,col,fnt){
   ctx.font=fnt||'bold 8px sans-serif';
   ctx.textAlign='center';
-  ctx.strokeStyle=alpha(cssVal('--color-background-primary','#fff'),.72);ctx.lineWidth=2.5;ctx.strokeText(txt,x,y);
-  ctx.fillStyle=col||cssVal('--color-text-primary','#2c1810');ctx.fillText(txt,x,y);
+  ctx.strokeStyle=alpha(cssVal('--color-background-primary'),.72);ctx.lineWidth=2.5;ctx.strokeText(txt,x,y);
+  ctx.fillStyle=col||cssVal('--color-text-primary');ctx.fillText(txt,x,y);
 }
 
 function draw(){
@@ -250,7 +250,7 @@ function draw(){
     const na=NODES.find(n=>n.id===e.a);
     const nb=NODES.find(n=>n.id===e.b);
     if(!na||!nb||!nodeVisible(na)||!nodeVisible(nb))return;
-    const col=colorOf(EDGE_TOKEN[e.type],cssVal('--color-border-secondary','#aaa'));
+    const col=colorOf(EDGE_TOKEN[e.type],cssVal('--color-border-secondary'));
     ctx.beginPath();ctx.moveTo(na.x,na.y);ctx.lineTo(nb.x,nb.y);
     ctx.strokeStyle=col;ctx.lineWidth=e.type==='harm'?2:1.5;
     if(e.type==='indirect')ctx.setLineDash([5,4]);
@@ -273,7 +273,7 @@ function draw(){
     const na=NODES.find(n=>n.id===e.a);
     const nb=NODES.find(n=>n.id===e.b);
     if(!na||!nb||!nodeVisible(na)||!nodeVisible(nb))return;
-    const col=colorOf(EDGE_TOKEN[e.type],cssVal('--color-border-secondary','#aaa'));
+    const col=colorOf(EDGE_TOKEN[e.type],cssVal('--color-border-secondary'));
     const angle=Math.atan2(nb.y-na.y,nb.x-na.x);
     const ex=nb.x-Math.cos(angle)*nb.r;
     const ey=nb.y-Math.sin(angle)*nb.r;
@@ -287,14 +287,14 @@ function draw(){
   NODES.forEach(n=>{
     if(!nodeVisible(n))return;
     const isActive=activeNode===n.id;
-    const col=colorOf(TYPE_TOKEN[n.type],cssVal('--color-border-primary','#888'));
+    const col=colorOf(TYPE_TOKEN[n.type],cssVal('--color-border-primary'));
 
     if(isActive){
       ctx.beginPath();ctx.arc(n.x,n.y,n.r+7,0,Math.PI*2);
       ctx.fillStyle=col;ctx.globalAlpha=.15;ctx.fill();ctx.globalAlpha=1;
     }
     ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
-    ctx.fillStyle=n.type==='self'?alpha(col,.12):cssVal('--color-background-primary','#fff');
+    ctx.fillStyle=n.type==='self'?alpha(col,.12):cssVal('--color-background-primary');
     ctx.fill();
     ctx.strokeStyle=col;ctx.lineWidth=isActive?2.5:n.type==='indirect'?1.2:1.8;
     if(n.type==='indirect')ctx.setLineDash([4,3]);
@@ -320,7 +320,7 @@ function getNodeAt(mx,my){
 function showDetail(n){
   const det=document.getElementById('pn-det');
   if(!n){det.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary);">Нажмите на узел чтобы узнать о человеке.</div>';det.style.borderLeftColor='var(--color-border-tertiary)';return;}
-  const col=colorOf(TYPE_TOKEN[n.type],cssVal('--color-border-primary','#888'));
+  const col=colorOf(TYPE_TOKEN[n.type],cssVal('--color-border-primary'));
   det.style.borderLeftColor=col;
   det.innerHTML=`<div class="pn-det-name" style="color:${col};">${n.label.replace('\n',' ')}</div>
     <div class="pn-det-role">${n.role} · <span style="opacity:.7;">${n.loc}</span></div>

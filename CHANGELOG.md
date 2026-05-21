@@ -50,6 +50,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **`khozheniye_composition_tree.html`**: manuscript/chronological node colors now resolve through shared `--viz-comp-*` tokens with theme-aware SVG fills.
 - **`khozheniye_composition_tree.html`**: removed the remaining JS hex fallback table and manual `rgba(...)` alpha helper; SVG node fills now use `color-mix(...)` against shared CSS variables.
 - **`afanasy_people_network.html`**: relationship legend, Canvas node/edge palette, labels, and detail accents now resolve through shared `--viz-network-*` tokens.
+- **`afanasy_people_network.html`**: removed the remaining hardcoded Canvas color fallbacks; node/edge drawing now depends on resolved CSS variables only.
 - **`afanasy_language_map_v2.html`**: language highlights, cards, legends, and timeline/detail bars now resolve through shared `--viz-language-*` tokens.
 - **`afanasy_speed_land_sea.html`**: stay markers, label arrows, and tooltip shadow now use shared atlas variables instead of widget-local colors.
 - **`afanasy_manuscripts.html`**: manuscript-list colors and diff highlights now resolve through shared `--viz-manuscript-*` variables, including dynamic column headers and note outlines.
