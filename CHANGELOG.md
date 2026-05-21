@@ -35,6 +35,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `afanasy_bestiary.html`: moved generated SVG illustration colors into local CSS variables while preserving the existing bestiary artwork.
 - `css/atlas.css`, `index.html`, `afanasy_v8_text_map.html`: added shared shadow tokens and moved the index/route-map theme-toggle shadow to `--shadow-floating-control`.
 - `afanasy_gantt.html`, `afanasy_calendar_pascha_islam.html`, `afanasy_economics_prices.html`: moved theme-toggle shadows to the shared `--shadow-floating-control` token.
+- `afanasy_citations_v2.html`, `afanasy_people_network.html`, `afanasy_religious_crisis.html`: moved theme-toggle shadows to the shared `--shadow-floating-control` token.
 - Updated README/index/architecture documentation to describe bundled local atlas assets and the current 21-widget count.
 - Extracted the shared visualization design system into `css/atlas.css`; all 13 existing widget HTML files now link to the shared stylesheet and keep only widget-specific CSS inline.
 - Bundled D3 v7, TopoJSON 3, world-atlas 110m data, and Tabler Icons under `lib/`; all current HTML pages now reference local assets instead of external CDNs.
