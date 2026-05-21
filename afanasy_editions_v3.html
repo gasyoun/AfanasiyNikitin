@@ -8,17 +8,98 @@
   <link rel="stylesheet" href="css/atlas.css">
   <link rel="stylesheet" href="lib/tabler-icons.min.css">
   <style>
+:root{
+  --ew-c-000000: #000000;
+  --ew-c-0a2a4a: #0a2a4a;
+  --ew-c-0a2a5a: #0a2a5a;
+  --ew-c-0a3a0a: #0a3a0a;
+  --ew-c-0a3a6a: #0a3a6a;
+  --ew-c-0a4a0a: #0a4a0a;
+  --ew-c-0a4a28: #0a4a28;
+  --ew-c-0a5a0a: #0a5a0a;
+  --ew-c-0a5a30: #0a5a30;
+  --ew-c-1a0a00: #1a0a00;
+  --ew-c-1a0a2a: #1a0a2a;
+  --ew-c-1a3060: #1a3060;
+  --ew-c-1a3a1a: #1a3a1a;
+  --ew-c-1a4a1a: #1a4a1a;
+  --ew-c-1a4a6a: #1a4a6a;
+  --ew-c-1a4a7a: #1a4a7a;
+  --ew-c-1a5a1a: #1a5a1a;
+  --ew-c-1a6a1a: #1a6a1a;
+  --ew-c-1e4a7a: #1e4a7a;
+  --ew-c-1e5a8a: #1e5a8a;
+  --ew-c-1e8250: #1e8250;
+  --ew-c-2a1800: #2a1800;
+  --ew-c-2a1a0a: #2a1a0a;
+  --ew-c-2a4a2a: #2a4a2a;
+  --ew-c-2a5a2a: #2a5a2a;
+  --ew-c-2a5a80: #2a5a80;
+  --ew-c-2a6a2a: #2a6a2a;
+  --ew-c-2a6a8a: #2a6a8a;
+  --ew-c-2a7a50: #2a7a50;
+  --ew-c-3a1040: #3a1040;
+  --ew-c-408040: #408040;
+  --ew-c-4a1a4a: #4a1a4a;
+  --ew-c-4a1a8a: #4a1a8a;
+  --ew-c-4a2a08: #4a2a08;
+  --ew-c-4a8ab0: #4a8ab0;
+  --ew-c-508050: #508050;
+  --ew-c-5a1a5a: #5a1a5a;
+  --ew-c-5a2a8a: #5a2a8a;
+  --ew-c-5a3010: #5a3010;
+  --ew-c-5a3a10: #5a3a10;
+  --ew-c-5a88a0: #5a88a0;
+  --ew-c-600a0a: #600a0a;
+  --ew-c-6040a0: #6040a0;
+  --ew-c-60a060: #60a060;
+  --ew-c-60b060: #60b060;
+  --ew-c-6a0a0a: #6a0a0a;
+  --ew-c-6a2a6a: #6a2a6a;
+  --ew-c-6a4000: #6a4000;
+  --ew-c-6a98b0: #6a98b0;
+  --ew-c-6e32a0: #6e32a0;
+  --ew-c-804080: #804080;
+  --ew-c-8050b0: #8050b0;
+  --ew-c-806020: #806020;
+  --ew-c-80c080: #80c080;
+  --ew-c-80d080: #80d080;
+  --ew-c-8a1010: #8a1010;
+  --ew-c-8a3a8a: #8a3a8a;
+  --ew-c-8a5010: #8a5010;
+  --ew-c-8a7040: #8a7040;
+  --ew-c-8ab8d0: #8ab8d0;
+  --ew-c-906020: #906020;
+  --ew-c-9060c0: #9060c0;
+  --ew-c-a05020: #a05020;
+  --ew-c-a050a0: #a050a0;
+  --ew-c-a07030: #a07030;
+  --ew-c-a070d0: #a070d0;
+  --ew-c-a08030: #a08030;
+  --ew-c-c0392b: #c0392b;
+  --ew-c-c07030: #c07030;
+  --ew-c-c070c0: #c070c0;
+  --ew-c-c09040: #c09040;
+  --ew-c-c090f0: #c090f0;
+  --ew-c-c8a040: #c8a040;
+  --ew-c-d4a050: #d4a050;
+  --ew-c-e08020: #e08020;
+  --ew-c-e8c070: #e8c070;
+  --ew-c-ffa040: #ffa040;
+  --ew-c-ffd040: #ffd040;
+  --ew-c-ffd060: #ffd060;
+}
 .ew{font-size:13px;}
 .ew-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
 .ew-intro b{color:var(--color-text-primary);}
 /* Book shelf */
 .ew-shelf{display:flex;gap:16px;overflow-x:auto;padding:8px 4px 20px;margin-bottom:8px;position:relative;-webkit-overflow-scrolling:touch;}
-.ew-shelf::after{content:'';position:absolute;bottom:12px;left:0;right:0;height:4px;background:linear-gradient(90deg,#8a7040 11%,#2a7a50 30%,#8a1010 50%,#8a3a8a 65%,#1e5a8a 78%,#2a6a2a 88%,#6e32a0 99%);border-radius:2px;pointer-events:none;}
+.ew-shelf::after{content:'';position:absolute;bottom:12px;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--ew-c-8a7040) 11%,var(--ew-c-2a7a50) 30%,var(--ew-c-8a1010) 50%,var(--ew-c-8a3a8a) 65%,var(--ew-c-1e5a8a) 78%,var(--ew-c-2a6a2a) 88%,var(--ew-c-6e32a0) 99%);border-radius:2px;pointer-events:none;}
 .ew-item{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;cursor:pointer;width:88px;}
 .ew-book-wrap{width:72px;height:96px;position:relative;}
-.ew-book-wrap svg{border-radius:3px;box-shadow:2px 3px 8px rgba(0,0,0,.2);transition:transform .13s;display:block;}
-.ew-item:hover svg,.ew-item.on svg{transform:scale(1.07) translateY(-3px);box-shadow:3px 5px 14px rgba(0,0,0,.28);}
-.ew-item.on svg{box-shadow:0 0 0 2.5px #6e32a0,3px 5px 14px rgba(0,0,0,.28);}
+.ew-book-wrap svg{border-radius:3px;box-shadow:2px 3px 8px color-mix(in srgb,var(--ew-c-000000) 20%,transparent);transition:transform .13s;display:block;}
+.ew-item:hover svg,.ew-item.on svg{transform:scale(1.07) translateY(-3px);box-shadow:3px 5px 14px color-mix(in srgb,var(--ew-c-000000) 28%,transparent);}
+.ew-item.on svg{box-shadow:0 0 0 2.5px var(--ew-c-6e32a0),3px 5px 14px color-mix(in srgb,var(--ew-c-000000) 28%,transparent);}
 .ew-yr{font-size:10px;font-weight:500;font-variant-numeric:tabular-nums;text-align:center;}
 .ew-short{font-size:9px;color:var(--color-text-secondary);text-align:center;line-height:1.3;max-width:80px;}
 /* Detail */
@@ -26,7 +107,7 @@
 .ew-det.open{display:block;}
 .ew-dh{display:flex;gap:14px;align-items:flex-start;padding:13px 15px;border-bottom:.5px solid var(--color-border-tertiary);}
 .ew-dcover{flex-shrink:0;}
-.ew-dcover svg{border-radius:4px;box-shadow:2px 3px 10px rgba(0,0,0,.2);}
+.ew-dcover svg{border-radius:4px;box-shadow:2px 3px 10px color-mix(in srgb,var(--ew-c-000000) 20%,transparent);}
 .ew-dr{flex:1;min-width:0;}
 .ew-dyr{font-size:30px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;}
 .ew-dtit{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;}
@@ -80,201 +161,201 @@ function txt(parent,s,attrs){
 
 // ── Book covers ───────────────────────────────────────────────────────────────
 function cover_karamzin(svg,W,H){
-  add(svg,'rect',{width:W,height:H,fill:'#2a1a0a'});
-  add(svg,'rect',{x:3,y:3,width:W-6,height:H-6,fill:'none',stroke:'#c8a040','stroke-width':1.5});
+  add(svg,'rect',{width:W,height:H,fill:'var(--ew-c-2a1a0a)'});
+  add(svg,'rect',{x:3,y:3,width:W-6,height:H-6,fill:'none',stroke:'var(--ew-c-c8a040)','stroke-width':1.5});
   // eagle
-  add(svg,'ellipse',{cx:W/2,cy:H*.24,rx:10,ry:7,fill:'#c8a040',opacity:.55});
-  add(svg,'path',{d:`M${W*.3},${H*.22} L${W*.18},${H*.13} L${W*.36},${H*.19}Z`,fill:'#c8a040',opacity:.5});
-  add(svg,'path',{d:`M${W*.7},${H*.22} L${W*.82},${H*.13} L${W*.64},${H*.19}Z`,fill:'#c8a040',opacity:.5});
-  txt(svg,'ИСТОРIЯ',{'x':W/2,'y':H*.46,'text-anchor':'middle','font-size':8,'font-family':'Georgia,serif','font-weight':'bold','fill':'#c8a040'});
-  txt(svg,'ГОСУДАРСТВА',{'x':W/2,'y':H*.54,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'#c8a040'});
-  txt(svg,'РОССIЙСКАГО',{'x':W/2,'y':H*.61,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'#c8a040'});
-  txt(svg,'Карамзинъ',{'x':W/2,'y':H*.73,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'#a08030'});
-  txt(svg,'Томъ VI · 1818',{'x':W/2,'y':H*.82,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','fill':'#806020'});
+  add(svg,'ellipse',{cx:W/2,cy:H*.24,rx:10,ry:7,fill:'var(--ew-c-c8a040)',opacity:.55});
+  add(svg,'path',{d:`M${W*.3},${H*.22} L${W*.18},${H*.13} L${W*.36},${H*.19}Z`,fill:'var(--ew-c-c8a040)',opacity:.5});
+  add(svg,'path',{d:`M${W*.7},${H*.22} L${W*.82},${H*.13} L${W*.64},${H*.19}Z`,fill:'var(--ew-c-c8a040)',opacity:.5});
+  txt(svg,'ИСТОРIЯ',{'x':W/2,'y':H*.46,'text-anchor':'middle','font-size':8,'font-family':'Georgia,serif','font-weight':'bold','fill':'var(--ew-c-c8a040)'});
+  txt(svg,'ГОСУДАРСТВА',{'x':W/2,'y':H*.54,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'var(--ew-c-c8a040)'});
+  txt(svg,'РОССIЙСКАГО',{'x':W/2,'y':H*.61,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'var(--ew-c-c8a040)'});
+  txt(svg,'Карамзинъ',{'x':W/2,'y':H*.73,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'var(--ew-c-a08030)'});
+  txt(svg,'Томъ VI · 1818',{'x':W/2,'y':H*.82,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','fill':'var(--ew-c-806020)'});
 }
 function cover_sakharov(svg,W,H){
-  add(svg,'rect',{width:W,height:H,fill:'#4a2a08'});
-  add(svg,'rect',{x:2,y:2,width:W-4,height:H-4,fill:'none',stroke:'#d4a050','stroke-width':1});
-  for(let i=0;i<5;i++) add(svg,'circle',{cx:W/2+(i-2)*9,cy:H*.15,r:2.5,fill:'#d4a050',opacity:.7});
-  add(svg,'line',{x1:8,y1:H*.22,x2:W-8,y2:H*.22,stroke:'#d4a050','stroke-width':.7});
-  txt(svg,'СКАЗАНIЯ',{'x':W/2,'y':H*.36,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'#d4a050'});
-  txt(svg,'РУССКАГО НАРОДА',{'x':W/2,'y':H*.44,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','fill':'#c09040'});
-  add(svg,'line',{x1:8,y1:H*.5,x2:W-8,y2:H*.5,stroke:'#a07030','stroke-width':.5});
-  txt(svg,'Хожение',{'x':W/2,'y':H*.61,'text-anchor':'middle','font-size':7,'font-family':'Georgia,serif','font-weight':'bold','fill':'#e8c070'});
-  txt(svg,'Афанасiя',{'x':W/2,'y':H*.69,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'#c09040'});
-  txt(svg,'Никитина',{'x':W/2,'y':H*.75,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'#c09040'});
-  txt(svg,'Сахаровъ · 1853',{'x':W/2,'y':H*.88,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','fill':'#906020'});
+  add(svg,'rect',{width:W,height:H,fill:'var(--ew-c-4a2a08)'});
+  add(svg,'rect',{x:2,y:2,width:W-4,height:H-4,fill:'none',stroke:'var(--ew-c-d4a050)','stroke-width':1});
+  for(let i=0;i<5;i++) add(svg,'circle',{cx:W/2+(i-2)*9,cy:H*.15,r:2.5,fill:'var(--ew-c-d4a050)',opacity:.7});
+  add(svg,'line',{x1:8,y1:H*.22,x2:W-8,y2:H*.22,stroke:'var(--ew-c-d4a050)','stroke-width':.7});
+  txt(svg,'СКАЗАНIЯ',{'x':W/2,'y':H*.36,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'var(--ew-c-d4a050)'});
+  txt(svg,'РУССКАГО НАРОДА',{'x':W/2,'y':H*.44,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','fill':'var(--ew-c-c09040)'});
+  add(svg,'line',{x1:8,y1:H*.5,x2:W-8,y2:H*.5,stroke:'var(--ew-c-a07030)','stroke-width':.5});
+  txt(svg,'Хожение',{'x':W/2,'y':H*.61,'text-anchor':'middle','font-size':7,'font-family':'Georgia,serif','font-weight':'bold','fill':'var(--ew-c-e8c070)'});
+  txt(svg,'Афанасiя',{'x':W/2,'y':H*.69,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'var(--ew-c-c09040)'});
+  txt(svg,'Никитина',{'x':W/2,'y':H*.75,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'var(--ew-c-c09040)'});
+  txt(svg,'Сахаровъ · 1853',{'x':W/2,'y':H*.88,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','fill':'var(--ew-c-906020)'});
 }
 function cover_sreznevsky(svg,W,H){
-  add(svg,'rect',{width:W,height:H,fill:'#1a3a1a'});
-  add(svg,'rect',{x:2,y:2,width:W-4,height:H-4,fill:'none',stroke:'#60a060','stroke-width':1});
+  add(svg,'rect',{width:W,height:H,fill:'var(--ew-c-1a3a1a)'});
+  add(svg,'rect',{x:2,y:2,width:W-4,height:H-4,fill:'none',stroke:'var(--ew-c-60a060)','stroke-width':1});
   [-14,0,14].forEach(dx=>{
-    add(svg,'rect',{x:W/2+dx-5,y:H*.14,width:10,height:12,fill:'none',stroke:'#80c080','stroke-width':1,rx:1});
-    add(svg,'line',{x1:W/2+dx-5,y1:H*.14+3,x2:W/2+dx+5,y2:H*.14+3,stroke:'#80c080','stroke-width':.5});
+    add(svg,'rect',{x:W/2+dx-5,y:H*.14,width:10,height:12,fill:'none',stroke:'var(--ew-c-80c080)','stroke-width':1,rx:1});
+    add(svg,'line',{x1:W/2+dx-5,y1:H*.14+3,x2:W/2+dx+5,y2:H*.14+3,stroke:'var(--ew-c-80c080)','stroke-width':.5});
   });
-  txt(svg,'ХОЖЕНИЕ',{'x':W/2,'y':H*.44,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'#80c080'});
-  txt(svg,'ЗА ТРИ МОРЯ',{'x':W/2,'y':H*.52,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'#60a060'});
-  add(svg,'line',{x1:8,y1:H*.57,x2:W-8,y2:H*.57,stroke:'#408040','stroke-width':.5});
-  txt(svg,'Афанасiя',{'x':W/2,'y':H*.65,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'#80c080'});
-  txt(svg,'Никитина',{'x':W/2,'y':H*.71,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'#80c080'});
-  txt(svg,'Срезневскiй · 1857',{'x':W/2,'y':H*.83,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','fill':'#508050'});
+  txt(svg,'ХОЖЕНИЕ',{'x':W/2,'y':H*.44,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'var(--ew-c-80c080)'});
+  txt(svg,'ЗА ТРИ МОРЯ',{'x':W/2,'y':H*.52,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'var(--ew-c-60a060)'});
+  add(svg,'line',{x1:8,y1:H*.57,x2:W-8,y2:H*.57,stroke:'var(--ew-c-408040)','stroke-width':.5});
+  txt(svg,'Афанасiя',{'x':W/2,'y':H*.65,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'var(--ew-c-80c080)'});
+  txt(svg,'Никитина',{'x':W/2,'y':H*.71,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'var(--ew-c-80c080)'});
+  txt(svg,'Срезневскiй · 1857',{'x':W/2,'y':H*.83,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','fill':'var(--ew-c-508050)'});
 }
 function cover_tver(svg,W,H){
-  add(svg,'rect',{width:W,height:H,fill:'#3a1040'});
-  add(svg,'path',{d:`M${W/2-18},${H*.10} Q${W/2},${H*.05} ${W/2+18},${H*.10}`,fill:'none',stroke:'#c070c0','stroke-width':1.5});
-  add(svg,'ellipse',{cx:W/2,cy:H*.14,rx:5,ry:3,fill:'#c070c0',opacity:.6});
-  txt(svg,'Хожение',{'x':W/2,'y':H*.34,'text-anchor':'middle','font-size':8,'font-family':'Georgia,serif','font-weight':'bold','fill':'#c070c0'});
-  txt(svg,'за Три Моря',{'x':W/2,'y':H*.43,'text-anchor':'middle','font-size':6,'font-family':'Georgia,serif','fill':'#a050a0'});
-  txt(svg,'500-лѣтiе',{'x':W/2,'y':H*.56,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'#c070c0'});
-  txt(svg,'путешествiя',{'x':W/2,'y':H*.63,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'#c070c0'});
-  txt(svg,'Никитина',{'x':W/2,'y':H*.71,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'#a050a0'});
-  txt(svg,'Тверь · 1908',{'x':W/2,'y':H*.83,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','fill':'#804080'});
-  add(svg,'path',{d:`M${W/2-14},${H*.88} Q${W/2},${H*.93} ${W/2+14},${H*.88}`,fill:'none',stroke:'#804080','stroke-width':.8});
+  add(svg,'rect',{width:W,height:H,fill:'var(--ew-c-3a1040)'});
+  add(svg,'path',{d:`M${W/2-18},${H*.10} Q${W/2},${H*.05} ${W/2+18},${H*.10}`,fill:'none',stroke:'var(--ew-c-c070c0)','stroke-width':1.5});
+  add(svg,'ellipse',{cx:W/2,cy:H*.14,rx:5,ry:3,fill:'var(--ew-c-c070c0)',opacity:.6});
+  txt(svg,'Хожение',{'x':W/2,'y':H*.34,'text-anchor':'middle','font-size':8,'font-family':'Georgia,serif','font-weight':'bold','fill':'var(--ew-c-c070c0)'});
+  txt(svg,'за Три Моря',{'x':W/2,'y':H*.43,'text-anchor':'middle','font-size':6,'font-family':'Georgia,serif','fill':'var(--ew-c-a050a0)'});
+  txt(svg,'500-лѣтiе',{'x':W/2,'y':H*.56,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'var(--ew-c-c070c0)'});
+  txt(svg,'путешествiя',{'x':W/2,'y':H*.63,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'var(--ew-c-c070c0)'});
+  txt(svg,'Никитина',{'x':W/2,'y':H*.71,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'var(--ew-c-a050a0)'});
+  txt(svg,'Тверь · 1908',{'x':W/2,'y':H*.83,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','fill':'var(--ew-c-804080)'});
+  add(svg,'path',{d:`M${W/2-14},${H*.88} Q${W/2},${H*.93} ${W/2+14},${H*.88}`,fill:'none',stroke:'var(--ew-c-804080)','stroke-width':.8});
 }
 function cover_an1948(svg,W,H){
-  add(svg,'rect',{width:W,height:H,fill:'#600a0a'});
-  add(svg,'rect',{x:0,y:0,width:W,height:H*.42,fill:'#8a1010'});
+  add(svg,'rect',{width:W,height:H,fill:'var(--ew-c-600a0a)'});
+  add(svg,'rect',{x:0,y:0,width:W,height:H*.42,fill:'var(--ew-c-8a1010)'});
   // star
   const cx=W/2,cy=H*.22,r=9;
   const pts=Array.from({length:5},(_,i)=>{
     const a=(i*72-90)*Math.PI/180,ai=((i*72+36)-90)*Math.PI/180;
     return`${cx+r*Math.cos(a)},${cy+r*Math.sin(a)} ${cx+r*.42*Math.cos(ai)},${cy+r*.42*Math.sin(ai)}`;
   }).join(' ');
-  add(svg,'polygon',{points:pts,fill:'#ffd040'});
-  txt(svg,'ХОЖЕНИЕ',{'x':W/2,'y':H*.53,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'#ffd060'});
-  txt(svg,'ЗА ТРИ МОРЯ',{'x':W/2,'y':H*.61,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'#ffa040'});
-  add(svg,'line',{x1:8,y1:H*.65,x2:W-8,y2:H*.65,stroke:'#8a1010','stroke-width':.5});
-  txt(svg,'А. НИКИТИН',{'x':W/2,'y':H*.73,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'#ffd060'});
-  txt(svg,'АН СССР · 1948',{'x':W/2,'y':H*.82,'text-anchor':'middle','font-size':4,'font-family':'Arial,sans-serif','fill':'#c07030'});
-  txt(svg,'Лит. памятники',{'x':W/2,'y':H*.89,'text-anchor':'middle','font-size':3.8,'font-family':'Arial,sans-serif','fill':'#a05020'});
+  add(svg,'polygon',{points:pts,fill:'var(--ew-c-ffd040)'});
+  txt(svg,'ХОЖЕНИЕ',{'x':W/2,'y':H*.53,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'var(--ew-c-ffd060)'});
+  txt(svg,'ЗА ТРИ МОРЯ',{'x':W/2,'y':H*.61,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'var(--ew-c-ffa040)'});
+  add(svg,'line',{x1:8,y1:H*.65,x2:W-8,y2:H*.65,stroke:'var(--ew-c-8a1010)','stroke-width':.5});
+  txt(svg,'А. НИКИТИН',{'x':W/2,'y':H*.73,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'var(--ew-c-ffd060)'});
+  txt(svg,'АН СССР · 1948',{'x':W/2,'y':H*.82,'text-anchor':'middle','font-size':4,'font-family':'Arial,sans-serif','fill':'var(--ew-c-c07030)'});
+  txt(svg,'Лит. памятники',{'x':W/2,'y':H*.89,'text-anchor':'middle','font-size':3.8,'font-family':'Arial,sans-serif','fill':'var(--ew-c-a05020)'});
 }
 function cover_film(svg,W,H){
-  add(svg,'rect',{width:W,height:H,fill:'#2a1800'});
-  add(svg,'rect',{x:0,y:0,width:W,height:H*.55,fill:'#1a3060'});
-  add(svg,'rect',{x:0,y:H*.35,width:W,height:H*.2,fill:'#e08020',opacity:.55});
-  add(svg,'path',{d:`M${W*.18},${H*.47} L${W*.82},${H*.47} L${W*.76},${H*.54} L${W*.24},${H*.54}Z`,fill:'#1a0a00'});
-  add(svg,'line',{x1:W*.5,y1:H*.54,x2:W*.5,y2:H*.20,stroke:'#1a0a00','stroke-width':1.5});
-  add(svg,'path',{d:`M${W*.5},${H*.20} L${W*.68},${H*.36} L${W*.5},${H*.39}Z`,fill:'#1a0a00',opacity:.8});
-  txt(svg,'ХОЖДЕНИЕ',{'x':W/2,'y':H*.66,'text-anchor':'middle','font-size':7,'font-family':'Georgia,serif','font-weight':'bold','fill':'#ffd060'});
-  txt(svg,'ЗА ТРИ МОРЯ',{'x':W/2,'y':H*.73,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'#ffa040'});
-  txt(svg,'А. Никитин',{'x':W/2,'y':H*.81,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'#e08020'});
-  txt(svg,'Детгиз · 1960',{'x':W/2,'y':H*.89,'text-anchor':'middle','font-size':4,'font-family':'Arial,sans-serif','fill':'#806020'});
+  add(svg,'rect',{width:W,height:H,fill:'var(--ew-c-2a1800)'});
+  add(svg,'rect',{x:0,y:0,width:W,height:H*.55,fill:'var(--ew-c-1a3060)'});
+  add(svg,'rect',{x:0,y:H*.35,width:W,height:H*.2,fill:'var(--ew-c-e08020)',opacity:.55});
+  add(svg,'path',{d:`M${W*.18},${H*.47} L${W*.82},${H*.47} L${W*.76},${H*.54} L${W*.24},${H*.54}Z`,fill:'var(--ew-c-1a0a00)'});
+  add(svg,'line',{x1:W*.5,y1:H*.54,x2:W*.5,y2:H*.20,stroke:'var(--ew-c-1a0a00)','stroke-width':1.5});
+  add(svg,'path',{d:`M${W*.5},${H*.20} L${W*.68},${H*.36} L${W*.5},${H*.39}Z`,fill:'var(--ew-c-1a0a00)',opacity:.8});
+  txt(svg,'ХОЖДЕНИЕ',{'x':W/2,'y':H*.66,'text-anchor':'middle','font-size':7,'font-family':'Georgia,serif','font-weight':'bold','fill':'var(--ew-c-ffd060)'});
+  txt(svg,'ЗА ТРИ МОРЯ',{'x':W/2,'y':H*.73,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'var(--ew-c-ffa040)'});
+  txt(svg,'А. Никитин',{'x':W/2,'y':H*.81,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','font-style':'italic','fill':'var(--ew-c-e08020)'});
+  txt(svg,'Детгиз · 1960',{'x':W/2,'y':H*.89,'text-anchor':'middle','font-size':4,'font-family':'Arial,sans-serif','fill':'var(--ew-c-806020)'});
 }
 function cover_lurye(svg,W,H){
-  add(svg,'rect',{width:W,height:H,fill:'#0a2a4a'});
-  add(svg,'rect',{x:2,y:2,width:W-4,height:H-4,fill:'none',stroke:'#4a8ab0','stroke-width':1});
-  add(svg,'rect',{x:0,y:H*.07,width:W,height:9,fill:'#1a4a6a'});
-  txt(svg,'ЛИТЕРАТУРНЫЕ ПАМЯТНИКИ',{'x':W/2,'y':H*.13,'text-anchor':'middle','font-size':4,'font-family':'Arial,sans-serif','font-weight':'bold','fill':'#8ab8d0'});
-  add(svg,'path',{d:`M${W*.22},${H*.43} L${W*.78},${H*.43} L${W*.74},${H*.50} L${W*.26},${H*.50}Z`,fill:'#1a4a6a'});
-  add(svg,'line',{x1:W*.5,y1:H*.50,x2:W*.5,y2:H*.24,stroke:'#4a8ab0','stroke-width':1.2});
-  add(svg,'path',{d:`M${W*.5},${H*.24} L${W*.66},${H*.37} L${W*.5},${H*.40}Z`,fill:'#2a6a8a'});
-  txt(svg,'ХОЖЕНИЕ',{'x':W/2,'y':H*.62,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'#8ab8d0'});
-  txt(svg,'ЗА ТРИ МОРЯ',{'x':W/2,'y':H*.70,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'#6a98b0'});
-  add(svg,'line',{x1:8,y1:H*.74,x2:W-8,y2:H*.74,stroke:'#2a5a80','stroke-width':.5});
-  txt(svg,'Афанасия Никитина',{'x':W/2,'y':H*.81,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','font-style':'italic','fill':'#8ab8d0'});
-  txt(svg,'Наука · Л. · 1986',{'x':W/2,'y':H*.89,'text-anchor':'middle','font-size':3.8,'font-family':'Arial,sans-serif','fill':'#5a88a0'});
+  add(svg,'rect',{width:W,height:H,fill:'var(--ew-c-0a2a4a)'});
+  add(svg,'rect',{x:2,y:2,width:W-4,height:H-4,fill:'none',stroke:'var(--ew-c-4a8ab0)','stroke-width':1});
+  add(svg,'rect',{x:0,y:H*.07,width:W,height:9,fill:'var(--ew-c-1a4a6a)'});
+  txt(svg,'ЛИТЕРАТУРНЫЕ ПАМЯТНИКИ',{'x':W/2,'y':H*.13,'text-anchor':'middle','font-size':4,'font-family':'Arial,sans-serif','font-weight':'bold','fill':'var(--ew-c-8ab8d0)'});
+  add(svg,'path',{d:`M${W*.22},${H*.43} L${W*.78},${H*.43} L${W*.74},${H*.50} L${W*.26},${H*.50}Z`,fill:'var(--ew-c-1a4a6a)'});
+  add(svg,'line',{x1:W*.5,y1:H*.50,x2:W*.5,y2:H*.24,stroke:'var(--ew-c-4a8ab0)','stroke-width':1.2});
+  add(svg,'path',{d:`M${W*.5},${H*.24} L${W*.66},${H*.37} L${W*.5},${H*.40}Z`,fill:'var(--ew-c-2a6a8a)'});
+  txt(svg,'ХОЖЕНИЕ',{'x':W/2,'y':H*.62,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'var(--ew-c-8ab8d0)'});
+  txt(svg,'ЗА ТРИ МОРЯ',{'x':W/2,'y':H*.70,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'var(--ew-c-6a98b0)'});
+  add(svg,'line',{x1:8,y1:H*.74,x2:W-8,y2:H*.74,stroke:'var(--ew-c-2a5a80)','stroke-width':.5});
+  txt(svg,'Афанасия Никитина',{'x':W/2,'y':H*.81,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','font-style':'italic','fill':'var(--ew-c-8ab8d0)'});
+  txt(svg,'Наука · Л. · 1986',{'x':W/2,'y':H*.89,'text-anchor':'middle','font-size':3.8,'font-family':'Arial,sans-serif','fill':'var(--ew-c-5a88a0)'});
 }
 function cover_eksmo(svg,W,H){
-  add(svg,'rect',{width:W,height:H,fill:'#0a3a0a'});
+  add(svg,'rect',{width:W,height:H,fill:'var(--ew-c-0a3a0a)'});
   [[-8,H*.14],[W*.55,H*.10],[W*.2,H*.24],[W*.75,H*.28]].forEach(([x,y])=>{
-    add(svg,'ellipse',{cx:x+10,cy:y+7,rx:11,ry:5,fill:'#1a6a1a',opacity:.4,transform:`rotate(-30,${x+10},${y+7})`});
+    add(svg,'ellipse',{cx:x+10,cy:y+7,rx:11,ry:5,fill:'var(--ew-c-1a6a1a)',opacity:.4,transform:`rotate(-30,${x+10},${y+7})`});
   });
-  add(svg,'ellipse',{cx:W*.5,cy:H*.37,rx:14,ry:9,fill:'#2a4a2a',opacity:.7});
-  add(svg,'circle',{cx:W*.37,cy:H*.33,r:7,fill:'#2a4a2a',opacity:.7});
-  add(svg,'path',{d:`M${W*.31},${H*.36} Q${W*.24},${H*.44} ${W*.27},${H*.49}`,fill:'none',stroke:'#2a4a2a','stroke-width':3,opacity:.7,'stroke-linecap':'round'});
-  [W*.40,W*.47,W*.54,W*.61].forEach(x=>add(svg,'line',{x1:x,y1:H*.46,x2:x,y2:H*.54,stroke:'#2a4a2a','stroke-width':3,opacity:.7,'stroke-linecap':'round'}));
-  txt(svg,'ХОЖЕНИЕ',{'x':W/2,'y':H*.66,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'#80d080'});
-  txt(svg,'ЗА ТРИ МОРЯ',{'x':W/2,'y':H*.74,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'#60b060'});
-  txt(svg,'Афанасий Никитин',{'x':W/2,'y':H*.82,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','font-style':'italic','fill':'#80d080'});
-  txt(svg,'Эксмо · 2004',{'x':W/2,'y':H*.90,'text-anchor':'middle','font-size':4,'font-family':'Arial,sans-serif','fill':'#408040'});
+  add(svg,'ellipse',{cx:W*.5,cy:H*.37,rx:14,ry:9,fill:'var(--ew-c-2a4a2a)',opacity:.7});
+  add(svg,'circle',{cx:W*.37,cy:H*.33,r:7,fill:'var(--ew-c-2a4a2a)',opacity:.7});
+  add(svg,'path',{d:`M${W*.31},${H*.36} Q${W*.24},${H*.44} ${W*.27},${H*.49}`,fill:'none',stroke:'var(--ew-c-2a4a2a)','stroke-width':3,opacity:.7,'stroke-linecap':'round'});
+  [W*.40,W*.47,W*.54,W*.61].forEach(x=>add(svg,'line',{x1:x,y1:H*.46,x2:x,y2:H*.54,stroke:'var(--ew-c-2a4a2a)','stroke-width':3,opacity:.7,'stroke-linecap':'round'}));
+  txt(svg,'ХОЖЕНИЕ',{'x':W/2,'y':H*.66,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'var(--ew-c-80d080)'});
+  txt(svg,'ЗА ТРИ МОРЯ',{'x':W/2,'y':H*.74,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','fill':'var(--ew-c-60b060)'});
+  txt(svg,'Афанасий Никитин',{'x':W/2,'y':H*.82,'text-anchor':'middle','font-size':4.5,'font-family':'Georgia,serif','font-style':'italic','fill':'var(--ew-c-80d080)'});
+  txt(svg,'Эксмо · 2004',{'x':W/2,'y':H*.90,'text-anchor':'middle','font-size':4,'font-family':'Arial,sans-serif','fill':'var(--ew-c-408040)'});
 }
 function cover_khrust(svg,W,H){
-  add(svg,'rect',{width:W,height:H,fill:'#1a0a2a'});
-  add(svg,'rect',{x:2,y:2,width:W-4,height:H-4,fill:'none',stroke:'#9060c0','stroke-width':1});
+  add(svg,'rect',{width:W,height:H,fill:'var(--ew-c-1a0a2a)'});
+  add(svg,'rect',{x:2,y:2,width:W-4,height:H-4,fill:'none',stroke:'var(--ew-c-9060c0)','stroke-width':1});
   [[W*.22,H*.10],[W*.5,H*.07],[W*.78,H*.10],[W*.16,H*.21],[W*.5,H*.25],[W*.84,H*.19],[W*.5,H*.33]].forEach(([cx,cy])=>{
-    add(svg,'rect',{x:cx-6,y:cy,width:12,height:9,fill:'none',stroke:'#9060c0','stroke-width':.8,rx:1,opacity:.7});
-    add(svg,'line',{x1:cx-6,y1:cy+2.5,x2:cx+6,y2:cy+2.5,stroke:'#9060c0','stroke-width':.4,opacity:.5});
-    add(svg,'line',{x1:cx,y1:cy+9,x2:W/2,y2:H*.44,stroke:'#6040a0','stroke-width':.5,opacity:.28,'stroke-dasharray':'2 2'});
+    add(svg,'rect',{x:cx-6,y:cy,width:12,height:9,fill:'none',stroke:'var(--ew-c-9060c0)','stroke-width':.8,rx:1,opacity:.7});
+    add(svg,'line',{x1:cx-6,y1:cy+2.5,x2:cx+6,y2:cy+2.5,stroke:'var(--ew-c-9060c0)','stroke-width':.4,opacity:.5});
+    add(svg,'line',{x1:cx,y1:cy+9,x2:W/2,y2:H*.44,stroke:'var(--ew-c-6040a0)','stroke-width':.5,opacity:.28,'stroke-dasharray':'2 2'});
   });
-  add(svg,'circle',{cx:W/2,cy:H*.46,r:3.5,fill:'#9060c0',opacity:.7});
-  txt(svg,'ТЕТРАДИ',{'x':W/2,'y':H*.58,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'#c090f0'});
-  txt(svg,'КУПЦА АФАНАСИЯ',{'x':W/2,'y':H*.65,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','fill':'#a070d0'});
-  add(svg,'line',{x1:8,y1:H*.69,x2:W-8,y2:H*.69,stroke:'#6040a0','stroke-width':.5});
-  txt(svg,'Хрусталёв',{'x':W/2,'y':H*.77,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','font-style':'italic','fill':'#c090f0'});
-  txt(svg,'Нестор-История',{'x':W/2,'y':H*.83,'text-anchor':'middle','font-size':4.5,'font-family':'Arial,sans-serif','fill':'#8050b0'});
-  txt(svg,'С.-Петербург · 2026',{'x':W/2,'y':H*.90,'text-anchor':'middle','font-size':3.8,'font-family':'Arial,sans-serif','fill':'#6040a0'});
+  add(svg,'circle',{cx:W/2,cy:H*.46,r:3.5,fill:'var(--ew-c-9060c0)',opacity:.7});
+  txt(svg,'ТЕТРАДИ',{'x':W/2,'y':H*.58,'text-anchor':'middle','font-size':7.5,'font-family':'Georgia,serif','font-weight':'bold','fill':'var(--ew-c-c090f0)'});
+  txt(svg,'КУПЦА АФАНАСИЯ',{'x':W/2,'y':H*.65,'text-anchor':'middle','font-size':5,'font-family':'Georgia,serif','fill':'var(--ew-c-a070d0)'});
+  add(svg,'line',{x1:8,y1:H*.69,x2:W-8,y2:H*.69,stroke:'var(--ew-c-6040a0)','stroke-width':.5});
+  txt(svg,'Хрусталёв',{'x':W/2,'y':H*.77,'text-anchor':'middle','font-size':5.5,'font-family':'Georgia,serif','font-style':'italic','fill':'var(--ew-c-c090f0)'});
+  txt(svg,'Нестор-История',{'x':W/2,'y':H*.83,'text-anchor':'middle','font-size':4.5,'font-family':'Arial,sans-serif','fill':'var(--ew-c-8050b0)'});
+  txt(svg,'С.-Петербург · 2026',{'x':W/2,'y':H*.90,'text-anchor':'middle','font-size':3.8,'font-family':'Arial,sans-serif','fill':'var(--ew-c-6040a0)'});
 }
 
 // ── Editions data ─────────────────────────────────────────────────────────────
 const EDS=[
-{id:'k1818', year:1818, color:'#1e4a7a', short:'Карамзин\n«История...»', coverFn:cover_karamzin,
+{id:'k1818', year:1818, color:'var(--ew-c-1e4a7a)', short:'Карамзин\n«История...»', coverFn:cover_karamzin,
  title:'«История государства Российского», т. VI, прим. 326',
  who:'Н.М. Карамзин · Санкт-Петербург, 1818',
- tags:[{t:'Первая публикация',bg:'rgba(30,74,122,.18)',fg:'#0a2a5a'}],
+ tags:[{t:'Первая публикация',bg:'color-mix(in srgb,var(--ew-c-1e4a7a) 18%,transparent)',fg:'var(--ew-c-0a2a5a)'}],
  c1:{h:'Что произошло',txt:'Карамзин нашёл текст в Троицком списке и опубликовал <b>в примечаниях к VI тому «Истории»</b> — не как литературный памятник, а как исторический источник. Первая публикация текста за 340 лет после написания.'},
  c2:{h:'Оценка и влияние',txt:'«Сей путешественник… не показывает духа наблюдательного» — скептичен. Но без его публикации Афанасий остался бы архивной рукописью навсегда. Вводит текст в научный оборот.'},
  q:'«Никитин доказывает, что Россия имела купцов предприимчивых, пускавшихся в самые отдалённые страны»',
  disc:'🔍 Открытие: существование текста для науки и публики. Пропущено: иноязычные вставки, точная датировка, три рукописных списка.'},
-{id:'s1853', year:1853, color:'#5a3a10', short:'Сахаров\nПервая книга', coverFn:cover_sakharov,
+{id:'s1853', year:1853, color:'var(--ew-c-5a3a10)', short:'Сахаров\nПервая книга', coverFn:cover_sakharov,
  title:'«Сказания русского народа», т. II',
  who:'И.П. Сахаров · Санкт-Петербург, 1853',
- tags:[{t:'Первое отдельное издание',bg:'rgba(90,58,16,.18)',fg:'#5a3010'}],
+ tags:[{t:'Первое отдельное издание',bg:'color-mix(in srgb,var(--ew-c-5a3a10) 18%,transparent)',fg:'var(--ew-c-5a3010)'}],
  c1:{h:'Что произошло',txt:'Первое издание «Хожения» как <b>самостоятельного литературного текста</b>, а не исторического примечания. Сахаров включает его в антологию народных сказаний — признавая художественную ценность.'},
  c2:{h:'Значение',txt:'Начинается традиция литературного прочтения. Текст впервые в книжном магазине, а не только в «Истории» Карамзина. Подготовлен по одному Троицкому списку без сверки с другими редакциями.'},
  q:'Текст впервые читают как литературный памятник, а не только исторический источник',
  disc:'🔍 Открытие: художественная ценность «Хожения». Пропущено: Летописный и Сухановский списки.'},
-{id:'sr1857', year:1857, color:'#2a5a2a', short:'Срезневский\nКритич. изд.', coverFn:cover_sreznevsky,
+{id:'sr1857', year:1857, color:'var(--ew-c-2a5a2a)', short:'Срезневский\nКритич. изд.', coverFn:cover_sreznevsky,
  title:'Первое критическое издание — три рукописных списка',
  who:'И.И. Срезневский · Учёные записки ИОРЯС, 1856–1857',
- tags:[{t:'Первое критическое',bg:'rgba(42,90,42,.18)',fg:'#0a4a0a'},{t:'Три списка',bg:'rgba(42,90,42,.1)',fg:'#1a5a1a'}],
+ tags:[{t:'Первое критическое',bg:'color-mix(in srgb,var(--ew-c-2a5a2a) 18%,transparent)',fg:'var(--ew-c-0a4a0a)'},{t:'Три списка',bg:'color-mix(in srgb,var(--ew-c-2a5a2a) 10%,transparent)',fg:'var(--ew-c-1a5a1a)'}],
  c1:{h:'Что произошло',txt:'Первое <b>научно-критическое издание</b>: параллельное сличение Троицкого, Летописного и Сухановского списков. Срезневский устанавливает, что перед нами <b>три разные редакции</b>.'},
  c2:{h:'Вклад',txt:'Фундамент текстологии на 170 лет. Впервые показано: иноязычные вставки подлинные, а не ошибки переписчиков. Поставлен вопрос о составе — ответит Хрусталёв в 2026.'},
  q:'«Различные редакции суть доказательство того, что подлинный текст утрачен»',
  disc:'🔍 Открытие: три редакции = три рукописи. Иноязычные вставки — авторские. Вопрос: где оригинал?'},
-{id:'tv1908', year:1908, color:'#6a2a6a', short:'Тверь\nЮбилей 1908', coverFn:cover_tver,
+{id:'tv1908', year:1908, color:'var(--ew-c-6a2a6a)', short:'Тверь\nЮбилей 1908', coverFn:cover_tver,
  title:'Юбилейное издание — 500 лет путешествия',
  who:'В.В. Смирнов · Тверское губернское земство, 1908',
- tags:[{t:'Юбилейное · 500 лет',bg:'rgba(106,42,106,.18)',fg:'#5a1a5a'},{t:'Первая карта маршрута',bg:'rgba(106,42,106,.1)',fg:'#4a1a4a'}],
+ tags:[{t:'Юбилейное · 500 лет',bg:'color-mix(in srgb,var(--ew-c-6a2a6a) 18%,transparent)',fg:'var(--ew-c-5a1a5a)'},{t:'Первая карта маршрута',bg:'color-mix(in srgb,var(--ew-c-6a2a6a) 10%,transparent)',fg:'var(--ew-c-4a1a4a)'}],
  c1:{h:'Что произошло',txt:'Тверское земство выпускает представительное юбилейное издание. <b>Первая попытка нанести маршрут на карту.</b> Параллельно — первые английский (1910) и французский (1912) переводы.'},
  c2:{h:'Значение',txt:'Волна международных переводов: немецкий (1872 ещё раньше), английский, французский, японский (1915). Афанасий входит в мировую науку. Юбилейный нарратив: «тверской национальный герой».'},
  q:'«Тверской купец прославил родной город более, чем иные государи»',
  disc:'🔍 Открытие: первая карта маршрута. Международные переводы. Афанасий = тверской культурный символ.'},
-{id:'an1948', year:1948, color:'#8a1010', short:'АН СССР\n1948', coverFn:cover_an1948,
+{id:'an1948', year:1948, color:'var(--ew-c-8a1010)', short:'АН СССР\n1948', coverFn:cover_an1948,
  title:'«Хожение за три моря Афанасия Никитина»',
  who:'Ред. Н.С. Чаев · Серия «Литературные памятники» · АН СССР, Москва–Ленинград, 1948',
- tags:[{t:'АН СССР',bg:'rgba(138,16,16,.18)',fg:'#6a0a0a'},{t:'Идеологическое',bg:'rgba(138,16,16,.1)',fg:'#8a1010'},{t:'Массовое',bg:'rgba(30,90,138,.1)',fg:'#0a3a6a'}],
+ tags:[{t:'АН СССР',bg:'color-mix(in srgb,var(--ew-c-8a1010) 18%,transparent)',fg:'var(--ew-c-6a0a0a)'},{t:'Идеологическое',bg:'color-mix(in srgb,var(--ew-c-8a1010) 10%,transparent)',fg:'var(--ew-c-8a1010)'},{t:'Массовое',bg:'color-mix(in srgb,var(--ew-c-1e5a8a) 10%,transparent)',fg:'var(--ew-c-0a3a6a)'}],
  c1:{h:'Что произошло',txt:'<b>Первое массовое академическое издание</b>: огромный тираж, перевод на современный русский, подробный комментарий. Датировка «1466–1472» (позднее оспорена).'},
  c2:{h:'Интерпретация',txt:'Афанасий — <b>народный герой, борец с феодальным строем</b>. Иноязычные молитвы объяснены «вынужденным приспособленчеством». Религиозный кризис замолчан. «Хожение» = обязательный школьный текст с 1955 г.'},
  q:'«Афанасий Никитин — первый русский путешественник, открывший Индию за 25 лет до Васко да Гамы»',
  disc:'🔍 Текст для широких масс. Датировка 1466–1472 (ошибочная: реально 1467–1475). Идеологическая фильтрация содержания.'},
-{id:'fi1960', year:1960, color:'#8a5010', short:'К фильму\nСССР–Индия', coverFn:cover_film,
+{id:'fi1960', year:1960, color:'var(--ew-c-8a5010)', short:'К фильму\nСССР–Индия', coverFn:cover_film,
  title:'«Хождение за три моря» — издание к советско-индийскому фильму',
  who:'Детгиз · Москва, 1960',
- tags:[{t:'К фильму СССР–Индия',bg:'rgba(138,80,16,.18)',fg:'#6a4000'},{t:'Детское',bg:'rgba(30,130,80,.1)',fg:'#0a5a30'}],
+ tags:[{t:'К фильму СССР–Индия',bg:'color-mix(in srgb,var(--ew-c-8a5010) 18%,transparent)',fg:'var(--ew-c-6a4000)'},{t:'Детское',bg:'color-mix(in srgb,var(--ew-c-1e8250) 10%,transparent)',fg:'var(--ew-c-0a5a30)'}],
  c1:{h:'Что произошло',txt:'Издание приурочено к <b>первому советско-индийскому фильму</b> (реж. Пронин и Сетхна, Олег Стриженов). Адаптированный текст для детей и юношества.'},
  c2:{h:'Значение',txt:'Фильм показан в 40+ странах. <b>Самый широкий охват аудитории</b> за всю историю «Хожения». Образ Никитина входит в массовое советское сознание. Дипломатический контекст: Хрущёв — Неру.'},
  q:'Первый фильм, снятый одновременно на русском и хинди',
  disc:'🔍 Визуальный образ путешественника. Афанасий = символ советско-индийской дружбы.'},
-{id:'lu1986', year:1986, color:'#1e5a8a', short:'Лурье–Семёнов\n1986', coverFn:cover_lurye,
+{id:'lu1986', year:1986, color:'var(--ew-c-1e5a8a)', short:'Лурье–Семёнов\n1986', coverFn:cover_lurye,
  title:'«Хожение за три моря Афанасия Никитина»',
  who:'Я.С. Лурье, Л.С. Семёнов · Серия «Литературные памятники» · Наука, Ленинград, 1986',
- tags:[{t:'Академический стандарт',bg:'rgba(30,90,138,.18)',fg:'#0a3a6a'},{t:'Три списка полностью',bg:'rgba(42,122,80,.12)',fg:'#0a4a28'},{t:'Эталон до 2026',bg:'rgba(30,90,138,.1)',fg:'#1a4a7a'}],
+ tags:[{t:'Академический стандарт',bg:'color-mix(in srgb,var(--ew-c-1e5a8a) 18%,transparent)',fg:'var(--ew-c-0a3a6a)'},{t:'Три списка полностью',bg:'color-mix(in srgb,var(--ew-c-2a7a50) 12%,transparent)',fg:'var(--ew-c-0a4a28)'},{t:'Эталон до 2026',bg:'color-mix(in srgb,var(--ew-c-1e5a8a) 10%,transparent)',fg:'var(--ew-c-1a4a7a)'}],
  c1:{h:'Что произошло',txt:'<b>Полное критическое издание</b>: все три рукописных списка параллельно, современный перевод, 200+ страниц комментария, указатели. 40 лет работы двух крупнейших специалистов.'},
  c2:{h:'Вклад и ограничения',txt:'Золотой стандарт на 40 лет. Датировка — на год неточна (Хрусталёв исправит). Иноязычные вставки всех пяти языков полностью транслитерированы впервые.'},
  q:'«Уникальный памятник — первое в русской литературе произведение, написанное светским автором вне монастырских стен»',
  disc:'🔍 Открытие: полная транслитерация пяти языков. Нерешённый вопрос: единство состава — ответит Хрусталёв.'},
-{id:'ex2004', year:2004, color:'#2a6a2a', short:'Эксмо\n2004', coverFn:cover_eksmo,
+{id:'ex2004', year:2004, color:'var(--ew-c-2a6a2a)', short:'Эксмо\n2004', coverFn:cover_eksmo,
  title:'«Хожение за три моря» — массовое постсоветское издание',
  who:'Изд-во «Эксмо» · Серия «Антология мудрости» · Москва, 2004',
- tags:[{t:'Постсоветское',bg:'rgba(42,106,42,.18)',fg:'#0a5a0a'},{t:'Массовое коммерческое',bg:'rgba(42,106,42,.1)',fg:'#1a4a1a'}],
+ tags:[{t:'Постсоветское',bg:'color-mix(in srgb,var(--ew-c-2a6a2a) 18%,transparent)',fg:'var(--ew-c-0a5a0a)'},{t:'Массовое коммерческое',bg:'color-mix(in srgb,var(--ew-c-2a6a2a) 10%,transparent)',fg:'var(--ew-c-1a4a1a)'}],
  c1:{h:'Что произошло',txt:'Первые <b>коммерческие массовые издания</b> постсоветской эпохи. Адаптированный перевод, иллюстрации в стиле ориентализма. Книга появляется в каждом книжном магазине страны.'},
  c2:{h:'Новый нарратив',txt:'Афанасий теперь — <b>«первый русский турист»</b> и «купец-авантюрист». Деидеологизация советского образа. Акцент на экзотике Индии и приключениях.'},
  q:'«Хожение» впервые становится книгой, которую можно купить в любом киоске',
  disc:'🔍 Открытие: массовая доступность. Образ: купец-путешественник вместо народного героя.'},
-{id:'hr2026', year:2026, color:'#6e32a0', short:'Хрусталёв\n2026 ★', coverFn:cover_khrust,
+{id:'hr2026', year:2026, color:'var(--ew-c-6e32a0)', short:'Хрусталёв\n2026 ★', coverFn:cover_khrust,
  title:'«Тетради купца Афанасия. Реконструкция первоначального состава "Хожения за три моря"»',
  who:'Д.Г. Хрусталёв · Изд-во «Нестор-История» · Санкт-Петербург, 2026',
- tags:[{t:'Реконструкция состава',bg:'rgba(110,50,160,.18)',fg:'#4a1a8a'},{t:'Новая датировка 1467–1475',bg:'rgba(192,57,43,.15)',fg:'#8a1010'},{t:'7 тетрадей',bg:'rgba(110,50,160,.12)',fg:'#5a2a8a'}],
+ tags:[{t:'Реконструкция состава',bg:'color-mix(in srgb,var(--ew-c-6e32a0) 18%,transparent)',fg:'var(--ew-c-4a1a8a)'},{t:'Новая датировка 1467–1475',bg:'color-mix(in srgb,var(--ew-c-c0392b) 15%,transparent)',fg:'var(--ew-c-8a1010)'},{t:'7 тетрадей',bg:'color-mix(in srgb,var(--ew-c-6e32a0) 12%,transparent)',fg:'var(--ew-c-5a2a8a)'}],
  c1:{h:'Главный тезис',txt:'«Хожение» — <b>не цельное сочинение</b>. Это стопка разрозненных тетрадей, которые Мамырев собрал в единый текст. Выделяет <b>7 самостоятельных блоков</b>. Новая датировка: 1467–1475.'},
  c2:{h:'Методология',txt:'Астрономический анализ пасхалий и мусульманских праздников. Сопоставление с хрониками Бахманидов. Лингвистика вставок. <b>Первая полная реконструкция состава за 550 лет.</b>'},
  q:'«Перед нами не "книга", написанная Афанасием, а рукопись, собранная Мамыревым из тетрадей купца — как попало»',
@@ -321,8 +402,8 @@ function showDet(ed){
   ed.coverFn(bigSVG,BW,BH);
   const tags=ed.tags.map(tg=>`<span class="ew-dtag" style="background:${tg.bg};color:${tg.fg};">${tg.t}</span>`).join('');
   det.innerHTML='';det.classList.add('open');
-  det.style.borderColor=ed.color+'55';
-  const dh=document.createElement('div');dh.className='ew-dh';dh.style.background=ed.color+'08';
+  det.style.borderColor=`color-mix(in srgb,${ed.color} 35%,transparent)`;
+  const dh=document.createElement('div');dh.className='ew-dh';dh.style.background=`color-mix(in srgb,${ed.color} 8%,transparent)`;
   const cover=document.createElement('div');cover.className='ew-dcover';cover.appendChild(bigSVG);
   const dr=document.createElement('div');dr.className='ew-dr';
   dr.innerHTML=`<div class="ew-dyr" style="color:${ed.color};">${ed.year}</div>
@@ -342,7 +423,7 @@ function showDet(ed){
   </div>
 
   <!-- Floating Theme Toggle -->
-  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15);" title="Переключить тему">
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px color-mix(in srgb,var(--ew-c-000000) 15%,transparent);" title="Переключить тему">
     <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
   </button>
   <script src="js/atlas-theme.js"></script>
