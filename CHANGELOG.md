@@ -54,6 +54,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **`afanasy_manuscripts.html`**: manuscript-list colors and diff highlights now resolve through shared `--viz-manuscript-*` variables, including dynamic column headers and note outlines.
 - **`afanasy_emotional_arc.html`**: emotional-dimension colors and the silence zone now resolve through shared atlas variables instead of widget-local color literals.
 - **`afanasy_gantt.html`**: movement, region, event, duration-label, and tooltip colors now resolve through shared atlas variables.
+- **`afanasy_world_before_after.html`**: before/after map labels, detail chips, and Canvas map palettes now resolve through shared `--viz-world-*` variables.
 
 ### Fixed
 - `afanasy_gantt.html`: tightened the focused Gantt SVG height so `?focus=...` views remain within a 1366×768 viewport.

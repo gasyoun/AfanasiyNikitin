@@ -157,6 +157,35 @@
     --viz-manuscript-changed-text: #7a4a00;
     --viz-manuscript-language: var(--viz-emotion-total);
     --viz-manuscript-language-text: #5a2a8a;
+
+    /* World before/after comparison */
+    --viz-world-before-sea: #e8dcc0;
+    --viz-world-before-land: #d4c49a;
+    --viz-world-before-stroke: #a08840;
+    --viz-world-before-border: rgba(120,90,30,.2);
+    --viz-world-before-grid: rgba(120,90,30,.09);
+    --viz-world-before-dot: #7a4a10;
+    --viz-world-before-unknown: rgba(120,80,20,.35);
+    --viz-world-before-unknown-stroke: rgba(120,80,20,.5);
+    --viz-world-before-text: #6a3a08;
+    --viz-world-before-dim-text: rgba(100,70,20,.55);
+    --viz-world-before-frame: rgba(120,80,20,.4);
+    --viz-world-before-active: rgba(120,80,20,.18);
+    --viz-world-after-sea: #8fb8d0;
+    --viz-world-after-land: var(--color-background-tertiary);
+    --viz-world-after-stroke: #b8a870;
+    --viz-world-after-border: rgba(140,120,80,.15);
+    --viz-world-after-grid: rgba(70,100,135,.08);
+    --viz-world-after-dot: #1d6fa8;
+    --viz-world-after-unknown: rgba(100,140,180,.45);
+    --viz-world-after-unknown-stroke: rgba(80,120,160,.5);
+    --viz-world-after-text: #0a4070;
+    --viz-world-after-dim-text: rgba(80,120,160,.55);
+    --viz-world-after-frame: rgba(30,100,180,.35);
+    --viz-world-after-active: rgba(30,100,180,.15);
+    --viz-world-label-halo: rgba(255,255,255,.65);
+    --viz-world-fallback-label: rgba(20,10,5,.85);
+    --viz-world-route: rgba(224,149,32,.5);
 }
 
 [data-theme="dark"] {
@@ -176,6 +205,31 @@
     --viz-manuscript-deleted-text: #ee9a87;
     --viz-manuscript-changed-text: #d8aa62;
     --viz-manuscript-language-text: #c69af0;
+    --viz-world-before-sea: #2a2117;
+    --viz-world-before-land: #3a2d1d;
+    --viz-world-before-stroke: rgba(192,144,96,.42);
+    --viz-world-before-border: rgba(192,144,96,.18);
+    --viz-world-before-grid: rgba(235,220,213,.08);
+    --viz-world-before-dot: #d2a25f;
+    --viz-world-before-unknown: rgba(210,162,95,.46);
+    --viz-world-before-unknown-stroke: rgba(210,162,95,.62);
+    --viz-world-before-text: rgba(235,220,213,.9);
+    --viz-world-before-dim-text: rgba(235,220,213,.62);
+    --viz-world-before-frame: rgba(192,144,96,.5);
+    --viz-world-before-active: rgba(210,162,95,.24);
+    --viz-world-after-sea: #18323d;
+    --viz-world-after-stroke: rgba(192,144,96,.35);
+    --viz-world-after-border: rgba(235,220,213,.14);
+    --viz-world-after-grid: rgba(235,220,213,.08);
+    --viz-world-after-dot: #7dc6f2;
+    --viz-world-after-unknown: rgba(125,198,242,.4);
+    --viz-world-after-unknown-stroke: rgba(125,198,242,.55);
+    --viz-world-after-text: rgba(235,220,213,.92);
+    --viz-world-after-dim-text: rgba(180,220,245,.66);
+    --viz-world-after-frame: rgba(125,198,242,.5);
+    --viz-world-after-active: rgba(125,198,242,.22);
+    --viz-world-label-halo: rgba(18,18,18,.82);
+    --viz-world-route: rgba(240,160,64,.72);
 }
 
 html[data-theme="dark"] body {

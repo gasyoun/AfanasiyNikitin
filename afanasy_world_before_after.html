@@ -24,10 +24,10 @@ canvas.wa-c{display:block;width:100%;cursor:pointer;}
 .wa-det-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
 .wa-det-col{font-size:11px;line-height:1.55;}
 .wa-det-col-h{font-size:10px;font-weight:500;margin-bottom:3px;padding:2px 7px;border-radius:8px;display:inline-block;}
-.wa-map-label.before{background:rgba(100,60,20,.15);color:#6a3c10;}
-.wa-map-label.after{background:rgba(20,90,140,.15);color:#104a7a;}
-.wa-det-col-h.before{background:rgba(120,80,20,.12);color:#6a3a08;}
-.wa-det-col-h.after{background:rgba(30,100,180,.12);color:#0a4070;}
+.wa-map-label.before{background:var(--viz-world-before-active);color:var(--viz-world-before-text);}
+.wa-map-label.after{background:var(--viz-world-after-active);color:var(--viz-world-after-text);}
+.wa-det-col-h.before{background:var(--viz-world-before-active);color:var(--viz-world-before-text);}
+.wa-det-col-h.after{background:var(--viz-world-after-active);color:var(--viz-world-after-text);}
 .wa-det-col-body{color:var(--color-text-secondary);}
 .wa-det-col-body b{color:var(--color-text-primary);}
 .wa-hint{font-size:10px;color:var(--color-text-secondary);text-align:center;opacity:.65;margin-top:3px;}
@@ -190,34 +190,34 @@ let mapReady=false, activeId=null,cachedWorld=null,baseTheme=null;
 function themeKey(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';}
 function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
 function mapPalette(){
-  const dark=themeKey()==='dark';
   return {
-    beforeSea: dark?'#2a2117':'#e8dcc0',
-    beforeLand: dark?'#3a2d1d':'#d4c49a',
-    beforeStroke: dark?'rgba(192,144,96,.42)':'#a08840',
-    beforeBorder: dark?'rgba(192,144,96,.18)':'rgba(120,90,30,.2)',
-    beforeGrid: dark?'rgba(235,220,213,.08)':'rgba(120,90,30,.09)',
-    beforeDot: dark?'#d2a25f':'#7a4a10',
-    beforeUnknown: dark?'rgba(210,162,95,.46)':'rgba(120,80,20,.35)',
-    beforeUnknownStroke: dark?'rgba(210,162,95,.62)':'rgba(120,80,20,.5)',
-    beforeText: dark?'rgba(235,220,213,.9)':'#6a3a08',
-    beforeDimText: dark?'rgba(235,220,213,.62)':'rgba(100,70,20,.55)',
-    beforeBorderColor: dark?'rgba(192,144,96,.5)':'rgba(120,80,20,.4)',
-    afterSea: dark?'#18323d':'#8fb8d0',
-    afterLand: cssVar('--color-background-tertiary') || (dark?'#222222':'#f5eedf'),
-    afterStroke: dark?'rgba(192,144,96,.35)':'#b8a870',
-    afterBorder: dark?'rgba(235,220,213,.14)':'rgba(140,120,80,.15)',
-    afterGrid: dark?'rgba(235,220,213,.08)':'rgba(70,100,135,.08)',
-    afterDot: dark?'#7dc6f2':'#1d6fa8',
-    afterUnknown: dark?'rgba(125,198,242,.4)':'rgba(100,140,180,.45)',
-    afterUnknownStroke: dark?'rgba(125,198,242,.55)':'rgba(80,120,160,.5)',
-    afterText: dark?'rgba(235,220,213,.92)':'#0a4070',
-    afterDimText: dark?'rgba(180,220,245,.66)':'rgba(80,120,160,.55)',
-    afterBorderColor: dark?'rgba(125,198,242,.5)':'rgba(30,100,180,.35)',
-    labelHalo: dark?'rgba(18,18,18,.82)':'rgba(255,255,255,.65)',
-    beforeActive: dark?'rgba(210,162,95,.24)':'rgba(120,80,20,.18)',
-    afterActive: dark?'rgba(125,198,242,.22)':'rgba(30,100,180,.15)',
-    route: dark?'rgba(240,160,64,.72)':'rgba(224,149,32,.5)'
+    beforeSea: cssVar('--viz-world-before-sea'),
+    beforeLand: cssVar('--viz-world-before-land'),
+    beforeStroke: cssVar('--viz-world-before-stroke'),
+    beforeBorder: cssVar('--viz-world-before-border'),
+    beforeGrid: cssVar('--viz-world-before-grid'),
+    beforeDot: cssVar('--viz-world-before-dot'),
+    beforeUnknown: cssVar('--viz-world-before-unknown'),
+    beforeUnknownStroke: cssVar('--viz-world-before-unknown-stroke'),
+    beforeText: cssVar('--viz-world-before-text'),
+    beforeDimText: cssVar('--viz-world-before-dim-text'),
+    beforeBorderColor: cssVar('--viz-world-before-frame'),
+    afterSea: cssVar('--viz-world-after-sea'),
+    afterLand: cssVar('--viz-world-after-land') || cssVar('--color-background-tertiary'),
+    afterStroke: cssVar('--viz-world-after-stroke'),
+    afterBorder: cssVar('--viz-world-after-border'),
+    afterGrid: cssVar('--viz-world-after-grid'),
+    afterDot: cssVar('--viz-world-after-dot'),
+    afterUnknown: cssVar('--viz-world-after-unknown'),
+    afterUnknownStroke: cssVar('--viz-world-after-unknown-stroke'),
+    afterText: cssVar('--viz-world-after-text'),
+    afterDimText: cssVar('--viz-world-after-dim-text'),
+    afterBorderColor: cssVar('--viz-world-after-frame'),
+    labelHalo: cssVar('--viz-world-label-halo'),
+    fallbackLabel: cssVar('--viz-world-fallback-label') || cssVar('--color-text-primary'),
+    beforeActive: cssVar('--viz-world-before-active'),
+    afterActive: cssVar('--viz-world-after-active'),
+    route: cssVar('--viz-world-route')
   };
 }
 
@@ -256,7 +256,7 @@ function buildBase(world,c,isBefore){
 function halo(c,txt,x,y,col,p=mapPalette()){
   c.textAlign='center';
   c.strokeStyle=p.labelHalo;c.lineWidth=2;c.strokeText(txt,x,y);
-  c.fillStyle=col||'rgba(20,10,5,.85)';c.fillText(txt,x,y);
+  c.fillStyle=col||p.fallbackLabel;c.fillText(txt,x,y);
 }
 
 function drawPoints(c,isBefore,activeId){
