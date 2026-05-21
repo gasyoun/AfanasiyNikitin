@@ -81,10 +81,11 @@ async function testPWA() {
   console.log('\n✓ Проверка 4: Ассеты для кэширования');
   const assetsToCache = [
     'index.html', 'manifest.json', 'css/atlas.css',
-    'js/atlas-data.js', 'js/atlas-theme.js',
+    'js/atlas-data.js', 'js/atlas-theme.js', 'js/atlas-export.js',
     'lib/d3.min.js', 'lib/topojson.min.js', 'lib/countries-110m.json',
     'afanasy_v8_text_map.html', 'afanasy_gantt.html',
-    'afanasy_calendar_pascha_islam.html', 'afanasy_economics_prices.html'
+    'afanasy_calendar_pascha_islam.html', 'afanasy_economics_prices.html',
+    'afanasy_concordance_index.html'
   ];
 
   let accessible = 0;

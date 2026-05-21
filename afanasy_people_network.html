@@ -365,6 +365,17 @@ window.setFilter=function(f){
 };
 
 draw();
+const urlParams = new URLSearchParams(window.location.search);
+const nodeParam = urlParams.get('node');
+if (nodeParam) {
+  const targetNode = NODES.find(n => n.id === nodeParam);
+  if (targetNode) {
+    activeNode = targetNode.id;
+    showDetail(targetNode);
+    draw();
+  }
+}
+
 new MutationObserver(()=>draw()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 // Auto-spin slightly to show it's interactive
 let spin=0;
@@ -386,5 +397,6 @@ const initPos=NODES.map(n=>({id:n.id,x:n.x,y:n.y}));
       }
     });
   </script>
+<script src="js/atlas-export.js"></script>
 </body>
 </html>

@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Указатель топонимов и лиц — Афанасий Никитин</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+  <style>
+    mark.search-highlight {
+      background: rgba(184, 112, 32, 0.22);
+      color: inherit;
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+    .concordance-detail-card h4 {
+      font-size: 11px;
+      font-weight: 700;
+      margin: 8px 0 6px 0;
+      color: var(--color-accent);
+    }
+    .concordance-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      height: calc(100vh - 160px);
+      min-height: 480px;
+    }
+    .concordance-search-container {
+      position: relative;
+      width: 100%;
+    }
+    .concordance-search-container i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-secondary);
+      font-size: 14px;
+    }
+    .concordance-search-input {
+      width: 100%;
+      padding: 8px 12px 8px 36px;
+      border-radius: var(--border-radius-md);
+      border: 0.5px solid var(--color-border-secondary);
+      background: var(--color-background-secondary);
+      color: var(--color-text-primary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      outline: none;
+      transition: all 0.15s ease;
+    }
+    .concordance-search-input:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 2px rgba(184, 112, 32, 0.15);
+    }
+
+    .concordance-layout {
+      display: flex;
+      gap: 16px;
+      flex: 1;
+      min-height: 0;
+    }
+    .concordance-list-pane {
+      flex: 0 0 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 0;
+    }
+    .concordance-tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid var(--color-border-tertiary);
+      padding-bottom: 4px;
+    }
+    .concordance-tab-btn {
+      flex: 1;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      border: none;
+      background: none;
+      color: var(--color-text-secondary);
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .concordance-tab-btn:hover {
+      color: var(--color-text-primary);
+    }
+    .concordance-tab-btn.active {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+    }
+    .concordance-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-right: 4px;
+    }
+    .concordance-item {
+      padding: 8px 12px;
+      background: var(--color-background-secondary);
+      border: 0.5px solid var(--color-border-tertiary);
+      border-radius: var(--border-radius-md);
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .concordance-item:hover {
+      border-color: var(--color-accent);
+      background: var(--color-background-tertiary);
+    }
+    .concordance-item.active {
+      background: var(--color-text-primary);
+      color: var(--color-background-primary);
+      border-color: var(--color-text-primary);
+    }
+    .concordance-item-name {
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+    .concordance-item-sub {
+      font-size: 9.5px;
+      color: var(--color-text-secondary);
+    }
+    .concordance-item.active .concordance-item-sub {
+      color: var(--color-background-tertiary);
+      opacity: 0.8;
+    }
+
+    .concordance-detail-pane {
+      flex: 1;
+      min-width: 0;
+      overflow-y: auto;
+      border: 0.5px solid var(--color-border-tertiary);
+      border-radius: var(--border-radius-lg);
+      background: var(--color-background-secondary);
+      display: flex;
+      flex-direction: column;
+    }
+    .concordance-detail-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 24px;
+      color: var(--color-text-secondary);
+      font-size: 11.5px;
+      text-align: center;
+      gap: 8px;
+    }
+    .concordance-detail-placeholder i {
+      font-size: 32px;
+      opacity: 0.4;
+    }
+    .concordance-detail-card {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeIn 0.2s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .concordance-det-header {
+      border-bottom: 0.5px solid var(--color-border-tertiary);
+      padding-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .concordance-det-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--color-text-primary);
+      font-weight: 700;
+    }
+    .concordance-det-subtitle {
+      font-size: 9.5px;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .concordance-det-desc {
+      font-size: 11.5px;
+      line-height: 1.6;
+      color: var(--color-text-primary);
+    }
+    .concordance-det-desc b {
+      color: var(--color-text-primary);
+    }
+    .concordance-det-quote-header {
+      font-size: 9.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .concordance-det-quote {
+      font-family: var(--font-serif);
+      font-size: 11.5px;
+      line-height: 1.65;
+      padding: 10px 12px;
+      background: var(--color-background-primary);
+      border-left: 3px solid var(--color-accent);
+      border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+      color: var(--color-text-primary);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .concordance-det-links-header {
+      font-size: 9.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .concordance-det-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .concordance-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-decoration: none;
+      background: var(--color-background-primary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-md);
+      color: var(--color-accent);
+      transition: all 0.15s;
+    }
+    .concordance-link-btn:hover {
+      background: var(--color-background-tertiary);
+      border-color: var(--color-accent);
+      color: var(--color-accent-hover);
+      transform: translateY(-1px);
+    }
+    .concordance-link-btn:active {
+      transform: translateY(0);
+    }
+    .concordance-link-btn i {
+      font-size: 13px;
+    }
+
+    @media (max-width: 768px) {
+      .concordance-wrap {
+        height: auto;
+      }
+      .concordance-layout {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+      }
+      .concordance-list-pane {
+        flex: none;
+        width: 100%;
+        max-height: 250px;
+      }
+      .concordance-detail-pane {
+        flex: none;
+        width: 100%;
+        min-height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="vis-container">
+    <div class="vis-header">
+      <h1>Указатель топонимов и лиц</h1>
+      <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка">
+        <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Атлас</a>
+        <span class="atlas-breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="atlas-breadcrumb-current">Указатель топонимов и лиц</span>
+      </nav>
+    </div>
+
+    <div class="concordance-wrap">
+      <div class="concordance-search-container">
+        <i class="ti ti-search" aria-hidden="true"></i>
+        <input type="text" id="search-input" class="concordance-search-input" placeholder="Поиск топонима, лица или цитаты...">
+      </div>
+
+      <div class="concordance-layout">
+        <!-- Left Pane: Tabs and scrollable list -->
+        <div class="concordance-list-pane">
+          <div class="concordance-tabs" role="tablist">
+            <button class="concordance-tab-btn active" id="tab-toponyms" role="tab" aria-selected="true" aria-controls="list-container">Топонимы</button>
+            <button class="concordance-tab-btn" id="tab-people" role="tab" aria-selected="false" aria-controls="list-container">Исторические лица</button>
+          </div>
+          <div class="concordance-list" id="list-container" role="listbox">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Right Pane: Detailed view -->
+        <div class="concordance-detail-pane" id="detail-pane">
+          <div class="concordance-detail-placeholder">
+            <i class="ti ti-click" aria-hidden="true"></i>
+            <div>Выберите элемент из списка слева, чтобы увидеть подробную информацию, цитаты из текста рукописи и ссылки на карты.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Toggle -->
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
+    <i id="theme-icon" class="ti ti-moon"></i>
+  </button>
+
+  <script src="js/atlas-data.js"></script>
+  <script src="js/atlas-theme.js"></script>
+  <script src="js/atlas-export.js"></script>
+  <script>
+    (function() {
+      // Historical characters database
+      const CHARACTERS = [
+        {
+          id: 'af',
+          name: 'Афанасий Никитин',
+          role: 'Тверской купец, путешественник',
+          loc: 'Тверь → Смоленск',
+          period: '1467–1475',
+          quote: '«Пошёл я, Афанасий сын Никитин, от Спаса Святого — за три моря»',
+          desc: '<b>Тверской купец</b>, мелкий торговец. Выехал из Твери с караваном. В Астрахани был разграблен татарами, потерял весь товар. Оказался вынужден идти дальше на юг, чтобы поправить дела. Совершил восьмилетнее странствие по Персии и Индии. Умер на пути домой под Смоленском.',
+          links: [
+            { name: 'Сеть встреч (профиль)', url: 'afanasy_people_network.html?node=af', icon: 'ti-share' },
+            { name: 'Карта: отплытие из Твери', url: 'afanasy_v8_text_map.html?wp=0', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'boris',
+          name: 'Борис Захарьич',
+          role: 'Тверской воевода',
+          loc: 'Тверь',
+          period: '1467',
+          quote: '«От воеводы Бориса Захарьича» — упомянут в числе покровителей',
+          desc: '<b>Воевода великого князя Михаила Борисовича Тверского</b>. Оказал Афанасию содействие, выдав официальную охранную грамоту (пропуск) для торгового похода за рубеж.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=boris', icon: 'ti-share' },
+            { name: 'Гантт: начало пути', url: 'afanasy_gantt.html?focus=start', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'mikhail',
+          name: 'Великий кн. Михаил Борисович',
+          role: 'Князь Тверской',
+          loc: 'Тверь',
+          period: '1467',
+          quote: '«От великого князя Михаила Борисовича Тверского» — благословение',
+          desc: '<b>Предпоследний великий князь Тверской</b> (правил в 1461–1485 годах). Одобрил торговое предприятие Никитина, выдав княжеское благословение и проездные документы.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=mikhail', icon: 'ti-share' },
+            { name: 'Гантт: начало пути', url: 'afanasy_gantt.html?focus=start', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'asanbeg',
+          name: 'Асанбег Ширванский',
+          role: 'Посол ширваншаха Фаррух-Ясара',
+          loc: 'Волга / Нижний Новгород',
+          period: '1467',
+          quote: '«Асанбег — посол ширваньского, шёл с Руси с кречатами»',
+          desc: '<b>Посол правителя Ширвана</b>, возвращавшийся на родину из Москвы с ценным посольским подарком — охотничьими кречетами. Афанасий Никитин присоединился к его каравану для безопасности плавания по Волге. Во время нападения татар под Астраханью Асанбег спасся и бросил русских купцов.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=asanbeg', icon: 'ti-share' },
+            { name: 'Карта: Нижний Новгород', url: 'afanasy_v8_text_map.html?wp=1', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'tatars',
+          name: 'Астраханские татары',
+          role: 'Совершили нападение на караван',
+          loc: 'Астрахань',
+          period: '1467, осень',
+          quote: '«Побежали татары и взяли один насад, а другой потопили»',
+          desc: '<b>Астраханские разбойники («шибаны»)</b> под руководством местного кагана. Напали на караван посольства в устье Волги под Астраханью. Разграбили товар Афанасия, лишив его средств и заставив продолжить путь на юг с долгами.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=tatars', icon: 'ti-share' },
+            { name: 'Карта: Астрахань', url: 'afanasy_v8_text_map.html?wp=2', icon: 'ti-map-2' },
+            { name: 'Гантт: ограбление', url: 'afanasy_gantt.html?focus=robbery', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'farrukhyasar',
+          name: 'Ширваншах Фаррух-Ясар',
+          role: 'Правитель государства Ширван',
+          loc: 'Дербент',
+          period: '1467–1468',
+          quote: '«Ширваньский шах принял нас хорошо, да помочь не дал»',
+          desc: '<b>Правитель Ширвана</b> (1462–1500). Разграбленные русские купцы обратились к нему в Дербенте с просьбой помочь вернуться домой или возместить убытки. Шах отпустил их с миром, но в финансовой помощи отказал.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=farrukhyasar', icon: 'ti-share' },
+            { name: 'Карта: Дербент', url: 'afanasy_v8_text_map.html?wp=3', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'hassan',
+          name: 'Хасан-ходжа Хорасанский',
+          role: 'Хорасанский купец',
+          loc: 'Джуннар',
+          period: '1469, август',
+          quote: '«Да помог мне Бог — Хасан-ходжа хорасанский, спас меня»',
+          desc: '<b>Мусульманский купец из Хорасана</b>. Вступился за Афанасию Никитину в Джуннаре перед грозным ханом Асадом, который отобрал у Афанасия жеребца и требовал принудительного обращения в ислам. Единственный человек, удостоившийся личной благодарности купца в рукописи.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=hassan', icon: 'ti-share' },
+            { name: 'Карта: Джуннар', url: 'afanasy_v8_text_map.html?wp=11', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'asad',
+          name: 'Хан Асад (Джуннар)',
+          role: 'Правитель Джуннара',
+          loc: 'Джуннар',
+          period: '1469',
+          quote: '«Хан Асад взял у меня жеребца — узнал, что я не бесерменин»',
+          desc: '<b>Наместник (котваль) Джуннара</b>. Узнав, что приехавший к нему купец — иноверец, конфисковал его коня и поставил жесткий ультиматум: принять ислам на праздник Спаса или лишиться жизни и имущества. После заступничества Хасан-ходжи отменил свое решение.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=asad', icon: 'ti-share' },
+            { name: 'Карта: Джуннар', url: 'afanasy_v8_text_map.html?wp=11', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'mahmud',
+          name: 'Визирь Махмуд Гаван',
+          role: 'Великий визирь Бахманидского султаната',
+          loc: 'Бидар',
+          period: '1469–1472',
+          quote: '«Меликтучар выступил с войском» — Афанасий хроникёр его походов',
+          desc: '<b>Мелик-ут-туджар (глава купцов) и великий визирь Бахманидов</b>. Выходец из купеческой семьи Гиляна, выдающийся реформатор и полководец. Афанасий детально описывает его военные триумфы (взятие Гоа) и государственные выезды.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=mahmud', icon: 'ti-share' },
+            { name: 'Карта: Бидар', url: 'afanasy_v8_text_map.html?wp=12', icon: 'ti-map-2' },
+            { name: 'Гантт: Бидарский период', url: 'afanasy_gantt.html?focus=bidar', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'sultan',
+          name: 'Султан Махмуд III Бахмани',
+          role: 'Султан Бахманидского государства',
+          loc: 'Бидар',
+          period: '1469–1472',
+          quote: '«Султан выезжает — пред ним 300 слонов в доспехах»',
+          desc: '<b>Султан Бахманидского государства в Декане</b>. Афанасий Никитин подробно задокументировал его пышные военные смотры, парадные выезды с сотнями боевых слонов и роскошные одежды, украшенные алмазами и яхонтами.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=sultan', icon: 'ti-share' },
+            { name: 'Карта: Бидар', url: 'afanasy_v8_text_map.html?wp=12', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'brahmins',
+          name: 'Брахманы Шрисайлама',
+          role: 'Индуистские жрецы и паломники',
+          loc: 'Шрисайлам (Парват)',
+          period: '1471',
+          quote: '«Брахманы дали мне есть, да мяса не дали»',
+          desc: '<b>Индуистские священнослужители</b> храмового комплекса Шрисайлам. Радушно приняли Афанасия как паломника, разрешили присутствовать на празднестве Махашиваратри, накормили его вегетарианской едой.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=brahmins', icon: 'ti-share' },
+            { name: 'Карта: Шрисайлам', url: 'afanasy_v8_text_map.html?wp=14', icon: 'ti-map-2' },
+            { name: 'Гантт: паломничество', url: 'afanasy_gantt.html?focus=parvat', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'mamyrev',
+          name: 'Дьяк Василий Мамырев',
+          role: 'Великокняжеский посольский дьяк',
+          loc: 'Москва',
+          period: '~1475–1480',
+          quote: '«Написание сие нашли при некоем купчине Афанасии»',
+          desc: '<b>Глава посольского ведомства при Иване III</b>. В 1475 году московские купцы передали ему тетради умершего на обратном пути Афанасия Никитина. Мамырев по достоинству оценил рукопись, переписал ее и внёс в состав официального Летописного свода.',
+          links: [
+            { name: 'Сеть встреч (профиль)', url: 'afanasy_people_network.html?node=mamyrev', icon: 'ti-share' }
+          ]
+        },
+        {
+          id: 'genadiy',
+          name: 'Владыка Геннадий',
+          role: 'Епископ Тверской',
+          loc: 'Тверь',
+          period: '1467',
+          quote: '«От владыки Геннадия Тверского» — благословение',
+          desc: '<b>Епископ Тверской</b> (1461–1477). Дал Афанасию духовное благословение на торговое путешествие «за море». Благословение епископа было важным религиозно-правовым фактором для русских людей той эпохи.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=genadiy', icon: 'ti-share' },
+            { name: 'Гантт: начало пути', url: 'afanasy_gantt.html?focus=start', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'local',
+          name: 'Купцы Индийского океана',
+          role: 'Мусульманские и индийские торговцы',
+          loc: 'Ормуз → Индия',
+          period: '1469–1474',
+          quote: '«Пошёл с таваею — с корабельщиками бесерменскими»',
+          desc: '<b>Корабельщики и купцы</b>, ходившие торговыми караванами по Аравийскому морю и Индийскому океану. Афанасий нанимал у них места на кораблях («тавах»), вели с ними торговлю, спорил о календаре и религиозных постах.',
+          links: [
+            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=local', icon: 'ti-share' }
+          ]
+        },
+        {
+          id: 'karamzin',
+          name: 'Николай Карамзин',
+          role: 'Писатель, историограф',
+          loc: 'Россия',
+          period: '1817',
+          quote: '«Сей путешественник... не показывает духа наблюдательного» — Карамзин',
+          desc: '<b>Великий русский писатель и историк</b>. В 1817 году нашел рукопись «Хожения» в архиве Троице-Сергиевой лавры. Опубликовал из нее фрагменты, вернув имя тверского первопроходца из забвения спустя три века.',
+          links: [
+            { name: 'Сеть встреч (профиль)', url: 'afanasy_people_network.html?node=karamzin', icon: 'ti-share' }
+          ]
+        }
+      ];
+
+      // Gantt focus mappings for Toponyms
+      const TOPONYM_GANTT_FOCUS = {
+        'Тверь': 'start',
+        'Нижний Новгород': 'start',
+        'Астрахань': 'robbery',
+        'Бидар': 'bidar',
+        'Шрисайлам': 'parvat',
+        'Дабхол': 'dabhol'
+      };
+
+      const listContainer = document.getElementById('list-container');
+      const detailPane = document.getElementById('detail-pane');
+      const searchInput = document.getElementById('search-input');
+      const tabToponyms = document.getElementById('tab-toponyms');
+      const tabPeople = document.getElementById('tab-people');
+
+      let currentTab = 'toponyms'; // 'toponyms' or 'people'
+      let activeItemId = null;
+
+      // Group and sort toponyms alphabetically
+      const { WP, PASSAGES } = window.ATLAS;
+      const toponymGroups = {};
+      WP.forEach((wp, idx) => {
+        const name = wp[3];
+        if (!toponymGroups[name]) {
+          toponymGroups[name] = {
+            id: `toponym-${name}`,
+            name: name,
+            visits: []
+          };
+        }
+        toponymGroups[name].visits.push({
+          idx,
+          coords: [wp[0], wp[1]],
+          time: wp[2],
+          period: wp[4],
+          desc: wp[5],
+          region: wp[6],
+          quote: PASSAGES[idx] || ''
+        });
+      });
+
+      const sortedToponyms = Object.values(toponymGroups).sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+      const sortedPeople = [...CHARACTERS].sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+      // Helper to count Russian nouns (упоминание / упоминания / упоминаний)
+      function getNounPlural(number, one, two, many) {
+        let n = Math.abs(number);
+        n %= 100;
+        if (n >= 5 && n <= 20) return many;
+        n %= 10;
+        if (n === 1) return one;
+        if (n >= 2 && n <= 4) return two;
+        return many;
+      }
+
+      // Helper to highlight matching queries
+      function highlightText(text, query) {
+        if (!query) return text;
+        const escapedQuery = query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const regex = new RegExp(`(${escapedQuery})`, 'gi');
+        return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+      }
+
+      // Custom thematic links based on location
+      function getToponymThematicLinks(name, idx) {
+        const extra = [];
+        if (name.includes('Бидар')) {
+          extra.push({ name: 'Экономика (продажа коня)', url: 'afanasy_economics_prices.html', icon: 'ti-coin' });
+          extra.push({ name: 'Четыре путешественника (сравнение)', url: 'three_travelers_comparison.html', icon: 'ti-users' });
+        }
+        if (name.includes('Джуннар')) {
+          extra.push({ name: 'Кризис веры в Джуннаре', url: 'afanasy_religious_crisis.html', icon: 'ti-flame' });
+        }
+        if (name.includes('Шрисайлам')) {
+          extra.push({ name: 'Паломничество в Парват', url: 'afanasy_religious_crisis.html', icon: 'ti-building-monument' });
+          extra.push({ name: 'Календарь (Махашиваратри)', url: 'afanasy_calendar_pascha_islam.html', icon: 'ti-calendar' });
+        }
+        if (name.includes('Ормуз')) {
+          extra.push({ name: 'Календарный спор (Пасха)', url: 'afanasy_calendar_pascha_islam.html', icon: 'ti-calendar' });
+          extra.push({ name: 'Четыре путешественника (сравнение)', url: 'three_travelers_comparison.html', icon: 'ti-users' });
+        }
+        if (name.includes('Маскат')) {
+          extra.push({ name: 'Календарный спор (Пасха)', url: 'afanasy_calendar_pascha_islam.html', icon: 'ti-calendar' });
+        }
+        if (name.includes('Лар')) {
+          extra.push({ name: 'Торговый маршрутник', url: 'afanasy_trade_marshruttnik.html', icon: 'ti-calculator' });
+        }
+        return extra;
+      }
+
+      // Generate deep links for a toponym
+      function getToponymLinks(name, idx) {
+        const links = [
+          { name: 'Тайм-лапс на карте', url: `afanasy_v8_text_map.html?wp=${idx}`, icon: 'ti-map-2' }
+        ];
+
+        // Match Gantt focus keys
+        for (const [key, focusVal] of Object.entries(TOPONYM_GANTT_FOCUS)) {
+          if (name.includes(key)) {
+            links.push({ name: 'Диаграмма Гантта', url: `afanasy_gantt.html?focus=${focusVal}`, icon: 'ti-chart-bar' });
+            break;
+          }
+        }
+
+        const thematic = getToponymThematicLinks(name, idx);
+        links.push(...thematic);
+
+        return links;
+      }
+
+      // Populate list based on current tab and search query
+      function renderList() {
+        listContainer.innerHTML = '';
+        const query = searchInput.value.toLowerCase().trim();
+
+        if (currentTab === 'toponyms') {
+          sortedToponyms.forEach(itemData => {
+            const name = itemData.name;
+            const matchesQuery = !query || 
+              name.toLowerCase().includes(query) ||
+              itemData.visits.some(v => 
+                v.period.toLowerCase().includes(query) ||
+                v.region.toLowerCase().includes(query) ||
+                v.desc.toLowerCase().includes(query) ||
+                v.quote.toLowerCase().includes(query)
+              );
+
+            if (!matchesQuery) return;
+
+            const sub = itemData.visits.map(v => v.period).join(', ');
+            
+            const item = document.createElement('div');
+            item.className = 'concordance-item';
+            item.setAttribute('data-id', itemData.id);
+            if (activeItemId === itemData.id) item.classList.add('active');
+            item.setAttribute('role', 'option');
+            
+            const displayName = highlightText(name, query);
+            const displaySub = highlightText(sub, query);
+
+            item.innerHTML = `
+              <div class="concordance-item-name">${displayName}</div>
+              <div class="concordance-item-sub">${displaySub}</div>
+            `;
+            item.onclick = () => selectToponym(itemData);
+            listContainer.appendChild(item);
+          });
+        } else {
+          sortedPeople.forEach(char => {
+            const name = char.name;
+            const sub = `${char.role} (${char.period})`;
+            
+            const matchesQuery = !query ||
+              name.toLowerCase().includes(query) ||
+              sub.toLowerCase().includes(query) ||
+              char.desc.toLowerCase().includes(query) ||
+              char.quote.toLowerCase().includes(query);
+
+            if (!matchesQuery) return;
+
+            const item = document.createElement('div');
+            item.className = 'concordance-item';
+            item.setAttribute('data-id', `char-${char.id}`);
+            if (activeItemId === `char-${char.id}`) item.classList.add('active');
+            item.setAttribute('role', 'option');
+
+            const displayName = highlightText(name, query);
+            const displaySub = highlightText(sub, query);
+
+            item.innerHTML = `
+              <div class="concordance-item-name">${displayName}</div>
+              <div class="concordance-item-sub">${displaySub}</div>
+            `;
+            item.onclick = () => selectPerson(char);
+            listContainer.appendChild(item);
+          });
+        }
+
+        // Show empty state if no results
+        if (listContainer.children.length === 0) {
+          listContainer.innerHTML = '<div style="font-size: 11px; color: var(--color-text-secondary); text-align: center; padding: 12px;">Ничего не найдено</div>';
+        }
+      }
+
+      // Render detail view for a Toponym
+      function selectToponym(itemData) {
+        activeItemId = itemData.id;
+        
+        // Update active class in list dynamically without full rebuild
+        document.querySelectorAll('.concordance-item').forEach(el => {
+          el.classList.toggle('active', el.getAttribute('data-id') === itemData.id);
+        });
+
+        const query = searchInput.value.toLowerCase().trim();
+        
+        let visitsHtml = '';
+        itemData.visits.forEach((v, index) => {
+          const titlePrefix = itemData.visits.length > 1 ? `<h4>Визит ${index + 1} (${v.period})</h4>` : '';
+          const links = getToponymLinks(itemData.name, v.idx);
+          let linksHtml = '';
+          if (links.length > 0) {
+            linksHtml = `
+              <div class="concordance-det-links" style="margin-top: 6px;">
+                ${links.map(lnk => `
+                  <a href="${lnk.url}" class="concordance-link-btn">
+                    <i class="ti ${lnk.icon}" aria-hidden="true"></i> ${lnk.name}
+                  </a>
+                `).join('')}
+              </div>
+            `;
+          }
+
+          visitsHtml += `
+            <div class="concordance-det-visit" style="margin-bottom: 16px; border-bottom: 0.5px solid var(--color-border-tertiary); padding-bottom: 12px;">
+              ${titlePrefix}
+              <div style="font-size: 9.5px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px;">Описание и контекст</div>
+              <div class="concordance-det-desc" style="margin-bottom: 8px;">${highlightText(v.desc, query)}</div>
+              ${v.quote ? `
+                <div class="concordance-det-quote-header">Из рукописи «Хожения»</div>
+                <blockquote class="concordance-det-quote" style="margin-bottom: 8px;">${highlightText(v.quote, query)}</blockquote>
+              ` : ''}
+              <div class="concordance-det-links-header">Визуализации в Атласе</div>
+              ${linksHtml}
+            </div>
+          `;
+        });
+
+        // Strip the trailing border-bottom of the last visit element for clean design
+        visitsHtml = visitsHtml.replace(/style="[^"]*margin-bottom: 16px; border-bottom: 0.5px solid var\(--color-border-tertiary\); padding-bottom: 12px;"\s*>\s*$/, 'style="margin-bottom: 0;">');
+
+        detailPane.innerHTML = `
+          <div class="concordance-detail-card">
+            <div class="concordance-det-header" style="margin-bottom: 12px;">
+              <div class="concordance-det-subtitle">Географический пункт · ${itemData.visits.length} ${getNounPlural(itemData.visits.length, 'упоминание', 'упоминания', 'упоминаний')}</div>
+              <div class="concordance-det-title">${highlightText(itemData.name, query)}</div>
+              <div style="font-size: 11px; color: var(--color-text-secondary);">${itemData.visits[0].region}</div>
+            </div>
+            ${visitsHtml}
+          </div>
+        `;
+      }
+
+      // Render detail view for a Person
+      function selectPerson(char) {
+        const id = `char-${char.id}`;
+        activeItemId = id;
+        
+        // Update active class in list dynamically without full rebuild
+        document.querySelectorAll('.concordance-item').forEach(el => {
+          el.classList.toggle('active', el.getAttribute('data-id') === id);
+        });
+
+        const query = searchInput.value.toLowerCase().trim();
+
+        let linksHtml = '';
+        if (char.links && char.links.length > 0) {
+          linksHtml = `
+            <div class="concordance-det-links-header">Визуализации в Атласе</div>
+            <div class="concordance-det-links">
+              ${char.links.map(lnk => `
+                <a href="${lnk.url}" class="concordance-link-btn">
+                  <i class="ti ${lnk.icon}" aria-hidden="true"></i> ${lnk.name}
+                </a>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        detailPane.innerHTML = `
+          <div class="concordance-detail-card">
+            <div class="concordance-det-header">
+              <div class="concordance-det-subtitle">Историческая личность</div>
+              <div class="concordance-det-title">${highlightText(char.name, query)}</div>
+              <div style="font-size: 11px; color: var(--color-text-secondary);">${highlightText(`${char.role} (${char.period})`, query)}</div>
+            </div>
+            <div class="concordance-det-desc">${highlightText(char.desc, query)}</div>
+            ${char.quote ? `
+              <div>
+                <div class="concordance-det-quote-header">Из рукописи «Хожения»</div>
+                <blockquote class="concordance-det-quote">${highlightText(char.quote, query)}</blockquote>
+              </div>
+            ` : ''}
+            ${linksHtml}
+          </div>
+        `;
+      }
+
+      // Switch tabs
+      function setTab(tab) {
+        if (currentTab === tab) return;
+        currentTab = tab;
+        activeItemId = null;
+
+        tabToponyms.classList.toggle('active', tab === 'toponyms');
+        tabToponyms.setAttribute('aria-selected', tab === 'toponyms');
+        tabPeople.classList.toggle('active', tab === 'people');
+        tabPeople.setAttribute('aria-selected', tab === 'people');
+
+        // Reset detail pane
+        detailPane.innerHTML = `
+          <div class="concordance-detail-placeholder">
+            <i class="ti ti-click" aria-hidden="true"></i>
+            <div>Выберите элемент из списка слева, чтобы увидеть подробную информацию, цитаты из текста рукописи и ссылки на карты.</div>
+          </div>
+        `;
+
+        renderList();
+      }
+
+      // Event Listeners
+      tabToponyms.onclick = () => setTab('toponyms');
+      tabPeople.onclick = () => setTab('people');
+      
+      searchInput.oninput = () => {
+        renderList();
+        // Update detail pane if an item is active to highlight query in real-time
+        if (activeItemId) {
+          if (activeItemId.startsWith('toponym-')) {
+            const name = activeItemId.replace('toponym-', '');
+            const itemData = sortedToponyms.find(t => t.name === name);
+            if (itemData) selectToponym(itemData);
+          } else if (activeItemId.startsWith('char-')) {
+            const charId = activeItemId.replace('char-', '');
+            const char = sortedPeople.find(c => c.id === charId);
+            if (char) selectPerson(char);
+          }
+        }
+      };
+
+      // Keyboard Esc to exit
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') location.href = 'index.html';
+        if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+          document.getElementById('theme-toggle')?.click();
+        }
+      });
+
+      // Initial load
+      renderList();
+    })();
+  </script>
+</body>
+</html>
