@@ -198,24 +198,14 @@ const SECS=[
 const KEYS=['gospodi','allah','bog','isa'];
 const LAB={gospodi:'Господи',allah:'Аллах',bog:'Бог',isa:'Иса'};
 
-function cssVar(name,fallback){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||fallback;}
 function alpha(color,value){
-  const c=color.trim();
-  if(c.startsWith('#')){
-    const hex=c.slice(1);
-    const full=hex.length===3?hex.split('').map(ch=>ch+ch).join(''):hex.slice(0,6);
-    const num=parseInt(full,16);
-    return `rgba(${(num>>16)&255},${(num>>8)&255},${num&255},${value})`;
-  }
-  const rgb=c.match(/^rgba?\(([^)]+)\)$/);
-  if(rgb)return `rgba(${rgb[1].split(',').slice(0,3).join(',')},${value})`;
-  return c;
+  return `color-mix(in srgb, ${color} ${Math.round(value*1000)/10}%, transparent)`;
 }
 function getColors(){return{
-  gospodi:cssVar('--viz-religion-gospodi','#c0392b'),
-  allah:cssVar('--viz-religion-allah','#1d6fa8'),
-  bog:cssVar('--viz-religion-bog','#5a6e8a'),
-  isa:cssVar('--viz-religion-isa','#6e32a0')
+  gospodi:'var(--viz-religion-gospodi)',
+  allah:'var(--viz-religion-allah)',
+  bog:'var(--viz-religion-bog)',
+  isa:'var(--viz-religion-isa)'
 };}
 let COL=getColors();
 
