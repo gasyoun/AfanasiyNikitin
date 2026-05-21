@@ -56,6 +56,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **`afanasy_gantt.html`**: movement, region, event, duration-label, and tooltip colors now resolve through shared atlas variables.
 - **`afanasy_world_before_after.html`**: before/after map labels, detail chips, and Canvas map palettes now resolve through shared `--viz-world-*` variables.
 - **`three_travelers_comparison.html`**: Canvas basemap, shared-waypoint accents, legend, and timeline text now resolve through shared atlas/world-map variables.
+- **`afanasy_trade_guide_v4.html`**: city selection states, price/margin/risk colors, route badges, and inline result fills now resolve through shared economic/region variables.
 
 ### Fixed
 - `three_travelers_comparison.html`: bounded the route info panel and trimmed the Canvas display height so Mahmud Gavan solo mode stays within a 1366×768 viewport.

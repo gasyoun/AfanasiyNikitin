@@ -68,6 +68,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Gantt colors tokenized + focus fit | ✅ Done | `afanasy_gantt.html` now uses shared atlas variables for movement bars, region stripes, event diamonds, duration labels, and tooltip shadow; tightened focused SVG height so `?focus=bidar` fits at 1366×768; verified focus note, bar tooltip, deep-link href, dark mode, no scroll, and clean console in headless Edge. |
 | World before/after colors tokenized | ✅ Done | `afanasy_world_before_after.html` now uses shared `--viz-world-*` variables for before/after map labels, detail chips, and Canvas palettes; verified India click, dark-mode Canvas redraw, no scroll, and clean console in headless Edge at 1366×768. |
 | Four travelers colors + fit | ✅ Done | `three_travelers_comparison.html` now reuses shared atlas/world-map variables for its Canvas basemap, shared-waypoint accents, legend, and timeline text; bounded the route info panel so Mahmud Gavan solo mode fits at 1366×768; verified solo toggle, dark-mode Canvas redraw, no scroll, and clean console in headless Edge. |
+| Trade guide colors tokenized | ✅ Done | `afanasy_trade_guide_v4.html` now uses shared economic/region variables for city selections, price/margin/risk states, badges, and inline result fills; verified buy/sell selection, result panel, row detail, price tooltip, dark mode, no scroll, and clean console in headless Edge. |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
@@ -201,7 +202,7 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 8. ✅ **A6** — phantom widget link audit/status sync (DONE)
 9. ✅ **Cross-linking** — Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt focus links, and all-pages breadcrumbs are done
 10. ✅ **No-scroll layout** — shared shell + four chart widgets + video export + trade map + travelers + manuscripts + bestiary + borders + language map + trade guide compacted and browser-verified at 1366×768
-11. 🔄 **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree/people network/speed chart/manuscripts/emotional arc/Gantt/world before-after/four travelers are done; continue with remaining trade widgets, border animation, and SVG-cover widgets in small verified commits
+11. 🔄 **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree/people network/speed chart/manuscripts/emotional arc/Gantt/world before-after/four travelers/trade guide are done; continue with remaining trade map, border animation, and SVG-cover widgets in small verified commits
 
 **Then (Phase 3 new visualizations):**
 1. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)
