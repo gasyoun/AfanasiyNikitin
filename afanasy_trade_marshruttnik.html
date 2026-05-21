@@ -23,9 +23,9 @@ canvas#tm-c{display:block;width:100%;height:300px!important;border-radius:var(--
 .tm-det-quote{font-size:11.5px;font-family:var(--font-serif);line-height:1.45;margin-bottom:5px;padding-left:8px;border-left:2px solid var(--color-border-secondary);color:var(--color-text-primary);}
 .tm-det-goods{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px;}
 .tm-good{padding:2px 8px;border-radius:12px;font-size:10px;white-space:nowrap;}
-.tm-good.buy{background:rgba(39,174,96,.15);color:#0a5a30;border:0.5px solid rgba(39,174,96,.3);}
-.tm-good.sell{background:rgba(192,57,43,.12);color:#8a1010;border:0.5px solid rgba(192,57,43,.25);}
-.tm-good.transit{background:rgba(74,144,196,.15);color:#1a3a8a;border:0.5px solid rgba(74,144,196,.3);}
+.tm-good.buy{background:color-mix(in srgb,var(--viz-economic-gain) 15%,transparent);color:var(--viz-language-persian-text);border:0.5px solid color-mix(in srgb,var(--viz-economic-gain) 30%,transparent);}
+.tm-good.sell{background:color-mix(in srgb,var(--viz-economic-loss) 12%,transparent);color:var(--viz-manuscript-deleted-text);border:0.5px solid color-mix(in srgb,var(--viz-economic-loss) 25%,transparent);}
+.tm-good.transit{background:color-mix(in srgb,var(--viz-region-ocean) 15%,transparent);color:var(--viz-language-russian-text);border:0.5px solid color-mix(in srgb,var(--viz-region-ocean) 30%,transparent);}
 .tm-det-note{font-size:11px;color:var(--color-text-secondary);line-height:1.55;}
 .tm-det-note b{color:var(--color-text-primary);}
 .tm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;}
@@ -34,7 +34,7 @@ canvas#tm-c{display:block;width:100%;height:300px!important;border-radius:var(--
 .tm-stat-l{font-size:9px;color:var(--color-text-secondary);margin-top:2px;}
 .tm-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;align-items:center;}
 .tm-ld{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-.tm-ld-visited{border:2px solid #8a5000;}
+.tm-ld-visited{border:2px solid var(--viz-network-self-stroke);}
 .tm-lt{font-size:11px;color:var(--color-text-secondary);}
 .tm-filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
 .tm-f{padding:4px 11px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .12s;}
@@ -210,24 +210,24 @@ function cssVar(name){return getComputedStyle(document.documentElement).getPrope
 function mapPalette(){
   const dark=themeKey()==='dark';
   return {
-    sea: dark?'#18323d':'#7aafc8',
-    land: cssVar('--color-background-tertiary') || (dark?'#222222':'#f5eedf'),
-    landStroke: dark?'rgba(192,144,96,0.35)':'#b8a870',
-    border: dark?'rgba(235,220,213,0.14)':'rgba(140,120,80,.15)',
-    grid: dark?'rgba(235,220,213,.08)':'rgba(70,100,135,.07)',
-    regionLabel: dark?'rgba(235,220,213,.36)':'rgba(40,60,80,.35)',
-    labelHalo: dark?'rgba(18,18,18,.82)':'rgba(255,255,255,.65)',
-    label: dark?'rgba(235,220,213,.9)':'rgba(20,10,5,.85)',
-    loadingText: dark?'rgba(235,220,213,.72)':'rgba(0,0,0,.4)',
-    routeTrade: dark?'rgba(224,136,48,.42)':'rgba(185,115,20,.4)',
-    routeAfanasy: dark?'rgba(240,160,64,.76)':'rgba(224,149,32,.7)',
-    routeAden: dark?'rgba(120,180,220,.42)':'rgba(100,150,200,.35)',
-    portFill: cssVar('--color-background-primary') || (dark?'#121212':'#ffffff'),
-    portVisited: cssVar('--viz-region-sea-arabian') || '#e0a020',
-    portMarshrutnik: cssVar('--viz-region-ocean') || '#4a90c4',
-    portMajor: cssVar('--viz-emotion-total') || '#6e32a0',
+    sea: cssVar('--viz-world-after-sea'),
+    land: cssVar('--viz-world-after-land'),
+    landStroke: cssVar('--viz-world-after-stroke'),
+    border: cssVar('--viz-world-after-border'),
+    grid: cssVar('--viz-world-after-grid'),
+    regionLabel: cssVar('--viz-world-after-dim-text'),
+    labelHalo: cssVar('--viz-world-label-halo'),
+    label: cssVar('--color-text-primary'),
+    loadingText: cssVar('--color-text-secondary'),
+    routeTrade: cssVar('--viz-world-before-frame'),
+    routeAfanasy: cssVar('--viz-world-route'),
+    routeAden: cssVar('--viz-world-after-unknown-stroke'),
+    portFill: cssVar('--color-background-primary'),
+    portVisited: cssVar('--viz-region-sea-arabian'),
+    portMarshrutnik: cssVar('--viz-region-ocean'),
+    portMajor: cssVar('--viz-emotion-total'),
     activeHaloAlpha: dark?0.22:0.15,
-    legendLabel: dark?'rgba(235,220,213,.82)':'rgba(20,10,5,.7)'
+    legendLabel: cssVar('--color-text-secondary')
   };
 }
 
