@@ -45,6 +45,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **`afanasy_citations_v2.html`**: citation cards, series, wave markers, legends, and Canvas labels now resolve through shared `--viz-citation-*` tokens and redraw correctly after a theme toggle.
 - **`afanasy_religious_crisis.html`**: religious concept cards, legend dots, SVG annotations, ratio shading, and detail badges now resolve through shared `--viz-religion-*` tokens.
 - **`afanasy_historiography.html`**: timeline events, era bands, navigation accents, detail headers, and tags now resolve through shared `--viz-hist-*` tokens.
+- **`afanasy_historiography.html`**: removed the remaining JS hex fallback table and manual `rgba(...)` alpha helper; dynamic accents now use `color-mix(...)` against shared CSS variables.
 - **`khozheniye_composition_tree.html`**: manuscript/chronological node colors now resolve through shared `--viz-comp-*` tokens with theme-aware SVG fills.
 - **`afanasy_people_network.html`**: relationship legend, Canvas node/edge palette, labels, and detail accents now resolve through shared `--viz-network-*` tokens.
 - **`afanasy_language_map_v2.html`**: language highlights, cards, legends, and timeline/detail bars now resolve through shared `--viz-language-*` tokens.

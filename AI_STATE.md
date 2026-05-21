@@ -3,7 +3,7 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-05-20 · Conversation ID: GPT-5.5 follow-up after Claude Haiku Phase 4 + FIX 5–8
+> **Last updated:** 2026-05-21 · Conversation ID: GPT-5.5 autonomous color-token audit follow-up
 > **Commits:** 822c69b (FIX 7), e84dd80 (FIX 6), 579480b (FIX 5), 6ceaf32 (FIX 8), beb79bd (PWA), 5d7caaa (A5 map), 88545c7 (date wording), d4d9c33 (A5 travelers), 2fd59e9 (A5 borders), e0a5932 (A5 trade), cd782f7 (A5 world before/after), 91a2c17 (A5 video export), 4d40812 (FIX 9 index navigation), d7cd25c (A7 docs/local assets), plus A6 link-audit and cross-linking status sync
 
 ---
@@ -57,6 +57,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Citation colors tokenized | ✅ Done | `afanasy_citations_v2.html` now uses shared `--viz-citation-*` variables for cards, data series, wave markers, legends, and Canvas text/lines; verified tabs, chart click, theme toggle, no scroll, and clean console in headless Edge. |
 | Religious crisis colors tokenized | ✅ Done | `afanasy_religious_crisis.html` now uses shared `--viz-religion-*` variables for cards, legend, SVG annotations, ratio shading, and detail badges; verified all three tabs, graph click, theme toggle, no scroll, and clean console in headless Edge. |
 | Historiography colors tokenized | ✅ Done | `afanasy_historiography.html` now uses shared `--viz-hist-*` variables for timeline events, era bands, nav accents, detail headers, and tags; verified event selection, dark mode, no scroll, and clean console in headless Edge. |
+| Historiography fallback cleanup | ✅ Done | Removed the last JS hex fallback color table and manual `rgba(...)` alpha helper from `afanasy_historiography.html`; verified the Khrustalev event detail, CSS variable presence, dark mode, no scroll, and clean console in headless Edge at 1366×768. |
 | Composition tree colors tokenized | ✅ Done | `khozheniye_composition_tree.html` now uses shared `--viz-comp-*` variables and theme-aware SVG fill helpers for manuscript and chronological views; verified node click, order toggle, dark mode, no scroll, and clean console in headless Edge. |
 | People network colors tokenized | ✅ Done | `afanasy_people_network.html` now uses shared `--viz-network-*` variables for legend, Canvas nodes/edges/labels, and detail accents; verified filter, node click, dark mode, no scroll, and clean console in headless Edge. |
 | Language map colors tokenized | ✅ Done | `afanasy_language_map_v2.html` now uses shared `--viz-language-*` variables for highlighted text, cards, legend dots, timeline segments, and detail mini-bars; verified language filter, timeline detail open, dark mode, no scroll, and clean console in headless Edge. |
