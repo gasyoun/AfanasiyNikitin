@@ -126,12 +126,12 @@ const WAVES=[
 
 let mode='bar', activeIdx=null;
 
-function cssVal(name,fallback){
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+function cssVal(name){
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 function colorOf(token,fallback){
   if(!token)return fallback;
-  return token.startsWith('--') ? cssVal(token,fallback) : token;
+  return token.startsWith('--') ? cssVal(token) : token;
 }
 function alpha(color,value){
   const c=color.trim();
@@ -156,7 +156,7 @@ function yS(v){return mT+iH-v/maxV()*iH;}
 function halo(txt,x,y,col,fnt){
   ctx.font=fnt||'bold 7.5px sans-serif';
   ctx.textAlign='center';
-  ctx.strokeStyle=alpha(cssVal('--color-background-primary','#fff'),.7);ctx.lineWidth=2;ctx.strokeText(txt,x,y);
+  ctx.strokeStyle=alpha(cssVal('--color-background-primary'),.7);ctx.lineWidth=2;ctx.strokeText(txt,x,y);
   ctx.fillStyle=colorOf(col,col);ctx.fillText(txt,x,y);
 }
 
@@ -165,21 +165,21 @@ function drawGrid(){
   ctx.font='8px sans-serif';
   [20,40,60,80].filter(v=>v<mx).forEach(v=>{
     const y=yS(v);
-    ctx.strokeStyle=cssVal('--color-border-tertiary','#e5e5e5');
+    ctx.strokeStyle=cssVal('--color-border-tertiary');
     ctx.lineWidth=.5;ctx.setLineDash([3,4]);
     ctx.beginPath();ctx.moveTo(mL,y);ctx.lineTo(W-mR,y);ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle=alpha(cssVal('--color-text-secondary','#5e4e44'),.72);ctx.textAlign='right';
+    ctx.fillStyle=alpha(cssVal('--color-text-secondary'),.72);ctx.textAlign='right';
     ctx.fillText(v,mL-4,y+3);
   });
-  ctx.strokeStyle=alpha(cssVal('--color-text-secondary','#5e4e44'),.32);ctx.lineWidth=.8;ctx.setLineDash([]);
+  ctx.strokeStyle=alpha(cssVal('--color-text-secondary'),.32);ctx.lineWidth=.8;ctx.setLineDash([]);
   ctx.beginPath();ctx.moveTo(mL,mT+iH);ctx.lineTo(W-mR,mT+iH);ctx.stroke();
-  ctx.fillStyle=alpha(cssVal('--color-text-secondary','#5e4e44'),.72);ctx.font='8.5px sans-serif';ctx.textAlign='left';
+  ctx.fillStyle=alpha(cssVal('--color-text-secondary'),.72);ctx.font='8.5px sans-serif';ctx.textAlign='left';
   ctx.fillText('публикаций',mL,mT-10);
 }
 
 function drawXlabels(){
-  ctx.font='7.5px sans-serif';ctx.fillStyle=alpha(cssVal('--color-text-secondary','#5e4e44'),.82);
+  ctx.font='7.5px sans-serif';ctx.fillStyle=alpha(cssVal('--color-text-secondary'),.82);
   DEC.forEach((d,i)=>{ctx.textAlign='center';ctx.fillText(d.lb,xC(i),mT+iH+14);});
 }
 
@@ -194,7 +194,7 @@ function drawBar(){
     const isA=activeIdx===i;
     ctx.fillStyle=colorOf(d.cl);ctx.globalAlpha=isA?1:.72;
     ctx.beginPath();ctx.roundRect(x,by,bwi,bh,2);ctx.fill();ctx.globalAlpha=1;
-    if(d.total>10){ctx.font='8px sans-serif';ctx.fillStyle=alpha(cssVal('--color-text-secondary','#5e4e44'),.7);ctx.textAlign='center';ctx.fillText(d.total,x+bwi/2,by-3);}
+    if(d.total>10){ctx.font='8px sans-serif';ctx.fillStyle=alpha(cssVal('--color-text-secondary'),.7);ctx.textAlign='center';ctx.fillText(d.total,x+bwi/2,by-3);}
     const w=WAVES.find(w=>w.i===i);
     if(w){ctx.beginPath();ctx.arc(x+bwi/2,by-11,3.5,0,Math.PI*2);ctx.fillStyle=colorOf(w.cl);ctx.fill();}
   });
@@ -207,7 +207,7 @@ function drawBar(){
 }
 
 function drawArea(){
-  const waveCurrent=colorOf('--viz-citation-wave-current','#6e32a0');
+  const waveCurrent=colorOf('--viz-citation-wave-current');
   const pts=DEC.map((d,i)=>[xC(i),yS(d.total)]);
   const zY=mT+iH;
   ctx.beginPath();ctx.moveTo(mL,zY);
@@ -225,7 +225,7 @@ function drawArea(){
   pts.forEach(([px,py],i)=>{
     const isA=activeIdx===i;
     ctx.beginPath();ctx.arc(px,py,isA?5.5:3.5,0,Math.PI*2);
-    ctx.fillStyle=isA?waveCurrent:cssVal('--color-background-primary','#fff');
+    ctx.fillStyle=isA?waveCurrent:cssVal('--color-background-primary');
     ctx.strokeStyle=waveCurrent;ctx.lineWidth=1.8;ctx.fill();ctx.stroke();
     ctx.font='8px sans-serif';ctx.fillStyle=waveCurrent;ctx.textAlign='center';
     ctx.fillText(DEC[i].total,px,py-8);
@@ -276,7 +276,7 @@ function buildLeg(){
     [
       ['--viz-citation-publication','Публикации'],
       ['--viz-citation-wave-current','Пик волны'],
-      [alpha(colorOf('--viz-citation-wave-current','#6e32a0'),.15),'Волна интереса']
+      [alpha(colorOf('--viz-citation-wave-current'),.15),'Волна интереса']
     ].forEach(([col,lb])=>{
       const d=document.createElement('div');d.className='ci-ld';d.style.background=colorOf(col,col);
       const s=document.createElement('span');s.className='ci-lt';s.textContent=lb;

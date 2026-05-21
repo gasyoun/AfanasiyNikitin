@@ -43,6 +43,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **`afanasy_economics_prices.html`**: SVG region/economics fills now use shared `--viz-region-*` and `--viz-economic-*` variables instead of inline hex colors.
 - **`afanasy_calendar_pascha_islam.html`**: holiday legend and SVG fills now use shared `--viz-calendar-*` variables instead of widget-local hex colors.
 - **`afanasy_citations_v2.html`**: citation cards, series, wave markers, legends, and Canvas labels now resolve through shared `--viz-citation-*` tokens and redraw correctly after a theme toggle.
+- **`afanasy_citations_v2.html`**: removed the remaining hardcoded Canvas color fallbacks; chart drawing now depends on resolved CSS variables only.
 - **`afanasy_religious_crisis.html`**: religious concept cards, legend dots, SVG annotations, ratio shading, and detail badges now resolve through shared `--viz-religion-*` tokens.
 - **`afanasy_historiography.html`**: timeline events, era bands, navigation accents, detail headers, and tags now resolve through shared `--viz-hist-*` tokens.
 - **`afanasy_historiography.html`**: removed the remaining JS hex fallback table and manual `rgba(...)` alpha helper; dynamic accents now use `color-mix(...)` against shared CSS variables.
