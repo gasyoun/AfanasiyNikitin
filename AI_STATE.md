@@ -85,6 +85,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Shared shadow token batch 3 | ✅ Done | `afanasy_citations_v2.html`, `afanasy_people_network.html`, and `afanasy_religious_crisis.html` now use `--shadow-floating-control` for the theme-toggle shadow; verified all three pages load, theme toggles, and clean console in headless Edge. |
 | Shared shadow token batch 4 | ✅ Done | `afanasy_language_map_v2.html`, `afanasy_historiography.html`, and `afanasy_emotional_arc.html` now use `--shadow-floating-control` for the theme-toggle shadow; verified all three pages load, theme toggles, and clean console in headless Edge. |
 | Shared shadow token batch 5 | ✅ Done | `afanasy_manuscripts.html`, `afanasy_speed_land_sea.html`, and `afanasy_trade_guide_v4.html` now use `--shadow-floating-control` for the theme-toggle shadow; verified all three pages load, theme toggles, and clean console in headless Edge. |
+| Shared shadow token batch 6 | ✅ Done | `three_travelers_comparison.html`, `afanasy_world_before_after.html`, and `afanasy_trade_marshruttnik.html` now use `--shadow-floating-control` for the theme-toggle shadow; verified all three pages load, theme toggles, and clean console in headless Edge. |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
@@ -218,7 +219,7 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 8. ✅ **A6** — phantom widget link audit/status sync (DONE)
 9. ✅ **Cross-linking** — Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt focus links, and all-pages breadcrumbs are done
 10. ✅ **No-scroll layout** — shared shell + four chart widgets + video export + trade map + travelers + manuscripts + bestiary + borders + language map + trade guide compacted and browser-verified at 1366×768
-11. 🔄 **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree/people network/speed chart/manuscripts/emotional arc/Gantt/world before-after/four travelers/trade guide/trade map/border animation incl. state palette/edition covers/route map/video export incl. state palette/bestiary SVG are done; shared shadow-token cleanup now covers index, route map, Gantt, calendar, economics, citations, people network, religious crisis, language map, historiography, emotional arc, manuscripts, speed chart, and trade guide; continue with remaining legacy inline shadows/data palette cleanup in small verified commits
+11. 🔄 **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree/people network/speed chart/manuscripts/emotional arc/Gantt/world before-after/four travelers/trade guide/trade map/border animation incl. state palette/edition covers/route map/video export incl. state palette/bestiary SVG are done; shared shadow-token cleanup now covers index, route map, Gantt, calendar, economics, citations, people network, religious crisis, language map, historiography, emotional arc, manuscripts, speed chart, trade guide, travelers comparison, world before/after, and trade map; continue with remaining legacy inline shadows/data palette cleanup in small verified commits
 
 **Then (Phase 3 new visualizations):**
 1. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)

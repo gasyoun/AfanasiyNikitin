@@ -38,6 +38,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `afanasy_citations_v2.html`, `afanasy_people_network.html`, `afanasy_religious_crisis.html`: moved theme-toggle shadows to the shared `--shadow-floating-control` token.
 - `afanasy_language_map_v2.html`, `afanasy_historiography.html`, `afanasy_emotional_arc.html`: moved theme-toggle shadows to the shared `--shadow-floating-control` token.
 - `afanasy_manuscripts.html`, `afanasy_speed_land_sea.html`, `afanasy_trade_guide_v4.html`: moved theme-toggle shadows to the shared `--shadow-floating-control` token.
+- `three_travelers_comparison.html`, `afanasy_world_before_after.html`, `afanasy_trade_marshruttnik.html`: moved theme-toggle shadows to the shared `--shadow-floating-control` token.
 - Updated README/index/architecture documentation to describe bundled local atlas assets and the current 21-widget count.
 - Extracted the shared visualization design system into `css/atlas.css`; all 13 existing widget HTML files now link to the shared stylesheet and keep only widget-specific CSS inline.
 - Bundled D3 v7, TopoJSON 3, world-atlas 110m data, and Tabler Icons under `lib/`; all current HTML pages now reference local assets instead of external CDNs.
