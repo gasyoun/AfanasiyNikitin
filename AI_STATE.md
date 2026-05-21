@@ -77,6 +77,7 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 | Edition cover SVG colors tokenized | ✅ Done | `afanasy_editions_v3.html` now routes generated SVG cover colors, tag backgrounds, shelf accents, shadows, and selected-detail accents through local CSS variables/color-mix while preserving the reconstructed cover palette; verified Khrustalev 2026 cover selection, dark mode, no scroll, and clean console in headless Edge at 1366×768. |
 | Route map colors tokenized | ✅ Done | `afanasy_v8_text_map.html` now uses shared world/accent/text variables for the Canvas basemap, route ghost/active lines, waypoint markers, labels, and active passage border; verified `?wp=18` Dabhol deep link, play/pause, dark mode, no scroll, and clean console in headless Edge at 1366×768. |
 | Video export colors tokenized | ✅ Done | `afanasy_video_export.html` now routes its Canvas/HUD route palette through local `--ve-*` variables and uses shared atlas tokens for record/link accents; verified play/pause, slider, speed select, short MediaRecorder start/stop, dark mode, no scroll, and clean console in headless Edge at 1366×768. |
+| Bestiary SVG colors tokenized | ✅ Done | `afanasy_bestiary.html` now routes generated animal/plant SVG colors through local `--bs-c-*` variables while preserving the existing artwork; verified elephant and peacock card selection, dark mode, no scroll, and clean console in headless Edge at 1366×768. |
 
 ### Session 3 (GPT-5.5) — Phase 0 Quick Fixes
 | Task | Status | Notes |
@@ -210,7 +211,7 @@ git status: untracked check_sw.html and test_pwa.js may remain; do not stage by 
 8. ✅ **A6** — phantom widget link audit/status sync (DONE)
 9. ✅ **Cross-linking** — Calendar→Map, Economics→Map, Manuscripts→Gantt, Gantt focus links, and all-pages breadcrumbs are done
 10. ✅ **No-scroll layout** — shared shell + four chart widgets + video export + trade map + travelers + manuscripts + bestiary + borders + language map + trade guide compacted and browser-verified at 1366×768
-11. 🔄 **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree/people network/speed chart/manuscripts/emotional arc/Gantt/world before-after/four travelers/trade guide/trade map/border animation/edition covers/route map/video export are done; continue with remaining SVG illustration widgets and legacy Canvas palette cleanup in small verified commits
+11. 🔄 **Color-token audit** — citations/economics/calendar/language map/religious crisis/historiography/composition tree/people network/speed chart/manuscripts/emotional arc/Gantt/world before-after/four travelers/trade guide/trade map/border animation/edition covers/route map/video export/bestiary SVG are done; continue with any remaining legacy Canvas/data palette cleanup in small verified commits
 
 **Then (Phase 3 new visualizations):**
 1. **Phase 3.2** — Religious crisis: Господи/Аллах/Бог frequency (6h)

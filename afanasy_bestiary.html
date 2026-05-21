@@ -8,6 +8,56 @@
   <link rel="stylesheet" href="css/atlas.css">
   <link rel="stylesheet" href="lib/tabler-icons.min.css">
   <style>
+:root{
+  --bs-c-000000:#000000;
+  --bs-c-1a1a0a:#1a1a0a;
+  --bs-c-1a1a1a:#1a1a1a;
+  --bs-c-1a5a98:#1a5a98;
+  --bs-c-1a6a20:#1a6a20;
+  --bs-c-1a9a28:#1a9a28;
+  --bs-c-2a6a98:#2a6a98;
+  --bs-c-2a8a20:#2a8a20;
+  --bs-c-2a8a30:#2a8a30;
+  --bs-c-2a8a58:#2a8a58;
+  --bs-c-3a2010:#3a2010;
+  --bs-c-3a40a8:#3a40a8;
+  --bs-c-3a7a28:#3a7a28;
+  --bs-c-3a8a20:#3a8a20;
+  --bs-c-3a9a40:#3a9a40;
+  --bs-c-4a3020:#4a3020;
+  --bs-c-4a7a18:#4a7a18;
+  --bs-c-4a8820:#4a8820;
+  --bs-c-4a8a30:#4a8a30;
+  --bs-c-5560d0:#5560d0;
+  --bs-c-5a7a30:#5a7a30;
+  --bs-c-5a8a20:#5a8a20;
+  --bs-c-6a8030:#6a8030;
+  --bs-c-7080e8:#7080e8;
+  --bs-c-7a5020:#7a5020;
+  --bs-c-7a5030:#7a5030;
+  --bs-c-806040:#806040;
+  --bs-c-8a6030:#8a6030;
+  --bs-c-8a6040:#8a6040;
+  --bs-c-8a7040:#8a7040;
+  --bs-c-907050:#907050;
+  --bs-c-a07830:#a07830;
+  --bs-c-a07840:#a07840;
+  --bs-c-a07850:#a07850;
+  --bs-c-a08060:#a08060;
+  --bs-c-c03018:#c03018;
+  --bs-c-c08010:#c08010;
+  --bs-c-c85020:#c85020;
+  --bs-c-c8a030:#c8a030;
+  --bs-c-c8a070:#c8a070;
+  --bs-c-d4a880:#d4a880;
+  --bs-c-d4aa40:#d4aa40;
+  --bs-c-e04020:#e04020;
+  --bs-c-e8c898:#e8c898;
+  --bs-c-e8e0d0:#e8e0d0;
+  --bs-c-f0f0e0:#f0f0e0;
+  --bs-c-f5e8d0:#f5e8d0;
+  --bs-c-f5f0e8:#f5f0e8;
+}
 .bs{padding:0;}
 .bs-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:8px;}
 .bs-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;cursor:pointer;transition:box-shadow .13s;background:var(--color-background-primary);}
@@ -63,47 +113,47 @@ const ITEMS=[
   {id:'elephant', name:'Слон', type:'Животное', tags:['animal','first'],
    quote:'«А слонов много у них, да на бой идут с людьми на слонах, в доспехах одеты»',
    body:'<b>Первое описание слона в русской письменности.</b> Афанасий видел боевых слонов в Бидаре — 300 штук в войске султана. Описывает «доспехи» на них — железные панцири и мечи, привязанные к хоботу.',
-   pal:['#4a3020','#8a6040','#c8a070','#e8c898','#f5e8d0'],
+   pal:['var(--bs-c-4a3020)','var(--bs-c-8a6040)','var(--bs-c-c8a070)','var(--bs-c-e8c898)','var(--bs-c-f5e8d0)'],
    draw(svg,cx,cy,s){
      const g=svg;
-     el(g,'ellipse',{cx:cx,cy:cy+s*.15,rx:s*.38,ry:s*.28,fill:'#8a6040'});
-     el(g,'circle',{cx:cx+s*.18,cy:cy-s*.05,r:s*.2,fill:'#8a6040'});
-     el(g,'ellipse',{cx:cx-s*.1,cy:cy+s*.35,rx:s*.07,ry:s*.2,fill:'#7a5030'});
-     el(g,'ellipse',{cx:cx+s*.05,cy:cy+s*.36,rx:s*.07,ry:s*.2,fill:'#7a5030'});
-     el(g,'ellipse',{cx:cx+s*.22,cy:cy+s*.36,rx:s*.06,ry:s*.19,fill:'#7a5030'});
-     el(g,'ellipse',{cx:cx+s*.35,cy:cy+s*.36,rx:s*.06,ry:s*.19,fill:'#7a5030'});
+     el(g,'ellipse',{cx:cx,cy:cy+s*.15,rx:s*.38,ry:s*.28,fill:'var(--bs-c-8a6040)'});
+     el(g,'circle',{cx:cx+s*.18,cy:cy-s*.05,r:s*.2,fill:'var(--bs-c-8a6040)'});
+     el(g,'ellipse',{cx:cx-s*.1,cy:cy+s*.35,rx:s*.07,ry:s*.2,fill:'var(--bs-c-7a5030)'});
+     el(g,'ellipse',{cx:cx+s*.05,cy:cy+s*.36,rx:s*.07,ry:s*.2,fill:'var(--bs-c-7a5030)'});
+     el(g,'ellipse',{cx:cx+s*.22,cy:cy+s*.36,rx:s*.06,ry:s*.19,fill:'var(--bs-c-7a5030)'});
+     el(g,'ellipse',{cx:cx+s*.35,cy:cy+s*.36,rx:s*.06,ry:s*.19,fill:'var(--bs-c-7a5030)'});
      const p=document.createElementNS('http://www.w3.org/2000/svg','path');
      p.setAttribute('d',`M${cx+s*.3},${cy} Q${cx+s*.42},${cy+s*.05} ${cx+s*.44},${cy+s*.22} Q${cx+s*.44},${cy+s*.32} ${cx+s*.36},${cy+s*.3}`);
-     p.setAttribute('fill','none');p.setAttribute('stroke','#7a5030');p.setAttribute('stroke-width',s*.07);p.setAttribute('stroke-linecap','round');
+     p.setAttribute('fill','none');p.setAttribute('stroke','var(--bs-c-7a5030)');p.setAttribute('stroke-width',s*.07);p.setAttribute('stroke-linecap','round');
      g.appendChild(p);
-     el(g,'circle',{cx:cx+s*.24,cy:cy-s*.08,r:s*.03,fill:'#3a2010'});
-     el(g,'path',{d:`M${cx+s*.14},${cy-s*.18} L${cx+s*.1},${cy-s*.28} L${cx+s*.18},${cy-s*.2}`,fill:'#7a5030'});
-     el(g,'path',{d:`M${cx+s*.26},${cy-s*.17} L${cx+s*.28},${cy-s*.28} L${cx+s*.34},${cy-s*.2}`,fill:'#7a5030'});
+     el(g,'circle',{cx:cx+s*.24,cy:cy-s*.08,r:s*.03,fill:'var(--bs-c-3a2010)'});
+     el(g,'path',{d:`M${cx+s*.14},${cy-s*.18} L${cx+s*.1},${cy-s*.28} L${cx+s*.18},${cy-s*.2}`,fill:'var(--bs-c-7a5030)'});
+     el(g,'path',{d:`M${cx+s*.26},${cy-s*.17} L${cx+s*.28},${cy-s*.28} L${cx+s*.34},${cy-s*.2}`,fill:'var(--bs-c-7a5030)'});
    }},
   {id:'parrot', name:'Попугай', type:'Птица', tags:['animal','first'],
    quote:'«Птицы же есть, что говорят человеческим голосом»',
    body:'<b>Первое упоминание говорящей птицы в русском тексте.</b> Афанасий имеет в виду индийских попугаев — скорее всего ожерелового попугая (alexandrine parakeet). На Руси таких птиц не знали.',
    draw(svg,cx,cy,s){
-     el(svg,'ellipse',{cx,cy:cy+s*.05,rx:s*.14,ry:s*.22,fill:'#2a8a30'});
-     el(svg,'circle',{cx,cy:cy-s*.15,r:s*.13,fill:'#2a8a30'});
-     el(svg,'ellipse',{cx:cx-s*.04,cy:cy-s*.15,rx:s*.07,ry:s*.05,fill:'#c03018'});
-     el(svg,'ellipse',{cx:cx+s*.04,cy:cy-s*.15,rx:s*.07,ry:s*.05,fill:'#e04020'});
-     el(svg,'circle',{cx:cx-s*.04,cy:cy-s*.17,r:s*.02,fill:'#1a1a1a'});
-     el(svg,'path',{d:`M${cx-s*.06},${cy-s*.1} Q${cx-s*.18},${cy-s*.08} ${cx-s*.22},${cy}`,fill:'none',stroke:'#1a6a20','stroke-width':s*.06,'stroke-linecap':'round'});
-     el(svg,'path',{d:`M${cx},${cy+s*.28} L${cx-s*.08},${cy+s*.42} M${cx},${cy+s*.28} L${cx+s*.05},${cy+s*.44}`,fill:'none',stroke:'#c08010','stroke-width':s*.04,'stroke-linecap':'round'});
-     el(svg,'path',{d:`M${cx+s*.06},${cy+s*.05} L${cx+s*.22},${cy-s*.05} L${cx+s*.28},${cy+s*.08} L${cx+s*.12},${cy+s*.14}Z`,fill:'#1a9a28'});
+     el(svg,'ellipse',{cx,cy:cy+s*.05,rx:s*.14,ry:s*.22,fill:'var(--bs-c-2a8a30)'});
+     el(svg,'circle',{cx,cy:cy-s*.15,r:s*.13,fill:'var(--bs-c-2a8a30)'});
+     el(svg,'ellipse',{cx:cx-s*.04,cy:cy-s*.15,rx:s*.07,ry:s*.05,fill:'var(--bs-c-c03018)'});
+     el(svg,'ellipse',{cx:cx+s*.04,cy:cy-s*.15,rx:s*.07,ry:s*.05,fill:'var(--bs-c-e04020)'});
+     el(svg,'circle',{cx:cx-s*.04,cy:cy-s*.17,r:s*.02,fill:'var(--bs-c-1a1a1a)'});
+     el(svg,'path',{d:`M${cx-s*.06},${cy-s*.1} Q${cx-s*.18},${cy-s*.08} ${cx-s*.22},${cy}`,fill:'none',stroke:'var(--bs-c-1a6a20)','stroke-width':s*.06,'stroke-linecap':'round'});
+     el(svg,'path',{d:`M${cx},${cy+s*.28} L${cx-s*.08},${cy+s*.42} M${cx},${cy+s*.28} L${cx+s*.05},${cy+s*.44}`,fill:'none',stroke:'var(--bs-c-c08010)','stroke-width':s*.04,'stroke-linecap':'round'});
+     el(svg,'path',{d:`M${cx+s*.06},${cy+s*.05} L${cx+s*.22},${cy-s*.05} L${cx+s*.28},${cy+s*.08} L${cx+s*.12},${cy+s*.14}Z`,fill:'var(--bs-c-1a9a28)'});
    }},
   {id:'mongoose', name:'Мангуст', type:'Животное', tags:['animal','first'],
    quote:'«Зверёк — с хвостом, а яда не боится»',
    body:'<b>Первое упоминание мангусты в русской литературе.</b> Афанасий наблюдал схватку мангусты со змеёй — феномен, неизвестный на Руси. Иммунитет мангусты к змеиному яду казался чудом.',
    draw(svg,cx,cy,s){
-     el(svg,'ellipse',{cx:cx-s*.05,cy:cy+s*.08,rx:s*.3,ry:s*.14,fill:'#a08060'});
-     el(svg,'ellipse',{cx:cx+s*.22,cy:cy+s*.1,rx:s*.18,ry:s*.08,fill:'#907050'});
-     el(svg,'circle',{cx:cx-s*.28,cy:cy+s*.04,r:s*.1,fill:'#a08060'});
-     el(svg,'ellipse',{cx:cx-s*.32,cy:cy+s*.05,rx:s*.04,ry:s*.03,fill:'#806040'});
-     el(svg,'circle',{cx:cx-s*.35,cy:cy+s*.01,r:s*.02,fill:'#1a1a1a'});
-     for(let i=0;i<4;i++){el(svg,'ellipse',{cx:cx-s*.15+i*s*.14,cy:cy+s*.21,rx:s*.04,ry:s*.1,fill:'#907050'});}
-     el(svg,'path',{d:`M${cx+s*.38},${cy+s*.08} Q${cx+s*.45},${cy-s*.04} ${cx+s*.42},${cy-s*.14}`,fill:'none',stroke:'#907050','stroke-width':s*.07,'stroke-linecap':'round'});
+     el(svg,'ellipse',{cx:cx-s*.05,cy:cy+s*.08,rx:s*.3,ry:s*.14,fill:'var(--bs-c-a08060)'});
+     el(svg,'ellipse',{cx:cx+s*.22,cy:cy+s*.1,rx:s*.18,ry:s*.08,fill:'var(--bs-c-907050)'});
+     el(svg,'circle',{cx:cx-s*.28,cy:cy+s*.04,r:s*.1,fill:'var(--bs-c-a08060)'});
+     el(svg,'ellipse',{cx:cx-s*.32,cy:cy+s*.05,rx:s*.04,ry:s*.03,fill:'var(--bs-c-806040)'});
+     el(svg,'circle',{cx:cx-s*.35,cy:cy+s*.01,r:s*.02,fill:'var(--bs-c-1a1a1a)'});
+     for(let i=0;i<4;i++){el(svg,'ellipse',{cx:cx-s*.15+i*s*.14,cy:cy+s*.21,rx:s*.04,ry:s*.1,fill:'var(--bs-c-907050)'});}
+     el(svg,'path',{d:`M${cx+s*.38},${cy+s*.08} Q${cx+s*.45},${cy-s*.04} ${cx+s*.42},${cy-s*.14}`,fill:'none',stroke:'var(--bs-c-907050)','stroke-width':s*.07,'stroke-linecap':'round'});
    }},
   {id:'cobra', name:'Кобра', type:'Животное', tags:['animal'],
    quote:'«Змеи ползут по улицам, никто их не боится»',
@@ -111,36 +161,36 @@ const ITEMS=[
    draw(svg,cx,cy,s){
      const p=document.createElementNS('http://www.w3.org/2000/svg','path');
      p.setAttribute('d',`M${cx},${cy+s*.38} Q${cx+s*.28},${cy+s*.28} ${cx+s*.22},${cy+s*.1} Q${cx+s*.16},${cy-s*.08} ${cx},${cy-s*.1} Q${cx-s*.14},${cy-s*.12} ${cx-s*.18},${cy-s*.05}`);
-     p.setAttribute('fill','none');p.setAttribute('stroke','#4a8a30');p.setAttribute('stroke-width',s*.1);p.setAttribute('stroke-linecap','round');
+     p.setAttribute('fill','none');p.setAttribute('stroke','var(--bs-c-4a8a30)');p.setAttribute('stroke-width',s*.1);p.setAttribute('stroke-linecap','round');
      svg.appendChild(p);
-     el(svg,'ellipse',{cx:cx-s*.22,cy:cy-s*.12,rx:s*.16,ry:s*.1,fill:'#4a8a30',transform:`rotate(-20,${cx-s*.22},${cy-s*.12})`});
-     el(svg,'circle',{cx:cx-s*.28,cy:cy-s*.17,r:s*.07,fill:'#3a7a28'});
-     el(svg,'circle',{cx:cx-s*.26,cy:cy-s*.19,r:s*.02,fill:'#1a1a0a'});
-     el(svg,'path',{d:`M${cx-s*.32},${cy-s*.12} L${cx-s*.38},${cy-s*.12} M${cx-s*.32},${cy-s*.14} L${cx-s*.39},${cy-s*.17}`,fill:'none',stroke:'#c03018','stroke-width':s*.015,'stroke-linecap':'round'});
+     el(svg,'ellipse',{cx:cx-s*.22,cy:cy-s*.12,rx:s*.16,ry:s*.1,fill:'var(--bs-c-4a8a30)',transform:`rotate(-20,${cx-s*.22},${cy-s*.12})`});
+     el(svg,'circle',{cx:cx-s*.28,cy:cy-s*.17,r:s*.07,fill:'var(--bs-c-3a7a28)'});
+     el(svg,'circle',{cx:cx-s*.26,cy:cy-s*.19,r:s*.02,fill:'var(--bs-c-1a1a0a)'});
+     el(svg,'path',{d:`M${cx-s*.32},${cy-s*.12} L${cx-s*.38},${cy-s*.12} M${cx-s*.32},${cy-s*.14} L${cx-s*.39},${cy-s*.17}`,fill:'none',stroke:'var(--bs-c-c03018)','stroke-width':s*.015,'stroke-linecap':'round'});
    }},
   {id:'coconut', name:'Кокос', type:'Растение', tags:['plant','first'],
    quote:'«Орех кокотьскый — плод земли той, зело велик»',
    body:'<b>Первое описание кокосового ореха в русском тексте.</b> Слово «кокотьскый» (кокосовый) — первое появление этого слова в русском языке. Афанасий описывает пальму, орех и пальмовое вино («тари»).',
    draw(svg,cx,cy,s){
-     el(svg,'line',{x1:cx+s*.05,y1:cy+s*.44,x2:cx-s*.1,y2:cy-s*.05,stroke:'#8a6030','stroke-width':s*.06,'stroke-linecap':'round'});
+     el(svg,'line',{x1:cx+s*.05,y1:cy+s*.44,x2:cx-s*.1,y2:cy-s*.05,stroke:'var(--bs-c-8a6030)','stroke-width':s*.06,'stroke-linecap':'round'});
      for(let i=0;i<5;i++){
        const a=-0.6+i*0.35;const r=s*.32;
-       el(svg,'path',{d:`M${cx-s*.1},${cy-s*.06} Q${cx-s*.1+Math.cos(a-0.3)*r*.6},${cy-s*.06+Math.sin(a-0.3)*r*.4} ${cx-s*.1+Math.cos(a)*r},${cy-s*.06+Math.sin(a)*r}`,fill:'none',stroke:'#2a8a20','stroke-width':s*.035,'stroke-linecap':'round'});
+       el(svg,'path',{d:`M${cx-s*.1},${cy-s*.06} Q${cx-s*.1+Math.cos(a-0.3)*r*.6},${cy-s*.06+Math.sin(a-0.3)*r*.4} ${cx-s*.1+Math.cos(a)*r},${cy-s*.06+Math.sin(a)*r}`,fill:'none',stroke:'var(--bs-c-2a8a20)','stroke-width':s*.035,'stroke-linecap':'round'});
      }
-     el(svg,'ellipse',{cx:cx+s*.06,cy:cy+s*.08,rx:s*.13,ry:s*.15,fill:'#7a5020'});
-     el(svg,'ellipse',{cx:cx+s*.04,cy:cy+s*.06,rx:s*.1,ry:s*.11,fill:'#a07840'});
+     el(svg,'ellipse',{cx:cx+s*.06,cy:cy+s*.08,rx:s*.13,ry:s*.15,fill:'var(--bs-c-7a5020)'});
+     el(svg,'ellipse',{cx:cx+s*.04,cy:cy+s*.06,rx:s*.1,ry:s*.11,fill:'var(--bs-c-a07840)'});
    }},
   {id:'pepper', name:'Чёрный перец', type:'Пряность', tags:['spice','first'],
    quote:'«А пепер да зелие дёшево» — Афанасий удивлён ценой',
    body:'<b>Первое описание плантации перца в русском тексте.</b> Афанасий разочарован: ждал, что закупит перец дёшево и разбогатеет. Но выяснил, что «вывезти нельзя» — монополия контролирует экспорт. Одна из причин его торгового провала.',
    draw(svg,cx,cy,s){
      const stemX=cx+s*.02;
-     el(svg,'line',{x1:stemX,y1:cy+s*.44,x2:stemX,y2:cy-s*.2,stroke:'#5a8a20','stroke-width':s*.04,'stroke-linecap':'round'});
+     el(svg,'line',{x1:stemX,y1:cy+s*.44,x2:stemX,y2:cy-s*.2,stroke:'var(--bs-c-5a8a20)','stroke-width':s*.04,'stroke-linecap':'round'});
      [[-.32,-.08],[-.22,.04],[-.12,-.04],[-.05,.1],[.08,-.02],[.18,.08],[.28,-.05]].forEach(([dx,dy])=>{
-       el(svg,'ellipse',{cx:stemX+dx*s,cy:cy+dy*s,rx:s*.1,ry:s*.07,fill:'#4a7a18',transform:`rotate(${dx*60},${stemX+dx*s},${cy+dy*s})`});
+       el(svg,'ellipse',{cx:stemX+dx*s,cy:cy+dy*s,rx:s*.1,ry:s*.07,fill:'var(--bs-c-4a7a18)',transform:`rotate(${dx*60},${stemX+dx*s},${cy+dy*s})`});
      });
      [[-s*.18,s*.22],[-.05*s,s*.3],[s*.1,s*.18],[s*.2,s*.26],[-s*.08,s*.1],[s*.06,s*.06]].forEach(([dx,dy])=>{
-       el(svg,'circle',{cx:stemX+dx,cy:cy+dy,r:s*.04,fill:'#1a1a1a'});
+       el(svg,'circle',{cx:stemX+dx,cy:cy+dy,r:s*.04,fill:'var(--bs-c-1a1a1a)'});
      });
    }},
   {id:'ginger', name:'Имбирь', type:'Пряность', tags:['spice','first'],
@@ -148,42 +198,42 @@ const ITEMS=[
    body:'Имбирь Афанасий видел растущим прямо в садах — невиданное для него зрелище. На Руси имбирь знали только как привозной сушёный порошок.',
    draw(svg,cx,cy,s){
      [[0,.1],[-.15,.08],[.14,.12],[-.08,.2],[.1,.22]].forEach(([dx,dy],i)=>{
-       el(svg,'ellipse',{cx:cx+dx*s,cy:cy+dy*s,rx:s*(.12-i*.01),ry:s*(.07-i*.005),fill:'#c8a030',transform:`rotate(${dx*40+10},${cx+dx*s},${cy+dy*s})`});
+       el(svg,'ellipse',{cx:cx+dx*s,cy:cy+dy*s,rx:s*(.12-i*.01),ry:s*(.07-i*.005),fill:'var(--bs-c-c8a030)',transform:`rotate(${dx*40+10},${cx+dx*s},${cy+dy*s})`});
      });
      for(let i=0;i<4;i++){
        const bx=cx+(i-.15)*s*.18,by=cy+s*.32;
-       el(svg,'path',{d:`M${bx},${by} Q${bx+s*.04},${by-s*.28} ${bx+s*.02},${by-s*.4}`,fill:'none',stroke:'#4a8820','stroke-width':s*.04,'stroke-linecap':'round'});
+       el(svg,'path',{d:`M${bx},${by} Q${bx+s*.04},${by-s*.28} ${bx+s*.02},${by-s*.4}`,fill:'none',stroke:'var(--bs-c-4a8820)','stroke-width':s*.04,'stroke-linecap':'round'});
      }
-     el(svg,'ellipse',{cx:cx+s*.04,cy:cy+s*.14,rx:s*.28,ry:s*.1,fill:'#d4aa40',opacity:.3});
+     el(svg,'ellipse',{cx:cx+s*.04,cy:cy+s*.14,rx:s*.28,ry:s*.1,fill:'var(--bs-c-d4aa40)',opacity:.3});
    }},
   {id:'indigo', name:'Индиго', type:'Растение', tags:['plant','spice'],
    quote:'«Краска синяя дёшева — а её много»',
    body:'Индиго — синий краситель из растения Indigofera tinctoria. Афанасий упоминает его в «маршрутнике» как выгодный торговый товар. На Руси синий краситель был редок и дорог.',
    draw(svg,cx,cy,s){
-     el(svg,'line',{x1:cx,y1:cy+s*.44,x2:cx,y2:cy-s*.15,stroke:'#5a7a30','stroke-width':s*.04,'stroke-linecap':'round'});
+     el(svg,'line',{x1:cx,y1:cy+s*.44,x2:cx,y2:cy-s*.15,stroke:'var(--bs-c-5a7a30)','stroke-width':s*.04,'stroke-linecap':'round'});
      [[-1,0],[-.7,.1],[-.4,0],[-.1,.08],[.2,0],[.5,.08],[.8,0]].forEach(([t])=>{
        const bx=cx+t*s*.18,by=cy+t*s*.24+s*.12;
-       el(svg,'ellipse',{cx:bx,cy:by,rx:s*.09,ry:s*.06,fill:'#5a7a30',transform:`rotate(${t*15},${bx},${by})`});
+       el(svg,'ellipse',{cx:bx,cy:by,rx:s*.09,ry:s*.06,fill:'var(--bs-c-5a7a30)',transform:`rotate(${t*15},${bx},${by})`});
      });
-     el(svg,'ellipse',{cx:cx,cy:cy-s*.2,rx:s*.12,ry:s*.08,fill:'#5560d0'});
+     el(svg,'ellipse',{cx:cx,cy:cy-s*.2,rx:s*.12,ry:s*.08,fill:'var(--bs-c-5560d0)'});
      [[-s*.06,-s*.25],[s*.04,-s*.28],[s*.12,-s*.22],[-s*.04,-s*.16]].forEach(([dx,dy])=>{
-       el(svg,'circle',{cx:cx+dx,cy:cy+dy,r:s*.03,fill:'#7080e8'});
+       el(svg,'circle',{cx:cx+dx,cy:cy+dy,r:s*.03,fill:'var(--bs-c-7080e8)'});
      });
-     el(svg,'ellipse',{cx:cx+s*.02,cy:cy+s*.32,rx:s*.14,ry:s*.08,fill:'#3a40a8',opacity:.7});
+     el(svg,'ellipse',{cx:cx+s*.02,cy:cy+s*.32,rx:s*.14,ry:s*.08,fill:'var(--bs-c-3a40a8)',opacity:.7});
    }},
   {id:'monkey', name:'Обезьяна', type:'Животное', tags:['animal','first'],
    quote:'«Обезьян у них много, ходят по горам»',
    body:'Афанасий описывает макак-резусов (Macaca mulatta) — обычных жителей индийских городов. На Руси обезьяны были известны только по религиозным текстам, но никто их не видел.',
    draw(svg,cx,cy,s){
-     el(svg,'ellipse',{cx,cy:cy+s*.1,rx:s*.2,ry:s*.24,fill:'#a07850'});
-     el(svg,'circle',{cx,cy:cy-s*.12,r:s*.18,fill:'#a07850'});
-     el(svg,'ellipse',{cx,cy:cy-s*.1,rx:s*.1,ry:s*.08,fill:'#d4a880'});
-     el(svg,'circle',{cx:cx-s*.08,cy:cy-s*.15,r:s*.03,fill:'#1a1a1a'});
-     el(svg,'circle',{cx:cx+s*.08,cy:cy-s*.15,r:s*.03,fill:'#1a1a1a'});
-     el(svg,'path',{d:`M${cx-s*.06},${cy-s*.05} Q${cx},${cy-s*.01} ${cx+s*.06},${cy-s*.05}`,fill:'none',stroke:'#7a5030','stroke-width':s*.02});
-     el(svg,'ellipse',{cx:cx-s*.16,cy:cy-s*.12,rx:s*.06,ry:s*.09,fill:'#a07850'});
-     el(svg,'ellipse',{cx:cx+s*.16,cy:cy-s*.12,rx:s*.06,ry:s*.09,fill:'#a07850'});
-     el(svg,'path',{d:`M${cx+s*.19},${cy+s*.15} Q${cx+s*.38},${cy+s*.18} ${cx+s*.38},${cy+s*.34} Q${cx+s*.38},${cy+s*.44} ${cx+s*.3},${cy+s*.42}`,fill:'none',stroke:'#a07850','stroke-width':s*.06,'stroke-linecap':'round'});
+     el(svg,'ellipse',{cx,cy:cy+s*.1,rx:s*.2,ry:s*.24,fill:'var(--bs-c-a07850)'});
+     el(svg,'circle',{cx,cy:cy-s*.12,r:s*.18,fill:'var(--bs-c-a07850)'});
+     el(svg,'ellipse',{cx,cy:cy-s*.1,rx:s*.1,ry:s*.08,fill:'var(--bs-c-d4a880)'});
+     el(svg,'circle',{cx:cx-s*.08,cy:cy-s*.15,r:s*.03,fill:'var(--bs-c-1a1a1a)'});
+     el(svg,'circle',{cx:cx+s*.08,cy:cy-s*.15,r:s*.03,fill:'var(--bs-c-1a1a1a)'});
+     el(svg,'path',{d:`M${cx-s*.06},${cy-s*.05} Q${cx},${cy-s*.01} ${cx+s*.06},${cy-s*.05}`,fill:'none',stroke:'var(--bs-c-7a5030)','stroke-width':s*.02});
+     el(svg,'ellipse',{cx:cx-s*.16,cy:cy-s*.12,rx:s*.06,ry:s*.09,fill:'var(--bs-c-a07850)'});
+     el(svg,'ellipse',{cx:cx+s*.16,cy:cy-s*.12,rx:s*.06,ry:s*.09,fill:'var(--bs-c-a07850)'});
+     el(svg,'path',{d:`M${cx+s*.19},${cy+s*.15} Q${cx+s*.38},${cy+s*.18} ${cx+s*.38},${cy+s*.34} Q${cx+s*.38},${cy+s*.44} ${cx+s*.3},${cy+s*.42}`,fill:'none',stroke:'var(--bs-c-a07850)','stroke-width':s*.06,'stroke-linecap':'round'});
    }},
   {id:'peacock', name:'Павлин', type:'Птица', tags:['animal','first'],
    quote:'«Птицы же их дивны — хвост распускают, что колесо»',
@@ -192,38 +242,38 @@ const ITEMS=[
      for(let i=0;i<12;i++){
        const a=(i/12)*Math.PI*2-Math.PI/2;const r=s*.35;
        const px=cx+Math.cos(a)*r,py=cy-s*.05+Math.sin(a)*r;
-       el(svg,'line',{x1:cx,y1:cy-s*.05,x2:px,y2:py,stroke:'#3a9a40','stroke-width':s*.025});
-       el(svg,'ellipse',{cx:px,cy:py,rx:s*.06,ry:s*.04,fill:'#2a8a58',transform:`rotate(${a*180/Math.PI+90},${px},${py})`});
-       el(svg,'circle',{cx:px,cy:py,r:s*.025,fill:'#1a5a98'});
+       el(svg,'line',{x1:cx,y1:cy-s*.05,x2:px,y2:py,stroke:'var(--bs-c-3a9a40)','stroke-width':s*.025});
+       el(svg,'ellipse',{cx:px,cy:py,rx:s*.06,ry:s*.04,fill:'var(--bs-c-2a8a58)',transform:`rotate(${a*180/Math.PI+90},${px},${py})`});
+       el(svg,'circle',{cx:px,cy:py,r:s*.025,fill:'var(--bs-c-1a5a98)'});
      }
-     el(svg,'ellipse',{cx,cy:cy-s*.02,rx:s*.07,ry:s*.17,fill:'#2a6a98'});
-     el(svg,'circle',{cx,cy:cy-s*.18,r:s*.08,fill:'#2a6a98'});
-     el(svg,'circle',{cx:cx-s*.025,cy:cy-s*.2,r:s*.015,fill:'#f0f0e0'});
-     el(svg,'path',{d:`M${cx-s*.02},${cy-s*.24} L${cx},${cy-s*.3} M${cx+s*.02},${cy-s*.24} L${cx+s*.04},${cy-s*.31}`,fill:'none',stroke:'#3a9a40','stroke-width':s*.015,'stroke-linecap':'round'});
+     el(svg,'ellipse',{cx,cy:cy-s*.02,rx:s*.07,ry:s*.17,fill:'var(--bs-c-2a6a98)'});
+     el(svg,'circle',{cx,cy:cy-s*.18,r:s*.08,fill:'var(--bs-c-2a6a98)'});
+     el(svg,'circle',{cx:cx-s*.025,cy:cy-s*.2,r:s*.015,fill:'var(--bs-c-f0f0e0)'});
+     el(svg,'path',{d:`M${cx-s*.02},${cy-s*.24} L${cx},${cy-s*.3} M${cx+s*.02},${cy-s*.24} L${cx+s*.04},${cy-s*.31}`,fill:'none',stroke:'var(--bs-c-3a9a40)','stroke-width':s*.015,'stroke-linecap':'round'});
    }},
   {id:'date', name:'Финиковая пальма', type:'Растение', tags:['plant'],
    quote:'«Финики дёшевы — ест их скот и люди»',
    body:'Финиковые пальмы Афанасий видел впервые в Персии и снова в Индии. Описывает их практически: финики едят все — люди, животные. Пальмовое вино («тари») упоминает отдельно.',
    draw(svg,cx,cy,s){
-     el(svg,'line',{x1:cx,y1:cy+s*.44,x2:cx+s*.04,y2:cy-s*.1,stroke:'#a07830','stroke-width':s*.07,'stroke-linecap':'round'});
+     el(svg,'line',{x1:cx,y1:cy+s*.44,x2:cx+s*.04,y2:cy-s*.1,stroke:'var(--bs-c-a07830)','stroke-width':s*.07,'stroke-linecap':'round'});
      [[-.55,-.38],[-.3,-.42],[.0,-.44],[.28,-.4],[.5,-.32]].forEach(([dx,dy])=>{
-       el(svg,'path',{d:`M${cx+s*.04},${cy-s*.1} Q${cx+dx*s*.4},${cy+dy*s*.4} ${cx+dx*s*.7},${cy+dy*s*.7}`,fill:'none',stroke:'#3a8a20','stroke-width':s*.04,'stroke-linecap':'round'});
+       el(svg,'path',{d:`M${cx+s*.04},${cy-s*.1} Q${cx+dx*s*.4},${cy+dy*s*.4} ${cx+dx*s*.7},${cy+dy*s*.7}`,fill:'none',stroke:'var(--bs-c-3a8a20)','stroke-width':s*.04,'stroke-linecap':'round'});
      });
      [[-s*.12,s*.04],[s*.0,s*.0],[s*.1,s*.06]].forEach(([dx,dy])=>{
-       el(svg,'ellipse',{cx:cx+dx,cy:cy+dy,rx:s*.06,ry:s*.08,fill:'#c85020'});
+       el(svg,'ellipse',{cx:cx+dx,cy:cy+dy,rx:s*.06,ry:s*.08,fill:'var(--bs-c-c85020)'});
      });
    }},
   {id:'cotton', name:'Хлопок', type:'Растение', tags:['plant','spice'],
    quote:'«Ткани хлопчатые — дёшевы и добры»',
    body:'Хлопок Афанасий видел на плантациях в Гуджарате и Деккане. В «маршрутнике» называет хлопковые ткани самым выгодным товаром для вывоза. На Руси хлопок был редкостью.',
    draw(svg,cx,cy,s){
-     el(svg,'line',{x1:cx,y1:cy+s*.44,x2:cx,y2:cy-s*.05,stroke:'#8a7040','stroke-width':s*.04,'stroke-linecap':'round'});
+     el(svg,'line',{x1:cx,y1:cy+s*.44,x2:cx,y2:cy-s*.05,stroke:'var(--bs-c-8a7040)','stroke-width':s*.04,'stroke-linecap':'round'});
      [[-s*.18,s*.08],[s*.0,-s*.02],[s*.16,s*.06],[-s*.08,s*.2],[s*.1,s*.22]].forEach(([dx,dy])=>{
-       el(svg,'path',{d:`M${cx},${cy} Q${cx+dx*.6},${cy+dy*.4+s*.04} ${cx+dx},${cy+dy}`,fill:'none',stroke:'#6a8030','stroke-width':s*.03,'stroke-linecap':'round'});
+       el(svg,'path',{d:`M${cx},${cy} Q${cx+dx*.6},${cy+dy*.4+s*.04} ${cx+dx},${cy+dy}`,fill:'none',stroke:'var(--bs-c-6a8030)','stroke-width':s*.03,'stroke-linecap':'round'});
      });
      [[-s*.14,s*.0],[s*.14,s*.04],[s*.0,s*.14],[-s*.05,s*.26],[s*.12,s*.24]].forEach(([dx,dy])=>{
-       el(svg,'circle',{cx:cx+dx,cy:cy+dy,r:s*.09,fill:'#f5f0e8'});
-       for(let a=0;a<5;a++){const aa=a*Math.PI*2/5;el(svg,'line',{x1:cx+dx,y1:cy+dy,x2:cx+dx+Math.cos(aa)*s*.07,y2:cy+dy+Math.sin(aa)*s*.07,stroke:'#e8e0d0','stroke-width':s*.015});}
+       el(svg,'circle',{cx:cx+dx,cy:cy+dy,r:s*.09,fill:'var(--bs-c-f5f0e8)'});
+       for(let a=0;a<5;a++){const aa=a*Math.PI*2/5;el(svg,'line',{x1:cx+dx,y1:cy+dy,x2:cx+dx+Math.cos(aa)*s*.07,y2:cy+dy+Math.sin(aa)*s*.07,stroke:'var(--bs-c-e8e0d0)','stroke-width':s*.015});}
      });
    }},
 ];
@@ -298,7 +348,7 @@ renderGrid();
   </div>
 
   <!-- Floating Theme Toggle -->
-  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15);" title="Переключить тему">
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px color-mix(in srgb,var(--bs-c-000000) 15%,transparent);" title="Переключить тему">
     <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
   </button>
   <script src="js/atlas-theme.js"></script>
