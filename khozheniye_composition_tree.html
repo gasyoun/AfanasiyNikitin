@@ -14,7 +14,7 @@
 .ct-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:13.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:12px;}
 .ct-intro b{color:var(--color-text-primary);}
 svg#ct-svg{display:block;width:100%;height:410px!important;overflow:visible;}
-.ct-detail{position:absolute;left:0;right:0;bottom:20px;z-index:5;margin-top:0;padding:9px 11px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);display:none;border-left:3px solid transparent;max-height:138px;overflow-y:auto;box-shadow:0 4px 14px rgba(0,0,0,.14);}
+.ct-detail{position:absolute;left:0;right:0;bottom:20px;z-index:5;margin-top:0;padding:9px 11px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);display:none;border-left:3px solid transparent;max-height:138px;overflow-y:auto;box-shadow:var(--shadow-detail-panel);}
 .ct-detail.open{display:block;}
 .ct-det-h{font-size:15px;font-weight:500;margin-bottom:5px;}
 .ct-det-q{font-size:14.5px;font-family:var(--font-serif);line-height:1.7;margin-bottom:7px;padding-left:10px;border-left:2px solid var(--color-border-secondary);color:var(--color-text-primary);}
@@ -440,7 +440,7 @@ new MutationObserver(()=>{
 </script>
 
   <!-- Floating Theme Toggle -->
-  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15);" title="Переключить тему">
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
     <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
   </button>
   <script src="js/atlas-theme.js"></script>

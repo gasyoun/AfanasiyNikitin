@@ -20,6 +20,8 @@
     --font-serif: Georgia, "Times New Roman", serif;
     --shadow-container: 0 8px 24px rgba(0, 0, 0, 0.05);
     --shadow-floating-control: 0 4px 16px rgba(0,0,0,0.15);
+    --shadow-popover: 0 3px 12px rgba(0,0,0,.12);
+    --shadow-detail-panel: 0 4px 14px rgba(0,0,0,.14);
     /* Type scale */
     --text-xs:   0.6875rem;
     --text-sm:   0.8125rem;
