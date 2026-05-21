@@ -27,6 +27,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Tightened the shared visualization shell spacing in `css/atlas.css`, bringing the map, Gantt, people network, and several compact widgets back within a 1366×768 viewport.
 - `afanasy_trade_marshruttnik.html`: moved goods badges, legend outlines, and the trade-map Canvas palette onto shared atlas color tokens.
 - `afanasy_borders_animation.html`: moved event accents, legend swatches, Canvas basemap colors, labels, active marker, and Ottoman expansion arrows onto shared atlas color tokens.
+- `afanasy_borders_animation.html`: moved historical-state Canvas polygon fill/stroke colors into local CSS variables.
 - `afanasy_editions_v3.html`: moved generated SVG book-cover colors and edition detail accents into local CSS variables while preserving the existing reconstructed cover palettes.
 - `afanasy_v8_text_map.html`: moved the route-map Canvas basemap, route, waypoint, and passage-active colors onto shared world/accent/text tokens.
 - `afanasy_video_export.html`: moved the video-export Canvas/HUD route palette into local CSS variables and aligned record/link accents with shared atlas tokens.

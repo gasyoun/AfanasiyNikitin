@@ -9,6 +9,47 @@
   <!-- CSS Variables & Base Styles -->
   <link rel="stylesheet" href="css/atlas.css">
   <style>
+:root{
+  --ba-moscow-fill: rgba(190,155,90,0.3);
+  --ba-moscow-stroke: rgba(130,95,40,0.65);
+  --ba-kazan-fill: rgba(180,140,70,0.27);
+  --ba-kazan-stroke: rgba(130,90,35,0.6);
+  --ba-kazan-pressure-fill: rgba(180,140,70,0.18);
+  --ba-kazan-pressure-stroke: rgba(200,60,40,0.6);
+  --ba-astrakhan-fill: rgba(200,165,80,0.27);
+  --ba-astrakhan-stroke: rgba(150,110,40,0.55);
+  --ba-crimea-fill: rgba(195,155,75,0.27);
+  --ba-crimea-stroke: rgba(145,105,38,0.6);
+  --ba-crimea-ottoman-fill: rgba(215,100,80,0.22);
+  --ba-crimea-ottoman-stroke: rgba(175,55,38,0.6);
+  --ba-shirvan-fill: rgba(120,175,110,0.3);
+  --ba-shirvan-stroke: rgba(70,130,55,0.65);
+  --ba-aq-fill: rgba(200,135,85,0.27);
+  --ba-aq-stroke: rgba(155,88,45,0.62);
+  --ba-aq-weak-fill: rgba(200,135,85,0.18);
+  --ba-aq-weak-stroke: rgba(200,88,45,0.55);
+  --ba-timurid-fill: rgba(155,195,130,0.27);
+  --ba-timurid-stroke: rgba(95,150,65,0.58);
+  --ba-delhi-fill: rgba(205,175,100,0.27);
+  --ba-delhi-stroke: rgba(160,120,48,0.58);
+  --ba-gujarat-fill: rgba(165,205,150,0.27);
+  --ba-gujarat-stroke: rgba(105,162,78,0.58);
+  --ba-bahmani-fill: rgba(100,155,210,0.3);
+  --ba-bahmani-stroke: rgba(50,95,175,0.65);
+  --ba-bahmani-goa-fill: rgba(100,155,210,0.35);
+  --ba-bahmani-goa-stroke: rgba(50,95,175,0.75);
+  --ba-vijayanagara-fill: rgba(210,165,110,0.27);
+  --ba-vijayanagara-stroke: rgba(165,108,55,0.58);
+  --ba-vijayanagara-minus-goa-fill: rgba(210,165,110,0.22);
+  --ba-vijayanagara-minus-goa-stroke: rgba(200,108,55,0.55);
+  --ba-ottoman-fill: rgba(215,100,80,0.23);
+  --ba-ottoman-stroke: rgba(175,55,38,0.58);
+  --ba-ottoman-expansion-fill: rgba(215,80,60,0.28);
+  --ba-ottoman-expansion-stroke: rgba(200,40,30,0.7);
+  --ba-mamluk-fill: rgba(225,195,100,0.23);
+  --ba-mamluk-stroke: rgba(180,140,48,0.58);
+  --ba-shadow: rgba(0,0,0,0.15);
+}
     /* Original Widget Styles */
     .brd-wrap{font-size:12px;}
 canvas#brdC{display:block;width:100%;height:300px!important;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:6px;}
@@ -126,6 +167,8 @@ const EVENTS=[
    color:'var(--viz-region-russia)'},
 ];
 
+function statePaint(key){return{c:cssVar(`--ba-${key}-fill`),b:cssVar(`--ba-${key}-stroke`)};}
+
 // ── States per time interval ──────────────────────────────────────────────────
 // Each state: poly [lon,lat], fill, stroke, label, labelPos [lon,lat]
 // States change/appear/disappear as t advances
@@ -137,85 +180,85 @@ function getStates(t){
   const moscowPoly=yr<1471
     ?[[30,57],[38,61],[44,60],[50,57],[52,55],[50,52],[44,50],[38,49],[33,51],[30,54]]
     :[[28,58],[38,62],[46,61],[52,58],[54,55],[50,52],[44,50],[38,49],[33,51],[28,55]];
-  states.push({n:'Московское\nкн-во',c:'rgba(190,155,90,0.3)',b:'rgba(130,95,40,0.65)',lp:[41,57],poly:moscowPoly,changed:yr>=1471});
+  states.push({n:'Московское\nкн-во',...statePaint('moscow'),lp:[41,57],poly:moscowPoly,changed:yr>=1471});
 
   // Казань — исчезает в 1552 но в нашем диапазоне стабильна с небольшими изменениями
   if(yr<1469){
-    states.push({n:'Казань',c:'rgba(180,140,70,0.27)',b:'rgba(130,90,35,0.6)',lp:[53,55],
+    states.push({n:'Казань',...statePaint('kazan'),lp:[53,55],
       poly:[[50,57],[57,57],[59,55],[56,52],[50,52],[48,54]],changed:false});
   } else {
-    states.push({n:'Казань\n(под давлением)',c:'rgba(180,140,70,0.18)',b:'rgba(200,60,40,0.6)',lp:[53,55],
+    states.push({n:'Казань\n(под давлением)',...statePaint('kazan-pressure'),lp:[53,55],
       poly:[[50,57],[57,57],[59,55],[56,52],[50,52],[48,54]],changed:true});
   }
 
   // Астрахань
-  states.push({n:'Астрахань',c:'rgba(200,165,80,0.27)',b:'rgba(150,110,40,0.55)',lp:[49,47],
+  states.push({n:'Астрахань',...statePaint('astrakhan'),lp:[49,47],
     poly:[[46,50],[53,50],[54,47],[52,44],[46,44],[43,46],[44,49]],changed:false});
 
   // Крым — после 1475 становится вассалом Османов
   if(yr<1475){
-    states.push({n:'Крым',c:'rgba(195,155,75,0.27)',b:'rgba(145,105,38,0.6)',lp:[34.5,45.5],
+    states.push({n:'Крым',...statePaint('crimea'),lp:[34.5,45.5],
       poly:[[32,47],[37,47],[37,44.5],[34,44],[32,44.5]],changed:false});
   } else {
-    states.push({n:'Крым\n(→ Османы)',c:'rgba(215,100,80,0.22)',b:'rgba(175,55,38,0.6)',lp:[34.5,45.5],
+    states.push({n:'Крым\n(→ Османы)',...statePaint('crimea-ottoman'),lp:[34.5,45.5],
       poly:[[32,47],[37,47],[37,44.5],[34,44],[32,44.5]],changed:true});
   }
 
   // Ширван
-  states.push({n:'Ширван',c:'rgba(120,175,110,0.3)',b:'rgba(70,130,55,0.65)',lp:[49.5,40],
+  states.push({n:'Ширван',...statePaint('shirvan'),lp:[49.5,40],
     poly:[[47,38],[49,42],[52,41],[52,38],[49,37]],changed:false});
 
   // Ак-Коюнлу — уменьшается после 1473
   if(yr<1473){
-    states.push({n:'Ак-Коюнлу',c:'rgba(200,135,85,0.27)',b:'rgba(155,88,45,0.62)',lp:[50,35],
+    states.push({n:'Ак-Коюнлу',...statePaint('aq'),lp:[50,35],
       poly:[[38,37],[43,42],[50,42],[56,39],[62,36],[60,30],[54,27],[48,27],[44,30],[38,33],[36,36]],changed:false});
   } else {
-    states.push({n:'Ак-Коюнлу\n(слабеет)',c:'rgba(200,135,85,0.18)',b:'rgba(200,88,45,0.55)',lp:[52,35],
+    states.push({n:'Ак-Коюнлу\n(слабеет)',...statePaint('aq-weak'),lp:[52,35],
       poly:[[42,38],[50,41],[56,38],[62,35],[60,30],[54,27],[48,27],[44,30],[42,34]],changed:true});
   }
 
   // Тимуриды
-  states.push({n:'Тимуриды',c:'rgba(155,195,130,0.27)',b:'rgba(95,150,65,0.58)',lp:[66,33],
+  states.push({n:'Тимуриды',...statePaint('timurid'),lp:[66,33],
     poly:[[58,32],[62,38],[68,38],[72,36],[72,30],[68,26],[62,26],[58,28]],changed:false});
 
   // Делийский султанат
-  states.push({n:'Делийский\nсултанат',c:'rgba(205,175,100,0.27)',b:'rgba(160,120,48,0.58)',lp:[74,31],
+  states.push({n:'Делийский\nсултанат',...statePaint('delhi'),lp:[74,31],
     poly:[[68,25],[78,28],[80,30],[80,35],[74,36],[70,34],[67,30],[67,27]],changed:false});
 
   // Гуджарат
-  states.push({n:'Гуджарат',c:'rgba(165,205,150,0.27)',b:'rgba(105,162,78,0.58)',lp:[71,22],
+  states.push({n:'Гуджарат',...statePaint('gujarat'),lp:[71,22],
     poly:[[68,20],[74,20],[76,23],[73,25],[69,25],[67,23]],changed:false});
 
   // Бахманиды — расширяются после взятия Гоа в 1472
   if(yr<1472){
-    states.push({n:'Бахманиды',c:'rgba(100,155,210,0.3)',b:'rgba(50,95,175,0.65)',lp:[76.5,17.5],
+    states.push({n:'Бахманиды',...statePaint('bahmani'),lp:[76.5,17.5],
       poly:[[73,14],[80,14],[80,20],[77,21],[73,19],[72,17]],changed:false});
   } else {
-    states.push({n:'Бахманиды\n(+Гоа)',c:'rgba(100,155,210,0.35)',b:'rgba(50,95,175,0.75)',lp:[76.5,17],
+    states.push({n:'Бахманиды\n(+Гоа)',...statePaint('bahmani-goa'),lp:[76.5,17],
       poly:[[72,14],[80,14],[80,20],[77,21],[73,19],[72,14],[73.8,15.5],[72.5,16]],changed:true});
   }
 
   // Виджаянагара — теряет Гоа
   if(yr<1472){
-    states.push({n:'Виджаянагара',c:'rgba(210,165,110,0.27)',b:'rgba(165,108,55,0.58)',lp:[76,12],
+    states.push({n:'Виджаянагара',...statePaint('vijayanagara'),lp:[76,12],
       poly:[[72,8],[80,8],[80,14],[73,14],[70,12]],changed:false});
   } else {
-    states.push({n:'Виджаянагара\n(−Гоа)',c:'rgba(210,165,110,0.22)',b:'rgba(200,108,55,0.55)',lp:[76,12],
+    states.push({n:'Виджаянагара\n(−Гоа)',...statePaint('vijayanagara-minus-goa'),lp:[76,12],
       poly:[[74,8],[80,8],[80,14],[73,14],[71,12]],changed:true});
   }
 
   // Османы — расширяются
   if(yr<1473){
-    states.push({n:'Османы',c:'rgba(215,100,80,0.23)',b:'rgba(175,55,38,0.58)',lp:[35,36],
+    states.push({n:'Османы',...statePaint('ottoman'),lp:[35,36],
       poly:[[28,36],[38,38],[42,38],[42,36],[40,33],[36,31],[30,31],[28,33]],changed:false});
   } else {
     // После Терджана 1473 — расширение на восток
-    states.push({n:'Османы\n(экспансия)',c:'rgba(215,80,60,0.28)',b:'rgba(200,40,30,0.7)',lp:[36,36],
+    states.push({n:'Османы\n(экспансия)',...statePaint('ottoman-expansion'),lp:[36,36],
       poly:[[28,36],[40,39],[44,38],[44,36],[42,33],[36,31],[30,31],[28,33]],changed:true});
   }
 
   // Мамлюки
-  states.push({n:'Мамлюки',c:'rgba(225,195,100,0.23)',b:'rgba(180,140,48,0.58)',lp:[35,27.5],
+  states.push({n:'Мамлюки',...statePaint('mamluk'),lp:[35,27.5],
     poly:[[30,22],[38,22],[40,30],[36,32],[30,31],[29,25]],changed:false});
 
   return states;
@@ -415,7 +458,7 @@ waitLib(()=>{
 </script>
 
   <!-- Floating Theme Toggle -->
-  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.15);" title="Переключить тему">
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px var(--ba-shadow);" title="Переключить тему">
     <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
   </button>
   <script src="js/atlas-theme.js"></script>
