@@ -1,4 +1,4 @@
-const CACHE_NAME = 'afanasy-atlas-v6';
+const CACHE_NAME = 'afanasy-atlas-v8';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -12,7 +12,6 @@ const ASSETS_TO_CACHE = [
   './lib/topojson.min.js',
   './lib/countries-110m.json',
   './lib/tabler-icons.min.css',
-  './lib/fonts/tabler-icons.woff2',
   './afanasy_v8_text_map.html',
   './afanasy_video_export.html',
   './afanasy_gantt.html',
@@ -38,7 +37,8 @@ const ASSETS_TO_CACHE = [
   './khozheniye_composition_tree.html',
   './afanasy_manuscript_layers.html',
   './afanasy_gavan_parallel.html',
-  './afanasy_concordance_index.html'
+  './afanasy_concordance_index.html',
+  './afanasy_sea_voyages.html'
 ];
 
 self.addEventListener('install', event => {

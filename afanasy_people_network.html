@@ -321,13 +321,15 @@ function getNodeAt(mx,my){
 
 function showDetail(n){
   const det=document.getElementById('pn-det');
-  if(!n){det.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary);">Нажмите на узел чтобы узнать о человеке.</div>';det.style.borderLeftColor='var(--color-border-tertiary)';return;}
+  if(!n){det.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary); animation: fadeSlideIn 0.25s ease-out;">Нажмите на узел чтобы узнать о человеке.</div>';det.style.borderLeftColor='var(--color-border-tertiary)';return;}
   const col=colorOf(TYPE_TOKEN[n.type],cssVal('--color-border-primary'));
   det.style.borderLeftColor=col;
-  det.innerHTML=`<div class="pn-det-name" style="color:${col};">${n.label.replace('\n',' ')}</div>
-    <div class="pn-det-role">${n.role} · <span style="opacity:.7;">${n.loc}</span></div>
-    <div class="pn-det-quote">${n.quote}</div>
-    <div class="pn-det-body">${n.body}</div>`;
+  det.innerHTML=`<div class="pn-det-wrapper" style="animation: fadeSlideIn 0.25s ease-out; display: flex; flex-direction: column; gap: 8px;">
+    <div class="pn-det-name" style="color:${col}; font-weight: 600; font-size: 13px;">${n.label.replace('\n',' ')}</div>
+    <div class="pn-det-role" style="font-size: 11px; color: var(--color-text-secondary);">${n.role} · <span style="opacity:.7;">${n.loc}</span></div>
+    <div class="pn-det-quote" style="font-size: 11px; font-family: var(--font-serif); font-style: italic; border-left: 2px solid var(--color-border-secondary); padding-left: 8px; margin: 4px 0; color: var(--color-text-primary);">${n.quote}</div>
+    <div class="pn-det-body" style="font-size: 11px; color: var(--color-text-secondary); line-height: 1.45;">${n.body}</div>
+  </div>`;
 }
 
 const ratio=C.getBoundingClientRect().width/W||1;
