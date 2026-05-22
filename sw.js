@@ -1,4 +1,4 @@
-const CACHE_NAME = 'afanasy-atlas-v8';
+const CACHE_NAME = 'afanasy-atlas-v9';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -38,7 +38,8 @@ const ASSETS_TO_CACHE = [
   './afanasy_manuscript_layers.html',
   './afanasy_gavan_parallel.html',
   './afanasy_concordance_index.html',
-  './afanasy_sea_voyages.html'
+  './afanasy_sea_voyages.html',
+  './afanasy_prayer_interlinear.html'
 ];
 
 self.addEventListener('install', event => {

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Афанасий Никитин — Подстрочник полиглотной молитвы</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+  <style>
+    .pr-intro{font-size:12.5px;color:var(--color-text-secondary);line-height:1.55;margin-bottom:8px;max-width:880px;}
+    .pr-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+    .pr-tab{padding:5px 11px;border:0.5px solid var(--color-border-tertiary);border-radius:999px;background:var(--color-background-primary);
+      font-size:12px;color:var(--color-text-secondary);cursor:pointer;transition:all .14s;display:flex;gap:6px;align-items:center;min-height:30px;}
+    .pr-tab:hover{background:var(--color-background-secondary);}
+    .pr-tab.active{border-color:var(--color-accent);color:var(--color-text-primary);background:var(--color-background-secondary);font-weight:500;}
+    .pr-tab .pr-fol{font-size:10px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:3px;padding:0 4px;font-variant-numeric:tabular-nums;}
+    .pr-tab.active .pr-fol{background:var(--color-accent);color:var(--color-background-primary);border-color:var(--color-accent);}
+
+    .pr-stats{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:9px;}
+    .pr-stat{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:5px 11px;min-width:84px;}
+    .pr-stat-v{font-size:18px;font-weight:500;color:var(--color-text-primary);line-height:1.05;font-variant-numeric:tabular-nums;}
+    .pr-stat-l{font-size:10px;color:var(--color-text-secondary);margin-top:2px;}
+    .pr-stat.accent .pr-stat-v{color:var(--color-accent);}
+
+    .pr-wrap{display:flex;gap:12px;align-items:flex-start;}
+    .pr-main{flex:1 1 0;min-width:0;}
+    .pr-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px;}
+    .pr-modes{display:inline-flex;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);overflow:hidden;}
+    .pr-modes button{border:0;border-radius:0;padding:6px 12px;font-size:12px;background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;min-height:32px;}
+    .pr-modes button + button{border-left:0.5px solid var(--color-border-tertiary);}
+    .pr-modes button.active{background:var(--color-accent);color:var(--color-background-primary);font-weight:500;}
+    .pr-ar-toggle{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--color-text-secondary);cursor:pointer;user-select:none;}
+
+    .pr-legend{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:9px;}
+    .pr-lg{display:inline-flex;gap:5px;align-items:center;font-size:11px;color:var(--color-text-secondary);
+      padding:3px 9px;border:0.5px solid var(--color-border-tertiary);border-radius:999px;cursor:pointer;background:var(--color-background-primary);min-height:26px;}
+    .pr-lg .dot{width:10px;height:10px;border-radius:50%;}
+    .pr-lg.off{opacity:.4;}
+    .pr-lg.solo{border-color:var(--color-accent);}
+
+    .pr-reading{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;
+      max-height:calc(100vh - 360px);overflow-y:auto;background:var(--color-background-primary);}
+
+    /* reading (running text) mode */
+    .pr-read-text{font-family:var(--font-serif);font-size:17px;line-height:2.0;}
+    .pr-tok{border-radius:3px;padding:1px 3px;cursor:pointer;transition:background .12s,box-shadow .12s;}
+    .pr-tok:hover{box-shadow:0 0 0 1.5px var(--tok-color);}
+    .pr-tok.active{box-shadow:0 0 0 2px var(--color-accent);}
+    .pr-tok.dim{opacity:.25;}
+    .pr-tok-ru{color:var(--color-text-secondary);} /* russian frame stays muted */
+
+    /* interlinear mode */
+    .pr-inter{display:flex;flex-wrap:wrap;gap:9px 12px;}
+    .pr-cell{display:flex;flex-direction:column;gap:1px;cursor:pointer;border-radius:5px;padding:5px 7px;border:0.5px solid transparent;transition:all .12s;min-width:40px;}
+    .pr-cell:hover{border-color:var(--tok-color);background:var(--color-background-secondary);}
+    .pr-cell.active{border-color:var(--color-accent);background:var(--color-background-secondary);}
+    .pr-cell.dim{opacity:.28;}
+    .pr-cell .c-tok{font-family:var(--font-serif);font-size:15.5px;color:var(--tok-text);font-weight:500;}
+    .pr-cell .c-tr{font-size:10.5px;color:var(--color-text-secondary);font-style:italic;}
+    .pr-cell .c-ar{font-size:14px;color:var(--tok-text);direction:rtl;}
+    .pr-cell .c-g{font-size:11.5px;color:var(--color-text-primary);}
+    .pr-cell .c-name{font-size:9px;font-variant-numeric:tabular-nums;color:var(--color-accent);font-weight:600;}
+
+    .pr-src{font-size:10.5px;color:var(--color-text-secondary);margin-top:8px;line-height:1.5;}
+
+    .pr-detail{flex:0 0 268px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;display:flex;flex-direction:column;}
+    .pr-det-head{padding:9px 13px;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);display:flex;justify-content:space-between;align-items:center;gap:8px;}
+    .pr-det-tok{font-family:var(--font-serif);font-size:18px;font-weight:500;color:var(--color-text-primary);}
+    .pr-det-lang{font-size:10px;padding:2px 7px;border-radius:999px;color:#fff;white-space:nowrap;}
+    .pr-det-body{padding:12px 13px;font-size:12.5px;line-height:1.6;}
+    .pr-det-row{margin-bottom:9px;}
+    .pr-det-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:1px;}
+    .pr-det-val{color:var(--color-text-primary);}
+    .pr-det-ar{font-size:22px;direction:rtl;color:var(--color-text-primary);}
+    .pr-det-tr{font-style:italic;}
+    .pr-det-note{font-size:11.5px;color:var(--color-text-secondary);border-top:0.5px solid var(--color-border-tertiary);padding-top:8px;margin-top:2px;}
+    .pr-det-empty{padding:22px 14px;font-size:12px;color:var(--color-text-secondary);text-align:center;line-height:1.55;}
+    .pr-xlinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+    .pr-xlink{font-size:11px;display:inline-flex;gap:5px;align-items:center;text-decoration:none;color:var(--color-text-secondary);
+      border:0.5px solid var(--color-border-tertiary);border-radius:999px;padding:4px 10px;background:var(--color-background-primary);}
+    .pr-xlink:hover{color:var(--color-text-primary);border-color:var(--color-accent);}
+
+    @media (max-width:760px){
+      .pr-wrap{flex-direction:column;}
+      .pr-detail{flex:1 1 auto;width:100%;}
+      .pr-reading{max-height:none;}
+      .pr-read-text{font-size:16px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="vis-container">
+    <header class="vis-header">
+      <h1><span class="lang-ru">Подстрочник полиглотной молитвы</span><span class="lang-en">Interlinear of the Polyglot Prayer</span></h1>
+      <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка">
+        <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> <span class="lang-ru">Атлас</span><span class="lang-en">Atlas</span></a>
+        <span class="atlas-breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="atlas-breadcrumb-current lang-ru">Подстрочник молитвы</span>
+        <span class="atlas-breadcrumb-current lang-en">Prayer interlinear</span>
+      </nav>
+    </header>
+
+    <p class="pr-intro" id="intro"></p>
+    <div class="pr-tabs" id="tabs"></div>
+    <div class="pr-stats" id="stats"></div>
+
+    <div class="pr-wrap">
+      <div class="pr-main">
+        <div class="pr-controls">
+          <div class="pr-modes" id="modes" role="tablist">
+            <button data-mode="read" class="active">Чтение</button>
+            <button data-mode="inter">Подстрочник</button>
+            <button data-mode="names">99 имён</button>
+          </div>
+          <label class="pr-ar-toggle"><input type="checkbox" id="arToggle"> <span class="lang-ru">показать арабицу</span><span class="lang-en">show Arabic</span></label>
+        </div>
+        <div class="pr-legend" id="legend"></div>
+        <div class="pr-reading" id="reading"></div>
+        <div class="pr-src" id="src"></div>
+      </div>
+
+      <aside class="pr-detail">
+        <div class="pr-det-head">
+          <span class="pr-det-tok" id="det-tok">Слово</span>
+          <span class="pr-det-lang" id="det-lang" style="display:none;"></span>
+        </div>
+        <div class="pr-det-body" id="det-body">
+          <div class="pr-det-empty">Нажмите любое слово в молитве, чтобы увидеть язык, оригинал и значение.</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const cv = n => `var(${n})`;
+    // Reuse the shared language palette (consistent with the language map widget).
+    const LANGS = {
+      ar:{ru:'арабский',  en:'Arabic',       c:'--viz-language-arabic',  t:'--viz-language-arabic-text'},
+      fa:{ru:'персидский',en:'Persian',      c:'--viz-language-persian', t:'--viz-language-persian-text'},
+      tt:{ru:'тюркский',  en:'Turkic',       c:'--viz-language-tatar',   t:'--viz-language-tatar-text'},
+      ru:{ru:'русский',   en:'Russian',      c:'--viz-language-russian', t:'--viz-language-russian-text'},
+    };
+
+    // ── Data ──────────────────────────────────────────────────────────────
+    // Raw Cyrillic per the academic edition (Хожение 1986); apparatus brackets
+    // {}/[] normalised to the primary reading. Glosses: for the laments and the
+    // Эфиопия cry — translation per Хожение 1986, с. 50 / Хрусталёв 2026; for the
+    // closing doxology — Хрусталёв labels Ф.104 «имена Аллаха»; name-by-name
+    // identification follows the standard Asmā' al-ḥusnā (Коран 59:22–24, ал-Хашр).
+    const PRAYERS = [
+      { id:'dox', fol:'Ф. 104', tru:'Заключительное славословие', ten:'Closing doxology',
+        intro:'Финал «Хожения». Афанасий завершает книгу не по-русски, а длинной цепочкой мусульманских формул и имён Бога — Хрусталёв прямо называет Ф.104 «памяткой с именами Аллаха». Это фонетическая запись Корана 59:22–24 (сура «ал-Хашр») и «прекрасных имён».',
+        src:'Хожение 1986; Хрусталёв 2026, текст §§103–104 (лл. 391об.–392об. Троицкого / Летописного списков). Идентификация имён — Asmā’ al-ḥusnā, Коран 59:22–24.',
+        tokens:[
+          {t:'Олло перводигер',  l:'fa', tr:'Ollo pervodiger',  ar:'الله پروردگار', arTr:'Allāh parwardigār', g:'Бог-Промыслитель (перс. «питающий, хранящий»)'},
+          {t:'Милостию Божиею преидох же три моря', l:'ru', tr:'', g:'Русская рамка: «По милости Божией я прошёл три моря».', frame:true},
+          {t:'Дигерь худо доно',  l:'fa', tr:'Diger’ xudo dono', ar:'دیگر خدا دانا', arTr:'digar xudā dānā', g:'перс. «иного [нет], Бог знающий».'},
+          {t:'олло перводигерь дано', l:'fa', tr:'ollo pervodiger’ dano', ar:'الله پروردگار دانا', arTr:'Allāh parwardigār dānā', g:'«Бог-Промыслитель знающий».'},
+          {t:'Аминь!', l:'ar', tr:'Amin’', ar:'آمين', arTr:'āmīn', g:'«Аминь».'},
+          {t:'Милна рахмам рагим', l:'ar', tr:'Milna raxmam ragim', ar:'بسم الله الرحمن الرحيم', arTr:'(bis)millāh al-raḥmān al-raḥīm', g:'Басмала: «Во имя Бога милостивого, милосердного».'},
+          {t:'Олло акьбирь', l:'ar', tr:'Ollo ak’bir’', ar:'الله أكبر', arTr:'Allāhu akbar', g:'«Бог велик» (такбир).'},
+          {t:'акши худо', l:'tt', tr:'akši xudo', ar:'یخشی خدا', arTr:'yaxšı xudā', g:'тюрк.-перс. «благой Бог».'},
+          {t:'илелло акшь ходо', l:'ar', tr:'ilello ak’š’ xodo', ar:'إلا الله', arTr:'illā Allāh…', g:'«…кроме Бога, благой Бог».'},
+          {t:'Иса рухоало', l:'ar', tr:'Isa ruxoalo', ar:'عيسى روح الله', arTr:'ʿĪsā rūḥ Allāh', g:'«Иисус — дух Божий»: кораническая формула об Исе в устах православного купца.'},
+          {t:'ааликъсолом', l:'ar', tr:'aalik’solom', ar:'عليه السلام', arTr:'ʿalayhi al-salām', g:'«мир ему» — формула после имени пророка.'},
+          {t:'Олло акьберь', l:'ar', tr:'Ollo ak’ber’', ar:'الله أكبر', arTr:'Allāhu akbar', g:'«Бог велик».'},
+          {t:'А илягаиля илелло', l:'ar', tr:'A iljagailja ilello', ar:'لا إله إلا الله', arTr:'lā ilāha illā Allāh', g:'Шахада: «Нет бога, кроме Бога».'},
+          {t:'Олло перводигерь', l:'fa', tr:'Ollo pervodiger’', ar:'الله پروردگار', arTr:'Allāh parwardigār', g:'«Бог-Промыслитель».'},
+          {t:'Ахамду лилло', l:'ar', tr:'Axamdu lillo', ar:'الحمد لله', arTr:'al-ḥamdu lillāh', g:'«Хвала Богу».'},
+          {t:'шукур худо афатад', l:'fa', tr:'šukur xudo afatad', ar:'شکر خدا', arTr:'šukr xudā', g:'«Благодарение Богу» (араб. shukr + перс. xudā).'},
+          {t:'Бисмилнаги рахмам ррагим', l:'ar', tr:'Bismilnagi raxmam rragim', ar:'بسم الله الرحمن الرحيم', arTr:'bismillāh al-raḥmān al-raḥīm', g:'Басмала (повтор).'},
+          {t:'Хуво могу лези', l:'ar', tr:'Xuvo mogu lezi', ar:'هو الله الذي', arTr:'Huwa Allāhu alladhī', g:'«Он — Бог, который…» — начало Корана 59:22.'},
+          {t:'ля ляса ильля гуя', l:'ar', tr:'lja ljasa il’lja guja', ar:'لا إله إلا هو', arTr:'lā ilāha illā huwa', g:'«…нет бога, кроме Него» (59:22).'},
+          {t:'алимуль гяиби ва шагадити', l:'ar', tr:'alimul’ gjaibi va šagaditi', ar:'عالم الغيب والشهادة', arTr:'ʿālim al-ghaybi wa-l-shahāda', g:'«Знающий сокровенное и явное» (59:22).'},
+          {t:'Хуя рахману рагиму', l:'ar', tr:'Xuja raxmanu ragimu', ar:'هو الرحمن الرحيم', arTr:'Huwa al-raḥmān al-raḥīm', g:'«Он — Милостивый, Милосердный» (59:22).'},
+          {t:'хубо могу лязи. Ля иляга ильля хуя', l:'ar', tr:'xubo mogu ljazi, lja iljaga il’lja xuja', ar:'هو الله الذي لا إله إلا هو', arTr:'Huwa Allāhu alladhī lā ilāha illā huwa', g:'«Он — Бог, нет бога, кроме Него» (59:23).'},
+          {t:'Альмелику',     l:'ar', tr:'Al’meliku',     ar:'الملك',   arTr:'al-Malik',      g:'Царь, Владыка',                name:1},
+          {t:'алакудосу',     l:'ar', tr:'alakudosu',     ar:'القدوس',  arTr:'al-Quddūs',     g:'Святой, Пресвятой',            name:2},
+          {t:'асалому',       l:'ar', tr:'asalomu',       ar:'السلام',  arTr:'al-Salām',      g:'Мир, Источник мира',           name:3},
+          {t:'альмумину',     l:'ar', tr:'al’muminu',     ar:'المؤمن',  arTr:'al-Muʾmin',     g:'Дарующий безопасность, Верный',name:4},
+          {t:'альмугамину',   l:'ar', tr:'al’mugaminu',   ar:'المهيمن', arTr:'al-Muhaymin',   g:'Хранитель, Оберегающий',       name:5},
+          {t:'альазизу',      l:'ar', tr:'al’azizu',      ar:'العزيز',  arTr:'al-ʿAzīz',      g:'Всемогущий, Великий',          name:6},
+          {t:'алчебару',      l:'ar', tr:'alčebaru',      ar:'الجبار',  arTr:'al-Jabbār',     g:'Могучий, Властный',            name:7},
+          {t:'альмутаканъбиру',l:'ar',tr:'al’mutakan’biru',ar:'المتكبر',arTr:'al-Mutakabbir', g:'Превознесённый, Величавый',    name:8},
+          {t:'алхалику',      l:'ar', tr:'alxaliku',      ar:'الخالق',  arTr:'al-Khāliq',     g:'Творец',                       name:9},
+          {t:'альбариюу',     l:'ar', tr:'al’bariju',     ar:'البارئ',  arTr:'al-Bāriʾ',      g:'Создатель',                    name:10},
+          {t:'альмумусавирю', l:'ar', tr:'al’mumusavirju', ar:'المصور', arTr:'al-Muṣawwir',   g:'Дающий облик',                 name:11},
+          {t:'алькафару',     l:'ar', tr:'al’kafaru',     ar:'الغفار',  arTr:'al-Ghaffār',    g:'Всепрощающий',                 name:12},
+          {t:'алькалъхару',   l:'ar', tr:'al’kal’xaru',   ar:'القهار',  arTr:'al-Qahhār',     g:'Покоряющий',                   name:13},
+          {t:'аньвазаху',     l:'ar', tr:'an’vazaxu',     ar:'الوهاب',  arTr:'al-Wahhāb',     g:'Дарующий без меры',            name:14},
+          {t:'альрязаку',     l:'ar', tr:'al’rjazaku',    ar:'الرزاق',  arTr:'al-Razzāq',     g:'Наделяющий, Питающий',         name:15},
+          {t:'альфатагу',     l:'ar', tr:'al’fatagu',     ar:'الفتاح',  arTr:'al-Fattāḥ',     g:'Открывающий, Решающий',        name:16},
+          {t:'альалиму',      l:'ar', tr:'al’alimu',      ar:'العليم',  arTr:'al-ʿAlīm',      g:'Всезнающий',                   name:17},
+          {t:'алькабизу',     l:'ar', tr:'al’kabizu',     ar:'القابض',  arTr:'al-Qābiḍ',      g:'Удерживающий',                 name:18},
+          {t:'альбасуту',     l:'ar', tr:'al’basutu',     ar:'الباسط',  arTr:'al-Bāsiṭ',      g:'Расширяющий, Щедрый',          name:19},
+          {t:'альхафизу',     l:'ar', tr:'al’xafizu',     ar:'الخافض',  arTr:'al-Khāfiḍ',     g:'Принижающий гордых',           name:20},
+          {t:'алльрравию',    l:'ar', tr:'all’rraviju',   ar:'الرافع',  arTr:'al-Rāfiʿ',      g:'Возвышающий',                  name:21},
+          {t:'алмавизу',      l:'ar', tr:'almavizu',      ar:'المعز',   arTr:'al-Muʿizz',     g:'Возвеличивающий',              name:22},
+          {t:'алмузилю',      l:'ar', tr:'almuzilju',     ar:'المذل',   arTr:'al-Mudhill',    g:'Унижающий',                    name:23},
+          {t:'альсемилю',     l:'ar', tr:'al’semilju',    ar:'السميع',  arTr:'al-Samīʿ',      g:'Всеслышащий',                  name:24},
+          {t:'албасирю',      l:'ar', tr:'albasirju',     ar:'البصير',  arTr:'al-Baṣīr',      g:'Всевидящий',                   name:25},
+          {t:'альакаму',      l:'ar', tr:'al’akamu',      ar:'الحكم',   arTr:'al-Ḥakam',      g:'Судья',                        name:26},
+          {t:'альадюлю',      l:'ar', tr:'al’adjulju',    ar:'العدل',   arTr:'al-ʿAdl',       g:'Справедливый',                 name:27},
+          {t:'алятуфу',       l:'ar', tr:'aljatufu',      ar:'اللطيف',  arTr:'al-Laṭīf',      g:'Проницательный, Добрый',       name:28},
+        ]
+      },
+      { id:'f49', fol:'Ф. 49', tru:'Молитва-ламент (Парват)', ten:'Lament prayer (Parvat)',
+        intro:'После возвращения из Парвата Афанасий, сбившись в счёте Пасх и потеряв привезённые с Руси книги, молится «промежу вер» — на смеси языков, в настоящем времени дневника.',
+        src:'Хожение 1986, с. 50 (перевод в [квадратных скобках] оттуда же); Хрусталёв 2026, §49 (Ф. 49).',
+        tokens:[
+          {t:'А промежу есми вѣр таньгрыдан истрѣмень ол сакласын', l:'tt', tr:'tangrydan istremen, ol saklasyn', g:'тюрк. «Я молю Бога, пусть он сохранит меня» (täñri — Бог).'},
+          {t:'Олло худо', l:'fa', tr:'Ollo xudo', ar:'الله خدا', arTr:'Allāh xudā', g:'«Господи Боже» (араб. Allāh + перс. xudā).'},
+          {t:'олло акь', l:'ar', tr:'ollo ak’', ar:'الله حق', arTr:'Allāh ḥaqq', g:'«Боже истинный».'},
+          {t:'олло ты', l:'ar', tr:'ollo ty', g:'«Ты Бог» (араб. Allāh + рус. «ты»).'},
+          {t:'олло акъберъ', l:'ar', tr:'ollo ak’ber’', ar:'الله أكبر', arTr:'Allāhu akbar', g:'«Бог великий».'},
+          {t:'олло рагымъ', l:'ar', tr:'ollo ragym’', ar:'الله رحيم', arTr:'Allāh raḥīm', g:'«Бог милосердный».'},
+          {t:'олло керимъ', l:'ar', tr:'ollo kerim’', ar:'الله كريم', arTr:'Allāh karīm', g:'«Бог милостивый, щедрый».'},
+          {t:'олло рагымелъло', l:'ar', tr:'ollo ragymel’lo', ar:'الله رحيم الله', arTr:'Allāh raḥīm Allāh', g:'«Всемилосерднейший».'},
+          {t:'олло каримелло', l:'ar', tr:'ollo karimello', ar:'الله كريم الله', arTr:'Allāh karīm Allāh', g:'«Всемилостивейший».'},
+          {t:'танъ таньгресень', l:'tt', tr:'tan’ tangresen’', g:'тюрк. «Ты Бог» (täñri sen).'},
+          {t:'худосеньсень', l:'fa', tr:'xudosen’sen’', g:'перс.-тюрк. «Ты Господь» (xudā sen sen).'},
+          {t:'Богъ един, тъй царь славы, творець небу и земли', l:'ru', tr:'', g:'Русская рамка: «Бог един, тот царь славы, творец небу и земли».', frame:true},
+        ]
+      },
+      { id:'f50', fol:'Ф. 50–51', tru:'Молитва-ламент (пост)', ten:'Lament prayer (the fast)',
+        intro:'Дневниковая запись о посте «з бесермены»: Афанасий месяц не ел мяса и молился Вседержителю «никоторого именем» — снова мешая русский, тюркский, арабский и персидский.',
+        src:'Хожение 1986, с. 50 (перевод в [квадратных скобках] оттуда же); Хрусталёв 2026, §§50–51 (Ф. 50–51).',
+        tokens:[
+          {t:'А иду я на Русь', l:'ru', tr:'', g:'Рамка дневника: «А иду я на Русь».', frame:true},
+          {t:'кѣтъмышьтыр имень, урусь тутътым', l:'tt', tr:'ketmyshtyr imen, urus tuttym', g:'тюрк. [с думою:] «погибла вера моя, постился я бусурманским постом».'},
+          {t:'богь олло', l:'fa', tr:'bog’ ollo', ar:'الله', arTr:'(bog) Allāh', g:'«Господи Боже».'},
+          {t:'богъ керим', l:'ar', tr:'bog’ kerim', ar:'كريم', arTr:'karīm', g:'«Бог милостивый».'},
+          {t:'богъ рагимъ', l:'ar', tr:'bog’ ragim’', ar:'رحيم', arTr:'raḥīm', g:'«Бог милосердный».'},
+          {t:'богь худо', l:'fa', tr:'bog’ xudo', ar:'خدا', arTr:'xudā', g:'«Бог Господь».'},
+          {t:'богъ акьберь', l:'ar', tr:'bog’ ak’ber’', ar:'أكبر', arTr:'akbar', g:'«Бог великий».'},
+          {t:'олло варенно', l:'fa', tr:'ollo varenno', g:'«Бог зиждитель» (по переводу 1986 г.).'},
+          {t:'олло рагимельно', l:'ar', tr:'ollo ragimel’no', ar:'الله رحيم', arTr:'Allāh raḥīm', g:'«Бог всемилостивейший».'},
+          {t:'сеньсень олло ты', l:'tt', tr:'sen’sen’ ollo ty', g:'тюрк.-рус. «это всё ты, о Господи!» (sen sen — ты и есть).'},
+        ]
+      },
+      { id:'f97', fol:'Ф. 97', tru:'Крик у берегов «Эфиопии»', ten:'Cry off the “Ethiopian” shore',
+        intro:'Месяц в открытом океане без видимой земли; завидев «горы Эфиопскыа» (сомалийский берег), все на судне в страхе кричат — а Афанасий тут же даёт русский перевод их возгласа.',
+        src:'Хожение 1986; Хрусталёв 2026, §97 (Ф. 97). Русский перевод — в самом тексте «Хожения».',
+        tokens:[
+          {t:'Олло перводигер', l:'fa', tr:'Ollo pervodiger', ar:'الله پروردگار', arTr:'Allāh parwardigār', g:'«Боже-Промыслитель».'},
+          {t:'олло конъкар', l:'ar', tr:'ollo kon’kar', ar:'الله قهار', arTr:'Allāh qahhār', g:'«Бог Покоряющий».'},
+          {t:'бизим баши мудна насинь больмышьти', l:'tt', tr:'bizim baši… bolmyšti', g:'тюрк. возглас ужаса мореходов («над нашими головами…»).'},
+          {t:'Боже осподарю, боже, боже вышний, царю небесный, здѣ нам судил еси погибнути!', l:'ru', tr:'', g:'Русский перевод возгласа, который Афанасий приводит сам: «здесь ты судил нам погибнуть!»', frame:true},
+        ]
+      },
+    ];
+
+    // ── State ─────────────────────────────────────────────────────────────
+    let cur = 0, mode = 'read', langFilter = null, showArabic = false, activeTok = -1;
+
+    const $ = id => document.getElementById(id);
+
+    function visibleTokens(p){ return p.tokens; }
+
+    // ── Renderers ─────────────────────────────────────────────────────────
+    function renderTabs(){
+      $('tabs').innerHTML = PRAYERS.map((p,i)=>
+        `<button class="pr-tab${i===cur?' active':''}" data-i="${i}">
+           <span class="pr-fol">${p.fol}</span><span>${p.tru}</span></button>`).join('');
+      $('tabs').querySelectorAll('.pr-tab').forEach(b=>
+        b.onclick=()=>{cur=+b.dataset.i;activeTok=-1;langFilter=null;renderAll();});
+    }
+
+    function computeStats(p){
+      const toks = p.tokens;
+      const words = toks.filter(t=>!t.frame).length;
+      const langs = new Set(toks.filter(t=>!t.frame).map(t=>t.l));
+      const nonRu = toks.filter(t=>!t.frame && t.l!=='ru').length;
+      const pct = words ? Math.round(nonRu/words*100) : 0;
+      const names = toks.filter(t=>t.name).length;
+      return {words, langs:langs.size, pct, names};
+    }
+
+    function renderStats(){
+      const s = computeStats(PRAYERS[cur]);
+      let html =
+        `<div class="pr-stat"><div class="pr-stat-v">${s.words}</div><div class="pr-stat-l">слов/формул</div></div>`+
+        `<div class="pr-stat"><div class="pr-stat-v">${s.langs}</div><div class="pr-stat-l">языка</div></div>`+
+        `<div class="pr-stat"><div class="pr-stat-v">${s.pct}%</div><div class="pr-stat-l">не по-русски</div></div>`;
+      if(s.names) html += `<div class="pr-stat accent"><div class="pr-stat-v">${s.names} / 99</div><div class="pr-stat-l">имён Аллаха</div></div>`;
+      $('stats').innerHTML = html;
+    }
+
+    function renderLegend(){
+      const present = [...new Set(PRAYERS[cur].tokens.map(t=>t.l))];
+      $('legend').innerHTML = ['ar','fa','tt','ru'].filter(k=>present.includes(k)).map(k=>{
+        const off = langFilter && langFilter!==k;
+        return `<span class="pr-lg${off?' off':''}${langFilter===k?' solo':''}" data-l="${k}">
+          <span class="dot" style="background:${cv(LANGS[k].c)}"></span>${LANGS[k].ru}</span>`;
+      }).join('');
+      $('legend').querySelectorAll('.pr-lg').forEach(el=>
+        el.onclick=()=>{langFilter = langFilter===el.dataset.l ? null : el.dataset.l; renderReading(); renderLegend();});
+    }
+
+    function dim(t){ return langFilter && t.l!==langFilter && !t.frame; }
+
+    function renderReading(){
+      const p = PRAYERS[cur];
+      const box = $('reading');
+      if(mode==='read'){
+        box.className = 'pr-reading';
+        box.innerHTML = `<div class="pr-read-text">${
+          p.tokens.map((t,i)=>{
+            const dd = dim(t) || (langFilter && t.frame);
+            return `<span class="pr-tok${t.frame?' pr-tok-ru':''}${i===activeTok?' active':''}${dd?' dim':''}"
+              style="--tok-color:${cv(LANGS[t.l].c)};--tok-text:${cv(LANGS[t.l].t)};background:color-mix(in srgb, ${cv(LANGS[t.l].c)} 16%, transparent);color:${cv(LANGS[t.l].t)}"
+              data-i="${i}">${t.t}</span>`;
+          }).join(' ')
+        }</div>`;
+      } else if(mode==='inter'){
+        box.className = 'pr-reading';
+        box.innerHTML = `<div class="pr-inter">${
+          p.tokens.map((t,i)=>{
+            const dd = dim(t);
+            return `<div class="pr-cell${i===activeTok?' active':''}${dd?' dim':''}"
+              style="--tok-color:${cv(LANGS[t.l].c)};--tok-text:${cv(LANGS[t.l].t)}" data-i="${i}">
+              <span class="c-tok">${t.t}</span>
+              ${t.tr?`<span class="c-tr">${t.tr}</span>`:''}
+              ${showArabic&&t.ar?`<span class="c-ar">${t.ar}</span>`:''}
+              <span class="c-g">${t.g}</span>
+              ${t.name?`<span class="c-name">имя №${t.name}</span>`:''}
+            </div>`;
+          }).join('')
+        }</div>`;
+      } else { // names
+        box.className = 'pr-reading';
+        const named = p.tokens.filter(t=>t.name);
+        if(!named.length){
+          box.innerHTML = `<div class="pr-det-empty">В этом фрагменте нет цепочки «прекрасных имён». Откройте вкладку «${PRAYERS[0].fol}».</div>`;
+        } else {
+          box.innerHTML = `<div class="pr-inter">${
+            named.map(t=>{
+              const i = p.tokens.indexOf(t);
+              return `<div class="pr-cell${i===activeTok?' active':''}"
+                style="--tok-color:${cv(LANGS.ar.c)};--tok-text:${cv(LANGS.ar.t)}" data-i="${i}">
+                <span class="c-name">№${t.name}</span>
+                <span class="c-tok">${t.t}</span>
+                <span class="c-ar" style="opacity:1">${t.ar}</span>
+                <span class="c-tr">${t.arTr}</span>
+                <span class="c-g">${t.g}</span>
+              </div>`;
+            }).join('')
+          }</div>`;
+        }
+      }
+      box.querySelectorAll('[data-i]').forEach(el=>
+        el.onclick=()=>{activeTok=+el.dataset.i; renderReading(); renderDetail();});
+      $('src').textContent = '⌖ ' + p.src;
+    }
+
+    function renderDetail(){
+      const p = PRAYERS[cur];
+      const t = p.tokens[activeTok];
+      const body = $('det-body'), tokEl = $('det-tok'), langEl = $('det-lang');
+      if(!t){
+        tokEl.textContent='Слово'; langEl.style.display='none';
+        body.innerHTML='<div class="pr-det-empty">Нажмите любое слово в молитве, чтобы увидеть язык, оригинал и значение.</div>';
+        return;
+      }
+      tokEl.textContent = t.t.length>22 ? t.t.slice(0,21)+'…' : t.t;
+      langEl.style.display='';
+      langEl.textContent = LANGS[t.l].ru;
+      langEl.style.background = cv(LANGS[t.l].c);
+      let h='';
+      if(t.name) h+=`<div class="pr-det-row"><div class="pr-det-lbl">Имя Аллаха</div><div class="pr-det-val">№ ${t.name} из 99 (Asmā’ al-ḥusnā)</div></div>`;
+      h+=`<div class="pr-det-row"><div class="pr-det-lbl">Оригинал (как в тексте)</div><div class="pr-det-val" style="font-family:var(--font-serif)">${t.t}</div></div>`;
+      if(t.tr) h+=`<div class="pr-det-row"><div class="pr-det-lbl">Транслитерация</div><div class="pr-det-val pr-det-tr">${t.tr}</div></div>`;
+      if(t.ar) h+=`<div class="pr-det-row"><div class="pr-det-lbl">Источник</div><div class="pr-det-ar">${t.ar}</div><div class="pr-det-val pr-det-tr">${t.arTr||''}</div></div>`;
+      h+=`<div class="pr-det-row"><div class="pr-det-lbl">Значение</div><div class="pr-det-val">${t.g}</div></div>`;
+      h+=`<div class="pr-xlinks">
+        <a class="pr-xlink" href="afanasy_language_map_v2.html"><i class="ti ti-map-2"></i>языки текста</a>
+        <a class="pr-xlink" href="afanasy_manuscripts.html"><i class="ti ti-versions"></i>три списка</a>
+        <a class="pr-xlink" href="afanasy_religious_crisis.html"><i class="ti ti-cross"></i>Господи / Аллах</a>
+      </div>`;
+      body.innerHTML = h;
+    }
+
+    function renderAll(){ renderTabs(); $('intro').textContent=PRAYERS[cur].intro; renderStats(); renderLegend(); renderReading(); renderDetail(); }
+
+    // ── Controls ──────────────────────────────────────────────────────────
+    $('modes').querySelectorAll('button').forEach(b=>
+      b.onclick=()=>{mode=b.dataset.mode;
+        $('modes').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));
+        activeTok=-1; renderReading(); renderDetail();});
+    $('arToggle').onchange = e=>{showArabic=e.target.checked; if(mode==='inter') renderReading();};
+
+    renderAll();
+  })();
+  </script>
+
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+  <script>
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') location.href = 'index.html';
+      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+        document.getElementById('theme-toggle')?.click();
+      }
+    });
+  </script>
+  <script src="js/atlas-export.js"></script>
+</body>
+</html>

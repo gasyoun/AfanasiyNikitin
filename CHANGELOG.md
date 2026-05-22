@@ -8,6 +8,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- **New widget `afanasy_prayer_interlinear.html`** — word-by-word interlinear of Afanasiy's polyglot prayers (Ф. 49, Ф. 50–51, Ф. 97, and the closing doxology Ф. 104), decoding the Cyrillic transcription as the Basmala, Shahada, Qur'an 59:22–24 and the chain of the Beautiful Names of Allah (28 identified). Three modes (Чтение / Подстрочник / 99 имён), per-word detail panel, language filter, Arabic-script toggle, and a stat bar; reuses the shared `--viz-language-*` palette and cross-links to the language map, manuscripts, and religious-crisis widgets. Raw text and lament glosses follow the 1986 academic edition via Khrustalev 2026; name identification follows the standard Asmā' al-ḥusnā. Wired into `index.html` (textual category, card 16), the overview, the Service Worker cache (`afanasy-atlas-v9`), `index.md`, and `README.md`.
 - Added a local SVG favicon and linked it from all atlas HTML pages, the web app manifest, and the Service Worker cache.
 - Cross-linked related widgets: calendar event details now open the matching route-map waypoint; Bidar economics entries open Bidar on the map; manuscript passages open a focused Gantt timeline period.
 - `index.html`: added search, category filters, and a collapsible question/scenario section for navigating the current 21-widget atlas.

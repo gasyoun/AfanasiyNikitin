@@ -15,6 +15,18 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 
 ---
 
+## Session 2026-05-23 — Polyglot prayer interlinear widget
+
+Added **`afanasy_prayer_interlinear.html`** (28th widget). Word-by-word interlinear of Afanasiy's four polyglot passages (Ф. 49, Ф. 50–51, Ф. 97, and the closing doxology Ф. 104), transcribed from the 1986 academic edition via `hrustalev_tetradi_2026.pdf`. The doxology (Ф. 104) is decoded as the Basmala, Shahada, Qur'an 59:22–24, and the chain of the Beautiful Names (28 identified). Three modes (Чтение / Подстрочник / 99 имён), per-word detail panel, language filter, Arabic-script toggle, stat bar; reuses the shared `--viz-language-*` palette; cross-links to language map / manuscripts / religious crisis.
+
+**Verification:** inline-script syntax check + headless-Chrome DOM render confirmed it renders with correct stats (49 formulae / 3 languages / 100% non-Russian / 28-of-99 names) and **no console errors**. ⚠️ Visual no-scroll at 1366×768, dark mode, and click-through interactions still need a real-browser pass — headless screenshot capture is blocked in this environment.
+
+**Wired in:** `index.html` (textual category, card 16; later cards renumbered 17–28; meta/filter/footer/tour counts → 28; overview bullet), `sw.js` (cache bumped to `afanasy-atlas-v9` + new asset), `index.md`, `README.md` (textual sections + renumbering), `CHANGELOG.md`.
+
+**Open for review:** the name-by-name Asmā' al-ḥusnā identification is mine — Khrustalev labels Ф.104 only generically («памятка… с именами Аллаха»); edition apparatus brackets `{}`/`[]` were normalized to a primary reading. `index.md` and `README.md` remain globally stale (they list 13 / 21 of the 28 widgets, predating this change) — a full reconciliation pass is still pending.
+
+---
+
 ## New Chat Handoff (2026-05-21)
 
 **Do not redo:** Phase 0 quick fixes, FIX 1–9, A5–A7, Phase 2 architecture migration, local asset bundling, shared data/theme, cross-linking, no-scroll desktop compaction, Canvas dark-mode palette work, color-token cleanup, and shared shadow-token cleanup are already implemented and pushed.

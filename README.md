@@ -123,37 +123,38 @@
 | 7 | **Двойной календарь** — православные и мусульманские праздники 1467–1475 | [afanasy_calendar_pascha_islam.html](afanasy_calendar_pascha_islam.html) |
 | 8 | **Эмоциональная дуга** — тональность 20 фрагментов «Хожения» по шкале −10…+10 | [afanasy_emotional_arc.html](afanasy_emotional_arc.html) |
 
-### 💬 Текстовые и лингвистические (3)
+### 💬 Текстовые и лингвистические (4)
 
 | # | Название | Файл |
 |---|----------|------|
 | 9 | **Карта языков текста** — русский/тюркский/персидский/арабский по разделам | [afanasy_language_map_v2.html](afanasy_language_map_v2.html) |
 | 10 | **Три рукописи** — Летописная vs Троицкая: параллельный текст, утерянные листы | [afanasy_manuscripts.html](afanasy_manuscripts.html) |
 | 11 | **Религиозный кризис** — соотношение православных и мусульманских имён Бога по разделам «Хожения» | [afanasy_religious_crisis.html](afanasy_religious_crisis.html) |
+| 12 | **Подстрочник полиглотной молитвы** — финальное славословие (Ф. 104) и три ламента слово за словом: кириллическая запись Корана 59:22–24 и имён Аллаха, с транслитерацией, арабицей и переводом | [afanasy_prayer_interlinear.html](afanasy_prayer_interlinear.html) |
 
 ### 👥 Персонажи и структура (5)
 
 | # | Название | Файл |
 |---|----------|------|
-| 12 | **Дерево состава** — «Хожение» = 7 текстов → Мамырев → 3 списка | [khozheniye_composition_tree.html](khozheniye_composition_tree.html) |
-| 13 | **Сеть людей** — граф встреч: кто помог Афанасию и кто навредил в пути | [afanasy_people_network.html](afanasy_people_network.html) |
-| 14 | **Историография «Хожения»** — история открытий и переизданий текста от 1475 до 2026 года | [afanasy_historiography.html](afanasy_historiography.html) |
-| 15 | **40 изданий за 208 лет** — переведено на 20 языков; история публикаций | [afanasy_editions_v3.html](afanasy_editions_v3.html) |
-| 16 | **До и после: Афанасий и Азия** — что знал до отъезда vs что узнал; средневековое русское представление об Азии | [afanasy_world_before_after.html](afanasy_world_before_after.html) |
+| 13 | **Дерево состава** — «Хожение» = 7 текстов → Мамырев → 3 списка | [khozheniye_composition_tree.html](khozheniye_composition_tree.html) |
+| 14 | **Сеть людей** — граф встреч: кто помог Афанасию и кто навредил в пути | [afanasy_people_network.html](afanasy_people_network.html) |
+| 15 | **Историография «Хожения»** — история открытий и переизданий текста от 1475 до 2026 года | [afanasy_historiography.html](afanasy_historiography.html) |
+| 16 | **40 изданий за 208 лет** — переведено на 20 языков; история публикаций | [afanasy_editions_v3.html](afanasy_editions_v3.html) |
+| 17 | **До и после: Афанасий и Азия** — что знал до отъезда vs что узнал; средневековое русское представление об Азии | [afanasy_world_before_after.html](afanasy_world_before_after.html) |
 
 ### 💰 Экономика и торговля (2)
 
 | # | Название | Файл |
 |---|----------|------|
-| 17 | **Экономика путешествия** — жеребец, пряности, торговля лошадьми | [afanasy_economics_prices.html](afanasy_economics_prices.html) |
-| 18 | **Торговый маршрутник** — расстояния, цены, конвертер валют; почему торговый план провалился | [afanasy_trade_guide_v4.html](afanasy_trade_guide_v4.html) |
+| 18 | **Экономика путешествия** — жеребец, пряности, торговля лошадьми | [afanasy_economics_prices.html](afanasy_economics_prices.html) |
+| 19 | **Торговый маршрутник** — расстояния, цены, конвертер валют; почему торговый план провалился | [afanasy_trade_guide_v4.html](afanasy_trade_guide_v4.html) |
 
 ### 📈 Статистические (2)
 
 | # | Название | Файл |
 |---|----------|------|
-| 19 | **Бестиарий Индии** — флора и фауна, впервые описанные для русского читателя: слон, кокос, попугай | [afanasy_bestiary.html](afanasy_bestiary.html) |
-| 20 | **Цитирование по десятилетиям** — «Хожение» в науке 1818–2026: академические волны популярности | [afanasy_citations_v2.html](afanasy_citations_v2.html) |
+| 20 | **Бестиарий Индии** — флора и фауна, впервые описанные для русского читателя: слон, кокос, попугай | [afanasy_bestiary.html](afanasy_bestiary.html) |
+| 21 | **Цитирование по десятилетиям** — «Хожение» в науке 1818–2026: академические волны популярности | [afanasy_citations_v2.html](afanasy_citations_v2.html) |
 
 ---
 
