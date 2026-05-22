@@ -349,7 +349,8 @@
           desc: '<b>Тверской купец</b>, мелкий торговец. Выехал из Твери с караваном. В Астрахани был разграблен татарами, потерял весь товар. Оказался вынужден идти дальше на юг, чтобы поправить дела. Совершил восьмилетнее странствие по Персии и Индии. Умер на пути домой под Смоленском.',
           links: [
             { name: 'Сеть встреч (профиль)', url: 'afanasy_people_network.html?node=af', icon: 'ti-share' },
-            { name: 'Карта: отплытие из Твери', url: 'afanasy_v8_text_map.html?wp=0', icon: 'ti-map-2' }
+            { name: 'Карта: отплытие из Твери', url: 'afanasy_v8_text_map.html?wp=0', icon: 'ti-map-2' },
+            { name: 'Сравнение с путешественниками', url: 'three_travelers_comparison.html?highlight=A', icon: 'ti-users' }
           ]
         },
         {
@@ -455,7 +456,8 @@
           links: [
             { name: 'Сеть встреч (профиль)', url: 'afanasy_people_network.html?node=mahmud', icon: 'ti-share' },
             { name: 'Карта: Бидар', url: 'afanasy_v8_text_map.html?wp=12', icon: 'ti-map-2' },
-            { name: 'Гантт: Бидарский период', url: 'afanasy_gantt.html?focus=bidar', icon: 'ti-chart-bar' }
+            { name: 'Гантт: Бидарский период', url: 'afanasy_gantt.html?focus=bidar', icon: 'ti-chart-bar' },
+            { name: 'Сравнение с путешественниками', url: 'three_travelers_comparison.html?highlight=G', icon: 'ti-users' }
           ]
         },
         {
@@ -648,7 +650,8 @@
           desc: '<b>Tver merchant</b>, minor trader. Departed from Tver with a caravan. In Astrakhan, he was plundered by Tatars, losing all his goods. Forced to proceed further south to recover his fortune. Completed an eight-year journey through Persia and India. Died on his way home near Smolensk.',
           links: [
             { name: 'Meeting network (profile)', url: 'afanasy_people_network.html?node=af', icon: 'ti-share' },
-            { name: 'Map: departure from Tver', url: 'afanasy_v8_text_map.html?wp=0', icon: 'ti-map-2' }
+            { name: 'Map: departure from Tver', url: 'afanasy_v8_text_map.html?wp=0', icon: 'ti-map-2' },
+            { name: 'Comparison with travelers', url: 'three_travelers_comparison.html?highlight=A', icon: 'ti-users' }
           ]
         },
         {
@@ -754,7 +757,8 @@
           links: [
             { name: 'Meeting network (profile)', url: 'afanasy_people_network.html?node=mahmud', icon: 'ti-share' },
             { name: 'Map: Bidar', url: 'afanasy_v8_text_map.html?wp=12', icon: 'ti-map-2' },
-            { name: 'Gantt: Bidar period', url: 'afanasy_gantt.html?focus=bidar', icon: 'ti-chart-bar' }
+            { name: 'Gantt: Bidar period', url: 'afanasy_gantt.html?focus=bidar', icon: 'ti-chart-bar' },
+            { name: 'Comparison with travelers', url: 'three_travelers_comparison.html?highlight=G', icon: 'ti-users' }
           ]
         },
         {
@@ -840,6 +844,7 @@
         'Диаграмма Гантта': 'Gantt Chart',
         'Экономика (продажа коня)': 'Economics (Horse Sale)',
         'Четыре путешественника (сравнение)': 'Four Travelers (Comparison)',
+        'Сравнение с путешественниками': 'Comparison with travelers',
         'Кризис веры в Джуннаре': 'Crisis of Faith in Junnar',
         'Паломничество в Парват': 'Pilgrimage to Parvat',
         'Календарь (Махашиваратри)': 'Calendar (Mahashivaratri)',
@@ -935,18 +940,18 @@
           extra.push({ name: 'Четыре путешественника (сравнение)', url: 'three_travelers_comparison.html', icon: 'ti-users' });
         }
         if (name.includes('Джуннар')) {
-          extra.push({ name: 'Кризис веры в Джуннаре', url: 'afanasy_religious_crisis.html', icon: 'ti-flame' });
+          extra.push({ name: 'Кризис веры в Джуннаре', url: 'afanasy_religious_crisis.html?highlight=india1', icon: 'ti-flame' });
         }
         if (name.includes('Шрисайлам')) {
-          extra.push({ name: 'Паломничество в Парват', url: 'afanasy_religious_crisis.html', icon: 'ti-building-monument' });
-          extra.push({ name: 'Календарь (Махашиваратри)', url: 'afanasy_calendar_pascha_islam.html', icon: 'ti-calendar' });
+          extra.push({ name: 'Паломничество в Парват', url: 'afanasy_religious_crisis.html?highlight=pilgrim', icon: 'ti-building-monument' });
+          extra.push({ name: 'Календарь (Махашиваратри)', url: 'afanasy_calendar_pascha_islam.html?highlight=s1471', icon: 'ti-calendar' });
         }
         if (name.includes('Ормуз')) {
-          extra.push({ name: 'Календарный спор (Пасха)', url: 'afanasy_calendar_pascha_islam.html', icon: 'ti-calendar' });
-          extra.push({ name: 'Четыре путешественника (сравнение)', url: 'three_travelers_comparison.html', icon: 'ti-users' });
+          extra.push({ name: 'Календарный спор (Пасха)', url: 'afanasy_calendar_pascha_islam.html?highlight=e3', icon: 'ti-calendar' });
+          extra.push({ name: 'Четыре путешественника (сравнение)', url: 'three_travelers_comparison.html?highlight=A', icon: 'ti-users' });
         }
         if (name.includes('Маскат')) {
-          extra.push({ name: 'Календарный спор (Пасха)', url: 'afanasy_calendar_pascha_islam.html', icon: 'ti-calendar' });
+          extra.push({ name: 'Календарный спор (Пасха)', url: 'afanasy_calendar_pascha_islam.html?highlight=e8', icon: 'ti-calendar' });
         }
         if (name.includes('Лар')) {
           extra.push({ name: 'Торговый маршрутник', url: 'afanasy_trade_marshruttnik.html', icon: 'ti-calculator' });

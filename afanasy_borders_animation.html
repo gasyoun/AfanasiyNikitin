@@ -51,7 +51,7 @@
   --ba-shadow: rgba(0,0,0,0.15);
 }
     /* Original Widget Styles */
-    .brd-wrap{font-size:12px;}
+    .brd-wrap{font-size:12px;position:relative;}
 canvas#brdC{display:block;width:100%;height:auto;max-width:735px;aspect-ratio:735 / 460;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:6px;}
 .brd-info{padding:7px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);margin-bottom:6px;display:flex;gap:10px;align-items:flex-start;}
 .brd-yr{font-size:24px;font-weight:500;color:var(--color-text-primary);line-height:1;font-variant-numeric:tabular-nums;min-width:46px;}
@@ -87,6 +87,10 @@ canvas#brdC{display:block;width:100%;height:auto;max-width:735px;aspect-ratio:73
     </header>
 
     <div class="brd-wrap">
+      <div class="parchment-loader" id="map-loader">
+        <div class="parchment-loader-skeleton"></div>
+        <div class="parchment-loader-spinner"></div>
+      </div>
 <canvas id="brdC" width="735" height="460"></canvas>
 
 <div class="brd-info">
@@ -457,7 +461,11 @@ legendItems.forEach(li=>{
 function waitLib(cb){if(typeof d3!=='undefined'&&typeof topojson!=='undefined')cb();else setTimeout(()=>waitLib(cb),60);}
 waitLib(()=>{
   fetch('lib/countries-110m.json')
-    .then(r=>r.json()).then(w=>{buildBase(w);mapReady=true;});
+    .then(r=>r.json()).then(w=>{
+      buildBase(w);
+      mapReady=true;
+      document.getElementById('map-loader')?.classList.add('fade-out');
+    });
   requestAnimationFrame(frame);
 });
 })();

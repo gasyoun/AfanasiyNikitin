@@ -18,7 +18,14 @@
       homeBtn: "Все визуализации",
       prevTitle: "Предыдущая визуализация (Клавиша: ←)",
       nextTitle: "Следующая визуализация (Клавиша: →)",
-      homeTitle: "Вернуться в оглавление атласа (Клавиша: Esc)"
+      homeTitle: "Вернуться в оглавление атласа (Клавиша: Esc)",
+      relatedTitle: "Связанные визуализации",
+      cat_maps: "Картография",
+      cat_chrono: "Хронология",
+      cat_text: "Текст",
+      cat_people: "Люди",
+      cat_trade: "Экономика",
+      cat_stats: "Статистика"
     },
     en: {
       shortcutsTitle: "⌨️ Keyboard Shortcuts",
@@ -33,7 +40,14 @@
       homeBtn: "All visualizations",
       prevTitle: "Previous visualization (Key: ←)",
       nextTitle: "Next visualization (Key: →)",
-      homeTitle: "Return to atlas index (Key: Esc)"
+      homeTitle: "Return to atlas index (Key: Esc)",
+      relatedTitle: "Related Visualizations",
+      cat_maps: "Cartography",
+      cat_chrono: "Chronology",
+      cat_text: "Text",
+      cat_people: "People",
+      cat_trade: "Economy",
+      cat_stats: "Statistics"
     }
   };
 
@@ -83,6 +97,9 @@
       langBtn.title = lang === 'en' ? 'Switch to Russian' : 'Переключить на английский';
     }
     updateNavFooter();
+    if (typeof updateRelatedSection === 'function') {
+      updateRelatedSection();
+    }
     
     // Dispatch global event for widgets to react to language change if they need to
     window.dispatchEvent(new CustomEvent('languagechange', { detail: { language: lang } }));
@@ -116,32 +133,33 @@
 
   // Sequential widget registry for navigation
   const WIDGETS = [
-    { url: 'afanasy_v8_text_map.html', title_ru: 'Тайм-лапс на карте', title_en: 'Map Time-lapse' },
-    { url: 'three_travelers_comparison.html', title_ru: 'Три путешественника', title_en: 'Three Travelers' },
-    { url: 'afanasy_trade_marshruttnik.html', title_ru: 'Торговый маршрутник', title_en: 'Trade Router' },
-    { url: 'afanasy_borders_animation.html', title_ru: 'Анимация границ', title_en: 'Border Animation' },
-    { url: 'afanasy_climate_monsoon.html', title_ru: 'Климат и муссоны', title_en: 'Climate and Monsoons' },
-    { url: 'afanasy_gantt.html', title_ru: 'Гантт-диаграмма', title_en: 'Gantt Chart' },
-    { url: 'afanasy_speed_land_sea.html', title_ru: 'Скорость: суша vs море', title_en: 'Speed: Land vs Sea' },
-    { url: 'afanasy_calendar_pascha_islam.html', title_ru: 'Календарь Пасх', title_en: 'Easter/Pascha Calendar' },
-    { url: 'afanasy_emotional_arc.html', title_ru: 'Эмоциональная дуга', title_en: 'Emotional Arc' },
-    { url: 'afanasy_pascha_chronograph.html', title_ru: 'Пасхальный хронограф', title_en: 'Paschal Chronograph' },
-    { url: 'afanasy_language_map_v2.html', title_ru: 'Карта языков текста', title_en: 'Text Language Map' },
-    { url: 'afanasy_manuscripts.html', title_ru: 'Сравнение рукописей', title_en: 'Manuscript Comparison' },
-    { url: 'afanasy_manuscript_layers.html', title_ru: 'Слои рукописи', title_en: 'Manuscript Layers' },
-    { url: 'afanasy_religious_crisis.html', title_ru: 'Религиозный кризис', title_en: 'Religious Crisis' },
-    { url: 'khozheniye_composition_tree.html', title_ru: 'Дерево состава «Хожения»', title_en: 'Composition Tree' },
-    { url: 'afanasy_people_network.html', title_ru: 'Сеть людей', title_en: 'People Network' },
-    { url: 'afanasy_gavan_parallel.html', title_ru: 'Параллельная биография', title_en: 'Parallel Biography' },
-    { url: 'afanasy_concordance_index.html', title_ru: 'Указатель топонимов', title_en: 'Concordance Index' },
-    { url: 'afanasy_historiography.html', title_ru: 'Историография', title_en: 'Historiography' },
-    { url: 'afanasy_editions_v3.html', title_ru: '40 изданий', title_en: '40 Editions' },
-    { url: 'afanasy_world_before_after.html', title_ru: 'До и после: Азия', title_en: 'Before & After: Asia' },
-    { url: 'afanasy_economics_prices.html', title_ru: 'Экономика пути', title_en: 'Route Economics' },
-    { url: 'afanasy_trade_guide_v4.html', title_ru: 'Торговый справочник', title_en: 'Merchant Guide' },
-    { url: 'afanasy_bestiary.html', title_ru: 'Бестиарий Индии', title_en: 'India Bestiary' },
-    { url: 'afanasy_citations_v2.html', title_ru: 'Цитирование', title_en: 'Citations' },
-    { url: 'afanasy_video_export.html', title_ru: 'Экспорт видео', title_en: 'Video Export' }
+    { url: 'afanasy_v8_text_map.html', title_ru: 'Тайм-лапс на карте', title_en: 'Map Time-lapse', category: 'maps', icon: 'ti-map-2' },
+    { url: 'three_travelers_comparison.html', title_ru: 'Три путешественника', title_en: 'Three Travelers', category: 'maps', icon: 'ti-map-2' },
+    { url: 'afanasy_trade_marshruttnik.html', title_ru: 'Торговый маршрутник', title_en: 'Trade Router', category: 'maps', icon: 'ti-map-2' },
+    { url: 'afanasy_borders_animation.html', title_ru: 'Анимация границ', title_en: 'Border Animation', category: 'maps', icon: 'ti-map-2' },
+    { url: 'afanasy_climate_monsoon.html', title_ru: 'Климат и муссоны', title_en: 'Climate and Monsoons', category: 'maps', icon: 'ti-map-2' },
+    { url: 'afanasy_sea_voyages.html', title_ru: 'Морские переходы', title_en: 'Sea Voyages', category: 'maps', icon: 'ti-map-2' },
+    { url: 'afanasy_gantt.html', title_ru: 'Гантт-диаграмма', title_en: 'Gantt Chart', category: 'chrono', icon: 'ti-calendar' },
+    { url: 'afanasy_speed_land_sea.html', title_ru: 'Скорость: суша vs море', title_en: 'Speed: Land vs Sea', category: 'chrono', icon: 'ti-calendar' },
+    { url: 'afanasy_calendar_pascha_islam.html', title_ru: 'Календарь Пасх', title_en: 'Easter/Pascha Calendar', category: 'chrono', icon: 'ti-calendar' },
+    { url: 'afanasy_emotional_arc.html', title_ru: 'Эмоциональная дуга', title_en: 'Emotional Arc', category: 'chrono', icon: 'ti-calendar' },
+    { url: 'afanasy_pascha_chronograph.html', title_ru: 'Пасхальный хронограф', title_en: 'Paschal Chronograph', category: 'chrono', icon: 'ti-calendar' },
+    { url: 'afanasy_language_map_v2.html', title_ru: 'Карта языков текста', title_en: 'Text Language Map', category: 'text', icon: 'ti-book' },
+    { url: 'afanasy_manuscripts.html', title_ru: 'Сравнение рукописей', title_en: 'Manuscript Comparison', category: 'text', icon: 'ti-book' },
+    { url: 'afanasy_manuscript_layers.html', title_ru: 'Слои рукописи', title_en: 'Manuscript Layers', category: 'text', icon: 'ti-book' },
+    { url: 'afanasy_religious_crisis.html', title_ru: 'Религиозный кризис', title_en: 'Religious Crisis', category: 'text', icon: 'ti-book' },
+    { url: 'khozheniye_composition_tree.html', title_ru: 'Дерево состава «Хожения»', title_en: 'Composition Tree', category: 'people', icon: 'ti-users' },
+    { url: 'afanasy_people_network.html', title_ru: 'Сеть людей', title_en: 'People Network', category: 'people', icon: 'ti-users' },
+    { url: 'afanasy_gavan_parallel.html', title_ru: 'Параллельная биография', title_en: 'Parallel Biography', category: 'people', icon: 'ti-users' },
+    { url: 'afanasy_concordance_index.html', title_ru: 'Указатель топонимов', title_en: 'Concordance Index', category: 'people', icon: 'ti-users' },
+    { url: 'afanasy_historiography.html', title_ru: 'Историография', title_en: 'Historiography', category: 'people', icon: 'ti-users' },
+    { url: 'afanasy_editions_v3.html', title_ru: '40 изданий', title_en: '40 Editions', category: 'people', icon: 'ti-users' },
+    { url: 'afanasy_world_before_after.html', title_ru: 'До и после: Азия', title_en: 'Before & After: Asia', category: 'people', icon: 'ti-users' },
+    { url: 'afanasy_economics_prices.html', title_ru: 'Экономика пути', title_en: 'Route Economics', category: 'trade', icon: 'ti-coin' },
+    { url: 'afanasy_trade_guide_v4.html', title_ru: 'Торговый справочник', title_en: 'Merchant Guide', category: 'trade', icon: 'ti-coin' },
+    { url: 'afanasy_bestiary.html', title_ru: 'Бестиарий Индии', title_en: 'India Bestiary', category: 'stats', icon: 'ti-chart-bar' },
+    { url: 'afanasy_citations_v2.html', title_ru: 'Цитирование', title_en: 'Citations', category: 'stats', icon: 'ti-chart-bar' },
+    { url: 'afanasy_video_export.html', title_ru: 'Экспорт видео', title_en: 'Video Export', category: 'stats', icon: 'ti-chart-bar' }
   ];
 
   const currentPath = window.location.pathname;
@@ -184,6 +202,70 @@
     modal.querySelector('.atlas-modal-content').focus();
   }
 
+  function getRelatedWidgets(currentIdx) {
+    if (currentIdx === -1) return [];
+    const current = WIDGETS[currentIdx];
+    const category = current.category;
+    
+    // Find all other widgets in the same category (excluding current one)
+    const sameCat = WIDGETS.filter((w, idx) => idx !== currentIdx && w.category === category);
+    
+    let related = [];
+    if (sameCat.length >= 3) {
+      let idx = (currentIdx + 1) % WIDGETS.length;
+      while (related.length < 3 && idx !== currentIdx) {
+        const w = WIDGETS[idx];
+        if (w.category === category) {
+          related.push(w);
+        }
+        idx = (idx + 1) % WIDGETS.length;
+      }
+    } else {
+      let idx = (currentIdx + 1) % WIDGETS.length;
+      while (related.length < sameCat.length && idx !== currentIdx) {
+        const w = WIDGETS[idx];
+        if (w.category === category) {
+          related.push(w);
+        }
+        idx = (idx + 1) % WIDGETS.length;
+      }
+      idx = (currentIdx + 1) % WIDGETS.length;
+      while (related.length < 3 && idx !== currentIdx) {
+        const w = WIDGETS[idx];
+        if (!related.includes(w) && w !== current) {
+          related.push(w);
+        }
+        idx = (idx + 1) % WIDGETS.length;
+      }
+    }
+    return related.slice(0, 3);
+  }
+
+  function updateRelatedSection() {
+    const lang = html.getAttribute('data-lang') || 'ru';
+    const section = document.querySelector('.atlas-related-section');
+    if (!section) return;
+    
+    const title = section.querySelector('.atlas-related-title');
+    if (title) {
+      title.textContent = TRANSLATIONS[lang].relatedTitle;
+    }
+    
+    const items = section.querySelectorAll('.atlas-related-item');
+    items.forEach(item => {
+      const catSpan = item.querySelector('.atlas-related-item-category');
+      if (catSpan) {
+        const cat = catSpan.dataset.category;
+        catSpan.textContent = TRANSLATIONS[lang][`cat_${cat}`];
+      }
+      
+      const titleSpan = item.querySelector('.atlas-related-item-title');
+      if (titleSpan) {
+        titleSpan.textContent = lang === 'en' ? titleSpan.dataset.titleEn : titleSpan.dataset.titleRu;
+      }
+    });
+  }
+
   function updateNavFooter() {
     const lang = html.getAttribute('data-lang') || 'ru';
     const footer = document.querySelector('.atlas-nav-footer');
@@ -208,29 +290,78 @@
     }
   }
 
-  // Inject Related Navigation Footer if in a widget page
+  // Inject Related Navigation Footer and Related Section if in a widget page
   if (currentIdx !== -1) {
     document.addEventListener('DOMContentLoaded', () => {
       const container = document.querySelector('.vis-container');
-      if (container && !document.querySelector('.atlas-nav-footer')) {
-        const footer = document.createElement('footer');
-        footer.className = 'atlas-nav-footer';
-        footer.innerHTML = `
-          <a href="${prevWidget.url}" class="nav-btn nav-btn-prev">
-            <i class="ti ti-chevron-left"></i>
-            <span class="nav-btn-text"></span>
-          </a>
-          <a href="index.html" class="nav-btn nav-btn-home">
-            <i class="ti ti-layout-grid"></i>
-            <span class="nav-btn-text"></span>
-          </a>
-          <a href="${nextWidget.url}" class="nav-btn nav-btn-next">
-            <span class="nav-btn-text"></span>
-            <i class="ti ti-chevron-right"></i>
-          </a>
-        `;
-        container.appendChild(footer);
+      if (container) {
+        // Create Related Visualizations Section
+        if (!document.querySelector('.atlas-related-section')) {
+          const relatedSection = document.createElement('section');
+          relatedSection.className = 'atlas-related-section';
+          
+          const title = document.createElement('h4');
+          title.className = 'atlas-related-title';
+          relatedSection.appendChild(title);
+          
+          const grid = document.createElement('div');
+          grid.className = 'atlas-related-grid';
+          
+          const relatedWidgets = getRelatedWidgets(currentIdx);
+          relatedWidgets.forEach(w => {
+            const item = document.createElement('a');
+            item.href = w.url;
+            item.className = 'atlas-related-item';
+            
+            const catSpan = document.createElement('span');
+            catSpan.className = 'atlas-related-item-category';
+            catSpan.dataset.category = w.category;
+            item.appendChild(catSpan);
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'atlas-related-item-content';
+            
+            const icon = document.createElement('i');
+            icon.className = `ti ${w.icon}`;
+            contentDiv.appendChild(icon);
+            
+            const titleSpan = document.createElement('span');
+            titleSpan.className = 'atlas-related-item-title';
+            titleSpan.dataset.titleRu = w.title_ru;
+            titleSpan.dataset.titleEn = w.title_en;
+            contentDiv.appendChild(titleSpan);
+            
+            item.appendChild(contentDiv);
+            grid.appendChild(item);
+          });
+          
+          relatedSection.appendChild(grid);
+          container.appendChild(relatedSection);
+        }
+
+        // Create Navigation Footer
+        if (!document.querySelector('.atlas-nav-footer')) {
+          const footer = document.createElement('footer');
+          footer.className = 'atlas-nav-footer';
+          footer.innerHTML = `
+            <a href="${prevWidget.url}" class="nav-btn nav-btn-prev">
+              <i class="ti ti-chevron-left"></i>
+              <span class="nav-btn-text"></span>
+            </a>
+            <a href="index.html" class="nav-btn nav-btn-home">
+              <i class="ti ti-layout-grid"></i>
+              <span class="nav-btn-text"></span>
+            </a>
+            <a href="${nextWidget.url}" class="nav-btn nav-btn-next">
+              <span class="nav-btn-text"></span>
+              <i class="ti ti-chevron-right"></i>
+            </a>
+          `;
+          container.appendChild(footer);
+        }
+        
         updateNavFooter();
+        updateRelatedSection();
       }
     });
 

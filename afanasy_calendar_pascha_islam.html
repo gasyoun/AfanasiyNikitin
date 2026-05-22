@@ -344,6 +344,7 @@ function showTlDetail(ev){
   EVENTS.forEach((ev,i)=>{
     const card=document.createElement('div');
     card.className='hol-card';
+    card.dataset.id=ev.id;
     card.style.borderLeftColor=ev.color;
     card.style.borderLeftWidth='3px';
     card.innerHTML=`<div class="hol-card-top">
@@ -466,6 +467,26 @@ window.switchTab=function(id){
   document.querySelectorAll('.cal-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
 };
+
+// Parse highlight from query parameters
+const params = new URLSearchParams(window.location.search);
+const highlight = params.get('highlight');
+if (highlight) {
+  const ev = EVENTS.find(e => e.id === highlight);
+  if (ev) {
+    if (ev.type === 'easter') {
+      window.switchTab('timeline');
+      showTlDetail(ev);
+    } else {
+      window.switchTab('events');
+      const card = document.querySelector(`.hol-card[data-id="${ev.id}"]`);
+      if (card) {
+        card.click();
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }
+}
 })();
 </script>
 
