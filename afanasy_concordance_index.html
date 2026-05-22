@@ -284,11 +284,18 @@
 <body>
   <div class="vis-container">
     <div class="vis-header">
-      <h1>Указатель топонимов и лиц</h1>
+      <h1>
+        <span class="lang-ru">Указатель топонимов и лиц</span>
+        <span class="lang-en">Concordance of Toponyms and Characters</span>
+      </h1>
       <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка">
-        <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Атлас</a>
+        <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> 
+          <span class="lang-ru">Атлас</span>
+          <span class="lang-en">Atlas</span>
+        </a>
         <span class="atlas-breadcrumb-sep" aria-hidden="true">/</span>
-        <span class="atlas-breadcrumb-current">Указатель топонимов и лиц</span>
+        <span class="atlas-breadcrumb-current lang-ru">Указатель топонимов и лиц</span>
+        <span class="atlas-breadcrumb-current lang-en">Concordance</span>
       </nav>
     </div>
 
@@ -302,8 +309,14 @@
         <!-- Left Pane: Tabs and scrollable list -->
         <div class="concordance-list-pane">
           <div class="concordance-tabs" role="tablist">
-            <button class="concordance-tab-btn active" id="tab-toponyms" role="tab" aria-selected="true" aria-controls="list-container">Топонимы</button>
-            <button class="concordance-tab-btn" id="tab-people" role="tab" aria-selected="false" aria-controls="list-container">Исторические лица</button>
+            <button class="concordance-tab-btn active" id="tab-toponyms" role="tab" aria-selected="true" aria-controls="list-container">
+              <span class="lang-ru">Топонимы</span>
+              <span class="lang-en">Toponyms</span>
+            </button>
+            <button class="concordance-tab-btn" id="tab-people" role="tab" aria-selected="false" aria-controls="list-container">
+              <span class="lang-ru">Исторические лица</span>
+              <span class="lang-en">Historical Figures</span>
+            </button>
           </div>
           <div class="concordance-list" id="list-container" role="listbox">
             <!-- Dynamically populated -->
@@ -314,7 +327,8 @@
         <div class="concordance-detail-pane" id="detail-pane">
           <div class="concordance-detail-placeholder">
             <i class="ti ti-click" aria-hidden="true"></i>
-            <div>Выберите элемент из списка слева, чтобы увидеть подробную информацию, цитаты из текста рукописи и ссылки на карты.</div>
+            <div class="lang-ru">Выберите элемент из списка слева, чтобы увидеть подробную информацию, цитаты из текста рукописи и ссылки на карты.</div>
+            <div class="lang-en">Select an item from the list on the left to view detailed information, quotes from the manuscript, and links to maps.</div>
           </div>
         </div>
       </div>
@@ -322,15 +336,7 @@
   </div>
 
   <!-- Theme Toggle -->
-  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
-    <i id="theme-icon" class="ti ti-moon"></i>
-  </button>
-
-  <script src="js/atlas-data.js"></script>
-  <script src="js/atlas-theme.js"></script>
-  <script src="js/atlas-export.js"></script>
-  <script>
-    (function() {
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-sh    (function() {
       // Historical characters database
       const CHARACTERS = [
         {
@@ -447,7 +453,7 @@
           quote: '«Меликтучар выступил с войском» — Афанасий хроникёр его походов',
           desc: '<b>Мелик-ут-туджар (глава купцов) и великий визирь Бахманидов</b>. Выходец из купеческой семьи Гиляна, выдающийся реформатор и полководец. Афанасий детально описывает его военные триумфы (взятие Гоа) и государственные выезды.',
           links: [
-            { name: 'Сеть встреч', url: 'afanasy_people_network.html?node=mahmud', icon: 'ti-share' },
+            { name: 'Сеть встреч (профиль)', url: 'afanasy_people_network.html?node=mahmud', icon: 'ti-share' },
             { name: 'Карта: Бидар', url: 'afanasy_v8_text_map.html?wp=12', icon: 'ti-map-2' },
             { name: 'Гантт: Бидарский период', url: 'afanasy_gantt.html?focus=bidar', icon: 'ti-chart-bar' }
           ]
@@ -540,6 +546,320 @@
         'Дабхол': 'dabhol'
       };
 
+      // --- Translations for Phase 5.2 ---
+      const WP_EN = [
+        ['Tver', '1467, spring', 'Start of the "sinful journey across three seas"', 'Rus'],
+        ['Nizhny Novgorod', '1467, summer', 'Joining the embassy of Shirvanshah', 'Rus'],
+        ['Astrakhan', '1467, autumn', 'Robbed by Tatars — loss of all goods', 'First Sea — Caspian'],
+        ['Derbent', '1467–1468', 'Unsuccessful appeals for help to the Shirvanshah', 'First Sea — Caspian'],
+        ['Baku', '1468', '"Where the inextinguishable fire burns"', 'Way through Persia'],
+        ['Mazandaran', '1468', 'Six months in Sari, mountain road', 'Way through Persia'],
+        ['Kashan / Yazd', '1468–1469', 'Through Persian cities to Ormuz', 'Way through Persia'],
+        ['Lar', '1468–1469; May 1474', 'Lar trade hub: purchase of the horse and recording the "Router"; then short stop on the way back', 'Way through Persia'],
+        ['Ormuz', '1469, Easter', '"Here is the Indian Sea"', 'Second Sea — Indian'],
+        ['Muscat', '1469, spring; 10 Apr 1474', 'Sea junction on the way to India and point of corrected Easter #8 on the way back', 'Second Sea — Indian'],
+        ['Chaul', '1469, summer', 'First land of India', 'India'],
+        ['Junnar', '1469, autumn', 'Threat of death, rescue on the day of the Savior', 'India'],
+        ['Bidar', '1469–1471', 'Capital of the Bahmani Sultanate', 'India'],
+        ['Aland', '1469–1473', 'Fair in memory of Sheikh Alauddin; four visits during the Indian years', 'India'],
+        ['Srisailam', '1471, February', '"Indian Jerusalem"', 'India'],
+        ['Bidar', '1471–1472', 'Triumph of Mahmud Gawan', 'India'],
+        ['Gulbarga', 'Feb–Aug 1473', 'Long stay, the "fifth" Easter and decision to return home', 'India'],
+        ['Kallur', 'Mar–Aug 1473', 'Diamond mines near Raichur — Nikitin\'s declared trade goal', 'India'],
+        ['Dabhol', 'Nov 1473 – Jan 1474', 'Actual port of departure from India', 'Second Sea — Indian'],
+        ['«Ethiopia» (Somalia)', 'Feb 1474', 'Five days at the Somali coast after a month of open ocean', 'Second Sea — Indian'],
+        ['Ormuz', 'Apr–May 1474', 'Beginning of the land return through Persia', 'Third Sea — Black'],
+        ['Lar', 'May 1474', 'Three days in Lar on the way back', 'Way through Persia'],
+        ['Erzinjian', 'Sep 1474', 'Erzincan on the way to Trebizond', 'Third Sea — Black'],
+        ['Trebizond', '1474', '"Third Sea Black"', 'Third Sea — Black'],
+        ['Platana', '1-20 Oct 1474', 'Fifteen days of waiting for a favorable wind near Trebizond', 'Third Sea — Black'],
+        ['Balaklava / Gurzuf', '1–6 Nov 1474', 'Crimean stops after the storm', 'Third Sea — Black'],
+        ['Feodosia (Kaffa)', '1474–1475', '"I arrived in Kaffa"', 'Third Sea — Black'],
+        ['Smolensk', '1475', 'End of the journey. "Notebooks" given to clerk Mamyrev', 'End of the journey']
+      ];
+
+      const PASSAGES_EN = [
+        'In the year 6975. I, Afanasy son of Nikitin, departed from Saint Savior with His grace, from the Grand Duke Mikhail Borisovich of Tver and from the bishop Gennady of Tver — across three seas: the first sea of Derbent, the second — Indian, the third — Black.',
+        'In Nizhny I stayed for two weeks — waiting for the Shirvan ambassador Asanbeg, who traveled with hunting falcons from the Grand Duke, carrying ninety falcons. We sailed together down the Volga.',
+        'The Tatars ran and took one vessel, and sank the other. Two of my companions were killed, and my goods were plundered. And I, weeping, went wherever my eyes looked — with neither horse, nor goods, nor anything left.',
+        'We arrived in Derbent. The Shirvanshah received us well, but did not want to help. And we all scattered: some back to Rus, some to Shemakha, some to Baku. I went to Derbent, and from Derbent — to Baku.',
+        'And from Derbent to Baku, where the inextinguishable fire burns. And from Baku I went across the sea. I crossed the Khvalynian (Caspian) sea in four days, and arrived in Chebukar. From Chebukar I traveled to Sari in Mazandaran.',
+        'In Sari I stayed for six months. In Mazandaran everything is expensive, and the people are robbers. I went to Amol, then to Damavand, then to Ray. I saw much blood there — war was going on everywhere.',
+        'From Kashan one month. From Kashan to Nain, from Nain to Yazd — another month. From Yazd to Sirjan, to Tarum, to Lar, and finally — to Ormuz. Ormuz stands on an island, and the sea floods it twice a day.',
+        'In Lar the roads met towards Ormuz, Shiraz, and the Indian sea. Here Afanasy buys a stallion and records the trade information of the "Router", and on the way back he stays again for three days.',
+        'Ormuz is on an island, and the sea covers it during high tide. I kept Easter in Ormuz — here Easter coincided with the Muslim fast. On the fourth week after Easter, I boarded a ship with my horse, and we sailed across the Indian Sea.',
+        'We sailed by sea to Muscat for ten days, and from Muscat to Deg for four days. On the return path in Muscat, Afanasy again verifies Easter with Christians.',
+        'Here is the Indian land, and the people all walk naked, their heads uncovered and breasts bare, and their hair braided into one tress. Both men and women are all black. Wherever I went, many people followed, marveling at the white man.',
+        'Asad Khan took my stallion and, learning that I was not a Muslim but a Rus, said: "I will return the stallion and give you a thousand gold pieces — if only you accept our faith." I replied: "Lord! You know there is no will of mine for that." The Khorasanian Hasan saved me on the very day of the Savior.',
+        'Bidar is the throne of the Hindustani Muslim kingdom. Sultan Mahmud rides out with a grand court: three hundred elephants in armor before him, three hundred horses in golden cloths, and a hundred Khorasanian birds on hands. He wears a coat all in rubies, and a great diamond on his cap.',
+        'Aland is a recurring point of the Indian years: the fair lasts about ten days and is associated with the memory of Sheikh Alauddin. Troops pass through Aland and the narrative returns to Bidar.',
+        'Parvat is their Jerusalem, as our Jerusalem is to us. And all kinds of people gather there once a year from all over India. I went with them on foot, and the Brahmins gave me food, but gave no meat — they say it is forbidden to give meat to strangers at the sacred place.',
+        'I lived in India for four years, and found neither pepper nor other goods. He lied who said that there are many cheap goods here. I spent here all that I had. It was bitter for me in India — there was no one to talk to, neither priest nor church.',
+        'In Gulbarga, Afanasy experiences the "fifth" Easter, having already lost count, and sees the return of the sultan with Mahmud Gawan. Here the decision to return to Rus becomes practical.',
+        'Kallur is a city of diamond miners. Five months near the mines show why the merchant stayed so long in the Deccan: he was looking for goods that could justify the risk of the whole journey.',
+        'I went from Bidar to the sea. Farewell, India! I do not know the way — where to go from Hindustan? In Dabhol he makes the final decision to depart back through Muslim lands.',
+        'From Hindustan to Ormuz we sailed nine weeks by sea. In Ormuz we were for a month. From here begins the land route through Lar, Shiraz, Abarquh, Yazd, Isfahan, Kashan, and Tabriz.',
+        'From Ormuz I went to Lar, and was in Lar for three days. Further the path leads to Shiraz and through central Persia to the camp of Uzun Hasan.',
+        'From Ormuz I went to Lar, and was in Lar for three days. Further the path leads to Shiraz and through central Persia to the camp of Uzun Hasan.',
+        'Through Erzinjian, Afanasy goes to Trebizond. The ruined city becomes a mark of the Turkish-Persian borderlands and a tense part of the return.',
+        'And the third sea is the Black Sea. We went by sea to Trebizond, taking twelve days. Here we were plundered by Trebizond people, who took everything from the chest that I carried from Ormuz. Allah, Allah! Lord, save me, have mercy.',
+        'In Platana near Trebizond we stood for fifteen days: the wind was strong and angry. Only after waiting were we able to sail out into the Black Sea again.',
+        'From Platana, the ship reached Genoese Balaklava, then Gurzuf, where we stood for five days. The Crimean shores become the last sea respite before Kaffa.',
+        'I arrived in Kaffa nine days before St. Philip\'s Fast. Glory to God, I arrived healthy. Three seas I crossed. The rest only God knows. Amen. Kaffa is a Christian city, there are many Genoese merchants here, providing access to Rus.',
+        'And Afanasy passed away, having reached Smolensk, but not having reached Tver. And he left his writing — the journey across three seas. The first sea is Derbent, the second is Indian, the third is Black. By God\'s grace, he crossed all three.'
+      ];
+
+      const TOPONYM_NAMES_EN = {
+        'Тверь': 'Tver',
+        'Нижний Новгород': 'Nizhny Novgorod',
+        'Астрахань': 'Astrakhan',
+        'Дербент': 'Derbent',
+        'Баку': 'Baku',
+        'Мазендаран': 'Mazandaran',
+        'Кашан / Йезд': 'Kashan / Yazd',
+        'Лар': 'Lar',
+        'Ормуз': 'Ormuz',
+        'Маскат': 'Muscat',
+        'Чаул': 'Chaul',
+        'Джуннар': 'Junnar',
+        'Бидар': 'Bidar',
+        'Аланд': 'Aland',
+        'Шрисайлам': 'Srisailam',
+        'Гулбарга': 'Gulbarga',
+        'Каллур': 'Kallur',
+        'Дабхол': 'Dabhol',
+        '«Эфиопия» (Сомали)': '«Ethiopia» (Somalia)',
+        'Арцынцан': 'Erzinjian',
+        'Трабзон': 'Trebizond',
+        'Платана': 'Platana',
+        'Балаклава / Гурзуф': 'Balaklava / Gurzuf',
+        'Феодосия (Кафа)': 'Feodosia (Kaffa)',
+        'Смоленск': 'Smolensk'
+      };
+
+      const CHARACTERS_EN = [
+        {
+          id: 'af',
+          name: 'Afanasy Nikitin',
+          role: 'Tver merchant, traveler',
+          loc: 'Tver → Smolensk',
+          period: '1467–1475',
+          quote: '“I, Afanasy son of Nikitin, departed from Saint Savior... across three seas”',
+          desc: '<b>Tver merchant</b>, minor trader. Departed from Tver with a caravan. In Astrakhan, he was plundered by Tatars, losing all his goods. Forced to proceed further south to recover his fortune. Completed an eight-year journey through Persia and India. Died on his way home near Smolensk.',
+          links: [
+            { name: 'Meeting network (profile)', url: 'afanasy_people_network.html?node=af', icon: 'ti-share' },
+            { name: 'Map: departure from Tver', url: 'afanasy_v8_text_map.html?wp=0', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'boris',
+          name: 'Boris Zakharyich',
+          role: 'Governor of Tver',
+          loc: 'Tver',
+          period: '1467',
+          quote: '“From governor Boris Zakharyich” — mentioned among patrons',
+          desc: '<b>Governor of Grand Duke Mikhail Borisovich of Tver</b>. Assisted Afanasy by issuing an official safe-conduct (pass) for the trade expedition abroad.',
+          links: [
+            { name: 'Meeting network', url: 'afanasy_people_network.html?node=boris', icon: 'ti-share' },
+            { name: 'Gantt: start of the journey', url: 'afanasy_gantt.html?focus=start', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'mikhail',
+          name: 'Grand Duke Mikhail Borisovich',
+          role: 'Prince of Tver',
+          loc: 'Tver',
+          period: '1467',
+          quote: '“From the Grand Duke Mikhail Borisovich of Tver” — blessing',
+          desc: '<b>The penultimate Grand Duke of Tver</b> (ruled 1461–1485). Approved Nikitin\'s commercial enterprise by granting the grand ducal blessing and travel documents.',
+          links: [
+            { name: 'Meeting network', url: 'afanasy_people_network.html?node=mikhail', icon: 'ti-share' },
+            { name: 'Gantt: start of the journey', url: 'afanasy_gantt.html?focus=start', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'asanbeg',
+          name: 'Asanbeg of Shirvan',
+          role: 'Ambassador of Shirvanshah Farrukh-Yasar',
+          loc: 'Volga / Nizhny Novgorod',
+          period: '1467',
+          quote: '“Asanbeg, ambassador of Shirvan, was coming from Rus with falcons”',
+          desc: '<b>Ambassador of the ruler of Shirvan</b>, returning home from Moscow with a valuable diplomatic gift — hunting falcons. Afanasy Nikitin joined his caravan for safe passage down the Volga. During the Tatar attack near Astrakhan, Asanbeg escaped and abandoned the Russian merchants.',
+          links: [
+            { name: 'Meeting network', url: 'afanasy_people_network.html?node=asanbeg', icon: 'ti-share' },
+            { name: 'Map: Nizhny Novgorod', url: 'afanasy_v8_text_map.html?wp=1', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'tatars',
+          name: 'Astrakhan Tatars',
+          role: 'Attacked the caravan',
+          loc: 'Astrakhan',
+          period: '1467, autumn',
+          quote: '“The Tatars overtook us and took one vessel, and sank the other”',
+          desc: '<b>Astrakhan robbers (Shibans)</b> under the command of the local kagan. They attacked the embassy caravan in the mouth of the Volga near Astrakhan, plundering Afanasy\'s merchandise, depriving him of funds, and forcing him to continue south in debt.',
+          links: [
+            { name: 'Meeting network', url: 'afanasy_people_network.html?node=tatars', icon: 'ti-share' },
+            { name: 'Map: Astrakhan', url: 'afanasy_v8_text_map.html?wp=2', icon: 'ti-map-2' },
+            { name: 'Gantt: robbery', url: 'afanasy_gantt.html?focus=robbery', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'farrukhyasar',
+          name: 'Shirvanshah Farrukh-Yasar',
+          role: 'Ruler of the State of Shirvan',
+          loc: 'Derbent',
+          period: '1467–1468',
+          quote: '“The Shirvan Shah received us well, but gave no help”',
+          desc: '<b>Ruler of Shirvan</b> (1462–1500). The plundered Russian merchants petitioned him in Derbent to help them return home or compensate for the losses. The Shah released them in peace but refused financial assistance.',
+          links: [
+            { name: 'Meeting network', url: 'afanasy_people_network.html?node=farrukhyasar', icon: 'ti-share' },
+            { name: 'Map: Derbent', url: 'afanasy_v8_text_map.html?wp=3', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'hassan',
+          name: 'Hasan-khwaja of Khorasan',
+          role: 'Merchant from Khorasan',
+          loc: 'Junnar',
+          period: '1469, August',
+          quote: '“But God helped me — Hasan-khwaja of Khorasan saved me”',
+          desc: '<b>Muslim merchant from Khorasan</b>. Interceded for Afanasy Nikitin in Junnar before the fierce Asad Khan, who had confiscated Afanasy\'s horse and demanded his conversion to Islam. Only individual to receive personal gratitude from the merchant in the manuscript.',
+          links: [
+            { name: 'Meeting network', url: 'afanasy_people_network.html?node=hassan', icon: 'ti-share' },
+            { name: 'Map: Junnar', url: 'afanasy_v8_text_map.html?wp=11', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'asad',
+          name: 'Asad Khan (Junnar)',
+          role: 'Governor of Junnar',
+          loc: 'Junnar',
+          period: '1469',
+          quote: '“Asad Khan took my stallion when he learned I was not a Muslim”',
+          desc: '<b>Governor (kotwal) of Junnar</b>. Upon learning that the newly arrived merchant was a non-believer, he confiscated his stallion and gave a harsh ultimatum: convert to Islam on the feast of the Savior or lose his life and property. Relented after Hasan-khwaja\'s intervention.',
+          links: [
+            { name: 'Meeting network', url: 'afanasy_people_network.html?node=asad', icon: 'ti-share' },
+            { name: 'Map: Junnar', url: 'afanasy_v8_text_map.html?wp=11', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'mahmud',
+          name: 'Vizier Mahmud Gawan',
+          role: 'Grand Vizier of the Bahmani Sultanate',
+          loc: 'Bidar',
+          period: '1469–1472',
+          quote: '“Meliktuchar took the field with his army” — Afanasy chronicled his campaigns',
+          desc: '<b>Melik-ut-Tujjar (Lord of Merchants) and Grand Vizier of the Bahmanis</b>. Born to a merchant family in Gilan, he was an outstanding reformer and military commander. Afanasy describes in detail his military triumphs (taking of Goa) and royal processions.',
+          links: [
+            { name: 'Meeting network (profile)', url: 'afanasy_people_network.html?node=mahmud', icon: 'ti-share' },
+            { name: 'Map: Bidar', url: 'afanasy_v8_text_map.html?wp=12', icon: 'ti-map-2' },
+            { name: 'Gantt: Bidar period', url: 'afanasy_gantt.html?focus=bidar', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'sultan',
+          name: 'Sultan Mahmud III Bahmani',
+          role: 'Sultan of the Bahmani State',
+          loc: 'Bidar',
+          period: '1469–1472',
+          quote: '“The Sultan goes out — 300 elephants in armor before him”',
+          desc: '<b>Sultan of the Bahmani state in the Deccan</b>. Afanasy Nikitin documented his magnificent military reviews, grand processions with hundreds of war elephants, and luxurious clothing decorated with diamonds and rubies.',
+          links: [
+            { name: 'Meeting network', url: 'afanasy_people_network.html?node=sultan', icon: 'ti-share' },
+            { name: 'Map: Bidar', url: 'afanasy_v8_text_map.html?wp=12', icon: 'ti-map-2' }
+          ]
+        },
+        {
+          id: 'brahmins',
+          name: 'Brahmins of Srisailam',
+          role: 'Hindu priests and pilgrims',
+          loc: 'Srisailam (Parvat)',
+          period: '1471',
+          quote: '“The Brahmins gave me food, but did not give meat”',
+          desc: '<b>Hindu priests</b> of the Srisailam temple complex. Welcomed Afanasy as a pilgrim, allowed him to attend the Mahashivaratri festival, and fed him vegetarian food.',
+          links: [
+            { name: 'Meeting network', url: 'afanasy_people_network.html?node=brahmins', icon: 'ti-share' },
+            { name: 'Map: Srisailam', url: 'afanasy_v8_text_map.html?wp=14', icon: 'ti-map-2' },
+            { name: 'Gantt: pilgrimage', url: 'afanasy_gantt.html?focus=parvat', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'mamyrev',
+          name: 'Clerk Vasily Mamyrev',
+          role: 'Grand princely embassy clerk',
+          loc: 'Moscow',
+          period: '~1475–1480',
+          quote: '“This writing was found in the possession of one Afanasy, a merchant”',
+          desc: '<b>Head of the embassy department under Ivan III</b>. In 1475, Moscow merchants handed over the notebooks of Afanasy Nikitin, who died on his way back, to him. Mamyrev appreciated the manuscript, had it copied, and included it in the official Chronicle.',
+          links: [
+            { name: 'Meeting network (profile)', url: 'afanasy_people_network.html?node=mamyrev', icon: 'ti-share' }
+          ]
+        },
+        {
+          id: 'genadiy',
+          name: 'Bishop Gennady',
+          role: 'Bishop of Tver',
+          loc: 'Tver',
+          period: '1467',
+          quote: '“From the bishop Gennady of Tver” — blessing',
+          desc: '<b>Bishop of Tver</b> (1461–1477). Gave Afanasy his spiritual blessing for the trade journey "overseas". The bishop\'s blessing was an important religious and legal factor for Russian people of that era.',
+          links: [
+            { name: 'Meeting network', url: 'afanasy_people_network.html?node=genadiy', icon: 'ti-share' },
+            { name: 'Gantt: start of the journey', url: 'afanasy_gantt.html?focus=start', icon: 'ti-chart-bar' }
+          ]
+        },
+        {
+          id: 'local',
+          name: 'Indian Ocean Merchants',
+          role: 'Muslim and Indian traders',
+          loc: 'Ormuz → India',
+          period: '1469–1474',
+          quote: '“I went in a tava — with Muslim shipmasters”',
+          desc: '<b>Shipmasters and merchants</b> who traveled in caravans across the Arabian Sea and the Indian Ocean. Afanasy rented space on their ships ("tavas"), traded with them, and debated the calendar and religious fasts.',
+          links: [
+            { name: 'Meeting network', url: 'afanasy_people_network.html?node=local', icon: 'ti-share' }
+          ]
+        },
+        {
+          id: 'karamzin',
+          name: 'Nikolay Karamzin',
+          role: 'Writer, historiographer',
+          loc: 'Russia',
+          period: '1817',
+          quote: '“This traveler... does not show an observant spirit” — Karamzin',
+          desc: '<b>Great Russian writer and historian</b>. In 1817, he found the manuscript of the "Journey" in the archives of the Trinity Lavra of St. Sergius. He published fragments from it, bringing the name of the Tver pioneer back from oblivion three centuries later.',
+          links: [
+            { name: 'Meeting network (profile)', url: 'afanasy_people_network.html?node=karamzin', icon: 'ti-share' }
+          ]
+        }
+      ];
+
+      const LINK_TRANSLATIONS = {
+        'Тайм-лапс на карте': 'Time-lapse on Map',
+        'Диаграмма Гантта': 'Gantt Chart',
+        'Экономика (продажа коня)': 'Economics (Horse Sale)',
+        'Четыре путешественника (сравнение)': 'Four Travelers (Comparison)',
+        'Кризис веры в Джуннаре': 'Crisis of Faith in Junnar',
+        'Паломничество в Парват': 'Pilgrimage to Parvat',
+        'Календарь (Махашиваратри)': 'Calendar (Mahashivaratri)',
+        'Календарный спор (Пасха)': 'Calendar Dispute (Easter)',
+        'Торговый маршрутник': 'Merchant Router',
+        'Сеть встреч (профиль)': 'Meeting Network (Profile)',
+        'Сеть встреч': 'Meeting Network',
+        'Гантт: начало пути': 'Gantt: Start of Journey',
+        'Карта: отплытие из Твери': 'Map: Departure from Tver',
+        'Карта: Нижний Новгород': 'Map: Nizhny Novgorod',
+        'Карта: Астрахань': 'Map: Astrakhan',
+        'Карта: Дербент': 'Map: Derbent',
+        'Карта: Джуннар': 'Map: Junnar',
+        'Карта: Бидар': 'Map: Bidar',
+        'Карта: Шрисайлам': 'Map: Srisailam',
+        'Гантт: ограбление': 'Gantt: Robbery',
+        'Гантт: Бидарский период': 'Gantt: Bidar Period',
+        'Гантт: паломничество': 'Gantt: Pilgrimage'
+      };
+
       const listContainer = document.getElementById('list-container');
       const detailPane = document.getElementById('detail-pane');
       const searchInput = document.getElementById('search-input');
@@ -549,7 +869,7 @@
       let currentTab = 'toponyms'; // 'toponyms' or 'people'
       let activeItemId = null;
 
-      // Group and sort toponyms alphabetically
+      // Group toponyms
       const { WP, PASSAGES } = window.ATLAS;
       const toponymGroups = {};
       WP.forEach((wp, idx) => {
@@ -572,8 +892,21 @@
         });
       });
 
-      const sortedToponyms = Object.values(toponymGroups).sort((a, b) => a.name.localeCompare(b.name, 'ru'));
-      const sortedPeople = [...CHARACTERS].sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+      function getSortedToponyms(lang) {
+        return Object.values(toponymGroups).sort((a, b) => {
+          const nameA = lang === 'en' ? (TOPONYM_NAMES_EN[a.name] || a.name) : a.name;
+          const nameB = lang === 'en' ? (TOPONYM_NAMES_EN[b.name] || b.name) : b.name;
+          return nameA.localeCompare(nameB, lang);
+        });
+      }
+
+      function getSortedPeople(lang) {
+        return [...CHARACTERS].sort((a, b) => {
+          const charA = lang === 'en' ? (CHARACTERS_EN.find(c => c.id === a.id) || a) : a;
+          const charB = lang === 'en' ? (CHARACTERS_EN.find(c => c.id === b.id) || b) : b;
+          return charA.name.localeCompare(charB.name, lang);
+        });
+      }
 
       // Helper to count Russian nouns (упоминание / упоминания / упоминаний)
       function getNounPlural(number, one, two, many) {
@@ -644,23 +977,43 @@
       // Populate list based on current tab and search query
       function renderList() {
         listContainer.innerHTML = '';
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
         const query = searchInput.value.toLowerCase().trim();
 
         if (currentTab === 'toponyms') {
-          sortedToponyms.forEach(itemData => {
-            const name = itemData.name;
+          const toponyms = getSortedToponyms(lang);
+          toponyms.forEach(itemData => {
+            const nameRu = itemData.name;
+            const nameEn = TOPONYM_NAMES_EN[nameRu] || nameRu;
+            const name = lang === 'en' ? nameEn : nameRu;
+
+            // Search matches RU and EN fields simultaneously
             const matchesQuery = !query || 
-              name.toLowerCase().includes(query) ||
-              itemData.visits.some(v => 
-                v.period.toLowerCase().includes(query) ||
-                v.region.toLowerCase().includes(query) ||
-                v.desc.toLowerCase().includes(query) ||
-                v.quote.toLowerCase().includes(query)
-              );
+              nameRu.toLowerCase().includes(query) ||
+              nameEn.toLowerCase().includes(query) ||
+              itemData.visits.some(v => {
+                const wpEn = WP_EN[v.idx] || [];
+                const quoteEn = PASSAGES_EN[v.idx] || '';
+                return v.period.toLowerCase().includes(query) ||
+                  (wpEn[1] && wpEn[1].toLowerCase().includes(query)) ||
+                  v.region.toLowerCase().includes(query) ||
+                  (wpEn[3] && wpEn[3].toLowerCase().includes(query)) ||
+                  v.desc.toLowerCase().includes(query) ||
+                  (wpEn[2] && wpEn[2].toLowerCase().includes(query)) ||
+                  (v.quote && v.quote.toLowerCase().includes(query)) ||
+                  quoteEn.toLowerCase().includes(query);
+              });
 
             if (!matchesQuery) return;
 
-            const sub = itemData.visits.map(v => v.period).join(', ');
+            // Display sub: concatenate periods
+            const sub = itemData.visits.map(v => {
+              if (lang === 'en') {
+                const wpEn = WP_EN[v.idx] || [];
+                return wpEn[1] || v.period;
+              }
+              return v.period;
+            }).join(', ');
             
             const item = document.createElement('div');
             item.className = 'concordance-item';
@@ -679,15 +1032,26 @@
             listContainer.appendChild(item);
           });
         } else {
-          sortedPeople.forEach(char => {
-            const name = char.name;
-            const sub = `${char.role} (${char.period})`;
+          const people = getSortedPeople(lang);
+          people.forEach(char => {
+            const charEn = CHARACTERS_EN.find(c => c.id === char.id) || {};
+            const name = lang === 'en' ? (charEn.name || char.name) : char.name;
             
+            const role = lang === 'en' ? (charEn.role || char.role) : char.role;
+            const period = lang === 'en' ? (charEn.period || char.period) : char.period;
+            const sub = `${role} (${period})`;
+
             const matchesQuery = !query ||
-              name.toLowerCase().includes(query) ||
-              sub.toLowerCase().includes(query) ||
+              char.name.toLowerCase().includes(query) ||
+              (charEn.name && charEn.name.toLowerCase().includes(query)) ||
+              char.role.toLowerCase().includes(query) ||
+              (charEn.role && charEn.role.toLowerCase().includes(query)) ||
+              char.period.toLowerCase().includes(query) ||
+              (charEn.period && charEn.period.toLowerCase().includes(query)) ||
               char.desc.toLowerCase().includes(query) ||
-              char.quote.toLowerCase().includes(query);
+              (charEn.desc && charEn.desc.toLowerCase().includes(query)) ||
+              (char.quote && char.quote.toLowerCase().includes(query)) ||
+              (charEn.quote && charEn.quote.toLowerCase().includes(query));
 
             if (!matchesQuery) return;
 
@@ -711,7 +1075,8 @@
 
         // Show empty state if no results
         if (listContainer.children.length === 0) {
-          listContainer.innerHTML = '<div style="font-size: 11px; color: var(--color-text-secondary); text-align: center; padding: 12px;">Ничего не найдено</div>';
+          const noResultsText = lang === 'en' ? 'No results found' : 'Ничего не найдено';
+          listContainer.innerHTML = `<div style="font-size: 11px; color: var(--color-text-secondary); text-align: center; padding: 12px;">${noResultsText}</div>`;
         }
       }
 
@@ -724,30 +1089,272 @@
           el.classList.toggle('active', el.getAttribute('data-id') === itemData.id);
         });
 
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
         const query = searchInput.value.toLowerCase().trim();
         
         let visitsHtml = '';
         itemData.visits.forEach((v, index) => {
-          const titlePrefix = itemData.visits.length > 1 ? `<h4>Визит ${index + 1} (${v.period})</h4>` : '';
+          const wpEn = WP_EN[v.idx] || [];
+          const quoteEn = PASSAGES_EN[v.idx] || '';
+
+          const visitPeriod = lang === 'en' ? (wpEn[1] || v.period) : v.period;
+          const visitDesc = lang === 'en' ? (wpEn[2] || v.desc) : v.desc;
+          const visitQuote = lang === 'en' ? (quoteEn || v.quote) : v.quote;
+
+          const visitTitle = lang === 'en' 
+            ? `Visit ${index + 1} (${visitPeriod})` 
+            : `Визит ${index + 1} (${visitPeriod})`;
+            
+          const titlePrefix = itemData.visits.length > 1 ? `<h4>${visitTitle}</h4>` : '';
           const links = getToponymLinks(itemData.name, v.idx);
           let linksHtml = '';
           if (links.length > 0) {
             linksHtml = `
               <div class="concordance-det-links" style="margin-top: 6px;">
-                ${links.map(lnk => `
-                  <a href="${lnk.url}" class="concordance-link-btn">
-                    <i class="ti ${lnk.icon}" aria-hidden="true"></i> ${lnk.name}
-                  </a>
-                `).join('')}
+                ${links.map(lnk => {
+                  const lnkName = lang === 'en' ? (LINK_TRANSLATIONS[lnk.name] || lnk.name) : lnk.name;
+                  return `
+                    <a href="${lnk.url}" class="concordance-link-btn">
+                      <i class="ti ${lnk.icon}" aria-hidden="true"></i> ${lnkName}
+                    </a>
+                  `;
+                }).join('')}
               </div>
             `;
           }
 
+          const descHeader = lang === 'en' ? 'Description and Context' : 'Описание и контекст';
+          const quoteHeader = lang === 'en' ? 'From the "Journey" Manuscript' : 'Из рукописи «Хожения»';
+          const visHeader = lang === 'en' ? 'Visualizations in Atlas' : 'Визуализации в Атласе';
+
           visitsHtml += `
             <div class="concordance-det-visit" style="margin-bottom: 16px; border-bottom: 0.5px solid var(--color-border-tertiary); padding-bottom: 12px;">
               ${titlePrefix}
-              <div style="font-size: 9.5px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px;">Описание и контекст</div>
-              <div class="concordance-det-desc" style="margin-bottom: 8px;">${highlightText(v.desc, query)}</div>
+              <div style="font-size: 9.5px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px;">${descHeader}</div>
+              <div class="concordance-det-desc" style="margin-bottom: 8px;">${highlightText(visitDesc, query)}</div>
+              ${visitQuote ? `
+                <div class="concordance-det-quote-header">${quoteHeader}</div>
+                <blockquote class="concordance-det-quote" style="margin-bottom: 8px;">${highlightText(visitQuote, query)}</blockquote>
+              ` : ''}
+              <div class="concordance-det-links-header">${visHeader}</div>
+              ${linksHtml}
+            </div>
+          `;
+        });
+
+        // Strip the trailing border-bottom of the last visit element for clean design
+        visitsHtml = visitsHtml.replace(/style="[^"]*margin-bottom: 16px; border-bottom: 0.5px solid var\(--color-border-tertiary\); padding-bottom: 12px;"\s*>\s*$/, 'style="margin-bottom: 0;">');
+
+        const toponymName = lang === 'en' ? (TOPONYM_NAMES_EN[itemData.name] || itemData.name) : itemData.name;
+        const region = lang === 'en' ? (WP_EN[itemData.visits[0].idx][3] || itemData.visits[0].region) : itemData.visits[0].region;
+
+        let mentionsLabel = '';
+        if (lang === 'en') {
+          mentionsLabel = itemData.visits.length === 1 ? 'mention' : 'mentions';
+        } else {
+          mentionsLabel = getNounPlural(itemData.visits.length, 'упоминание', 'упоминания', 'упоминаний');
+        }
+
+        const typeLabel = lang === 'en' ? 'Geographical Location' : 'Географический пункт';
+
+        detailPane.innerHTML = `
+          <div class="concordance-detail-card">
+            <div class="concordance-det-header" style="margin-bottom: 12px;">
+              <div class="concordance-det-subtitle">${typeLabel} · ${itemData.visits.length} ${mentionsLabel}</div>
+              <div class="concordance-det-title">${highlightText(toponymName, query)}</div>
+              <div style="font-size: 11px; color: var(--color-text-secondary);">${region}</div>
+            </div>
+            ${visitsHtml}
+          </div>
+        `;
+      }
+
+      // Render detail view for a Person
+      function selectPerson(char) {
+        const id = `char-${char.id}`;
+        activeItemId = id;
+        
+        // Update active class in list dynamically without full rebuild
+        document.querySelectorAll('.concordance-item').forEach(el => {
+          el.classList.toggle('active', el.getAttribute('data-id') === id);
+        });
+
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
+        const query = searchInput.value.toLowerCase().trim();
+
+        const charEn = CHARACTERS_EN.find(c => c.id === char.id) || {};
+        const name = lang === 'en' ? (charEn.name || char.name) : char.name;
+        const role = lang === 'en' ? (charEn.role || char.role) : char.role;
+        const period = lang === 'en' ? (charEn.period || char.period) : char.period;
+        const desc = lang === 'en' ? (charEn.desc || char.desc) : char.desc;
+        const quote = lang === 'en' ? (charEn.quote || char.quote) : char.quote;
+
+        let linksHtml = '';
+        const links = char.links || [];
+        if (links.length > 0) {
+          const visHeader = lang === 'en' ? 'Visualizations in Atlas' : 'Визуализации в Атласе';
+          linksHtml = `
+            <div class="concordance-det-links-header">${visHeader}</div>
+            <div class="concordance-det-links">
+              ${links.map(lnk => {
+                const lnkName = lang === 'en' ? (LINK_TRANSLATIONS[lnk.name] || lnk.name) : lnk.name;
+                return `
+                  <a href="${lnk.url}" class="concordance-link-btn">
+                    <i class="ti ${lnk.icon}" aria-hidden="true"></i> ${lnkName}
+                  </a>
+                `;
+              }).join('')}
+            </div>
+          `;
+        }
+
+        const typeLabel = lang === 'en' ? 'Historical Figure' : 'Историческая личность';
+        const quoteHeader = lang === 'en' ? 'From the "Journey" Manuscript' : 'Из рукописи «Хожения»';
+
+        detailPane.innerHTML = `
+          <div class="concordance-detail-card">
+            <div class="concordance-det-header">
+              <div class="concordance-det-subtitle">${typeLabel}</div>
+              <div class="concordance-det-title">${highlightText(name, query)}</div>
+              <div style="font-size: 11px; color: var(--color-text-secondary);">${highlightText(`${role} (${period})`, query)}</div>
+            </div>
+            <div class="concordance-det-desc">${highlightText(desc, query)}</div>
+            ${quote ? `
+              <div>
+                <div class="concordance-det-quote-header">${quoteHeader}</div>
+                <blockquote class="concordance-det-quote">${highlightText(quote, query)}</blockquote>
+              </div>
+            ` : ''}
+            ${linksHtml}
+          </div>
+        `;
+      }
+
+      // Switch tabs
+      function setTab(tab) {
+        if (currentTab === tab) return;
+        currentTab = tab;
+        activeItemId = null;
+
+        tabToponyms.classList.toggle('active', tab === 'toponyms');
+        tabToponyms.setAttribute('aria-selected', tab === 'toponyms');
+        tabPeople.classList.toggle('active', tab === 'people');
+        tabPeople.setAttribute('aria-selected', tab === 'people');
+
+        resetDetailPane();
+        renderList();
+      }
+
+      function resetDetailPane() {
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
+        detailPane.innerHTML = `
+          <div class="concordance-detail-placeholder">
+            <i class="ti ti-click" aria-hidden="true"></i>
+            <div class="lang-ru">Выберите элемент из списка слева, чтобы увидеть подробную информацию, цитаты из текста рукописи и ссылки на карты.</div>
+            <div class="lang-en">Select an item from the list on the left to view detailed information, quotes from the manuscript, and links to maps.</div>
+          </div>
+        `;
+      }
+
+      function updateSearchPlaceholder() {
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
+        searchInput.placeholder = lang === 'en' 
+          ? 'Search for a place, person, or quote...' 
+          : 'Поиск топонима, лица или цитаты...';
+      }
+
+      // Event Listeners
+      tabToponyms.onclick = () => setTab('toponyms');
+      tabPeople.onclick = () => setTab('people');
+      
+      searchInput.oninput = () => {
+        renderList();
+        // Update detail pane if an item is active to highlight query in real-time
+        if (activeItemId) {
+          if (activeItemId.startsWith('toponym-')) {
+            const name = activeItemId.replace('toponym-', '');
+            const itemData = Object.values(toponymGroups).find(t => t.name === name);
+            if (itemData) selectToponym(itemData);
+          } else if (activeItemId.startsWith('char-')) {
+            const charId = activeItemId.replace('char-', '');
+            const char = CHARACTERS.find(c => c.id === charId);
+            if (char) selectPerson(char);
+          }
+        }
+      };
+
+      // Event listener for language changes from theme toggle
+      window.addEventListener('languagechange', () => {
+        updateSearchPlaceholder();
+        renderList();
+        
+        // Re-render the active card if there is one selected
+        if (activeItemId) {
+          if (activeItemId.startsWith('toponym-')) {
+            const name = activeItemId.replace('toponym-', '');
+            const itemData = Object.values(toponymGroups).find(t => t.name === name);
+            if (itemData) selectToponym(itemData);
+          } else if (activeItemId.startsWith('char-')) {
+            const charId = activeItemId.replace('char-', '');
+            const char = CHARACTERS.find(c => c.id === charId);
+            if (char) selectPerson(char);
+          }
+        } else {
+          resetDetailPane();
+        }
+      });
+
+      // Keyboard Esc to exit
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') location.href = 'index.html';
+        if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+          document.getElementById('theme-toggle')?.click();
+        }
+      });
+
+      // Check query parameters for initial selection
+      function checkQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        const highlight = params.get('highlight') || params.get('toponym') || params.get('place');
+        const charId = params.get('char') || params.get('person');
+
+        if (highlight) {
+          // Find matching toponym
+          const match = Object.values(toponymGroups).find(t => {
+            const nameRu = t.name.toLowerCase();
+            const nameEn = (TOPONYM_NAMES_EN[t.name] || '').toLowerCase();
+            return nameRu === highlight.toLowerCase() || nameEn === highlight.toLowerCase();
+          });
+          if (match) {
+            setTab('toponyms');
+            selectToponym(match);
+            
+            // Scroll selected item into view
+            setTimeout(() => {
+              const el = listContainer.querySelector(`[data-id="${match.id}"]`);
+              if (el) el.scrollIntoView({ block: 'nearest' });
+            }, 100);
+          }
+        } else if (charId) {
+          const match = CHARACTERS.find(c => c.id.toLowerCase() === charId.toLowerCase());
+          if (match) {
+            setTab('people');
+            selectPerson(match);
+            
+            // Scroll selected item into view
+            setTimeout(() => {
+              const el = listContainer.querySelector(`[data-id="char-${match.id}"]`);
+              if (el) el.scrollIntoView({ block: 'nearest' });
+            }, 100);
+          }
+        }
+      }
+
+      // Initial load
+      updateSearchPlaceholder();
+      renderList();
+      checkQueryParams();
+    })();m: 8px;">${highlightText(v.desc, query)}</div>
               ${v.quote ? `
                 <div class="concordance-det-quote-header">Из рукописи «Хожения»</div>
                 <blockquote class="concordance-det-quote" style="margin-bottom: 8px;">${highlightText(v.quote, query)}</blockquote>
