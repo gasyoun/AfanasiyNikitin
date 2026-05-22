@@ -142,7 +142,7 @@ async function testPWA() {
   console.log('3. В левой панели выберите:');
   console.log('   - Service Workers → должен показать "activated and running"');
   console.log('   - Manifest → должна загрузиться манифест');
-  console.log('   - Cache Storage → "afanasy-atlas-v1" с ~20 файлами');
+  console.log('   - Cache Storage → "afanasy-atlas-v8" с ~20 файлами');
   console.log('4. Включите оффлайн режим:');
   console.log('   - Network tab → галочка "Offline"');
   console.log('   - Перезагрузите страницу → должна работать оффлайн');

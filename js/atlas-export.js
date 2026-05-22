@@ -181,10 +181,25 @@
       'stroke-linecap', 'stroke-linejoin'
     ];
     
+    const rootStyle = window.getComputedStyle(document.documentElement);
+    
+    function resolveValue(val) {
+      if (val && typeof val === 'string' && val.trim().startsWith('var(')) {
+        const match = val.match(/var\(\s*(--[^,\s)]+)/);
+        if (match) {
+          const varName = match[1].trim();
+          const resolved = rootStyle.getPropertyValue(varName).trim();
+          if (resolved) return resolved;
+        }
+      }
+      return val;
+    }
+    
     // Copy computed styles for root
     const computedRoot = window.getComputedStyle(svgElement);
     styleProps.forEach(prop => {
-      const val = computedRoot.getPropertyValue(prop);
+      let val = computedRoot.getPropertyValue(prop);
+      val = resolveValue(val);
       if (val) clone.style[prop] = val;
     });
     
@@ -195,7 +210,8 @@
       const computed = window.getComputedStyle(orig);
       
       styleProps.forEach(prop => {
-        const val = computed.getPropertyValue(prop);
+        let val = computed.getPropertyValue(prop);
+        val = resolveValue(val);
         if (val) cloned.style[prop] = val;
       });
     }
@@ -325,7 +341,7 @@
     }
     
     // Generate code
-    const pageUrl = window.location.href.split('?')[0];
+    const pageUrl = window.location.href;
     const iframeCode = `<iframe src="${pageUrl}" width="100%" height="600" style="border:none; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.05);" title="Атлас Афанасия Никитина"></iframe>`;
     modalOverlay.querySelector('.atlas-export-modal-textarea').value = iframeCode;
     

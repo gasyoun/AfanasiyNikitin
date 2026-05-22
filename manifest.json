@@ -2,12 +2,12 @@
   "name": "Афанасий Никитин — Интерактивный Атлас",
   "short_name": "Атлас Афанасия",
   "description": "21 интерактивная визуализация путешествия русского купца Афанасия Никитина в Индию (1467–1475)",
-  "start_url": "/AfanasiyNikitin/",
-  "scope": "/AfanasiyNikitin/",
+  "start_url": "index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#fdfbf7",
   "theme_color": "#8b5a30",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "icons": [
     {
       "src": "favicon.svg",
