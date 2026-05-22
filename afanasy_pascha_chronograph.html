@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Афанасий Никитин — Пасхальный хронограф</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  
+  <!-- CSS Variables & Base Styles -->
+  <link rel="stylesheet" href="css/atlas.css">
+  <style>
+    .chrono-container {
+      font-size: var(--text-base);
+    }
+    
+    .chrono-intro {
+      padding: 12px 16px;
+      background: var(--color-background-secondary);
+      border-radius: var(--border-radius-md);
+      border: 0.5px solid var(--color-border-tertiary);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+      margin-bottom: 20px;
+    }
+    
+    .chrono-intro b {
+      color: var(--color-text-primary);
+    }
+
+    .chrono-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      border-bottom: 1.5px solid var(--color-border-secondary);
+      overflow-x: auto;
+    }
+    
+    .chrono-tab {
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: none;
+      color: var(--color-text-secondary);
+      border: none;
+      border-bottom: 3px solid transparent;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    
+    .chrono-tab:hover {
+      color: var(--color-text-primary);
+    }
+    
+    .chrono-tab.active {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+      font-weight: 600;
+    }
+    
+    .chrono-panel {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    .chrono-panel.active {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tab 1 layout */
+    .wheel-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    
+    @media (max-width: 900px) {
+      .wheel-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .wheel-card {
+      background: var(--color-background-secondary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: var(--shadow-container);
+      position: relative;
+    }
+    
+    .wheel-controls {
+      width: 100%;
+      margin-top: 15px;
+    }
+    
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    
+    .year-slider {
+      flex-grow: 1;
+      height: 6px;
+      background: var(--color-border-secondary);
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+    
+    .year-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      border: 2px solid var(--color-background-primary);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: transform 0.1s;
+    }
+    
+    .year-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    
+    .btn-play {
+      background: var(--color-accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--border-radius-md);
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    
+    .btn-play:hover {
+      background: var(--color-accent-hover);
+    }
+
+    .info-card {
+      background: var(--color-background-secondary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-container);
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .info-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      color: var(--color-text-primary);
+      margin-top: 0;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--color-border-tertiary);
+      padding-bottom: 8px;
+    }
+
+    .info-stat-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+      border-bottom: 0.5px dashed var(--color-border-tertiary);
+      padding-bottom: 6px;
+    }
+
+    .info-stat-label {
+      color: var(--color-text-secondary);
+    }
+
+    .info-stat-value {
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .overlap-alert {
+      background: rgba(184, 112, 32, 0.08);
+      border: 1px solid var(--color-accent);
+      border-radius: var(--border-radius-md);
+      padding: 10px 12px;
+      font-size: 12.5px;
+      color: var(--color-text-primary);
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      line-height: 1.4;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 4px rgba(184, 112, 32, 0.1); }
+      50% { box-shadow: 0 0 12px rgba(184, 112, 32, 0.3); }
+    }
+
+    .info-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--color-text-primary);
+      border-left: 3px solid var(--color-accent);
+      padding-left: 12px;
+      margin: 15px 0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* Drift Calculator Panel */
+    .calc-card {
+      margin-top: 24px;
+      background: var(--color-background-secondary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-lg);
+      padding: 18px 24px;
+      box-shadow: var(--shadow-container);
+    }
+    
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 24px;
+      align-items: center;
+    }
+    
+    @media (max-width: 768px) {
+      .calc-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .calc-wheel-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Tab 2: Duel Layout */
+    .duel-card {
+      background: var(--color-background-secondary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-container);
+      margin-bottom: 20px;
+    }
+    
+    .duel-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+    
+    .duel-table th, .duel-table td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border-tertiary);
+    }
+    
+    .duel-table th {
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      background: var(--color-background-tertiary);
+    }
+    
+    .duel-table tr:hover {
+      background: rgba(184, 112, 32, 0.02);
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    
+    .badge-success {
+      background: rgba(30, 130, 80, 0.12);
+      color: var(--viz-calendar-match);
+      border: 0.5px solid var(--viz-calendar-match);
+    }
+    
+    .badge-error {
+      background: rgba(192, 57, 43, 0.12);
+      color: var(--viz-calendar-drift);
+      border: 0.5px solid var(--viz-calendar-drift);
+    }
+
+    .chronology-detail-box {
+      margin-top: 15px;
+      padding: 14px;
+      background: var(--color-background-tertiary);
+      border-radius: var(--border-radius-md);
+      font-size: 12.5px;
+      line-height: 1.55;
+      display: none;
+    }
+    
+    .chronology-detail-box.active {
+      display: block;
+    }
+
+    /* Tab 3: Steps layout */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .step-item {
+      display: flex;
+      gap: 16px;
+      background: var(--color-background-secondary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-container);
+      transition: transform 0.15s;
+    }
+    
+    .step-item:hover {
+      transform: translateX(3px);
+    }
+    
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+    
+    .step-content {
+      flex-grow: 1;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .step-title {
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    /* Concentric concentric-ring animations */
+    .solar-ring-bg {
+      fill: var(--color-background-primary);
+      stroke: var(--color-border-secondary);
+      stroke-width: 1;
+    }
+    
+    .lunar-ring-bg {
+      fill: none;
+      stroke: var(--color-border-tertiary);
+      stroke-width: 1.5;
+    }
+    
+    .ring-text {
+      font-family: var(--font-sans);
+      font-size: 8px;
+      font-weight: 500;
+      fill: var(--color-text-secondary);
+    }
+    
+    .ring-line {
+      stroke: var(--color-border-tertiary);
+      stroke-width: 0.5;
+    }
+
+    .marker-dot {
+      stroke-width: 1.5;
+      stroke: var(--color-background-primary);
+    }
+    
+    .marker-line {
+      stroke-dasharray: 2, 2;
+      stroke-width: 1;
+    }
+  </style>
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="<body>
+  <div class="vis-container">
+    <header class="vis-header">
+      <h1 class="lang-ru">Пасхальный хронограф</h1>
+      <h1 class="lang-en">Paschal Chronograph</h1>
+      <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка">
+        <a href="index.html" class="back-btn">
+          <i class="ti ti-arrow-left"></i> 
+          <span class="lang-ru">Атлас</span>
+          <span class="lang-en">Atlas</span>
+        </a>
+        <span class="atlas-breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="atlas-breadcrumb-current lang-ru">Пасхальный хронограф</span>
+        <span class="atlas-breadcrumb-current lang-en">Paschal Chronograph</span>
+      </nav>
+    </header>
+
+    <div class="chrono-container">
+      <div class="chrono-intro lang-ru">
+        В 2026 году историк <b>Денис Хрусталёв</b> представил новую хронологию путешествия Афанасия Никитина (<b>1467–1475 гг.</b> вместо 1466–1472 гг.). Главным математическим доказательством этой датировки выступает <b>дрейф исламского лунного календаря относительно юлианского солнечного</b>. На этом экране вы можете проследить этот дрейф своими глазами и изучить доказательства.
+      </div>
+      <div class="chrono-intro lang-en">
+        In 2026, historian <b>Denis Khrustalev</b> proposed a new chronology of Afanasy Nikitin's journey (<b>1467–1475</b> instead of 1466–1472). The primary mathematical proof for this dating is the <b>drift of the Islamic lunar calendar relative to the Julian solar calendar</b>. On this screen, you can visualize this drift and explore the evidence.
+      </div>
+
+      <div class="chrono-tabs">
+        <button class="chrono-tab active" onclick="switchTab('drift')">
+          <span class="lang-ru">📅 Календарный дрейф</span>
+          <span class="lang-en">📅 Calendar Drift</span>
+        </button>
+        <button class="chrono-tab" onclick="switchTab('duel')">
+          <span class="lang-ru">⚔️ Битва хронологий</span>
+          <span class="lang-en">⚔️ Chronology Duel</span>
+        </button>
+        <button class="chrono-tab" onclick="switchTab('error1473')">
+          <span class="lang-ru">🔍 Загадка Пасхи 1473 года</span>
+          <span class="lang-en">🔍 Riddle of Easter 1473</span>
+        </button>
+      </div>
+
+      <!-- TAB 1: Calendar Drift -->
+      <div id="tab-drift" class="chrono-panel active">
+        <div class="wheel-layout">
+          <!-- Calendar Wheel Visualization -->
+          <div class="wheel-card">
+            <svg id="wheel-svg" width="400" height="400" viewBox="0 0 400 400" style="overflow: visible;"></svg>
+            
+            <div class="wheel-controls">
+              <div class="slider-row">
+                <button class="btn-play" id="btn-play" onclick="togglePlay()">
+                  <i class="ti ti-play" id="play-icon"></i> <span id="play-text" class="lang-ru">Запустить</span><span id="play-text-en" class="lang-en" style="display:none;">Play</span>
+                </button>
+                <input type="range" class="year-slider" id="year-slider" min="1467" max="1474" value="1467" step="1" oninput="setYear(this.value)">
+                <span id="slider-year-label" style="font-weight: 700; font-size: 16px; width: 45px; text-align: right; color: var(--color-accent);">1467</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Explanation Sidebar -->
+          <div class="info-card">
+            <div>
+              <h3 class="info-title">
+                <span class="lang-ru">Пасхальный год: </span>
+                <span class="lang-en">Easter Year: </span>
+                <span id="info-year" style="color: var(--color-accent);">1467</span>
+              </h3>
+              
+              <div class="info-stat-row">
+                <span class="info-stat-label">
+                  <span class="lang-ru">📍 Местонахождение</span>
+                  <span class="lang-en">📍 Location</span>
+                </span>
+                <span class="info-stat-value" id="info-location">«Каин» (Волга)</span>
+              </div>
+              <div class="info-stat-row">
+                <span class="info-stat-label">
+                  <span class="lang-ru">☦️ Истинная Пасха</span>
+                  <span class="lang-en">☦️ True Easter</span>
+                </span>
+                <span class="info-stat-value" id="info-easter-true">29 марта</span>
+              </div>
+              <div class="info-stat-row">
+                <span class="info-stat-label">
+                  <span class="lang-ru">⛪ У Никитина</span>
+                  <span class="lang-en">⛪ Observed by Nikitin</span>
+                </span>
+                <span class="info-stat-value" id="info-easter-obs">29 марта</span>
+              </div>
+              <div class="info-stat-row">
+                <span class="info-stat-label">
+                  <span class="lang-ru">⏱️ Календарное расхождение</span>
+                  <span class="lang-en">⏱️ Calendar Discrepancy</span>
+                </span>
+                <span class="info-stat-value" id="info-drift-days" style="color: var(--viz-calendar-match);">0 дней</span>
+              </div>
+              <div class="info-stat-row">
+                <span class="info-stat-label">
+                  <span class="lang-ru">☪️ Рамадан в этом году</span>
+                  <span class="lang-en">☪️ Ramadan this year</span>
+                </span>
+                <span class="info-stat-value" id="info-ramadan-start">9 ноября</span>
+              </div>
+              
+              <div id="overlap-banner" class="overlap-alert" style="display: none;">
+                <i class="ti ti-flame" style="font-size: 18px; color: var(--color-accent); flex-shrink: 0;"></i>
+                <div>
+                  <span class="lang-ru"><strong>Астрономический резонанс:</strong> Великий православный пост (с 5 марта) и мусульманский Рамадан (с 4 марта) наложились друг на друга!</span>
+                  <span class="lang-en"><strong>Astronomical Resonance:</strong> Orthodox Great Lent (from Mar 5) and Muslim Ramadan (from Mar 4) overlapped!</span>
+                </div>
+              </div>
+
+              <div class="info-quote" id="info-quote">
+                Первая Пасха остаётся в русском календарном счёте: Афанасий ещё не потерял привычную пасхалию.
+              </div>
+            </div>
+
+            <div style="font-size: 12.5px; line-height: 1.45; color: var(--color-text-secondary); border-top: 1px solid var(--color-border-tertiary); padding-top: 12px; margin-top: 12px;" id="info-analysis">
+              Истинная православная Пасха и наблюдение Афанасия совпадают. Это исходная точка счёта для датировки 1467–1475.
+            </div>
+          </div>
+        </div>
+
+        <!-- Drift Calculator Section -->
+        <div class="calc-card">
+          <h3 class="info-title" style="margin-bottom: 12px;">
+            <i class="ti ti-calculator"></i>
+            <span class="lang-ru">Симулятор векового дрейфа календарей</span>
+            <span class="lang-en">Century Calendar Drift Simulator</span>
+          </h3>
+          <div class="calc-layout">
+            <div style="font-size: 13px; line-height: 1.55; color: var(--color-text-secondary);">
+              <p class="lang-ru">Год по мусульманскому календарю (хиджре) — лунный, длится <b>~354.37 дней</b>, что примерно на <b>10.875 дней</b> короче солнечного юлианского года (365.25 дней).</p>
+              <p class="lang-en">A year under the Muslim calendar (Hijri) is lunar, lasting about <b>354.37 days</b>, which is roughly <b>10.875 days</b> shorter than the solar Julian year (365.25 days).</p>
+              <p class="lang-ru">Из-за этой разницы лунные месяцы смещаются назад по сезонам. Передвигайте ползунок ниже, чтобы увидеть, как дрейфует лунный год с течением времени:</p>
+              <p class="lang-en">Because of this difference, lunar months drift backward relative to the solar seasons. Move the slider below to see how the lunar year drifts over time:</p>
+              
+              <div class="slider-row" style="margin: 20px 0 10px 0;">
+                <span class="lang-ru" style="font-size: 12px; color: var(--color-text-secondary);">Сдвиг:</span>
+                <span class="lang-en" style="font-size: 12px; color: var(--color-text-secondary);">Shift:</span>
+                <input type="range" class="year-slider" id="calc-slider" min="1" max="33" value="1" oninput="updateDriftCalc(this.value)">
+                <span id="calc-years-label" style="font-weight: 700; color: var(--color-accent); width: 60px; text-align: right;">+1 год</span>
+              </div>
+              
+              <div class="overlap-alert" style="margin-top: 10px; background: var(--color-background-tertiary); border-color: var(--color-border-secondary); animation: none;">
+                <i class="ti ti-info-circle" style="font-size: 16px; color: var(--color-text-primary);"></i>
+                <div id="calc-explanation">
+                  За 1 год лунный календарь сдвигается на 11 дней назад.
+                </div>
+              </div>
+            </div>
+            
+            <div class="calc-wheel-container">
+              <svg id="calc-svg" width="220" height="220" viewBox="0 0 220 220"></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: Duel of Chronologies -->
+      <div id="tab-duel" class="chrono-panel">
+        <div class="duel-card">
+          <h3 class="info-title" style="margin-bottom: 5px;">
+            <span class="lang-ru">Сравнительный анализ хронологий</span>
+            <span class="lang-en">Chronology Comparison Analysis</span>
+          </h3>
+          <p style="font-size: 13px; color: var(--color-text-secondary); margin-top: 0; margin-bottom: 15px;">
+            <span class="lang-ru">Нажмите на любую строчку таблицы, чтобы увидеть подробный разбор соответствия тексту «Хожения».</span>
+            <span class="lang-en">Click on any row of the table to see a detailed breakdown of its alignment with the text of the "Journey".</span>
+          </p>
+          
+          <div style="overflow-x: auto;">
+            <table class="duel-table">
+              <thead>
+                <tr>
+                  <th>
+                    <span class="lang-ru">Событие из текста</span>
+                    <span class="lang-en">Event from Text</span>
+                  </th>
+                  <th>
+                    <span class="lang-ru">Новая версия (1467–1475) <span class="badge badge-success">Верно</span></span>
+                    <span class="lang-en">New Version (1467–1475) <span class="badge badge-success">Correct</span></span>
+                  </th>
+                  <th>
+                    <span class="lang-ru">Старая версия (1466–1472) <span class="badge badge-error">Ошибки</span></span>
+                    <span class="lang-en">Old Version (1466–1472) <span class="badge badge-error">Errors</span></span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="duel-table-body">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="chronology-detail-box" id="duel-detail-box">
+            <!-- Details shown here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: Easter 1473 Error -->
+      <div id="tab-error1473" class="chrono-panel">
+        <div class="duel-card">
+          <h3 class="info-title">
+            <span class="lang-ru">Математическая деконструкция ошибки 1473 года</span>
+            <span class="lang-en">Mathematical Deconstruction of the 1473 Error</span>
+          </h3>
+          <p class="lang-ru" style="font-size: 13.5px; color: var(--color-text-secondary); margin-top: 0; margin-bottom: 20px; line-height: 1.5;">
+            В 1473 году в Гулбарге Афанасий Никитин празднует Пасху в самом начале марта (около 4 марта), ошибаясь по отношению к истинной православной Пасхе (18 апреля) на рекордные <b>45 дней раньше</b>. Как купец пришёл к этой дате без церковных книг? Восстановим логику его вычислений:
+          </p>
+          <p class="lang-en" style="font-size: 13.5px; color: var(--color-text-secondary); margin-top: 0; margin-bottom: 20px; line-height: 1.5;">
+            In 1473 in Gulbarga, Afanasy Nikitin celebrated Easter at the very beginning of March (around March 4), miscalculating relative to the true Orthodox Easter (April 18) by a record <b>45 days early</b>. How did the merchant arrive at this date without church books? Let's reconstruct his logic:
+          </p>
+          
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">
+                  <span class="lang-ru">Утрата книг и памяти о календаре</span>
+                  <span class="lang-en">Loss of Books and Calendar Memory</span>
+                </div>
+                <span class="lang-ru">Живя в Индии, Афанасий лишен христианского окружения: <i>«праздников не ведаю, ни пасхи, ни рождества... ни среды, ни пятницы не знаю; а знамения мои все растерял»</i>. Он ведет счет годам, но сбивается в расчете переходящих праздников.</span>
+                <span class="lang-en">Living in India, Afanasy is deprived of a Christian environment: <i>“I know not the feasts, neither Easter nor Christmas... neither Wednesday nor Friday do I know; and all my books and guides are lost.”</i> He tracks the years, but loses track of movable feasts.</span>
+              </div>
+            </div>
+            
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">
+                  <span class="lang-ru">Ориентир на мусульманские праздники</span>
+                  <span class="lang-en">Alignment with Muslim Holidays</span>
+                </div>
+                <span class="lang-ru">Чтобы хоть как-то ориентироваться во времени, Афанасий следит за мусульманским календарем. Он помнит ключевую закономерность, случившуюся в 1470 году: Великий Пост начался в один день с Рамаданом, а Пасха пришлась почти сразу вслед за окончанием мусульманского поста (Ураза-байрам).</span>
+                <span class="lang-en">To orient himself in time, Afanasy follows the Muslim calendar. He remembers a key pattern that occurred in 1470: Great Lent began on the same day as Ramadan, and Easter fell shortly after the end of the Muslim fast (Uraza-Bayram).</span>
+              </div>
+            </div>
+            
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">
+                  <span class="lang-ru">Логическая ловушка дрейфа</span>
+                  <span class="lang-en">Logical Trap of the Drift</span>
+                </div>
+                <span class="lang-ru">В 1473 году Рамадан подошел к концу (Ураза-байрам наступил) <b>1 марта</b>. Афанасий, считая, что пасхальный пост должен происходить одновременно с мусульманским (как в 1470 году), ждет ближайшего воскресенья после Ураза-байрама. Это воскресенье падает на <b>4 марта</b>. Он празднует Пасху 4 марта!</span>
+                <span class="lang-en">In 1473, Ramadan ended (Uraza-Bayram occurred) on <b>March 1</b>. Afanasy, assuming the Easter fast should occur concurrently with the Muslim one (as in 1470), waits for the first Sunday after Uraza-Bayram. This Sunday falls on <b>March 4</b>. He celebrates Easter on March 4!</span>
+              </div>
+            </div>
+            
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">
+                  <span class="lang-ru">Сдвиг на 45 дней</span>
+                  <span class="lang-en">Shift of 45 Days</span>
+                </div>
+                <span class="lang-ru">Афанасий не учел, что за три года, прошедшие с 1470-го, исламский лунный календарь сместился назад по солнечным сезонам на <b>33 дня</b>. В 1470 году Ramadan и Lent совпали, но в 1473 году они уже полностью разошлись! Отпраздновав Пасху вслед за Уразой 4 марта, он встретил её на полтора месяца раньше истинной даты (18 апреля).</span>
+                <span class="lang-en">Afanasy did not account for the fact that over the three years since 1470, the Islamic lunar calendar had shifted backward through the solar seasons by <b>33 days</b>. In 1470, Ramadan and Lent coincided, but by 1473, they had completely diverged! By celebrating Easter after Uraza on March 4, he observed it a month and a half before the true date (April 18).</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="overlap-alert" style="margin-top: 24px; animation: none; border-color: var(--viz-calendar-drift); background: rgba(192, 57, 43, 0.04);">
+            <i class="ti ti-alert-triangle" style="font-size: 20px; color: var(--viz-calendar-drift); flex-shrink: 0; margin-top: 2px;"></i>
+            <div>
+              <strong style="color: var(--viz-calendar-drift);">
+                <span class="lang-ru">Вывод Хрусталёва:</span>
+                <span class="lang-en">Khrustalev's Conclusion:</span>
+              </strong>
+              <span class="lang-ru">Такой сбой на 45 дней назад невозможно объяснить при старой датировке (1466–1472), где в 1472 году истинная Пасха была 29 марта, а Афанасий празднует её вообще 1 мая (+33 дня). Ошибка 1473 года идеально подтверждает, что Никитин находился в Гулбарге именно весной 1473 года и был дезориентирован лунным сдвигом на 33 дня!</span>
+              <span class="lang-en">Such a 45-day early deviation cannot be explained under the old chronology (1466–1472), where in 1472 the true Easter was March 29 and Afanasy celebrated it on May 1 (+33 days instead of −45). The 1473 error perfectly confirms that Nikitin was in Gulbarga in the spring of 1473 and was disoriented by the 33-day lunar drift!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Theme & Export buttons are at bottom -->
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  
+  <script>
+    // Tab switching logic
+    window.switchTab = function(tabId) {
+      document.querySelectorAll('.chrono-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes(tabId));
+      });
+      document.querySelectorAll('.chrono-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      document.getElementById('tab-' + tabId).classList.add('active');
+    };
+  </script>
+
+  <!-- Interactive Logic Script -->
+  <script>
+    (function() {
+      // ── Data ─────────────────────────────────────────────────────────────
+      const YEARS = [1467, 1468, 1469, 1470, 1471, 1472, 1473, 1474];
+      const PASCHAJD = [88, 108, 92, 112, 104, 89, 108, 100];
+      const OBSERVEDPASCHAJD = [88, 108, 92, 93, 72, 122, 63, 100];
+      const RAMADANJD = [313, 55, 44, 63, 52, 41, 30, 20]; // Ramadan Julian Day starts
+      const URAZAJD = [343, 85, 74, 93, 82, 71, 60, 50];
+      const DRIFTS = [0, 0, 0, -19, -32, 33, -45, 0];
+      const MUHARRAM_JD = [184, 173, 162, 151, 140, 130, 118, 107];
+
+      const TRANSLATED_DATA = {
+        ru: {
+          locations: [
+            "«Каин» (на Волге)",
+            "Чебокар (Мазендеран)",
+            "Остров Ормуз",
+            "Бидар (Индия)",
+            "Бидар (Индия)",
+            "Бидар (Индия)",
+            "Гулбарга (Индия)",
+            "Маскат (Аравия)"
+          ],
+          easterStr: [
+            "29 марта 1467",
+            "17 апреля 1468",
+            "2 апреля 1469",
+            "22 апреля 1470",
+            "14 апреля 1471",
+            "29 марта 1472",
+            "18 апреля 1473",
+            "10 апреля 1474"
+          ],
+          obsStr: [
+            "29 марта 1467",
+            "17 апреля 1468",
+            "2 апреля 1469",
+            "3 апреля 1470",
+            "13 марта 1471",
+            "1 мая 1472",
+            "4 марта 1473",
+            "10 апреля 1474"
+          ],
+          ramadanStr: [
+            "9 ноября 1467",
+            "24 февраля 1468",
+            "13 февраля 1469",
+            "4 марта 1470",
+            "21 февраля 1471",
+            "10 февраля 1472",
+            "30 января 1473",
+            "20 января 1474"
+          ],
+          quotes: [
+            "«Первую Пасху взял в Калязине... а вторую в Угличе...» — Афанасий еще сохраняет календарь.",
+            "«В Мазендеране Пасху встретил...» — Тверской купец четко отслеживает дни в Персии.",
+            "«Пасху же встретил в Гурмызе (Ормузе)...» — Последняя правильно вычисленная Пасха перед Индией.",
+            "«А Пасхи христианской не ведал... а постился с бесерменами в неделю...» — Теряет счет и празднует с Уразой.",
+            "«Уже пять Пасх прошли в бесерменской земле...» — Сдвиг на 32 дня. Афанасий тоскует по христианской вере.",
+            "«Пасха христианская... а яз не ведаю...» — Дрейф меняет знак, Пасха празднуется 1 мая.",
+            "«Седьмую Пасху встретил в Гулбарге...» — Ошибка достигает 45 дней. Решение возвращаться на Русь.",
+            "«В Маскате встретил Пасху...» — Местные христиане возвращают календарь на истинный счет."
+          ],
+          analyses: [
+            "<b>Исходная точка.</b> Путешествие начинается весной 1467 года. Сбоев календаря нет, Афанасий идет вниз по Волге.",
+            "<b>Персидский этап.</b> В Мазендеране расхождение календарей равно нулю, Афанасий удерживает счет дней.",
+            "<b>Морской рубеж.</b> Пасха 2 апреля 1469 года в Ормузе — ключевой астрономический якорь хронологии.",
+            "<b>Индийский сбой.</b> Сдвиг −19 дней. Из-за совпадения постов Афанасий принимает Ураза-байрам (3 апреля) за ориентир Пасхи.",
+            "<b>Глубокий кризис.</b> Расхождение увеличивается до 32 дней. Празднует Пасху 13 марта вместо 14 апреля.",
+            "<b>Разворот дрейфа.</b> Афанасий ошибается в другую сторону на +33 дня, празднуя Пасху 1 мая вместо 29 марта.",
+            "<b>Пик дезориентации.</b> Никитин путает дату на 45 дней раньше истинной, вычисляя Пасху от Ураза-байрама (1 марта).",
+            "<b>Исправление.</b> Нулевой сдвиг. На обратном пути в Маскате Афанасий сверяет даты с общиной и восстанавливает счет."
+          ],
+          months: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+          hijriMonths: [
+            "Мухаррам", "Сафар", "Раби I", "Раби II", "Джумада I", "Джумада II",
+            "Реджеб", "Шаабан", "Рамадан", "Шавваль", "Зу-ль-Када", "Зу-ль-Хиджа"
+          ],
+          seasons: ["Зима", "Весна", "Лето", "Осень"],
+          ramadanLabel: "Рамадан",
+          notObserved: "не отмечен",
+          matchLabel: "0 дней (совпадение)",
+          daysLabel: "дн.",
+          yearLabel: "год",
+          yearsLabel: "года",
+          yearsManyLabel: "лет",
+          driftExpl1: "За <b>{years} лет</b> лунный календарь смещается на <b>{driftDays} дней</b> назад по сезонам.",
+          driftExpl2: " 🔥 <b>Полный цикл!</b> Спустя 33 года Рамадан обходит все времена года и возвращается к исходной дате.",
+          driftExpl3: " Это сдвиг почти на <b>{lMonths} лунных месяцев</b>.",
+          driftExplBase: "За 1 год лунный календарь сдвигается на 11 дней назад.",
+          playBtn: "Запустить",
+          pauseBtn: "Пауза",
+          analysisTitle: "Анализ нестыковки:"
+        },
+        en: {
+          locations: [
+            "«Kain» (on Volga)",
+            "Chabokar (Mazandaran)",
+            "Ormuz Island",
+            "Bidar (India)",
+            "Bidar (India)",
+            "Bidar (India)",
+            "Gulbarga (India)",
+            "Muscat (Arabia)"
+          ],
+          easterStr: [
+            "March 29, 1467",
+            "April 17, 1468",
+            "April 2, 1469",
+            "April 22, 1470",
+            "April 14, 1471",
+            "March 29, 1472",
+            "April 18, 1473",
+            "April 10, 1474"
+          ],
+          obsStr: [
+            "March 29, 1467",
+            "April 17, 1468",
+            "April 2, 1469",
+            "April 3, 1470",
+            "March 13, 1471",
+            "May 1, 1472",
+            "March 4, 1473",
+            "April 10, 1474"
+          ],
+          ramadanStr: [
+            "November 9, 1467",
+            "February 24, 1468",
+            "February 13, 1469",
+            "March 4, 1470",
+            "February 21, 1471",
+            "February 10, 1472",
+            "January 30, 1473",
+            "January 20, 1474"
+          ],
+          quotes: [
+            "\"First Easter kept in Kalyazin... second in Uglich...\" — Afanasy still maintains the calendar.",
+            "\"In Mazandaran met Easter...\" — The Tver merchant carefully tracks days in Persia.",
+            "\"Met Easter in Gurmyz (Ormuz)...\" — The last correctly calculated Easter before India.",
+            "\"But Christian Easter I did not know... and fasted with the Muslims...\" — He loses count and celebrates with Uraza.",
+            "\"Already five Easters passed in Muslim land...\" — Shift of 32 days. Afanasy yearns for the Christian faith.",
+            "\"Christian Easter... but I do not know...\" — Drift changes sign; Easter celebrated on May 1.",
+            "\"Seventh Easter met in Gulbarga...\" — Error reaches 45 days. Decision to return to Rus.",
+            "\"In Muscat met Easter...\" — Local Christians return calendar to correct count."
+          ],
+          analyses: [
+            "<b>Starting point.</b> Journey begins in spring 1467. No calendar errors, Afanasy goes down the Volga.",
+            "<b>Persian phase.</b> In Mazandaran, discrepancy is zero; Afanasy keeps accurate count of days.",
+            "<b>Maritime border.</b> Easter on April 2, 1469 in Ormuz — a key astronomical anchor of the chronology.",
+            "<b>Indian error.</b> Shift of −19 days. Due to overlapping fasts, Afanasy takes Uraza-Bayram (April 3) as Easter anchor.",
+            "<b>Deep crisis.</b> Deviation increases to 32 days. Celebrates Easter on March 13 instead of April 14.",
+            "<b>Drift reversal.</b> Afanasy errs in the other direction by +33 days, celebrating Easter on May 1 instead of March 29.",
+            "<b>Peak disorientation.</b> Nikitin confuses the date by 45 days early, calculating Easter from Uraza-Bayram (March 1).",
+            "<b>Correction.</b> Zero shift. On the way back in Muscat, Afanasy verifies dates with the community and restores the count."
+          ],
+          months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+          hijriMonths: [
+            "Muharram", "Safar", "Rabi I", "Rabi II", "Jumada I", "Jumada II",
+            "Rajab", "Sha'ban", "Ramadan", "Shawwal", "Dhu'l-Qa'da", "Dhu'l-Hijja"
+          ],
+          seasons: ["Winter", "Spring", "Summer", "Autumn"],
+          ramadanLabel: "Ramadan",
+          notObserved: "not observed",
+          matchLabel: "0 days (match)",
+          daysLabel: "days",
+          yearLabel: "year",
+          yearsLabel: "years",
+          yearsManyLabel: "years",
+          driftExpl1: "In <b>{years} years</b>, the lunar calendar shifts backward through the seasons by <b>{driftDays} days</b>.",
+          driftExpl2: " 🔥 <b>Full cycle!</b> After 33 years, Ramadan travels through all seasons and returns to the starting date.",
+          driftExpl3: " This is a shift of almost <b>{lMonths} lunar months</b>.",
+          driftExplBase: "In 1 year, the lunar calendar shifts backward by 11 days.",
+          playBtn: "Play",
+          pauseBtn: "Pause",
+          analysisTitle: "Mismatches analysis:"
+        }
+      };
+
+      const TRANSLATED_DUEL_DATA = {
+        ru: [
+          {
+            event: "Выход из Твери и ограбление под Астраханью",
+            newChron: "<b>1467 год:</b> Послы едут после воцарения ширваншаха Фаррух Ясара (1465). Торговые связи стабильны. Весной Афанасий выходит, осенью ограблен. Идеально ложится на биографию воеводы Захарьича.",
+            oldChron: "<b>1466 год:</b> Караван идет слишком рано. Хрусталёв доказал, что посол Асанбег в 1466 еще не находился в России, а воевода Захарьич не был назначен.",
+            details: "При старой датировке (1466 г.) Афанасий должен был плыть вместе с послом Асанбегом, но тот приехал в Москву только в конце 1466 г. Новая датировка (1467 г.) устраняет это историческое противоречие."
+          },
+          {
+            event: "Пасха в Ормузе перед отплытием в Индию",
+            newChron: "<b>1469 год:</b> Пасха приходится на 2 апреля. Отплытие 'на Радуницу' (11 апреля). Проход Индийского океана до муссона (6 недель) — прибытие в Чаул в конце мая. Все сходится.",
+            oldChron: "<b>1468 год:</b> Пасха — 17 апреля. Отплытие — 26 апреля. Прибытие в Чаул вышло бы на середину июня, прямо в пик штормового летнего муссона, когда порты закрыты.",
+            details: "Навигация в Индийском океане строго подчиняется муссонам. В мае океан закрывается для мелких судов (тав). Выход из Ормуза в апреле 1469 г. (после Пасхи 2 апреля) был последней возможностью безопасно достичь Чаула. Выход в конце апреля 1468 г. привел бы к катастрофе."
+          },
+          {
+            event: "Рамадан и Великий православный пост",
+            newChron: "<b>1470 год:</b> Посты начались 4 марта (Рамадан) и 5 марта (Великий Пост). Афанасий пишет: 'постился с бесерменами в неделю'. Такое совпадение постов абсолютно доказано математически.",
+            oldChron: "<b>1469 год:</b> Великий Пост начался 13 февраля, а Рамадан — 15 марта. Между ними нет никакой связи, фраза Афанасия теряет смысл.",
+            details: "Это главный хронологический якорь Хрусталёва. Афанасий пишет: 'постился я с бесерменами в неделю' (т.е. совместно). Это возможно только в 1470 году, когда мусульманский Рамадан и православный Великий пост начались с разницей в один день (4 и 5 марта соответственно)."
+          },
+          {
+            event: "Наблюдение военных кампаний султаната",
+            newChron: "<b>1471–1472 годы:</b> Описание побед Махмуда Гавана. Взятие Гоа (1 февраля 1472) и триумф в Бидаре (19 мая 1472). Афанасий фиксирует эти даты в реальном времени.",
+            oldChron: "<b>1470–1471 годы:</b> Афанасий должен был уехать раньше, чем случились описываемые им события. Описание триумфа визиря становится анахронизмом.",
+            details: "Афанасий подробно описывает осаду и взятие крепостей Конкана (Гоа) индийским визирем Махмудом Гаваном. По индийским летописям Гоа пал 1 февраля 1472 года, а визирь триумфально вернулся в столицу в мае 1472 года. Афанасий описывает это как очевидец. Следовательно, в 1472 году он был в Бидаре."
+          },
+          {
+            event: "Расхождение седьмой Пасхи на 45 дней",
+            newChron: "<b>1473 год:</b> Афанасий празднует в Гулбарге Пасху 4 марта. Истинная — 18 апреля. Ошибка вызвана ориентацией на Ураза-байрам (1 марта) и дрейфом лунного календаря.",
+            oldChron: "<b>1472 год:</b> Истинная Пасха была 29 марта. В тексте Афанасий пишет, что праздновал 1 мая (+33 дня). Ошибка 1473 года вообще не попадает на этот этап.",
+            details: "При старой датировке сбой на 45 дней назад невозможно объяснить. Новая датировка с ошибкой в Гулбарге математически безупречно объясняет сдвиг праздника на 45 дней назад относительно истинной Пасхи из-за лунного дрейфа."
+          }
+        ],
+        en: [
+          {
+            event: "Departure from Tver and robbery near Astrakhan",
+            newChron: "<b>1467:</b> Ambassadors travel after accession of Shirvanshah Farrukh Yasar (1465). Trade connections are stable. Afanasy departs in spring, robbed in autumn. Fits perfectly with biography of governor Zakharyich.",
+            oldChron: "<b>1466:</b> The caravan departs too early. Khrustalev proved that ambassador Asanbeg was not in Russia in 1466, and governor Zakharyich was not appointed.",
+            details: "Under the old chronology (1466), Afanasy was supposed to sail with ambassador Asanbeg, who only arrived in Moscow at the end of 1466. The new chronology (1467) resolves this historical contradiction."
+          },
+          {
+            event: "Easter in Ormuz before sailing to India",
+            newChron: "<b>1469:</b> Easter falls on April 2. Departure 'on Radunitsa' (April 11). Crossing Indian Ocean before monsoon (6 weeks) — arrival in Chaul in late May. Everything aligns.",
+            oldChron: "<b>1468:</b> Easter — April 17. Departure — April 26. Arrival in Chaul would fall in mid-June, right in the peak of storm summer monsoon when ports are closed.",
+            details: "Navigation in the Indian Ocean is strictly dictated by monsoons. In May, the ocean is closed to small ships (tavas). Departing Ormuz in April 1469 (after Easter on April 2) was the last safe window to reach Chaul. Departing in late April 1468 would have led to disaster."
+          },
+          {
+            event: "Ramadan and Orthodox Great Lent",
+            newChron: "<b>1470:</b> Fasts began on March 4 (Ramadan) and March 5 (Great Lent). Afanasy writes: 'fasted with the Muslims for a week'. This overlap is mathematically proven.",
+            oldChron: "<b>1469:</b> Great Lent began on February 13, and Ramadan on March 15. There is no overlap, making Afanasy's phrase meaningless.",
+            details: "This is Khrustalev's primary chronological anchor. Afanasy writes: 'I fasted with the Muslims for a week' (co-fasting). This is only possible in 1470 when Ramadan and Lent began just one day apart (March 4 and 5)."
+          },
+          {
+            event: "Observation of military campaigns of Deccan sultanates",
+            newChron: "<b>1471–1472:</b> Description of Mahmud Gawan's victories. Capture of Goa (Feb 1, 1472) and triumph in Bidar (May 19, 1472). Afanasy records these in real time.",
+            oldChron: "<b>1470–1471:</b> Afanasy would have departed before these events occurred. The description of the vizier's triumph becomes an anachronism.",
+            details: "Afanasy describes in detail the siege and capture of Konkan fortresses (Goa) by vizier Mahmud Gawan. Indian records date Goa's fall to Feb 1, 1472, and the vizier's return to May 1472. Afanasy describes this as an eyewitness, placing him in Bidar in 1472."
+          },
+          {
+            event: "Deviation of seventh Easter by 45 days",
+            newChron: "<b>1473:</b> Afanasy celebrates Easter in Gulbarga on March 4. True Easter is April 18. Error caused by alignment with Uraza-Bayram (March 1) and lunar drift.",
+            oldChron: "<b>1472:</b> True Easter was March 29. In the text, Afanasy says he celebrated on May 1 (+33 days). The 1473 error does not fit this timeline at all.",
+            details: "Under the old chronology, the seventh Easter (1472) falls after Afanasy supposedly left India. The new chronology mathematically explains the celebration 45 days early in Gulbarga due to lunar calendar drift orientation."
+          }
+        ]
+      };
+
+      let currentYearIdx = 0;
+      let isPlaying = false;
+      let playInterval = null;
+
+      // ── Wheel Initialization ─────────────────────────────────────────────
+      const svg = document.getElementById('wheel-svg');
+      const cx = 200, cy = 200;
+      
+      function jdToAngle(jd) {
+        return (jd / 365) * 360 - 90; // -90 to start from top (Jan 1)
+      }
+
+      function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+        const angleInRadians = (angleInDegrees * Math.PI) / 180.0;
+        return {
+          x: centerX + radius * Math.cos(angleInRadians),
+          y: centerY + radius * Math.sin(angleInRadians)
+        };
+      }
+
+      function drawArc(centerX, centerY, radius, startAngle, endAngle, color, width, id = "") {
+        const start = polarToCartesian(centerX, centerY, radius, endAngle);
+        const end = polarToCartesian(centerX, centerY, radius, startAngle);
+        const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+        const d = [
+          "M", start.x, start.y, 
+          "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
+        ].join(" ");
+        
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", d);
+        path.setAttribute("fill", "none");
+        path.setAttribute("stroke", color);
+        path.setAttribute("stroke-width", width);
+        if (id) path.setAttribute("id", id);
+        return path;
+      }
+
+      // Draw standard solar background grid
+      function buildGrid() {
+        svg.innerHTML = '';
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
+        const d = TRANSLATED_DATA[lang];
+        
+        // Solar backing circle
+        const base = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        base.setAttribute("cx", cx);
+        base.setAttribute("cy", cy);
+        base.setAttribute("r", 175);
+        base.setAttribute("class", "solar-ring-bg");
+        svg.appendChild(base);
+
+        // Inner circle
+        const baseInner = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        baseInner.setAttribute("cx", cx);
+        baseInner.setAttribute("cy", cy);
+        baseInner.setAttribute("r", 115);
+        baseInner.setAttribute("fill", "var(--color-background-secondary)");
+        baseInner.setAttribute("stroke", "var(--color-border-secondary)");
+        baseInner.setAttribute("stroke-width", 1);
+        svg.appendChild(baseInner);
+
+        // Draw Solar Month boundaries & labels
+        const months = d.months;
+        months.forEach((mName, idx) => {
+          const angle = idx * 30 - 90;
+          const radAngle = (angle * Math.PI) / 180;
+          
+          // Line
+          const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          line.setAttribute("x1", cx + 115 * Math.cos(radAngle));
+          line.setAttribute("y1", cy + 115 * Math.sin(radAngle));
+          line.setAttribute("x2", cx + 175 * Math.cos(radAngle));
+          line.setAttribute("y2", cy + 175 * Math.sin(radAngle));
+          line.setAttribute("class", "ring-line");
+          svg.appendChild(line);
+
+          // Text
+          const textAngle = angle + 15;
+          const textPos = polarToCartesian(cx, cy, 145, textAngle);
+          const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          txt.setAttribute("x", textPos.x);
+          txt.setAttribute("y", textPos.y + 3);
+          txt.setAttribute("text-anchor", "middle");
+          txt.setAttribute("class", "ring-text");
+          txt.setAttribute("transform", `rotate(${textAngle + 90}, ${textPos.x}, ${textPos.y})`);
+          txt.textContent = mName;
+          svg.appendChild(txt);
+        });
+
+        // Group for rotating lunar ring
+        const lunarGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        lunarGroup.setAttribute("id", "lunar-group");
+        svg.appendChild(lunarGroup);
+        
+        // Outer lunar background ring
+        const lunarBase = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        lunarBase.setAttribute("cx", cx);
+        lunarBase.setAttribute("cy", cy);
+        lunarBase.setAttribute("r", 195);
+        lunarBase.setAttribute("class", "lunar-ring-bg");
+        lunarGroup.appendChild(lunarBase);
+
+        // Draw Lunar Month partitions
+        const hijriMonths = d.hijriMonths;
+        const hijriDays = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 30];
+        let cumDays = 0;
+        
+        hijriMonths.forEach((hmName, idx) => {
+          const startAngle = (cumDays / 354) * 360 - 90;
+          cumDays += hijriDays[idx];
+          const endAngle = (cumDays / 354) * 360 - 90;
+          
+          const radStart = (startAngle * Math.PI) / 180;
+          
+          // Partition line
+          const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          line.setAttribute("x1", cx + 175 * Math.cos(radStart));
+          line.setAttribute("y1", cy + 175 * Math.sin(radStart));
+          line.setAttribute("x2", cx + 215 * Math.cos(radStart));
+          line.setAttribute("y2", cy + 215 * Math.sin(radStart));
+          line.setAttribute("stroke", "var(--color-border-secondary)");
+          line.setAttribute("stroke-width", 0.5);
+          lunarGroup.appendChild(line);
+
+          // Text label
+          const textAngle = startAngle + (endAngle - startAngle) / 2;
+          const textPos = polarToCartesian(cx, cy, 187, textAngle);
+          const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          txt.setAttribute("x", textPos.x);
+          txt.setAttribute("y", textPos.y + 2.5);
+          txt.setAttribute("text-anchor", "middle");
+          txt.setAttribute("font-size", "6.5px");
+          const isRamadan = hmName === "Рамадан" || hmName === "Ramadan";
+          txt.setAttribute("fill", isRamadan ? "var(--viz-calendar-ramadan)" : "var(--color-text-secondary)");
+          txt.setAttribute("font-weight", isRamadan ? "bold" : "normal");
+          txt.setAttribute("transform", `rotate(${textAngle + 90}, ${textPos.x}, ${textPos.y})`);
+          txt.textContent = hmName;
+          lunarGroup.appendChild(txt);
+        });
+
+        // Group for dynamic markers (Lent, Easter, Ramadan highlight)
+        const dynamicGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        dynamicGroup.setAttribute("id", "dynamic-group");
+        svg.appendChild(dynamicGroup);
+      }
+
+      window.setYear = function(yr) {
+        currentYearIdx = YEARS.indexOf(parseInt(yr));
+        if (currentYearIdx === -1) currentYearIdx = 0;
+        document.getElementById('year-slider').value = yr;
+        document.getElementById('slider-year-label').textContent = yr;
+        updateUI();
+      };
+
+      function updateUI() {
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
+        const d = TRANSLATED_DATA[lang];
+        const year = YEARS[currentYearIdx];
+        const easterTrueJd = PASCHAJD[currentYearIdx];
+        const easterObsJd = OBSERVEDPASCHAJD[currentYearIdx];
+        const ramadanJd = RAMADANJD[currentYearIdx];
+        const urazaJd = URAZAJD[currentYearIdx];
+        const drift = DRIFTS[currentYearIdx];
+        const mStart = MUHARRAM_JD[currentYearIdx];
+
+        // Textual content
+        document.getElementById('info-year').textContent = year;
+        document.getElementById('info-location').textContent = d.locations[currentYearIdx];
+        document.getElementById('info-easter-true').textContent = d.easterStr[currentYearIdx];
+        document.getElementById('info-easter-obs').textContent = d.obsStr[currentYearIdx];
+        document.getElementById('info-ramadan-start').textContent = ramadanJd ? d.ramadanStr[currentYearIdx] : d.notObserved;
+        
+        const driftEl = document.getElementById('info-drift-days');
+        if (drift === 0) {
+          driftEl.textContent = d.matchLabel;
+          driftEl.style.color = "var(--viz-calendar-match)";
+        } else {
+          driftEl.textContent = `${drift > 0 ? '+' : ''}${drift} ${d.daysLabel}`;
+          driftEl.style.color = "var(--viz-calendar-drift)";
+        }
+
+        document.getElementById('info-quote').innerHTML = d.quotes[currentYearIdx];
+        document.getElementById('info-analysis').innerHTML = d.analyses[currentYearIdx];
+
+        // Update play button text in correct lang
+        const playTextEl = document.getElementById('play-text');
+        const playTextEn = document.getElementById('play-text-en');
+        if (isPlaying) {
+          if (playTextEl) playTextEl.textContent = d.pauseBtn;
+          if (playTextEn) playTextEn.textContent = d.pauseBtn;
+        } else {
+          if (playTextEl) playTextEl.textContent = d.playBtn;
+          if (playTextEn) playTextEn.textContent = d.playBtn;
+        }
+
+        // Show/hide 1470 overlap alert
+        const overlapBanner = document.getElementById('overlap-banner');
+        if (year === 1470) {
+          overlapBanner.style.display = 'flex';
+        } else {
+          overlapBanner.style.display = 'none';
+        }
+
+        // Rotate Lunar Group in SVG
+        const angleShift = (mStart / 365) * 360;
+        const gLunar = document.getElementById('lunar-group');
+        if (gLunar) {
+          gLunar.style.transform = `rotate(${angleShift}deg)`;
+          gLunar.style.transformOrigin = `${cx}px ${cy}px`;
+          gLunar.style.transition = "transform 0.4s ease-out";
+        }
+
+        // Draw dynamic markers on top
+        const gDyn = document.getElementById('dynamic-group');
+        if (gDyn) {
+          gDyn.innerHTML = '';
+
+          // 1. Orthodox Great Lent arc (Easter - 48 days to Easter)
+          const lentStartJd = easterTrueJd - 48;
+          const lentStartAngle = jdToAngle(lentStartJd);
+          const lentEndAngle = jdToAngle(easterTrueJd);
+          const lentArc = drawArc(cx, cy, 130, lentStartAngle, lentEndAngle, "rgba(192, 57, 43, 0.28)", 8);
+          gDyn.appendChild(lentArc);
+
+          // 2. Ramadan arc (Ramadan start to +30 days)
+          if (ramadanJd) {
+            const ramStartAngle = jdToAngle(ramadanJd);
+            const ramEndAngle = jdToAngle(ramadanJd + 30);
+            const ramArc = drawArc(cx, cy, 160, ramStartAngle, ramEndAngle, "rgba(139, 90, 48, 0.35)", 8);
+            gDyn.appendChild(ramArc);
+          }
+
+          // 3. Line connecting True Easter & Observed Easter
+          const aTrue = jdToAngle(easterTrueJd);
+          const aObs = jdToAngle(easterObsJd);
+          const pTrue = polarToCartesian(cx, cy, 130, aTrue);
+          const pObs = polarToCartesian(cx, cy, 160, aObs);
+          
+          const conn = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          conn.setAttribute("x1", pTrue.x);
+          conn.setAttribute("y1", pTrue.y);
+          conn.setAttribute("x2", pObs.x);
+          conn.setAttribute("y2", pObs.y);
+          conn.setAttribute("class", "marker-line");
+          conn.setAttribute("stroke", drift === 0 ? "var(--viz-calendar-match)" : "var(--viz-calendar-drift)");
+          gDyn.appendChild(conn);
+
+          // 4. Dot for true Orthodox Easter (Inner Ring)
+          const dotTrue = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          dotTrue.setAttribute("cx", pTrue.x);
+          dotTrue.setAttribute("cy", pTrue.y);
+          dotTrue.setAttribute("r", 6);
+          dotTrue.setAttribute("fill", "var(--color-background-primary)");
+          dotTrue.setAttribute("stroke", "var(--viz-calendar-drift)");
+          dotTrue.setAttribute("class", "marker-dot");
+          dotTrue.setAttribute("title", lang === 'en' ? "True Easter" : "Истинная Пасха");
+          gDyn.appendChild(dotTrue);
+
+          // 5. Dot for Observed Easter (Outer Ring)
+          const dotObs = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          dotObs.setAttribute("cx", pObs.x);
+          dotObs.setAttribute("cy", pObs.y);
+          dotObs.setAttribute("r", 6.5);
+          dotObs.setAttribute("fill", drift === 0 ? "var(--viz-calendar-match)" : "var(--color-accent)");
+          dotObs.setAttribute("class", "marker-dot");
+          dotObs.setAttribute("title", lang === 'en' ? "Observed Easter" : "Пасха по счёту Афанасия");
+          gDyn.appendChild(dotObs);
+
+          // 6. Uraza dot
+          if (urazaJd) {
+            const pUraza = polarToCartesian(cx, cy, 160, jdToAngle(urazaJd));
+            const dotUraza = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            dotUraza.setAttribute("cx", pUraza.x);
+            dotUraza.setAttribute("cy", pUraza.y);
+            dotUraza.setAttribute("r", 4.5);
+            dotUraza.setAttribute("fill", "var(--viz-calendar-uraza)");
+            dotUraza.setAttribute("stroke", "var(--color-background-primary)");
+            dotUraza.setAttribute("stroke-width", 1);
+            gDyn.appendChild(dotUraza);
+          }
+        }
+      }
+
+      // ── Playback Controls ──────────────────────────────────────────────────
+      window.togglePlay = function() {
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
+        const d = TRANSLATED_DATA[lang];
+        if (isPlaying) {
+          clearInterval(playInterval);
+          document.getElementById('play-icon').className = 'ti ti-play';
+          const tEl = document.getElementById('play-text');
+          if (tEl) tEl.textContent = d.playBtn;
+          isPlaying = false;
+        } else {
+          document.getElementById('play-icon').className = 'ti ti-pause';
+          const tEl = document.getElementById('play-text');
+          if (tEl) tEl.textContent = d.pauseBtn;
+          isPlaying = true;
+          playInterval = setInterval(() => {
+            currentYearIdx = (currentYearIdx + 1) % YEARS.length;
+            const yr = YEARS[currentYearIdx];
+            document.getElementById('year-slider').value = yr;
+            document.getElementById('slider-year-label').textContent = yr;
+            updateUI();
+          }, 2400);
+        }
+      };
+
+      // ── Drift Calculator (Tab 1 Bottom) ───────────────────────────────────
+      const calcCheck = document.getElementById('calc-svg');
+      const ccx = 110, ccy = 110;
+      
+      function buildCalcGrid() {
+        calcCheck.innerHTML = '';
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
+        
+        const outer = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        outer.setAttribute("cx", ccx);
+        outer.setAttribute("cy", ccy);
+        outer.setAttribute("r", 95);
+        outer.setAttribute("fill", "var(--color-background-primary)");
+        outer.setAttribute("stroke", "var(--color-border-secondary)");
+        outer.setAttribute("stroke-width", 1);
+        calcCheck.appendChild(outer);
+
+        const inner = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        inner.setAttribute("cx", ccx);
+        inner.setAttribute("cy", ccy);
+        inner.setAttribute("r", 65);
+        inner.setAttribute("fill", "var(--color-background-secondary)");
+        inner.setAttribute("stroke", "var(--color-border-tertiary)");
+        calcCheck.appendChild(inner);
+
+        // Draw 4 season sectors on solar wheel
+        const seasons = [
+          { name: lang === 'en' ? "Winter" : "Зима", start: -45, end: 45, color: "#dbeaf8" },
+          { name: lang === 'en' ? "Spring" : "Весна", start: 45, end: 135, color: "#e2f0d9" },
+          { name: lang === 'en' ? "Summer" : "Лето", start: 135, end: 225, color: "#fef2cb" },
+          { name: lang === 'en' ? "Autumn" : "Осень", start: 225, end: 315, color: "#fce4d6" }
+        ];
+
+        seasons.forEach(s => {
+          const arc = drawArc(ccx, ccy, 80, s.start, s.end, s.color, 18);
+          calcCheck.appendChild(arc);
+          
+          // Season text
+          const midAngle = s.start + 45;
+          const pos = polarToCartesian(ccx, ccy, 80, midAngle);
+          const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          txt.setAttribute("x", pos.x);
+          txt.setAttribute("y", pos.y + 3);
+          txt.setAttribute("text-anchor", "middle");
+          txt.setAttribute("font-size", "7.5px");
+          txt.setAttribute("fill", "var(--color-text-secondary)");
+          txt.setAttribute("font-weight", "600");
+          txt.textContent = s.name;
+          calcCheck.appendChild(txt);
+        });
+
+        // Add rotating lunar indicator group
+        const indicators = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        indicators.id = "calc-lunar-indicators";
+        calcCheck.appendChild(indicators);
+
+        // Draw Ramadan arc on lunar indicator
+        const ramArc = drawArc(ccx, ccy, 95, -15, 15, "var(--viz-calendar-ramadan)", 6);
+        indicators.appendChild(ramArc);
+
+        // Add text label on Ramadan arc
+        const txtRam = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        const pos = polarToCartesian(ccx, ccy, 95, 0);
+        txtRam.setAttribute("x", pos.x);
+        txtRam.setAttribute("y", pos.y + 3);
+        txtRam.setAttribute("text-anchor", "middle");
+        txtRam.setAttribute("font-size", "7px");
+        txtRam.setAttribute("font-weight", "bold");
+        txtRam.setAttribute("fill", "#fff");
+        txtRam.setAttribute("transform", `rotate(90, ${pos.x}, ${pos.y})`);
+        txtRam.textContent = lang === 'en' ? "Ramadan" : "Рамадан";
+        indicators.appendChild(txtRam);
+      }
+
+      window.updateDriftCalc = function(years) {
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
+        const d = TRANSLATED_DATA[lang];
+        const driftDays = Math.round(years * 10.875);
+        
+        let labelText = `+${years} `;
+        if (lang === 'ru') {
+          labelText += years == 1 ? d.yearLabel : (years >= 2 && years <= 4) ? d.yearsLabel : d.yearsManyLabel;
+        } else {
+          labelText += years == 1 ? d.yearLabel : d.yearsLabel;
+        }
+        document.getElementById('calc-years-label').textContent = labelText;
+        
+        let expl = d.driftExpl1.replace('{years}', years).replace('{driftDays}', driftDays);
+        if (years == 33) {
+          expl += ` ${d.driftExpl2}`;
+        } else if (driftDays >= 30) {
+          const lMonths = Math.floor(driftDays / 29.5);
+          expl += ` ${d.driftExpl3.replace('{lMonths}', lMonths)}`;
+        }
+        document.getElementById('calc-explanation').innerHTML = expl;
+
+        // Rotate lunar indicators in calc wheel
+        const angle = - (years * 10.84);
+        const gCalc = document.getElementById('calc-lunar-indicators');
+        if (gCalc) {
+          gCalc.style.transform = `rotate(${angle}deg)`;
+          gCalc.style.transformOrigin = `${ccx}px ${ccy}px`;
+          gCalc.style.transition = "transform 0.2s ease-out";
+        }
+      };
+
+      // ── Tab 2: Chronology Duel ────────────────────────────────────────────
+      function buildDuelTable() {
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
+        const d = TRANSLATED_DATA[lang];
+        const duelData = TRANSLATED_DUEL_DATA[lang];
+        const tbody = document.getElementById('duel-table-body');
+        tbody.innerHTML = '';
+        
+        duelData.forEach((item, idx) => {
+          const tr = document.createElement('tr');
+          tr.style.cursor = 'pointer';
+          tr.innerHTML = `
+            <td style="font-weight: 500; color: var(--color-text-primary);">${item.event}</td>
+            <td><span class="badge badge-success" style="margin-bottom: 5px;">1467-1475</span><br>${item.newChron}</td>
+            <td><span class="badge badge-error" style="margin-bottom: 5px;">1466-1472</span><br>${item.oldChron}</td>
+          `;
+          
+          tr.addEventListener('click', () => {
+            document.querySelectorAll('#duel-table-body tr').forEach(r => r.style.background = 'none');
+            tr.style.background = 'rgba(184, 112, 32, 0.05)';
+            
+            const detailBox = document.getElementById('duel-detail-box');
+            detailBox.innerHTML = `
+              <h4 style="margin-top: 0; color: var(--color-accent); font-size: 13.5px; font-weight: 600;"><i class="ti ti-zoom-in"></i> ${d.analysisTitle}</h4>
+              <p style="margin-bottom: 0;">${item.details}</p>
+            `;
+            detailBox.classList.add('active');
+          });
+          
+          tbody.appendChild(tr);
+        });
+      }
+
+      function highlightDuelRow(yr) {
+        let matchIdx = -1;
+        if (yr === 1467) matchIdx = 0;
+        else if (yr === 1468 || yr === 1469) matchIdx = 1;
+        else if (yr === 1470) matchIdx = 2;
+        else if (yr === 1471 || yr === 1472) matchIdx = 3;
+        else if (yr === 1473 || yr === 1474) matchIdx = 4;
+        
+        if (matchIdx !== -1) {
+          const rows = document.querySelectorAll('#duel-table-body tr');
+          if (rows[matchIdx]) {
+            rows[matchIdx].click();
+            rows[matchIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      }
+
+      function handleQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        const yearParam = params.get('year');
+        const tabParam = params.get('tab');
+        
+        if (tabParam) {
+          const cleanTab = tabParam.toLowerCase().trim();
+          if (['drift', 'duel', 'error1473'].includes(cleanTab)) {
+            switchTab(cleanTab);
+          }
+        }
+        
+        if (yearParam) {
+          const yr = parseInt(yearParam);
+          if (YEARS.includes(yr)) {
+            setYear(yr);
+            if (tabParam === 'duel') {
+              highlightDuelRow(yr);
+            }
+          }
+        }
+      }
+
+      // Listen for global theme language switch event
+      window.addEventListener('languagechange', () => {
+        buildGrid();
+        updateUI();
+        buildCalcGrid();
+        updateDriftCalc(document.getElementById('calc-slider').value);
+        buildDuelTable();
+      });
+
+      // ── Initialization on load ───────────────────────────────────────────
+      document.addEventListener('DOMContentLoaded', () => {
+        buildGrid();
+        updateUI();
+        buildCalcGrid();
+        updateDriftCalc(1);
+        buildDuelTable();
+        handleQueryParams();
+      });
+    })();
+  </script>
+
+  <!-- Shared Theme Manager -->
+  <script src="js/atlas-theme.js"></script>
+</body>
+</html>

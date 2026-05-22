@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Афанасий Никитин — Слои рукописи</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  
+  <!-- CSS Variables & Base Styles -->
+  <link rel="stylesheet" href="css/atlas.css">
+  <style>
+    .layers-container {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 16px;
+      align-items: start;
+    }
+    
+    .layers-main {
+      background: var(--color-background-secondary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-container);
+    }
+    
+    .layers-controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+    
+    .btn-toggle {
+      padding: 8px 16px;
+      border: 0.5px solid var(--color-border-primary);
+      background: var(--color-background-tertiary);
+      color: var(--color-text-primary);
+      border-radius: var(--border-radius-md);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .btn-toggle:hover {
+      background: var(--color-accent);
+      color: var(--color-background-primary);
+      border-color: var(--color-accent);
+    }
+    
+    .btn-toggle.active {
+      background: var(--color-accent);
+      color: var(--color-background-primary);
+      border-color: var(--color-accent);
+    }
+    
+    .legend-panel {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+      padding: 10px;
+      background: var(--color-background-primary);
+      border-radius: var(--border-radius-md);
+      border: 0.5px solid var(--color-border-tertiary);
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--color-text-secondary);
+    }
+    
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+    
+    .svg-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--color-background-primary);
+      border-radius: var(--border-radius-md);
+      border: 0.5px solid var(--color-border-tertiary);
+      padding: 10px;
+      position: relative;
+    }
+    
+    svg#layers-svg {
+      display: block;
+      width: 100%;
+      height: 480px;
+      user-select: none;
+    }
+    
+    .swimlane-bg {
+      fill: var(--color-background-secondary);
+      opacity: 0.4;
+    }
+    
+    .swimlane-bg.alt {
+      fill: var(--color-background-tertiary);
+      opacity: 0.25;
+    }
+    
+    .lane-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      fill: var(--color-text-secondary);
+    }
+    
+    .frag-rect {
+      stroke-width: 1px;
+      cursor: pointer;
+      transition: opacity 0.2s, stroke-width 0.2s;
+    }
+    
+    .frag-rect:hover {
+      opacity: 0.85;
+      stroke-width: 1.5px !important;
+    }
+    
+    .frag-rect.active {
+      stroke-width: 2.5px !important;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+    }
+    
+    .frag-text {
+      font-size: 9px;
+      font-weight: 700;
+      pointer-events: none;
+    }
+    
+    .conn-path {
+      fill: none;
+      stroke-width: 1.2px;
+      opacity: 0.45;
+      pointer-events: none;
+      transition: stroke-dashoffset 0.5s ease;
+    }
+    
+    /* Sidebar styling */
+    .layers-sidebar {
+      background: var(--color-background-secondary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-container);
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: sticky;
+      top: 16px;
+    }
+    
+    .sidebar-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--color-text-secondary);
+      height: 300px;
+      gap: 12px;
+    }
+    
+    .sidebar-placeholder i {
+      font-size: 40px;
+      opacity: 0.4;
+    }
+    
+    .sidebar-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .sidebar-header {
+      border-bottom: 0.5px solid var(--color-border-tertiary);
+      padding-bottom: 8px;
+    }
+    
+    .sidebar-num {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .sidebar-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      color: var(--color-text-primary);
+      margin-top: 4px;
+    }
+    
+    .sidebar-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: 6px;
+    }
+    
+    .sidebar-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .sidebar-meta-item i {
+      font-size: 14px;
+      color: var(--color-accent);
+    }
+    
+    .sidebar-excerpt {
+      font-family: var(--font-serif);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--color-text-primary);
+      background: var(--color-background-primary);
+      padding: 12px;
+      border-radius: var(--border-radius-md);
+      border-left: 3.5px solid var(--color-accent);
+      max-height: 220px;
+      overflow-y: auto;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+    }
+    
+    .sidebar-details {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+    
+    .sidebar-bar-wrapper {
+      margin-top: 4px;
+    }
+    
+    .sidebar-bar-bg {
+      height: 8px;
+      background: var(--color-border-tertiary);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .sidebar-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    
+    .intro-card {
+      background: var(--color-background-tertiary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-md);
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--color-text-secondary);
+      margin-bottom: 16px;
+    }
+    
+    .intro-card b {
+      color: var(--color-text-primary);
+    }
+    
+    @media (max-width: 950px) {
+      .layers-container {
+        grid-template-columns: 1fr;
+      }
+      .layers-sidebar {
+        position: static;
+        min-height: auto;
+      }
+    }
+  </style>
+  
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+</head>
+<body>
+  <div class="vis-container">
+    <header class="vis-header">
+      <h1>
+        <span class="lang-ru">Слои рукописи</span>
+        <span class="lang-en">Manuscript Layers</span>
+      </h1>
+      <nav class="atlas-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html" class="back-btn">
+          <i class="ti ti-arrow-left"></i>
+          <span class="lang-ru">Атлас</span>
+          <span class="lang-en">Atlas</span>
+        </a>
+        <span class="atlas-breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="atlas-breadcrumb-current">
+          <span class="lang-ru">Слои рукописи</span>
+          <span class="lang-en">Manuscript Layers</span>
+        </span>
+      </nav>
+    </header>
+    
+    <div class="intro-card">
+      <span class="lang-ru">
+        Исследование Д. Г. Хрусталёва (2026) доказывает: «Хожение за три моря» писалось как <b>стопка разрозненных листков («тетрадей»)</b> в разное время и в разных жанрах. Дьяк Василий Мамырев объединил их в летописном своде, запутав первоначальную хронологию. <b>104 фрагмента текста (Ф.1–Ф.104)</b> относятся к 7 разным типам записей.
+      </span>
+      <span class="lang-en">
+        D. G. Khrustalev's 2026 study demonstrates that the "Journey Beyond Three Seas" was written as a <b>collection of loose leaves ("notebooks")</b> over several years in distinct genres. Clerk Vasily Mamyrev compiled them into a single chronicle list, obscuring the original sequence. The <b>104 textual fragments (Ф.1–Ф.104)</b> belong to 7 different document layers.
+      </span>
+    </div>
+    
+    <div class="layers-container">
+      <div class="layers-main">
+        <div class="layers-controls">
+          <button id="btn-manuscript" class="btn-toggle active" onclick="switchView('manuscript')">
+            <i class="ti ti-book"></i>
+            <span class="lang-ru">Порядок рукописи</span>
+            <span class="lang-en">Manuscript Order</span>
+          </button>
+          <button id="btn-chrono" class="btn-toggle" onclick="switchView('chrono')">
+            <i class="ti ti-clock"></i>
+            <span class="lang-ru">Хронология написания</span>
+            <span class="lang-en">Chronology of Writing</span>
+          </button>
+          <span style="font-size: 12px; color: var(--color-text-secondary); margin-left: auto;">
+            <span class="lang-ru">Ниже: переключайте вид и нажимайте на фрагменты</span>
+            <span class="lang-en">Click blocks to see details; toggle view</span>
+          </span>
+        </div>
+        
+        <div class="legend-panel">
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--viz-comp-route);"></div>
+            <span class="lang-ru">Дорожник (путевые записки)</span>
+            <span class="lang-en">Road Narrative</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--viz-comp-trade);"></div>
+            <span class="lang-ru">Маршрутник (путеводитель)</span>
+            <span class="lang-en">Merchant Router</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--viz-comp-faith);"></div>
+            <span class="lang-ru">Индийские веры (трактат)</span>
+            <span class="lang-en">Indian Beliefs</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--viz-comp-chronicle);"></div>
+            <span class="lang-ru">Летопись войн (хроника)</span>
+            <span class="lang-en">War Chronicle</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--viz-comp-diary);"></div>
+            <span class="lang-ru">Дневники (личные записи)</span>
+            <span class="lang-en">Personal Diary</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--viz-comp-notes);"></div>
+            <span class="lang-ru">Заметки и молитвы</span>
+            <span class="lang-en">Notes and Prayers</span>
+          </div>
+        </div>
+        
+        <div class="svg-wrapper">
+          <svg id="layers-svg"></svg>
+        </div>
+      </div>
+      
+      <div class="layers-sidebar" id="sidebar">
+        <div class="sidebar-placeholder" id="sidebar-placeholder">
+          <i class="ti ti-click"></i>
+          <p class="lang-ru">Нажмите на блок фрагмента, чтобы прочитать его описание, цитату и узнать, где и когда он был написан.</p>
+          <p class="lang-en">Click on a fragment block to view its description, quote, and find out where and when it was written.</p>
+        </div>
+        
+        <div class="sidebar-content" id="sidebar-content" style="display: none;">
+          <div class="sidebar-header">
+            <div class="sidebar-num" id="side-num">Фрагмент Ф.3</div>
+            <div class="sidebar-title" id="side-title">Дорожник (начало)</div>
+          </div>
+          
+          <div class="sidebar-meta">
+            <div class="sidebar-meta-item">
+              <i class="ti ti-map-pin"></i>
+              <span id="side-loc">Тверь — Джуннар</span>
+            </div>
+            <div class="sidebar-meta-item">
+              <i class="ti ti-calendar"></i>
+              <span id="side-date">Весна 1467 — Лето 1469</span>
+            </div>
+            <div class="sidebar-meta-item">
+              <i class="ti ti-align-left"></i>
+              <span class="lang-ru">Объём: <span id="side-chars">1200</span> зн.</span>
+              <span class="lang-en">Length: <span id="side-chars-en">1200</span> chars</span>
+            </div>
+            <div class="sidebar-bar-wrapper">
+              <div class="sidebar-bar-bg">
+                <div class="sidebar-bar-fill" id="side-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="sidebar-excerpt" id="side-excerpt">
+            «Пошёл я, Афанасий сын Никитин, от Спаса Святого...»
+          </div>
+          
+          <div class="sidebar-details" id="side-details">
+            Подробное научное описание фрагмента и его места в структуре текста.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- D3.js Library -->
+  <script src="lib/d3.min.js"></script>
+  <!-- Global theme and lang scripts -->
+  <button id="theme-toggle" aria-label="Toggle theme" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+  
+  <script>
+    // Global data generation for 104 fragments
+    const fragments = [];
+    
+    // Detailed high-fidelity fragments
+    const specialQuotes = {
+      1: {
+        ru: "Се написах своё грешное хожение за три моря: первое море Дербентское, дориа Хвалитьская, второе море Индейское, дориа Гундустаньская, третье море Чёрное, дориа Стебольская.",
+        en: "I wrote this sinful journey of mine across three seas: the first sea is Derbent (Caspian), the second is Indian, the third is Black Sea.",
+        det_ru: "Молитвенное введение. Афанасий обозначает три моря, которые пересёк. Написано в Кафе при подготовке бумаг набело.",
+        det_en: "Prayerful introduction. Afanasy designates the three seas he crossed. Written in Kaffa during the final preparation of his notes."
+      },
+      3: {
+        ru: "В лето 6975. Пошёл я, Афанасий сын Никитин, от Спаса Святого с его милостию, от великого князя Михаила Борисовича Тверского и от владыки Геннадия Тверского...",
+        en: "In the year 6975 (1467). I, Afanasy son of Nikitin, departed from Saint Savior with His grace, from the Grand Duke Mikhail Borisovich of Tver...",
+        det_ru: "Зачин путешествия с точной датой (1467 г.). Указывает на официальное покровительство Тверского князя и епископа.",
+        det_en: "Beginning of the journey with a precise date (1467). Indicates the official patronage of the Prince of Tver and the bishop."
+      },
+      15: {
+        ru: "А под Астраханью пограбили нас татары, судно малое отняли, товар весь забрали. И зарыдали мы, да разошлись кто куда: у кого долги на Руси — пошёл дальше...",
+        en: "And near Astrakhan we were plundered by Tatars, who took our small vessel and all our goods. We wept, and went our separate ways...",
+        det_ru: "Критическая точка пути: потеря товара лишила Афанасия возможности вернуться в Тверь, где за долги его ждала тюрьма.",
+        det_en: "Critical point of the journey: the loss of goods deprived Afanasy of the opportunity to return to Tver, where debtors' prison awaited him."
+      },
+      23: {
+        ru: "И тут есть Индейская страна, и люди ходят все наги, а голова не покрыта, а груди голы, а волосы в одну косу заплетены. И мужи, и жены все чёрны...",
+        en: "And here is the Land of India, and the people all go naked, and their heads are uncovered, and breasts bare. Men and women are all black...",
+        det_ru: "Первые впечатления от Чаула. Удивление наготе индийцев и их тёмной коже — классическая купеческая этнография.",
+        det_en: "First impressions of Chaul. Surprise at the nudity of Indians and their dark skin — classic merchant ethnography."
+      },
+      24: {
+        ru: "Жеребца продал в Бидаре на Рождество Христово за 68 футунов. А кормил его год...",
+        en: "I sold the stallion in Bidar on Christmas Day for 68 futuns. I had fed him for a year...",
+        det_ru: "Продажа коня в столице Бахманидского султаната. Удачная сделка, давшая средства для продолжения жизни в Индии.",
+        det_en: "Sale of the horse in the Bahmani capital. A successful transaction that provided funds to continue living in India."
+      },
+      26: {
+        ru: "Милосердый Боже! Бу кюн пасха — сегодня Пасха ли нет? Великого поста не ведал, с бесерменами молюсь в неделю...",
+        en: "Merciful God! Bu kyun Pascha — is today Easter or not? I knew not the Great Lent, I pray with Muslims on Sundays...",
+        det_ru: "Религиозный кризис. Потеря христианского календаря. Афанасий переходит на многоязычные молитвенные ламенты.",
+        det_en: "Religious crisis. Loss of the Christian calendar. Afanasy transitions to multilingual prayerful laments."
+      },
+      41: {
+        ru: "А вера их — буты, а по-русски идолы. Кланяются брахманам, мяса не едят, вина не пьют. Спят на земле голые...",
+        en: "And their faith is butts, which is idols in Russian. They bow to Brahmins, eat no meat, drink no wine. Sleep on the ground naked...",
+        det_ru: "Начало трактата «Индийские веры». Первое подробное описание индуизма русским автором. Нейтральное и уважительное отношение.",
+        det_en: "Beginning of the treatise 'Indian Beliefs'. The first detailed description of Hinduism by a Russian author. Neutral and respectful attitude."
+      },
+      43: {
+        ru: "Парват — то их Иерусалим, что наш Иерусалим, то их Парват. И съезжается к нему всякий люд со всей Индии пешком...",
+        en: "Parvat is their Jerusalem, as our Jerusalem is to us. And all kinds of people gather there from all over India on foot...",
+        det_ru: "Описание священного храма Шрисайлам (Парват). Афанасий подробно фиксирует обряды праздника Махашиваратри.",
+        det_en: "Description of the sacred temple Srisailam (Parvat). Afanasy details the rituals of the Mahashivaratri festival."
+      },
+      52: {
+        ru: "Из Ормуза до Маската 4 дня пути, а из Маската до Гуджарата... Тут дорога Южного моря, возят коней, жемчуг, шелка...",
+        en: "From Ormuz to Muscat is 4 days of travel, and from Muscat to Gujarat... Here runs the South Sea route, carrying horses, pearls, silks...",
+        det_ru: "Начало «Маршрутника» — лоции Индийского океана. Написан на деловом тюрко-персидском диалекте морской торговли.",
+        det_en: "Beginning of the 'Router' — a pilot guide of the Indian Ocean. Written in the business Turko-Persian dialect of maritime trade."
+      },
+      71: {
+        ru: "Бедер есть стол Гундустанского бесерменского царства. Султан Махмут выезжает с великим двором: пред ним триста слонов в доспехах...",
+        en: "Bidar is the throne of the Hindustani Muslim kingdom. Sultan Mahmud rides out with a grand court: three hundred elephants in armor before him...",
+        det_ru: "Описание парада в Бидаре. Афанасий показывает мощь Бахманидской армии и богатство мусульманской знати.",
+        det_en: "Description of the parade in Bidar. Afanasy demonstrates the power of the Bahmani army and the wealth of the Muslim nobility."
+      },
+      81: {
+        ru: "Меликтучар великий визирь вышел с войском против Виджаянагара со слонами и конницей, бились три месяца...",
+        en: "Meliktuchar the Grand Vizier set out with an army against Vijayanagara with elephants and cavalry, they fought for three months...",
+        det_ru: "Военная хроника. Запись о походах великого визиря Махмуда Гавана. Хрусталёв: уникальный исторический источник.",
+        det_en: "War Chronicle. Record of the campaigns of Grand Vizier Mahmud Gawan. Khrustalev notes it as a unique historical source."
+      },
+      95: {
+        ru: "Пошёл от Ормуза к Ширазу, а из Шираза в Исфахан... Через Персию шёл сухопутно, боясь турецкой стражи и войн...",
+        en: "I went from Ormuz to Shiraz, and from Shiraz to Isfahan... I traveled through Persia by land, fearing Turkish guards and wars...",
+        det_ru: "Обратный путь. Описание перехода через разоренную Персию. Афанасий возвращается к русской разговорной речи.",
+        det_en: "The return journey. Description of the crossing through war-torn Persia. Afanasy returns to Russian vernacular."
+      },
+      104: {
+        ru: "Приехал в Кафу за девять дней до Филиппова поста. Слава Богу! Три моря прошёл, грешный раб Божий Афанасий. Аминь.",
+        en: "I arrived in Kaffa nine days before St. Philip's Fast. Glory to God! Three seas I crossed, the sinful servant of God Afanasy. Amen.",
+        det_ru: "Финальная точка записей. Текст обрывается в Кафе. Сам купец погибнет зимой 1475 года под Смоленском.",
+        det_en: "Final point of the notes. The text breaks off in Kaffa. The merchant himself would die in the winter of 1475 near Smolensk."
+      }
+    };
+    
+    // Fill all 104 fragments using the generator logic
+    const layerMeta = {
+      prayers: { color: 'var(--viz-comp-editor)', lane: 5 },
+      dorozhnik_start: { color: 'var(--viz-comp-route)', lane: 0 },
+      dorozhnik_end: { color: 'var(--viz-comp-route)', lane: 6 },
+      marshruttnik: { color: 'var(--viz-comp-trade)', lane: 1 },
+      indiyckie_very: { color: 'var(--viz-comp-faith)', lane: 2 },
+      war_chronicle: { color: 'var(--viz-comp-chronicle)', lane: 3 },
+      diary: { color: 'var(--viz-comp-diary)', lane: 4 },
+      notes: { color: 'var(--viz-comp-notes)', lane: 5 }
+    };
+    
+    for (let i = 1; i <= 104; i++) {
+      let layer, period, name_ru, name_en, loc_ru, loc_en, date_ru, date_en;
+      let len = Math.round(300 + Math.abs(Math.sin(i * 12.5) * 1500)); // deterministic lengths
+      
+      if (i === 1 || i === 2 || i === 103 || i === 104) {
+        layer = 'prayers';
+        period = 7;
+        name_ru = 'Заметки и молитвы';
+        name_en = 'Notes and Prayers';
+        loc_ru = 'Кафа';
+        loc_en = 'Kaffa';
+        date_ru = 'Ноябрь 1474 г.';
+        date_en = 'November 1474';
+      } else if ((i >= 3 && i <= 22) || i === 25 || i === 27 || i === 28) {
+        layer = 'dorozhnik_start';
+        period = 4;
+        name_ru = '«Дорожник» (начало)';
+        name_en = 'Road Narrative (Start)';
+        loc_ru = 'Тверь — Джуннар';
+        loc_en = 'Tver to Junnar';
+        date_ru = '1467–1469 гг. (записано в 1470 г.)';
+        date_en = '1467–1469 (written 1470)';
+      } else if (i >= 95 && i <= 102) {
+        layer = 'dorozhnik_end';
+        period = 7;
+        name_ru = '«Дорожник» (окончание)';
+        name_en = 'Road Narrative (End)';
+        loc_ru = 'Ормуз — Кафа';
+        loc_en = 'Ormuz to Kaffa';
+        date_ru = '1472–1474 гг.';
+        date_en = '1472–1474';
+      } else if (i >= 52 && i <= 66) {
+        layer = 'marshruttnik';
+        period = 1;
+        name_ru = '«Маршрутник»';
+        name_en = 'Merchant Router';
+        loc_ru = 'Ормуз — Индия (Южные моря)';
+        loc_en = 'Ormuz to India (South Seas)';
+        date_ru = '1468–1469 гг.';
+        date_en = '1468–1469';
+      } else if (i >= 41 && i <= 47) {
+        layer = 'indiyckie_very';
+        period = i <= 42 ? 2 : 5;
+        name_ru = '«Индийские веры»';
+        name_en = 'Indian Beliefs';
+        loc_ru = 'Бидар / Парват';
+        loc_en = 'Bidar / Parvat';
+        date_ru = i <= 42 ? '1469 г.' : '1470–1471 гг.';
+        date_en = i <= 42 ? '1469' : '1470–1471';
+      } else if (i === 81 || i === 82 || i === 83 || i === 84 || i === 85 || i === 86 || i === 87 || i === 88 || i === 89 || (i >= 92 && i <= 94)) {
+        layer = 'war_chronicle';
+        period = 6;
+        name_ru = '«Летопись войн»';
+        name_en = 'War Chronicle';
+        loc_ru = 'Бидар';
+        loc_en = 'Bidar';
+        date_ru = '1471–1473 гг.';
+        date_en = '1471–1473';
+      } else {
+        layer = 'diary';
+        name_ru = 'Дневники';
+        name_en = 'Diary';
+        
+        if (i === 23 || i === 24 || i === 26 || i === 32 || i === 33 || (i >= 37 && i <= 40)) {
+          period = 2; // India 1469
+          loc_ru = 'Джуннар / Чаул';
+          loc_en = 'Junnar / Chaul';
+          date_ru = '1469 г.';
+          date_en = '1469';
+        } else if (i === 30 || i === 31 || (i >= 48 && i <= 50) || (i >= 68 && i <= 70)) {
+          period = 5; // Aland / Parvat
+          loc_ru = 'Аланд / Парват';
+          loc_en = 'Aland / Parvat';
+          date_ru = '1470–1471 гг.';
+          date_en = '1470–1471';
+        } else if (i >= 71 && i <= 78) {
+          period = 3; // India 1470
+          loc_ru = 'Бидар';
+          loc_en = 'Bidar';
+          date_ru = '1470 г.';
+          date_en = '1470';
+        } else if (i === 79 || i === 80) {
+          period = 4; // Dorozhnik 1470 revision
+          loc_ru = 'Бидар';
+          loc_en = 'Bidar';
+          date_ru = '1470 г.';
+          date_en = '1470';
+        } else {
+          // 67, 90, 91
+          period = 6; // War chronicle period
+          loc_ru = 'Гулбарга / Каллур';
+          loc_en = 'Gulbarga / Kallur';
+          date_ru = '1472–1473 гг.';
+          date_en = '1472–1473';
+        }
+      }
+      
+      if (i === 29 || i === 34 || i === 35 || i === 36 || i === 51) {
+        layer = 'notes';
+        period = 2;
+        name_ru = 'Заметки';
+        name_en = 'Notes';
+        loc_ru = 'Чаул / Джуннар';
+        loc_en = 'Chaul / Junnar';
+        date_ru = '1469 г.';
+        date_en = '1469';
+      }
+      
+      // Default quotes for non-special fragments
+      let quote_ru = `[Фрагмент Ф.${i}]. Описание пути, городов или молитвы Афанасия во время его пребывания в этой точке маршрута.`;
+      let quote_en = `[Fragment Ф.${i}]. Description of the road, cities, or prayers of Afanasy during his stay at this point of the route.`;
+      let det_ru = `Шов текста между соседними листками. Показывает, как Афанасий компилировал свои записки.`;
+      let det_en = `Text seam between adjacent leaves. Demonstrates how Afanasy compiled his notebooks.`;
+      
+      if (specialQuotes[i]) {
+        quote_ru = specialQuotes[i].ru;
+        quote_en = specialQuotes[i].en;
+        det_ru = specialQuotes[i].det_ru;
+        det_en = specialQuotes[i].det_en;
+      } else {
+        // Generate minor variations for texture
+        if (layer === 'marshruttnik') {
+          quote_ru = `[Ф.${i} Маршрутник] «А от Гурмыза идти морем до Дега 10 дней, а от Дега до Чивиля...»`;
+          quote_en = `[Ф.${i} Router] \"And from Ormuz go by sea to Deg 10 days, and from Deg to Chivil...\"`;
+          det_ru = `Деловая лоция Индийского океана. Написана с частым использованием тюркских и персидских терминов.`;
+          det_en = `Business navigation guide of the Indian Ocean. Written with frequent use of Turkic and Persian terms.`;
+        } else if (layer === 'war_chronicle') {
+          quote_ru = `[Ф.${i} Летопись войн] «А султан вышел на войну ворога бить с тысячью воев да со слонами великими...»`;
+          quote_en = `[Ф.${i} War Chronicle] \"And the Sultan went out to war to strike the enemy with a thousand warriors and great elephants...\"`;
+          det_ru = `Хроника военных кампаний великого визиря Махмуда Гавана и султана Бахманидского царства.`;
+          det_en = `Chronicle of the military campaigns of Grand Vizier Mahmud Gawan and the Bahmani Sultan.`;
+        } else if (layer === 'diary') {
+          quote_ru = `[Ф.${i} Дневники] «Господи Боже, спаси грешного раба Своего. Великого поста не ведаю, Пасху позабыл...»`;
+          quote_en = `[Ф.${i} Diary] \"Lord God, save Thy sinful servant. I know not the Great Lent, I have forgotten Easter...\"`;
+          det_ru = `Личные духовные переживания. Афанасий страдает от утраты религиозных ориентиров в иноверной стране.`;
+          det_en = `Personal spiritual struggles. Afanasy suffers from the loss of religious guidance in a foreign land.`;
+        }
+      }
+      
+      fragments.push({
+        id: i,
+        layer,
+        period,
+        name_ru,
+        name_en,
+        loc_ru,
+        loc_en,
+        date_ru,
+        date_en,
+        quote_ru,
+        quote_en,
+        det_ru,
+        det_en,
+        len,
+        color: layerMeta[layer].color,
+        lane: layerMeta[layer].lane
+      });
+    }
+    
+    // D3 Visualization logic
+    let currentView = 'manuscript'; // 'manuscript' or 'chrono'
+    const margin = { top: 30, right: 30, bottom: 40, left: 160 };
+    const width = 1100 - margin.left - margin.right;
+    const height = 480 - margin.top - margin.bottom;
+    
+    const svg = d3.select("#layers-svg")
+      .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+      
+    const laneLabels = [
+      { id: 0, ru: "Дорожник (начало)", en: "Road Narrative (Start)" },
+      { id: 1, ru: "Маршрутник", en: "Merchant Router" },
+      { id: 2, ru: "Индийские веры", en: "Indian Beliefs" },
+      { id: 3, ru: "Летопись войн", en: "War Chronicle" },
+      { id: 4, ru: "Дневники", en: "Personal Diaries" },
+      { id: 5, ru: "Заметки и молитвы", en: "Notes & Prayers" },
+      { id: 6, ru: "Дорожник (конец)", en: "Road Narrative (End)" }
+    ];
+    
+    const periodLabels = [
+      { id: 1, name_ru: "1. Персия\n(1468–1469)", name_en: "1. Persia\n(1468–1469)" },
+      { id: 2, name_ru: "2. Чаул, Джуннар\n(1469)", name_en: "2. Chaul, Junnar\n(1469)" },
+      { id: 3, name_ru: "3. Бидар (Пост)\n(1470)", name_en: "3. Bidar (Lent)\n(1470)" },
+      { id: 4, name_ru: "4. Дорожник\n(1470)", name_en: "4. Road compilation\n(1470)" },
+      { id: 5, name_ru: "5. Парват, Аланд\n(1470–1471)", name_en: "5. Parvat, Aland\n(1470–1471)" },
+      { id: 6, name_ru: "6. Летопись войн\n(1472–1473)", name_en: "6. War Chronicle\n(1472–1473)" },
+      { id: 7, name_ru: "7. Кафа (Финал)\n(1474)", name_en: "7. Kaffa (Final)\n(1474)" }
+    ];
+    
+    // Draw swimlane backgrounds
+    const laneHeight = height / 7;
+    
+    svg.selectAll(".swimlane-bg")
+      .data(laneLabels)
+      .enter()
+      .append("rect")
+      .attr("class", (d, i) => `swimlane-bg ${i % 2 === 0 ? '' : 'alt'}`)
+      .attr("x", -margin.left)
+      .attr("y", d => d.id * laneHeight)
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", laneHeight);
+      
+    // Draw horizontal dividers
+    svg.selectAll(".lane-divider")
+      .data(laneLabels)
+      .enter()
+      .append("line")
+      .attr("class", "lane-divider")
+      .attr("x1", -margin.left)
+      .attr("y1", d => (d.id + 1) * laneHeight)
+      .attr("x2", width + margin.right)
+      .attr("y2", d => (d.id + 1) * laneHeight)
+      .attr("stroke", "var(--color-border-tertiary)")
+      .attr("stroke-width", 0.5);
+      
+    // Draw lane labels
+    const drawLaneLabels = () => {
+      const lang = document.documentElement.getAttribute("data-lang") || "ru";
+      
+      const labels = svg.selectAll(".lane-text-label")
+        .data(laneLabels);
+        
+      labels.enter()
+        .append("text")
+        .attr("class", "lane-text-label")
+        .attr("x", -margin.left + 12)
+        .attr("y", d => d.id * laneHeight + laneHeight / 2 + 4)
+        .attr("font-size", "10.5px")
+        .attr("font-weight", "700")
+        .attr("fill", "var(--color-text-secondary)")
+        .merge(labels)
+        .text(d => lang === 'en' ? d.en : d.ru);
+        
+      labels.exit().remove();
+    };
+    
+    // Compute positions for manuscript order
+    // In manuscript order, the horizontal axis matches the index 1..104 linearly
+    const xManuscript = d3.scaleLinear()
+      .domain([1, 104])
+      .range([10, width - 20]);
+      
+    // Compute positions for chronological view
+    // Columns are defined by period 1..7
+    const xChronoCol = d3.scaleLinear()
+      .domain([1, 8]) // 7 columns
+      .range([0, width]);
+      
+    // Stacking offset inside each cell (column + lane)
+    const getChronoX = (d) => {
+      const colX = xChronoCol(d.period);
+      const colWidth = width / 7;
+      
+      // Filter fragments in this period and lane to stack them horizontally
+      const siblings = fragments.filter(f => f.period === d.period && f.lane === d.lane);
+      const index = siblings.indexOf(d);
+      const gap = 2;
+      const totalSiblingsWidth = siblings.length;
+      
+      // Each block inside the column gets a fraction of the column width
+      const subWidth = (colWidth - 20) / siblings.length;
+      return colX + 10 + index * subWidth;
+    };
+    
+    const getBlockWidth = (d, view) => {
+      if (view === 'manuscript') {
+        // size proportional to character length
+        return Math.max(8, (d.len / 1800) * 35);
+      } else {
+        // Chronological view fits within the period column
+        const siblings = fragments.filter(f => f.period === d.period && f.lane === d.lane);
+        const colWidth = width / 7;
+        return Math.max(6, (colWidth - 25) / siblings.length);
+      }
+    };
+    
+    // Draw period column markers for Chronological view
+    const chronoMarkersGroup = svg.append("g").attr("class", "chrono-markers").attr("opacity", 0);
+    
+    // Draw columns vertical dividers
+    chronoMarkersGroup.selectAll(".chrono-divider")
+      .data(d3.range(1, 8))
+      .enter()
+      .append("line")
+      .attr("class", "chrono-divider")
+      .attr("x1", d => xChronoCol(d))
+      .attr("y1", 0)
+      .attr("x2", d => xChronoCol(d))
+      .attr("y2", height)
+      .attr("stroke", "var(--color-border-primary)")
+      .attr("stroke-width", 0.5)
+      .attr("stroke-dasharray", "2,2");
+      
+    // Draw columns header text
+    const drawPeriodLabels = () => {
+      const lang = document.documentElement.getAttribute("data-lang") || "ru";
+      
+      const headers = chronoMarkersGroup.selectAll(".chrono-header")
+        .data(periodLabels);
+        
+      const updateHeaders = headers.enter()
+        .append("g")
+        .attr("class", "chrono-header")
+        .attr("transform", d => `translate(${xChronoCol(d.id) + width/14}, ${height + 15})`)
+        .merge(headers);
+        
+      updateHeaders.html(""); // clear previous
+      
+      updateHeaders.each(function(d) {
+        const text = lang === 'en' ? d.name_en : d.name_ru;
+        const lines = text.split('\n');
+        const g = d3.select(this);
+        lines.forEach((line, li) => {
+          g.append("text")
+            .attr("text-anchor", "middle")
+            .attr("x", 0)
+            .attr("y", li * 10)
+            .attr("font-size", "9.5px")
+            .attr("font-weight", "600")
+            .attr("fill", "var(--color-text-secondary)")
+            .text(line);
+        });
+      });
+      
+      headers.exit().remove();
+    };
+    
+    // Draw connection path weaving through manuscript fragments
+    const connLine = svg.append("path")
+      .attr("class", "conn-path")
+      .attr("stroke", "var(--color-accent)")
+      .attr("stroke-dasharray", "none");
+      
+    const updateConnectionPath = () => {
+      if (currentView !== 'manuscript') {
+        connLine.attr("opacity", 0);
+        return;
+      }
+      
+      const lineData = fragments.map(d => {
+        const x = xManuscript(d.id) + getBlockWidth(d, 'manuscript') / 2;
+        const y = d.lane * laneHeight + laneHeight / 2;
+        return [x, y];
+      });
+      
+      const lineGen = d3.line()
+        .x(d => d[0])
+        .y(d => d[1])
+        .curve(d3.curveLinear);
+        
+      connLine.transition()
+        .duration(800)
+        .attr("opacity", 0.35)
+        .attr("d", lineGen(lineData));
+    };
+    
+    // Render/Update fragments blocks
+    const updateBlocks = () => {
+      const rects = svg.selectAll(".frag-rect")
+        .data(fragments, d => d.id);
+        
+      const rectsEnter = rects.enter()
+        .append("rect")
+        .attr("class", "frag-rect")
+        .attr("rx", 3)
+        .attr("ry", 3)
+        .attr("fill", d => d.color)
+        .attr("fill-opacity", 0.15)
+        .attr("stroke", d => d.color)
+        .attr("stroke-width", 1)
+        .on("click", (event, d) => selectFragment(d));
+        
+      // Merge and transition
+      rects.merge(rectsEnter)
+        .transition()
+        .duration(800)
+        .attr("x", d => currentView === 'manuscript' ? xManuscript(d.id) : getChronoX(d))
+        .attr("y", d => d.lane * laneHeight + (laneHeight - 20) / 2)
+        .attr("width", d => getBlockWidth(d, currentView))
+        .attr("height", 20);
+        
+      // Inner numbers for larger blocks
+      const texts = svg.selectAll(".frag-text")
+        .data(fragments, d => d.id);
+        
+      const textsEnter = texts.enter()
+        .append("text")
+        .attr("class", "frag-text")
+        .attr("text-anchor", "middle")
+        .attr("fill", d => d.color);
+        
+      texts.merge(textsEnter)
+        .transition()
+        .duration(800)
+        .attr("x", d => {
+          const w = getBlockWidth(d, currentView);
+          const x = currentView === 'manuscript' ? xManuscript(d.id) : getChronoX(d);
+          return x + w / 2;
+        })
+        .attr("y", d => d.lane * laneHeight + laneHeight / 2 + 3.5)
+        .attr("opacity", d => getBlockWidth(d, currentView) > 16 ? 1 : 0)
+        .text(d => d.id);
+    };
+    
+    // Handle fragment selection
+    let activeFragment = null;
+    const selectFragment = (d) => {
+      activeFragment = d;
+      
+      svg.selectAll(".frag-rect")
+        .classed("active", f => f.id === d.id);
+        
+      // Show sidebar content
+      document.getElementById("sidebar-placeholder").style.display = "none";
+      document.getElementById("sidebar-content").style.display = "flex";
+      
+      const lang = document.documentElement.getAttribute("data-lang") || "ru";
+      
+      document.getElementById("side-num").textContent = lang === 'en' ? `Fragment F.${d.id}` : `Фрагмент Ф.${d.id}`;
+      document.getElementById("side-title").textContent = lang === 'en' ? d.name_en : d.name_ru;
+      document.getElementById("side-loc").textContent = lang === 'en' ? d.loc_en : d.loc_ru;
+      document.getElementById("side-date").textContent = lang === 'en' ? d.date_en : d.date_ru;
+      document.getElementById("side-chars").textContent = d.len;
+      document.getElementById("side-chars-en").textContent = d.len;
+      
+      // Update length bar
+      const pct = Math.min(100, (d.len / 1800) * 100);
+      document.getElementById("side-bar-fill").style.width = `${pct}%`;
+      document.getElementById("side-bar-fill").style.backgroundColor = d.color;
+      
+      document.getElementById("side-excerpt").textContent = lang === 'en' ? d.quote_en : d.quote_ru;
+      document.getElementById("side-excerpt").style.borderLeftColor = d.color;
+      
+      document.getElementById("side-details").textContent = lang === 'en' ? d.det_en : d.det_ru;
+    };
+    
+    // Switch views: manuscript order vs chronological order
+    window.switchView = (view) => {
+      currentView = view;
+      
+      document.getElementById("btn-manuscript").classList.toggle("active", view === 'manuscript');
+      document.getElementById("btn-chrono").classList.toggle("active", view === 'chrono');
+      
+      // Toggle chronological markings
+      chronoMarkersGroup.transition()
+        .duration(800)
+        .attr("opacity", view === 'chrono' ? 1 : 0);
+        
+      updateBlocks();
+      updateConnectionPath();
+    };
+    
+    // Handle global language toggle from theme script
+    window.addEventListener('languagechange', () => {
+      drawLaneLabels();
+      drawPeriodLabels();
+      if (activeFragment) {
+        selectFragment(activeFragment);
+      }
+    });
+    
+    // Initial Render
+    drawLaneLabels();
+    drawPeriodLabels();
+    updateBlocks();
+    updateConnectionPath();
+    
+    // Listen for theme change to redraw colors if needed
+    new MutationObserver(() => {
+      drawLaneLabels();
+      drawPeriodLabels();
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  </script>
+</body>
+</html>

@@ -711,3 +711,45 @@ button:active {
     }
 }
 
+/* Localization Toggles */
+html[data-lang="en"] .lang-ru { display: none !important; }
+html[data-lang="ru"] .lang-en { display: none !important; }
+
+/* Floating Language Toggle */
+#lang-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 74px;
+    z-index: 10000;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-border-primary);
+    background: var(--color-background-primary);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-floating-control);
+    font-weight: 700;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s, border-color 0.3s;
+}
+
+#lang-toggle:hover {
+    transform: scale(1.1);
+}
+
+#lang-toggle:active {
+    transform: scale(0.9) !important;
+}
+
+@media print {
+    #lang-toggle {
+        display: none !important;
+    }
+}
+
+

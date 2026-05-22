@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Афанасий Никитин — интерактивный атлас</title>
-  <meta name="description" content="Первый интерактивный атлас путешествия Афанасия Никитина (1467–1475). 22 визуализации по книге Хрусталёва.">
+  <meta name="description" content="Первый интерактивный атлас путешествия Афанасия Никитина (1467–1475). 26 визуализаций по книге Хрусталёва.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/atlas.css">
   <link rel="stylesheet" href="lib/tabler-icons.min.css">
@@ -120,12 +120,14 @@
       background: var(--color-background-primary);
       border: 1px solid var(--color-border-secondary);
       border-radius: 8px;
-      padding: 20px;
       text-decoration: none;
       color: inherit;
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
       touch-action: manipulation;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
     .card:hover {
       transform: translateY(-4px);
@@ -136,18 +138,142 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(139,90,48,0.1);
     }
+    .card-preview {
+      height: 90px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: var(--color-background-secondary);
+      overflow: hidden;
+      border-bottom: 1px solid var(--color-border-tertiary);
+    }
+    .card-preview::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      opacity: 0.12;
+      background-image: radial-gradient(var(--color-text-primary) 1px, transparent 1px);
+      background-size: 10px 10px;
+      pointer-events: none;
+    }
+    .card-preview svg {
+      width: 80%;
+      height: 80%;
+      z-index: 1;
+      transition: transform 0.3s ease;
+    }
+    .card:hover .card-preview svg {
+      transform: scale(1.1) rotate(-1deg);
+    }
+    .card-body {
+      padding: 16px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
     .card-num {
-      display: inline-block;
+      align-self: flex-start;
       background: var(--color-background-secondary);
       color: var(--color-accent);
-      padding: 4px 10px;
+      padding: 2px 8px;
       border-radius: 4px;
-      font-size: 0.85em;
-      font-weight: 600;
-      margin-bottom: 10px;
+      font-size: 0.8em;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
-    .card h3 { font-size: 1.1em; margin-bottom: 10px; color: var(--color-text-primary); }
-    .card p { font-size: 0.95em; color: var(--color-text-secondary); }
+    .card h3 { font-size: 1.05em; margin-bottom: 8px; color: var(--color-text-primary); font-weight: 600; }
+    .card p { font-size: 0.9em; color: var(--color-text-secondary); margin: 0; line-height: 1.45; }
+
+    /* Category-specific card previews */
+    .card-maps .card-preview { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    .card-chrono .card-preview { background: linear-gradient(135deg, #78350f 0%, #d97706 100%); }
+    .card-text .card-preview { background: linear-gradient(135deg, #1f2937 0%, #4b5563 100%); }
+    .card-people .card-preview { background: linear-gradient(135deg, #065f46 0%, #10b981 100%); }
+    .card-trade .card-preview { background: linear-gradient(135deg, #991b1b 0%, #ef4444 100%); }
+    .card-stats .card-preview { background: linear-gradient(135deg, #5b21b6 0%, #8b5cf6 100%); }
+
+    /* Onboarding Tour Styling */
+    .tour-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 15000;
+      pointer-events: none;
+      background: rgba(0,0,0,0.0);
+      transition: background 0.3s ease;
+    }
+    .tour-overlay.active {
+      background: rgba(0,0,0,0.45);
+      pointer-events: auto;
+    }
+    .tour-highlight {
+      position: absolute;
+      border: 2.5px solid var(--color-accent);
+      border-radius: 8px;
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      pointer-events: none;
+      z-index: 15001;
+    }
+    .tour-tooltip {
+      position: absolute;
+      width: 300px;
+      background: var(--color-background-primary);
+      border: 1.5px solid var(--color-border-primary);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-detail-panel);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 15002;
+      pointer-events: auto;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      font-family: var(--font-sans);
+    }
+    .tour-tooltip h3 {
+      font-family: var(--font-display);
+      font-size: 1.15em;
+      margin: 0;
+      color: var(--color-text-primary);
+    }
+    .tour-tooltip p {
+      font-size: 0.92em;
+      line-height: 1.5;
+      margin: 0;
+      color: var(--color-text-secondary);
+    }
+    .tour-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+    }
+    .tour-btn {
+      padding: 6px 12px;
+      font-size: 0.85em;
+      border-radius: 4px;
+      cursor: pointer;
+      border: 0.5px solid var(--color-border-secondary);
+      background: var(--color-background-secondary);
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .tour-btn-next {
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      font-weight: 600;
+    }
+    .tour-btn-next:hover {
+      background: var(--color-accent-hover);
+    }
+    .tour-btn:hover:not(.tour-btn-next) {
+      background: var(--color-background-tertiary);
+      color: var(--color-text-primary);
+    }
 
     .files-section {
       background: var(--color-background-secondary);
@@ -272,304 +398,909 @@
 <body>
 <div class="container">
   <header>
-    <h1>🗺 Афанасий Никитин — интерактивный атлас</h1>
-    <p class="subtitle">Визуализации к книге Д.Г. Хрусталёва «Тетради купца Афанасия» (СПб.: Нестор-История, 2026)</p>
+    <h1>
+      <span class="lang-ru">🗺 Афанасий Никитин — интерактивный атлас</span>
+      <span class="lang-en">🗺 Afanasy Nikitin — Interactive Atlas</span>
+    </h1>
+    <p class="subtitle">
+      <span class="lang-ru">Визуализации к книге Д.Г. Хрусталёва «Тетради купца Афанасия» (СПб.: Нестор-История, 2026)</span>
+      <span class="lang-en">Visualizations for Dmitry Khrustalev's book "The Notebooks of Merchant Afanasy" (St. Petersburg: Nestor-Historia, 2026)</span>
+    </p>
+    <button id="start-tour-btn" class="tour-btn tour-btn-next" style="margin-top: 10px; font-size: 0.95em; padding: 8px 16px; border: none; display: inline-flex; align-items: center; gap: 6px;">
+      <i class="ti ti-help"></i>
+      <span class="lang-ru">Начать экскурсию</span>
+      <span class="lang-en">Start Guided Tour</span>
+    </button>
   </header>
 
   <section class="overview">
-    <h2>Что внутри атласа</h2>
+    <h2>
+      <span class="lang-ru">Что внутри атласа</span>
+      <span class="lang-en">What's inside the Atlas</span>
+    </h2>
     <div class="overview-grid">
       <div class="ov-group">
-        <h3>🗺️ Картографические и маршрутные</h3>
+        <h3>
+          <span class="lang-ru">🗺️ Картографические и маршрутные</span>
+          <span class="lang-en">🗺️ Maps & Routes</span>
+        </h3>
         <ul>
-          <li><strong>Тайм-лапс на карте</strong> — анимированный маршрут 1467–1475: жёлтая точка проходит три моря, кликабельные цитаты из «Хожения» в каждой точке остановки</li>
-          <li><strong>Три путешественника</strong> — Афанасий / Марко Поло / Васко да Гама на одной карте: Ормуз — общая точка всех троих, разница в целях и судьбах</li>
-          <li><strong>Анимация границ</strong> — политическая карта 1467–1475 меняется в реальном времени: Ак-Коюнлу, Бахманиды, Тимуриды, Московское княжество</li>
-          <li><strong>Торговый маршрутник от Ормуза до Китая</strong> — интерактивная карта с портами, расстояниями и товарами из состава «Хожения»</li>
+          <li>
+            <span class="lang-ru"><strong>Тайм-лапс на карте</strong> — анимированный маршрут 1467–1475: жёлтая точка проходит три моря, кликабельные цитаты из «Хожения» в каждой точке остановки</span>
+            <span class="lang-en"><strong>Map Time-lapse</strong> — animated route 1467–1475: yellow dot travels three seas, with clickable quotes from the text at every stopover</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Три путешественника</strong> — Афанасий / Марко Поло / Васко да Гама на одной карте: Ормуз — общая точка всех троих, разница в целях и судьбах</span>
+            <span class="lang-en"><strong>Three Travelers</strong> — Afanasy / Marco Polo / Vasco da Gama on a single map: Ormuz is their mutual point, comparing goals and destinies</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Анимация границ</strong> — политическая карта 1467–1475 меняется в реальном времени: Ак-Коюнлу, Бахманиды, Тимуриды, Московское княжество</span>
+            <span class="lang-en"><strong>Border Animation</strong> — political maps of 1467–1475 changing in real time: Aq Qoyunlu, Bahmanis, Timurids, Moscow</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Торговый маршрутник от Ормуза до Китая</strong> — интерактивная карта с портами, расстояниями и товарами из состава «Хожения»</span>
+            <span class="lang-en"><strong>Trade Route to China</strong> — interactive map featuring ports, distances, and merchants' goods mentioned in the text</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Климат и муссоны</strong> — визуализация сезонных ветров Индийского океана и их влияние на плавание Афанасия</span>
+            <span class="lang-en"><strong>Climate & Monsoons</strong> — visualizer for Indian Ocean seasonal winds and their impact on navigation calendars</span>
+          </li>
         </ul>
       </div>
       <div class="ov-group">
-        <h3>📊 Хронологические и количественные</h3>
+        <h3>
+          <span class="lang-ru">📊 Хронологические и количественные</span>
+          <span class="lang-en">📊 Timelines & Metrics</span>
+        </h3>
         <ul>
-          <li><strong>Гантт-диаграмма</strong> — 8 лет путешествия по месяцам: движение vs стоянка; почему Бидар занимает почти половину всего времени</li>
-          <li><strong>Скорость: суша vs море</strong> — 18 отрезков маршрута; море в 3,5 раза быстрее суши; где Афанасий терял время</li>
-          <li><strong>Двойной календарь</strong> — православные Пасхи и мусульманский Рамадан 1467–1475; астрономический аргумент новой датировки Хрусталёва</li>
-          <li><strong>Эмоциональная дуга</strong> — тональность 20 фрагментов «Хожения» по шкале −10…+10: три кризиса (ограбление на Волге, Джуннар, потеря Пасхи)</li>
+          <li>
+            <span class="lang-ru"><strong>Гантт-диаграмма</strong> — 8 лет путешествия по месяцам: движение vs стоянка; почему Бидар занимает почти половину всего времени</span>
+            <span class="lang-en"><strong>Gantt Chart</strong> — 8 years of travels mapped monthly: movement vs stopovers; why Bidar took up half the journey</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Скорость: суша vs море</strong> — 18 отрезков маршрута; море в 3,5 раза быстрее суши; где Афанасий терял время</span>
+            <span class="lang-en"><strong>Speed: Land vs Sea</strong> — 18 segments; sea is 3.5× faster than overland transit; where Nikitin lost precious months</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Календарь Пасх</strong> — православные Пасхи и мусульманские праздники 1467–1475; математическое сопоставление</span>
+            <span class="lang-en"><strong>Easter/Pascha Calendar</strong> — Christian Easters and Islamic holidays of 1467–1475; calendar mathematics comparison</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Эмоциональная дуга</strong> — тональность 20 фрагментов «Хожения» по шкале −10…+10: три кризиса (ограбление на Волге, Джуннар, потеря Пасхи)</span>
+            <span class="lang-en"><strong>Emotional Arc</strong> — narrative sentiment analysis of 20 text fragments; maps three major crises</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Пасхальный хронограф</strong> — интерактивный дрейф юлианского/лунного календаря и новые датировки Хрусталёва</span>
+            <span class="lang-en"><strong>Paschal Chronograph</strong> — Julian vs lunar calendars mathematical drift, justifying Khrustalev's dating</span>
+          </li>
         </ul>
       </div>
       <div class="ov-group">
-        <h3>💬 Из людей и текста</h3>
+        <h3>
+          <span class="lang-ru">💬 Из людей и текста</span>
+          <span class="lang-en">💬 Characters & Linguistics</span>
+        </h3>
         <ul>
-          <li><strong>Указатель топонимов и лиц</strong> — интерактивный алфавитный справочник: быстрый поиск персонажей и географических пунктов с цитатами и прямыми ссылками на карты</li>
-          <li><strong>Сеть людей</strong> — граф встреч: кто помог, кто навредил, кто спас (Хасан-ходжа, Асад-хан, Махмуд Гаван, ширваншах, Мамырев)</li>
-          <li><strong>Флора и фауна Индии</strong> — иллюстрированный бестиарий: что Афанасий описал впервые для русского читателя (слоны, попугаи, мангусты, кокосы, чёрный перец)</li>
-          <li><strong>Карта языков текста</strong> — русский, тюркский, персидский, арабский: где в «Хожении» какой язык и что это говорит о состоянии Афанасия</li>
-          <li><strong>Три рукописи</strong> — Летописная vs Троицкая: параллельный текст, утерянные листы, 580 знаков/страницу</li>
+          <li>
+            <span class="lang-ru"><strong>Слои рукописи</strong> — интерактивный таймлайн 104 текстовых фрагментов с переключением хронологического порядка и порядка летописи</span>
+            <span class="lang-en"><strong>Manuscript Layers</strong> — interactive timeline of 104 text fragments, comparing writing chronology vs chronicle compilation</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Дерево состава «Хожения»</strong> — 7 тетрадей → Мамырев → 3 рукописных списка; как текст сложился и дошёл до нас</span>
+            <span class="lang-en"><strong>Composition Tree</strong> — 7 notebooks → Mamyrev editor → 3 historical manuscript lists</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Сеть людей</strong> — граф встреч: кто помог, кто навредил, кто спас (Хасан-ходжа, Асад-хан, Махмуд Гаван, ширваншах, Мамырев)</span>
+            <span class="lang-en"><strong>People Network</strong> — connection graph: helper, harm, neutral relationships (Asad Khan, Mahmud Gawan, Shirvanshah, etc.)</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Параллельная биография</strong> — вертикальные таймлайны путей Афанасия Никитина и великого визиря Махмуда Гавана в Бидаре</span>
+            <span class="lang-en"><strong>Parallel Biography</strong> — vertical timelines of Afanasy and Grand Vizier Mahmud Gawan in Bidar (1469–1473) with sync points</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Указатель топонимов и лиц</strong> — интерактивный алфавитный справочник: быстрый поиск персонажей и географических пунктов с цитатами и ссылками</span>
+            <span class="lang-en"><strong>Concordance Index</strong> — searchable glossary of names, cities, and terms with linked passages and map hooks</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Карта языков текста</strong> — русский, тюркский, персидский, арабский: где в «Хожения» какой язык</span>
+            <span class="lang-en"><strong>Text Language Map</strong> — Russian, Turkic, Persian, and Arabic parts of the narrative and text density</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Сравнение рукописей</strong> — Летописная vs Троицкая: параллельный текст и структурная разница</span>
+            <span class="lang-en"><strong>Manuscript Comparison</strong> & diff markup of Troitsky vs Letopisny lists</span>
+          </li>
         </ul>
       </div>
       <div class="ov-group">
-        <h3>🌍 Сравнительные и контекстные</h3>
+        <h3>
+          <span class="lang-ru">🌍 Сравнительные и контекстные</span>
+          <span class="lang-en">🌍 Context & Economics</span>
+        </h3>
         <ul>
-          <li><strong>Что Афанасий знал до выезда vs что узнал</strong> — две карты мира рядом: средневековое русское представление об Азии и реальность</li>
-          <li><strong>Афанасий в мировой историографии</strong> — кто и когда его «открывал» заново: Карамзин (1817), советское издание (1948), академическое (1986), Хрусталёв (2026)</li>
-        </ul>
-      </div>
-      <div class="ov-group">
-        <h3>🏗 Структурные</h3>
-        <ul>
-          <li><strong>Религиозный кризис</strong> — соотношение «Господи / Аллах / Бог» по разделам: как меняется имя, которым Афанасий называет бога</li>
-          <li><strong>Интерактивный маршрутник купца</strong> — что брать, куда везти, почём продавать: практическое пособие из «Хожения» в виде таблицы-инструмента</li>
-          <li><strong>Дерево состава «Хожения»</strong> — 7 тетрадей → Мамырев → 3 рукописных списка; как текст сложился и дошёл до нас</li>
-          <li><strong>Экономика путешествия</strong> — история жеребца: купил в Твери, продал в Бидаре; финансовая хроника 8 лет</li>
-        </ul>
-      </div>
-      <div class="ov-group">
-        <h3>📈 Мета-визуализации</h3>
-        <ul>
-          <li><strong>История изданий «Хожения» 1817–2026</strong> — таймлайн с обложками и ключевыми открытиями каждого издания; за 208 лет — 40+ изданий, 20 языков</li>
-          <li><strong>Цитируемость в науке</strong> — как менялся интерес к тексту по векам: три волны (1908 юбилей, 1948 сталинский пик, 1986 академическая консолидация)</li>
+          <li>
+            <span class="lang-ru"><strong>Что Афанасий знал до выезда vs что узнал</strong> — две карты мира рядом: средневековое русское представление об Азии и реальность</span>
+            <span class="lang-en"><strong>Before & After Map</strong> — comparative view of medieval Russian mental maps vs physical geography of Asia</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Афанасий в мировой историографии</strong> — кто и когда его «открывал» заново: Карамзин (1817), советское издание (1948), Хрусталёв (2026)</span>
+            <span class="lang-en"><strong>Historiography & Scholarship</strong> — timeline of academic discoveries of Nikitin's travelog from 1817 to 2026</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>История изданий «Хожения» 1817–2026</strong> — обложки, переводы на 20 языков, тиражи и предисловия</span>
+            <span class="lang-en"><strong>40 Editions</strong> — bibliography timeline covering book covers, translations, and editorial notes</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Экономика путешествия</strong> — история жеребца: купил в Твери, продал в Бидаре; финансовая хроника 8 лет</span>
+            <span class="lang-en"><strong>Route Economics</strong> — biography of the stallion: purchased in Tver, sold in Bidar; budget overview of 8 years</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Торговый справочник купца</strong> — интерактивная таблица валют, весов, пошлин и цен из «Хожения»</span>
+            <span class="lang-en"><strong>Merchant Guide</strong> — pricing, currencies, tax records, and customs registry of the travel era</span>
+          </li>
+          <li>
+            <span class="lang-ru"><strong>Бестиарий Индии</strong> — иллюстрированная фауна и флора (слоны, мангусты, кокосы, перец) в описании Афанасия</span>
+            <span class="lang-en"><strong>Bestiary of India</strong> — flora and fauna first documented for Russian audiences (elephants, monkeys, coconuts)</span>
+          </li>
         </ul>
       </div>
     </div>
   </section>
 
   <section class="atlas-tools" aria-label="Навигация по визуализациям">
-    <input class="atlas-search" id="viz-search" type="search" placeholder="Найти визуализацию" autocomplete="off">
+    <input class="atlas-search" id="viz-search" type="search" placeholder="Найти визуализацию..." autocomplete="off">
     <div class="filter-pills" aria-label="Категории">
-      <button type="button" class="active" data-filter="all">Все</button>
-      <button type="button" data-filter="maps">Картография</button>
-      <button type="button" data-filter="chrono">Хронология</button>
-      <button type="button" data-filter="text">Текст</button>
-      <button type="button" data-filter="people">Люди</button>
-      <button type="button" data-filter="trade">Экономика</button>
-      <button type="button" data-filter="stats">Статистика</button>
+      <button type="button" class="active" data-filter="all">
+        <span class="lang-ru">Все</span>
+        <span class="lang-en">All</span>
+      </button>
+      <button type="button" data-filter="maps">
+        <span class="lang-ru">Картография</span>
+        <span class="lang-en">Cartography</span>
+      </button>
+      <button type="button" data-filter="chrono">
+        <span class="lang-ru">Хронология</span>
+        <span class="lang-en">Chronology</span>
+      </button>
+      <button type="button" data-filter="text">
+        <span class="lang-ru">Текст</span>
+        <span class="lang-en">Text</span>
+      </button>
+      <button type="button" data-filter="people">
+        <span class="lang-ru">Люди</span>
+        <span class="lang-en">People</span>
+      </button>
+      <button type="button" data-filter="trade">
+        <span class="lang-ru">Экономика</span>
+        <span class="lang-en">Economy</span>
+      </button>
+      <button type="button" data-filter="stats">
+        <span class="lang-ru">Статистика</span>
+        <span class="lang-en">Statistics</span>
+      </button>
     </div>
-    <div class="filter-count" id="viz-count">22 виджета</div>
+    <div class="filter-count" id="viz-count">26 виджетов</div>
   </section>
 
   <section class="section" id="maps">
-    <h2>🗺️ Картографические (4)</h2>
+    <h2>
+      <span class="lang-ru">🗺️ Картографические (5)</span>
+      <span class="lang-en">🗺️ Cartographic (5)</span>
+    </h2>
     <div class="grid">
-      <a href="afanasy_v8_text_map.html" class="card">
-        <div class="card-num">1</div>
-        <h3>Тайм-лапс на карте</h3>
-        <p>Анимированный маршрут 1467–1475 с кликабельным текстом «Хожения»</p>
+      <a href="afanasy_v8_text_map.html" class="card card-maps">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <path d="M10,25 C30,10 40,40 60,15 C75,5 80,35 90,20" stroke-dasharray="3,3" />
+            <circle cx="10" cy="25" r="3" fill="#fff" />
+            <circle cx="60" cy="15" r="3" fill="#fff" />
+            <circle cx="90" cy="20" r="3" fill="#fff" />
+            <path d="M48,15 L52,25 L58,25 Z" fill="#fff" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">1</div>
+          <h3>
+            <span class="lang-ru">Тайм-лапс на карте</span>
+            <span class="lang-en">Map Time-lapse</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Анимированный маршрут 1467–1475 с кликабельным текстом «Хожения»</span>
+            <span class="lang-en">Animated route 1467–1475 with interactive text markers</span>
+          </p>
+        </div>
       </a>
-      <a href="three_travelers_comparison.html" class="card">
-        <div class="card-num">2</div>
-        <h3>Три путешественника</h3>
-        <p>Афанасий vs Марко Поло vs Васко да Гама на одной карте</p>
+      <a href="three_travelers_comparison.html" class="card card-maps">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke-width:1.5;opacity:0.85;">
+            <path d="M10,10 C30,15 45,25 70,25" stroke="#ff8c00" />
+            <path d="M20,38 C40,30 55,25 90,15" stroke="#00bfff" />
+            <path d="M10,25 C35,25 55,25 80,38" stroke="#32cd32" stroke-dasharray="2,2" />
+            <circle cx="55" cy="25" r="4" fill="#fff" stroke="#ff3333" stroke-width="2" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">2</div>
+          <h3>
+            <span class="lang-ru">Три путешественника</span>
+            <span class="lang-en">Three Travelers</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Афанасий vs Марко Поло vs Васко да Гама на одной карте</span>
+            <span class="lang-en">Afanasy vs Marco Polo vs Vasco da Gama mapped together</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_trade_marshruttnik.html" class="card">
-        <div class="card-num">3</div>
-        <h3>Торговый маршрутник</h3>
-        <p>Интерактивная карта портов Ормуз → Китай с товарами</p>
+      <a href="afanasy_trade_marshruttnik.html" class="card card-maps">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <line x1="10" y1="22" x2="90" y2="22" stroke-dasharray="4,4" />
+            <circle cx="10" cy="22" r="2.5" fill="#fff" />
+            <circle cx="35" cy="22" r="2.5" fill="#fff" />
+            <circle cx="60" cy="22" r="2.5" fill="#fff" />
+            <circle cx="90" cy="22" r="2.5" fill="#fff" />
+            <polygon points="45,22 55,14 55,30" fill="rgba(255,255,255,0.4)" stroke="#fff" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">3</div>
+          <h3>
+            <span class="lang-ru">Торговый маршрутник</span>
+            <span class="lang-en">Trade Router</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Интерактивная карта портов Ормуз → Китай с товарами</span>
+            <span class="lang-en">Interactive ports catalog Ormuz to China with market listings</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_borders_animation.html" class="card">
-        <div class="card-num">4</div>
-        <h3>Анимация границ 1467–1475</h3>
-        <p>Политическая карта меняется в реальном времени</p>
+      <a href="afanasy_borders_animation.html" class="card card-maps">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.8;">
+            <path d="M10,10 Q25,25 40,10 T70,10" stroke-width="1" />
+            <path d="M12,18 Q30,5 60,35 T90,20" stroke="rgba(255,255,255,0.4)" fill="rgba(255,255,255,0.1)" />
+            <path d="M30,30 Q50,40 70,25 T95,35" stroke="rgba(255,255,255,0.6)" fill="rgba(255,255,255,0.15)" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">4</div>
+          <h3>
+            <span class="lang-ru">Анимация границ 1467–1475</span>
+            <span class="lang-en">Border Animation 1467–1475</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Политическая карта меняется в реальном времени</span>
+            <span class="lang-en">Evolving visual map of kingdoms in the travel era</span>
+          </p>
+        </div>
+      </a>
+      <a href="afanasy_climate_monsoon.html" class="card card-maps">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <path d="M10,12 C25,20 35,5 50,15 C65,25 75,10 90,18" />
+            <path d="M10,27 C25,35 35,20 50,30 C65,40 75,25 90,33" />
+            <path d="M25,17 L30,19 L27,14 Z" fill="#fff" />
+            <path d="M65,35 L70,37 L67,32 Z" fill="#fff" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">5</div>
+          <h3>
+            <span class="lang-ru">Климат и муссоны</span>
+            <span class="lang-en">Climate and Monsoons</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Анимация ветров Индийского океана и влияние на маршрут</span>
+            <span class="lang-en">Indian Ocean wind fields and travel schedule alignments</span>
+          </p>
+        </div>
       </a>
     </div>
   </section>
 
   <section class="section" id="chrono">
-    <h2>📊 Хронологические и количественные (4)</h2>
+    <h2>
+      <span class="lang-ru">📊 Хронологические и количественные (5)</span>
+      <span class="lang-en">📊 Timelines & Metrics (5)</span>
+    </h2>
     <div class="grid">
-      <a href="afanasy_gantt.html" class="card">
-        <div class="card-num">5</div>
-        <h3>Гантт-диаграмма</h3>
-        <p>8 лет путешествия по месяцам: движение vs стоянка</p>
+      <a href="afanasy_gantt.html" class="card card-chrono">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:rgba(255,255,255,0.25);stroke:#fff;stroke-width:1;opacity:0.85;">
+            <rect x="10" y="8" width="30" height="6" rx="2" />
+            <rect x="45" y="16" width="45" height="6" rx="2" fill="rgba(255,255,255,0.6)" />
+            <rect x="25" y="24" width="25" height="6" rx="2" />
+            <rect x="15" y="32" width="55" height="6" rx="2" fill="rgba(255,255,255,0.4)" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">6</div>
+          <h3>
+            <span class="lang-ru">Гантт-диаграмма</span>
+            <span class="lang-en">Gantt Chart</span>
+          </h3>
+          <p>
+            <span class="lang-ru">8 лет путешествия по месяцам: движение vs стоянка</span>
+            <span class="lang-en">Monthly schedule breakdown: travel speeds vs long stays</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_speed_land_sea.html" class="card">
-        <div class="card-num">6</div>
-        <h3>Скорость: суша vs море</h3>
-        <p>18 отрезков. Море в 3.5× быстрее суши</p>
+      <a href="afanasy_speed_land_sea.html" class="card card-chrono">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <path d="M10,38 L30,15 L50,32 L70,8 L90,38 Z" fill="rgba(255,255,255,0.15)" />
+            <line x1="10" y1="38" x2="90" y2="38" stroke-width="2" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">7</div>
+          <h3>
+            <span class="lang-ru">Скорость: суша vs море</span>
+            <span class="lang-en">Speed: Land vs Sea</span>
+          </h3>
+          <p>
+            <span class="lang-ru">18 отрезков. Море в 3.5× быстрее суши</span>
+            <span class="lang-en">18 segment analysis; maritime speed ratios vs caravan trails</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_calendar_pascha_islam.html" class="card">
-        <div class="card-num">7</div>
-        <h3>Календарь Пасх</h3>
-        <p>Православные Пасхи и мусульманские праздники 1467–1475</p>
+      <a href="afanasy_calendar_pascha_islam.html" class="card card-chrono">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <circle cx="35" cy="22" r="14" stroke-dasharray="2,2" />
+            <circle cx="65" cy="22" r="14" />
+            <circle cx="50" cy="22" r="6" fill="#fff" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">8</div>
+          <h3>
+            <span class="lang-ru">Календарь Пасх</span>
+            <span class="lang-en">Easter/Pascha Calendar</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Православные Пасхи и мусульманские праздники 1467–1475</span>
+            <span class="lang-en">Christian Easters and Islamic holidays timeline</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_emotional_arc.html" class="card">
-        <div class="card-num">8</div>
-        <h3>Эмоциональная дуга</h3>
-        <p>20 фрагментов по шкале −10…+10. Четыре измерения</p>
+      <a href="afanasy_emotional_arc.html" class="card card-chrono">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:2;opacity:0.85;">
+            <path d="M10,22 Q25,-5 40,35 T70,10 T90,22" />
+            <line x1="10" y1="22" x2="90" y2="22" stroke="rgba(255,255,255,0.3)" stroke-width="1" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">9</div>
+          <h3>
+            <span class="lang-ru">Эмоциональная дуга</span>
+            <span class="lang-en">Emotional Arc</span>
+          </h3>
+          <p>
+            <span class="lang-ru">20 фрагментов по шкале −10…+10. Четыре измерения</span>
+            <span class="lang-en">Narrative sentiment shifts across 20 points in text</span>
+          </p>
+        </div>
+      </a>
+      <a href="afanasy_pascha_chronograph.html" class="card card-chrono">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <circle cx="50" cy="22" r="18" />
+            <line x1="50" y1="22" x2="50" y2="8" stroke-width="2" />
+            <line x1="50" y1="22" x2="65" y2="28" />
+            <circle cx="50" cy="22" r="2.5" fill="#fff" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">10</div>
+          <h3>
+            <span class="lang-ru">Пасхальный хронограф</span>
+            <span class="lang-en">Paschal Chronograph</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Математический дрейф календарей и астрономическое обоснование датировки</span>
+            <span class="lang-en">Calendar drifts and new astronomical data for dating validation</span>
+          </p>
+        </div>
       </a>
     </div>
   </section>
 
   <section class="section" id="text">
-    <h2>💬 Текстовые и лингвистические (3)</h2>
+    <h2>
+      <span class="lang-ru">💬 Текстовые и лингвистические (4)</span>
+      <span class="lang-en">💬 Textual & Linguistic (4)</span>
+    </h2>
     <div class="grid">
-      <a href="afanasy_language_map_v2.html" class="card">
-        <div class="card-num">9</div>
-        <h3>Карта языков текста</h3>
-        <p>Русский / татарский / персидский / арабский / хинди</p>
+      <a href="afanasy_language_map_v2.html" class="card card-text">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.2;opacity:0.85;">
+            <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="8" font-family="var(--font-sans)" font-weight="bold">РУС</text>
+            <text x="25%" y="75%" dominant-baseline="middle" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="6" font-family="var(--font-sans)">TAT</text>
+            <text x="75%" y="75%" dominant-baseline="middle" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="6" font-family="var(--font-sans)">PER</text>
+            <text x="50%" y="85%" dominant-baseline="middle" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="5" font-family="var(--font-sans)">ARA</text>
+            <circle cx="50" cy="18" r="12" stroke="rgba(255,255,255,0.2)" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">11</div>
+          <h3>
+            <span class="lang-ru">Карта языков текста</span>
+            <span class="lang-en">Text Language Map</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Русский / татарский / персидский / арабский / хинди</span>
+            <span class="lang-en">Multilingual text parts layout (Russian/Turkic/Persian/Arabic)</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_manuscripts.html" class="card">
-        <div class="card-num">10</div>
-        <h3>Сравнение рукописей</h3>
-        <p>Троицкий vs Летописный список с цветной разметкой</p>
+      <a href="afanasy_manuscripts.html" class="card card-text">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <line x1="15" y1="15" x2="85" y2="15" />
+            <line x1="15" y1="30" x2="85" y2="30" />
+            <path d="M35,10 L35,20 M50,10 L50,20 M65,10 L65,20" stroke="rgba(255,255,255,0.5)" />
+            <path d="M35,25 L35,35 M55,25 L55,35 M70,25 L70,35" stroke="rgba(255,255,255,0.5)" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">12</div>
+          <h3>
+            <span class="lang-ru">Сравнение рукописей</span>
+            <span class="lang-en">Manuscript Comparison</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Троицкий vs Летописный список с цветной разметкой</span>
+            <span class="lang-en">Parallel diff comparison of principal historical lists</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_religious_crisis.html" class="card">
-        <div class="card-num">11</div>
-        <h3>Религиозный кризис</h3>
-        <p>Соотношение православных и мусульманских имён Бога по разделам «Хожения»</p>
+      <a href="afanasy_manuscript_layers.html" class="card card-text">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1;opacity:0.85;">
+            <line x1="10" y1="9" x2="90" y2="9" stroke="rgba(255,255,255,0.2)" />
+            <line x1="10" y1="18" x2="90" y2="18" stroke="rgba(255,255,255,0.2)" />
+            <line x1="10" y1="27" x2="90" y2="27" stroke="rgba(255,255,255,0.2)" />
+            <line x1="10" y1="36" x2="90" y2="36" stroke="rgba(255,255,255,0.2)" />
+            <rect x="15" y="6" width="12" height="5" rx="1.5" fill="rgba(255,255,255,0.7)" stroke="none" />
+            <rect x="40" y="15" width="18" height="5" rx="1.5" fill="rgba(255,255,255,0.5)" stroke="none" />
+            <rect x="65" y="24" width="10" height="5" rx="1.5" fill="rgba(255,255,255,0.9)" stroke="none" />
+            <rect x="25" y="33" width="20" height="5" rx="1.5" fill="rgba(255,255,255,0.4)" stroke="none" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">13</div>
+          <h3>
+            <span class="lang-ru">Слои рукописи</span>
+            <span class="lang-en">Manuscript Layers</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Интерактивный таймлайн 104 фрагментов в хронологическом порядке</span>
+            <span class="lang-en">104 textual fragments visualized across chronological writing phases</span>
+          </p>
+        </div>
+      </a>
+      <a href="afanasy_religious_crisis.html" class="card card-text">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <path d="M50,10 L50,35 M30,35 L70,35 M30,18 L70,18" />
+            <circle cx="30" cy="24" r="5" />
+            <circle cx="70" cy="24" r="5" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">14</div>
+          <h3>
+            <span class="lang-ru">Религиозный кризис</span>
+            <span class="lang-en">Religious Crisis</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Соотношение православных и мусульманских имён Бога по разделам</span>
+            <span class="lang-en">Names of God: Lord vs Allah occurrences in text segments</span>
+          </p>
+        </div>
       </a>
     </div>
   </section>
 
   <section class="section" id="people">
-    <h2>👥 Персонажи и структура (6)</h2>
+    <h2>
+      <span class="lang-ru">👥 Персонажи и структура (7)</span>
+      <span class="lang-en">👥 Characters & Structure (7)</span>
+    </h2>
     <div class="grid">
-      <a href="khozheniye_composition_tree.html" class="card">
-        <div class="card-num">12</div>
-        <h3>Дерево состава «Хожения»</h3>
-        <p>7 тетрадей → Мамырев → 3 рукописных списка</p>
+      <a href="khozheniye_composition_tree.html" class="card card-people">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <path d="M50,5 L50,18 L20,28 M50,18 L80,28 M20,28 L10,38 M20,28 L30,38 M80,28 L70,38 M80,28 L90,38" />
+            <circle cx="50" cy="5" r="3" fill="#fff" />
+            <circle cx="50" cy="18" r="2.5" fill="#fff" />
+            <circle cx="20" cy="28" r="2" fill="#fff" />
+            <circle cx="80" cy="28" r="2" fill="#fff" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">15</div>
+          <h3>
+            <span class="lang-ru">Дерево состава «Хожения»</span>
+            <span class="lang-en">Composition Tree</span>
+          </h3>
+          <p>
+            <span class="lang-ru">7 тетрадей → Мамырев → 3 рукописных списка</span>
+            <span class="lang-en">7 notebooks to editorial redaction and main manuscript copies</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_people_network.html" class="card">
-        <div class="card-num">13</div>
-        <h3>Сеть людей</h3>
-        <p>Граф встреч: кто помог Афанасию и кто навредил в пути</p>
+      <a href="afanasy_people_network.html" class="card card-people">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.2;opacity:0.85;">
+            <line x1="50" y1="22" x2="25" y2="12" />
+            <line x1="50" y1="22" x2="75" y2="12" />
+            <line x1="50" y1="22" x2="30" y2="35" />
+            <line x1="50" y1="22" x2="70" y2="35" />
+            <circle cx="50" cy="22" r="5.5" fill="#fff" />
+            <circle cx="25" cy="12" r="3.5" fill="rgba(255,255,255,0.5)" />
+            <circle cx="75" cy="12" r="3.5" fill="rgba(255,255,255,0.5)" />
+            <circle cx="30" cy="35" r="3.5" fill="rgba(255,255,255,0.5)" />
+            <circle cx="70" cy="35" r="3.5" fill="rgba(255,255,255,0.5)" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">16</div>
+          <h3>
+            <span class="lang-ru">Сеть людей</span>
+            <span class="lang-en">People Network</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Граф встреч: кто помог Афанасию и кто навредил в пути</span>
+            <span class="lang-en">Social network: helpful vs harmful figures met during journey</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_concordance_index.html" class="card">
-        <div class="card-num">14</div>
-        <h3>Указатель топонимов и лиц</h3>
-        <p>Алфавитный справочник персонажей и географических пунктов с цитатами и картами</p>
+      <a href="afanasy_gavan_parallel.html" class="card card-people">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <line x1="30" y1="5" x2="30" y2="40" stroke-width="2" />
+            <line x1="70" y1="5" x2="70" y2="40" stroke-width="2" />
+            <line x1="30" y1="15" x2="70" y2="15" stroke="rgba(255,255,255,0.5)" stroke-dasharray="2,2" />
+            <line x1="30" y1="28" x2="70" y2="28" stroke="rgba(255,255,255,0.8)" />
+            <circle cx="30" cy="15" r="2.5" fill="#fff" />
+            <circle cx="70" cy="15" r="2.5" fill="#fff" />
+            <circle cx="30" cy="28" r="2.5" fill="#fff" />
+            <circle cx="70" cy="28" r="2.5" fill="#fff" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">17</div>
+          <h3>
+            <span class="lang-ru">Параллельная биография</span>
+            <span class="lang-en">Parallel Biography</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Сопоставление судеб Афанасия Никитина и великого визиря Махмуда Гавана</span>
+            <span class="lang-en">Side-by-side vertical timeline of the merchant and Bahmani Vizier</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_historiography.html" class="card">
-        <div class="card-num">15</div>
-        <h3>Историография «Хожения»</h3>
-        <p>История открытий и переизданий текста от 1475 до 2026 года</p>
+      <a href="afanasy_concordance_index.html" class="card card-people">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1;opacity:0.85;">
+            <rect x="15" y="8" width="70" height="29" rx="2" />
+            <line x1="25" y1="14" x2="75" y2="14" stroke-width="2" />
+            <line x1="25" y1="22" x2="60" y2="22" />
+            <line x1="25" y1="30" x2="70" y2="30" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">18</div>
+          <h3>
+            <span class="lang-ru">Указатель топонимов и лиц</span>
+            <span class="lang-en">Concordance Index</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Справочник персонажей и географических пунктов с цитатами и картами</span>
+            <span class="lang-en">Search glossary of cities and names linked to text passages</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_editions_v3.html" class="card">
-        <div class="card-num">16</div>
-        <h3>40 изданий за 208 лет</h3>
-        <p>«Хожение» переведено на 20 языков. История публикаций</p>
+      <a href="afanasy_historiography.html" class="card card-people">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <path d="M15,35 L40,15 L65,30 L85,8" />
+            <circle cx="15" cy="35" r="3" fill="#fff" />
+            <circle cx="40" cy="15" r="3" fill="#fff" />
+            <circle cx="65" cy="30" r="3" fill="#fff" />
+            <circle cx="85" cy="8" r="3" fill="#fff" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">19</div>
+          <h3>
+            <span class="lang-ru">Историография «Хожения»</span>
+            <span class="lang-en">Historiography</span>
+          </h3>
+          <p>
+            <span class="lang-ru">История открытий и переизданий текста от 1475 до 2026 года</span>
+            <span class="lang-en">Academic rediscovery timeline covering key editions and debates</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_world_before_after.html" class="card">
-        <div class="card-num">17</div>
-        <h3>До и после: Афанасий и Азия</h3>
-        <p>Что знал до отъезда vs что узнал. Средневековое русское представление об Азии и реальность</p>
+      <a href="afanasy_editions_v3.html" class="card card-people">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:rgba(255,255,255,0.2);stroke:#fff;stroke-width:1;opacity:0.85;">
+            <rect x="25" y="10" width="20" height="28" rx="1" transform="rotate(-10 25 10)" />
+            <rect x="42" y="8" width="20" height="28" rx="1" fill="rgba(255,255,255,0.6)" />
+            <rect x="58" y="12" width="20" height="28" rx="1" transform="rotate(8 58 12)" fill="rgba(255,255,255,0.4)" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">20</div>
+          <h3>
+            <span class="lang-ru">40 изданий за 208 лет</span>
+            <span class="lang-en">40 Editions</span>
+          </h3>
+          <p>
+            <span class="lang-ru">«Хожение» переведено на 20 языков. История публикаций</span>
+            <span class="lang-en">Publication records, languages and print cover history</span>
+          </p>
+        </div>
+      </a>
+      <a href="afanasy_world_before_after.html" class="card card-people">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <circle cx="28" cy="22" r="14" />
+            <circle cx="72" cy="22" r="14" />
+            <path d="M18,22 H38 M28,12 V32" stroke="rgba(255,255,255,0.3)" />
+            <path d="M62,22 H82 M72,12 V32" stroke="rgba(255,255,255,0.3)" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">21</div>
+          <h3>
+            <span class="lang-ru">До и после: Афанасий и Азия</span>
+            <span class="lang-en">Before & After: Asia</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Средневековое русское представление об Азии и реальность</span>
+            <span class="lang-en">Medieval Russian mental travel map vs modern geography</span>
+          </p>
+        </div>
       </a>
     </div>
   </section>
 
   <section class="section" id="trade">
-    <h2>💰 Экономика и торговля (2)</h2>
+    <h2>
+      <span class="lang-ru">💰 Экономика и торговля (2)</span>
+      <span class="lang-en">💰 Economy & Trade (2)</span>
+    </h2>
     <div class="grid">
-      <a href="afanasy_economics_prices.html" class="card">
-        <div class="card-num">18</div>
-        <h3>Экономика путешествия</h3>
-        <p>Жеребец Афанасия: история продажи и торговля</p>
+      <a href="afanasy_economics_prices.html" class="card card-trade">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <path d="M15,35 L40,25 L65,30 L85,12" />
+            <circle cx="85" cy="12" r="4" fill="#fff" />
+            <text x="85" y="13.5" dominant-baseline="middle" text-anchor="middle" fill="#8b5a30" font-size="4" font-weight="bold">$</text>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">22</div>
+          <h3>
+            <span class="lang-ru">Экономика путешествия</span>
+            <span class="lang-en">Route Economics</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Жеребец Афанасия: история продажи и торговля</span>
+            <span class="lang-en">The merchant horse saga: purchase, feeding, and sale charts</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_trade_guide_v4.html" class="card">
-        <div class="card-num">19</div>
-        <h3>Торговый маршрутник</h3>
-        <p>Расстояния, цены, конвертер валют. Почему торговый план провалился</p>
+      <a href="afanasy_trade_guide_v4.html" class="card card-trade">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.2;opacity:0.85;">
+            <circle cx="35" cy="22" r="8" />
+            <circle cx="65" cy="22" r="8" />
+            <line x1="25" y1="22" x2="75" y2="22" stroke-width="1.8" />
+            <rect x="47" y="10" width="6" height="12" fill="#fff" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">23</div>
+          <h3>
+            <span class="lang-ru">Торговый маршрутник</span>
+            <span class="lang-en">Merchant Guide</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Расстояния, цены, конвертер валют. Почему торговый план провалился</span>
+            <span class="lang-en">Conversion calculators, custom taxes, and merchant ledgers</span>
+          </p>
+        </div>
       </a>
     </div>
   </section>
 
   <section class="section" id="stats">
-    <h2>📈 Статистические (2)</h2>
+    <h2>
+      <span class="lang-ru">📈 Статистические (3)</span>
+      <span class="lang-en">📈 Statistics (3)</span>
+    </h2>
     <div class="grid">
-      <a href="afanasy_bestiary.html" class="card">
-        <div class="card-num">20</div>
-        <h3>Бестиарий Индии</h3>
-        <p>Флора и фауна, впервые описанные для русского читателя: слон, кокос, попугай</p>
+      <a href="afanasy_bestiary.html" class="card card-stats">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <path d="M20,35 C20,25 25,12 45,12 C60,12 75,20 75,30 L70,30 C70,25 65,22 55,22 C45,22 45,35 45,35 H35 C35,30 38,28 38,25 C38,22 30,22 30,35 Z" fill="rgba(255,255,255,0.2)" />
+            <circle cx="60" cy="17" r="1.5" fill="#fff" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">24</div>
+          <h3>
+            <span class="lang-ru">Бестиарий Индии</span>
+            <span class="lang-en">India Bestiary</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Флора и фауна, впервые описанные для русского читателя: слон, кокос, попугай</span>
+            <span class="lang-en">Exotic animals and crops catalog (monkeys, pepper, mongoose)</span>
+          </p>
+        </div>
       </a>
-      <a href="afanasy_citations_v2.html" class="card">
-        <div class="card-num">21</div>
-        <h3>Цитирование по десятилетиям</h3>
-        <p>«Хожение» в науке 1818–2026: академические волны популярности</p>
+      <a href="afanasy_citations_v2.html" class="card card-stats">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:rgba(255,255,255,0.4);stroke:#fff;stroke-width:1;opacity:0.85;">
+            <rect x="15" y="28" width="15" height="10" rx="1" />
+            <rect x="35" y="12" width="15" height="26" rx="1" fill="rgba(255,255,255,0.8)" />
+            <rect x="55" y="20" width="15" height="18" rx="1" />
+            <rect x="75" y="6" width="15" height="32" rx="1" fill="rgba(255,255,255,0.6)" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">25</div>
+          <h3>
+            <span class="lang-ru">Цитирование по десятилетиям</span>
+            <span class="lang-en">Citations</span>
+          </h3>
+          <p>
+            <span class="lang-ru">«Хожение» в науке 1818–2026: академические волны популярности</span>
+            <span class="lang-en">Citation dynamics in world research across three main eras</span>
+          </p>
+        </div>
+      </a>
+      <a href="afanasy_video_export.html" class="card card-stats">
+        <div class="card-preview">
+          <svg viewBox="0 0 100 45" style="fill:none;stroke:#fff;stroke-width:1.5;opacity:0.85;">
+            <rect x="25" y="12" width="30" height="20" rx="3" />
+            <polygon points="60,16 75,22 60,28" fill="#fff" />
+            <circle cx="40" cy="22" r="3.5" fill="#fff" stroke="none" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">26</div>
+          <h3>
+            <span class="lang-ru">Экспорт видео</span>
+            <span class="lang-en">Video Export</span>
+          </h3>
+          <p>
+            <span class="lang-ru">Запись тайм-лапса в .webm через MediaRecorder API</span>
+            <span class="lang-en">Record map time-lapses to local video files (.webm format)</span>
+          </p>
+        </div>
       </a>
     </div>
   </section>
 
   <section class="questions">
     <details open>
-      <summary>❓ На какие вопросы отвечают визуализации?</summary>
+      <summary>
+        <span class="lang-ru">❓ На какие вопросы отвечают визуализации?</span>
+        <span class="lang-en">❓ What scholarly questions do these address?</span>
+      </summary>
       <div class="q-grid">
       <div class="q-group">
-        <h3>О маршруте и географии</h3>
+        <h3>
+          <span class="lang-ru">О маршруте и географии</span>
+          <span class="lang-en">Route & Geography</span>
+        </h3>
         <ul>
-          <li>Где именно шёл Афанасий? По каким городам, морям, государствам?</li>
-          <li>Насколько его маршрут совпадает с маршрутами Марко Поло и Васко да Гамы? Где точка их пересечения?</li>
-          <li>Как выглядели политические границы в 1467–1475? Через сколько государств прошёл Афанасий?</li>
-          <li>Где находились торговые порты от Ормуза до Китая и какими товарами они торговали?</li>
-          <li>Какие государства воевали во время путешествия Афанасия и как это влияло на его маршрут?</li>
+          <li>
+            <span class="lang-ru">Где именно шёл Афанасий? По каким городам, морям, государствам?</span>
+            <span class="lang-en">Where exactly did Afanasy travel? Which cities and seas?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Насколько его маршрут совпадает с маршрутами Марко Поло и Васко да Гамы? Где точка их пересечения?</span>
+            <span class="lang-en">How does his route overlap with Marco Polo and Vasco da Gama? Where is their intersection?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Как выглядели политические границы в 1467–1475? Через сколько государств прошёл Афанасий?</span>
+            <span class="lang-en">What did political borders look like in 1467–1475? How many states did he cross?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Где находились торговые порты от Ормуза до Китая и какими товарами они торговали?</span>
+            <span class="lang-en">Where were the ports between Ormuz and China and what were their trades?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Какие государства воевали во время путешествия Афанасия и как это влияло на его маршрут?</span>
+            <span class="lang-en">Which kingdoms were at war during his travels and how did it affect him?</span>
+          </li>
         </ul>
       </div>
       <div class="q-group">
-        <h3>О времени и хронологии</h3>
+        <h3>
+          <span class="lang-ru">О времени и хронологии</span>
+          <span class="lang-en">Timeline & Dates</span>
+        </h3>
         <ul>
-          <li>Сколько времени Афанасий провёл в каждом месте?</li>
-          <li>Почему Бидар занимает почти половину всего путешествия?</li>
-          <li>Какова была скорость передвижения по суше и по морю? Где Афанасий терял время?</li>
-          <li>Когда приходились православные Пасхи в пути — и где он был в каждую из них?</li>
-          <li>Когда совпадали православный пост и мусульманский Рамадан?</li>
-          <li>Почему Хрусталёв предлагает датировку 1467–1475 вместо традиционной поздней хронологии?</li>
+          <li>
+            <span class="lang-ru">Сколько времени Афанасий провёл в каждом месте?</span>
+            <span class="lang-en">How long did Nikitin spend at each point?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Почему Бидар занимает почти половину всего путешествия?</span>
+            <span class="lang-en">Why does Bidar occupy almost half of the travel span?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Какова была скорость передвижения по суше и по морю? Где Афанасий терял время?</span>
+            <span class="lang-en">What were caravan and maritime speeds? Where did he lose time?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Когда приходились православные Пасхи в пути — и где он был в каждую из них?</span>
+            <span class="lang-en">When did Orthodox Easters fall, and where was he on those dates?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Когда совпадали православный пост и мусульманский Рамадан?</span>
+            <span class="lang-en">When did Orthodox Lents overlap with Muslim Ramadans?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Почему Хрусталёв предлагает датировку 1467–1475 вместо традиционной поздней хронологии?</span>
+            <span class="lang-en">Why does Khrustalev shift dates to 1467–1475 over traditional chronologies?</span>
+          </li>
         </ul>
       </div>
       <div class="q-group">
-        <h3>О внутреннем состоянии Афанасия</h3>
+        <h3>
+          <span class="lang-ru">О внутреннем состоянии Афанасия</span>
+          <span class="lang-en">Nikitin's Emotional State</span>
+        </h3>
         <ul>
-          <li>Как менялось настроение Афанасия на протяжении путешествия?</li>
-          <li>Когда случились три главных эмоциональных кризиса?</li>
-          <li>Как религиозный язык Афанасия менялся со временем и с географией?</li>
-          <li>Насколько часто он называет Бога православными именами, а насколько — мусульманскими?</li>
-          <li>Где в тексте он пишет свободно, а где — со страхом или замешательством?</li>
+          <li>
+            <span class="lang-ru">Как менялось настроение Афанасия на протяжении путешествия?</span>
+            <span class="lang-en">How did Nikitin's sentiment fluctuate during his journey?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Когда случились три главных эмоциональных кризиса?</span>
+            <span class="lang-en">When did his three main psychological crises take place?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Как религиозный язык Афанасия менялся со временем и с географией?</span>
+            <span class="lang-en">How did his religious phrasing change over time and space?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Насколько часто он называет Бога православными именами, а насколько — мусульманскими?</span>
+            <span class="lang-en">How often does he call God by Christian names vs Islamic names?</span>
+          </li>
         </ul>
       </div>
       <div class="q-group">
-        <h3>О языке и тексте</h3>
+        <h3>
+          <span class="lang-ru">О языке и тексте</span>
+          <span class="lang-en">Language & Manuscripts</span>
+        </h3>
         <ul>
-          <li>На каких языках писал Афанасий и в каких частях текста?</li>
-          <li>Где в «Хожении» сосредоточен русский язык, а где — тюркский, персидский, арабский?</li>
-          <li>Чем отличаются Троицкий и Летописный рукописные списки?</li>
-          <li>Какие листы утеряны между двумя главными списками?</li>
-          <li>Как структурирован текст: сколько тетрадей, слоёв, фрагментов?</li>
-        </ul>
-      </div>
-      <div class="q-group">
-        <h3>О людях</h3>
-        <ul>
-          <li>Кто из людей помогал Афанасию в пути?</li>
-          <li>Кто создавал ему опасные ситуации или вредил?</li>
-          <li>Кто такие Хасан-ходжа, Асад-хан, Махмуд Гаван?</li>
-          <li>Как ширваншах помог Афанасию и чем это закончилось?</li>
-          <li>Кто такой Мамырев и какую роль он сыграл в судьбе текста?</li>
-        </ul>
-      </div>
-      <div class="q-group">
-        <h3>О природе и торговле</h3>
-        <ul>
-          <li>Каких животных и растения Афанасий описал впервые для русского читателя?</li>
-          <li>Что стоило дорого, что дёшево по разным точкам маршрута?</li>
-          <li>Почему торговый план Афанасия провалился?</li>
-          <li>Что можно было купить в Ормузе и с выгодой продать в Индии?</li>
-          <li>Как соотносились цены в России, Персии и Индии в XV веке?</li>
-        </ul>
-      </div>
-      <div class="q-group">
-        <h3>Об истории текста</h3>
-        <ul>
-          <li>Как сложился текст «Хожения»: от тетрадей к рукописям?</li>
-          <li>Кто и когда «открывал» «Хожение» заново — от Карамзина до Хрусталёва?</li>
-          <li>Сколько раз «Хожение» издавалось и на сколько языков переводилось?</li>
-          <li>Как менялась научная цитируемость «Хожения» по векам?</li>
-          <li>В чём принципиальное отличие академического издания 1986 г. от предыдущих?</li>
-        </ul>
-      </div>
-      <div class="q-group">
-        <h3>О контексте и знаниях</h3>
-        <ul>
-          <li>Что московский купец XV века знал об Азии до отъезда?</li>
-          <li>Насколько реальная Индия совпала с тем, что ожидал Афанасий?</li>
-          <li>Как менялось европейское и русское представление об Индии в XV веке?</li>
-          <li>Что в описаниях Афанасия уникально — чего нет у Марко Поло?</li>
+          <li>
+            <span class="lang-ru">На каких языках писал Афанасий и в каких частях текста?</span>
+            <span class="lang-en">Which languages did Nikitin use, and in which parts of the text?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Где в «Хожении» сосредоточен русский язык, а где — тюркский, персидский, арабский?</span>
+            <span class="lang-en">Where is Russian language concentrated vs Turkic, Persian, or Arabic?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Чем отличаются Троицкий и Летописный рукописные списки?</span>
+            <span class="lang-en">What are the differences between Troitsky and Letopisny lists?</span>
+          </li>
+          <li>
+            <span class="lang-ru">Как структурирован текст: сколько тетрадей, слоёв, фрагментов?</span>
+            <span class="lang-en">How is the text structured: how many notebooks and writing layers?</span>
+          </li>
         </ul>
       </div>
       </div>
@@ -577,30 +1308,44 @@
   </section>
 
   <section class="files-section">
-    <h2>📥 Скачиваемые файлы</h2>
+    <h2>
+      <span class="lang-ru">📥 Скачиваемые файлы</span>
+      <span class="lang-en">📥 Downloadable Files</span>
+    </h2>
     <div class="file-list">
       <div class="file-item">
         <a href="tetradi_hrustalev_2026.md" download="Тетради_купца_Афанасия.md">📖 Тетради_купца_Афанасия.md</a>
-        <div class="file-desc">Полный конспект книги Хрусталёва: структура, хронология, герои, выводы</div>
+        <div class="file-desc">
+          <span class="lang-ru">Полный конспект книги Хрусталёва: структура, хронология, герои, выводы</span>
+          <span class="lang-en">Comprehensive digest of Khrustalev's book: structure, timelines, conclusions</span>
+        </div>
       </div>
       <div class="file-item">
         <a href="afanasy_geolocations.md" download>📍 afanasy_geolocations.md</a>
-        <div class="file-desc">Геолокации 19 точек маршрута + GeoJSON для ГИС</div>
+        <div class="file-desc">
+          <span class="lang-ru">Геолокации 19 точек маршрута + GeoJSON для ГИС</span>
+          <span class="lang-en">Geographic coordinates for all 19 path markers + GIS GeoJSON data</span>
+        </div>
       </div>
       <div class="file-item">
         <a href="afanasy_journey_data.md" download>📅 afanasy_journey_data.md</a>
-        <div class="file-desc">Данные тайм-лапса: координаты, даты, описания, моря</div>
-      </div>
-      <div class="file-item">
-        <a href="afanasy_video_export.html">🎥 Экспорт видео (afanasy_video_export.html)</a>
-        <div class="file-desc">Запись тайм-лапса в .webm через MediaRecorder API</div>
+        <div class="file-desc">
+          <span class="lang-ru">Данные тайм-лапса: координаты, даты, описания, моря</span>
+          <span class="lang-en">Time-lapse database: coordinates, dates, stopovers, sea passages</span>
+        </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>22 интерактивных HTML-виджета · Vanilla JS · D3.js · Canvas API · М.Ю. Гасунс</p>
-    <p style="margin-top: 10px; color: var(--color-text-secondary); opacity: 0.7;">По книге: Д.Г. Хрусталёв «Тетради купца Афанасия» (СПб.: Нестор-История, 2026)</p>
+    <p>
+      <span class="lang-ru">26 интерактивных HTML-виджетов · Vanilla JS · D3.js · Canvas API · М.Ю. Гасунс</span>
+      <span class="lang-en">26 Interactive HTML widgets · Vanilla JS · D3.js · Canvas API · M. Gasuns</span>
+    </p>
+    <p style="margin-top: 10px; color: var(--color-text-secondary); opacity: 0.7;">
+      <span class="lang-ru">По книге: Д.Г. Хрусталёв «Тетради купца Афанасия» (СПб.: Нестор-История, 2026)</span>
+      <span class="lang-en">Based on Dmitry Khrustalev's "The Notebooks of Merchant Afanasy" (SPb: Nestor-Historia, 2026)</span>
+    </p>
   </footer>
 </div>
 
@@ -630,14 +1375,15 @@
           card,
           section,
           category: section.id,
-          text: (card.textContent || '').toLocaleLowerCase('ru')
+          text: (card.textContent || '').toLocaleLowerCase()
         }))
       );
       let active = 'all';
 
       function applyFilters(){
-        const q = (search.value || '').trim().toLocaleLowerCase('ru');
+        const q = (search.value || '').trim().toLocaleLowerCase();
         let visible = 0;
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
 
         sections.forEach(section => {
           let sectionVisible = false;
@@ -654,7 +1400,14 @@
           section.hidden = !sectionVisible;
         });
 
-        count.textContent = `Показано: ${visible} из ${cards.length}`;
+        if (lang === 'en') {
+          count.textContent = `Shown: ${visible} of ${cards.length}`;
+          search.placeholder = "Search visualizations...";
+        } else {
+          count.textContent = `Показано: ${visible} из ${cards.length}`;
+          search.placeholder = "Найти визуализацию...";
+        }
+        document.title = (lang === 'en') ? 'Afanasy Nikitin — Interactive Atlas' : 'Афанасий Никитин — интерактивный атлас';
       }
 
       buttons.forEach(button => {
@@ -662,12 +1415,12 @@
           active = button.dataset.filter;
           buttons.forEach(btn => btn.classList.toggle('active', btn === button));
           applyFilters();
-          // Smooth scroll to first visible section
           const firstVisible = sections.find(s => !s.hidden);
           if (firstVisible) firstVisible.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
       });
       search.addEventListener('input', applyFilters);
+      window.addEventListener('languagechange', applyFilters);
       applyFilters();
     })();
   </script>
@@ -680,5 +1433,156 @@
     }
   </script>
 
+  <!-- Onboarding Tour Overlay -->
+  <div id="tour-overlay" class="tour-overlay">
+    <div id="tour-highlight" class="tour-highlight"></div>
+    <div id="tour-tooltip" class="tour-tooltip"></div>
+  </div>
+
+  <script>
+    (function() {
+      const tourSteps = {
+        ru: [
+          {
+            element: 'header',
+            title: 'Добро пожаловать в Атлас! 🗺️',
+            text: 'Этот интерактивный атлас визуализирует путешествие Афанасия Никитина (1467–1475) на основе книги Д.Г. Хрусталёва «Тетради купца Афанасия» (2026).'
+          },
+          {
+            element: '.atlas-tools',
+            title: 'Поиск и фильтры 🔍',
+            text: 'С помощью поиска и категорий вы можете мгновенно отфильтровать 26 виджетов.'
+          },
+          {
+            element: '.grid .card',
+            title: 'Интерактивные карточки 💡',
+            text: 'Каждый виджет раскрывает отдельный аспект текста: от цен на товары до математики календаря.'
+          },
+          {
+            element: '#theme-toggle',
+            title: 'Управление и тема 🌗',
+            text: 'Используйте плавающие кнопки для переключения темы (клавиша D) или смены языка (клавиша L). Нажмите клавишу ?, чтобы открыть справку.'
+          }
+        ],
+        en: [
+          {
+            element: 'header',
+            title: 'Welcome to the Atlas! 🗺️',
+            text: 'This interactive atlas visualizes the journey of Afanasy Nikitin (1467–1475) based on Dmitry Khrustalev\'s book "The Notebooks of Merchant Afanasy" (2026).'
+          },
+          {
+            element: '.atlas-tools',
+            title: 'Search & Filters 🔍',
+            text: 'Use the search box and category pills to instantly filter the 26 widgets.'
+          },
+          {
+            element: '.grid .card',
+            title: 'Interactive Cards 💡',
+            text: 'Each widget reveals a unique aspect of the text, from merchant prices to calendar mathematics.'
+          },
+          {
+            element: '#theme-toggle',
+            title: 'Controls & Theme 🌗',
+            text: 'Use the floating controls to switch color theme (D key) or language (L key). Press ? to see all keyboard shortcuts.'
+          }
+        ]
+      };
+
+      let currentStep = 0;
+      const overlay = document.getElementById('tour-overlay');
+      const highlight = document.getElementById('tour-highlight');
+      const tooltip = document.getElementById('tour-tooltip');
+
+      function startTour() {
+        currentStep = 0;
+        overlay.classList.add('active');
+        showStep(0);
+      }
+
+      function endTour() {
+        overlay.classList.remove('active');
+        localStorage.setItem('afanasy-tour-done', 'true');
+      }
+
+      function showStep(stepIndex) {
+        currentStep = stepIndex;
+        const lang = document.documentElement.getAttribute('data-lang') || 'ru';
+        const steps = tourSteps[lang] || tourSteps.ru;
+        const step = steps[stepIndex];
+        const el = document.querySelector(step.element);
+        if (!el) {
+          endTour();
+          return;
+        }
+
+        const rect = el.getBoundingClientRect();
+        const scrollY = window.scrollY;
+        const scrollX = window.scrollX;
+
+        highlight.style.top = `${rect.top + scrollY - 4}px`;
+        highlight.style.left = `${rect.left + scrollX - 4}px`;
+        highlight.style.width = `${rect.width + 8}px`;
+        highlight.style.height = `${rect.height + 8}px`;
+
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        const btnPrevText = lang === 'en' ? 'Back' : 'Назад';
+        const btnNextText = stepIndex === steps.length - 1 ? (lang === 'en' ? 'Finish' : 'Завершить') : (lang === 'en' ? 'Next' : 'Далее');
+
+        tooltip.innerHTML = `
+          <h3>${step.title}</h3>
+          <p>${step.text}</p>
+          <div class="tour-buttons">
+            <button class="tour-btn tour-btn-prev" ${stepIndex === 0 ? 'style="visibility:hidden;"' : ''}>${btnPrevText}</button>
+            <span style="font-size:0.8em; color:var(--color-text-secondary); font-weight:500;">${stepIndex + 1} / ${steps.length}</span>
+            <button class="tour-btn tour-btn-next">${btnNextText}</button>
+          </div>
+        `;
+
+        // Position tooltip
+        setTimeout(() => {
+          const freshRect = el.getBoundingClientRect();
+          const tooltipRect = tooltip.getBoundingClientRect();
+          let top = freshRect.bottom + window.scrollY + 12;
+          let left = freshRect.left + window.scrollX + (freshRect.width - tooltipRect.width) / 2;
+
+          if (top + tooltipRect.height > document.documentElement.scrollHeight) {
+            top = freshRect.top + window.scrollY - tooltipRect.height - 12;
+          }
+          if (left < 10) left = 10;
+          if (left + tooltipRect.width > window.innerWidth - 10) {
+            left = window.innerWidth - tooltipRect.width - 10;
+          }
+
+          tooltip.style.top = `${top}px`;
+          tooltip.style.left = `${left}px`;
+        }, 100);
+
+        tooltip.querySelector('.tour-btn-prev')?.addEventListener('click', () => {
+          if (currentStep > 0) showStep(currentStep - 1);
+        });
+        tooltip.querySelector('.tour-btn-next')?.addEventListener('click', () => {
+          if (currentStep < steps.length - 1) {
+            showStep(currentStep + 1);
+          } else {
+            endTour();
+          }
+        });
+      }
+
+      document.getElementById('start-tour-btn')?.addEventListener('click', startTour);
+
+      window.addEventListener('resize', () => {
+        if (overlay.classList.contains('active')) {
+          showStep(currentStep);
+        }
+      });
+
+      // Auto start on first load
+      if (!localStorage.getItem('afanasy-tour-done')) {
+        setTimeout(startTour, 1000);
+      }
+    })();
+  </script>
 </body>
 </html>

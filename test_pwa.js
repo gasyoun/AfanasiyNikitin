@@ -79,14 +79,31 @@ async function testPWA() {
 
   // Test 4: Check all cached assets exist
   console.log('\n✓ Проверка 4: Ассеты для кэширования');
-  const assetsToCache = [
-    'index.html', 'manifest.json', 'css/atlas.css',
-    'js/atlas-data.js', 'js/atlas-theme.js', 'js/atlas-export.js',
-    'lib/d3.min.js', 'lib/topojson.min.js', 'lib/countries-110m.json',
-    'afanasy_v8_text_map.html', 'afanasy_gantt.html',
-    'afanasy_calendar_pascha_islam.html', 'afanasy_economics_prices.html',
-    'afanasy_concordance_index.html'
-  ];
+  let assetsToCache = [];
+  try {
+    const swContent = fs.readFileSync(path.join(BASE_DIR, 'sw.js'), 'utf8');
+    const match = swContent.match(/const ASSETS_TO_CACHE = \[\s*([\s\S]*?)\s*\];/);
+    if (match) {
+      assetsToCache = match[1]
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line.startsWith("'") || line.startsWith('"'))
+        .map(line => line.replace(/['",\s]/g, ''))
+        .map(line => line.startsWith('./') ? line.substring(2) : line);
+    }
+  } catch (e) {
+    console.log(`  ❌ Не удалось прочитать sw.js: ${e.message}`);
+  }
+  if (assetsToCache.length === 0) {
+    assetsToCache = [
+      'index.html', 'manifest.json', 'css/atlas.css',
+      'js/atlas-data.js', 'js/atlas-theme.js', 'js/atlas-export.js',
+      'lib/d3.min.js', 'lib/topojson.min.js', 'lib/countries-110m.json',
+      'afanasy_v8_text_map.html', 'afanasy_gantt.html',
+      'afanasy_calendar_pascha_islam.html', 'afanasy_economics_prices.html',
+      'afanasy_concordance_index.html'
+    ];
+  }
 
   let accessible = 0;
   for (const asset of assetsToCache) {

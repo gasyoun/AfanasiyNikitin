@@ -1,4 +1,4 @@
-const CACHE_NAME = 'afanasy-atlas-v4';
+const CACHE_NAME = 'afanasy-atlas-v6';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -19,6 +19,8 @@ const ASSETS_TO_CACHE = [
   './afanasy_speed_land_sea.html',
   './afanasy_calendar_pascha_islam.html',
   './afanasy_emotional_arc.html',
+  './afanasy_pascha_chronograph.html',
+  './afanasy_climate_monsoon.html',
   './afanasy_economics_prices.html',
   './three_travelers_comparison.html',
   './afanasy_borders_animation.html',
@@ -34,6 +36,8 @@ const ASSETS_TO_CACHE = [
   './afanasy_language_map_v2.html',
   './afanasy_manuscripts.html',
   './khozheniye_composition_tree.html',
+  './afanasy_manuscript_layers.html',
+  './afanasy_gavan_parallel.html',
   './afanasy_concordance_index.html'
 ];
 

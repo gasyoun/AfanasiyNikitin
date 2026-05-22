@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Афанасий Никитин — Параллельная биография</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  
+  <!-- CSS Variables & Base Styles -->
+  <link rel="stylesheet" href="css/atlas.css">
+  <style>
+    .bio-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    
+    .bio-intro {
+      background: var(--color-background-tertiary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-md);
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--color-text-secondary);
+    }
+    
+    .bio-intro b {
+      color: var(--color-text-primary);
+    }
+    
+    .bio-layout {
+      position: relative;
+      background: var(--color-background-secondary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-container);
+      overflow: hidden;
+    }
+    
+    /* Timelines split */
+    .timelines-grid {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      gap: 0;
+      position: relative;
+      min-height: 1000px;
+    }
+    
+    .timeline-col {
+      position: relative;
+    }
+    
+    .timeline-col.left {
+      text-align: right;
+      padding-right: 20px;
+    }
+    
+    .timeline-col.right {
+      text-align: left;
+      padding-left: 20px;
+    }
+    
+    .timeline-col-header {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--color-text-primary);
+      border-bottom: 2px solid var(--color-border-primary);
+      padding-bottom: 8px;
+    }
+    
+    .timeline-col.left .timeline-col-header {
+      border-color: var(--viz-network-self);
+    }
+    
+    .timeline-col.right .timeline-col-header {
+      border-color: var(--viz-comp-chronicle);
+    }
+    
+    .timeline-col-sub {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-family: var(--font-sans);
+      font-weight: normal;
+      margin-top: 4px;
+      display: block;
+    }
+    
+    /* Central gutter representing years */
+    .timeline-gutter {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    
+    .timeline-line {
+      position: absolute;
+      top: 40px;
+      bottom: 20px;
+      width: 2px;
+      background: var(--color-border-secondary);
+      z-index: 1;
+    }
+    
+    .year-label {
+      position: absolute;
+      background: var(--color-background-primary);
+      border: 1px solid var(--color-border-primary);
+      border-radius: 12px;
+      padding: 2px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      z-index: 2;
+      transform: translateY(-50%);
+    }
+    
+    /* Timeline nodes */
+    .timeline-node {
+      position: absolute;
+      background: var(--color-background-primary);
+      border: 1.5px solid var(--color-border-primary);
+      border-radius: var(--border-radius-md);
+      padding: 10px 14px;
+      width: calc(100% - 20px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 3;
+      text-align: left;
+    }
+    
+    .timeline-node:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-color: var(--color-accent);
+    }
+    
+    .timeline-node.left {
+      right: 20px;
+      border-left: 4px solid var(--viz-network-self);
+    }
+    
+    .timeline-node.right {
+      left: 20px;
+      border-left: 4px solid var(--viz-comp-chronicle);
+    }
+    
+    .node-year {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-accent);
+      margin-bottom: 3px;
+    }
+    
+    .node-title {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--color-text-primary);
+      line-height: 1.3;
+    }
+    
+    .node-desc {
+      font-size: 11.5px;
+      color: var(--color-text-secondary);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    
+    /* Interactive connecting lines SVG overlay */
+    .timelines-svg-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    
+    .overlap-connection {
+      fill: none;
+      stroke-width: 1.5px;
+      stroke-dasharray: 4,4;
+      opacity: 0.35;
+      transition: all 0.25s ease;
+    }
+    
+    .overlap-connection.active {
+      stroke-width: 2.5px;
+      stroke-dasharray: none;
+      opacity: 0.95;
+    }
+    
+    /* Highlight zone */
+    .overlap-highlight-bg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      background: color-mix(in srgb, var(--color-accent) 4%, transparent);
+      border-top: 1px dashed color-mix(in srgb, var(--color-accent) 25%, transparent);
+      border-bottom: 1px dashed color-mix(in srgb, var(--color-accent) 25%, transparent);
+      z-index: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .overlap-label {
+      position: absolute;
+      left: 24px;
+      top: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-accent);
+      background: var(--color-background-primary);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 0.5px solid var(--color-border-secondary);
+    }
+    
+    /* Pulse anim for Meliktuchar references */
+    @keyframes pulse-stroke {
+      0% { stroke-width: 1.5px; opacity: 0.4; }
+      50% { stroke-width: 3px; opacity: 0.8; }
+      100% { stroke-width: 1.5px; opacity: 0.4; }
+    }
+    
+    .pulse-connection {
+      animation: pulse-stroke 2s infinite ease-in-out;
+    }
+    
+    /* Drawer detail */
+    .bio-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-background-primary);
+      border-top: 2px solid var(--color-border-primary);
+      padding: 16px 24px;
+      z-index: 1000;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+      max-height: 50vh;
+      overflow-y: auto;
+    }
+    
+    .bio-drawer.open {
+      transform: translateY(0);
+    }
+    
+    .drawer-backdrop {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 999;
+      display: none;
+    }
+    
+    .drawer-backdrop.open {
+      display: block;
+    }
+    
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 0.5px solid var(--color-border-tertiary);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .drawer-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+    
+    .drawer-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-secondary);
+      font-size: 20px;
+    }
+    
+    .drawer-close:hover {
+      color: var(--color-text-primary);
+    }
+    
+    .drawer-body {
+      font-family: var(--font-serif);
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--color-text-primary);
+    }
+    
+    .drawer-quote {
+      background: var(--color-background-tertiary);
+      border-left: 4px solid var(--color-accent);
+      padding: 10px 14px;
+      border-radius: var(--border-radius-md);
+      margin-top: 12px;
+      font-style: italic;
+      font-size: 13.5px;
+    }
+    
+    @media (max-width: 800px) {
+      .timelines-grid {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        gap: 30px;
+      }
+      .timeline-col.left {
+        text-align: left;
+        padding-right: 0;
+      }
+      .timeline-col.right {
+        text-align: left;
+        padding-left: 0;
+      }
+      .timeline-node {
+        position: static;
+        width: 100%;
+        margin-bottom: 12px;
+      }
+      .timeline-gutter {
+        display: none;
+      }
+      .timelines-svg-overlay {
+        display: none;
+      }
+      .overlap-highlight-bg {
+        display: none;
+      }
+    }
+  </style>
+  
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+</head>
+<body>
+  <div class="vis-container">
+    <header class="vis-header">
+      <h1>
+        <span class="lang-ru">Параллельная биография</span>
+        <span class="lang-en">Parallel Biography</span>
+      </h1>
+      <nav class="atlas-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html" class="back-btn">
+          <i class="ti ti-arrow-left"></i>
+          <span class="lang-ru">Атлас</span>
+          <span class="lang-en">Atlas</span>
+        </a>
+        <span class="atlas-breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="atlas-breadcrumb-current">
+          <span class="lang-ru">Параллельная биография</span>
+          <span class="lang-en">Parallel Biography</span>
+        </span>
+      </nav>
+    </header>
+    
+    <div class="bio-intro">
+      <span class="lang-ru">
+        Сопоставление путей двух современников в Южной Индии (1469–1473 гг.): тверского купца <b>Афанасия Никитина</b> и великого визиря Бахманидского султаната <b>Махмуда Гавана</b>. Пока русский паломник страдал от одиночества и религиозного кризиса в Бидаре, Гаван вёл завоевание Конкана и Гоа, чьи триумфы Афанасий запечатлел в своей летописи.
+      </span>
+      <span class="lang-en">
+        Comparison of two contemporaries in Southern India (1469–1473): the Tver merchant <b>Afanasy Nikitin</b> and the Bahmani Grand Vizier <b>Mahmud Gawan</b>. While the Russian pilgrim suffered from isolation and religious crisis in Bidar, Gawan conquered Konkan and Goa, achievements recorded by Afanasy in his chronicle.
+      </span>
+    </div>
+    
+    <div class="bio-layout">
+      <!-- Highlight box for overlap years -->
+      <div id="overlap-highlight" class="overlap-highlight-bg">
+        <div class="overlap-label">
+          <span class="lang-ru">Пересечение: Декан 1469–1473 гг.</span>
+          <span class="lang-en">Intersection: Deccan 1469–1473</span>
+        </div>
+      </div>
+      
+      <div class="timelines-grid">
+        <!-- Connecting lines SVG -->
+        <svg id="timeline-svg" class="timelines-svg-overlay"></svg>
+        
+        <!-- Left Column: Afanasy Nikitin -->
+        <div class="timeline-col left" id="col-afanasy">
+          <h2 class="timeline-col-header">
+            <span class="lang-ru">Афанасий Никитин</span>
+            <span class="lang-en">Afanasy Nikitin</span>
+            <span class="timeline-col-sub">
+              <span class="lang-ru">Тверской купец, мемуарист</span>
+              <span class="lang-en">Tver merchant, memoirist</span>
+            </span>
+          </h2>
+          <!-- Nodes will be injected here -->
+        </div>
+        
+        <!-- Gutter -->
+        <div class="timeline-gutter" id="gutter-years">
+          <div class="timeline-line"></div>
+          <!-- Year labels will be injected here -->
+        </div>
+        
+        <!-- Right Column: Mahmud Gawan -->
+        <div class="timeline-col right" id="col-gawan">
+          <h2 class="timeline-col-header">
+            <span class="lang-ru">Махмуд Гаван</span>
+            <span class="lang-en">Mahmud Gawan</span>
+            <span class="timeline-col-sub">
+              <span class="lang-ru">Великий визирь Бахмани</span>
+              <span class="lang-en">Grand Vizier of Bahmani</span>
+            </span>
+          </h2>
+          <!-- Nodes will be injected here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Detail Drawer -->
+  <div class="drawer-backdrop" id="backdrop" onclick="closeDrawer()"></div>
+  <div class="bio-drawer" id="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title" id="drawer-title">Название события</div>
+      <button class="drawer-close" onclick="closeDrawer()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="drawer-body" id="drawer-body">
+      Детали события...
+    </div>
+    <div class="drawer-quote" id="drawer-quote" style="display: none;">
+      Цитата из летописи...
+    </div>
+  </div>
+  
+  <!-- Global theme and lang scripts -->
+  <button id="theme-toggle" aria-label="Toggle theme" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+  
+  <script>
+    // Timelines data
+    const afanasyEvents = [
+      {
+        year: 1467,
+        yOffset: 60,
+        title_ru: "Выход из Твери",
+        title_en: "Departure from Tver",
+        desc_ru: "Отплывает вниз по Волге с товаром.",
+        desc_en: "Sets sail down the Volga River with goods.",
+        body_ru: "С благословения великого князя Михаила Борисовича Афанасий начинает торговую поездку в Ширван.",
+        body_en: "With the blessing of Grand Duke Mikhail Borisovich, Afanasy starts a commercial voyage to Shirvan.",
+        loc: "Tver"
+      },
+      {
+        year: 1467,
+        yOffset: 120,
+        title_ru: "Ограбление под Астраханью",
+        title_en: "Plundered at Astrakhan",
+        desc_ru: "Татары грабят караван судов.",
+        desc_en: "Tatars plunder the fleet.",
+        body_ru: "Потеряв товары, Афанасий не может вернуться на Русь из-за долговой ямы и вынужден плыть дальше на юг.",
+        body_en: "Having lost his merchandise, Afanasy cannot return to Russia due to debts, and is forced south.",
+        loc: "Astrakhan"
+      },
+      {
+        year: 1468,
+        yOffset: 180,
+        title_ru: "Скитания по Персии",
+        title_en: "Travels in Persia",
+        desc_ru: "Через Баку и Мазендаран идёт на юг.",
+        desc_en: "Goes south via Baku and Mazandaran.",
+        body_ru: "Работает и торгует в различных персидских городах, собирая средства на покупку жеребца для индийского рынка.",
+        body_en: "Works and trades in various Persian towns, saving money to purchase a stallion for the Indian market.",
+        loc: "Persia"
+      },
+      {
+        year: 1469,
+        yOffset: 280,
+        title_ru: "Покупка жеребца и Ормуз",
+        title_en: "Purchase of stallion & Ormuz",
+        desc_ru: "Прибывает к Индийскому морю.",
+        desc_en: "Arrives at the Indian Sea.",
+        body_ru: "В Ормузе покупает дорогого жеребца и садится на корабль (таву) до Чаула.",
+        body_en: "In Ormuz, buys a valuable stallion and boards a ship (tawa) bound for Chaul.",
+        loc: "Ormuz",
+        connId: "horse_trade"
+      },
+      {
+        year: 1469,
+        yOffset: 340,
+        title_ru: "Прибытие в Индию (Чаул)",
+        title_en: "Arrival in India (Chaul)",
+        desc_ru: "Вступает на индийскую землю.",
+        desc_en: "Steps onto Indian soil.",
+        body_ru: "Афанасий поражен культурой, наготой местных жителей и темным цветом их кожи.",
+        body_en: "Afanasy is astonished by the culture, the nudity of the locals, and the dark color of their skin.",
+        loc: "Chaul"
+      },
+      {
+        year: 1469,
+        yOffset: 410,
+        title_ru: "Арест в Джуннаре",
+        title_en: "Arrest in Junnar",
+        desc_ru: "Асад-хан отнимает коня.",
+        desc_en: "Asad Khan seizes the horse.",
+        body_ru: "Афанасию угрожают смертью и требуют принять ислам. Спасает знакомство с хорасанцем Хасаном в день Спаса.",
+        body_en: "Afanasy is threatened with death unless he converts to Islam. Saved by an acquaintance with Hassan the Khorasanian.",
+        loc: "Junnar"
+      },
+      {
+        year: 1469,
+        yOffset: 480,
+        title_ru: "Прибытие в Бидар",
+        title_en: "Arrival in Bidar",
+        desc_ru: "Приходит в столицу Бахманидов.",
+        desc_en: "Reaches the Bahmani capital.",
+        body_ru: "Афанасий видит город, где правит великий визирь Махмуд Гаван. Описывает богатство двора и нищету народа.",
+        body_en: "Afanasy sees the capital where Grand Vizier Mahmud Gawan rules. He notes the court's luxury and the poverty of the commoners.",
+        loc: "Bidar",
+        connId: "bidar_stay"
+      },
+      {
+        year: 1471,
+        yOffset: 590,
+        title_ru: "Паломничество в Парват",
+        title_en: "Pilgrimage to Parvat",
+        desc_ru: "Посещает храм Шрисайлам.",
+        desc_en: "Visits the Srisailam temple.",
+        body_ru: "Изучает индийские верования, беседует с брахманами у священного индуистского центра.",
+        body_en: "Studies Indian beliefs and talks to Brahmins at the sacred Hindu sanctuary.",
+        loc: "Srisailam"
+      },
+      {
+        year: 1472,
+        yOffset: 700,
+        title_ru: "Триумфальный въезд Гавана",
+        title_en: "Gawan's Triumphal Procession",
+        desc_ru: "Наблюдает возвращение визиря с войн.",
+        desc_en: "Witnesses the Vizier's return.",
+        body_ru: "В мае 1472 г. Афанасий наблюдает в Бидаре грандиозный триумф Махмуда Гавана после захвата Гоа.",
+        body_en: "In May 1472, Afanasy witnesses Gawan's grand triumph in Bidar after the capture of Goa.",
+        loc: "Bidar",
+        connId: "gawan_triumph",
+        quote_ru: "«Меликтучар сел на коня своего, а перед ним шли 20 слонов в доспехах златых...»",
+        quote_en: "«Meliktuchar mounted his horse, and before him walked 20 elephants in golden armor...»"
+      },
+      {
+        year: 1473,
+        yOffset: 810,
+        title_ru: "Выход из Индии (Дабхол)",
+        title_en: "Leaving India via Dabhol",
+        desc_ru: "Отплывает обратно на запад.",
+        desc_en: "Sets sail back to the west.",
+        body_ru: "После долгих колебаний садится на корабль в Дабхоле, заплатив 2 золотых за место.",
+        body_en: "After long hesitation, boards a ship in Dabhol, paying 2 gold pieces for passage.",
+        loc: "Dabhol",
+        connId: "dabhol_link"
+      },
+      {
+        year: 1474,
+        yOffset: 920,
+        title_ru: "Прибытие в Кафу",
+        title_en: "Arrival in Kaffa",
+        desc_ru: "Возвращается в христианский мир.",
+        desc_en: "Returns to the Christian world.",
+        body_ru: "Достигает Крыма, оформляет свои путевые записки в единую тетрадь.",
+        body_en: "Reaches Crimea, compile his travel journals into a single notebook.",
+        loc: "Kaffa"
+      },
+      {
+        year: 1475,
+        yOffset: 990,
+        title_ru: "Гибель под Смоленском",
+        title_en: "Death near Smolensk",
+        desc_ru: "Умирает, не дойдя до Твери.",
+        desc_en: "Dies near Smolensk.",
+        body_ru: "Бумаги купца Афанасия доставлены в Москву дьяку Василию Мамыреву, который переписывает их в летопись.",
+        body_en: "The notebooks of the merchant are delivered to clerk Vasily Mamyrev in Moscow, who copies them into the chronicle.",
+        loc: "Smolensk"
+      }
+    ];
+    
+    const gawanEvents = [
+      {
+        year: 1411,
+        yOffset: 0,
+        title_ru: "Рождение в Гиляне",
+        title_en: "Born in Gilan",
+        desc_ru: "Родился на севере Персии.",
+        desc_en: "Born in northern Persia.",
+        body_ru: "Происходит из знатного купеческого рода в Гиляне. Получил блестящее образование.",
+        body_en: "Hails from a noble merchant family in Gilan. Received an excellent education.",
+        loc: "Gilan"
+      },
+      {
+        year: 1440,
+        yOffset: 40,
+        title_ru: "Учёба в Каире",
+        title_en: "Studies in Cairo",
+        desc_ru: "Изучает богословие и науки.",
+        desc_en: "Studies theology and sciences.",
+        body_ru: "Учится у знаменитого учёного Ибн Хаджара аль-Аскалани в Египте, занимается международной торговлей.",
+        body_en: "Studies under the famous scholar Ibn Hajar al-Asqalani in Egypt, engages in international trade.",
+        loc: "Cairo"
+      },
+      {
+        year: 1453,
+        yOffset: 120,
+        title_ru: "Прибытие в Дабхол",
+        title_en: "Arrival in Dabhol",
+        desc_ru: "Прибывает в Индию как купец.",
+        desc_en: "Arrives in India as a merchant.",
+        body_ru: "Приезжает в порт Дабхол с караваном лошадей и товаров, после чего приглашается на службу к султану Бахмани.",
+        body_en: "Arrives at the port of Dabhol with a convoy of horses and goods, and is subsequently invited to join Bahmani service.",
+        loc: "Dabhol",
+        connId: "dabhol_link"
+      },
+      {
+        year: 1458,
+        yOffset: 180,
+        title_ru: "Назначение Вакилем",
+        title_en: "Appointed as Vakil",
+        desc_ru: "Становится визирем.",
+        desc_en: "Becomes Grand Vizier.",
+        body_ru: "При султане Хумаюне получает титул «Малик ал-Туджар» (Владыка купцов) и пост главного министра.",
+        body_en: "Under Sultan Humayun, receives the title \"Malik al-Tujjar\" (Lord of Merchants) and the post of chief minister.",
+        loc: "Bidar"
+      },
+      {
+        year: 1466,
+        yOffset: 240,
+        title_ru: "Пик власти в Бидаре",
+        title_en: "Peak of Power in Bidar",
+        desc_ru: "Фактический правитель султаната.",
+        desc_en: "De facto ruler of the Sultanate.",
+        body_ru: "Возглавляет регентский совет при малолетнем султане Мухаммаде III, проводит централизацию государства.",
+        body_en: "Heads the regency council under the minor Sultan Muhammad III, spearheading state centralization.",
+        loc: "Bidar"
+      },
+      {
+        year: 1469,
+        yOffset: 290,
+        title_ru: "Отъезд на Konkan Campaign",
+        title_en: "Departure for Konkan Campaign",
+        desc_ru: "Возглавляет армию против раджей.",
+        desc_en: "Leads army against local rajas.",
+        body_ru: "В октябре 1469 г. покидает Бидар для затяжного завоевания портов Западного побережья Индии.",
+        body_en: "In October 1469, departs Bidar for a prolonged campaign to secure the western ports of India.",
+        loc: "Bidar",
+        connId: "bidar_stay"
+      },
+      {
+        year: 1471,
+        yOffset: 530,
+        title_ru: "Строительство Медресе в Бидаре",
+        title_en: "Building Madrasa in Bidar",
+        desc_ru: "Основывает знаменитый колледж.",
+        desc_en: "Establishes the famous college.",
+        body_ru: "Финансирует и строит грандиозную трехэтажную исламскую академию с обширной библиотекой в 3000 рукописей.",
+        body_en: "Funds and constructs a grand three-story Islamic academy with a vast library of 3,000 manuscripts.",
+        loc: "Bidar"
+      },
+      {
+        year: 1472,
+        yOffset: 650,
+        title_ru: "Взятие Гоа",
+        title_en: "Capture of Goa",
+        desc_ru: "Захватывает ключевой порт Декана.",
+        desc_en: "Captures key horse port.",
+        body_ru: "1 февраля 1472 г. войска Гавана штурмом берут Гоа, лишая Виджаянагар контроля над импортом арабских скакунов.",
+        body_en: "On February 1, 1472, Gawan's forces capture Goa, cutting off Vijayanagara's control of Arabian horse imports.",
+        loc: "Goa",
+        connId: "horse_trade"
+      },
+      {
+        year: 1472,
+        yOffset: 700,
+        title_ru: "Триумфальный въезд в Бидар",
+        title_en: "Triumphal return to Bidar",
+        desc_ru: "Грандиозный военный парад.",
+        desc_en: "Grand military parade.",
+        body_ru: "Возвращается с победой. Афанасий Никитин стоит в толпе горожан, описывая триумф визиря в своей летописи под именем Меликтучара.",
+        body_en: "Returns in victory. Afanasy Nikitin stands in the crowd of citizens, describing the Vizier's triumph in his chronicle.",
+        loc: "Bidar",
+        connId: "gawan_triumph"
+      },
+      {
+        year: 1473,
+        yOffset: 780,
+        title_ru: "Кампания против Виджаянагара",
+        title_en: "Campaign against Vijayanagara",
+        desc_ru: "Ведёт осаду крепости Белгаум.",
+        desc_en: "Leads siege of Belgaum.",
+        body_ru: "Лично координирует осадные работы и подкопы стен с использованием пороховых мин.",
+        body_en: "Personally coordinates siege works and wall undermining using gunpowder mines.",
+        loc: "Belgaum"
+      },
+      {
+        year: 1481,
+        yOffset: 990,
+        title_ru: "Казнь в Кондапалли",
+        title_en: "Execution in Kondapalli",
+        desc_ru: "Становится жертвой заговора.",
+        desc_en: "Victim of a court conspiracy.",
+        body_ru: "Завистливые вельможи подделывают письмо о государевой измене. Пьяный султан приказывает казнить 70-летнего визиря.",
+        body_en: "Envious nobles forge a treasonous letter. The intoxicated Sultan orders the execution of the 70-year-old vizier.",
+        loc: "Kondapalli"
+      }
+    ];
+    
+    // Position overlap highlight zone
+    // Years 1469 (yOffset = 270) to 1473 (yOffset = 830)
+    const highlightEl = document.getElementById("overlap-highlight");
+    highlightEl.style.top = "300px";
+    highlightEl.style.height = "560px";
+    
+    // Populate Timelines
+    const renderTimeline = (events, colId, side) => {
+      const col = document.getElementById(colId);
+      events.forEach(e => {
+        const node = document.createElement("div");
+        node.className = `timeline-node ${side}`;
+        node.style.top = `${e.yOffset + 60}px`;
+        node.dataset.conn = e.connId || "";
+        
+        const lang = document.documentElement.getAttribute("data-lang") || "ru";
+        
+        node.innerHTML = `
+          <div class="node-year">${e.year}</div>
+          <div class="node-title">${lang === 'en' ? e.title_en : e.title_ru}</div>
+          <div class="node-desc">${lang === 'en' ? e.desc_en : e.desc_ru}</div>
+        `;
+        
+        node.addEventListener("click", () => {
+          showDrawer(e);
+        });
+        
+        node.addEventListener("mouseenter", () => {
+          if (e.connId) {
+            d3.selectAll(`.overlap-connection.${e.connId}`).classed("active", true);
+            d3.selectAll(`.timeline-node[data-conn="${e.connId}"]`).style("border-color", "var(--color-accent)");
+          }
+        });
+        
+        node.addEventListener("mouseleave", () => {
+          if (e.connId) {
+            d3.selectAll(`.overlap-connection.${e.connId}`).classed("active", false);
+            d3.selectAll(`.timeline-node[data-conn="${e.connId}"]`).style("border-color", "");
+          }
+        });
+        
+        col.appendChild(node);
+      });
+    };
+    
+    renderTimeline(afanasyEvents, "col-afanasy", "left");
+    renderTimeline(gawanEvents, "col-gawan", "right");
+    
+    // Gutter Year Labels
+    const gutter = document.getElementById("gutter-years");
+    const yearsToShow = [1411, 1440, 1453, 1458, 1466, 1467, 1469, 1471, 1472, 1473, 1474, 1475, 1481];
+    
+    const yearYMap = {
+      1411: 0, 1440: 40, 1453: 120, 1458: 180, 1466: 240, 1467: 120, 1469: 290, 1471: 560, 1472: 700, 1473: 800, 1474: 920, 1475: 990, 1481: 990
+    };
+    
+    yearsToShow.forEach(yr => {
+      const lbl = document.createElement("div");
+      lbl.className = "year-label";
+      
+      // Interpolate position
+      let y = 60;
+      if (yr === 1467) y = 120;
+      else if (yr === 1469) y = 340;
+      else if (yr === 1471) y = 590;
+      else if (yr === 1472) y = 760;
+      else if (yr === 1473) y = 870;
+      else if (yr === 1474) y = 980;
+      else if (yr === 1475) y = 1050;
+      else if (yr === 1481) y = 1110;
+      else if (yr === 1411) y = 60;
+      else if (yr === 1440) y = 100;
+      else if (yr === 1453) y = 180;
+      else if (yr === 1458) y = 240;
+      else if (yr === 1466) y = 300;
+      
+      lbl.style.top = `${y}px`;
+      lbl.textContent = yr;
+      gutter.appendChild(lbl);
+    });
+    
+    // Draw SVG Connections
+    const drawConnections = () => {
+      const svg = d3.select("#timeline-svg");
+      svg.selectAll("*").remove();
+      
+      const width = document.querySelector(".timelines-grid").clientWidth;
+      const midX = width / 2;
+      
+      // Conn 1: Dabhol link
+      // Afanasy: 1473 (yOffset = 810), Gawan: 1453 (yOffset = 120)
+      const yAfDab = 810 + 60 + 25;
+      const yGavDab = 120 + 60 + 25;
+      
+      svg.append("path")
+        .attr("class", "overlap-connection dabhol_link")
+        .attr("d", `M ${midX - 40} ${yAfDab} C ${midX - 100} ${yAfDab}, ${midX + 100} ${yGavDab}, ${midX + 40} ${yGavDab}`)
+        .attr("stroke", "var(--viz-sea)");
+        
+      // Conn 2: Horse trade / Goa link
+      // Afanasy: 1469 (yOffset = 280), Gawan: 1472 (yOffset = 650)
+      const yAfHorse = 280 + 60 + 25;
+      const yGavGoa = 650 + 60 + 25;
+      
+      svg.append("path")
+        .attr("class", "overlap-connection horse_trade")
+        .attr("d", `M ${midX - 40} ${yAfHorse} C ${midX - 100} ${yAfHorse}, ${midX + 100} ${yGavGoa}, ${midX + 40} ${yGavGoa}`)
+        .attr("stroke", "var(--viz-language-persian-text)");
+        
+      // Conn 3: Bidar stay overlap
+      // Afanasy: 1469 (yOffset = 480), Gawan: 1469 (yOffset = 290)
+      const yAfBid = 480 + 60 + 25;
+      const yGavBid = 290 + 60 + 25;
+      
+      svg.append("path")
+        .attr("class", "overlap-connection bidar_stay")
+        .attr("d", `M ${midX - 40} ${yAfBid} C ${midX - 100} ${yAfBid}, ${midX + 100} ${yGavBid}, ${midX + 40} ${yGavBid}`)
+        .attr("stroke", "var(--viz-region-india)");
+        
+      // Conn 4: Triumph (Meliktuchar)
+      // Afanasy: 1472 (yOffset = 700), Gawan: 1472 (yOffset = 700)
+      const yTriumph = 700 + 60 + 25;
+      
+      svg.append("line")
+        .attr("class", "overlap-connection pulse-connection gawan_triumph")
+        .attr("x1", midX - 40)
+        .attr("y1", yTriumph)
+        .attr("x2", midX + 40)
+        .attr("y2", yTriumph)
+        .attr("stroke", "var(--viz-emotion-total)");
+    };
+    
+    // Initialize SVG overlay
+    setTimeout(drawConnections, 300);
+    window.addEventListener("resize", drawConnections);
+    
+    // Modal drawer support
+    const showDrawer = (e) => {
+      const backdrop = document.getElementById("backdrop");
+      const drawer = document.getElementById("drawer");
+      
+      const lang = document.documentElement.getAttribute("data-lang") || "ru";
+      
+      document.getElementById("drawer-title").textContent = lang === 'en' ? e.title_en : e.title_ru;
+      document.getElementById("drawer-body").innerHTML = `
+        <div style="font-weight: bold; margin-bottom: 8px; color: var(--color-accent); font-size:13px;">
+          ${lang === 'en' ? 'Year' : 'Год'}: ${e.year} | ${lang === 'en' ? 'Location' : 'Место'}: ${e.loc}
+        </div>
+        <div>${lang === 'en' ? e.body_en : e.body_ru}</div>
+      `;
+      
+      const quoteEl = document.getElementById("drawer-quote");
+      if (e.quote_ru) {
+        quoteEl.style.display = "block";
+        quoteEl.textContent = lang === 'en' ? e.quote_en : e.quote_ru;
+      } else {
+        quoteEl.style.display = "none";
+      }
+      
+      backdrop.classList.add("open");
+      drawer.classList.add("open");
+    };
+    
+    window.closeDrawer = () => {
+      document.getElementById("backdrop").classList.remove("open");
+      document.getElementById("drawer").classList.remove("open");
+    };
+    
+    // Listen for language change to update timeline cards
+    window.addEventListener('languagechange', () => {
+      const lang = document.documentElement.getAttribute("data-lang") || "ru";
+      
+      // Update Afanasy nodes
+      document.querySelectorAll("#col-afanasy .timeline-node").forEach((node, ni) => {
+        const e = afanasyEvents[ni];
+        if (e) {
+          node.querySelector(".node-title").textContent = lang === 'en' ? e.title_en : e.title_ru;
+          node.querySelector(".node-desc").textContent = lang === 'en' ? e.desc_en : e.desc_ru;
+        }
+      });
+      
+      // Update Gawan nodes
+      document.querySelectorAll("#col-gawan .timeline-node").forEach((node, ni) => {
+        const e = gawanEvents[ni];
+        if (e) {
+          node.querySelector(".node-title").textContent = lang === 'en' ? e.title_en : e.title_ru;
+          node.querySelector(".node-desc").textContent = lang === 'en' ? e.desc_en : e.desc_ru;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

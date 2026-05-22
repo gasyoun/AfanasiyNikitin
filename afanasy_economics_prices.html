@@ -44,247 +44,544 @@
 <body>
   <div class="vis-container">
     <header class="vis-header">
-      <h1>Экономика путешествия</h1>
-      <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка"><a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Атлас</a><span class="atlas-breadcrumb-sep" aria-hidden="true">/</span><span class="atlas-breadcrumb-current">Экономика путешествия</span></nav>
+      <h1 class="lang-ru">Экономика пути</h1>
+      <h1 class="lang-en">Route Economics</h1>
+      <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка">
+        <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> <span class="lang-ru">Атлас</span><span class="lang-en">Atlas</span></a>
+        <span class="atlas-breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="atlas-breadcrumb-current lang-ru">Экономика пути</span>
+        <span class="atlas-breadcrumb-current lang-en">Route Economics</span>
+      </nav>
     </header>
 
     <div id="eco-wrap">
-<div class="eco-tabs">
-  <button class="eco-tab active" onclick="switchTab('horse')">Жеребец Афанасия</button>
-  <button class="eco-tab" onclick="switchTab('spices')">Пряности и товары</button>
-  <button class="eco-tab" onclick="switchTab('horses')">Торговля лошадьми</button>
-</div>
+      <div class="eco-tabs">
+        <button class="eco-tab active" onclick="switchTab('horse')">
+          <span class="lang-ru">Жеребец Афанасия</span>
+          <span class="lang-en">Afanasy's Stallion</span>
+        </button>
+        <button class="eco-tab" onclick="switchTab('spices')">
+          <span class="lang-ru">Пряности и товары</span>
+          <span class="lang-en">Spices & Goods</span>
+        </button>
+        <button class="eco-tab" onclick="switchTab('horses')">
+          <span class="lang-ru">Торговля лошадьми</span>
+          <span class="lang-en">Horse Trade</span>
+        </button>
+      </div>
 
-<div id="tab-horse" class="eco-panel active">
-  <div class="eco-cards">
-    <div class="eco-card"><div class="eco-card-label">Покупка жеребца</div><div class="eco-card-val neutral">100 руб.</div><div class="eco-card-sub">декабрь 1468, Лар / Таром</div></div>
-    <div class="eco-card"><div class="eco-card-label">Продажа в Бидаре</div><div class="eco-card-val loss">68 фут.</div><div class="eco-card-sub">Рождество, 25 декабря 1469</div><a class="eco-map-link" href="afanasy_v8_text_map.html?wp=12">Бидар на карте</a></div>
-    <div class="eco-card"><div class="eco-card-label">Жеребец был у купца</div><div class="eco-card-val neutral">1 год</div><div class="eco-card-sub">расчёт Хрусталёва</div></div>
-    <div class="eco-card"><div class="eco-card-label">Расходы в Бидаре</div><div class="eco-card-val loss">2,5 алт.</div><div class="eco-card-sub">15 денег в день</div><a class="eco-map-link" href="afanasy_v8_text_map.html?wp=12">Бидар на карте</a></div>
-  </div>
-  <svg id="horse-svg" style="display:block;width:100%;" viewBox="0 0 640 230"></svg>
-  <div class="eco-source">Данные: Ф.21 — покупка жеребца за 100 рублей; Ф.39 — продажа за 68 футунов в Бидаре; Ф.80 — расходы 2,5 алтына в день. Пересчёт: 1 рубль = 200 денег, 1 алтын = 6 денег, значит 2,5 алтына = 15 денег в день и около 27 рублей в год.</div>
-</div>
+      <div id="tab-horse" class="eco-panel active">
+        <div class="eco-cards">
+          <div class="eco-card">
+            <div class="eco-card-label lang-ru">Покупка жеребца</div>
+            <div class="eco-card-label lang-en">Stallion Purchase</div>
+            <div class="eco-card-val neutral"><span class="lang-ru">100 руб.</span><span class="lang-en">100 rub.</span></div>
+            <div class="eco-card-sub lang-ru">декабрь 1468, Лар / Таром</div>
+            <div class="eco-card-sub lang-en">December 1468, Lar / Tarom</div>
+          </div>
+          <div class="eco-card">
+            <div class="eco-card-label lang-ru">Продажа в Бидаре</div>
+            <div class="eco-card-label lang-en">Sale in Bidar</div>
+            <div class="eco-card-val loss"><span class="lang-ru">68 фут.</span><span class="lang-en">68 fut.</span></div>
+            <div class="eco-card-sub lang-ru">Рождество, 25 декабря 1469</div>
+            <div class="eco-card-sub lang-en">Christmas, Dec 25, 1469</div>
+            <a class="eco-map-link" href="afanasy_v8_text_map.html?wp=12"><span class="lang-ru">Бидар на карте</span><span class="lang-en">Bidar on Map</span></a>
+          </div>
+          <div class="eco-card">
+            <div class="eco-card-label lang-ru">Жеребец был у купца</div>
+            <div class="eco-card-label lang-en">Stallion Kept For</div>
+            <div class="eco-card-val neutral"><span class="lang-ru">1 год</span><span class="lang-en">1 year</span></div>
+            <div class="eco-card-sub lang-ru">расчёт Хрусталёва</div>
+            <div class="eco-card-sub lang-en">Khrustalev's calculation</div>
+          </div>
+          <div class="eco-card">
+            <div class="eco-card-label lang-ru">Расходы в Бидаре</div>
+            <div class="eco-card-label lang-en">Expenses in Bidar</div>
+            <div class="eco-card-val loss"><span class="lang-ru">2,5 алт./день</span><span class="lang-en">2.5 alt./day</span></div>
+            <div class="eco-card-sub lang-ru">15 денег в день</div>
+            <div class="eco-card-sub lang-en">15 denga per day</div>
+            <a class="eco-map-link" href="afanasy_v8_text_map.html?wp=12"><span class="lang-ru">Бидар на карте</span><span class="lang-en">Bidar on Map</span></a>
+          </div>
+        </div>
+        <svg id="horse-svg" style="display:block;width:100%;" viewBox="0 0 640 230"></svg>
+        <div class="eco-source lang-ru">Данные: Ф.21 — покупка жеребца за 100 рублей; Ф.39 — продажа за 68 футунов в Бидаре; Ф.80 — расходы 2,5 алтына в день. Пересчёт: 1 рубль = 200 денег, 1 алтын = 6 денег, значит 2,5 алтына = 15 денег в день и около 27 рублей в год.</div>
+        <div class="eco-source lang-en">Data: F.21 — stallion purchased for 100 rubles; F.39 — sold for 68 futuns in Bidar; F.80 — expenses of 2.5 altyns per day. Conversion: 1 ruble = 200 denga, 1 altyn = 6 denga, so 2.5 altyns = 15 denga per day, approx. 27 rubles per year.</div>
+      </div>
 
-<div id="tab-spices" class="eco-panel">
-  <div class="eco-legend">
-    <div class="eco-dot" style="background:var(--viz-region-india);"></div><span class="eco-leg-txt">Индия (Бидар/Чаул)</span>
-    <div class="eco-dot" style="background:var(--viz-region-sea-arabian);"></div><span class="eco-leg-txt">Ормуз (перевалочный порт)</span>
-    <div class="eco-dot" style="background:var(--viz-region-persia);"></div><span class="eco-leg-txt">Персия (Тебриз/Исфахан)</span>
-    <div class="eco-dot" style="background:var(--viz-region-russia);"></div><span class="eco-leg-txt">Русь (Москва/Тверь)</span>
-  </div>
-  <svg id="spice-svg" style="display:block;width:100%;" viewBox="0 0 640 300"></svg>
-  <div class="eco-source">Цены — реконструкция по данным «маршрутника» из состава «Хожения», арабским источникам XV в. и работам Хрусталёва. Единица: условные «серебряные» за батман (~7–8 кг). Афанасий: «перец и пряные зелья дёшевы», но признаётся — его обманули, ожидал большего. Маржа 8–12× делала пряный путь сверхприбыльным.</div>
-</div>
+      <div id="tab-spices" class="eco-panel">
+        <div class="eco-legend">
+          <div class="eco-dot" style="background:var(--viz-region-india);"></div>
+          <span class="eco-leg-txt"><span class="lang-ru">Индия (Бидар/Чаул)</span><span class="lang-en">India (Bidar/Chaul)</span></span>
+          <div class="eco-dot" style="background:var(--viz-region-sea-arabian);"></div>
+          <span class="eco-leg-txt"><span class="lang-ru">Ормуз (перевалочный порт)</span><span class="lang-en">Hormuz (transit port)</span></span>
+          <div class="eco-dot" style="background:var(--viz-region-persia);"></div>
+          <span class="eco-leg-txt"><span class="lang-ru">Персия (Тебриз/Исфахан)</span><span class="lang-en">Persia (Tabriz/Isfahan)</span></span>
+          <div class="eco-dot" style="background:var(--viz-region-russia);"></div>
+          <span class="eco-leg-txt"><span class="lang-ru">Русь (Москва/Тверь)</span><span class="lang-en">Rus (Moscow/Tver)</span></span>
+        </div>
+        <svg id="spice-svg" style="display:block;width:100%;" viewBox="0 0 640 300"></svg>
+        <div class="eco-source lang-ru">Цены — реконструкция по данным «маршрутника» из состава «Хожения», арабским источникам XV в. и работам Хрусталёва. Единица: условные «серебряные» за батман (~7–8 кг). Афанасий: «перец и пряные зелья дёшевы», но признаётся — его обманули, ожидал большего. Маржа 8–12× делала пряный путь сверхприбыльным.</div>
+        <div class="eco-source lang-en">Prices — reconstruction based on the router data from "The Journey", 15th-c. Arabic sources, and Khrustalev's works. Unit: relative "silver" per batman (~7-8 kg). Afanasy: "pepper and spicy herbs are cheap", but admits he was misled and expected higher gains. An 8–12× margin made the spice route extremely lucrative.</div>
+      </div>
 
-<div id="tab-horses" class="eco-panel">
-  <div class="eco-cards">
-    <div class="eco-card"><div class="eco-card-label">Арабский конь в Ормузе</div><div class="eco-card-val neutral">60–80 зол.</div><div class="eco-card-sub">закупка для перепродажи</div></div>
-    <div class="eco-card"><div class="eco-card-label">Тот же конь в Индии</div><div class="eco-card-val gain">150–200 зол.</div><div class="eco-card-sub">при удаче — 2–3× прибыль</div></div>
-    <div class="eco-card"><div class="eco-card-label">Конь Афанасия в Бидаре</div><div class="eco-card-val loss">68 фут.</div><div class="eco-card-sub">русский конь — хуже арабского</div><a class="eco-map-link" href="afanasy_v8_text_map.html?wp=12">Бидар на карте</a></div>
-  </div>
-  <svg id="horse2-svg" style="display:block;width:100%;" viewBox="0 0 640 260"></svg>
-  <div class="eco-source">Торговля лошадьми была главным «товаром» на маршруте Ормуз–Индия. Индийские султанаты не разводили лошадей — им нужны были арабские и иранские скакуны для войны. Афанасий ошибся: привёз русского коня вместо арабского, поэтому выручил 68 футунов. Данные: «Хожение», Ф.39 и труды по средневековой индоокеанской торговле.</div>
-</div>
+      <div id="tab-horses" class="eco-panel">
+        <div class="eco-cards">
+          <div class="eco-card">
+            <div class="eco-card-label lang-ru">Арабский конь в Ормузе</div>
+            <div class="eco-card-label lang-en">Arabian Horse in Hormuz</div>
+            <div class="eco-card-val neutral"><span class="lang-ru">60–80 зол.</span><span class="lang-en">60–80 gold</span></div>
+            <div class="eco-card-sub lang-ru">закупка для перепродажи</div>
+            <div class="eco-card-sub lang-en">purchase for resale</div>
+          </div>
+          <div class="eco-card">
+            <div class="eco-card-label lang-ru">Тот же конь в Индии</div>
+            <div class="eco-card-label lang-en">Same Horse in India</div>
+            <div class="eco-card-val gain"><span class="lang-ru">150–200 зол.</span><span class="lang-en">150–200 gold</span></div>
+            <div class="eco-card-sub lang-ru">при удаче — 2–3× прибыль</div>
+            <div class="eco-card-sub lang-en">at best — 2–3× profit</div>
+          </div>
+          <div class="eco-card">
+            <div class="eco-card-label lang-ru">Конь Афанасия в Бидаре</div>
+            <div class="eco-card-label lang-en">Afanasy's Stallion in Bidar</div>
+            <div class="eco-card-val loss"><span class="lang-ru">68 фут.</span><span class="lang-en">68 fut.</span></div>
+            <div class="eco-card-sub lang-ru">русский конь — хуже арабского</div>
+            <div class="eco-card-sub lang-en">Russian horse — inferior to Arabian</div>
+            <a class="eco-map-link" href="afanasy_v8_text_map.html?wp=12"><span class="lang-ru">Бидар на карте</span><span class="lang-en">Bidar on Map</span></a>
+          </div>
+        </div>
+        <svg id="horse2-svg" style="display:block;width:100%;" viewBox="0 0 640 260"></svg>
+        <div class="eco-source lang-ru">Торговля лошадьми была главным «товаром» на маршруте Ормуз–Индия. Индийские султанаты не разводили лошадей — им нужны были арабские и иранские скакуны для войны. Афанасий ошибся: привёз русского коня вместо арабского, поэтому выручил 68 футунов. Данные: «Хожение», Ф.39 и труды по средневековой индоокеанской торговле.</div>
+        <div class="eco-source lang-en">Horse trade was the main commercial activity on the Hormuz–India route. The Indian sultanates did not breed horses — they required Arabian and Persian warhorses. Afanasy miscalculated by bringing a Russian stallion instead of an Arabian one, earning only 68 futuns. Data: "The Journey", F.39 and medieval Indian Ocean trade studies.</div>
+      </div>
 
-<div class="eco-tip" id="eco-tip" style="display:none;position:fixed;"></div>
-</div>
+      <div class="eco-tip" id="eco-tip" style="display:none;position:fixed;"></div>
+    </div>
   </div>
 
   <script>
-(function(){
-const SVG_NS='http://www.w3.org/2000/svg';
-function el(tag,attrs){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] of Object.entries(attrs))e.setAttribute(k,v);return e;}
-function txt(s,attrs){const e=el('text',attrs);e.textContent=s;return e;}
-function mapHref(wp){return `afanasy_v8_text_map.html?wp=${wp}`;}
-function mapHint(wp){
-  return wp===undefined ? '' : '<br><span style="color:var(--color-accent);font-weight:600;">Нажмите, чтобы открыть место на карте.</span>';
-}
+  (function(){
+  const SVG_NS='http://www.w3.org/2000/svg';
+  function el(tag,attrs){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] of Object.entries(attrs))e.setAttribute(k,v);return e;}
+  function txt(s,attrs){const e=el('text',attrs);e.textContent=s;return e;}
+  function mapHref(wp){return `afanasy_v8_text_map.html?wp=${wp}`;}
+  function langKey() { return document.documentElement.getAttribute('data-lang') || 'ru'; }
 
-window.switchTab=function(id){
-  document.querySelectorAll('.eco-tab').forEach((t,i)=>{
-    t.classList.toggle('active',['horse','spices','horses'][i]===id);
-  });
-  document.querySelectorAll('.eco-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-};
+  function mapHint(wp){
+    const isEn = langKey() === 'en';
+    return wp===undefined ? '' : (isEn ? '<br><span style="color:var(--color-accent);font-weight:600;">Click to open on map.</span>' : '<br><span style="color:var(--color-accent);font-weight:600;">Нажмите, чтобы открыть место на карте.</span>');
+  }
 
-const tip=document.getElementById('eco-tip');
-function showTip(e,html){tip.innerHTML=html;tip.style.display='block';moveTip(e);}
-function moveTip(e){
-  let x=e.clientX+14,y=e.clientY-10;
-  if(x+230>window.innerWidth)x=e.clientX-240;
-  tip.style.left=x+'px';tip.style.top=y+'px';
-}
-function hideTip(){tip.style.display='none';}
-
-// ── TAB 1: Horse journey ──────────────────────────────────────────────────────
-(function(){
-  const svg=document.getElementById('horse-svg');
-  const W=640,H=230,m={t:28,r:24,b:44,l:28};
-  const iW=W-m.l-m.r;
-  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-
-  const entries=[
-    {date:'дек. 1468',place:'Лар / Таром',title:'Покупка',value:'100 руб.',color:'var(--viz-region-russia)',
-     note:'Ф.21: жеребец куплен за 100 рублей на выходе к Ормузу. Это главный торговый капитал всего индийского замысла.'},
-    {date:'авг. 1469',place:'Джуннар',title:'Конфискация',value:'5 дней',color:'var(--viz-region-persia)',
-     note:'Асад-хан забирает жеребца и возвращает через ходатайство Хасана-хорасанца; это превращает товар в личный риск.'},
-    {date:'25 дек. 1469',place:'Бидар',title:'Продажа',value:'68 фут.',color:'var(--viz-region-india)',wp:12,
-     note:'Ф.39: на Рождество жеребец продан за 68 футунов. Хрусталёв датирует продажу 25 декабря 1469.'},
-    {date:'1469–1470',place:'Бидар',title:'Расходы',value:'2,5 алт./день',color:'var(--viz-economic-loss)',wp:12,
-     note:'Ф.80: жизнь в Бидаре стоит 2,5 алтына в день, то есть 15 денег. За год это около 27 рублей.'},
-  ];
-
-  const y=92;
-  const startX=m.l+44,endX=W-m.r-44;
-  svg.appendChild(el('line',{x1:startX,y1:y,x2:endX,y2:y,stroke:'var(--color-border-secondary)','stroke-width':2,'stroke-dasharray':'5 4'}));
-
-  entries.forEach((entry,i)=>{
-    const x=startX+i*((endX-startX)/(entries.length-1));
-    const g=el('g',{style:'cursor:pointer;'});
-    const c=el('circle',{cx:x,cy:y,r:16,fill:entry.color,opacity:.88,stroke:'var(--color-background-primary)','stroke-width':2});
-    const tipHtml=`<b>${entry.title} · ${entry.place}</b><br><b>${entry.value}</b><br>${entry.note}${mapHint(entry.wp)}`;
-    g.addEventListener('mouseenter',e=>{c.setAttribute('opacity','1');showTip(e,tipHtml);});
-    g.addEventListener('click',e=>{
-      if(entry.wp!==undefined){window.location.href=mapHref(entry.wp);return;}
-      c.setAttribute('opacity','1');showTip(e,tipHtml);
+  window.switchTab=function(id){
+    document.querySelectorAll('.eco-tab').forEach((t,i)=>{
+      t.classList.toggle('active',['horse','spices','horses'][i]===id);
     });
-    g.addEventListener('mousemove',moveTip);
-    g.addEventListener('mouseleave',()=>{c.setAttribute('opacity','.88');hideTip();});
-    g.appendChild(c);
-    g.appendChild(txt(String(i+1),{x,y:y+4,'text-anchor':'middle','font-size':'11','font-weight':'700',fill:'var(--color-background-primary)'}));
-    g.appendChild(txt(entry.date,{x,y:y-28,'text-anchor':'middle','font-size':'10','font-weight':'600',fill:entry.color}));
-    g.appendChild(txt(entry.title,{x,y:y+38,'text-anchor':'middle','font-size':'11','font-weight':'600',fill:'var(--color-text-primary)'}));
-    g.appendChild(txt(entry.value,{x,y:y+53,'text-anchor':'middle','font-size':'12','font-weight':'700',fill:entry.color}));
-    entry.place.split(' / ').forEach((part,pi)=>{
-      g.appendChild(txt(part,{x,y:y+68+pi*11,'text-anchor':'middle','font-size':'9.5',fill:'var(--color-text-secondary)'}));
-    });
-    svg.appendChild(g);
-  });
+    document.querySelectorAll('.eco-panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+  };
 
-  svg.appendChild(txt('1 рубль = 200 денег · 1 алтын = 6 денег · 2,5 алтына = 15 денег/день · год в Бидаре ≈ 27 руб.',{
-    x:W/2,y:H-18,'text-anchor':'middle','font-size':'10','font-weight':'600',fill:'var(--color-text-secondary)'
-  }));
-})();
+  const tip=document.getElementById('eco-tip');
+  function showTip(e,html){tip.innerHTML=html;tip.style.display='block';moveTip(e);}
+  function moveTip(e){
+    let x=e.clientX+14,y=e.clientY-10;
+    if(x+230>window.innerWidth)x=e.clientX-240;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  }
+  function hideTip(){tip.style.display='none';}
 
-// ── TAB 2: Spices ─────────────────────────────────────────────────────────────
-(function(){
-  const svg=document.getElementById('spice-svg');
-  const W=640,H=300,m={t:28,r:140,b:60,l:42};
-  const iW=W-m.l-m.r,iH=H-m.t-m.b;
+  // Parse query parameter ?highlight=CityName
+  const params = new URLSearchParams(window.location.search);
+  const highlight = params.get('highlight');
+  const highlightedPlace = highlight ? highlight.toLowerCase() : null;
 
-  const goods=[
-    {name:'Перец',india:3,hormuz:12,persia:22,russia:38,unit:'сер./батман',note:'Главная специя эпохи. В 12× дороже на Руси чем в Индии. «Перец дёшев» — Афанасий.'},
-    {name:'Имбирь',india:2,hormuz:8,persia:15,russia:28,unit:'сер./батман',note:'Второй по важности пряный товар. Аналогичная маржа.'},
-    {name:'Корица',india:4,hormuz:16,persia:28,russia:46,unit:'сер./батман',note:'Привозилась с Цейлона. В Индии — транзитный товар.'},
-    {name:'Гвоздика',india:5,hormuz:20,persia:35,russia:55,unit:'сер./батман',note:'Самая дорогая пряность. С Молуккских островов через Индию.'},
-    {name:'Индиго',india:5,hormuz:18,persia:30,russia:45,unit:'сер./батман',note:'Синий краситель. Афанасий упоминает в «маршрутнике» как выгодный товар.'},
-    {name:'Хлопок\n(ткань)',india:2,hormuz:7,persia:12,russia:22,unit:'сер./батман',note:'Индийские хлопковые ткани — массовый экспортный товар.'},
-  ];
+  // ── TAB 1: Horse journey ──────────────────────────────────────────────────────
+  window.drawHorseTab = function(){
+    const svg=document.getElementById('horse-svg');
+    svg.innerHTML = '';
+    const W=640,H=230,m={t:28,r:24,b:44,l:28};
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
 
-  const colors=['var(--viz-region-india)','var(--viz-region-sea-arabian)','var(--viz-region-persia)','var(--viz-region-russia)'];
-  const cities=['Индия','Ормуз','Персия','Русь'];
-  const maxV=60;
-  const gW=iW/goods.length;
-  const barW=gW/(colors.length+1.5);
+    const isEn = langKey() === 'en';
 
-  goods.forEach((g,gi)=>{
-    const gx=m.l+gi*gW;
-    const vals=[g.india,g.hormuz,g.persia,g.russia];
-    vals.forEach((v,ci)=>{
-      const bx=gx+ci*(barW+1)+barW*0.3;
-      const bh=v/maxV*iH;
-      const by=m.t+iH-bh;
-      const r=el('rect',{x:bx,y:by,width:barW,height:bh,fill:colors[ci],rx:2,opacity:.82,style:'cursor:pointer;'});
-      r.addEventListener('mouseenter',e=>{r.setAttribute('opacity','1');showTip(e,`<b>${g.name.replace('\n',' ')} — ${cities[ci]}</b><br>${v} усл. серебряных/батман<br>Маржа к Индии: ${ci===0?'—':Math.round(v/g.india*10)/10+'×'}<br><span style="color:var(--color-text-secondary)">${g.note}</span>`);});
-      r.addEventListener('mousemove',moveTip);
-      r.addEventListener('mouseleave',()=>{r.setAttribute('opacity','.82');hideTip();});
-      const parent=el('g',{});parent.appendChild(r);
-      if(ci===colors.length-1){
-        parent.appendChild(txt(`${g.russia}`,{x:bx+barW/2,y:by-3,'text-anchor':'middle','font-size':'8.5','font-weight':'500',fill:'var(--viz-region-russia)'}));
+    const entries=[
+      {
+        date_ru:'дек. 1468', date_en:'Dec 1468',
+        place_ru:'Лар / Таром', place_en:'Lar / Tarom',
+        title_ru:'Покупка', title_en:'Purchase',
+        value_ru:'100 руб.', value_en:'100 rub.',
+        color:'var(--viz-region-russia)',
+        note_ru:'Ф.21: жеребец куплен за 100 рублей на выходе к Ормузу. Это главный торговый капитал всего индийского замысла.',
+        note_en:'F.21: stallion purchased for 100 rubles on the way to Hormuz. This was the primary capital for his Indian enterprise.'
+      },
+      {
+        date_ru:'авг. 1469', date_en:'Aug 1469',
+        place_ru:'Джуннар', place_en:'Junnar',
+        title_ru:'Конфискация', title_en:'Seizure',
+        value_ru:'5 дней', value_en:'5 days',
+        color:'var(--viz-region-persia)',
+        note_ru:'Асад-хан забирает жеребца и возвращает через ходатайство Хасана-хорасанца; это превращает товар в личный риск.',
+        note_en:'Asad Khan confiscates the stallion, returning it only after Khorasanian Hasan intervenes, showing how vulnerable his venture was.'
+      },
+      {
+        date_ru:'25 дек. 1469', date_en:'Dec 25 1469',
+        place_ru:'Бидар', place_en:'Bidar',
+        title_ru:'Продажа', title_en:'Sale',
+        value_ru:'68 фут.', value_en:'68 fut.',
+        color:'var(--viz-region-india)', wp:12,
+        note_ru:'Ф.39: на Рождество жеребец продан за 68 футунов. Хрусталёв датирует продажу 25 декабря 1469.',
+        note_en:'F.39: stallion sold for 68 futuns on Christmas. Khrustalev dates the sale to December 25, 1469.'
+      },
+      {
+        date_ru:'1469–1470', date_en:'1469–1470',
+        place_ru:'Бидар', place_en:'Bidar',
+        title_ru:'Расходы', title_en:'Expenses',
+        value_ru:'2,5 алт./день', value_en:'2.5 alt./day',
+        color:'var(--viz-economic-loss)', wp:12,
+        note_ru:'Ф.80: жизнь в Бидаре стоит 2,5 алтына в день, то есть 15 денег. За год это около 27 рублей.',
+        note_en:'F.80: cost of living in Bidar was 2.5 altyns per day (15 denga). Over a year, this totaled about 27 rubles.'
+      },
+    ];
+
+    const y=92;
+    const startX=m.l+44,endX=W-m.r-44;
+    svg.appendChild(el('line',{x1:startX,y1:y,x2:endX,y2:y,stroke:'var(--color-border-secondary)','stroke-width':2,'stroke-dasharray':'5 4'}));
+
+    entries.forEach((entry,i)=>{
+      const x=startX+i*((endX-startX)/(entries.length-1));
+      const g=el('g',{style:'cursor:pointer;'});
+      const c=el('circle',{cx:x,cy:y,r:16,fill:entry.color,opacity:.88,stroke:'var(--color-background-primary)','stroke-width':2});
+      
+      const place = isEn ? entry.place_en : entry.place_ru;
+      const title = isEn ? entry.title_en : entry.title_ru;
+      const val = isEn ? entry.value_en : entry.value_ru;
+      const note = isEn ? entry.note_en : entry.note_ru;
+      const date = isEn ? entry.date_en : entry.date_ru;
+
+      const tipHtml=`<b>${title} · ${place}</b><br><b>${val}</b><br>${note}${mapHint(entry.wp)}`;
+      g.addEventListener('mouseenter',e=>{c.setAttribute('opacity','1');showTip(e,tipHtml);});
+      g.addEventListener('click',e=>{
+        if(entry.wp!==undefined){window.location.href=mapHref(entry.wp);return;}
+        c.setAttribute('opacity','1');showTip(e,tipHtml);
+      });
+      g.addEventListener('mousemove',moveTip);
+      g.addEventListener('mouseleave',()=>{c.setAttribute('opacity','.88');hideTip();});
+      g.appendChild(c);
+
+      // Deep linking highlight
+      const isHighlight = highlightedPlace && (
+        entry.place_ru.toLowerCase().includes(highlightedPlace) ||
+        entry.place_en.toLowerCase().includes(highlightedPlace) ||
+        entry.title_ru.toLowerCase().includes(highlightedPlace) ||
+        entry.title_en.toLowerCase().includes(highlightedPlace)
+      );
+
+      if (isHighlight) {
+        const pulse = el('circle', {
+          cx: x, cy: y, r: 24,
+          fill: 'none',
+          stroke: 'var(--color-accent)',
+          'stroke-width': 2.5,
+          'stroke-dasharray': '3 2',
+          opacity: 0.85
+        });
+        g.appendChild(pulse);
       }
-      svg.appendChild(parent);
+
+      g.appendChild(txt(String(i+1),{x,y:y+4,'text-anchor':'middle','font-size':'11','font-weight':'700',fill:'var(--color-background-primary)'}));
+      g.appendChild(txt(date,{x,y:y-28,'text-anchor':'middle','font-size':'10','font-weight':'600',fill:entry.color}));
+      g.appendChild(txt(title,{x,y:y+38,'text-anchor':'middle','font-size':'11','font-weight':'600',fill:'var(--color-text-primary)'}));
+      g.appendChild(txt(val,{x,y:y+53,'text-anchor':'middle','font-size':'12','font-weight':'700',fill:entry.color}));
+      place.split(' / ').forEach((part,pi)=>{
+        g.appendChild(txt(part,{x,y:y+68+pi*11,'text-anchor':'middle','font-size':'9.5',fill:'var(--color-text-secondary)'}));
+      });
+      svg.appendChild(g);
     });
-    const lines=g.name.split('\n');
-    lines.forEach((l,li)=>svg.appendChild(txt(l,{x:gx+gW/2,y:m.t+iH+14+li*10,'text-anchor':'middle','font-size':'9.5',fill:'var(--color-text-secondary)'})));
-  });
 
-  for(let v=0;v<=maxV;v+=10){
-    const y=m.t+iH-v/maxV*iH;
-    svg.appendChild(el('line',{x1:m.l,y1:y,x2:W-m.r,y2:y,stroke:'var(--color-border-tertiary)','stroke-width':.5,'stroke-dasharray':v===0?'none':'3 4'}));
-    if(v>0)svg.appendChild(txt(v,{x:m.l-3,y:y+3,'text-anchor':'end','font-size':'9',fill:'var(--color-text-secondary)'}));
+    const footerText = isEn ?
+      '1 ruble = 200 denga · 1 altyn = 6 denga · 2.5 altyns = 15 denga/day · year in Bidar ≈ 27 rub.' :
+      '1 рубль = 200 денег · 1 алтын = 6 денег · 2,5 алтына = 15 денег/день · год в Бидаре ≈ 27 руб.';
+
+    svg.appendChild(txt(footerText,{
+      x:W/2,y:H-18,'text-anchor':'middle','font-size':'10','font-weight':'600',fill:'var(--color-text-secondary)'
+    }));
+  };
+
+  // ── TAB 2: Spices ─────────────────────────────────────────────────────────────
+  window.drawSpiceTab = function(){
+    const svg=document.getElementById('spice-svg');
+    svg.innerHTML = '';
+    const W=640,H=300,m={t:28,r:140,b:60,l:42};
+    const iW=W-m.l-m.r,iH=H-m.t-m.b;
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+
+    const isEn = langKey() === 'en';
+
+    const goods=[
+      {
+        name_ru:'Перец', name_en:'Pepper',
+        india:3, hormuz:12, persia:22, russia:38,
+        unit_ru:'сер./батман', unit_en:'silv./batman',
+        note_ru:'Главная специя эпохи. В 12× дороже на Руси чем в Индии. «Перец дёшев» — Афанасий.',
+        note_en:'The main spice of the era. 12× more expensive in Rus than in India. "Pepper is cheap" — Afanasy.'
+      },
+      {
+        name_ru:'Имбирь', name_en:'Ginger',
+        india:2, hormuz:8, persia:15, russia:28,
+        unit_ru:'сер./батман', unit_en:'silv./batman',
+        note_ru:'Второй по важности пряный товар. Аналогичная маржа.',
+        note_en:'Second most important spice. Similar margin.'
+      },
+      {
+        name_ru:'Корица', name_en:'Cinnamon',
+        india:4, hormuz:16, persia:28, russia:46,
+        unit_ru:'сер./батман', unit_en:'silv./batman',
+        note_ru:'Привозилась с Цейлона. В Индии — транзитный товар.',
+        note_en:'Brought from Ceylon. In India, it was a transit good.'
+      },
+      {
+        name_ru:'Гвоздика', name_en:'Cloves',
+        india:5, hormuz:20, persia:35, russia:55,
+        unit_ru:'сер./батман', unit_en:'silv./batman',
+        note_ru:'Самая дорогая пряность. С Молуккских островов через Индию.',
+        note_en:'The most expensive spice. From the Moluccas via India.'
+      },
+      {
+        name_ru:'Индиго', name_en:'Indigo',
+        india:5, hormuz:18, persia:30, russia:45,
+        unit_ru:'сер./батман', unit_en:'silv./batman',
+        note_ru:'Синий краситель. Афанасий упоминает в «маршрутнике» как выгодный товар.',
+        note_en:'Blue dye. Afanasy mentions it in the router as a profitable good.'
+      },
+      {
+        name_ru:'Хлопок\n(ткань)', name_en:'Cotton\n(cloth)',
+        india:2, hormuz:7, persia:12, russia:22,
+        unit_ru:'сер./батман', unit_en:'silv./batman',
+        note_ru:'Индийские хлопковые ткани — массовый экспортный товар.',
+        note_en:'Indian cotton fabrics were a major export item.'
+      },
+    ];
+
+    const colors=['var(--viz-region-india)','var(--viz-region-sea-arabian)','var(--viz-region-persia)','var(--viz-region-russia)'];
+    const cities=isEn ? ['India','Hormuz','Persia','Rus'] : ['Индия','Ормуз','Персия','Русь'];
+    const maxV=60;
+    const gW=iW/goods.length;
+    const barW=gW/(colors.length+1.5);
+
+    goods.forEach((g,gi)=>{
+      const gx=m.l+gi*gW;
+      const vals=[g.india,g.hormuz,g.persia,g.russia];
+      vals.forEach((v,ci)=>{
+        const bx=gx+ci*(barW+1)+barW*0.3;
+        const bh=v/maxV*iH;
+        const by=m.t+iH-bh;
+        const r=el('rect',{x:bx,y:by,width:barW,height:bh,fill:colors[ci],rx:2,opacity:.82,style:'cursor:pointer;'});
+        
+        const gName = isEn ? g.name_en : g.name_ru;
+        const gNote = isEn ? g.note_en : g.note_ru;
+        const gUnit = isEn ? g.unit_en : g.unit_ru;
+        const marginLabel = isEn ? 'Margin vs India' : 'Маржа к Индии';
+
+        r.addEventListener('mouseenter',e=>{r.setAttribute('opacity','1');showTip(e,`<b>${gName.replace('\n',' ')} — ${cities[ci]}</b><br>${v} ${gUnit}<br>${marginLabel}: ${ci===0?'—':Math.round(v/g.india*10)/10+'×'}<br><span style="color:var(--color-text-secondary)">${gNote}</span>`);});
+        r.addEventListener('mousemove',moveTip);
+        r.addEventListener('mouseleave',()=>{r.setAttribute('opacity','.82');hideTip();});
+        const parent=el('g',{});parent.appendChild(r);
+
+        // Deep linking highlight
+        const isHighlight = highlightedPlace && (
+          cities[ci].toLowerCase().includes(highlightedPlace) ||
+          (ci === 0 && (highlightedPlace === 'india' || highlightedPlace === 'индия' || highlightedPlace === 'бидар' || highlightedPlace === 'bidar' || highlightedPlace === 'чаул' || highlightedPlace === 'chaul')) ||
+          (ci === 1 && (highlightedPlace === 'hormuz' || highlightedPlace === 'ормуз')) ||
+          (ci === 2 && (highlightedPlace === 'persia' || highlightedPlace === 'персия' || highlightedPlace === 'тебриз' || highlightedPlace === 'tabriz' || highlightedPlace === 'исфахан' || highlightedPlace === 'isfahan')) ||
+          (ci === 3 && (highlightedPlace === 'russia' || highlightedPlace === 'русь' || highlightedPlace === 'тверь' || highlightedPlace === 'tver' || highlightedPlace === 'москва' || highlightedPlace === 'moscow')) ||
+          g.name_ru.toLowerCase().includes(highlightedPlace) ||
+          g.name_en.toLowerCase().includes(highlightedPlace)
+        );
+
+        if (isHighlight) {
+          const highlightRect = el('rect', {
+            x: bx - 2,
+            y: by - 2,
+            width: barW + 4,
+            height: bh + 4,
+            fill: 'none',
+            stroke: 'var(--color-accent)',
+            'stroke-width': 1.5,
+            'stroke-dasharray': '2 2',
+            rx: 3
+          });
+          parent.appendChild(highlightRect);
+        }
+
+        if(ci===colors.length-1){
+          parent.appendChild(txt(`${g.russia}`,{x:bx+barW/2,y:by-3,'text-anchor':'middle','font-size':'8.5','font-weight':'500',fill:'var(--viz-region-russia)'}));
+        }
+        svg.appendChild(parent);
+      });
+      const lines=(isEn ? g.name_en : g.name_ru).split('\n');
+      lines.forEach((l,li)=>svg.appendChild(txt(l,{x:gx+gW/2,y:m.t+iH+14+li*10,'text-anchor':'middle','font-size':'9.5',fill:'var(--color-text-secondary)'})));
+    });
+
+    for(let v=0;v<=maxV;v+=10){
+      const y=m.t+iH-v/maxV*iH;
+      svg.appendChild(el('line',{x1:m.l,y1:y,x2:W-m.r,y2:y,stroke:'var(--color-border-tertiary)','stroke-width':.5,'stroke-dasharray':v===0?'none':'3 4'}));
+      if(v>0)svg.appendChild(txt(v,{x:m.l-3,y:y+3,'text-anchor':'end','font-size':'9',fill:'var(--color-text-secondary)'}));
+    }
+    
+    svg.appendChild(txt(isEn ? 'silv. units/batman' : 'усл. серебряных/батман',{x:m.l,y:m.t-10,'font-size':'9',fill:'var(--color-text-secondary)'}));
+
+    // Legend right
+    cities.forEach((c,i)=>{
+      const lx=W-m.r+14,ly=m.t+i*20;
+      svg.appendChild(el('rect',{x:lx,y:ly,width:10,height:10,fill:colors[i],rx:2}));
+      svg.appendChild(txt(c,{x:lx+14,y:ly+8.5,'font-size':'10',fill:'var(--color-text-secondary)'}));
+    });
+    svg.appendChild(txt(isEn ? 'Single Good\nPrice:' : 'Цена одного\nтовара:',{x:W-m.r+14,y:m.t-8,'font-size':'9',fill:'var(--color-text-secondary)'}));
+  };
+
+  // ── TAB 3: Horse trade ────────────────────────────────────────────────────────
+  window.drawHorsesTab = function(){
+    const svg=document.getElementById('horse2-svg');
+    svg.innerHTML = '';
+    const W=640,H=260,m={t:28,r:20,b:50,l:46};
+    const iW=W-m.l-m.r,iH=H-m.t-m.b;
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+
+    const isEn = langKey() === 'en';
+
+    const data=[
+      {
+        label_ru:'Арабский конь\nв Ормузе', label_en:'Arabian Horse\nin Hormuz',
+        buy:65, color:'var(--viz-region-sea-arabian)',
+        note_ru:'Закупочная цена арабского скакуна в Ормузе. Именно их везли торговцы в Индию.',
+        note_en:'Purchase price of an Arabian stallion in Hormuz. These were imported to India.'
+      },
+      {
+        label_ru:'Арабский конь\nв Индии (Бидар)', label_en:'Arabian Horse\nin India (Bidar)',
+        buy:175, color:'var(--viz-region-india)', wp:12,
+        note_ru:'Цена перепродажи в индийских султанатах. Прибыль ~150–170%. Бахманиды платили за боевых коней.',
+        note_en:'Resale price in Indian sultanates. Profit ~150–170%. Bahmanids paid high for warhorses.'
+      },
+      {
+        label_ru:'Иранский конь\nв Ормузе', label_en:'Persian Horse\nin Hormuz',
+        buy:50, color:'var(--viz-region-persia)',
+        note_ru:'Чуть дешевле арабского. Тоже выгодно везти в Индию.',
+        note_en:'Slightly cheaper than Arabian. Also profitable to export to India.'
+      },
+      {
+        label_ru:'Иранский конь\nв Индии', label_en:'Persian Horse\nin India',
+        buy:140, color:'var(--viz-region-india)',
+        note_ru:'Выгодно, но меньше чем арабский. Маржа ~180%.',
+        note_en:'Profitable, but less than Arabian. Margin ~180%.'
+      },
+      {
+        label_ru:'Русский конь\nАфанасия (Бидар)', label_en:'Afanasy\'s Horse\n(Bidar)',
+        buy:68, unit_ru:'футунов', unit_en:'futuns', color:'var(--viz-economic-loss)', wp:12,
+        note_ru:'Ф.39: «жеребца продал» за 68 футунов. Русский конь не ценился в Индии как арабский боевой скакун.',
+        note_en:'F.39: "stallion sold" for 68 futuns. Russian horses were not valued in India like Arabian warhorses.'
+      },
+      {
+        label_ru:'Ожидаемая\nцена коня', label_en:'Expected Price\nof Horse',
+        buy:120, color:'var(--viz-region-russia)',
+        note_ru:'На что рассчитывал Афанасий при выезде из Твери. Не сбылось.',
+        note_en:'What Afanasy expected when leaving Tver. Did not materialize.'
+      },
+    ];
+
+    const maxV=200;
+    const bw=iW/(data.length+1);
+
+    data.forEach((d,i)=>{
+      const x=m.l+bw*(i+0.6);
+      const bh=d.buy/maxV*iH;
+      const by=m.t+iH-bh;
+      const barW=bw*0.55;
+      const r=el('rect',{x:x,y:by,width:barW,height:bh,fill:d.color,rx:3,opacity:.85,style:'cursor:pointer;'});
+      
+      const label = isEn ? d.label_en : d.label_ru;
+      const note = isEn ? d.note_en : d.note_ru;
+      const unit = isEn ? (d.unit_en || 'gold') : (d.unit_ru || 'золотых');
+
+      r.addEventListener('mouseenter',e=>{r.setAttribute('opacity','1');showTip(e,`<b>${label.replace('\n',' ')}</b><br><b>${d.buy} ${unit}</b><br>${note}${mapHint(d.wp)}`);});
+      r.addEventListener('click',()=>{if(d.wp!==undefined)window.location.href=mapHref(d.wp);});
+      r.addEventListener('mousemove',moveTip);
+      r.addEventListener('mouseleave',()=>{r.setAttribute('opacity','.85');hideTip();});
+      svg.appendChild(r);
+
+      // Deep linking highlight
+      const isHighlight = highlightedPlace && (
+        d.label_ru.toLowerCase().includes(highlightedPlace) ||
+        d.label_en.toLowerCase().includes(highlightedPlace) ||
+        (d.wp === 12 && (highlightedPlace === 'bidar' || highlightedPlace === 'бидар')) ||
+        (d.color === 'var(--viz-region-sea-arabian)' && (highlightedPlace === 'hormuz' || highlightedPlace === 'ормуз'))
+      );
+
+      if (isHighlight) {
+        const highlightRect = el('rect', {
+          x: x - 3,
+          y: by - 3,
+          width: barW + 6,
+          height: bh + 6,
+          fill: 'none',
+          stroke: 'var(--color-accent)',
+          'stroke-width': 2,
+          'stroke-dasharray': '3 2',
+          rx: 5
+        });
+        svg.appendChild(highlightRect);
+      }
+
+      svg.appendChild(txt(d.buy,{x:x+barW/2,y:by-4,'text-anchor':'middle','font-size':'10','font-weight':'500',fill:d.color}));
+      const lines=label.split('\n');
+      lines.forEach((l,li)=>svg.appendChild(txt(l,{x:x+barW/2,y:m.t+iH+13+li*10,'text-anchor':'middle','font-size':'9',fill:'var(--color-text-secondary)'})));
+    });
+
+    for(let v=0;v<=maxV;v+=50){
+      const y=m.t+iH-v/maxV*iH;
+      svg.appendChild(el('line',{x1:m.l,y1:y,x2:W-m.r,y2:y,stroke:'var(--color-border-tertiary)','stroke-width':.5,'stroke-dasharray':v===0?'none':'3 4'}));
+      svg.appendChild(txt(v,{x:m.l-3,y:y+3,'text-anchor':'end','font-size':'9',fill:'var(--color-text-secondary)'}));
+    }
+    svg.appendChild(txt(isEn ? 'coin price' : 'монетная цена',{x:m.l,y:m.t-10,'font-size':'9',fill:'var(--color-text-secondary)'}));
+  };
+
+  // Switch tab automatically if highlight matches
+  if (highlightedPlace) {
+    if (['lar', 'лар', 'tarom', 'таром', 'junnar', 'джуннар'].some(w => highlightedPlace.includes(w))) {
+      switchTab('horse');
+    } else if (['ормуз', 'hormuz', 'конь', 'horse'].some(w => highlightedPlace.includes(w))) {
+      switchTab('horses');
+    } else if (['перец', 'pepper', 'имбирь', 'ginger', 'корица', 'cinnamon', 'гвоздика', 'clove', 'индиго', 'indigo', 'хлопок', 'cotton', 'русь', 'rus', 'персия', 'persia'].some(w => highlightedPlace.includes(w))) {
+      switchTab('spices');
+    } else if (['бидар', 'bidar'].some(w => highlightedPlace.includes(w))) {
+      switchTab('horse');
+    }
   }
-  svg.appendChild(txt('усл. серебряных/батман',{x:m.l,y:m.t-10,'font-size':'9',fill:'var(--color-text-secondary)'}));
 
-  // Legend right
-  cities.forEach((c,i)=>{
-    const lx=W-m.r+14,ly=m.t+i*20;
-    svg.appendChild(el('rect',{x:lx,y:ly,width:10,height:10,fill:colors[i],rx:2}));
-    svg.appendChild(txt(c,{x:lx+14,y:ly+8.5,'font-size':'10',fill:'var(--color-text-secondary)'}));
-  });
-  svg.appendChild(txt('Цена одного\nтовара:',{x:W-m.r+14,y:m.t-8,'font-size':'9',fill:'var(--color-text-secondary)'}));
-})();
+  // Draw initial tabs
+  drawHorseTab();
+  drawSpiceTab();
+  drawHorsesTab();
 
-// ── TAB 3: Horse trade ────────────────────────────────────────────────────────
-(function(){
-  const svg=document.getElementById('horse2-svg');
-  const W=640,H=260,m={t:28,r:20,b:50,l:46};
-  const iW=W-m.l-m.r,iH=H-m.t-m.b;
-
-  const data=[
-    {label:'Арабский конь\nв Ормузе',buy:65,color:'var(--viz-region-sea-arabian)',note:'Закупочная цена арабского скакуна в Ормузе. Именно их везли торговцы в Индию.'},
-    {label:'Арабский конь\nв Индии (Бидар)',buy:175,color:'var(--viz-region-india)',wp:12,note:'Цена перепродажи в индийских султанатах. Прибыль ~150–170%. Бахманиды платили за боевых коней.'},
-    {label:'Иранский конь\nв Ормузе',buy:50,color:'var(--viz-region-persia)',note:'Чуть дешевле арабского. Тоже выгодно везти в Индию.'},
-    {label:'Иранский конь\nв Индии',buy:140,color:'var(--viz-region-india)',note:'Выгодно, но меньше чем арабский. Маржа ~180%.'},
-    {label:'Русский конь\nАфанасия (Бидар)',buy:68,unit:'футунов',color:'var(--viz-economic-loss)',wp:12,note:'Ф.39: «жеребца продал» за 68 футунов. Русский конь не ценился в Индии как арабский боевой скакун.'},
-    {label:'Ожидаемая\nцена коня',buy:120,color:'var(--viz-region-russia)',note:'На что рассчитывал Афанасий при выезде из Твери. Не сбылось.'},
-  ];
-
-  const maxV=200;
-  const bw=iW/(data.length+1);
-
-  data.forEach((d,i)=>{
-    const x=m.l+bw*(i+0.6);
-    const bh=d.buy/maxV*iH;
-    const by=m.t+iH-bh;
-    const barW=bw*0.55;
-    const r=el('rect',{x:x,y:by,width:barW,height:bh,fill:d.color,rx:3,opacity:.85,style:'cursor:pointer;'});
-    r.addEventListener('mouseenter',e=>{r.setAttribute('opacity','1');showTip(e,`<b>${d.label.replace('\n',' ')}</b><br><b>${d.buy} ${d.unit||'золотых'}</b><br>${d.note}${mapHint(d.wp)}`);});
-    r.addEventListener('click',()=>{if(d.wp!==undefined)window.location.href=mapHref(d.wp);});
-    r.addEventListener('mousemove',moveTip);
-    r.addEventListener('mouseleave',()=>{r.setAttribute('opacity','.85');hideTip();});
-    svg.appendChild(r);
-    svg.appendChild(txt(d.buy,{x:x+barW/2,y:by-4,'text-anchor':'middle','font-size':'10','font-weight':'500',fill:d.color}));
-    const lines=d.label.split('\n');
-    lines.forEach((l,li)=>svg.appendChild(txt(l,{x:x+barW/2,y:m.t+iH+13+li*10,'text-anchor':'middle','font-size':'9',fill:'var(--color-text-secondary)'})));
+  // Re-draw on language change
+  window.addEventListener('languagechange', () => {
+    drawHorseTab();
+    drawSpiceTab();
+    drawHorsesTab();
   });
 
-  for(let v=0;v<=maxV;v+=50){
-    const y=m.t+iH-v/maxV*iH;
-    svg.appendChild(el('line',{x1:m.l,y1:y,x2:W-m.r,y2:y,stroke:'var(--color-border-tertiary)','stroke-width':.5,'stroke-dasharray':v===0?'none':'3 4'}));
-    svg.appendChild(txt(v,{x:m.l-3,y:y+3,'text-anchor':'end','font-size':'9',fill:'var(--color-text-secondary)'}));
-  }
-  svg.appendChild(txt('монетная цена',{x:m.l,y:m.t-10,'font-size':'9',fill:'var(--color-text-secondary)'}));
-})();
+  // Watch for theme changes
+  new MutationObserver(()=>{
+    drawHorseTab();
+    drawSpiceTab();
+    drawHorsesTab();
+  }).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
-})();
-</script>
+  })();
+  </script>
 
   <!-- Floating Theme Toggle -->
   <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
     <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
   </button>
   <script src="js/atlas-theme.js"></script>
-  <script>
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') location.href = 'index.html';
-      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
-        document.getElementById('theme-toggle')?.click();
-      }
-    });
-  </script>
-
-<script src="js/atlas-export.js"></script>
+  <script src="js/atlas-export.js"></script>
 </body>
 </html>
