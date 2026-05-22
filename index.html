@@ -1380,8 +1380,28 @@
   <!-- Keyboard shortcuts -->
   <script>
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT' || e.target.isContentEditable) {
+        return;
+      }
+      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey) {
         document.getElementById('theme-toggle')?.click();
+      }
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault();
+        const visibleCards = Array.from(document.querySelectorAll('.card')).filter(c => !c.hidden);
+        if (visibleCards.length === 0) return;
+        const focusedIdx = visibleCards.indexOf(document.activeElement);
+        if (focusedIdx === -1) {
+          visibleCards[0].focus();
+        } else {
+          let nextIdx;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            nextIdx = (focusedIdx + 1) % visibleCards.length;
+          } else {
+            nextIdx = (focusedIdx - 1 + visibleCards.length) % visibleCards.length;
+          }
+          visibleCards[nextIdx].focus();
+        }
       }
     });
   </script>
@@ -1476,9 +1496,24 @@
             text: 'С помощью поиска и категорий вы можете мгновенно отфильтровать 27 виджетов.'
           },
           {
-            element: '.grid .card',
-            title: 'Интерактивные карточки 💡',
-            text: 'Каждый виджет раскрывает отдельный аспект текста: от цен на товары до математики календаря.'
+            element: 'a[href="afanasy_v8_text_map.html"]',
+            title: 'Тайм-лапс на карте 🗺️',
+            text: 'Анимированная карта путешествия по трем морям. Кликайте на точки остановок, чтобы читать цитаты из «Хожения».'
+          },
+          {
+            element: 'a[href="afanasy_gantt.html"]',
+            title: 'Гантт-диаграмма 📊',
+            text: 'Помесячная шкала восьми лет путешествия. Показывает соотношение движения и длительных стоянок, вроде пребывания в Бидаре.'
+          },
+          {
+            element: 'a[href="afanasy_calendar_pascha_islam.html"]',
+            title: 'Календарь Пасх 📅',
+            text: 'Календарная математика: сопоставление дат христианских Пасх и мусульманских праздников XV века, описанных Афанасием.'
+          },
+          {
+            element: 'a[href="afanasy_concordance_index.html"]',
+            title: 'Указатель топонимов и лиц 🔍',
+            text: 'Интерактивный справочник имён, городов и понятий. Позволяет быстро находить цитаты и переходить к картам.'
           },
           {
             element: '#theme-toggle',
@@ -1498,9 +1533,24 @@
             text: 'Use the search box and category pills to instantly filter the 27 widgets.'
           },
           {
-            element: '.grid .card',
-            title: 'Interactive Cards 💡',
-            text: 'Each widget reveals a unique aspect of the text, from merchant prices to calendar mathematics.'
+            element: 'a[href="afanasy_v8_text_map.html"]',
+            title: 'Map Time-lapse 🗺️',
+            text: 'An animated route of the journey across three seas. Click stopover markers to read quotes from the travelogue.'
+          },
+          {
+            element: 'a[href="afanasy_gantt.html"]',
+            title: 'Gantt Chart 📊',
+            text: 'A monthly timeline of the eight-year journey. Shows the balance of active movement versus long stays like Bidar.'
+          },
+          {
+            element: 'a[href="afanasy_calendar_pascha_islam.html"]',
+            title: 'Easter/Pascha Calendar 📅',
+            text: 'Calendar mathematics: aligning dates of Christian Easters and Islamic holidays of the 15th century mentioned by Afanasy.'
+          },
+          {
+            element: 'a[href="afanasy_concordance_index.html"]',
+            title: 'Concordance Index 🔍',
+            text: 'An interactive glossary of names, cities, and concepts. Easily find related quotes and navigate to maps.'
           },
           {
             element: '#theme-toggle',

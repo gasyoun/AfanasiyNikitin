@@ -696,6 +696,8 @@ button:active {
     .spd-controls,
     .atlas-nav-footer,
     .atlas-modal,
+    .atlas-export-container,
+    .atlas-export-modal-overlay,
     button,
     input,
     select,

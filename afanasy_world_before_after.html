@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>До и после: Афанасий и Азия — Афанасий Никитин</title>
+  <title>До и после: Афанасий и Азия / Before & After: Afanasy & Asia — Афанасий Никитин</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/atlas.css">
   <link rel="stylesheet" href="lib/tabler-icons.min.css">
@@ -32,26 +32,59 @@ canvas.wa-c{display:block;width:100%;height:auto;max-width:340px;aspect-ratio:34
 .wa-det-col-body b{color:var(--color-text-primary);}
 .wa-hint{font-size:10px;color:var(--color-text-secondary);text-align:center;opacity:.65;margin-top:3px;}
 .wa-source{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+@media (max-width: 600px) {
+  .wa-map-wrap.mobile-hide {
+    display: none !important;
+  }
+}
   </style>
 </head>
 <body>
   <div class="vis-container">
     <div class="vis-header">
-      <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка"><a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Атлас</a><span class="atlas-breadcrumb-sep" aria-hidden="true">/</span><span class="atlas-breadcrumb-current">До и после: Афанасий и Азия</span></nav>
-      <h1>До и после: Афанасий и Азия</h1>
+      <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка">
+        <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i>
+          <span class="lang-ru">Атлас</span>
+          <span class="lang-en">Atlas</span>
+        </a>
+        <span class="atlas-breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="atlas-breadcrumb-current">
+          <span class="lang-ru">До и после: Афанасий и Азия</span>
+          <span class="lang-en">Before & After: Afanasy & Asia</span>
+        </span>
+      </nav>
+      <h1>
+        <span class="lang-ru">До и после: Афанасий и Азия</span>
+        <span class="lang-en">Before & After: Afanasy & Asia</span>
+      </h1>
     </div>
 
-    <h2 class="sr-only">Что Афанасий знал до выезда vs что узнал — средневековое русское представление об Азии и реальность</h2>
+    <h2 class="sr-only">
+      <span class="lang-ru">Что Афанасий знал до выезда vs что узнал — средневековое русское представление об Азии и реальность</span>
+      <span class="lang-en">What Afanasy knew before departure vs what he learned — medieval Russian perception of Asia and reality</span>
+    </h2>
     <div class="wa">
 
 <div class="wa-head">
-  <div class="wa-htab on" id="tab-before">
-    <div class="wa-htab-title">До выезда (1467)</div>
-    <div class="wa-htab-sub">Средневековые русские представления</div>
+  <div class="wa-htab on" id="tab-before" onclick="switchView(false)">
+    <div class="wa-htab-title">
+      <span class="lang-ru">До выезда (1467)</span>
+      <span class="lang-en">Before departure (1467)</span>
+    </div>
+    <div class="wa-htab-sub">
+      <span class="lang-ru">Средневековые русские представления</span>
+      <span class="lang-en">Medieval Russian perception</span>
+    </div>
   </div>
-  <div class="wa-htab" id="tab-after" onclick="switchView()">
-    <div class="wa-htab-title">После возвращения (1475)</div>
-    <div class="wa-htab-sub">Что узнал Афанасий</div>
+  <div class="wa-htab" id="tab-after" onclick="switchView(true)">
+    <div class="wa-htab-title">
+      <span class="lang-ru">После возвращения (1475)</span>
+      <span class="lang-en">After return (1475)</span>
+    </div>
+    <div class="wa-htab-sub">
+      <span class="lang-ru">Что узнал Афанасий</span>
+      <span class="lang-en">What Afanasy learned</span>
+    </div>
   </div>
 </div>
 
@@ -61,24 +94,37 @@ canvas.wa-c{display:block;width:100%;height:auto;max-width:340px;aspect-ratio:34
     <div class="parchment-loader-spinner"></div>
   </div>
   <div class="wa-map-wrap">
-    <div class="wa-map-label before">До выезда</div>
+    <div class="wa-map-label before">
+      <span class="lang-ru">До выезда</span>
+      <span class="lang-en">Before departure</span>
+    </div>
     <canvas class="wa-c" id="ca" width="340" height="280"></canvas>
   </div>
-  <div class="wa-map-wrap">
-    <div class="wa-map-label after">После</div>
+  <div class="wa-map-wrap mobile-hide">
+    <div class="wa-map-label after">
+      <span class="lang-ru">После</span>
+      <span class="lang-en">After</span>
+    </div>
     <canvas class="wa-c" id="cb" width="340" height="280"></canvas>
   </div>
 </div>
-<div class="wa-hint">← нажмите место на любой карте</div>
+<div class="wa-hint">
+  <span class="lang-ru">← нажмите место на любой карте</span>
+  <span class="lang-en">← click a place on either map</span>
+</div>
 
 <div class="wa-detail" id="wa-det">
   <div class="wa-det-left">
-    <div style="font-size:11px;color:var(--color-text-secondary);">Нажмите место на карте — сравните что знали до и что узнал Афанасий</div>
+    <div style="font-size:11px;color:var(--color-text-secondary);">
+      <span class="lang-ru">Нажмите место на карте — сравните что знали до и что узнал Афанасий</span>
+      <span class="lang-en">Click a place on the map to compare what was known before with what Afanasy discovered</span>
+    </div>
   </div>
 </div>
 
 <div class="wa-source">
-  Левая карта — реконструкция средневековых русских представлений об Азии по: «Хронограф» XV в., «Хожение игумена Даниила» (1106–1107), «Александрия», «Космография». Правая — реальная картина по «Хожению» Афанасия (1467–1475) и Хрусталёву (2026).
+  <span class="lang-ru">Левая карта — реконструкция средневековых русских представлений об Азии по: «Хронограф» XV в., «Хожение игумена Даниила» (1106–1107), «Александрия», «Космография». Правая — реальная картина по «Хожению» Афанасия (1467–1475) и Хрусталёву (2026).</span>
+  <span class="lang-en">Left map: reconstruction of medieval Russian geographic perceptions of Asia based on the 15th-century "Chronograph", "The Pilgrimage of Abbot Daniel" (1106–1107), "Alexandria", and "Cosmography". Right map: the actual geography based on the "Journey" of Afanasy (1467–1475) and Khrustalev (2026).</span>
 </div>
 </div>
 
@@ -100,85 +146,125 @@ function project(lon,lat){
 // ── Knowledge points ──────────────────────────────────────────────────────────
 const POINTS=[
   {id:'india', lon:77.5, lat:17.9,
-   label:'Индия',
+   label:'Индия', label_en:'India',
    before:{known:false,
      myth:'«Страна Индия» — абстрактный далёкий восток. Место, откуда привозят пряности и слоновую кость. Населена «нагими людьми» и дивными зверями.',
-     src:'«Александрия», «Физиолог», торговые слухи'},
+     myth_en:'“The Land of India” — an abstract far east. A place where spices and ivory come from. Populated by “naked people” and wondrous beasts.',
+     src:'«Александрия», «Физиолог», торговые слухи',
+     src_en:'“Alexandria”, “Physiologus”, trade rumors'},
    after:{known:true,
      real:'Реальный Деккан — Бахманидский султанат с конкретными городами, рынками, кастами, религиями. Афанасий прожил здесь 4 года.',
-     src:'Личный опыт 1469–1472; «Хожение»'}},
+     real_en:'The actual Deccan — the Bahmani Sultanate with specific cities, markets, castes, and religions. Afanasy lived here for 4 years.',
+     src:'Личный опыт 1469–1472; «Хожение»',
+     src_en:'Personal experience 1469–1472; “The Journey”'}},
   {id:'hormuz', lon:56.5, lat:27.1,
-   label:'Ормуз',
+   label:'Ормуз', label_en:'Hormuz',
    before:{known:false,
      myth:'Неизвестен. Персидский залив — «конец земли» или «Хвалынское море» (Каспий, с которым путали).',
-     src:'Нет источников'},
+     myth_en:'Unknown. The Persian Gulf was considered the “edge of the earth” or conflated with the “Khvalyn Sea” (Caspian).',
+     src:'Нет источников',
+     src_en:'No sources'},
    after:{known:true,
      real:'«Гурмыз — остров в море». Главный перевалочный порт мира. Здесь пересекаются все торговые пути. Пасха 1469 г. — Афанасий здесь.',
-     src:'Личный опыт 1469 и 1472–1473'}},
+     real_en:'“Gurmyz is an island in the sea.” The world\'s main transit port where all trade routes intersect. Afanasy celebrated Easter here in 1469.',
+     src:'Личный опыт 1469 и 1472–1473',
+     src_en:'Personal experience 1469 and 1472–1473'}},
   {id:'caspian', lon:51, lat:41,
-   label:'Каспийское море',
+   label:'Каспийское море', label_en:'Caspian Sea',
    before:{known:true,
      myth:'«Хвалынское море» — известно по новгородской торговле и булгарским маршрутам. Берега — татарские орды.',
-     src:'Торговые связи Руси с Булгаром XIV–XV вв.'},
+     myth_en:'“The Khvalyn Sea” — well known from Novgorod trade and Bulgar routes. The shores were controlled by Tatar hordes.',
+     src:'Торговые связи Руси с Булгаром XIV–XV вв.',
+     src_en:'Trade connections between Russia and Bulgar in the 14th–15th centuries'},
    after:{known:true,
      real:'Афанасий пересёк его дважды. Видел Баку с «вечным огнём», Дербент. Реальная опасность: ограбление на Волге у Астрахани.',
-     src:'Личный опыт 1467–1468'}},
+     real_en:'Afanasy crossed it twice. Visited Baku with its “eternal fire” and Derbent. Faced real danger: being robbed on the Volga near Astrakhan.',
+     src:'Личный опыт 1467–1468',
+     src_en:'Personal experience 1467–1468'}},
   {id:'persia', lon:52, lat:33,
-   label:'Персия',
+   label:'Персия', label_en:'Persia',
    before:{known:true,
      myth:'«Персида» — знакома по летописям и библейским текстам. Страна богатая, далёкая. Конкретные города неизвестны.',
-     src:'Летописи, «Хронограф», библейские тексты'},
+     myth_en:'“Persida” — known from chronicles and biblical texts. A wealthy, distant land. Specific cities were unknown.',
+     src:'Летописи, «Хронограф», библейные тексты',
+     src_en:'Chronicles, “Chronograph”, biblical texts'},
    after:{known:true,
      real:'Конкретные маршруты: Дербент → Баку → Сари → Амол → Рей → Кашан → Йезд → Лар → Ормуз. Реальные расстояния в днях. Реальные цены.',
-     src:'«Дорожник» и «Маршрутник»; 1468–1469'}},
+     real_en:'Specific routes: Derbent → Baku → Sari → Amol → Rey → Kashan → Yazd → Lar → Hormuz. Actual distances in days. Actual prices.',
+     src:'«Дорожник» и «Маршрутник»; 1468–1469',
+     src_en:'“Roadbook” and “Itinerary”; 1468–1469'}},
   {id:'ocean', lon:65, lat:17,
-   label:'Индийский океан',
+   label:'Индийский океан', label_en:'Indian Ocean',
    before:{known:false,
      myth:'«Море Индийское» — библейский топоним без конкретного содержания. Маршрут туда неизвестен. Считали, что до Индии — по суше через Персию.',
-     src:'«Козьма Индикоплов» (VI в.) — единственный источник'},
+     myth_en:'“The Indian Sea” — a biblical toponym without concrete geographic content. Route unknown; believed that one reached India by land via Persia.',
+     src:'«Козьма Индикоплов» (VI в.) — единственный источник',
+     src_en:'“Cosmas Indicopleustes” (6th century) — the only source'},
    after:{known:true,
      real:'Реальное море с муссонами, портами, «тавами». Афанасий плыл 6 недель. Знает Маскат, Гуджарат, Чаул. Первое русское описание Индийского океана.',
-     src:'Личный опыт 1469 и 1472; «Маршрутник»'}},
+     real_en:'A real sea with monsoons, ports, and dhows (“tavas”). Afanasy sailed for 6 weeks. Documented Muscat, Gujarat, Chaul. First Russian description of the Indian Ocean.',
+     src:'Личный опыт 1469 и 1472; «Маршрутник»',
+     src_en:'Personal experience 1469 and 1472; “Itinerary”'}},
   {id:'black', lon:35, lat:43,
-   label:'Чёрное море',
+   label:'Чёрное море', label_en:'Black Sea',
    before:{known:true,
      myth:'«Понт Евскийский» или «море Стебольское» — хорошо известно по торговле с Константинополем. Кафа — генуэзский торговый центр.',
-     src:'Новгородская и тверская торговля XV в.'},
+     myth_en:'“Pontus Euxinus” or the “Stebol Sea” — well known from trade with Constantinople. Caffa was a Genoese trade hub.',
+     src:'Новгородская и тверская торговля XV в.',
+     src_en:'Novgorod and Tver trade in the 15th century'},
    after:{known:true,
      real:'«Третье море» пройдено. Трабзон → Кафа. Уже знакомое — Афанасий почти дома. Море, которое ведёт на Русь.',
-     src:'«Хожение» 1474; «3-е море Чёрное, дориа Стебольская»'}},
+     real_en:'The “Third Sea” crossed. Trabzon → Caffa. Already familiar territory — Afanasy is almost home. The sea that leads back to Russia.',
+     src:'«Хожение» 1474; «3-е море Чёрное, дориа Стебольская»',
+     src_en:'“The Journey” 1474; “The third sea is Black, doria of Stebol”'}},
   {id:'tver', lon:35.9, lat:56.9,
-   label:'Тверь',
+   label:'Тверь', label_en:'Tver',
    before:{known:true,
      myth:'Родной город. Центр Тверского княжества. Здесь — дом, семья, купеческое дело, церковь.',
-     src:'Знает досконально'},
+     myth_en:'Home city. Capital of the Grand Principality of Tver. Here was his home, family, merchant business, and church.',
+     src:'Знает досконально',
+     src_en:'Known thoroughly'},
    after:{known:true,
      real:'Не добрался. Умер под Смоленском, не дойдя до Твери. Тверь осталась точкой на горизонте — достигнутой только в тексте.',
-     src:'Предисловие Мамырева'}},
+     real_en:'Never reached it. Died near Smolensk, before reaching Tver. Tver remained a point on the horizon, only reached in his text.',
+     src:'Предисловие Мамырева',
+     src_en:'Mamyrev\'s Preface'}},
   {id:'kaffa', lon:35.4, lat:45.0,
-   label:'Кафа (Феодосия)',
+   label:'Кафа (Феодосия)', label_en:'Caffa (Feodosia)',
    before:{known:true,
      myth:'Крупнейший торговый порт Крыма. Генуэзская колония. Связь Руси с Востоком. «Кафинские» купцы хорошо известны в Твери.',
-     src:'Торговые связи Твери с Кафой'},
+     myth_en:'The largest trade port in Crimea. Genoese colony. Russia\'s link to the East. “Caffan” merchants were well known in Tver.',
+     src:'Торговые связи Твери с Кафой',
+     src_en:'Trade connections of Tver with Caffa'},
    after:{known:true,
      real:'Афанасий добрался до Кафы ноябрём 1474 г. «Приехал есмь в Кафу». Порог возвращения. Через несколько месяцев — взята Османами (1475).',
-     src:'«Хожение» 1474; последняя запись'}},
+     real_en:'Afanasy reached Caffa in November 1474. “I arrived in Caffa.” The threshold of return. Conquered by the Ottomans a few months later (1475).',
+     src:'«Хожение» 1474; последняя запись',
+     src_en:'“The Journey” 1474; final entry'}},
   {id:'china', lon:75, lat:30,
-   label:'Китай (Чин)',
+   label:'Китай (Чин)', label_en:'China (Chin)',
    before:{known:false,
      myth:'«Чинское царство» — страна шёлка за Индией. Абстрактный топоним без географии. Иногда путают с Индией.',
-     src:'«Александрия», торговые слухи о шёлке'},
+     myth_en:'“The Chin Kingdom” — the land of silk beyond India. An abstract toponym without coordinates, sometimes confused with India.',
+     src:'«Александрия», торговые слухи о шёлке',
+     src_en:'“Alexandria”, trade rumors about silk'},
    after:{known:false,
      real:'В «маршрутнике» Афанасий пишет «Чин да Мачин» — Китай как дальний предел торгового пути. Сам не был, но знает расстояния и товары.',
-     src:'«Маршрутник» Афанасия — со слов торговцев'}},
+     real_en:'In his itinerary, Afanasy writes of “Chin and Machin” — China as the farthest limit of the trade route. Never visited, but knows the distances and goods.',
+     src:'«Маршрутник» Афанасия — со слов торговцев',
+     src_en:'Afanasy\'s “Itinerary” — from other merchants\' accounts'}},
   {id:'arabia', lon:44, lat:21,
-   label:'Аравия / Мекка',
+   label:'Аравия / Мекка', label_en:'Arabia / Mecca',
    before:{known:true,
      myth:'«Аравия» — страна, откуда пришёл ислам. Мекка — «Ерусалим бесерменский» по русским источникам. Ладан и мирра — аравийские.',
-     src:'Богословские тексты, паломнические описания'},
+     myth_en:'“Arabia” — the birthplace of Islam. Mecca — “the Jerusalem of the Muslims” according to Russian sources. Source of frankincense and myrrh.',
+     src:'Богословские тексты, паломнические описания',
+     src_en:'Theological texts, pilgrimage accounts'},
    after:{known:false,
      real:'Афанасий в Аравии не был. Но в «маршрутнике» упоминает Аден как ключевой порт и знает о торговых путях через Красное море.',
-     src:'«Маршрутник»; сведения от арабских торговцев'}},
+     real_en:'Afanasy never visited Arabia. But in his itinerary, he mentions Aden as a key port and knows about trade routes through the Red Sea.',
+     src:'«Маршрутник»; сведения от арабских торговцев',
+     src_en:'“Itinerary”; accounts from Arab merchants'}},
 ];
 
 const CA=document.getElementById('ca');
@@ -270,12 +356,14 @@ function halo(c,txt,x,y,col,p=mapPalette()){
 }
 
 function drawPoints(c,isBefore,activeId){
+  const lang = document.documentElement.getAttribute('data-lang') || 'ru';
   const pal=mapPalette();
   POINTS.forEach(point=>{
     const[cx,cy]=project(point.lon,point.lat);
     const info=isBefore?point.before:point.after;
     const known=info.known;
     const isAct=activeId===point.id;
+    const labelText = lang === 'en' ? (point.label_en || point.label) : point.label;
 
     if(isBefore){
       // Before: known = dark dot, unknown = question mark
@@ -284,10 +372,10 @@ function drawPoints(c,isBefore,activeId){
       c.fillStyle=known?pal.beforeDot:pal.beforeUnknown;c.fill();
       c.strokeStyle=known?pal.beforeText:pal.beforeUnknownStroke;c.lineWidth=1;c.stroke();
       c.font='bold 7.5px sans-serif';
-      if(known){halo(c,point.label,cx,cy-8,pal.beforeText,pal);}
+      if(known){halo(c,labelText,cx,cy-8,pal.beforeText,pal);}
       else {
         halo(c,'?',cx,cy+3.5,pal.beforeDimText,pal);
-        c.font='7px sans-serif';halo(c,point.label,cx,cy-7,pal.beforeDimText,pal);
+        c.font='7px sans-serif';halo(c,labelText,cx,cy-7,pal.beforeDimText,pal);
       }
     } else {
       if(isAct){c.beginPath();c.arc(cx,cy,10,0,Math.PI*2);c.fillStyle=pal.afterActive;c.fill();}
@@ -295,9 +383,9 @@ function drawPoints(c,isBefore,activeId){
       c.fillStyle=known?pal.afterDot:pal.afterUnknown;c.fill();
       c.strokeStyle=known?pal.afterText:pal.afterUnknownStroke;c.lineWidth=1;c.stroke();
       c.font='bold 7.5px sans-serif';
-      if(known){halo(c,point.label,cx,cy-8,pal.afterText,pal);}
+      if(known){halo(c,labelText,cx,cy-8,pal.afterText,pal);}
       else {
-        c.font='7px sans-serif';halo(c,point.label,cx,cy-7,pal.afterDimText,pal);
+        c.font='7px sans-serif';halo(c,labelText,cx,cy-7,pal.afterDimText,pal);
         halo(c,'~',cx,cy+3.5,pal.afterDimText,pal);
       }
     }
@@ -342,24 +430,39 @@ function getPoint(canvas,ex,ey){
 
 function showDet(p){
   const det=document.getElementById('wa-det');
+  const lang = document.documentElement.getAttribute('data-lang') || 'ru';
   if(!p){
     det.style.borderLeftColor='var(--color-border-tertiary)';
-    det.innerHTML='<div class="wa-det-left"><div style="font-size:11px;color:var(--color-text-secondary);">Нажмите место на любой карте</div></div>';
+    if(lang === 'en'){
+      det.innerHTML='<div class="wa-det-left"><div style="font-size:11px;color:var(--color-text-secondary);">Click a place on either map</div></div>';
+    } else {
+      det.innerHTML='<div class="wa-det-left"><div style="font-size:11px;color:var(--color-text-secondary);">Нажмите место на любой карте</div></div>';
+    }
     return;
   }
   const b=p.before,a=p.after;
   const pal=mapPalette();
   det.style.borderLeftColor=a.known?pal.afterBorderColor:pal.beforeBorderColor;
+
+  const displayLabel = lang === 'en' ? (p.label_en || p.label) : p.label;
+  const beforeHeader = lang === 'en' ? (b.known ? 'Knew' : 'Did not know / myth') : (b.known ? 'Знал' : 'Не знал / миф');
+  const beforeMyth = lang === 'en' ? (b.myth_en || b.myth) : b.myth;
+  const beforeSrc = lang === 'en' ? (b.src_en || b.src) : b.src;
+
+  const afterHeader = lang === 'en' ? (a.known ? 'Learned personally' : 'Only rumors') : (a.known ? 'Узнал лично' : 'Только слухи');
+  const afterReal = lang === 'en' ? (a.real_en || a.real) : a.real;
+  const afterSrc = lang === 'en' ? (a.src_en || a.src) : a.src;
+
   det.innerHTML=`<div class="wa-det-left">
-    <div class="wa-det-name">${p.label}</div>
+    <div class="wa-det-name">${displayLabel}</div>
     <div class="wa-det-compare">
       <div class="wa-det-col">
-        <span class="wa-det-col-h before">${b.known?'Знал':'Не знал / миф'}</span>
-        <div class="wa-det-col-body">${b.myth}<br><br><i style="opacity:.6;">${b.src}</i></div>
+        <span class="wa-det-col-h before">${beforeHeader}</span>
+        <div class="wa-det-col-body">${beforeMyth}<br><br><i style="opacity:.6;">${beforeSrc}</i></div>
       </div>
       <div class="wa-det-col">
-        <span class="wa-det-col-h after">${a.known?'Узнал лично':'Только слухи'}</span>
-        <div class="wa-det-col-body">${a.real}<br><br><i style="opacity:.6;">${a.src}</i></div>
+        <span class="wa-det-col-h after">${afterHeader}</span>
+        <div class="wa-det-col-body">${afterReal}<br><br><i style="opacity:.6;">${afterSrc}</i></div>
       </div>
     </div>
   </div>`;
@@ -376,10 +479,20 @@ function showDet(p){
 });
 
 let showingAfter=false;
-window.switchView=function(){
-  showingAfter=!showingAfter;
+window.switchView=function(toAfter){
+  if(typeof toAfter==='boolean'){
+    showingAfter=toAfter;
+  }else{
+    showingAfter=!showingAfter;
+  }
   document.getElementById('tab-before').classList.toggle('on',!showingAfter);
   document.getElementById('tab-after').classList.toggle('on',showingAfter);
+  
+  const wrappers = document.querySelectorAll('.wa-maps .wa-map-wrap');
+  if(wrappers.length>=2){
+    wrappers[0].classList.toggle('mobile-hide',showingAfter);
+    wrappers[1].classList.toggle('mobile-hide',!showingAfter);
+  }
 };
 
 function waitLib(cb){if(typeof d3!=='undefined'&&typeof topojson!=='undefined')cb();else setTimeout(()=>waitLib(cb),60);}
@@ -395,6 +508,10 @@ waitLib(()=>{
     });
 });
 new MutationObserver(()=>drawAll()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+window.addEventListener('languagechange',()=>{
+  drawAll();
+  showDet(activeId?POINTS.find(p=>p.id===activeId):null);
+});
 })();
 </script>
   </div>
