@@ -17,7 +17,7 @@
 .wa-maps{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
 .wa-map-wrap{position:relative;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);overflow:hidden;}
 .wa-map-label{position:absolute;top:7px;left:10px;font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;pointer-events:none;}
-canvas.wa-c{display:block;width:100%;cursor:pointer;}
+canvas.wa-c{display:block;width:100%;height:auto;max-width:340px;aspect-ratio:340 / 280;cursor:pointer;}
 .wa-detail{padding:11px 14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);min-height:70px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;border-left:3px solid var(--color-border-tertiary);transition:border-color .2s;}
 .wa-det-left{min-width:0;flex:1;}
 .wa-det-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;}
@@ -179,11 +179,17 @@ const POINTS=[
 
 const CA=document.getElementById('ca');
 const CB=document.getElementById('cb');
+const dpr=Math.min(window.devicePixelRatio||1,2);
+CA.width=W*dpr;CA.height=H*dpr;
+CB.width=W*dpr;CB.height=H*dpr;
 const ctxA=CA.getContext('2d');
 const ctxB=CB.getContext('2d');
+ctxA.scale(dpr,dpr);
+ctxB.scale(dpr,dpr);
 const offA=document.createElement('canvas'),offB=document.createElement('canvas');
-offA.width=W;offA.height=H;offB.width=W;offB.height=H;
+offA.width=W*dpr;offA.height=H*dpr;offB.width=W*dpr;offB.height=H*dpr;
 const ocA=offA.getContext('2d');const ocB=offB.getContext('2d');
+ocA.scale(dpr,dpr);ocB.scale(dpr,dpr);
 
 let mapReady=false, activeId=null,cachedWorld=null,baseTheme=null;
 
@@ -309,11 +315,15 @@ function drawAll(){
     buildBase(cachedWorld,ocB,false);
   }
   // Canvas A
+  ctxA.setTransform(1,0,0,1,0,0);
   ctxA.drawImage(offA,0,0);
+  ctxA.setTransform(dpr,0,0,dpr,0,0);
   ctxA.save();ctxA.beginPath();ctxA.rect(0,0,W,H);ctxA.clip();
   drawPoints(ctxA,true,activeId);ctxA.restore();
   // Canvas B
+  ctxB.setTransform(1,0,0,1,0,0);
   ctxB.drawImage(offB,0,0);
+  ctxB.setTransform(dpr,0,0,dpr,0,0);
   ctxB.save();ctxB.beginPath();ctxB.rect(0,0,W,H);ctxB.clip();
   drawPoints(ctxB,false,activeId);ctxB.restore();
 }

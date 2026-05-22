@@ -116,14 +116,14 @@
   --ve-state-mamluk-stroke-dark:rgba(180,140,48,0.58);
   --ve-shadow:rgba(0,0,0,0.15);
 }
-  canvas{
+  canvas#mapC{
     border-radius:8px;
     border:1px solid var(--color-border-secondary);
     display:block;
-    max-width: 100% !important;
-    height: auto !important;
-    max-height: 340px;
-    object-fit: contain;
+    width: 100%;
+    height: auto;
+    max-width: 735px;
+    aspect-ratio: 735 / 510;
   }
   .controls{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap;justify-content:center;}
   .info-bar{display:flex;gap:12px;align-items:flex-start;padding:8px 12px;background:var(--color-background-secondary);border-radius:6px;border:1px solid var(--color-border-secondary);margin-top:8px;width:100%;min-height:50px;}
@@ -205,10 +205,14 @@
 <script>
 const W=735,H=510,PAD=18;
 const C=document.getElementById('mapC');
+const dpr=Math.min(window.devicePixelRatio||1,2);
+C.width=W*dpr;C.height=H*dpr;
 const ctx=C.getContext('2d');
+ctx.scale(dpr,dpr);
 const off=document.createElement('canvas');
-off.width=W;off.height=H;
+off.width=W*dpr;off.height=H*dpr;
 const oc=off.getContext('2d');
+oc.scale(dpr,dpr);
 
 const LON0=26,LON1=84,LAT0=7,LAT1=63;
 function mY(lat){return Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));}
@@ -495,7 +499,9 @@ function drawFrame(){
     ctx.fillText('Загрузка карты…',W/2,H/2);return;
   }
   if(cachedWorld&&offTheme!==themeKey())buildOffscreen(cachedWorld);
+  ctx.setTransform(1,0,0,1,0,0);
   ctx.drawImage(off,0,0);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
   drawRoute();
   drawOverlay();

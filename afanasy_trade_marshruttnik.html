@@ -13,7 +13,7 @@
     .tm{font-size:13px;}
 .tm-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:10px;}
 .tm-intro b{color:var(--color-text-primary);}
-canvas#tm-c{display:block;width:100%;height:300px!important;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:8px;cursor:pointer;}
+canvas#tm-c{display:block;width:100%;height:auto;max-width:720px;aspect-ratio:720 / 380;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:8px;cursor:pointer;}
 .tm-row{display:flex;flex-direction:column;gap:8px;margin-bottom:8px;}
 .tm-detail{width:100%;padding:8px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);min-height:68px;max-height:92px;overflow-y:auto;border-left:3px solid transparent;transition:border-color .2s;}
 .tm-det-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:5px;}
@@ -149,10 +149,14 @@ canvas#tm-c{display:block;width:100%;height:300px!important;border-radius:var(--
   (function(){
   const W=720,H=380,PAD=12;
   const C=document.getElementById('tm-c');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  C.width=W*dpr;C.height=H*dpr;
   const ctx=C.getContext('2d');
+  ctx.scale(dpr,dpr);
   const off=document.createElement('canvas');
-  off.width=W;off.height=H;
+  off.width=W*dpr;off.height=H*dpr;
   const oc=off.getContext('2d');
+  oc.scale(dpr,dpr);
 
   // Bbox: lon 50–125, lat -10–32
   const LON0=48,LON1=126,LAT0=-12,LAT1=34;
@@ -446,7 +450,9 @@ canvas#tm-c{display:block;width:100%;height:300px!important;border-radius:var(--
       return;
     }
     if(cachedWorld&&baseTheme!==themeKey())buildBase(cachedWorld);
+    ctx.setTransform(1,0,0,1,0,0);
     ctx.drawImage(off,0,0);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
     ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
     drawRoutes();
 

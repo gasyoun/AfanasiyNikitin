@@ -34,6 +34,8 @@
       display: block;
       width: 100%;
       height: auto;
+      max-width: 735px;
+      aspect-ratio: 735 / 460;
       background: var(--viz-world-after-sea);
       border-radius: var(--border-radius-md);
       border: 0.5px solid var(--color-border-tertiary);
@@ -289,10 +291,14 @@
     (function(){
       const W = 735, H = 460, PAD = 15;
       const C = document.getElementById('monsoon-canvas');
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      C.width = W * dpr; C.height = H * dpr;
       const ctx = C.getContext('2d');
+      ctx.scale(dpr, dpr);
       const off = document.createElement('canvas');
-      off.width = W; off.height = H;
+      off.width = W * dpr; off.height = H * dpr;
       const oc = off.getContext('2d');
+      oc.scale(dpr, dpr);
 
       const LON0 = 35.0, LON1 = 80.0, LAT0 = -5.0, LAT1 = 32.0;
       function mY(lat){return Math.log(Math.tan(Math.PI/4 + lat*Math.PI/360));}
@@ -453,7 +459,10 @@
       function tick(timestamp) {
         if (!mapReady) { animFrameId = requestAnimationFrame(tick); return; }
         if (cachedWorld && baseTheme !== themeKey()) drawBase(cachedWorld);
-        ctx.drawImage(off, 0, 0); updateAndDrawParticles();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.drawImage(off, 0, 0);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        updateAndDrawParticles();
         const p = mapPalette();
         if (activeRoute === 'out') { drawRoute(ROUTE_OUT, p.accent); drawShip(ROUTE_OUT, p.accent); }
         else if (activeRoute === 'ret') { drawRoute(ROUTE_RET, '#ef4444'); drawShip(ROUTE_RET, '#ef4444'); }

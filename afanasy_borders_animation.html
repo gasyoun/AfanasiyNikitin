@@ -52,7 +52,7 @@
 }
     /* Original Widget Styles */
     .brd-wrap{font-size:12px;}
-canvas#brdC{display:block;width:100%;height:300px!important;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:6px;}
+canvas#brdC{display:block;width:100%;height:auto;max-width:735px;aspect-ratio:735 / 460;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:6px;}
 .brd-info{padding:7px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);margin-bottom:6px;display:flex;gap:10px;align-items:flex-start;}
 .brd-yr{font-size:24px;font-weight:500;color:var(--color-text-primary);line-height:1;font-variant-numeric:tabular-nums;min-width:46px;}
 .brd-div{width:.5px;background:var(--color-border-tertiary);align-self:stretch;flex-shrink:0;}
@@ -123,10 +123,14 @@ canvas#brdC{display:block;width:100%;height:300px!important;border-radius:var(--
 (function(){
 const W=735,H=460,PAD=15;
 const C=document.getElementById('brdC');
+const dpr=Math.min(window.devicePixelRatio||1,2);
+C.width=W*dpr;C.height=H*dpr;
 const ctx=C.getContext('2d');
+ctx.scale(dpr,dpr);
 const off=document.createElement('canvas');
-off.width=W;off.height=H;
+off.width=W*dpr;off.height=H*dpr;
 const oc=off.getContext('2d');
+oc.scale(dpr,dpr);
 
 const LON0=26,LON1=84,LAT0=7,LAT1=63;
 function mY(lat){return Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));}
@@ -318,7 +322,9 @@ function drawFrame(){
   const p=mapPalette();
   if(!mapReady){ctx.fillStyle=p.sea;ctx.fillRect(0,0,W,H);ctx.fillStyle=p.loadingText;ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('Загрузка…',W/2,H/2);return;}
   if(cachedWorld&&baseTheme!==themeKey())buildBase(cachedWorld);
+  ctx.setTransform(1,0,0,1,0,0);
   ctx.drawImage(off,0,0);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
 
   const states=getStates(t);

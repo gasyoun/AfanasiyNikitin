@@ -20,7 +20,7 @@
 .tv-card-stats{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
 .tv-card-stat{font-size:9.5px;color:var(--color-text-secondary);line-height:1.35;}
 .tv-card-stat b{color:var(--color-text-primary);display:block;font-size:11px;}
-canvas#tv-c{display:block;width:100%;height:292px!important;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:8px;cursor:pointer;}
+canvas#tv-c{display:block;width:100%;height:auto;max-width:720px;aspect-ratio:720 / 430;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);margin-bottom:8px;cursor:pointer;}
 .tv-info{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);height:58px;overflow-y:auto;margin-bottom:8px;font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);}
 .tv-info b{color:var(--color-text-primary);}
 .tv-timeline{margin-bottom:8px;}
@@ -155,10 +155,14 @@ canvas#tv-c{display:block;width:100%;height:292px!important;border-radius:var(--
 (function(){
 const W=720,H=430,PAD=14;
 const C=document.getElementById('tv-c');
+const dpr=Math.min(window.devicePixelRatio||1,2);
+C.width=W*dpr;C.height=H*dpr;
 const ctx=C.getContext('2d');
+ctx.scale(dpr,dpr);
 const off=document.createElement('canvas');
-off.width=W;off.height=H;
+off.width=W*dpr;off.height=H*dpr;
 const oc=off.getContext('2d');
+oc.scale(dpr,dpr);
 
 // Wider bbox: Lisbon to East China Sea, Cape to Northern Russia
 const LON0=-12,LON1=122,LAT0=-38,LAT1=62;
@@ -296,7 +300,9 @@ function drawFrame(){
     ctx.fillText('Загрузка карты…',W/2,H/2);return;
   }
   if(cachedWorld&&baseTheme!==themeKey())buildBase(cachedWorld);
+  ctx.setTransform(1,0,0,1,0,0);
   ctx.drawImage(off,0,0);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
 
   Object.values(TRAVELERS).forEach(tr=>{

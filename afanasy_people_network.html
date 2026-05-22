@@ -13,7 +13,7 @@
 .pn-intro b{color:var(--color-text-primary);}
 .pn-row{display:flex;gap:10px;align-items:flex-start;}
 .pn-graph-wrap{flex:1 1 0;min-width:0;position:relative;}
-canvas#pn-c{display:block;width:100%;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);cursor:pointer;}
+canvas#pn-c{display:block;width:100%;height:auto;max-width:460px;aspect-ratio:460 / 460;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);cursor:pointer;}
 .pn-sidebar{flex:0 0 220px;display:flex;flex-direction:column;gap:7px;}
 .pn-legend{padding:9px 11px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);}
 .pn-leg-h{font-size:10px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px;letter-spacing:.04em;}
@@ -95,9 +95,11 @@ canvas#pn-c{display:block;width:100%;border-radius:var(--border-radius-lg);borde
 <script>
 (function(){
 const C=document.getElementById('pn-c');
-const ctx=C.getContext('2d');
+const dpr=Math.min(window.devicePixelRatio||1,2);
 const W=460,H=460;
-C.width=W;C.height=H;
+C.width=W*dpr;C.height=H*dpr;
+const ctx=C.getContext('2d');
+ctx.scale(dpr,dpr);
 
 // ── Node data ─────────────────────────────────────────────────────────────────
 const NODES=[

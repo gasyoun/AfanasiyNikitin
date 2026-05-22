@@ -49,7 +49,7 @@
 
     <div class="af-wrap">
   <div class="af-left">
-    <canvas id="mapC" style="display:block;width:100%;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);cursor:pointer;"></canvas>
+    <canvas id="mapC" style="display:block;width:100%;height:auto;max-width:520px;aspect-ratio:520 / 400;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);cursor:pointer;"></canvas>
     <div class="af-info">
       <div class="af-yr-col">
         <div class="af-yr">
@@ -87,11 +87,14 @@
 (function(){
 const W=520,H=400,PAD=13;
 const C=document.getElementById('mapC');
-C.width=W;C.height=H;
+const dpr=Math.min(window.devicePixelRatio||1,2);
+C.width=W*dpr;C.height=H*dpr;
 const ctx=C.getContext('2d');
+ctx.scale(dpr,dpr);
 const off=document.createElement('canvas');
-off.width=W;off.height=H;
+off.width=W*dpr;off.height=H*dpr;
 const oc=off.getContext('2d');
+oc.scale(dpr,dpr);
 
 const LON0=26,LON1=84,LAT0=7,LAT1=63;
 function mY(lat){return Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));}
@@ -188,7 +191,9 @@ function drawFrame(){
   const p=mapPalette();
   if(!mapReady){ctx.fillStyle=p.sea;ctx.fillRect(0,0,W,H);ctx.fillStyle=p.loadingText;ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText('Загрузка…',W/2,H/2);return;}
   if(cachedWorld&&offscreenTheme!==themeKey())buildOffscreen(cachedWorld);
+  ctx.setTransform(1,0,0,1,0,0);
   ctx.drawImage(off,0,0);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();
   const seg=curWPIdx();
   const[clat,clng]=curPos();
@@ -260,7 +265,7 @@ function buildTextPanel(){
 
 C.addEventListener('click',e=>{
   const rect=C.getBoundingClientRect();
-  const sx=C.width/rect.width,sy=C.height/rect.height;
+  const sx=W/rect.width,sy=H/rect.height;
   const mx=(e.clientX-rect.left)*sx,my=(e.clientY-rect.top)*sy;
   const seg=curWPIdx();
   let best=Infinity,bestI=-1;
