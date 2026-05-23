@@ -148,6 +148,8 @@
     { url: 'afanasy_manuscripts.html', title_ru: 'Сравнение рукописей', title_en: 'Manuscript Comparison', category: 'text', icon: 'ti-book' },
     { url: 'afanasy_manuscript_layers.html', title_ru: 'Слои рукописи', title_en: 'Manuscript Layers', category: 'text', icon: 'ti-book' },
     { url: 'afanasy_religious_crisis.html', title_ru: 'Религиозный кризис', title_en: 'Religious Crisis', category: 'text', icon: 'ti-book' },
+    { url: 'afanasy_prayer_interlinear.html', title_ru: 'Подстрочник молитвы', title_en: 'Prayer Interlinear', category: 'text', icon: 'ti-book' },
+    { url: 'afanasy_parvat.html', title_ru: 'Парват: чудо бутово', title_en: 'Parvat', category: 'text', icon: 'ti-book' },
     { url: 'khozheniye_composition_tree.html', title_ru: 'Дерево состава «Хожения»', title_en: 'Composition Tree', category: 'people', icon: 'ti-users' },
     { url: 'afanasy_people_network.html', title_ru: 'Сеть людей', title_en: 'People Network', category: 'people', icon: 'ti-users' },
     { url: 'afanasy_gavan_parallel.html', title_ru: 'Параллельная биография', title_en: 'Parallel Biography', category: 'people', icon: 'ti-users' },

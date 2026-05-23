@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="830" viewBox="0 0 1400 830">
+<rect x="0" y="0" width="1400" height="100%" fill="#ffffff"/>
+<text x="70" y="58" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#1f2933" text-anchor="start">Рис. 3. Сжатая временная шкала путешествия</text>
+<text x="70" y="88" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#667085" text-anchor="start">Печатная замена интерактивной Гантт-диаграммы</text>
+<line x1="210" y1="125" x2="210" y2="575" stroke="#d7dde5" stroke-width="1"/>
+<text x="210" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1467</text>
+<line x1="331.5568862275462" y1="125" x2="331.5568862275462" y2="575" stroke="#d7dde5" stroke-width="1"/>
+<text x="331.5568862275462" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1468</text>
+<line x1="453.11377245509243" y1="125" x2="453.11377245509243" y2="575" stroke="#d7dde5" stroke-width="1"/>
+<text x="453.11377245509243" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1469</text>
+<line x1="574.6706586826388" y1="125" x2="574.6706586826388" y2="575" stroke="#d7dde5" stroke-width="1"/>
+<text x="574.6706586826388" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1470</text>
+<line x1="696.2275449101849" y1="125" x2="696.2275449101849" y2="575" stroke="#d7dde5" stroke-width="1"/>
+<text x="696.2275449101849" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1471</text>
+<line x1="817.7844311377312" y1="125" x2="817.7844311377312" y2="575" stroke="#d7dde5" stroke-width="1"/>
+<text x="817.7844311377312" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1472</text>
+<line x1="939.3413173652774" y1="125" x2="939.3413173652774" y2="575" stroke="#d7dde5" stroke-width="1"/>
+<text x="939.3413173652774" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1473</text>
+<line x1="1060.8982035928236" y1="125" x2="1060.8982035928236" y2="575" stroke="#d7dde5" stroke-width="1"/>
+<text x="1060.8982035928236" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1474</text>
+<line x1="1182.4550898203697" y1="125" x2="1182.4550898203697" y2="575" stroke="#d7dde5" stroke-width="1"/>
+<text x="1182.4550898203697" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1475</text>
+<rect x="534.1516966067991" y="150" width="384.93013972054484" height="330" rx="8" fill="#b24b39" opacity="0.08"/>
+<text x="726.6167664670716" y="585" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#b24b39" text-anchor="middle">Бидар как временная доминанта индийского периода</text>
+<text x="190" y="198" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#667085" text-anchor="end">Маршрут</text>
+<line x1="210" y1="190" x2="1225" y2="190" stroke="#d7dde5" stroke-width="1"/>
+<rect x="240.38922155688655" y="169" width="70.90818363272606" height="42" rx="6" fill="#8c6d31" opacity="0.86"/>
+<rect x="311.2974051896126" y="169" width="60.778443113773164" height="42" rx="6" fill="#6b8f71" opacity="0.86"/>
+<rect x="372.0758483033858" y="169" width="111.42714570859329" height="42" rx="6" fill="#2f7d66" opacity="0.86"/>
+<text x="427.78942115768245" y="197" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">Персия и Ормуз</text>
+<rect x="483.50299401197907" y="169" width="40.51896207583951" height="42" rx="6" fill="#4d8aa8" opacity="0.86"/>
+<rect x="524.0219560878186" y="169" width="516.6167664670716" height="42" rx="6" fill="#b24b39" opacity="0.86"/>
+<text x="782.3303393213544" y="197" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">Индийский период</text>
+<rect x="1040.6387225548901" y="169" width="60.77844311377294" height="42" rx="6" fill="#4d8aa8" opacity="0.86"/>
+<rect x="1101.417165668663" y="169" width="60.778443113773164" height="42" rx="6" fill="#5b6fae" opacity="0.86"/>
+<rect x="1162.1956087824362" y="169" width="50.64870259482018" height="42" rx="6" fill="#8c6d31" opacity="0.86"/>
+<text x="190" y="323" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#667085" text-anchor="end">Долгие стоянки</text>
+<line x1="210" y1="315" x2="1225" y2="315" stroke="#d7dde5" stroke-width="1"/>
+<rect x="372.0758483033858" y="294" width="60.77844311377311" height="42" rx="6" fill="#2f7d66" opacity="0.86"/>
+<rect x="534.1516966067991" y="294" width="172.20558882233877" height="42" rx="6" fill="#b24b39" opacity="0.86"/>
+<text x="620.2544910179685" y="322" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">Бидар I</text>
+<rect x="716.4870259481186" y="294" width="202.59481037922535" height="42" rx="6" fill="#b24b39" opacity="0.86"/>
+<text x="817.7844311377312" y="322" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">Бидар II</text>
+<rect x="949.4710578842304" y="294" width="60.778443113773164" height="42" rx="6" fill="#c06b4d" opacity="0.86"/>
+<rect x="1040.6387225548901" y="294" width="28.36327345309587" height="42" rx="6" fill="#4d8aa8" opacity="0.86"/>
+<rect x="1162.1956087824362" y="294" width="20.259481037933483" height="42" rx="6" fill="#8c6d31" opacity="0.86"/>
+<text x="190" y="448" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#667085" text-anchor="end">Календарные узлы</text>
+<line x1="210" y1="440" x2="1225" y2="440" stroke="#d7dde5" stroke-width="1"/>
+<line x1="483.50299401197907" y1="405" x2="483.50299401197907" y2="475" stroke="#9c4f4f" stroke-width="3"/>
+<circle cx="483.50299401197907" cy="440" r="8" fill="#9c4f4f" stroke="#fff" stroke-width="2"/>
+<text x="483.50299401197907" y="394" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#9c4f4f" text-anchor="middle">Пасха: Ормуз</text>
+<line x1="594.9301397205722" y1="405" x2="594.9301397205722" y2="475" stroke="#2f7d66" stroke-width="3"/>
+<circle cx="594.9301397205722" cy="440" r="8" fill="#2f7d66" stroke="#fff" stroke-width="2"/>
+<text x="594.9301397205722" y="495" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#2f7d66" text-anchor="middle">Рамадан + пост</text>
+<line x1="706.3572854291378" y1="405" x2="706.3572854291378" y2="475" stroke="#7a5fb0" stroke-width="3"/>
+<circle cx="706.3572854291378" cy="440" r="8" fill="#7a5fb0" stroke="#fff" stroke-width="2"/>
+<text x="706.3572854291378" y="394" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#7a5fb0" text-anchor="middle">Махашиваратри</text>
+<line x1="959.6007984032109" y1="405" x2="959.6007984032109" y2="475" stroke="#9c4f4f" stroke-width="3"/>
+<circle cx="959.6007984032109" cy="440" r="8" fill="#9c4f4f" stroke="#fff" stroke-width="2"/>
+<text x="959.6007984032109" y="495" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#9c4f4f" text-anchor="middle">«пятая» Пасха</text>
+<line x1="1091.28742514971" y1="405" x2="1091.28742514971" y2="475" stroke="#9c4f4f" stroke-width="3"/>
+<circle cx="1091.28742514971" cy="440" r="8" fill="#9c4f4f" stroke="#fff" stroke-width="2"/>
+<text x="1091.28742514971" y="394" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#9c4f4f" text-anchor="middle">Пасха: Маскат</text>
+<rect x="210" y="640" width="1015" height="82" rx="8" fill="#f7f8fa" stroke="#d7dde5"/>
+<text x="235" y="675" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#59616f" text-anchor="start">Примечание: схема показывает соотношение фаз маршрута и календарных узлов; длительности округлены до месяцев.</text>
+<text x="235" y="705" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#59616f" text-anchor="start">Полная интерактивная шкала остаётся рабочим инструментом атласа, но для печати заменена сжатой моделью.</text>
+</svg>

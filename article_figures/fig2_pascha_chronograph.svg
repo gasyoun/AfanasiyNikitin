@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="880" viewBox="0 0 1400 880">
+<rect x="0" y="0" width="1400" height="100%" fill="#ffffff"/>
+<text x="70" y="58" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#1f2933" text-anchor="start">Рис. 2. Пасхальный хронограф</text>
+<text x="70" y="88" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#667085" text-anchor="start">Календарно-астрономическое сопоставление Пасхи, счёта Никитина и мусульманских ориентиров</text>
+<rect x="110" y="130" width="980" height="560" fill="#fff" stroke="#d7dde5" stroke-width="2"/>
+<rect x="110" y="130" width="980" height="92.23529411764707" fill="#ffffff"/>
+<text x="92" y="182.11764705882354" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#667085" text-anchor="end">февраль</text>
+<rect x="110" y="228.8235294117647" width="980" height="197.64705882352945" fill="#f8fafc"/>
+<text x="92" y="333.6470588235294" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#667085" text-anchor="end">март</text>
+<rect x="110" y="433.05882352941177" width="980" height="191.05882352941177" fill="#ffffff"/>
+<text x="92" y="534.5882352941177" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#667085" text-anchor="end">апрель</text>
+<rect x="110" y="630.7058823529412" width="980" height="59.29411764705878" fill="#f8fafc"/>
+<text x="92" y="666.3529411764706" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#667085" text-anchor="end">май</text>
+<line x1="110" y1="130" x2="110" y2="690" stroke="#d7dde5" stroke-width="1"/>
+<text x="110" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1467</text>
+<line x1="250" y1="130" x2="250" y2="690" stroke="#d7dde5" stroke-width="1"/>
+<text x="250" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1468</text>
+<line x1="390" y1="130" x2="390" y2="690" stroke="#d7dde5" stroke-width="1"/>
+<text x="390" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1469</text>
+<line x1="530" y1="130" x2="530" y2="690" stroke="#d7dde5" stroke-width="1"/>
+<text x="530" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1470</text>
+<line x1="670" y1="130" x2="670" y2="690" stroke="#d7dde5" stroke-width="1"/>
+<text x="670" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1471</text>
+<line x1="810" y1="130" x2="810" y2="690" stroke="#d7dde5" stroke-width="1"/>
+<text x="810" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1472</text>
+<line x1="950" y1="130" x2="950" y2="690" stroke="#d7dde5" stroke-width="1"/>
+<text x="950" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1473</text>
+<line x1="1090" y1="130" x2="1090" y2="690" stroke="#d7dde5" stroke-width="1"/>
+<text x="1090" y="112" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#667085" text-anchor="middle">1474</text>
+<rect x="500" y="248.58823529411765" width="60" height="197.64705882352942" fill="#2f7d66" opacity="0.16" rx="5"/>
+<text x="490" y="238.58823529411765" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#2f7d66" text-anchor="end">Рамадан 1470</text>
+<text x="490" y="452.2352941176471" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#2f7d66" text-anchor="end">Ураза-байрам</text>
+<line x1="110" y1="413.2941176470588" x2="110" y2="413.2941176470588" stroke="#2f7d66" stroke-width="3" opacity="0.25"/>
+<circle cx="110" cy="413.2941176470588" r="11" fill="#fff" stroke="#9c4f4f" stroke-width="3"/>
+<circle cx="110" cy="413.2941176470588" r="11" fill="#2f7d66" stroke="#fff" stroke-width="2"/>
+<text x="110" y="418.2941176470588" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+<text x="126" y="405.2941176470588" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#667085" text-anchor="start">29.03</text>
+<text x="126" y="431.2941176470588" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#2f7d66" text-anchor="start">29.03</text>
+<text x="110" y="724" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#1f2933" text-anchor="middle">«Каин»</text>
+<text x="110" y="397.2941176470588" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#2f7d66" text-anchor="middle">0</text>
+<line x1="250" y1="545.0588235294117" x2="250" y2="545.0588235294117" stroke="#2f7d66" stroke-width="3" opacity="0.25"/>
+<circle cx="250" cy="545.0588235294117" r="11" fill="#fff" stroke="#9c4f4f" stroke-width="3"/>
+<circle cx="250" cy="545.0588235294117" r="11" fill="#2f7d66" stroke="#fff" stroke-width="2"/>
+<text x="250" y="550.0588235294117" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+<text x="266" y="537.0588235294117" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#667085" text-anchor="start">17.04</text>
+<text x="266" y="563.0588235294117" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#2f7d66" text-anchor="start">17.04</text>
+<text x="250" y="724" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#1f2933" text-anchor="middle">Мазендеран</text>
+<text x="250" y="529.0588235294117" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#2f7d66" text-anchor="middle">0</text>
+<line x1="390" y1="439.64705882352945" x2="390" y2="439.64705882352945" stroke="#2f7d66" stroke-width="3" opacity="0.25"/>
+<circle cx="390" cy="439.64705882352945" r="11" fill="#fff" stroke="#9c4f4f" stroke-width="3"/>
+<circle cx="390" cy="439.64705882352945" r="11" fill="#2f7d66" stroke="#fff" stroke-width="2"/>
+<text x="390" y="444.64705882352945" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+<text x="406" y="431.64705882352945" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#667085" text-anchor="start">02.04</text>
+<text x="406" y="457.64705882352945" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#2f7d66" text-anchor="start">02.04</text>
+<text x="390" y="724" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#1f2933" text-anchor="middle">Ормуз</text>
+<text x="390" y="423.64705882352945" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#2f7d66" text-anchor="middle">0</text>
+<line x1="530" y1="571.4117647058823" x2="530" y2="446.2352941176471" stroke="#9c4f4f" stroke-width="3" opacity="0.75"/>
+<circle cx="530" cy="571.4117647058823" r="11" fill="#fff" stroke="#9c4f4f" stroke-width="3"/>
+<circle cx="530" cy="446.2352941176471" r="11" fill="#9c4f4f" stroke="#fff" stroke-width="2"/>
+<text x="530" y="451.2352941176471" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+<text x="546" y="563.4117647058823" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#667085" text-anchor="start">22.04</text>
+<text x="546" y="464.2352941176471" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#9c4f4f" text-anchor="start">03.04</text>
+<text x="530" y="724" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#1f2933" text-anchor="middle">Бидар</text>
+<text x="530" y="430.2352941176471" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#9c4f4f" text-anchor="middle">-19</text>
+<line x1="670" y1="518.7058823529412" x2="670" y2="307.88235294117646" stroke="#9c4f4f" stroke-width="3" opacity="0.75"/>
+<circle cx="670" cy="518.7058823529412" r="11" fill="#fff" stroke="#9c4f4f" stroke-width="3"/>
+<circle cx="670" cy="307.88235294117646" r="11" fill="#9c4f4f" stroke="#fff" stroke-width="2"/>
+<text x="670" y="312.88235294117646" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">5</text>
+<text x="686" y="510.7058823529412" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#667085" text-anchor="start">14.04</text>
+<text x="686" y="325.88235294117646" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#9c4f4f" text-anchor="start">13.03</text>
+<text x="670" y="724" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#1f2933" text-anchor="middle">Бидар</text>
+<text x="670" y="291.88235294117646" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#9c4f4f" text-anchor="middle">-32</text>
+<line x1="810" y1="419.8823529411765" x2="810" y2="637.2941176470588" stroke="#9c4f4f" stroke-width="3" opacity="0.75"/>
+<circle cx="810" cy="419.8823529411765" r="11" fill="#fff" stroke="#9c4f4f" stroke-width="3"/>
+<circle cx="810" cy="637.2941176470588" r="11" fill="#9c4f4f" stroke="#fff" stroke-width="2"/>
+<text x="810" y="642.2941176470588" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">6</text>
+<text x="826" y="411.8823529411765" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#667085" text-anchor="start">29.03</text>
+<text x="826" y="655.2941176470588" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#9c4f4f" text-anchor="start">01.05</text>
+<text x="810" y="724" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#1f2933" text-anchor="middle">Бидар</text>
+<text x="810" y="403.8823529411765" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#9c4f4f" text-anchor="middle">+33</text>
+<line x1="950" y1="545.0588235294117" x2="950" y2="248.58823529411765" stroke="#9c4f4f" stroke-width="3" opacity="0.75"/>
+<circle cx="950" cy="545.0588235294117" r="11" fill="#fff" stroke="#9c4f4f" stroke-width="3"/>
+<circle cx="950" cy="248.58823529411765" r="11" fill="#9c4f4f" stroke="#fff" stroke-width="2"/>
+<text x="950" y="253.58823529411765" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">7</text>
+<text x="966" y="537.0588235294117" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#667085" text-anchor="start">18.04</text>
+<text x="966" y="266.5882352941177" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#9c4f4f" text-anchor="start">нач.03</text>
+<text x="950" y="724" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#1f2933" text-anchor="middle">Гулбарга</text>
+<text x="950" y="232.58823529411765" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#9c4f4f" text-anchor="middle">-45</text>
+<line x1="1090" y1="492.3529411764706" x2="1090" y2="492.3529411764706" stroke="#2f7d66" stroke-width="3" opacity="0.25"/>
+<circle cx="1090" cy="492.3529411764706" r="11" fill="#fff" stroke="#9c4f4f" stroke-width="3"/>
+<circle cx="1090" cy="492.3529411764706" r="11" fill="#2f7d66" stroke="#fff" stroke-width="2"/>
+<text x="1090" y="497.3529411764706" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">8</text>
+<text x="1106" y="484.3529411764706" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#667085" text-anchor="start">10.04</text>
+<text x="1106" y="510.3529411764706" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#2f7d66" text-anchor="start">10.04</text>
+<text x="1090" y="724" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#1f2933" text-anchor="middle">Маскат</text>
+<text x="1090" y="476.3529411764706" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#2f7d66" text-anchor="middle">0</text>
+<text x="1140" y="150" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#1f2933" text-anchor="start">Обозначения</text>
+<circle cx="1154" cy="190" r="10" fill="#fff" stroke="#9c4f4f" stroke-width="3"/>
+<text x="1178" y="196" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#1f2933" text-anchor="start">расчётная Пасха</text>
+<circle cx="1154" cy="232" r="10" fill="#9c4f4f" stroke="#fff" stroke-width="2"/>
+<text x="1178" y="238" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#1f2933" text-anchor="start">счёт Никитина</text>
+<rect x="1143" y="260" width="22" height="34" rx="4" fill="#2f7d66" opacity="0.22"/>
+<text x="1178" y="282" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#1f2933" text-anchor="start">Рамадан</text>
+<line x1="1143" y1="326" x2="1170" y2="326" stroke="#9c4f4f" stroke-width="3"/>
+<text x="1178" y="332" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#1f2933" text-anchor="start">сдвиг даты</text>
+<rect x="1138" y="380" width="215" height="170" rx="8" fill="#f7f8fa" stroke="#d7dde5"/>
+<text x="1160" y="414" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#1f2933" text-anchor="start">Смысл схемы</text>
+<text x="1160" y="446" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#59616f" text-anchor="start">Не новая датировка,</text>
+<text x="1160" y="468" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#59616f" text-anchor="start">а проверка</text>
+<text x="1160" y="490" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#59616f" text-anchor="start">согласованности</text>
+<text x="1160" y="512" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#59616f" text-anchor="start">астрономической</text>
+<text x="1160" y="534" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#59616f" text-anchor="start">сетки.</text>
+<text x="110" y="760" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#59616f" text-anchor="start">Числа над линиями показывают сдвиг календарного счёта Никитина относительно расчётной православной Пасхи, в днях.</text>
+</svg>

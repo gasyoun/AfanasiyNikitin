@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Афанасий Никитин — Парват: чудо бутово</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+  <style>
+    .pv-hero{font-family:var(--font-serif);font-size:15px;line-height:1.5;color:var(--color-text-primary);
+      border-left:3px solid var(--color-accent);padding:6px 0 6px 14px;margin:0 0 9px;max-width:880px;}
+    .pv-hero .pv-fol{font-size:10px;color:var(--color-text-secondary);font-family:var(--font-sans);margin-left:6px;}
+    .pv-intro{font-size:12.5px;color:var(--color-text-secondary);line-height:1.55;margin-bottom:11px;max-width:900px;}
+
+    .pv-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+    .pv-tab{padding:6px 13px;border:0.5px solid var(--color-border-tertiary);border-radius:999px;background:var(--color-background-primary);
+      font-size:12.5px;color:var(--color-text-secondary);cursor:pointer;min-height:32px;display:flex;gap:6px;align-items:center;}
+    .pv-tab:hover{background:var(--color-background-secondary);}
+    .pv-tab.active{border-color:var(--color-accent);background:var(--color-background-secondary);color:var(--color-text-primary);font-weight:500;}
+    [hidden]{display:none !important;}
+
+    .pv-wrap{display:flex;gap:12px;align-items:flex-start;}
+    .pv-main{flex:1 1 0;min-width:0;}
+    .pv-subhead{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin:0 0 8px;}
+    .pv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px;
+      max-height:calc(100vh - 360px);overflow-y:auto;padding:2px;}
+    .pv-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);background:var(--color-background-primary);
+      cursor:pointer;overflow:hidden;transition:transform .15s,box-shadow .15s,border-color .15s;display:flex;flex-direction:column;}
+    .pv-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-container);border-color:var(--color-accent);}
+    .pv-card.active{border-color:var(--color-accent);box-shadow:0 0 0 1.5px var(--color-accent);}
+    .pv-glyph{height:74px;display:flex;align-items:center;justify-content:center;background:var(--color-background-secondary);
+      border-bottom:0.5px solid var(--color-border-tertiary);}
+    .pv-glyph svg{width:56px;height:56px;fill:none;stroke:var(--viz-region-india);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+    .pv-card.active .pv-glyph svg{stroke:var(--color-accent);}
+    .pv-cbody{padding:8px 9px;flex:1;display:flex;flex-direction:column;gap:3px;}
+    .pv-clabel{font-size:12px;font-weight:500;color:var(--color-text-primary);line-height:1.25;}
+    .pv-cid{font-size:10.5px;color:var(--color-text-secondary);display:flex;gap:4px;align-items:center;flex-wrap:wrap;}
+    .pv-deb{font-size:8.5px;text-transform:uppercase;letter-spacing:.04em;background:color-mix(in srgb, var(--color-accent) 16%, transparent);
+      color:var(--color-accent);border-radius:3px;padding:0 4px;line-height:1.5;}
+
+    .pv-detail{flex:0 0 280px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;display:flex;flex-direction:column;}
+    .pv-det-glyph{height:96px;display:flex;align-items:center;justify-content:center;background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary);}
+    .pv-det-glyph svg{width:72px;height:72px;fill:none;stroke:var(--color-accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+    .pv-det-body{padding:13px 14px;}
+    .pv-det-label{font-size:16px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;}
+    .pv-det-id{font-size:12.5px;color:var(--color-text-primary);margin-bottom:11px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+    .pv-det-id b{color:var(--viz-region-india);}
+    .pv-row-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:2px;}
+    .pv-quote{font-family:var(--font-serif);font-size:13.5px;line-height:1.55;color:var(--color-text-primary);
+      background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:9px 11px;margin-bottom:4px;}
+    .pv-fol{font-size:10px;color:var(--color-text-secondary);font-variant-numeric:tabular-nums;margin-bottom:11px;}
+    .pv-note{font-size:12px;color:var(--color-text-secondary);line-height:1.55;}
+    .pv-det-empty{padding:26px 16px;font-size:12px;color:var(--color-text-secondary);text-align:center;line-height:1.55;}
+
+    /* Facet C — dating */
+    .pv-dintro{font-size:12.5px;color:var(--color-text-secondary);line-height:1.55;margin:0 0 11px;max-width:900px;}
+    .pv-years{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+    .pv-year{flex:1 1 0;min-width:100px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);
+      background:var(--color-background-primary);cursor:pointer;padding:9px 8px;text-align:center;transition:all .14s;}
+    .pv-year:hover{border-color:var(--color-accent);}
+    .pv-year.active{box-shadow:0 0 0 1.5px var(--color-accent);border-color:var(--color-accent);}
+    .pv-year.fits{background:color-mix(in srgb, var(--color-accent) 12%, transparent);}
+    .pv-yr-num{font-size:18px;font-weight:500;color:var(--color-text-primary);font-variant-numeric:tabular-nums;line-height:1;}
+    .pv-yr-nm{font-size:10.5px;color:var(--color-text-secondary);margin-top:3px;}
+    .pv-yr-mark{font-size:15px;margin-top:4px;line-height:1;}
+    .pv-yr-mark.ok{color:var(--color-accent);}
+    .pv-yr-mark.no{color:var(--color-text-secondary);opacity:.45;}
+
+    .pv-dwrap{display:flex;gap:12px;align-items:flex-start;}
+    .pv-verdict{flex:1 1 0;min-width:0;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:13px 15px;}
+    .pv-v-head{display:flex;gap:10px;align-items:center;margin-bottom:9px;}
+    .pv-v-yr{font-size:24px;font-weight:500;color:var(--color-text-primary);font-variant-numeric:tabular-nums;line-height:1;}
+    .pv-badge{font-size:11px;padding:2px 10px;border-radius:999px;display:inline-flex;gap:5px;align-items:center;}
+    .pv-badge.ok{background:var(--color-accent);color:var(--color-background-primary);}
+    .pv-badge.no{background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);}
+    .pv-v-nm{font-size:11px;color:var(--color-text-secondary);margin-bottom:9px;}
+    .pv-v-why{font-size:13px;line-height:1.6;color:var(--color-text-primary);}
+
+    .pv-tests{flex:0 0 272px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:11px 13px;}
+    .pv-tests ul{list-style:none;padding:0;margin:7px 0 0;}
+    .pv-tests li{font-size:11.5px;color:var(--color-text-secondary);padding:7px 0;border-top:0.5px solid var(--color-border-tertiary);line-height:1.45;}
+    .pv-tests li:first-of-type{border-top:0;}
+    .pv-tests li b{color:var(--color-text-primary);display:block;font-size:12px;margin-bottom:2px;font-weight:500;}
+    .pv-tests li .q{font-family:var(--font-serif);color:var(--color-text-primary);}
+    .pv-tests li .f{color:var(--color-text-secondary);font-size:10px;font-variant-numeric:tabular-nums;}
+
+    .pv-conc{margin-top:12px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:11px 13px;background:var(--color-background-secondary);}
+    .pv-c-math{font-size:12px;color:var(--color-text-secondary);margin-bottom:9px;line-height:1.5;}
+    .pv-c-math b{color:var(--color-text-primary);}
+    .pv-steps{display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
+    .pv-step{font-size:11.5px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:999px;padding:4px 11px;}
+    .pv-step b{color:var(--color-text-primary);}
+    .pv-arrow{color:var(--color-text-secondary);opacity:.55;}
+
+    .pv-foot{margin-top:11px;padding:10px 13px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);
+      background:var(--color-background-secondary);font-size:12px;color:var(--color-text-secondary);line-height:1.5;}
+    .pv-foot b{color:var(--color-text-primary);}
+    .pv-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+    .pv-link{font-size:11px;display:inline-flex;gap:5px;align-items:center;text-decoration:none;color:var(--color-text-secondary);
+      border:0.5px solid var(--color-border-tertiary);border-radius:999px;padding:4px 10px;background:var(--color-background-primary);}
+    .pv-link:hover{color:var(--color-text-primary);border-color:var(--color-accent);}
+
+    @media (max-width:760px){
+      .pv-wrap,.pv-dwrap{flex-direction:column;}
+      .pv-detail,.pv-tests{flex:1 1 auto;width:100%;}
+      .pv-grid{max-height:none;}
+    }
+  </style>
+</head>
+<body>
+  <div class="vis-container">
+    <header class="vis-header">
+      <h1><span class="lang-ru">Парват: «чудо бутово»</span><span class="lang-en">Parvat: the “Miracle of the But”</span></h1>
+      <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка">
+        <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> <span class="lang-ru">Атлас</span><span class="lang-en">Atlas</span></a>
+        <span class="atlas-breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="atlas-breadcrumb-current lang-ru">Парват</span>
+        <span class="atlas-breadcrumb-current lang-en">Parvat</span>
+      </nav>
+    </header>
+
+    <p class="pv-hero">«то их Иерусалимъ, а по-бесерменьскый — Мягъкат [Мекка], а по-индѣйскыи — Парватъ»<span class="pv-fol">Ф. 43</span></p>
+    <p class="pv-intro">
+      <span class="lang-ru">Единственное в древнерусской литературе свидетельство очевидца о большом индуистском празднике. Афанасий идёт с индусами в Парват — храмовый комплекс Шрисайлам (Шри-Парвата) на реке Кришне — и описывает «чудо бутово», подбирая для индуистских мурти знакомые ему образы.</span>
+      <span class="lang-en" style="display:none">The only eyewitness account of a major Hindu festival in Old Russian literature. Afanasiy travels with Hindus to Parvat — the Srisailam (Sri-Parvata) temple complex on the Krishna river — and describes the “miracle of the but,” reaching for familiar images to render Hindu murti.</span>
+    </p>
+
+    <div class="pv-tabs" id="tabs" role="tablist">
+      <button class="pv-tab active" data-f="scene"><i class="ti ti-building-arch"></i><span class="lang-ru">Чудо бутово</span><span class="lang-en" style="display:none">The shrine</span></button>
+      <button class="pv-tab" data-f="ethno"><i class="ti ti-users-group"></i><span class="lang-ru">Паломничество и обычаи</span><span class="lang-en" style="display:none">Pilgrimage &amp; customs</span></button>
+      <button class="pv-tab" data-f="dating"><i class="ti ti-moon-stars"></i><span class="lang-ru">Почему 1471</span><span class="lang-en" style="display:none">Why 1471</span></button>
+    </div>
+
+    <!-- FACET A — scene -->
+    <div id="facet-scene">
+      <div class="pv-wrap">
+        <div class="pv-main">
+          <div class="pv-subhead lang-ru">Святилище и идолы</div>
+          <div class="pv-subhead lang-en" style="display:none">The shrine and its idols</div>
+          <div class="pv-grid" id="grid"></div>
+        </div>
+        <aside class="pv-detail">
+          <div class="pv-det-glyph" id="det-glyph" aria-hidden="true"></div>
+          <div class="pv-det-body" id="det-body"><div class="pv-det-empty">Нажмите карточку слева, чтобы увидеть слова Афанасия и их толкование.</div></div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- FACET B — ethnography -->
+    <div id="facet-ethno" hidden>
+      <div class="pv-wrap">
+        <div class="pv-main">
+          <div class="pv-subhead lang-ru">Паломники, обряды, быт</div>
+          <div class="pv-subhead lang-en" style="display:none">Pilgrims, rites, daily life</div>
+          <div class="pv-grid" id="grid-e"></div>
+        </div>
+        <aside class="pv-detail">
+          <div class="pv-det-glyph" id="det-glyph-e" aria-hidden="true"></div>
+          <div class="pv-det-body" id="det-body-e"><div class="pv-det-empty">Нажмите карточку слева, чтобы увидеть слова Афанасия и их толкование.</div></div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- FACET C — dating -->
+    <div id="facet-dating" hidden>
+      <p class="pv-dintro">
+        <span class="lang-ru">«Чудо бутово» — это <b>Махашиваратри</b>, ночь перед последним зимним новолунием. Праздник совпадает с постом и большим паломничеством. Из пяти возможных лет «Хожения» сходится только один. Нажмите год.</span>
+        <span class="lang-en" style="display:none">The “miracle of the but” is <b>Mahashivaratri</b>, the night before the last winter new moon — a fast and a mass pilgrimage. Of the five candidate years, only one fits. Click a year.</span>
+      </p>
+      <div class="pv-years" id="years" role="tablist"></div>
+      <div class="pv-dwrap">
+        <div class="pv-verdict" id="verdict"></div>
+        <div class="pv-tests">
+          <div class="pv-subhead lang-ru">Что требует текст</div>
+          <div class="pv-subhead lang-en" style="display:none">What the text requires</div>
+          <ul id="tests"></ul>
+        </div>
+      </div>
+      <div class="pv-conc" id="conc"></div>
+    </div>
+
+    <div class="pv-foot">
+      <span class="lang-ru">Источник: Троицкий список «Хожения», Ф. 41–49; локализация Парвата (Шрисайлам) и датировка по Махашиваратри — <b>Хрусталёв 2026</b>, с. 65–72.</span>
+      <span class="lang-en" style="display:none">Source: Troitsky list of «Khozhenie», ff. 41–49; the Parvat = Srisailam identification and the Mahashivaratri dating follow <b>Khrustalev 2026</b>, pp. 65–72.</span>
+      <div class="pv-links">
+        <a class="pv-link" href="afanasy_v8_text_map.html?wp=14"><i class="ti ti-map-2"></i><span class="lang-ru">Шрисайлам на карте</span><span class="lang-en" style="display:none">Srisailam on the map</span></a>
+        <a class="pv-link" href="afanasy_calendar_pascha_islam.html"><i class="ti ti-calendar"></i><span class="lang-ru">Календарь</span><span class="lang-en" style="display:none">Calendar</span></a>
+        <a class="pv-link" href="afanasy_pascha_chronograph.html"><i class="ti ti-clock-hour-4"></i><span class="lang-ru">Пасхальный хронограф</span><span class="lang-en" style="display:none">Paschal chronograph</span></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    // ── Stylized manuscript-style glyphs (stroke-only). Impressions, not reconstructions. ──
+    const G = {
+      temple:'<path d="M32 4 L32 9"/><path d="M20 28 L32 9 L44 28 Z"/><rect x="17.5" y="28" width="29" height="6"/><rect x="15" y="34" width="34" height="22"/><path d="M27 56 L27 42 a5 5 0 0 1 10 0 L37 56"/>',
+      idol:'<circle cx="32" cy="13" r="6"/><line x1="32" y1="19" x2="32" y2="40"/><path d="M32 25 L47 13"/><path d="M32 26 L21 31"/><line x1="17" y1="11" x2="23" y2="43"/><path d="M32 40 L26 56 M32 40 L38 56"/>',
+      human:'<path d="M24 11 Q32 3 40 11"/><circle cx="32" cy="15" r="5.5"/><line x1="32" y1="20.5" x2="32" y2="40"/><path d="M32 26 L22 32 M32 26 L42 32"/><path d="M32 40 L26 56 M32 40 L38 56"/>',
+      ganesha:'<circle cx="32" cy="15" r="8"/><path d="M23 11 Q16 13 21 20"/><path d="M41 11 Q48 13 43 20"/><path d="M30 21 Q25 31 31 35 Q36 37 34 29"/><line x1="32" y1="23" x2="32" y2="43"/><path d="M32 30 L22 36 M32 30 L42 36"/><path d="M32 43 L26 57 M32 43 L38 57"/>',
+      monkey:'<circle cx="31" cy="15" r="7"/><circle cx="31" cy="17.5" r="3.2"/><path d="M24 11 a3 3 0 0 1 0 6"/><path d="M38 11 a3 3 0 0 0 0 6"/><line x1="31" y1="22" x2="31" y2="42"/><path d="M31 29 L22 33 M31 29 L40 33"/><path d="M31 42 L25 56 M31 42 L37 56"/><path d="M37 49 Q51 49 48 35"/>',
+      beast:'<circle cx="28" cy="15" r="6.5"/><path d="M24 10 L22 5 M32 10 L34 5"/><line x1="28" y1="21" x2="28" y2="41"/><path d="M28 27 L19 31 M28 27 L37 31"/><path d="M28 41 L23 55 M28 41 L33 55"/><path d="M34 47 C53 47 51 22 39 21"/>',
+      nandi:'<path d="M12 47 Q12 33 25 33 L45 33 Q54 33 54 43"/><path d="M25 33 Q23 24 31 25"/><path d="M54 43 Q59 34 50 31 Q48 26 53 24"/><path d="M50 30 L57 25"/><line x1="16" y1="47" x2="16" y2="55"/><line x1="22" y1="47" x2="22" y2="55"/><line x1="45" y1="43" x2="45" y2="55"/><line x1="50" y1="43" x2="50" y2="55"/><path d="M30 38 q4 4 8 0"/>',
+      goddess:'<circle cx="28" cy="14" r="5.5"/><line x1="28" y1="19.5" x2="28" y2="41"/><path d="M28 25 L19 31 M28 25 L37 30"/><path d="M28 41 L23 56 M28 41 L33 56"/><path d="M22 22 q6 4 12 0"/><circle cx="41" cy="35" r="4"/><path d="M41 39 L41 48"/>',
+      crowd:'<circle cx="18" cy="18" r="4"/><circle cx="32" cy="14" r="4"/><circle cx="46" cy="18" r="4"/><circle cx="14" cy="32" r="4"/><circle cx="28" cy="30" r="4"/><circle cx="42" cy="32" r="4"/><circle cx="52" cy="30" r="4"/><circle cx="22" cy="46" r="4"/><circle cx="36" cy="46" r="4"/><circle cx="50" cy="46" r="4"/>',
+      shave:'<circle cx="24" cy="25" r="12"/><path d="M14 23 a10 10 0 0 1 20 0"/><line x1="36" y1="12" x2="44" y2="18"/><circle cx="46" cy="45" r="8"/><path d="M46 40 v10 M42 43 h8"/>',
+      oxbell:'<path d="M12 38 Q12 24 28 24 L46 24 Q54 24 54 38"/><path d="M50 24 Q58 26 56 36"/><path d="M48 24 L54 17 M52 24 L58 20"/><line x1="16" y1="38" x2="16" y2="50"/><line x1="24" y1="38" x2="24" y2="50"/><line x1="46" y1="38" x2="46" y2="50"/><line x1="50" y1="38" x2="50" y2="50"/><circle cx="40" cy="42" r="2.6"/><circle cx="34" cy="44" r="2.6"/><circle cx="28" cy="42" r="2.6"/>',
+      pilgrim:'<circle cx="32" cy="12" r="6"/><line x1="32" y1="18" x2="32" y2="37"/><path d="M32 24 L22 30 M32 24 L42 30"/><path d="M26 21 q6 6 12 0"/><rect x="27" y="37" width="10" height="7" rx="1"/><path d="M30 44 L26 56 M34 44 L38 56"/>',
+      bowl:'<path d="M14 32 q18 16 36 0"/><line x1="13" y1="32" x2="51" y2="32"/><path d="M24 28 q3 -6 0 -12 M32 28 q3 -7 0 -14 M40 28 q3 -6 0 -12"/>',
+      cow:'<path d="M20 22 Q20 13 32 13 Q44 13 44 22"/><path d="M20 22 Q17 40 32 45 Q47 40 44 22"/><path d="M21 17 L13 11 M43 17 L51 11"/><circle cx="27" cy="27" r="1.4"/><circle cx="37" cy="27" r="1.4"/><path d="M27 37 q5 4 10 0"/><line x1="32" y1="15" x2="32" y2="23"/>',
+      faiths:'<circle cx="32" cy="32" r="19"/><circle cx="32" cy="32" r="4"/><circle cx="32" cy="15" r="2.6"/><circle cx="47" cy="23" r="2.6"/><circle cx="47" cy="41" r="2.6"/><circle cx="32" cy="49" r="2.6"/><circle cx="17" cy="41" r="2.6"/><circle cx="17" cy="23" r="2.6"/><line x1="32" y1="28" x2="32" y2="18"/><line x1="35.5" y1="30" x2="44" y2="25"/><line x1="35.5" y1="34" x2="44" y2="39"/><line x1="32" y1="36" x2="32" y2="46"/><line x1="28.5" y1="34" x2="20" y2="39"/><line x1="28.5" y1="30" x2="20" y2="25"/>'
+    };
+
+    // ── Facet A — the temple scene ──
+    const SCENE = [
+      { glyph:'temple', label:'Бутхана', id:'Храм Малликарджуна, Шрисайлам',
+        quote:'А бутхана же велми велика есть, с пол-Твѣри камена, да рѣзаны по ней дѣяния бутовыя. Около ея всея 12 рѣзано вѣнцевъ…', fol:'Ф. 44',
+        note:'Шрисайлам (Шри-Парвата) на реке Кришне — один из двенадцати джьотирлингамов Шивы. Афанасий оценивает размер храма через знакомую мерку: «с пол-Твери».' },
+      { glyph:'idol', label:'Главный идол', id:'Шива / Малликарджуна', debated:false,
+        quote:'В бутхане же бут вырезан ис камени ис чернаго, велми великъ, да руку правую поднялъ высоко да простеръ еѣ, аки Устенеянъ царь Цареградскый, а в лѣвой руцѣ у него копие… а видение обезьянино.', fol:'Ф. 44',
+        note:'Чтобы описать индуистский мурти, Афанасий тянется к Царьграду — к конной статуе императора Юстиниана с поднятой рукой. Облик «обезьянино» спорен (см. ниже).' },
+      { glyph:'human', label:'1-й образ: человек', id:'Божество в человеческом облике',
+        quote:'первое, человѣческым образомъ являлся', fol:'Ф. 44',
+        note:'Первый из двенадцати резных «венцов» — манифестаций божества, которые Афанасий насчитал вокруг храма.' },
+      { glyph:'ganesha', label:'2-й образ: «носъ слоновъ»', id:'Ганеша', debated:false,
+        quote:'другое, человѣкъ, а носъ слоновъ', fol:'Ф. 44',
+        note:'Слоноголовый Ганеша, сын Шивы. Афанасий точно фиксирует деталь — «слоновый нос», — не зная имени.' },
+      { glyph:'monkey', label:'3-й образ: «обезьанино»', id:'Обезьяноликий образ', debated:true,
+        quote:'третье, человѣкъ, а виденье обезьанино', fol:'Ф. 44',
+        note:'Спорно: либо Хануман, либо Нарасимха (человеко-лев). Тем же словом Афанасий описывает и облик главного идола.' },
+      { glyph:'beast', label:'4-й образ: «лютый звѣрь»', id:'Гневный образ с хвостом', debated:true,
+        quote:'в четвертые, человѣкъ, а образом лютаго звѣря, а являя ся им все съ хвостомъ… а хвостъ через него сажени.', fol:'Ф. 44',
+        note:'Спорно: вероятно Нарасимха (человеко-лев, аватара Вишну) или иной гневный образ. Хвост «через него сажени» — в сажень длиной.' },
+      { glyph:'nandi', label:'Золочёный вол', id:'Нанди — бык Шивы', debated:false,
+        quote:'А перед бутом же стоит волъ велми велик, а вырѣзан ис камени ис чернаго, а весь позолочен. А целуют его в копыто, а сыплют на него цвѣты.', fol:'Ф. 44',
+        note:'Нанди — вахана (ездовое животное) Шивы, всегда обращён к святилищу. Почитание быка Афанасий отметит и отдельно: «вола зовут отцем, а корову материю».' },
+      { glyph:'goddess', label:'«Жонки бутовы»', id:'Богини / супруги (деви)', debated:false,
+        quote:'А иные буты наги, нѣт ничего… а жонки бутовы нагы вырѣзаны и с соромом, и з детми.', fol:'Ф. 44',
+        note:'Обнажённые женские изображения с детьми — богини-супруги. Нагота индуистской храмовой скульптуры особенно поражала христианского путника.' },
+    ];
+
+    // ── Facet B — pilgrimage & customs ──
+    const ETHNO = [
+      { glyph:'crowd', label:'«Вся страна Индийская»', id:'Массовое паломничество',
+        quote:'К бутхану же съезжается вся страна Индийская на чюдо бутово… а съезжается к бутхану всѣх людеи бысты азаръ лекъ вах башет сат азаре лек.', fol:'Ф. 44',
+        note:'На «чудо бутово» (Махашиваратри) стекается вся Индия. Число паломников Афанасий передаёт индийскими числительными — «лекъ» (лакх = 100 000).' },
+      { glyph:'shave', label:'Бритьё и пошлина', id:'Ритуальное обритие · храмовый сбор',
+        quote:'Да у бутхана не бреются старые и молодые, жонки и девочки. А бреют на себѣ всѣ волосы… Да со всякие головы емлют по двѣ шешь кѣни пошлины на бута, а с коней по четыре футы.', fol:'Ф. 44',
+        note:'Паломники обривают все волосы (тонзура). За вход берут пошлину «на бута»: две «шешкени» с головы и четыре футы с коня.' },
+      { glyph:'oxbell', label:'Ачеи — священные волы', id:'Праздничные волы · почитание Нанди',
+        quote:'А внутрь к бутхану ѣздят на волѣх, да у вола рога окованы мѣдию, да на шеи у него триста колоколцов, да копыта подкованы мѣдию. А тѣ волы аччеи зовут.', fol:'Ф. 46',
+        note:'К святилищу едут на украшенных волах: рога и копыта окованы медью, на шее триста колокольцев. Бык — вахана Шивы (Нанди).' },
+      { glyph:'pilgrim', label:'Нагие паломники', id:'Облик паломников',
+        quote:'А сьезжаются всѣ наги, только на гузне плат; а жонки всѣ наги, толко на гузне фота… да на шеях жемчюгу много, да яхонтов, да на руках обручи да перстьни златы. Олло оакь!', fol:'Ф. 46',
+        note:'Приходят почти нагими — лишь набедренная повязка; на женщинах жемчуг, яхонты (рубины), золотые обручи и перстни. Афанасий не сдерживает возгласа: «Олло оакь!»' },
+      { glyph:'bowl', label:'«Не ядятъ мяса»', id:'Вегетарианство · правила еды',
+        quote:'Индѣяне же не ѣдят никоторого же мяса… Ядят же в день двожды, а ночи не ядят, а вина не пиют… А ѣдят все рукою правою, а лѣвою не приимется ни за что. А ножа не дрьжат, а лжицы не знают.', fol:'Ф. 45',
+        note:'Полный отказ от мяса, едят дважды в день, без вина; только правой рукой, без ножа и ложки. От мусульман еду прячут.' },
+      { glyph:'cow', label:'Вол — отец, корова — мать', id:'Почитание коровы · обряды',
+        quote:'Индѣяне же вола зовут отцем, а корову материю, а калом их пекут хлѣбы и ѣству варят собѣ, а попелом тѣмъ мажут ся по лицу, и по челу, и по всему тѣлу.', fol:'Ф. 47',
+        note:'Корова — мать, бык — отец. Навозом готовят и пекут, пеплом наносят знаки на лоб и тело (тилак/вибхути). Молятся на восток, мёртвых сжигают.' },
+      { glyph:'faiths', label:'«84 вѣры»', id:'Касты / варны (джати)',
+        quote:'А вѣре въ Индѣи всѣх 80 и 4 вѣры, а все вѣрують в бута; а вѣра с вѣрою пиеть, ни ястъ, ни женится.', fol:'Ф. 42',
+        note:'84 «веры» (традиционное число каст и общин): все чтут «бута», но между «верами» нет ни общей трапезы, ни браков — Афанасий точно подметил эндогамию каст.' },
+    ];
+
+    // ── Facet C — dating ──
+    const YEARS = [
+      { y:1469, nm:'новолуние 11 фев', fits:false,
+        why:'Афанасий только пришёл в Индию: Пасху 1469 он встретил в Ормузе и приплыл в Чаул лишь летом. До паломничества из Бидара ещё далеко.' },
+      { y:1470, nm:'новолуние 1 фев', fits:false,
+        why:'В Бидар он пришёл 15 ноября (Филиппов пост) и оставался там до Великого поста. В Парват вышел бы не раньше середины марта, плюс месяц пути — никак не успеть к Махашиваратри (не позднее 19 февраля). К тому же тот пост он держал «з бесермены», а в Парват шёл с индусами.' },
+      { y:1471, nm:'новолуние 19 фев', fits:true,
+        why:'Всё сходится. Вышел из Бидара в начале февраля, Махашиваратри ~19 февраля, вернулся ~8 марта — за 15 дней до «улу багря» (Ураза-байрам 23 марта 1471). До этого жил в Бидаре четыре месяца, с начала октября 1470.' },
+      { y:1472, nm:'новолуние 9 фев', fits:false,
+        why:'В тот год Афанасий отметил Пасху 1 мая (Ф. 67) — это никак не 9–10 дней до какого-либо «баграма».' },
+      { y:1473, nm:'новолуние 28 янв', fits:false,
+        why:'К этому времени он уже собирался домой; этот год не укладывается в хронологию остальных событий «Хожения».' },
+    ];
+    const TESTS = [
+      { t:'Совпадает с «Великим постом»', q:'«К Первоти же ѣздят о Великом заговение»', fol:'Ф. 46' },
+      { t:'Шёл с индусами, не с мусульманами', q:'«свѣщахся съ индѣяны поити к Первоти»', fol:'Ф. 43' },
+      { t:'Вернулся за 15 дней до «улу багря»', q:'«…приѣхал есми в Бедерь за пятнадцать денъ до… улу багря»', fol:'Ф. 49' },
+      { t:'Пасха — за 9–10 дней до того «баграма»', q:'«Великъ день… первие… баграма за девять дни или за десять дни»', fol:'Ф. 49' },
+    ];
+
+    const svg = n => `<svg viewBox="0 0 64 64" role="img">${G[n]||''}</svg>`;
+
+    // ── Shared card gallery (Facets A & B) ──
+    function cardHTML(s,i,active){
+      return `<div class="pv-card${i===active?' active':''}" data-i="${i}" tabindex="0" role="button" aria-pressed="${i===active}">
+        <div class="pv-glyph">${svg(s.glyph)}</div>
+        <div class="pv-cbody"><div class="pv-clabel">${s.label}</div>
+        <div class="pv-cid">${s.id}${s.debated?'<span class="pv-deb">спорно</span>':''}</div></div></div>`;
+    }
+    function detailHTML(s,glyphEl,bodyEl){
+      glyphEl.innerHTML = svg(s.glyph);
+      bodyEl.innerHTML = `<div class="pv-det-label">${s.label}</div>
+        <div class="pv-det-id"><b>${s.id}</b>${s.debated?'<span class="pv-deb">спорно</span>':''}</div>
+        <div class="pv-row-lbl">Слова Афанасия</div>
+        <div class="pv-quote">${s.quote}</div>
+        <div class="pv-fol">${s.fol} · Троицкий список</div>
+        <div class="pv-note">${s.note}</div>`;
+    }
+    function buildGallery(data, gridEl, glyphEl, bodyEl){
+      let active = -1;
+      function render(){
+        gridEl.innerHTML = data.map((s,i)=>cardHTML(s,i,active)).join('');
+        gridEl.querySelectorAll('.pv-card').forEach(el=>{
+          el.addEventListener('click', ()=>{ active=+el.dataset.i; render(); detailHTML(data[active],glyphEl,bodyEl); });
+          el.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); el.click(); } });
+        });
+      }
+      render();
+    }
+
+    // ── Facet C rendering ──
+    const yearsEl=document.getElementById('years'), verdictEl=document.getElementById('verdict'),
+          testsEl=document.getElementById('tests'), concEl=document.getElementById('conc');
+    let activeYear = YEARS.findIndex(y=>y.fits);
+    function renderYears(){
+      yearsEl.innerHTML = YEARS.map((y,i)=>`
+        <div class="pv-year${i===activeYear?' active':''}${y.fits?' fits':''}" data-i="${i}" tabindex="0" role="button" aria-pressed="${i===activeYear}">
+          <div class="pv-yr-num">${y.y}</div><div class="pv-yr-nm">${y.nm}</div>
+          <div class="pv-yr-mark ${y.fits?'ok':'no'}"><i class="ti ${y.fits?'ti-check':'ti-x'}"></i></div>
+        </div>`).join('');
+      yearsEl.querySelectorAll('.pv-year').forEach(el=>{
+        el.addEventListener('click', ()=>selectYear(+el.dataset.i));
+        el.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectYear(+el.dataset.i); } });
+      });
+    }
+    function selectYear(i){
+      activeYear=i; renderYears();
+      const y=YEARS[i];
+      verdictEl.innerHTML = `
+        <div class="pv-v-head"><span class="pv-v-yr">${y.y}</span>
+          <span class="pv-badge ${y.fits?'ok':'no'}"><i class="ti ${y.fits?'ti-check':'ti-x'}"></i>${y.fits?'подходит':'не подходит'}</span></div>
+        <div class="pv-v-nm">Махашиваратри · ${y.nm}</div>
+        <div class="pv-v-why">${y.why}</div>`;
+    }
+    testsEl.innerHTML = TESTS.map(t=>`<li><b>${t.t}</b><span class="q">${t.q}</span> <span class="f">${t.fol}</span></li>`).join('');
+    concEl.innerHTML = `
+      <div class="pv-c-math">Бидар → Шрисайлам ≈ <b>320 км</b>. Паломники идут до 40 км/день, Афанасий с торговцами — около <b>20 км/день</b>: ~15–16 дней в один конец, <b>месяц</b> туда и обратно (плюс 5 дней торга у бутханы). Рассказ о Парвате — <b>отдельный лист</b>, хронологический разрыв в тексте.</div>
+      <div class="pv-steps">
+        <span class="pv-step"><b>нач. февраля 1471</b> — вышел из Бидара</span><span class="pv-arrow">→</span>
+        <span class="pv-step"><b>~19 февраля</b> — Махашиваратри</span><span class="pv-arrow">→</span>
+        <span class="pv-step"><b>~8 марта 1471</b> — вернулся в Бидар</span>
+      </div>`;
+
+    // ── Tabs ──
+    const facets = { scene:'facet-scene', ethno:'facet-ethno', dating:'facet-dating' };
+    document.getElementById('tabs').querySelectorAll('.pv-tab').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.getElementById('tabs').querySelectorAll('.pv-tab').forEach(b=>b.classList.toggle('active', b===btn));
+        Object.entries(facets).forEach(([f,id])=>{ document.getElementById(id).hidden = (f!==btn.dataset.f); });
+      });
+    });
+
+    buildGallery(SCENE, document.getElementById('grid'),   document.getElementById('det-glyph'),   document.getElementById('det-body'));
+    buildGallery(ETHNO, document.getElementById('grid-e'), document.getElementById('det-glyph-e'), document.getElementById('det-body-e'));
+    renderYears(); selectYear(activeYear);
+  })();
+  </script>
+
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+  <script>
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') location.href = 'index.html';
+      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+        document.getElementById('theme-toggle')?.click();
+      }
+    });
+  </script>
+  <script src="js/atlas-export.js"></script>
+</body>
+</html>
