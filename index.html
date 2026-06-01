@@ -5,6 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Афанасий Никитин — интерактивный атлас</title>
   <meta name="description" content="Первый интерактивный атлас путешествия Афанасия Никитина (1467–1475). 29 визуализаций по книге Хрусталёва.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Dataset",
+    "name": "Afanasiy Nikitin Atlas — open dataset",
+    "alternateName": "Афанасий Никитин — данные атласа",
+    "description": "FAIR, linked dataset for the interactive atlas of Afanasiy Nikitin's 1467–1475 journey (per D. G. Khrustalev, 2026): places, itinerary, people, editions, citations, trade, manuscript fragments, and a computed liturgical/Islamic calendar. Places and people are reconciled to Wikidata, GeoNames, Pleiades and VIAF; a Linked Places Format export is included for the World Historical Gazetteer.",
+    "url": "https://gasyoun.github.io/AfanasiyNikitin/",
+    "sameAs": "https://github.com/gasyoun/AfanasiyNikitin",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "creator": { "@type": "Person", "name": "gasyoun", "url": "https://github.com/gasyoun" },
+    "isBasedOn": "Хрусталёв Д. Г. Тетради купца Афанасия. СПб.: Нестор-История, 2026. ISBN 978-5-4469-2357-1",
+    "temporalCoverage": "1467/1475",
+    "spatialCoverage": "Tver – Caspian Sea – Persia – India (Bahmani Sultanate) – Black Sea",
+    "keywords": ["digital humanities", "Afanasiy Nikitin", "Khozhenie za tri morya", "historical itinerary", "medieval travel", "linked open data", "Bahmani Sultanate"],
+    "version": "0.6.0",
+    "distribution": [
+      { "@type": "DataDownload", "encodingFormat": "application/json", "name": "Frictionless Data Package", "contentUrl": "https://gasyoun.github.io/AfanasiyNikitin/datapackage.json" },
+      { "@type": "DataDownload", "encodingFormat": "application/geo+json", "name": "Gazetteer (Linked Places Format)", "contentUrl": "https://gasyoun.github.io/AfanasiyNikitin/data/places.lpf.geojson" }
+    ]
+  }
+  </script>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/atlas.css">
   <link rel="stylesheet" href="lib/tabler-icons.min.css">
