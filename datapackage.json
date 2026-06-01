@@ -1,8 +1,8 @@
 {
   "name": "afanasiy-nikitin-atlas-data",
   "title": "Afanasiy Nikitin Atlas — open dataset",
-  "description": "FAIR data spine for the interactive atlas of Afanasiy Nikitin's 1467-1475 journey (per Khrustalev 2026). Datasets: sources, places, itinerary, people, editions, citations, trade. One more (fragments) + a generated calendar (Phase 3) are planned. Facts only; see RIGHTS.md.",
-  "version": "0.3.0",
+  "description": "FAIR data spine for the interactive atlas of Afanasiy Nikitin's 1467-1475 journey (per Khrustalev 2026). Datasets: sources, places, itinerary, people, editions, citations, trade, fragments. A generated calendar (Phase 3) is planned. Facts only; see RIGHTS.md.",
+  "version": "0.4.0",
   "created": "2026-06-01",
   "keywords": ["digital humanities", "Afanasiy Nikitin", "Khozhenie za tri morya", "historical itinerary", "medieval travel", "linked open data"],
   "licenses": [
@@ -219,6 +219,39 @@
         "primaryKey": "item_id",
         "foreignKeys": [
           { "fields": "place_id", "reference": { "resource": "places", "fields": "place_id" } },
+          { "fields": "source_id", "reference": { "resource": "sources", "fields": "source_id" } }
+        ]
+      }
+    },
+    {
+      "name": "fragments",
+      "path": "data/fragments.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "104 manuscript fragments (Ф.1-104) — metadata only; quote field gated by RIGHTS.md",
+      "schema": {
+        "fields": [
+          { "name": "folio", "type": "integer", "description": "Folio number Ф.N = manuscript (Mamyrev) order" },
+          { "name": "chrono_period", "type": "integer", "description": "Khrustalev's chronological writing period (1-7)" },
+          { "name": "layer", "type": "string", "description": "Composition block: prayers | dorozhnik_start | dorozhnik_end | marshruttnik | indiyckie_very | war_chronicle | diary | notes" },
+          { "name": "genre_ru", "type": "string" },
+          { "name": "genre_en", "type": "string" },
+          { "name": "loc_ru", "type": "string" },
+          { "name": "loc_en", "type": "string" },
+          { "name": "date_label_ru", "type": "string" },
+          { "name": "date_label_en", "type": "string" },
+          { "name": "is_keypoint", "type": "string", "description": "yes if a high-fidelity anchor fragment (13 of 104)" },
+          { "name": "quote", "type": "string", "description": "Intentionally empty — gated by RIGHTS.md; per-fragment quotes in the widget are synthetic" },
+          { "name": "epistemic", "type": "string", "description": "reconstruction (the composition layering is Khrustalev's model)" },
+          { "name": "certainty", "type": "string", "description": "certain | approx | disputed" },
+          { "name": "source_id", "type": "string", "description": "FK -> sources.source_id" },
+          { "name": "source_page", "type": "string", "description": "Folio reference Ф.N" },
+          { "name": "notes", "type": "string" }
+        ],
+        "primaryKey": "folio",
+        "foreignKeys": [
           { "fields": "source_id", "reference": { "resource": "sources", "fields": "source_id" } }
         ]
       }
