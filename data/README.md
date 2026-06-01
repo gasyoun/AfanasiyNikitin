@@ -16,6 +16,8 @@ This directory is the **single source of truth** for the atlas. The plan is to i
 | `citations.csv` | Estimated scholarly attention by decade (flagged `epistemic=model` — heuristic, not bibliometric). | 12 |
 | `trade.csv` | Trade evidence — 4 text-attributed facts + 19 heuristic `model` goods (provenance per `article_figures/trade_model_sources.md`). | 23 |
 | `fragments.csv` | The 104 manuscript fragments (Ф.1–104): folio → layer/genre/chronological period/location/date. **Metadata only** — `quote` is empty (gated). | 104 |
+| `reconciliation.md` | Phase 2 audit: every place/person → its Wikidata / GeoNames / Pleiades / VIAF match, distance, and status. | — |
+| `places.lpf.geojson` | Gazetteer in **Linked Places Format** (GeoJSON-LD) for the World Historical Gazetteer. | — |
 | `../datapackage.json` | [Frictionless](https://frictionlessdata.io/) descriptor: schemas, types, keys, foreign keys, license. | — |
 
 ## Conventions
@@ -36,6 +38,17 @@ This directory is the **single source of truth** for the atlas. The plan is to i
 - **Missing Kaffa:** `afanasy_journey_data.md` has 18 points and omits Феодосия/Кафа; `atlas-data.js` and `geolocations.md` include it. The spine uses the full waypoint set (29 after the Kashan/Yazd split).
 - **Estimates flagged, not hidden:** citation counts (`citations.csv`) and the comparative trade goods (`trade.csv`) carry `epistemic=model` — they are heuristic, not real bibliometric or price data (weak-spots §2.3). Only 4 trade rows are text-attributed (`epistemic=text`, with folio + Khrustalev page).
 - **Widget content vs. source data:** in `afanasy_manuscript_layers.html` the per-fragment quote text and bar lengths are *synthetic* (placeholder strings + a `Math.sin` length formula). `fragments.csv` therefore captures only the real reconstruction metadata (folio → layer / genre / period / location / date) and leaves `quote` empty — a clean example of the spine separating evidence from decoration.
+
+## Reconciliation (Phase 2)
+
+Places and people carry a `recon_status` (`confirmed` / `candidate` / `none` / `collective` / `skip-region`) and, when `confirmed`, authority IDs:
+
+- places → `wikidata_qid`, `geonames_id`, `pleiades_id`
+- people → `wikidata_qid`, `viaf_id`
+
+Matches come from [`tools/reconcile.py`](../tools/reconcile.py): places are verified by **coordinate distance** and must be a settlement (excluding racetracks/districts); people by instance-of=human + a description keyword. **IDs are written only for `confirmed` rows — a wrong QID is worse than a blank one.** Every decision, plus the `candidate`/`none` rows left for human review, is recorded in [`reconciliation.md`](reconciliation.md). Human-approved picks the matcher couldn't resolve live in the `*_OVERRIDE` maps at the top of the script, so re-running (`python tools/reconcile.py`) is reproducible.
+
+[`tools/build_lpf.py`](../tools/build_lpf.py) then emits [`places.lpf.geojson`](places.lpf.geojson) in **Linked Places Format** (GeoJSON-LD), turning each authority ID into a `closeMatch` link — ready to ingest into the World Historical Gazetteer / Peripleo.
 
 ## Validate
 

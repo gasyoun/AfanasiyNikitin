@@ -1,8 +1,8 @@
 {
   "name": "afanasiy-nikitin-atlas-data",
   "title": "Afanasiy Nikitin Atlas — open dataset",
-  "description": "FAIR data spine for the interactive atlas of Afanasiy Nikitin's 1467-1475 journey (per Khrustalev 2026). Datasets: sources, places, itinerary, people, editions, citations, trade, fragments. A generated calendar (Phase 3) is planned. Facts only; see RIGHTS.md.",
-  "version": "0.4.0",
+  "description": "FAIR data spine for the interactive atlas of Afanasiy Nikitin's 1467-1475 journey (per Khrustalev 2026). Datasets: sources, places, itinerary, people, editions, citations, trade, fragments. Places & people are reconciled to Wikidata / GeoNames / Pleiades / VIAF (audit: data/reconciliation.md); a Linked Places Format export is data/places.lpf.geojson. A generated calendar (Phase 3) is planned. Facts only; see RIGHTS.md.",
+  "version": "0.5.0",
   "created": "2026-06-01",
   "keywords": ["digital humanities", "Afanasiy Nikitin", "Khozhenie za tri morya", "historical itinerary", "medieval travel", "linked open data"],
   "licenses": [
@@ -67,7 +67,8 @@
           { "name": "epistemic", "type": "string", "description": "text | reconstruction | localization | model | hypothesis" },
           { "name": "source_id", "type": "string", "description": "FK -> sources.source_id (identification authority)" },
           { "name": "source_page", "type": "string", "description": "Page reference (to be filled in full Phase 1 pass)" },
-          { "name": "notes", "type": "string" }
+          { "name": "notes", "type": "string" },
+          { "name": "recon_status", "type": "string", "description": "Phase 2: confirmed | candidate | none | collective | skip-region" }
         ],
         "primaryKey": "place_id",
         "foreignKeys": [
@@ -126,7 +127,8 @@
           { "name": "certainty", "type": "string", "description": "certain | approx | disputed" },
           { "name": "source_id", "type": "string", "description": "FK -> sources.source_id" },
           { "name": "source_page", "type": "string" },
-          { "name": "notes", "type": "string" }
+          { "name": "notes", "type": "string" },
+          { "name": "recon_status", "type": "string", "description": "Phase 2: confirmed | candidate | none | collective" }
         ],
         "primaryKey": "person_id",
         "foreignKeys": [
@@ -255,6 +257,16 @@
           { "fields": "source_id", "reference": { "resource": "sources", "fields": "source_id" } }
         ]
       }
+    },
+    {
+      "name": "places_lpf",
+      "path": "data/places.lpf.geojson",
+      "profile": "data-resource",
+      "format": "geojson",
+      "mediatype": "application/geo+json",
+      "encoding": "utf-8",
+      "title": "Gazetteer in Linked Places Format (LPF) for the World Historical Gazetteer",
+      "description": "GeoJSON-LD; reconciliation IDs (Wikidata / GeoNames / Pleiades) as closeMatch links. Built by tools/build_lpf.py."
     }
   ]
 }

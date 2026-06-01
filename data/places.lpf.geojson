@@ -1,0 +1,1502 @@
+{
+  "type": "FeatureCollection",
+  "@context": "https://raw.githubusercontent.com/LinkedPasts/linked-places-format/master/linkedplaces-context-v1.1.jsonld",
+  "metadata": {
+    "title": "Afanasiy Nikitin — itinerary gazetteer (1467-1475)",
+    "creator": "gasyoun/AfanasiyNikitin",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "description": "Places along Afanasiy Nikitin's journey, per Khrustalev 2026. Linked Places Format for the World Historical Gazetteer."
+  },
+  "features": [
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/tver",
+      "type": "Feature",
+      "properties": {
+        "title": "Тверь",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Тверь",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.9,
+          56.9
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q2288"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/480060"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1467"
+            },
+            "end": {
+              "in": "1467"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Отправная точка. geolocations.md: 56.86/35.91.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/nizhny_novgorod",
+      "type": "Feature",
+      "properties": {
+        "title": "Нижний Новгород",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Нижний Новгород",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Новгород Нижний",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.0,
+          56.3
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q891"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/520555"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1467"
+            },
+            "end": {
+              "in": "1467"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Присоединение к посольству Асанбека. geolocations.md: 56.33/44.00.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/astrakhan",
+      "type": "Feature",
+      "properties": {
+        "title": "Астрахань",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Астрахань",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Хаджи-Тархан",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.0,
+          46.3
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q3927"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/580497"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1467"
+            },
+            "end": {
+              "in": "1467"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Место ограбления татарами. geolocations.md: 46.35/48.04.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/derbent",
+      "type": "Feature",
+      "properties": {
+        "title": "Дербент",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Дербент",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Дербент (Железные ворота)",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.3,
+          42.1
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q131416"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/566532"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1467"
+            },
+            "end": {
+              "in": "1468"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Вход в Персию. geolocations.md: 42.07/48.29.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/baku",
+      "type": "Feature",
+      "properties": {
+        "title": "Баку",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Баку",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Бака",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          49.9,
+          40.4
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q9248"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/587081"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1468"
+            },
+            "end": {
+              "in": "1468"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Апшеронские огни. geolocations.md: 40.41/49.87.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/mazandaran_sari",
+      "type": "Feature",
+      "properties": {
+        "title": "Мазендаран (Сари)",
+        "ccode": [],
+        "certainty": "approx"
+      },
+      "names": [
+        {
+          "toponym": "Мазендаран (Сари)",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Мазендаран",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Сари",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "region"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          52.0,
+          36.6
+        ]
+      },
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1468"
+            },
+            "end": {
+              "in": "1468"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Шесть месяцев в Сари; область, а не точка. geolocations.md: Амол/Сари 36.47/52.06.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/kashan",
+      "type": "Feature",
+      "properties": {
+        "title": "Кашан",
+        "ccode": [],
+        "certainty": "approx"
+      },
+      "names": [
+        {
+          "toponym": "Кашан",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.43,
+          33.98
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q240475"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/128476"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1468"
+            },
+            "end": {
+              "in": "1469"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Отделён от объединённого вэйпойнта kashan_yazd при проходе Phase 1. «В Кашане месяц». Координаты — совр. Кашан.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/yazd",
+      "type": "Feature",
+      "properties": {
+        "title": "Йезд",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Йезд",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.37,
+          31.9
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q182394"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/111822"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://pleiades.stoa.org/places/29811"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1468"
+            },
+            "end": {
+              "in": "1469"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Отделён от kashan_yazd. «В Йезде месяц». geolocations.md: 31.90/54.37.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/lar",
+      "type": "Feature",
+      "properties": {
+        "title": "Лар",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Лар",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.32,
+          27.66
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q721029"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/125877"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1468"
+            },
+            "end": {
+              "in": "1474"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Торговый узел: покупка коня и «Маршрутник». Посещён дважды (туда и в 1474).",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/hormuz",
+      "type": "Feature",
+      "properties": {
+        "title": "Ормуз",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Ормуз",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Гурмыз",
+          "lang": "ru"
+        },
+        {
+          "toponym": "о. Хормоз",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "port"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.5,
+          27.1
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q888643"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/131231"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1469"
+            },
+            "end": {
+              "in": "1474"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "«Тут есть море Индейское». Посещён трижды. geolocations.md: 27.08/56.46.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/muscat",
+      "type": "Feature",
+      "properties": {
+        "title": "Маскат",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Маскат",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Мошкат",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "port"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.6,
+          23.6
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q3826"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/287286"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1469"
+            },
+            "end": {
+              "in": "1474"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Точка исправленной Пасхи №8 (10 апр. 1474). geolocations.md: 23.58/58.59.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/chaul",
+      "type": "Feature",
+      "properties": {
+        "title": "Чаул",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Чаул",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Чивиль",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Чаул (Райгад)",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "port"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0,
+          18.5
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q1068374"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/1274503"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1469"
+            },
+            "end": {
+              "in": "1469"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Первая земля Индии. geolocations.md: 18.55/72.98.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/junnar",
+      "type": "Feature",
+      "properties": {
+        "title": "Джуннар",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Джуннар",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.9,
+          19.2
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q2445461"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/1268761"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1469"
+            },
+            "end": {
+              "in": "1469"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Конфликт с Асад-ханом. geolocations.md: 19.21/73.87.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/bidar",
+      "type": "Feature",
+      "properties": {
+        "title": "Бидар",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Бидар",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Бедер",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "capital"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5,
+          17.9
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q461922"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/1275738"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1469"
+            },
+            "end": {
+              "in": "1472"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Столица Бахманидского султаната; главная стоянка, посещена дважды. geolocations.md: 17.92/77.52.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/aland",
+      "type": "Feature",
+      "properties": {
+        "title": "Аланд",
+        "ccode": [],
+        "certainty": "disputed"
+      },
+      "names": [
+        {
+          "toponym": "Аланд",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Аланд (?)",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "town"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.57,
+          17.57
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q2738477"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/1279068"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1469"
+            },
+            "end": {
+              "in": "1473"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Ярмарка памяти шейха Алауддина; локализация спорная. Проверить в Phase 2.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/srisailam",
+      "type": "Feature",
+      "properties": {
+        "title": "Шрисайлам (Парват)",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Шрисайлам (Парват)",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Парват",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Шрисайлам",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "temple"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.9,
+          16.1
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q1382167"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1471"
+            },
+            "end": {
+              "in": "1471"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "«Индийский Иерусалим»; Махашиваратри 19 фев. 1471. geolocations.md: 16.08/78.87.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/gulbarga",
+      "type": "Feature",
+      "properties": {
+        "title": "Гулбарга",
+        "ccode": [],
+        "certainty": "approx"
+      },
+      "names": [
+        {
+          "toponym": "Гулбарга",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Калабураги (Гулбарга)",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.83,
+          17.33
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q37112"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/1270752"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1473"
+            },
+            "end": {
+              "in": "1473"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "«Пятая» Пасха 1473; реконструированная стоянка.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/kallur",
+      "type": "Feature",
+      "properties": {
+        "title": "Каллур",
+        "ccode": [],
+        "certainty": "disputed"
+      },
+      "names": [
+        {
+          "toponym": "Каллур",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Каллур (близ Райчура)",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "mine"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.4,
+          16.2
+        ]
+      },
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1473"
+            },
+            "end": {
+              "in": "1473"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Алмазные копи у Райчура; локализация спорная.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/dabhol",
+      "type": "Feature",
+      "properties": {
+        "title": "Дабхол",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Дабхол",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "port"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.18,
+          17.52
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q5207479"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/1273765"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1473"
+            },
+            "end": {
+              "in": "1474"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Фактический порт отплытия из Индии. ВНИМАНИЕ: afanasy_journey_data.md ошибочно даёт 17.5/70.0 (открытое море); верны atlas-data.js 17.52/73.18 и geolocations.md 17.58/73.18.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/somalia_coast",
+      "type": "Feature",
+      "properties": {
+        "title": "«Эфиопия» (сомалийский берег)",
+        "ccode": [],
+        "certainty": "disputed"
+      },
+      "names": [
+        {
+          "toponym": "«Эфиопия» (сомалийский берег)",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Эфиопия",
+          "lang": "ru"
+        },
+        {
+          "toponym": "побережье Сомали",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "coast"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.1,
+          11.7
+        ]
+      },
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1474"
+            },
+            "end": {
+              "in": "1474"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "«Эфиопские горы» = сомалийский берег; протяжённая область, не точка.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/erzincan",
+      "type": "Feature",
+      "properties": {
+        "title": "Арцынцан",
+        "ccode": [],
+        "certainty": "approx"
+      },
+      "names": [
+        {
+          "toponym": "Арцынцан",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Эрзинджан",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.49,
+          39.75
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q136217"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/315373"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://pleiades.stoa.org/places/874467"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1474"
+            },
+            "end": {
+              "in": "1474"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "На пути к Трапезунду.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/trabzon",
+      "type": "Feature",
+      "properties": {
+        "title": "Трабзон",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Трабзон",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Трапезунд",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "port"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.7,
+          41.0
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q45301"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/738648"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1474"
+            },
+            "end": {
+              "in": "1474"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "«3-е море Чёрное». geolocations.md: 41.00/39.73.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/platana",
+      "type": "Feature",
+      "properties": {
+        "title": "Платана",
+        "ccode": [],
+        "certainty": "approx"
+      },
+      "names": [
+        {
+          "toponym": "Платана",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Акчаабат",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "port"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.57,
+          41.02
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q424661"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/752627"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1474"
+            },
+            "end": {
+              "in": "1474"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "15 дней ожидания ветра у Трапезунда.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/balaklava_gurzuf",
+      "type": "Feature",
+      "properties": {
+        "title": "Балаклава / Гурзуф",
+        "ccode": [],
+        "certainty": "approx"
+      },
+      "names": [
+        {
+          "toponym": "Балаклава / Гурзуф",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Крым",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "coast"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.1,
+          44.55
+        ]
+      },
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1474"
+            },
+            "end": {
+              "in": "1474"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Крымские стоянки после шторма; два пункта сгруппированы в один вэйпойнт.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/kaffa",
+      "type": "Feature",
+      "properties": {
+        "title": "Феодосия (Кафа)",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Феодосия (Кафа)",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Кафа (генуэзская)",
+          "lang": "ru"
+        },
+        {
+          "toponym": "Феодосия",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "port"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.4,
+          45.0
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q2585920"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1474"
+            },
+            "end": {
+              "in": "1475"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "«Пришёл есмь в Кафу». geolocations.md: 45.03/35.38.",
+          "lang": "ru"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/smolensk",
+      "type": "Feature",
+      "properties": {
+        "title": "Смоленск",
+        "ccode": [],
+        "certainty": "certain"
+      },
+      "names": [
+        {
+          "toponym": "Смоленск",
+          "lang": "ru"
+        }
+      ],
+      "types": [
+        {
+          "label": "city"
+        }
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.0,
+          54.8
+        ]
+      },
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q2337"
+        },
+        {
+          "type": "closeMatch",
+          "identifier": "https://www.geonames.org/491687"
+        }
+      ],
+      "when": {
+        "timespans": [
+          {
+            "start": {
+              "in": "1475"
+            },
+            "end": {
+              "in": "1475"
+            }
+          }
+        ]
+      },
+      "descriptions": [
+        {
+          "value": "Место гибели Афанасия. geolocations.md: 54.78/32.04.",
+          "lang": "ru"
+        }
+      ]
+    }
+  ]
+}
