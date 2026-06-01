@@ -82,10 +82,14 @@ Per human direction (all four tasks; **push to main**; keep looping). All landed
 - **Route + Linked Traces** — `tools/build_route.py` → `data/route.geojson` (LineString + 29 Points) and `data/itinerary.lt.json` (LTF draft); datapackage → v0.7.0.
 - **CI** — `data-validate` workflow + tracked `tools/validate_data.py`. First run **failed** (the frictionless probe caught only `ImportError`, and `created` wasn't a full datetime) → fixed: gate is now pure-stdlib; `created` = `2026-06-01T00:00:00Z`.
 - **README** — added "Data & reuse" (FAIR/LOD) section; corrected widget count 28 → 29 (added the live `afanasy_parvat.html` row + renumbered).
-- **Spine-driven map PoC** — `afanasy_map_spine.html` reads `data/*.csv` via `d3.csv` (no hardcoded coords) and shows Wikidata links. Verified the join/projection (29 pts, all in-bounds). **Flagship `afanasy_v8_text_map.html` left untouched** — its `WP`/`PASSAGES` are index-aligned at 28, so the 28→29 split would shift the text-sync; in-place migration is deferred for visual review.
+- **Spine-driven map PoC** — `afanasy_map_spine.html` reads `data/*.csv` via `d3.csv` (no hardcoded coords) and shows Wikidata links. Verified the join/projection (29 pts, all in-bounds). **Flagship `afanasy_v8_text_map.html`** was subsequently migrated onto the spine (PR #6, merged): the kashan+yazd merge keeps `WP`/`PASSAGES` aligned at 28, with a hard fallback to bundled `atlas-data.js`.
 - CHANGELOG updated.
 
-**Still human-gated:** Zenodo DOI (enable Zenodo↔GitHub, cut release); WHG upload (`SUBMISSION_WHG.md`). **Deferred (needs review):** migrating the flagship map in-place onto the spine.
+**Still human-gated:** Zenodo DOI (enable Zenodo↔GitHub, cut release); WHG upload (`SUBMISSION_WHG.md`).
+
+## Session 2026-06-01 (cont.) — flagship map migrated (PR #6, merged to main)
+
+`afanasy_v8_text_map.html` now builds `WP` from `data/places.csv` + `data/itinerary.csv` via `d3.csv` at boot. The kashan+yazd pair is merged back into one "Кашан / Йезд" display waypoint → 28 entries, **stop-by-stop aligned with the 28 `PASSAGES`** (verified). Hard fallback: if the spine load fails or doesn't yield 28 finite waypoints, `WP` stays the bundled `atlas-data.js` data (rendering identical to before); `window.__WP_SOURCE` reports `spine`/`bundled`. `PASSAGES`/`STATES`/`CITIES` and all render code unchanged. Verified: alignment, `node --check`, CSVs serve over HTTP, join in-bounds. The data spine is now the flagship's source of truth.
 
 ---
 
