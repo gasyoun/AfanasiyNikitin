@@ -1,0 +1,29 @@
+seq,t_index,place_id,year_label,sea_region,epistemic,certainty,source_id,source_page,note
+1,0,tver,"1467, весна","Путь по Руси",reconstruction,certain,KHR2026,,"Начало «грешного хожения за три моря»."
+2,5,nizhny_novgorod,"1467, лето","Путь по Руси",reconstruction,certain,KHR2026,,
+3,11,astrakhan,"1467, осень","Первое море — Каспийское",reconstruction,certain,KHR2026,,"Ограбление татарами."
+4,17,derbent,"1467–1468","Первое море — Каспийское",reconstruction,certain,KHR2026,,
+5,22,baku,"1468","Путь через Персию",reconstruction,certain,KHR2026,,
+6,28,mazandaran_sari,"1468","Путь через Персию",reconstruction,approx,KHR2026,,"Шесть месяцев в Сари."
+7,34,kashan_yazd,"1468–1469","Путь через Персию",reconstruction,approx,KHR2026,,"Объединённый вэйпойнт (см. places.csv)."
+8,37,lar,"1468–1469; май 1474","Путь через Персию",reconstruction,certain,KHR2026,,"Покупка коня; «Маршрутник»."
+9,40,hormuz,"1469, Пасха","Второе море — Индийское",reconstruction,certain,KHR2026,,"Пасха №1 в пути (2 апр. 1469 по реконструкции)."
+10,44,muscat,"1469, весна; 10 апр. 1474","Второе море — Индийское",reconstruction,certain,KHR2026,,"Пасха №8 (10 апр. 1474) на обратном пути."
+11,51,chaul,"1469, лето","Индия",reconstruction,certain,KHR2026,,"Первая земля Индии."
+12,55,junnar,"1469, осень","Индия",reconstruction,certain,KHR2026,,"Спасение в день Спаса."
+13,60,bidar,"1469–1471","Индия",reconstruction,certain,KHR2026,,"Столица Бахманидов; главная стоянка."
+14,63,aland,"1469–1473","Индия",reconstruction,approx,KHR2026,,"Повторяющаяся точка индийских лет (4 посещения)."
+15,68,srisailam,"1471, февраль","Индия",reconstruction,certain,KHR2026,,"Махашиваратри 19 фев. 1471."
+16,73,bidar,"1471–1472","Индия",reconstruction,certain,KHR2026,,"Возврат после Шрисайлама; триумф Махмуда Гавана."
+17,76,gulbarga,"февраль–август 1473","Индия",reconstruction,approx,KHR2026,,"«Пятая» Пасха; решение возвращаться."
+18,77.5,kallur,"март–август 1473","Индия",reconstruction,approx,KHR2026,,"Алмазные копи — заявленная торговая цель."
+19,80,dabhol,"ноябрь 1473 — январь 1474","Второе море — Индийское",reconstruction,certain,KHR2026,,"Фактический порт отплытия."
+20,82,somalia_coast,"февраль 1474","Второе море — Индийское",reconstruction,approx,KHR2026,,"Пять дней у сомалийского берега."
+21,84,hormuz,"апрель–май 1474","Третье море — Чёрное",reconstruction,certain,KHR2026,,"Начало сухопутного возвращения."
+22,85,lar,"май 1474","Путь через Персию",reconstruction,certain,KHR2026,,"Три дня на обратном пути."
+23,89,erzincan,"сентябрь 1474","Третье море — Чёрное",reconstruction,approx,KHR2026,,
+24,91,trabzon,"1474","Третье море — Чёрное",reconstruction,certain,KHR2026,,"«3-е море Чёрное»."
+25,92,platana,"1–20 октября 1474","Третье море — Чёрное",reconstruction,approx,KHR2026,,"Ожидание ветра."
+26,93,balaklava_gurzuf,"1–6 ноября 1474","Третье море — Чёрное",reconstruction,approx,KHR2026,,"Крымские стоянки после шторма."
+27,94,kaffa,"1474–1475","Третье море — Чёрное",reconstruction,certain,KHR2026,,"«Пришёл есмь в Кафу»."
+28,97,smolensk,"1475","Конец пути",reconstruction,certain,KHR2026,,"Конец пути; «тетради» — дьяку Мамыреву."

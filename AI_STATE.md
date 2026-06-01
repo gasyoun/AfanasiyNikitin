@@ -15,6 +15,27 @@ Phase 0 from `FIX_PLAN.md` is fully implemented: A1–A4 credibility fixes, FIX 
 
 ---
 
+## Session 2026-06-01 — FAIR data spine (Phase 0 + Phase 1 prototype)
+
+**New strategic direction** (set with the human via Q&A): take the atlas to the DH frontier by **inverting the stack** — build a citable, reusable FAIR dataset + Linked Open Data, kept lightweight (Frictionless + Wikidata/Pleiades + Zenodo DOI). Goal = reusable scholarly resource. Text rights treated as unsorted.
+
+**Phase 0 — rights triage (done):**
+- `RIGHTS.md` — source/copyright triage. Key finding: `scratch/book_text.txt` + the PDF are in-copyright (© Хрусталёв / Нестор-История 2026) and correctly gitignored. **Two tracked files in the PUBLIC repo are derived from the in-copyright book and need a human decision: `tetradi_hrustalev_2026.md` (detailed précis) and `article_drevnyaya_rus_draft.md` (journal embargo per weak-spots §2.6).** Recommended `git rm --cached` + gitignore; NOT yet done — human's call.
+- `data/sources.csv` — 9-source register with a `rights` column (FK target for every table).
+- Resolved: `ATLAS.PASSAGES` in `js/atlas-data.js` are the author's own modern-Russian renderings of the PD text → publishable under the dataset's CC-BY-4.0 (confirmed 2026-06-01).
+
+**Phase 1 prototype slice (done):**
+- `data/places.csv` (25 distinct places) + `data/itinerary.csv` (28 waypoints, FK → places) lifted from the canonical `js/atlas-data.js` `ATLAS.WP`. `epistemic` (text/reconstruction/localization/model/hypothesis) + `certainty` (certain/approx/disputed) columns close weak-spots §1.4 and §2.5.
+- `datapackage.json` — Frictionless descriptor (schemas, PK/FK, CC-BY-4.0); `data/README.md` documents conventions.
+- **Verified** via `scratch/validate_phase1.py`: no BOM, FK integrity OK, coords in range, JSON parses. `pip install frictionless` for full schema validation.
+- Data-quality issues surfaced by the spine: Dabhol `70°E` error in `afanasy_journey_data.md`; Kashan/Yazd merged into one waypoint (needs splitting); `afanasy_journey_data.md` omits Kaffa (spine uses the 28-waypoint set).
+
+**Not committed.** On `main`; per repo rules a branch + explicit go-ahead is needed before commit/push.
+
+**Next:** (1) human decides on the two tracked in-copyright-derived files; (2) full Phase 1 pass — remaining datasets (people, calendar, fragments, trade, editions, citations), page-level `source_page`, split kashan/yazd; (3) Phase 2 — OpenRefine reconciliation to Wikidata/Pleiades + emit Linked Places Format GeoJSON for the World Historical Gazetteer.
+
+---
+
 ## Session 2026-05-23 — Polyglot prayer interlinear widget
 
 Added **`afanasy_prayer_interlinear.html`** (28th widget). Word-by-word interlinear of Afanasiy's four polyglot passages (Ф. 49, Ф. 50–51, Ф. 97, and the closing doxology Ф. 104), transcribed from the 1986 academic edition via `hrustalev_tetradi_2026.pdf`. The doxology (Ф. 104) is decoded as the Basmala, Shahada, Qur'an 59:22–24, and the chain of the Beautiful Names (28 identified). Three modes (Чтение / Подстрочник / 99 имён), per-word detail panel, language filter, Arabic-script toggle, stat bar; reuses the shared `--viz-language-*` palette; cross-links to language map / manuscripts / religious crisis.

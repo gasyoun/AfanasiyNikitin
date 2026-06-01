@@ -1,0 +1,107 @@
+{
+  "name": "afanasiy-nikitin-atlas-data",
+  "title": "Afanasiy Nikitin Atlas — open dataset",
+  "description": "FAIR data spine for the interactive atlas of Afanasiy Nikitin's 1467-1475 journey (per Khrustalev 2026). Phase 1 prototype slice: sources register + places gazetteer + itinerary. Six more datasets (people, calendar, fragments, trade, editions, citations) are planned. Facts only; see RIGHTS.md.",
+  "version": "0.1.0",
+  "created": "2026-06-01",
+  "keywords": ["digital humanities", "Afanasiy Nikitin", "Khozhenie za tri morya", "historical itinerary", "medieval travel", "linked open data"],
+  "licenses": [
+    {
+      "name": "CC-BY-4.0",
+      "title": "Creative Commons Attribution 4.0",
+      "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  ],
+  "contributors": [
+    { "title": "gasyoun", "role": "author", "path": "https://github.com/gasyoun" }
+  ],
+  "sources": [
+    { "title": "Khrustalev D.G. Tetradi kuptsa Afanasiya. SPb.: Nestor-Istoriya, 2026. ISBN 978-5-4469-2357-1", "path": "" },
+    { "title": "Khozhenie za tri morya / ed. Lurye & Semenov. L.: Nauka, 1986", "path": "" }
+  ],
+  "resources": [
+    {
+      "name": "sources",
+      "path": "data/sources.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "Source register with rights status",
+      "schema": {
+        "fields": [
+          { "name": "source_id", "type": "string", "description": "Stable key referenced by every other table" },
+          { "name": "short", "type": "string", "description": "Short label" },
+          { "name": "citation", "type": "string", "description": "Full bibliographic citation" },
+          { "name": "type", "type": "string", "description": "monograph | edition | primary-text | dataset | gazetteer | software" },
+          { "name": "rights", "type": "string", "description": "in-copyright | public-domain | link-only | CC0 | CC-BY" },
+          { "name": "license", "type": "string", "description": "SPDX-style license id where known" },
+          { "name": "url", "type": "string", "format": "uri" },
+          { "name": "notes", "type": "string", "description": "Rights notes and usage constraints" }
+        ],
+        "primaryKey": "source_id"
+      }
+    },
+    {
+      "name": "places",
+      "path": "data/places.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "Gazetteer of distinct places (deduplicated)",
+      "schema": {
+        "fields": [
+          { "name": "place_id", "type": "string", "description": "Stable slug" },
+          { "name": "name_ru", "type": "string", "description": "Modern Russian name" },
+          { "name": "name_historical", "type": "string", "description": "Name as in the text / 15th c." },
+          { "name": "name_modern", "type": "string", "description": "Modern place + country" },
+          { "name": "country_modern", "type": "string" },
+          { "name": "lat", "type": "number", "description": "Latitude, decimal degrees (project localization)" },
+          { "name": "lon", "type": "number", "description": "Longitude, decimal degrees (project localization)" },
+          { "name": "type", "type": "string", "description": "city | port | capital | region | temple | mine | town | coast | waypoint-group" },
+          { "name": "wikidata_qid", "type": "string", "description": "Wikidata QID (Phase 2)" },
+          { "name": "pleiades_id", "type": "string", "description": "Pleiades id (Phase 2)" },
+          { "name": "geonames_id", "type": "string", "description": "GeoNames id (Phase 2)" },
+          { "name": "certainty", "type": "string", "description": "certain | approx | disputed (locational certainty)" },
+          { "name": "epistemic", "type": "string", "description": "text | reconstruction | localization | model | hypothesis" },
+          { "name": "source_id", "type": "string", "description": "FK -> sources.source_id (identification authority)" },
+          { "name": "source_page", "type": "string", "description": "Page reference (to be filled in full Phase 1 pass)" },
+          { "name": "notes", "type": "string" }
+        ],
+        "primaryKey": "place_id",
+        "foreignKeys": [
+          { "fields": "source_id", "reference": { "resource": "sources", "fields": "source_id" } }
+        ]
+      }
+    },
+    {
+      "name": "itinerary",
+      "path": "data/itinerary.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "Ordered journey waypoints (28; matches js/atlas-data.js ATLAS.WP)",
+      "schema": {
+        "fields": [
+          { "name": "seq", "type": "integer", "description": "1-based visit order" },
+          { "name": "t_index", "type": "number", "description": "Timeline index from ATLAS.WP (months since April 1467)" },
+          { "name": "place_id", "type": "string", "description": "FK -> places.place_id (repeats allowed: Bidar x2, Hormuz x3, Lar x2)" },
+          { "name": "year_label", "type": "string", "description": "Human-readable date label as rendered" },
+          { "name": "sea_region", "type": "string", "description": "Which of the three seas / overland leg" },
+          { "name": "epistemic", "type": "string", "description": "text | reconstruction | localization | model | hypothesis" },
+          { "name": "certainty", "type": "string", "description": "certain | approx | disputed" },
+          { "name": "source_id", "type": "string", "description": "FK -> sources.source_id" },
+          { "name": "source_page", "type": "string" },
+          { "name": "note", "type": "string" }
+        ],
+        "primaryKey": "seq",
+        "foreignKeys": [
+          { "fields": "place_id", "reference": { "resource": "places", "fields": "place_id" } },
+          { "fields": "source_id", "reference": { "resource": "sources", "fields": "source_id" } }
+        ]
+      }
+    }
+  ]
+}
