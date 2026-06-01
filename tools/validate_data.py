@@ -87,12 +87,8 @@ conf_p = sum(1 for r in D["places"] if r.get("recon_status") == "confirmed")
 conf_pe = sum(1 for r in D["people"] if r.get("recon_status") == "confirmed")
 print(f"reconciled: places {conf_p}/{len(D['places'])}, people {conf_pe}/{len(D['people'])}")
 
-try:
-    from frictionless import Package
-    rep = Package(os.path.join(ROOT, "datapackage.json")).validate()
-    print(f"frictionless: valid={rep.valid}")
-except ImportError:
-    print("frictionless: not installed (informational; skipped)")
+# (Frictionless validation runs as a separate, non-gating CI step; this gate is
+# pure-stdlib so it stays deterministic across environments.)
 
 if fail:
     print("\nFAILURES:")
