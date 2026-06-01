@@ -1,0 +1,1151 @@
+{
+  "@context": "https://raw.githubusercontent.com/LinkedPasts/linked-traces-format/master/ltf_v0.3.jsonld",
+  "type": "FeatureCollection",
+  "metadata": {
+    "title": "Afanasiy Nikitin — journey (Linked Traces)",
+    "description": "The 1467–1475 itinerary as an ordered set of waypoints linked to the journey, per Khrustalev 2026. LTF draft — verify against WHG's current Linked Traces importer before upload.",
+    "subject": {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+      "title": "Хожение за три моря Афанасия Никитина (journey, 1467–1475)"
+    },
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "features": [
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/tver",
+      "type": "Feature",
+      "properties": {
+        "title": "Тверь",
+        "seq": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.9,
+          56.9
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 1 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1467"
+                },
+                "end": {
+                  "in": "1467"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q2288"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/nizhny_novgorod",
+      "type": "Feature",
+      "properties": {
+        "title": "Нижний Новгород",
+        "seq": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.0,
+          56.3
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 2 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1467"
+                },
+                "end": {
+                  "in": "1467"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q891"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/astrakhan",
+      "type": "Feature",
+      "properties": {
+        "title": "Астрахань",
+        "seq": 3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.0,
+          46.3
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 3 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1467"
+                },
+                "end": {
+                  "in": "1467"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q3927"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/derbent",
+      "type": "Feature",
+      "properties": {
+        "title": "Дербент",
+        "seq": 4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.3,
+          42.1
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 4 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1467"
+                },
+                "end": {
+                  "in": "1468"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q131416"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/baku",
+      "type": "Feature",
+      "properties": {
+        "title": "Баку",
+        "seq": 5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          49.9,
+          40.4
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 5 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1468"
+                },
+                "end": {
+                  "in": "1468"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q9248"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/mazandaran_sari",
+      "type": "Feature",
+      "properties": {
+        "title": "Мазендаран (Сари)",
+        "seq": 6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          52.0,
+          36.6
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 6 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1468"
+                },
+                "end": {
+                  "in": "1468"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/kashan",
+      "type": "Feature",
+      "properties": {
+        "title": "Кашан",
+        "seq": 7
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.43,
+          33.98
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 7 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1468"
+                },
+                "end": {
+                  "in": "1469"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q240475"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/yazd",
+      "type": "Feature",
+      "properties": {
+        "title": "Йезд",
+        "seq": 8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.37,
+          31.9
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 8 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1468"
+                },
+                "end": {
+                  "in": "1469"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q182394"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/lar",
+      "type": "Feature",
+      "properties": {
+        "title": "Лар",
+        "seq": 9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.32,
+          27.66
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 9 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1468"
+                },
+                "end": {
+                  "in": "1474"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q721029"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/hormuz",
+      "type": "Feature",
+      "properties": {
+        "title": "Ормуз",
+        "seq": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.5,
+          27.1
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 10 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1469"
+                },
+                "end": {
+                  "in": "1469"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q888643"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/muscat",
+      "type": "Feature",
+      "properties": {
+        "title": "Маскат",
+        "seq": 11
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.6,
+          23.6
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 11 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1469"
+                },
+                "end": {
+                  "in": "1474"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q3826"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/chaul",
+      "type": "Feature",
+      "properties": {
+        "title": "Чаул",
+        "seq": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0,
+          18.5
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 12 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1469"
+                },
+                "end": {
+                  "in": "1469"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q1068374"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/junnar",
+      "type": "Feature",
+      "properties": {
+        "title": "Джуннар",
+        "seq": 13
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.9,
+          19.2
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 13 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1469"
+                },
+                "end": {
+                  "in": "1469"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q2445461"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/bidar",
+      "type": "Feature",
+      "properties": {
+        "title": "Бидар",
+        "seq": 14
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5,
+          17.9
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 14 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1469"
+                },
+                "end": {
+                  "in": "1471"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q461922"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/aland",
+      "type": "Feature",
+      "properties": {
+        "title": "Аланд",
+        "seq": 15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.57,
+          17.57
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 15 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1469"
+                },
+                "end": {
+                  "in": "1473"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q2738477"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/srisailam",
+      "type": "Feature",
+      "properties": {
+        "title": "Шрисайлам (Парват)",
+        "seq": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.9,
+          16.1
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 16 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1471"
+                },
+                "end": {
+                  "in": "1471"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q1382167"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/bidar",
+      "type": "Feature",
+      "properties": {
+        "title": "Бидар",
+        "seq": 17
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5,
+          17.9
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 17 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1471"
+                },
+                "end": {
+                  "in": "1472"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q461922"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/gulbarga",
+      "type": "Feature",
+      "properties": {
+        "title": "Гулбарга",
+        "seq": 18
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.83,
+          17.33
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 18 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1473"
+                },
+                "end": {
+                  "in": "1473"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q37112"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/kallur",
+      "type": "Feature",
+      "properties": {
+        "title": "Каллур",
+        "seq": 19
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.4,
+          16.2
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 19 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1473"
+                },
+                "end": {
+                  "in": "1473"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/dabhol",
+      "type": "Feature",
+      "properties": {
+        "title": "Дабхол",
+        "seq": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.18,
+          17.52
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 20 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1473"
+                },
+                "end": {
+                  "in": "1474"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q5207479"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/somalia_coast",
+      "type": "Feature",
+      "properties": {
+        "title": "«Эфиопия» (сомалийский берег)",
+        "seq": 21
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.1,
+          11.7
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 21 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1474"
+                },
+                "end": {
+                  "in": "1474"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/hormuz",
+      "type": "Feature",
+      "properties": {
+        "title": "Ормуз",
+        "seq": 22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.5,
+          27.1
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 22 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1474"
+                },
+                "end": {
+                  "in": "1474"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q888643"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/lar",
+      "type": "Feature",
+      "properties": {
+        "title": "Лар",
+        "seq": 23
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.32,
+          27.66
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 23 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1474"
+                },
+                "end": {
+                  "in": "1474"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q721029"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/erzincan",
+      "type": "Feature",
+      "properties": {
+        "title": "Арцынцан",
+        "seq": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.49,
+          39.75
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 24 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1474"
+                },
+                "end": {
+                  "in": "1474"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q136217"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/trabzon",
+      "type": "Feature",
+      "properties": {
+        "title": "Трабзон",
+        "seq": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.7,
+          41.0
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 25 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1474"
+                },
+                "end": {
+                  "in": "1474"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q45301"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/platana",
+      "type": "Feature",
+      "properties": {
+        "title": "Платана",
+        "seq": 26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.57,
+          41.02
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 26 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1474"
+                },
+                "end": {
+                  "in": "1474"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q424661"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/balaklava_gurzuf",
+      "type": "Feature",
+      "properties": {
+        "title": "Балаклава / Гурзуф",
+        "seq": 27
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.1,
+          44.55
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 27 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1474"
+                },
+                "end": {
+                  "in": "1474"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/kaffa",
+      "type": "Feature",
+      "properties": {
+        "title": "Феодосия (Кафа)",
+        "seq": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.4,
+          45.0
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 28 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1474"
+                },
+                "end": {
+                  "in": "1475"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q2585920"
+        }
+      ]
+    },
+    {
+      "@id": "https://gasyoun.github.io/AfanasiyNikitin/place/smolensk",
+      "type": "Feature",
+      "properties": {
+        "title": "Смоленск",
+        "seq": 29
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.0,
+          54.8
+        ]
+      },
+      "relations": [
+        {
+          "relationType": "waypoint",
+          "relationTo": "https://gasyoun.github.io/AfanasiyNikitin/#journey",
+          "label": "Waypoint 29 of Afanasiy Nikitin's journey",
+          "when": {
+            "timespans": [
+              {
+                "start": {
+                  "in": "1475"
+                },
+                "end": {
+                  "in": "1475"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "type": "closeMatch",
+          "identifier": "http://www.wikidata.org/entity/Q2337"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,662 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "title": "Маршрут Афанасия Никитина 1467–1475 / Route of Afanasiy Nikitin",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "source": "gasyoun/AfanasiyNikitin; per Khrustalev 2026"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Маршрут (29 точек)",
+        "stroke": "#b2202a",
+        "stroke-width": 3,
+        "stroke-opacity": 0.8
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.9,
+            56.9
+          ],
+          [
+            44.0,
+            56.3
+          ],
+          [
+            48.0,
+            46.3
+          ],
+          [
+            48.3,
+            42.1
+          ],
+          [
+            49.9,
+            40.4
+          ],
+          [
+            52.0,
+            36.6
+          ],
+          [
+            51.43,
+            33.98
+          ],
+          [
+            54.37,
+            31.9
+          ],
+          [
+            54.32,
+            27.66
+          ],
+          [
+            56.5,
+            27.1
+          ],
+          [
+            58.6,
+            23.6
+          ],
+          [
+            73.0,
+            18.5
+          ],
+          [
+            73.9,
+            19.2
+          ],
+          [
+            77.5,
+            17.9
+          ],
+          [
+            76.57,
+            17.57
+          ],
+          [
+            78.9,
+            16.1
+          ],
+          [
+            77.5,
+            17.9
+          ],
+          [
+            76.83,
+            17.33
+          ],
+          [
+            77.4,
+            16.2
+          ],
+          [
+            73.18,
+            17.52
+          ],
+          [
+            51.1,
+            11.7
+          ],
+          [
+            56.5,
+            27.1
+          ],
+          [
+            54.32,
+            27.66
+          ],
+          [
+            39.49,
+            39.75
+          ],
+          [
+            39.7,
+            41.0
+          ],
+          [
+            39.57,
+            41.02
+          ],
+          [
+            34.1,
+            44.55
+          ],
+          [
+            35.4,
+            45.0
+          ],
+          [
+            32.0,
+            54.8
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 1,
+        "place_id": "tver",
+        "title": "Тверь",
+        "year_label": "1467, весна",
+        "sea_region": "Путь по Руси",
+        "wikidata": "Q2288"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.9,
+          56.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 2,
+        "place_id": "nizhny_novgorod",
+        "title": "Нижний Новгород",
+        "year_label": "1467, лето",
+        "sea_region": "Путь по Руси",
+        "wikidata": "Q891"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.0,
+          56.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 3,
+        "place_id": "astrakhan",
+        "title": "Астрахань",
+        "year_label": "1467, осень",
+        "sea_region": "Первое море — Каспийское",
+        "wikidata": "Q3927"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.0,
+          46.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 4,
+        "place_id": "derbent",
+        "title": "Дербент",
+        "year_label": "1467–1468",
+        "sea_region": "Первое море — Каспийское",
+        "wikidata": "Q131416"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.3,
+          42.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 5,
+        "place_id": "baku",
+        "title": "Баку",
+        "year_label": "1468",
+        "sea_region": "Путь через Персию",
+        "wikidata": "Q9248"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          49.9,
+          40.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 6,
+        "place_id": "mazandaran_sari",
+        "title": "Мазендаран (Сари)",
+        "year_label": "1468",
+        "sea_region": "Путь через Персию",
+        "wikidata": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          52.0,
+          36.6
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 7,
+        "place_id": "kashan",
+        "title": "Кашан",
+        "year_label": "1468–1469",
+        "sea_region": "Путь через Персию",
+        "wikidata": "Q240475"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.43,
+          33.98
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 8,
+        "place_id": "yazd",
+        "title": "Йезд",
+        "year_label": "1468–1469",
+        "sea_region": "Путь через Персию",
+        "wikidata": "Q182394"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.37,
+          31.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 9,
+        "place_id": "lar",
+        "title": "Лар",
+        "year_label": "1468–1469; май 1474",
+        "sea_region": "Путь через Персию",
+        "wikidata": "Q721029"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.32,
+          27.66
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 10,
+        "place_id": "hormuz",
+        "title": "Ормуз",
+        "year_label": "1469, Пасха",
+        "sea_region": "Второе море — Индийское",
+        "wikidata": "Q888643"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.5,
+          27.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 11,
+        "place_id": "muscat",
+        "title": "Маскат",
+        "year_label": "1469, весна; 10 апр. 1474",
+        "sea_region": "Второе море — Индийское",
+        "wikidata": "Q3826"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.6,
+          23.6
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 12,
+        "place_id": "chaul",
+        "title": "Чаул",
+        "year_label": "1469, лето",
+        "sea_region": "Индия",
+        "wikidata": "Q1068374"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0,
+          18.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 13,
+        "place_id": "junnar",
+        "title": "Джуннар",
+        "year_label": "1469, осень",
+        "sea_region": "Индия",
+        "wikidata": "Q2445461"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.9,
+          19.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 14,
+        "place_id": "bidar",
+        "title": "Бидар",
+        "year_label": "1469–1471",
+        "sea_region": "Индия",
+        "wikidata": "Q461922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5,
+          17.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 15,
+        "place_id": "aland",
+        "title": "Аланд",
+        "year_label": "1469–1473",
+        "sea_region": "Индия",
+        "wikidata": "Q2738477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.57,
+          17.57
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 16,
+        "place_id": "srisailam",
+        "title": "Шрисайлам (Парват)",
+        "year_label": "1471, февраль",
+        "sea_region": "Индия",
+        "wikidata": "Q1382167"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.9,
+          16.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 17,
+        "place_id": "bidar",
+        "title": "Бидар",
+        "year_label": "1471–1472",
+        "sea_region": "Индия",
+        "wikidata": "Q461922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5,
+          17.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 18,
+        "place_id": "gulbarga",
+        "title": "Гулбарга",
+        "year_label": "февраль–август 1473",
+        "sea_region": "Индия",
+        "wikidata": "Q37112"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.83,
+          17.33
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 19,
+        "place_id": "kallur",
+        "title": "Каллур",
+        "year_label": "март–август 1473",
+        "sea_region": "Индия",
+        "wikidata": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.4,
+          16.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 20,
+        "place_id": "dabhol",
+        "title": "Дабхол",
+        "year_label": "ноябрь 1473 — январь 1474",
+        "sea_region": "Второе море — Индийское",
+        "wikidata": "Q5207479"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.18,
+          17.52
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 21,
+        "place_id": "somalia_coast",
+        "title": "«Эфиопия» (сомалийский берег)",
+        "year_label": "февраль 1474",
+        "sea_region": "Второе море — Индийское",
+        "wikidata": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.1,
+          11.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 22,
+        "place_id": "hormuz",
+        "title": "Ормуз",
+        "year_label": "апрель–май 1474",
+        "sea_region": "Третье море — Чёрное",
+        "wikidata": "Q888643"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.5,
+          27.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 23,
+        "place_id": "lar",
+        "title": "Лар",
+        "year_label": "май 1474",
+        "sea_region": "Путь через Персию",
+        "wikidata": "Q721029"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.32,
+          27.66
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 24,
+        "place_id": "erzincan",
+        "title": "Арцынцан",
+        "year_label": "сентябрь 1474",
+        "sea_region": "Третье море — Чёрное",
+        "wikidata": "Q136217"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.49,
+          39.75
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 25,
+        "place_id": "trabzon",
+        "title": "Трабзон",
+        "year_label": "1474",
+        "sea_region": "Третье море — Чёрное",
+        "wikidata": "Q45301"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.7,
+          41.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 26,
+        "place_id": "platana",
+        "title": "Платана",
+        "year_label": "1–20 октября 1474",
+        "sea_region": "Третье море — Чёрное",
+        "wikidata": "Q424661"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.57,
+          41.02
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 27,
+        "place_id": "balaklava_gurzuf",
+        "title": "Балаклава / Гурзуф",
+        "year_label": "1–6 ноября 1474",
+        "sea_region": "Третье море — Чёрное",
+        "wikidata": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.1,
+          44.55
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 28,
+        "place_id": "kaffa",
+        "title": "Феодосия (Кафа)",
+        "year_label": "1474–1475",
+        "sea_region": "Третье море — Чёрное",
+        "wikidata": "Q2585920"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.4,
+          45.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "seq": 29,
+        "place_id": "smolensk",
+        "title": "Смоленск",
+        "year_label": "1475",
+        "sea_region": "Конец пути",
+        "wikidata": "Q2337"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.0,
+          54.8
+        ]
+      }
+    }
+  ]
+}
