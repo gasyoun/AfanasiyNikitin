@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Карта маршрута из данных — Афанасий Никитин</title>
+  <meta name="description" content="Демонстрация: карта маршрута Афанасия Никитина, построенная напрямую из открытых данных (data/places.csv + data/itinerary.csv) со ссылками на Wikidata.">
+  <link rel="stylesheet" href="css/atlas.css">
+  <style>
+    .ms-wrap{max-width:1100px;margin:0 auto;padding:1rem}
+    .ms-note{font-size:.85rem;opacity:.8;margin:.3rem 0 1rem}
+    .ms-grid{display:grid;grid-template-columns:1fr 300px;gap:1rem;align-items:start}
+    #ms-svg{width:100%;height:auto;background:var(--color-surface,#f4ecd8);border-radius:8px;border:1px solid rgba(0,0,0,.1)}
+    .ms-route{fill:none;stroke:#b2202a;stroke-width:2;stroke-opacity:.8}
+    .ms-wp{fill:#1e5a8a;stroke:#fff;stroke-width:1.2;cursor:pointer}
+    .ms-wp.confirmed{fill:#2a7a2a}
+    .ms-wp.sel{fill:#e0a020;stroke:#000}
+    .ms-lbl{font:600 10px Inter,Arial,sans-serif;fill:var(--color-text,#3a2a1a);pointer-events:none}
+    .ms-panel{background:var(--color-surface,#fff);border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:1rem;min-height:160px;font-size:.9rem}
+    .ms-panel h3{margin:.2rem 0 .4rem}
+    .ms-badge{display:inline-block;font-size:.7rem;padding:.1rem .4rem;border-radius:6px;background:#eee;margin-right:.3rem}
+    .ms-stat{font-size:.8rem;opacity:.85;margin-top:.5rem}
+    @media(max-width:760px){.ms-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="ms-wrap">
+    <p><a href="index.html">← Вернуться в атлас</a></p>
+    <h1>Карта маршрута — построена из данных</h1>
+    <p class="ms-note">Эта карта не содержит «зашитых» координат: она читает <code>data/places.csv</code> и
+      <code>data/itinerary.csv</code> напрямую (через d3.csv) и строит маршрут из 29 точек. Зелёные точки сверены
+      с Wikidata. Демонстрация того, что виджеты могут питаться от общего набора данных (FAIR-хребта).</p>
+    <div class="ms-grid">
+      <svg id="ms-svg" viewBox="0 0 760 560" role="img" aria-label="Карта маршрута Афанасия Никитина"></svg>
+      <div class="ms-panel" id="ms-panel">
+        <h3>Выберите точку</h3>
+        <p class="ms-note">Кликните по точке маршрута, чтобы увидеть данные о ней.</p>
+        <div class="ms-stat" id="ms-stat"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="lib/d3.min.js"></script>
+  <script>
+  (function(){
+    const W=760,H=560,M=24;
+    const LON0=26,LON1=84,LAT0=7,LAT1=63;
+    const mY=lat=>Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));
+    const yA=mY(LAT0),yB=mY(LAT1);
+    const px=(lat,lon)=>[M+(lon-LON0)/(LON1-LON0)*(W-2*M), M+(yB-mY(lat))/(yB-yA)*(H-2*M)];
+    const svg=d3.select('#ms-svg');
+    const panel=document.getElementById('ms-panel');
+
+    function show(p, it){
+      const wd=p.wikidata_qid?`<a href="http://www.wikidata.org/entity/${p.wikidata_qid}" target="_blank" rel="noopener">${p.wikidata_qid}</a>`:'—';
+      const gn=p.geonames_id?` · GeoNames ${p.geonames_id}`:'';
+      panel.innerHTML=`<h3>${p.name_ru}</h3>
+        <div><span class="ms-badge">№ ${it.seq}</span><span class="ms-badge">${it.sea_region||''}</span></div>
+        <p style="margin:.5rem 0">${it.note||p.notes||''}</p>
+        <div class="ms-stat">Дата: ${it.year_label||'—'}</div>
+        <div class="ms-stat">Координаты: ${(+p.lat).toFixed(2)}° / ${(+p.lon).toFixed(2)}°</div>
+        <div class="ms-stat">Достоверность: ${p.certainty} · ${it.epistemic}</div>
+        <div class="ms-stat">Wikidata: ${wd}${gn}</div>`;
+    }
+
+    Promise.all([d3.csv('data/places.csv'), d3.csv('data/itinerary.csv')]).then(([places, itin])=>{
+      const byId=new Map(places.map(p=>[p.place_id,p]));
+      itin.sort((a,b)=>(+a.seq)-(+b.seq));
+      const pts=itin.map(it=>({it, p:byId.get(it.place_id)})).filter(d=>d.p);
+
+      // route line
+      const line=d3.line().x(d=>px(+d.p.lat,+d.p.lon)[0]).y(d=>px(+d.p.lat,+d.p.lon)[1]);
+      svg.append('path').attr('class','ms-route').attr('d',line(pts));
+
+      // waypoints (dedup label per place so repeats don't clutter)
+      const seenLabel=new Set();
+      const g=svg.append('g');
+      pts.forEach(d=>{
+        const [x,y]=px(+d.p.lat,+d.p.lon);
+        g.append('circle').attr('class','ms-wp'+(d.p.recon_status==='confirmed'?' confirmed':''))
+          .attr('cx',x).attr('cy',y).attr('r',5)
+          .on('click',function(){
+            svg.selectAll('.ms-wp').classed('sel',false);
+            d3.select(this).classed('sel',true); show(d.p,d.it);
+          });
+        if(!seenLabel.has(d.p.place_id)){
+          seenLabel.add(d.p.place_id);
+          svg.append('text').attr('class','ms-lbl').attr('x',x+7).attr('y',y+3).text(d.p.name_ru.split('(')[0].split('/')[0].trim());
+        }
+      });
+
+      const conf=places.filter(p=>p.recon_status==='confirmed').length;
+      document.getElementById('ms-stat').textContent=`${pts.length} точек маршрута · ${conf} мест сверено с Wikidata · источник: data/*.csv`;
+    }).catch(err=>{
+      panel.innerHTML='<h3>Не удалось загрузить данные</h3><p class="ms-note">Откройте страницу через веб-сервер (d3.csv требует HTTP), например <code>python -m http.server</code>.</p>';
+      console.error(err);
+    });
+  })();
+  </script>
+</body>
+</html>
