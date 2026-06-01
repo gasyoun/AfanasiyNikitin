@@ -105,10 +105,12 @@ function px(lat,lon){return project(lon,lat);}
 function hav(la1,lo1,la2,lo2){const R=6371,r=Math.PI/180,a=Math.sin((la2-la1)*r/2)**2+Math.cos(la1*r)*Math.cos(la2*r)*Math.sin((lo2-lo1)*r/2)**2;return 2*R*Math.asin(Math.sqrt(a));}
 const VERST=1.0668;
 
-const { WP, PASSAGES, STATES, CITIES } = window.ATLAS;
+const { PASSAGES, STATES, CITIES } = window.ATLAS;
+// WP is mutable: it defaults to the bundled atlas-data.js waypoints and is replaced
+// at boot by loadSpineWP() when the data spine (data/*.csv) loads cleanly.
+let WP = (window.ATLAS && window.ATLAS.WP) || [];
 
-const CUM_KM=[0];
-for(let i=1;i<WP.length;i++) CUM_KM.push(CUM_KM[i-1]+hav(WP[i-1][0],WP[i-1][1],WP[i][0],WP[i][1]));
+let CUM_KM=[0];
 function cumKmAt(tv){
   for(let i=0;i<WP.length-1;i++){if(tv>=WP[i][2]&&tv<=WP[i+1][2]){const f=(tv-WP[i][2])/(WP[i+1][2]-WP[i][2]);return CUM_KM[i]+f*(CUM_KM[i+1]-CUM_KM[i]);}}
   return CUM_KM[CUM_KM.length-1];
@@ -283,34 +285,64 @@ function updBtn(){document.getElementById('ico').className=playing?'ti ti-player
 window.togglePlay=function(){playing=!playing;if(playing&&t>=100)t=0;lastTs=null;updBtn();};
 window.seekTo=function(v){t=Math.max(0,Math.min(100,v));playing=false;lastTs=null;updBtn();};
 
-const GEO=WP.map((w,i)=>`| ${i+1} | ${w[3]} | ${w[0]}° N | ${w[1]}° E | ${w[4]} |`).join('\n');
-const blob=new Blob([`# Геолокации пути Афанасия Никитина\n\n| # | Место | Широта | Долгота | Дата |\n|---|-------|--------|---------|------|\n${GEO}\n`],{type:'text/markdown'});
-document.getElementById('dlBtn').href=URL.createObjectURL(blob);
-
-buildTextPanel();
-
-let initialWP = 0;
-const urlParams = new URLSearchParams(window.location.search);
-const wpParam = urlParams.get('wp');
-if (wpParam !== null) {
-  const wpIdx = parseInt(wpParam, 10);
-  if (wpIdx >= 0 && wpIdx < WP.length) {
-    initialWP = wpIdx;
-    t = WP[wpIdx][2];
-  }
+// Build WP from the FAIR data spine (data/places.csv + data/itinerary.csv).
+// Returns a 28-entry WP aligned with the bundled PASSAGES, or null to fall back.
+function loadSpineWP(){
+  if(typeof d3==='undefined'||!d3.csv)return Promise.resolve(null);
+  return Promise.all([d3.csv('data/places.csv'),d3.csv('data/itinerary.csv')]).then(([places,itin])=>{
+    const byId={};places.forEach(p=>{byId[p.place_id]=p;});
+    itin.sort((a,b)=>(+a.seq)-(+b.seq));
+    const wp=[];
+    for(let i=0;i<itin.length;i++){
+      const r=itin[i],p=byId[r.place_id];
+      if(!p)return null;
+      // Merge the kashan+yazd pair back into the single "Кашан / Йезд" display
+      // waypoint, so WP stays 28 entries and index-aligned with the 28 PASSAGES.
+      if(r.place_id==='kashan'&&itin[i+1]&&itin[i+1].place_id==='yazd'){
+        wp.push([+p.lat,+p.lon,+r.t_index,'Кашан / Йезд',r.year_label,r.note||'',r.sea_region]);i++;continue;
+      }
+      wp.push([+p.lat,+p.lon,+r.t_index,p.name_ru,r.year_label,r.note||'',r.sea_region]);
+    }
+    const ok=wp.length===window.ATLAS.WP.length&&wp.every(w=>isFinite(w[0])&&isFinite(w[1])&&isFinite(w[2]));
+    return ok?wp:null;
+  }).catch(()=>null);
 }
-setActivePassage(initialWP, false);
-if (initialWP > 0) {
-  setTimeout(() => {
-    setActivePassage(initialWP, true);
-  }, 300);
+
+function start(){
+  for(let i=1;i<WP.length;i++) CUM_KM.push(CUM_KM[i-1]+hav(WP[i-1][0],WP[i-1][1],WP[i][0],WP[i][1]));
+
+  const GEO=WP.map((w,i)=>`| ${i+1} | ${w[3]} | ${w[0]}° N | ${w[1]}° E | ${w[4]} |`).join('\n');
+  const blob=new Blob([`# Геолокации пути Афанасия Никитина\n\n| # | Место | Широта | Долгота | Дата |\n|---|-------|--------|---------|------|\n${GEO}\n`],{type:'text/markdown'});
+  document.getElementById('dlBtn').href=URL.createObjectURL(blob);
+
+  buildTextPanel();
+
+  let initialWP = 0;
+  const urlParams = new URLSearchParams(window.location.search);
+  const wpParam = urlParams.get('wp');
+  if (wpParam !== null) {
+    const wpIdx = parseInt(wpParam, 10);
+    if (wpIdx >= 0 && wpIdx < WP.length) {
+      initialWP = wpIdx;
+      t = WP[wpIdx][2];
+    }
+  }
+  setActivePassage(initialWP, false);
+  if (initialWP > 0) {
+    setTimeout(() => { setActivePassage(initialWP, true); }, 300);
+  }
+
+  fetch('lib/countries-110m.json')
+    .then(r=>r.json()).then(w=>{buildOffscreen(w);mapReady=true;});
+  requestAnimationFrame(frame);
 }
 
 function waitLib(cb){if(typeof d3!=='undefined'&&typeof topojson!=='undefined')cb();else setTimeout(()=>waitLib(cb),60);}
 waitLib(()=>{
-  fetch('lib/countries-110m.json')
-    .then(r=>r.json()).then(w=>{buildOffscreen(w);mapReady=true;});
-  requestAnimationFrame(frame);
+  loadSpineWP()
+    .then(wp=>{ if(wp){WP=wp;} window.__WP_SOURCE=wp?'spine':'bundled'; })
+    .catch(()=>{ window.__WP_SOURCE='bundled'; })
+    .then(start);
 });
 })();
 </script>
