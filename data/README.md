@@ -1,8 +1,8 @@
 # `data/` — the FAIR data spine
 
-This directory is the **single source of truth** for the atlas. The plan is to invert the architecture: instead of data being hardcoded inside 28 HTML widgets, the widgets will read *from* these files. This is Phase 1 of the FAIR-data roadmap.
+This directory is the **single source of truth** for the atlas. The architecture is inverted: instead of data being hardcoded inside the HTML widgets, the widgets read *from* these files — the flagship map (`afanasy_v8_text_map.html`) already does, with others to follow.
 
-> **Status: prototype slice.** Three of the eight planned datasets exist so far (`sources`, `places`, `itinerary`). They were lifted from the canonical `js/atlas-data.js` (`ATLAS.WP`) and cross-checked against `afanasy_geolocations.md` and `afanasy_journey_data.md`.
+> **Status: complete (12 datasets).** Reconciled to Wikidata / GeoNames / Pleiades / VIAF, with Linked Places Format + RDF/Turtle exports and a reproducible computus. Lifted from `js/atlas-data.js` and the widgets, cross-checked against `afanasy_geolocations.md` / `afanasy_journey_data.md`, and validated by `tools/validate_data.py` + the `data-validate` CI on every push.
 
 ## Files
 
@@ -17,8 +17,14 @@ This directory is the **single source of truth** for the atlas. The plan is to i
 | `trade.csv` | Trade evidence — 4 text-attributed facts + 19 heuristic `model` goods (provenance per `article_figures/trade_model_sources.md`). | 23 |
 | `fragments.csv` | The 104 manuscript fragments (Ф.1–104): folio → layer/genre/chronological period/location/date. **Metadata only** — `quote` is empty (gated). | 104 |
 | `calendar.csv` | Computed Orthodox Easter / Great Lent / Ramadan / Eid 1467–1475 + the Mahashivaratri anchor. **Generated** by `tools/computus.py`. | 37 |
+| `legs.csv` | 28 journey legs — straight-line km between consecutive waypoints. **Generated** by `tools/build_legs.py`. | 28 |
+| `events.csv` | Key events of the journey, with place / people / date references. | 12 |
+| `edges.csv` | People-network edges (helped / harmed / neutral / indirect); `source`/`target` FK into `people`. | 17 |
 | `reconciliation.md` | Phase 2 audit: every place/person → its Wikidata / GeoNames / Pleiades / VIAF match, distance, and status. | — |
 | `places.lpf.geojson` | Gazetteer in **Linked Places Format** (GeoJSON-LD) for the World Historical Gazetteer. | — |
+| `atlas.ttl` | **Linked Data** (RDF/Turtle): CIDOC-CRM journey/events + GeoSPARQL places + `owl:sameAs` Wikidata/GeoNames/VIAF. **Generated** by `tools/build_rdf.py`. | — |
+| `route.geojson` | Journey route — LineString + 29 waypoint Points (built by `tools/build_route.py`). | — |
+| `itinerary.lt.json` | Itinerary as **Linked Traces** (LTF draft) for the World Historical Gazetteer. | — |
 | `../datapackage.json` | [Frictionless](https://frictionlessdata.io/) descriptor: schemas, types, keys, foreign keys, license. | — |
 
 ## Conventions

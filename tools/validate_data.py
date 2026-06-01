@@ -23,7 +23,8 @@ csvs = [os.path.splitext(os.path.basename(r["path"]))[0] for r in tabular]
 
 PK = {"sources": "source_id", "places": "place_id", "itinerary": "seq", "people": "person_id",
       "editions": "edition_id", "citations": "period", "trade": "item_id",
-      "fragments": "folio", "calendar": "event_id"}
+      "fragments": "folio", "calendar": "event_id",
+      "legs": "leg_id", "events": "event_id", "edges": "edge_id"}
 EPI = {"text", "reconstruction", "localization", "model", "hypothesis"}
 CERT = {"certain", "approx", "disputed"}
 RSTAT = {"confirmed", "candidate", "none", "collective", "skip-region"}
@@ -42,6 +43,7 @@ def load(name):
 D = {n: load(n) for n in csvs}
 src_ids = {r["source_id"] for r in D["sources"]}
 place_ids = {r["place_id"] for r in D["places"]}
+people_ids = {r["person_id"] for r in D["people"]}
 
 for n in csvs:
     key = PK.get(n)
@@ -63,6 +65,20 @@ for n in csvs:
 for r in D["people"]:
     if r["relation"] not in REL:
         fail.append(f"people:{r['person_id']} bad relation {r['relation']}")
+
+# extra foreign keys for the enrichment datasets
+for r in D.get("legs", []):
+    for col in ("from_place_id", "to_place_id"):
+        if r[col] not in place_ids:
+            fail.append(f"legs:{r['leg_id']} bad {col} {r[col]}")
+for r in D.get("edges", []):
+    for col in ("source", "target"):
+        if r[col] not in people_ids:
+            fail.append(f"edges:{r['edge_id']} bad {col} {r[col]}")
+for r in D.get("events", []):
+    for pid in (r.get("people") or "").split(";"):
+        if pid and pid not in people_ids:
+            fail.append(f"events:{r['event_id']} bad people ref {pid}")
 
 for r in D["places"]:
     if not (-90 <= float(r["lat"]) <= 90 and -180 <= float(r["lon"]) <= 180):

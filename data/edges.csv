@@ -1,0 +1,18 @@
+edge_id,source,target,relation,label,epistemic,source_id
+af-boris,af,boris,help,Охранная грамота для выезда,text,KHR2026
+af-mikhail,af,mikhail,help,Благословение и санкция на выезд,text,KHR2026
+af-genadiy,af,genadiy,help,Церковное благословение,text,KHR2026
+af-asanbeg,af,asanbeg,neutral,Попутный караван по Волге,text,KHR2026
+af-tatars,af,tatars,harm,Ограбление под Астраханью (1467),text,KHR2026
+af-farrukhyasar,af,farrukhyasar,harm,Отказ в возмещении убытков,text,KHR2026
+af-hassan,af,hassan,help,Спасение в Джуннаре,text,KHR2026
+af-asad,af,asad,harm,Конфискация коня; угроза,text,KHR2026
+af-mahmud,af,mahmud,neutral,Дворцовое окружение в Бидаре,reconstruction,KHR2026
+af-sultan,af,sultan,neutral,При дворе Бидара,reconstruction,KHR2026
+af-brahmins,af,brahmins,help,Принят как паломник в Шрисайламе,text,KHR2026
+af-local,af,local,neutral,Морская торговля и переходы,text,KHR2026
+hassan-asad,hassan,asad,harm,Конфликт из-за коня,text,KHR2026
+asanbeg-farrukhyasar,asanbeg,farrukhyasar,neutral,Посольство ширваншаха,text,KHR2026
+mahmud-sultan,mahmud,sultan,neutral,Великий визирь при султане,reconstruction,KHR2026
+af-mamyrev,af,mamyrev,indirect,Посмертная передача «тетрадей»,reconstruction,KHR2026
+mamyrev-karamzin,mamyrev,karamzin,indirect,Летопись → первая публикация (1817),reconstruction,KHR2026

@@ -1,0 +1,29 @@
+leg_id,from_seq,to_seq,from_place_id,to_place_id,km,cumulative_km,sea_region,mode,epistemic,source_id,note
+1-2,1,2,tver,nizhny_novgorod,500.0,500.0,Путь по Руси,river,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+2-3,2,3,nizhny_novgorod,astrakhan,1145.7,1645.7,Первое море — Каспийское,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+3-4,3,4,astrakhan,derbent,467.6,2113.3,Первое море — Каспийское,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+4-5,4,5,derbent,baku,231.6,2344.9,Путь через Персию,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+5-6,5,6,baku,mazandaran_sari,460.3,2805.2,Путь через Персию,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+6-7,6,7,mazandaran_sari,kashan,295.9,3101.1,Путь через Персию,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+7-8,7,8,kashan,yazd,358.8,3459.9,Путь через Персию,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+8-9,8,9,yazd,lar,471.5,3931.4,Путь через Персию,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+9-10,9,10,lar,hormuz,224.1,4155.4,Второе море — Индийское,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+10-11,10,11,hormuz,muscat,442.7,4598.1,Второе море — Индийское,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+11-12,11,12,muscat,chaul,1597.2,6195.3,Индия,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+12-13,12,13,chaul,junnar,122.6,6317.9,Индия,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+13-14,13,14,junnar,bidar,406.1,6724.0,Индия,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+14-15,14,15,bidar,aland,105.1,6829.1,Индия,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+15-16,15,16,aland,srisailam,297.0,7126.1,Индия,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+16-17,16,17,srisailam,bidar,249.4,7375.5,Индия,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+17-18,17,18,bidar,gulbarga,95.2,7470.7,Индия,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+18-19,18,19,gulbarga,kallur,139.5,7610.3,Индия,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+19-20,19,20,kallur,dabhol,472.4,8082.7,Второе море — Индийское,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+20-21,20,21,dabhol,somalia_coast,2460.3,10542.9,Второе море — Индийское,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+21-22,21,22,somalia_coast,hormuz,1802.9,12345.8,Третье море — Чёрное,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+22-23,22,23,hormuz,lar,224.1,12569.9,Путь через Персию,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+23-24,23,24,lar,erzincan,1915.6,14485.5,Третье море — Чёрное,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+24-25,24,25,erzincan,trabzon,140.1,14625.7,Третье море — Чёрное,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+25-26,25,26,trabzon,platana,11.1,14636.8,Третье море — Чёрное,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+26-27,26,27,platana,balaklava_gurzuf,594.2,15231.0,Третье море — Чёрное,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+27-28,27,28,balaklava_gurzuf,kaffa,114.2,15345.1,Третье море — Чёрное,sea,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.
+28-29,28,29,kaffa,smolensk,1116.2,16461.4,Конец пути,land,model,KHR2026,Прямой отрезок (great-circle); mode — эвристика по sea_region.

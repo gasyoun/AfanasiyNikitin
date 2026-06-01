@@ -1,0 +1,13 @@
+event_id,date_label,year,place_id,people,type,epistemic,certainty,source_id,note
+departure_tver,"1467, весна",1467,tver,mikhail;genadiy;boris,departure,text,certain,KHR2026,"Благословение и охранная грамота; начало «грешного хожения»."
+astrakhan_robbery,"1467, осень",1467,astrakhan,tatars;asanbeg,robbery,text,certain,KHR2026,"Ограбление татарами; потеря товара сделала возвращение невозможным."
+derbent_refusal,"1467–1468",1467,derbent,farrukhyasar,refusal,text,certain,KHR2026,"Ширваншах принял, но отказал в возмещении убытков."
+pascha_hormuz,"2 апр. 1469",1469,hormuz,,liturgical,reconstruction,certain,KHR2026,"Первая Пасха в пути — якорная точка датировки Хрусталёва."
+junnar_threat,"авг. 1469",1469,junnar,asad;hassan,threat-rescue,text,certain,KHR2026,"Асад-хан конфисковал коня и угрожал; спас Хасан-ходжа в день Спаса."
+horse_sale_bidar,"Рождество 1469",1469,bidar,,transaction,text,certain,KHR2026,"Жеребец продан в Бидаре за 68 футунов."
+lent_ramadan_1470,"март 1470",1470,bidar,local,liturgical,reconstruction,certain,KHR2026,"Великий пост совпал с Рамаданом — «постился с бесермены»."
+srisailam_pilgrimage,"19 фев. 1471",1471,srisailam,brahmins,pilgrimage,reconstruction,certain,KHR2026,"Паломничество к Шрисайламу; Махашиваратри — якорная дата."
+gavan_triumph_bidar,"1472",1472,bidar,mahmud;sultan,military,reconstruction,approx,KHR2026,"Взятие Гоа и триумфальный въезд великого визиря Махмуда Гавана."
+kaffa_arrival,"ноя. 1474",1474,kaffa,,arrival,text,certain,KHR2026,"«Пришёл есмь в Кафу» — финальная запись «тетрадей»."
+death_smolensk,"1475",1475,smolensk,,death,text,certain,KHR2026,"Афанасий умер под Смоленском, не дойдя до Твери."
+tetradi_to_mamyrev,"~1475",1475,smolensk,mamyrev,transmission,reconstruction,approx,KHR2026,"«Тетради» переданы дьяку Василию Мамыреву и включены в летопись."
