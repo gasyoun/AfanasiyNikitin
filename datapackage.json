@@ -1,8 +1,8 @@
 {
   "name": "afanasiy-nikitin-atlas-data",
   "title": "Afanasiy Nikitin Atlas — open dataset",
-  "description": "FAIR data spine for the interactive atlas of Afanasiy Nikitin's 1467-1475 journey (per Khrustalev 2026). Phase 1: sources register + places gazetteer + itinerary + people network. Four more datasets (calendar, fragments, trade, editions/citations) are planned. Facts only; see RIGHTS.md.",
-  "version": "0.2.0",
+  "description": "FAIR data spine for the interactive atlas of Afanasiy Nikitin's 1467-1475 journey (per Khrustalev 2026). Datasets: sources, places, itinerary, people, editions, citations, trade. One more (fragments) + a generated calendar (Phase 3) are planned. Facts only; see RIGHTS.md.",
+  "version": "0.3.0",
   "created": "2026-06-01",
   "keywords": ["digital humanities", "Afanasiy Nikitin", "Khozhenie za tri morya", "historical itinerary", "medieval travel", "linked open data"],
   "licenses": [
@@ -129,6 +129,94 @@
           { "name": "notes", "type": "string" }
         ],
         "primaryKey": "person_id",
+        "foreignKeys": [
+          { "fields": "place_id", "reference": { "resource": "places", "fields": "place_id" } },
+          { "fields": "source_id", "reference": { "resource": "sources", "fields": "source_id" } }
+        ]
+      }
+    },
+    {
+      "name": "editions",
+      "path": "data/editions.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "Publication history — 9 milestone editions 1818-2026 (from afanasy_editions_v3.html)",
+      "schema": {
+        "fields": [
+          { "name": "edition_id", "type": "string" },
+          { "name": "year", "type": "integer" },
+          { "name": "editor", "type": "string" },
+          { "name": "title", "type": "string" },
+          { "name": "place", "type": "string" },
+          { "name": "publisher", "type": "string" },
+          { "name": "language", "type": "string", "description": "ISO-ish language code; these 9 are all ru" },
+          { "name": "kind", "type": "string", "description": "first-publication | first-standalone | first-critical | jubilee | mass-academic | film-tie-in | academic-standard | mass-commercial | reconstruction" },
+          { "name": "source_id", "type": "string", "description": "FK -> sources.source_id (ATLAS = project compilation; lu1986=LUR1986, hr2026=KHR2026)" },
+          { "name": "source_page", "type": "string" },
+          { "name": "notes", "type": "string" }
+        ],
+        "primaryKey": "edition_id",
+        "foreignKeys": [
+          { "fields": "source_id", "reference": { "resource": "sources", "fields": "source_id" } }
+        ]
+      }
+    },
+    {
+      "name": "citations",
+      "path": "data/citations.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "Estimated scholarly attention by decade (epistemic=model — heuristic, not bibliometric)",
+      "schema": {
+        "fields": [
+          { "name": "period", "type": "string", "description": "Decade label" },
+          { "name": "total", "type": "integer", "description": "Estimated total = ru + foreign" },
+          { "name": "ru", "type": "integer", "description": "Russian scholarship (estimate)" },
+          { "name": "foreign", "type": "integer", "description": "Foreign scholarship (estimate)" },
+          { "name": "translations", "type": "integer", "description": "Translations (subset)" },
+          { "name": "wave", "type": "string", "description": "Named attention wave, if any" },
+          { "name": "epistemic", "type": "string", "description": "model (estimated, not real citation counts)" },
+          { "name": "certainty", "type": "string", "description": "certain | approx | disputed" },
+          { "name": "source_id", "type": "string", "description": "FK -> sources.source_id" },
+          { "name": "source_page", "type": "string" },
+          { "name": "key_events", "type": "string", "description": "Semicolon-separated milestone events" },
+          { "name": "notes", "type": "string" }
+        ],
+        "primaryKey": "period",
+        "foreignKeys": [
+          { "fields": "source_id", "reference": { "resource": "sources", "fields": "source_id" } }
+        ]
+      }
+    },
+    {
+      "name": "trade",
+      "path": "data/trade.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "Trade evidence — 4 text-attributed facts + 19 heuristic model goods (provenance per article_figures/trade_model_sources.md)",
+      "schema": {
+        "fields": [
+          { "name": "item_id", "type": "string" },
+          { "name": "item", "type": "string" },
+          { "name": "relation_to_nikitin", "type": "string", "description": "yes | no — whether tied to Nikitin's own text" },
+          { "name": "value", "type": "number", "description": "Stated value (text items only); blank for model goods" },
+          { "name": "unit", "type": "string" },
+          { "name": "place_id", "type": "string", "description": "FK -> places.place_id (nullable)" },
+          { "name": "model_tier", "type": "string", "description": "Qualitative price-gap tier for model goods" },
+          { "name": "basis", "type": "string", "description": "Evidential basis (folio or modelling rationale)" },
+          { "name": "epistemic", "type": "string", "description": "text (attested) | model (heuristic comparative)" },
+          { "name": "certainty", "type": "string", "description": "certain | approx | disputed" },
+          { "name": "source_id", "type": "string", "description": "FK -> sources.source_id" },
+          { "name": "source_page", "type": "string" },
+          { "name": "notes", "type": "string" }
+        ],
+        "primaryKey": "item_id",
         "foreignKeys": [
           { "fields": "place_id", "reference": { "resource": "places", "fields": "place_id" } },
           { "fields": "source_id", "reference": { "resource": "sources", "fields": "source_id" } }
