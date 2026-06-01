@@ -1,8 +1,8 @@
 {
   "name": "afanasiy-nikitin-atlas-data",
   "title": "Afanasiy Nikitin Atlas — open dataset",
-  "description": "FAIR data spine for the interactive atlas of Afanasiy Nikitin's 1467-1475 journey (per Khrustalev 2026). Phase 1 prototype slice: sources register + places gazetteer + itinerary. Six more datasets (people, calendar, fragments, trade, editions, citations) are planned. Facts only; see RIGHTS.md.",
-  "version": "0.1.0",
+  "description": "FAIR data spine for the interactive atlas of Afanasiy Nikitin's 1467-1475 journey (per Khrustalev 2026). Phase 1: sources register + places gazetteer + itinerary + people network. Four more datasets (calendar, fragments, trade, editions/citations) are planned. Facts only; see RIGHTS.md.",
+  "version": "0.2.0",
   "created": "2026-06-01",
   "keywords": ["digital humanities", "Afanasiy Nikitin", "Khozhenie za tri morya", "historical itinerary", "medieval travel", "linked open data"],
   "licenses": [
@@ -82,11 +82,11 @@
       "format": "csv",
       "mediatype": "text/csv",
       "encoding": "utf-8",
-      "title": "Ordered journey waypoints (28; matches js/atlas-data.js ATLAS.WP)",
+      "title": "Ordered journey waypoints (29; Kashan/Yazd split — diverges from js/atlas-data.js ATLAS.WP's 28 by design)",
       "schema": {
         "fields": [
           { "name": "seq", "type": "integer", "description": "1-based visit order" },
-          { "name": "t_index", "type": "number", "description": "Timeline index from ATLAS.WP (months since April 1467)" },
+          { "name": "t_index", "type": "number", "description": "Timeline index from ATLAS.WP (months since April 1467); interpolated for the Kashan/Yazd split" },
           { "name": "place_id", "type": "string", "description": "FK -> places.place_id (repeats allowed: Bidar x2, Hormuz x3, Lar x2)" },
           { "name": "year_label", "type": "string", "description": "Human-readable date label as rendered" },
           { "name": "sea_region", "type": "string", "description": "Which of the three seas / overland leg" },
@@ -97,6 +97,38 @@
           { "name": "note", "type": "string" }
         ],
         "primaryKey": "seq",
+        "foreignKeys": [
+          { "fields": "place_id", "reference": { "resource": "places", "fields": "place_id" } },
+          { "fields": "source_id", "reference": { "resource": "sources", "fields": "source_id" } }
+        ]
+      }
+    },
+    {
+      "name": "people",
+      "path": "data/people.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "People network (helped / harmed / neutral / self / indirect), from afanasy_people_network.html",
+      "schema": {
+        "fields": [
+          { "name": "person_id", "type": "string", "description": "Stable slug" },
+          { "name": "name_ru", "type": "string", "description": "Russian name" },
+          { "name": "name_translit", "type": "string", "description": "Latin transliteration (aids reconciliation)" },
+          { "name": "role", "type": "string", "description": "Role / title" },
+          { "name": "relation", "type": "string", "description": "helped | harmed | neutral | self | indirect (relation to Afanasiy)" },
+          { "name": "dates", "type": "string", "description": "Life or reign dates where known" },
+          { "name": "place_id", "type": "string", "description": "FK -> places.place_id (primary association; nullable)" },
+          { "name": "wikidata_qid", "type": "string", "description": "Wikidata QID (Phase 2)" },
+          { "name": "viaf_id", "type": "string", "description": "VIAF id (Phase 2)" },
+          { "name": "epistemic", "type": "string", "description": "text | reconstruction | localization | model | hypothesis" },
+          { "name": "certainty", "type": "string", "description": "certain | approx | disputed" },
+          { "name": "source_id", "type": "string", "description": "FK -> sources.source_id" },
+          { "name": "source_page", "type": "string" },
+          { "name": "notes", "type": "string" }
+        ],
+        "primaryKey": "person_id",
         "foreignKeys": [
           { "fields": "place_id", "reference": { "resource": "places", "fields": "place_id" } },
           { "fields": "source_id", "reference": { "resource": "sources", "fields": "source_id" } }
