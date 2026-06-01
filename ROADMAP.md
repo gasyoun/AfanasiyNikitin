@@ -3,7 +3,7 @@
 Development roadmap for the interactive atlas. Items are grouped by phase and priority.  
 Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
-> **Current snapshot (2026-05-21):** the public atlas has 21 HTML widget pages plus `index.html` and `check_sw.html`. Phase 0–3 scholarly/data work, Phase 2 architecture migration, local assets, shared theme/data, cross-linking, no-scroll desktop layout, Canvas dark-mode palettes, color-token audit, and shared shadow-token cleanup are complete and pushed to `main`.
+> **Current snapshot (2026-06-01):** the public atlas has 29 HTML widget pages plus `index.html` and `check_sw.html`, now backed by an open **data spine** in `data/` — 9 FAIR datasets + Frictionless `datapackage.json`, places/people reconciled to Wikidata/GeoNames/Pleiades/VIAF, a Linked Places Format export for the World Historical Gazetteer, and a reproducible computus — all checked by the `data-validate` CI workflow. Earlier Phase 0–3 scholarly/data work, Phase 2 architecture migration, local assets, shared theme/data, cross-linking, no-scroll desktop layout, Canvas dark-mode palettes, and color-token cleanup are complete and pushed to `main`.
 
 ---
 
@@ -11,7 +11,7 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| 1.1 | Interactive visualization widgets | 🟢 Done | Started as 14 pages; current public atlas has 21 widget pages |
+| 1.1 | Interactive visualization widgets | 🟢 Done | Started as 14 pages; current public atlas has 29 widget pages |
 | 1.2 | GitHub Pages deployment | 🟢 Done | https://gasyoun.github.io/AfanasiyNikitin/ |
 | 1.3 | `index.html` navigation hub | 🟢 Done | Cards by category |
 | 1.4 | Academic documentation set | 🟢 Done | README, CLAUDE, index.md, use cases |
@@ -76,7 +76,7 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| 4.1 | **PWA Service Worker** (`sw.js`) | 🟢 Done | Caches all 21 HTML files + local D3/TopoJSON assets |
+| 4.1 | **PWA Service Worker** (`sw.js`) | 🟢 Done | Caches all 29 HTML files + local D3/TopoJSON assets + the spine map's data |
 | 4.2 | **`manifest.json`** | 🟢 Done | Installable as home-screen app |
 | 4.3 | **CDN fallback** | 🟢 Done | D3, TopoJSON, world-atlas bundled locally in `lib/` |
 | 4.4 | **Canvas performance on mobile** | ⬜ Planned | `devicePixelRatio` awareness and detail reduction |
