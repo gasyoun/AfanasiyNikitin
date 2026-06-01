@@ -8,6 +8,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- **FAIR data spine (`data/`)** — 9 machine-readable datasets (sources, places, itinerary, people, editions, citations, trade, 104 manuscript fragments, computed calendar) described by a Frictionless `datapackage.json`. Every row carries `epistemic` (text / reconstruction / localization / model / hypothesis) and `certainty` labels; data licensed **CC-BY-4.0** (`RIGHTS.md`).
+- **Linked Open Data** — places & people reconciled to Wikidata / GeoNames / Pleiades / VIAF (`tools/reconcile.py`; audit + open-items in `data/reconciliation.md`). Gazetteer exported as **Linked Places Format** (`data/places.lpf.geojson`); route as GeoJSON + **Linked Traces** (`data/route.geojson`, `data/itinerary.lt.json`) for the World Historical Gazetteer (`SUBMISSION_WHG.md`).
+- **Reproducible computus** (`tools/computus.py` → `data/calendar.csv`) — computes Orthodox Easter, Great Lent and Ramadan/Eid 1467–1475 and independently reproduces Khrustalev's dating anchors (Easter 1469/1474; Great Lent ∩ Ramadan in March 1470).
+- **Spine-driven map PoC** `afanasy_map_spine.html` — renders the 29-point route directly from `data/*.csv` with click-through Wikidata links (no hardcoded coordinates).
+- **CI** `data-validate` workflow + tracked `tools/validate_data.py` / `tools/validate_lpf.py` — gate data integrity (BOM, PK/FK, controlled vocabularies, coordinate/citation sanity, the qid⟷confirmed invariant, LPF structure) on every push.
+- **Citability** — `CITATION.cff`, `.zenodo.json`, and a `schema.org/Dataset` JSON-LD block in `index.html` (Google Dataset Search).
 - **New widget `afanasy_prayer_interlinear.html`** — word-by-word interlinear of Afanasiy's polyglot prayers (Ф. 49, Ф. 50–51, Ф. 97, and the closing doxology Ф. 104), decoding the Cyrillic transcription as the Basmala, Shahada, Qur'an 59:22–24 and the chain of the Beautiful Names of Allah (28 identified). Three modes (Чтение / Подстрочник / 99 имён), per-word detail panel, language filter, Arabic-script toggle, and a stat bar; reuses the shared `--viz-language-*` palette and cross-links to the language map, manuscripts, and religious-crisis widgets. Raw text and lament glosses follow the 1986 academic edition via Khrustalev 2026; name identification follows the standard Asmā' al-ḥusnā. Wired into `index.html` (textual category, card 16), the overview, the Service Worker cache (`afanasy-atlas-v9`), `index.md`, and `README.md`.
 - Added a local SVG favicon and linked it from all atlas HTML pages, the web app manifest, and the Service Worker cache.
 - Cross-linked related widgets: calendar event details now open the matching route-map waypoint; Bidar economics entries open Bidar on the map; manuscript passages open a focused Gantt timeline period.
@@ -25,6 +31,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added compact `Атлас / текущая визуализация` breadcrumbs to all 21 widget pages.
 
 ### Changed
+- `README.md`: added a "Данные и повторное использование (FAIR / Linked Open Data)" section; corrected the widget count 28 → 29 (added the live `afanasy_parvat.html` row).
+- **Removed two in-copyright-derived files from the public repo** (`tetradi_hrustalev_2026.md`, `article_drevnyaya_rus_draft.md`) — kept locally, added to `.gitignore`; rationale in `RIGHTS.md`.
 - Tightened the shared visualization shell spacing in `css/atlas.css`, bringing the map, Gantt, people network, and several compact widgets back within a 1366×768 viewport.
 - `afanasy_trade_marshruttnik.html`: moved goods badges, legend outlines, and the trade-map Canvas palette onto shared atlas color tokens.
 - `afanasy_borders_animation.html`: moved event accents, legend swatches, Canvas basemap colors, labels, active marker, and Ottoman expansion arrows onto shared atlas color tokens.

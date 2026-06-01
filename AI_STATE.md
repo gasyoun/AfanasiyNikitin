@@ -76,6 +76,19 @@ Resolved 2 of the 5 open reconciliations (verified via Wikidata, added to `tools
 
 ---
 
+## Session 2026-06-01 (cont.) — autonomous batch (pushed to main)
+
+Per human direction (all four tasks; **push to main**; keep looping). All landed on `main`:
+- **Route + Linked Traces** — `tools/build_route.py` → `data/route.geojson` (LineString + 29 Points) and `data/itinerary.lt.json` (LTF draft); datapackage → v0.7.0.
+- **CI** — `data-validate` workflow + tracked `tools/validate_data.py`. First run **failed** (the frictionless probe caught only `ImportError`, and `created` wasn't a full datetime) → fixed: gate is now pure-stdlib; `created` = `2026-06-01T00:00:00Z`.
+- **README** — added "Data & reuse" (FAIR/LOD) section; corrected widget count 28 → 29 (added the live `afanasy_parvat.html` row + renumbered).
+- **Spine-driven map PoC** — `afanasy_map_spine.html` reads `data/*.csv` via `d3.csv` (no hardcoded coords) and shows Wikidata links. Verified the join/projection (29 pts, all in-bounds). **Flagship `afanasy_v8_text_map.html` left untouched** — its `WP`/`PASSAGES` are index-aligned at 28, so the 28→29 split would shift the text-sync; in-place migration is deferred for visual review.
+- CHANGELOG updated.
+
+**Still human-gated:** Zenodo DOI (enable Zenodo↔GitHub, cut release); WHG upload (`SUBMISSION_WHG.md`). **Deferred (needs review):** migrating the flagship map in-place onto the spine.
+
+---
+
 ## Session 2026-05-23 — Polyglot prayer interlinear widget
 
 Added **`afanasy_prayer_interlinear.html`** (28th widget). Word-by-word interlinear of Afanasiy's four polyglot passages (Ф. 49, Ф. 50–51, Ф. 97, and the closing doxology Ф. 104), transcribed from the 1986 academic edition via `hrustalev_tetradi_2026.pdf`. The doxology (Ф. 104) is decoded as the Basmala, Shahada, Qur'an 59:22–24, and the chain of the Beautiful Names (28 identified). Three modes (Чтение / Подстрочник / 99 имён), per-word detail panel, language filter, Arabic-script toggle, stat bar; reuses the shared `--viz-language-*` palette; cross-links to language map / manuscripts / religious crisis.
