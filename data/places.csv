@@ -1,27 +1,27 @@
-place_id,name_ru,name_historical,name_modern,country_modern,lat,lon,type,wikidata_qid,pleiades_id,geonames_id,certainty,epistemic,source_id,source_page,notes,recon_status
-tver,Тверь,Тверь,"Тверь, Россия",Россия,56.9,35.9,city,Q2288,,480060,certain,localization,KHR2026,,Отправная точка. geolocations.md: 56.86/35.91.,confirmed
-nizhny_novgorod,Нижний Новгород,Новгород Нижний,"Нижний Новгород, Россия",Россия,56.3,44.0,city,Q891,,520555,certain,localization,KHR2026,,Присоединение к посольству Асанбека. geolocations.md: 56.33/44.00.,confirmed
-astrakhan,Астрахань,Хаджи-Тархан,"Астрахань, Россия",Россия,46.3,48.0,city,Q3927,,580497,certain,localization,KHR2026,,Место ограбления татарами. geolocations.md: 46.35/48.04.,confirmed
-derbent,Дербент,Дербент (Железные ворота),"Дербент, Россия",Россия,42.1,48.3,city,Q131416,,566532,certain,localization,KHR2026,,Вход в Персию. geolocations.md: 42.07/48.29.,confirmed
-baku,Баку,Бака,"Баку, Азербайджан",Азербайджан,40.4,49.9,city,Q9248,,587081,certain,localization,KHR2026,,Апшеронские огни. geolocations.md: 40.41/49.87.,confirmed
-mazandaran_sari,Мазендаран (Сари),Мазендаран,"Сари, Иран",Иран,36.6,52.0,region,,,,approx,localization,KHR2026,,"Шесть месяцев в Сари; область, а не точка. geolocations.md: Амол/Сари 36.47/52.06.",skip-region
-kashan,Кашан,Кашан,"Кашан, Иран",Иран,33.98,51.43,city,Q240475,,128476,approx,localization,KHR2026,,Отделён от объединённого вэйпойнта kashan_yazd при проходе Phase 1. «В Кашане месяц». Координаты — совр. Кашан.,confirmed
-yazd,Йезд,Йезд,"Йезд, Иран",Иран,31.90,54.37,city,Q182394,29811,111822,certain,localization,KHR2026,,Отделён от kashan_yazd. «В Йезде месяц». geolocations.md: 31.90/54.37.,confirmed
-lar,Лар,Лар,"Лар, Иран",Иран,27.66,54.32,city,Q721029,,125877,certain,localization,KHR2026,,Торговый узел: покупка коня и «Маршрутник». Посещён дважды (туда и в 1474).,confirmed
-hormuz,Ормуз,Гурмыз,"о. Хормоз, Иран",Иран,27.1,56.5,port,Q888643,,131231,certain,localization,KHR2026,,«Тут есть море Индейское». Посещён трижды. geolocations.md: 27.08/56.46.,confirmed
-muscat,Маскат,Мошкат,"Маскат, Оман",Оман,23.6,58.6,port,Q3826,,287286,certain,localization,KHR2026,,Точка исправленной Пасхи №8 (10 апр. 1474). geolocations.md: 23.58/58.59.,confirmed
-chaul,Чаул,Чивиль,"Чаул (Райгад), Индия",Индия,18.5,73.0,port,Q1068374,,1274503,certain,localization,KHR2026,,Первая земля Индии. geolocations.md: 18.55/72.98.,confirmed
-junnar,Джуннар,Джуннар,"Джуннар, Индия",Индия,19.2,73.9,city,Q2445461,,1268761,certain,localization,KHR2026,,Конфликт с Асад-ханом. geolocations.md: 19.21/73.87.,confirmed
-bidar,Бидар,Бедер,"Бидар, Индия",Индия,17.9,77.5,capital,Q461922,,1275738,certain,localization,KHR2026,,"Столица Бахманидского султаната; главная стоянка, посещена дважды. geolocations.md: 17.92/77.52.",confirmed
-aland,Аланд,Аланд,"Аланд (?), Индия",Индия,17.57,76.57,town,Q2738477,,1279068,disputed,hypothesis,KHR2026,,Ярмарка памяти шейха Алауддина; локализация спорная. Проверить в Phase 2.,confirmed
-srisailam,Шрисайлам (Парват),Парват,"Шрисайлам, Индия",Индия,16.1,78.9,temple,Q1382167,,,certain,localization,KHR2026,,«Индийский Иерусалим»; Махашиваратри 19 фев. 1471. geolocations.md: 16.08/78.87.,confirmed
-gulbarga,Гулбарга,,"Калабураги (Гулбарга), Индия",Индия,17.33,76.83,city,Q37112,,1270752,approx,reconstruction,KHR2026,,«Пятая» Пасха 1473; реконструированная стоянка.,confirmed
-kallur,Каллур,,"Каллур (близ Райчура), Индия",Индия,16.2,77.4,mine,,,,disputed,hypothesis,KHR2026,,Алмазные копи у Райчура; локализация спорная.,candidate
-dabhol,Дабхол,Дабхол,"Дабхол, Индия",Индия,17.52,73.18,port,Q5207479,,1273765,certain,localization,KHR2026,,Фактический порт отплытия из Индии. ВНИМАНИЕ: afanasy_journey_data.md ошибочно даёт 17.5/70.0 (открытое море); верны atlas-data.js 17.52/73.18 и geolocations.md 17.58/73.18.,confirmed
-somalia_coast,«Эфиопия» (сомалийский берег),Эфиопия,побережье Сомали,Сомали,11.7,51.1,coast,,,,disputed,hypothesis,KHR2026,,"«Эфиопские горы» = сомалийский берег; протяжённая область, не точка.",skip-region
-erzincan,Арцынцан,Эрзинджан,"Эрзинджан, Турция",Турция,39.75,39.49,city,Q136217,874467,315373,approx,localization,KHR2026,,На пути к Трапезунду.,confirmed
-trabzon,Трабзон,Трапезунд,"Трабзон, Турция",Турция,41.0,39.7,port,Q45301,,738648,certain,localization,KHR2026,,«3-е море Чёрное». geolocations.md: 41.00/39.73.,confirmed
-platana,Платана,Платана,"Акчаабат, Турция",Турция,41.02,39.57,port,Q424661,,752627,approx,localization,KHR2026,,15 дней ожидания ветра у Трапезунда.,confirmed
-balaklava_gurzuf,Балаклава / Гурзуф,,Крым,Крым,44.55,34.1,coast,,,,approx,localization,KHR2026,,Крымские стоянки после шторма; два пункта сгруппированы в один вэйпойнт.,skip-region
-kaffa,Феодосия (Кафа),Кафа (генуэзская),"Феодосия, Крым",Крым,45.0,35.4,port,Q2585920,,,certain,localization,KHR2026,,«Пришёл есмь в Кафу». geolocations.md: 45.03/35.38.,confirmed
-smolensk,Смоленск,Смоленск,"Смоленск, Россия",Россия,54.8,32.0,city,Q2337,,491687,certain,localization,KHR2026,,Место гибели Афанасия. geolocations.md: 54.78/32.04.,confirmed
+place_id,name_ru,name_en,name_historical,name_modern,country_modern,lat,lon,type,wikidata_qid,pleiades_id,geonames_id,certainty,epistemic,source_id,source_page,notes,recon_status
+tver,Тверь,Tver,Тверь,"Тверь, Россия",Россия,56.9,35.9,city,Q2288,,480060,certain,localization,KHR2026,,Отправная точка. geolocations.md: 56.86/35.91.,confirmed
+nizhny_novgorod,Нижний Новгород,Nizhny Novgorod,Новгород Нижний,"Нижний Новгород, Россия",Россия,56.3,44.0,city,Q891,,520555,certain,localization,KHR2026,,Присоединение к посольству Асанбека. geolocations.md: 56.33/44.00.,confirmed
+astrakhan,Астрахань,Astrakhan,Хаджи-Тархан,"Астрахань, Россия",Россия,46.3,48.0,city,Q3927,,580497,certain,localization,KHR2026,,Место ограбления татарами. geolocations.md: 46.35/48.04.,confirmed
+derbent,Дербент,Derbent,Дербент (Железные ворота),"Дербент, Россия",Россия,42.1,48.3,city,Q131416,,566532,certain,localization,KHR2026,,Вход в Персию. geolocations.md: 42.07/48.29.,confirmed
+baku,Баку,Baku,Бака,"Баку, Азербайджан",Азербайджан,40.4,49.9,city,Q9248,,587081,certain,localization,KHR2026,,Апшеронские огни. geolocations.md: 40.41/49.87.,confirmed
+mazandaran_sari,Мазендаран (Сари),Mazandaran (Sari),Мазендаран,"Сари, Иран",Иран,36.6,52.0,region,,,,approx,localization,KHR2026,,"Шесть месяцев в Сари; область, а не точка. geolocations.md: Амол/Сари 36.47/52.06.",skip-region
+kashan,Кашан,Kashan,Кашан,"Кашан, Иран",Иран,33.98,51.43,city,Q240475,,128476,approx,localization,KHR2026,,Отделён от объединённого вэйпойнта kashan_yazd при проходе Phase 1. «В Кашане месяц». Координаты — совр. Кашан.,confirmed
+yazd,Йезд,Yazd,Йезд,"Йезд, Иран",Иран,31.90,54.37,city,Q182394,29811,111822,certain,localization,KHR2026,,Отделён от kashan_yazd. «В Йезде месяц». geolocations.md: 31.90/54.37.,confirmed
+lar,Лар,Lar,Лар,"Лар, Иран",Иран,27.66,54.32,city,Q721029,,125877,certain,localization,KHR2026,,Торговый узел: покупка коня и «Маршрутник». Посещён дважды (туда и в 1474).,confirmed
+hormuz,Ормуз,Hormuz,Гурмыз,"о. Хормоз, Иран",Иран,27.1,56.5,port,Q888643,,131231,certain,localization,KHR2026,,«Тут есть море Индейское». Посещён трижды. geolocations.md: 27.08/56.46.,confirmed
+muscat,Маскат,Muscat,Мошкат,"Маскат, Оман",Оман,23.6,58.6,port,Q3826,,287286,certain,localization,KHR2026,,Точка исправленной Пасхи №8 (10 апр. 1474). geolocations.md: 23.58/58.59.,confirmed
+chaul,Чаул,Chaul,Чивиль,"Чаул (Райгад), Индия",Индия,18.5,73.0,port,Q1068374,,1274503,certain,localization,KHR2026,,Первая земля Индии. geolocations.md: 18.55/72.98.,confirmed
+junnar,Джуннар,Junnar,Джуннар,"Джуннар, Индия",Индия,19.2,73.9,city,Q2445461,,1268761,certain,localization,KHR2026,,Конфликт с Асад-ханом. geolocations.md: 19.21/73.87.,confirmed
+bidar,Бидар,Bidar,Бедер,"Бидар, Индия",Индия,17.9,77.5,capital,Q461922,,1275738,certain,localization,KHR2026,,"Столица Бахманидского султаната; главная стоянка, посещена дважды. geolocations.md: 17.92/77.52.",confirmed
+aland,Аланд,Aland,Аланд,"Аланд (?), Индия",Индия,17.57,76.57,town,Q2738477,,1279068,disputed,hypothesis,KHR2026,,Ярмарка памяти шейха Алауддина; локализация спорная. Проверить в Phase 2.,confirmed
+srisailam,Шрисайлам (Парват),Srisailam Project (RFC) Township,Парват,"Шрисайлам, Индия",Индия,16.1,78.9,temple,Q1382167,,,certain,localization,KHR2026,,«Индийский Иерусалим»; Махашиваратри 19 фев. 1471. geolocations.md: 16.08/78.87.,confirmed
+gulbarga,Гулбарга,Kalaburagi,,"Калабураги (Гулбарга), Индия",Индия,17.33,76.83,city,Q37112,,1270752,approx,reconstruction,KHR2026,,«Пятая» Пасха 1473; реконструированная стоянка.,confirmed
+kallur,Каллур,Kallur (near Raichur),,"Каллур (близ Райчура), Индия",Индия,16.2,77.4,mine,,,,disputed,hypothesis,KHR2026,,Алмазные копи у Райчура; локализация спорная.,candidate
+dabhol,Дабхол,Dabhol,Дабхол,"Дабхол, Индия",Индия,17.52,73.18,port,Q5207479,,1273765,certain,localization,KHR2026,,Фактический порт отплытия из Индии. ВНИМАНИЕ: afanasy_journey_data.md ошибочно даёт 17.5/70.0 (открытое море); верны atlas-data.js 17.52/73.18 и geolocations.md 17.58/73.18.,confirmed
+somalia_coast,«Эфиопия» (сомалийский берег),Somali coast,Эфиопия,побережье Сомали,Сомали,11.7,51.1,coast,,,,disputed,hypothesis,KHR2026,,"«Эфиопские горы» = сомалийский берег; протяжённая область, не точка.",skip-region
+erzincan,Арцынцан,Erzincan,Эрзинджан,"Эрзинджан, Турция",Турция,39.75,39.49,city,Q136217,874467,315373,approx,localization,KHR2026,,На пути к Трапезунду.,confirmed
+trabzon,Трабзон,Trabzon,Трапезунд,"Трабзон, Турция",Турция,41.0,39.7,port,Q45301,,738648,certain,localization,KHR2026,,«3-е море Чёрное». geolocations.md: 41.00/39.73.,confirmed
+platana,Платана,Akçaabat,Платана,"Акчаабат, Турция",Турция,41.02,39.57,port,Q424661,,752627,approx,localization,KHR2026,,15 дней ожидания ветра у Трапезунда.,confirmed
+balaklava_gurzuf,Балаклава / Гурзуф,Balaklava / Gurzuf,,Крым,Крым,44.55,34.1,coast,,,,approx,localization,KHR2026,,Крымские стоянки после шторма; два пункта сгруппированы в один вэйпойнт.,skip-region
+kaffa,Феодосия (Кафа),Feodosiia,Кафа (генуэзская),"Феодосия, Крым",Крым,45.0,35.4,port,Q2585920,,,certain,localization,KHR2026,,«Пришёл есмь в Кафу». geolocations.md: 45.03/35.38.,confirmed
+smolensk,Смоленск,Smolensk,Смоленск,"Смоленск, Россия",Россия,54.8,32.0,city,Q2337,,491687,certain,localization,KHR2026,,Место гибели Афанасия. geolocations.md: 54.78/32.04.,confirmed

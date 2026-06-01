@@ -20,6 +20,10 @@
         {
           "toponym": "Тверь",
           "lang": "ru"
+        },
+        {
+          "toponym": "Tver",
+          "lang": "en"
         }
       ],
       "types": [
@@ -75,6 +79,10 @@
         {
           "toponym": "Нижний Новгород",
           "lang": "ru"
+        },
+        {
+          "toponym": "Nizhny Novgorod",
+          "lang": "en"
         },
         {
           "toponym": "Новгород Нижний",
@@ -136,6 +144,10 @@
           "lang": "ru"
         },
         {
+          "toponym": "Astrakhan",
+          "lang": "en"
+        },
+        {
           "toponym": "Хаджи-Тархан",
           "lang": "ru"
         }
@@ -193,6 +205,10 @@
         {
           "toponym": "Дербент",
           "lang": "ru"
+        },
+        {
+          "toponym": "Derbent",
+          "lang": "en"
         },
         {
           "toponym": "Дербент (Железные ворота)",
@@ -254,6 +270,10 @@
           "lang": "ru"
         },
         {
+          "toponym": "Baku",
+          "lang": "en"
+        },
+        {
           "toponym": "Бака",
           "lang": "ru"
         }
@@ -313,6 +333,10 @@
           "lang": "ru"
         },
         {
+          "toponym": "Mazandaran (Sari)",
+          "lang": "en"
+        },
+        {
           "toponym": "Мазендаран",
           "lang": "ru"
         },
@@ -364,6 +388,10 @@
         {
           "toponym": "Кашан",
           "lang": "ru"
+        },
+        {
+          "toponym": "Kashan",
+          "lang": "en"
         }
       ],
       "types": [
@@ -419,6 +447,10 @@
         {
           "toponym": "Йезд",
           "lang": "ru"
+        },
+        {
+          "toponym": "Yazd",
+          "lang": "en"
         }
       ],
       "types": [
@@ -478,6 +510,10 @@
         {
           "toponym": "Лар",
           "lang": "ru"
+        },
+        {
+          "toponym": "Lar",
+          "lang": "en"
         }
       ],
       "types": [
@@ -533,6 +569,10 @@
         {
           "toponym": "Ормуз",
           "lang": "ru"
+        },
+        {
+          "toponym": "Hormuz",
+          "lang": "en"
         },
         {
           "toponym": "Гурмыз",
@@ -598,6 +638,10 @@
           "lang": "ru"
         },
         {
+          "toponym": "Muscat",
+          "lang": "en"
+        },
+        {
           "toponym": "Мошкат",
           "lang": "ru"
         }
@@ -655,6 +699,10 @@
         {
           "toponym": "Чаул",
           "lang": "ru"
+        },
+        {
+          "toponym": "Chaul",
+          "lang": "en"
         },
         {
           "toponym": "Чивиль",
@@ -718,6 +766,10 @@
         {
           "toponym": "Джуннар",
           "lang": "ru"
+        },
+        {
+          "toponym": "Junnar",
+          "lang": "en"
         }
       ],
       "types": [
@@ -773,6 +825,10 @@
         {
           "toponym": "Бидар",
           "lang": "ru"
+        },
+        {
+          "toponym": "Bidar",
+          "lang": "en"
         },
         {
           "toponym": "Бедер",
@@ -834,6 +890,10 @@
           "lang": "ru"
         },
         {
+          "toponym": "Aland",
+          "lang": "en"
+        },
+        {
           "toponym": "Аланд (?)",
           "lang": "ru"
         }
@@ -891,6 +951,10 @@
         {
           "toponym": "Шрисайлам (Парват)",
           "lang": "ru"
+        },
+        {
+          "toponym": "Srisailam Project (RFC) Township",
+          "lang": "en"
         },
         {
           "toponym": "Парват",
@@ -952,6 +1016,10 @@
           "lang": "ru"
         },
         {
+          "toponym": "Kalaburagi",
+          "lang": "en"
+        },
+        {
           "toponym": "Калабураги (Гулбарга)",
           "lang": "ru"
         }
@@ -1011,6 +1079,10 @@
           "lang": "ru"
         },
         {
+          "toponym": "Kallur (near Raichur)",
+          "lang": "en"
+        },
+        {
           "toponym": "Каллур (близ Райчура)",
           "lang": "ru"
         }
@@ -1058,6 +1130,10 @@
         {
           "toponym": "Дабхол",
           "lang": "ru"
+        },
+        {
+          "toponym": "Dabhol",
+          "lang": "en"
         }
       ],
       "types": [
@@ -1115,6 +1191,10 @@
           "lang": "ru"
         },
         {
+          "toponym": "Somali coast",
+          "lang": "en"
+        },
+        {
           "toponym": "Эфиопия",
           "lang": "ru"
         },
@@ -1166,6 +1246,10 @@
         {
           "toponym": "Арцынцан",
           "lang": "ru"
+        },
+        {
+          "toponym": "Erzincan",
+          "lang": "en"
         },
         {
           "toponym": "Эрзинджан",
@@ -1231,6 +1315,10 @@
           "lang": "ru"
         },
         {
+          "toponym": "Trabzon",
+          "lang": "en"
+        },
+        {
           "toponym": "Трапезунд",
           "lang": "ru"
         }
@@ -1288,6 +1376,10 @@
         {
           "toponym": "Платана",
           "lang": "ru"
+        },
+        {
+          "toponym": "Akçaabat",
+          "lang": "en"
         },
         {
           "toponym": "Акчаабат",
@@ -1349,6 +1441,10 @@
           "lang": "ru"
         },
         {
+          "toponym": "Balaklava / Gurzuf",
+          "lang": "en"
+        },
+        {
           "toponym": "Крым",
           "lang": "ru"
         }
@@ -1396,6 +1492,10 @@
         {
           "toponym": "Феодосия (Кафа)",
           "lang": "ru"
+        },
+        {
+          "toponym": "Feodosiia",
+          "lang": "en"
         },
         {
           "toponym": "Кафа (генуэзская)",
@@ -1455,6 +1555,10 @@
         {
           "toponym": "Смоленск",
           "lang": "ru"
+        },
+        {
+          "toponym": "Smolensk",
+          "lang": "en"
         }
       ],
       "types": [

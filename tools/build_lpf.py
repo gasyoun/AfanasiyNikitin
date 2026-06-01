@@ -32,7 +32,7 @@ features = []
 for p in places:
     names = []
     seen = set()
-    for key, lang in [("name_ru", "ru"), ("name_historical", "ru"), ("name_modern", "ru")]:
+    for key, lang in [("name_ru", "ru"), ("name_en", "en"), ("name_historical", "ru"), ("name_modern", "ru")]:
         t = (p.get(key) or "").split(",")[0].strip()
         if t and t not in seen:
             seen.add(t)

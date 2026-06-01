@@ -42,193 +42,193 @@
         :place_smolensk .
 
 :place_tver a crm:E53_Place ; ;
-    rdfs:label "Тверь"@ru ; ;
+    rdfs:label "Тверь"@ru , "Tver"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 56.9 ; wgs:long 35.9 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(35.9 56.9)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q2288 , <https://www.geonames.org/480060/> .
 :place_nizhny_novgorod a crm:E53_Place ; ;
-    rdfs:label "Нижний Новгород"@ru ; ;
+    rdfs:label "Нижний Новгород"@ru , "Nizhny Novgorod"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 56.3 ; wgs:long 44.0 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(44.0 56.3)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q891 , <https://www.geonames.org/520555/> .
 :place_astrakhan a crm:E53_Place ; ;
-    rdfs:label "Астрахань"@ru ; ;
+    rdfs:label "Астрахань"@ru , "Astrakhan"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 46.3 ; wgs:long 48.0 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(48.0 46.3)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q3927 , <https://www.geonames.org/580497/> .
 :place_derbent a crm:E53_Place ; ;
-    rdfs:label "Дербент"@ru ; ;
+    rdfs:label "Дербент"@ru , "Derbent"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 42.1 ; wgs:long 48.3 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(48.3 42.1)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q131416 , <https://www.geonames.org/566532/> .
 :place_baku a crm:E53_Place ; ;
-    rdfs:label "Баку"@ru ; ;
+    rdfs:label "Баку"@ru , "Baku"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 40.4 ; wgs:long 49.9 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(49.9 40.4)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q9248 , <https://www.geonames.org/587081/> .
 :place_mazandaran_sari a crm:E53_Place ; ;
-    rdfs:label "Мазендаран (Сари)"@ru ; ;
+    rdfs:label "Мазендаран (Сари)"@ru , "Mazandaran (Sari)"@en ; ;
     crm:P2_has_type "region" ; ;
     wgs:lat 36.6 ; wgs:long 52.0 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(52.0 36.6)"^^geo:wktLiteral ] .
 :place_kashan a crm:E53_Place ; ;
-    rdfs:label "Кашан"@ru ; ;
+    rdfs:label "Кашан"@ru , "Kashan"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 33.98 ; wgs:long 51.43 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(51.43 33.98)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q240475 , <https://www.geonames.org/128476/> .
 :place_yazd a crm:E53_Place ; ;
-    rdfs:label "Йезд"@ru ; ;
+    rdfs:label "Йезд"@ru , "Yazd"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 31.90 ; wgs:long 54.37 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(54.37 31.90)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q182394 , <https://www.geonames.org/111822/> , <https://pleiades.stoa.org/places/29811> .
 :place_lar a crm:E53_Place ; ;
-    rdfs:label "Лар"@ru ; ;
+    rdfs:label "Лар"@ru , "Lar"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 27.66 ; wgs:long 54.32 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(54.32 27.66)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q721029 , <https://www.geonames.org/125877/> .
 :place_hormuz a crm:E53_Place ; ;
-    rdfs:label "Ормуз"@ru ; ;
+    rdfs:label "Ормуз"@ru , "Hormuz"@en ; ;
     crm:P2_has_type "port" ; ;
     wgs:lat 27.1 ; wgs:long 56.5 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(56.5 27.1)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q888643 , <https://www.geonames.org/131231/> .
 :place_muscat a crm:E53_Place ; ;
-    rdfs:label "Маскат"@ru ; ;
+    rdfs:label "Маскат"@ru , "Muscat"@en ; ;
     crm:P2_has_type "port" ; ;
     wgs:lat 23.6 ; wgs:long 58.6 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(58.6 23.6)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q3826 , <https://www.geonames.org/287286/> .
 :place_chaul a crm:E53_Place ; ;
-    rdfs:label "Чаул"@ru ; ;
+    rdfs:label "Чаул"@ru , "Chaul"@en ; ;
     crm:P2_has_type "port" ; ;
     wgs:lat 18.5 ; wgs:long 73.0 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(73.0 18.5)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q1068374 , <https://www.geonames.org/1274503/> .
 :place_junnar a crm:E53_Place ; ;
-    rdfs:label "Джуннар"@ru ; ;
+    rdfs:label "Джуннар"@ru , "Junnar"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 19.2 ; wgs:long 73.9 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(73.9 19.2)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q2445461 , <https://www.geonames.org/1268761/> .
 :place_bidar a crm:E53_Place ; ;
-    rdfs:label "Бидар"@ru ; ;
+    rdfs:label "Бидар"@ru , "Bidar"@en ; ;
     crm:P2_has_type "capital" ; ;
     wgs:lat 17.9 ; wgs:long 77.5 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(77.5 17.9)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q461922 , <https://www.geonames.org/1275738/> .
 :place_aland a crm:E53_Place ; ;
-    rdfs:label "Аланд"@ru ; ;
+    rdfs:label "Аланд"@ru , "Aland"@en ; ;
     crm:P2_has_type "town" ; ;
     wgs:lat 17.57 ; wgs:long 76.57 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(76.57 17.57)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q2738477 , <https://www.geonames.org/1279068/> .
 :place_srisailam a crm:E53_Place ; ;
-    rdfs:label "Шрисайлам (Парват)"@ru ; ;
+    rdfs:label "Шрисайлам (Парват)"@ru , "Srisailam Project (RFC) Township"@en ; ;
     crm:P2_has_type "temple" ; ;
     wgs:lat 16.1 ; wgs:long 78.9 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(78.9 16.1)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q1382167 .
 :place_gulbarga a crm:E53_Place ; ;
-    rdfs:label "Гулбарга"@ru ; ;
+    rdfs:label "Гулбарга"@ru , "Kalaburagi"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 17.33 ; wgs:long 76.83 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(76.83 17.33)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q37112 , <https://www.geonames.org/1270752/> .
 :place_kallur a crm:E53_Place ; ;
-    rdfs:label "Каллур"@ru ; ;
+    rdfs:label "Каллур"@ru , "Kallur (near Raichur)"@en ; ;
     crm:P2_has_type "mine" ; ;
     wgs:lat 16.2 ; wgs:long 77.4 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(77.4 16.2)"^^geo:wktLiteral ] .
 :place_dabhol a crm:E53_Place ; ;
-    rdfs:label "Дабхол"@ru ; ;
+    rdfs:label "Дабхол"@ru , "Dabhol"@en ; ;
     crm:P2_has_type "port" ; ;
     wgs:lat 17.52 ; wgs:long 73.18 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(73.18 17.52)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q5207479 , <https://www.geonames.org/1273765/> .
 :place_somalia_coast a crm:E53_Place ; ;
-    rdfs:label "«Эфиопия» (сомалийский берег)"@ru ; ;
+    rdfs:label "«Эфиопия» (сомалийский берег)"@ru , "Somali coast"@en ; ;
     crm:P2_has_type "coast" ; ;
     wgs:lat 11.7 ; wgs:long 51.1 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(51.1 11.7)"^^geo:wktLiteral ] .
 :place_erzincan a crm:E53_Place ; ;
-    rdfs:label "Арцынцан"@ru ; ;
+    rdfs:label "Арцынцан"@ru , "Erzincan"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 39.75 ; wgs:long 39.49 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(39.49 39.75)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q136217 , <https://www.geonames.org/315373/> , <https://pleiades.stoa.org/places/874467> .
 :place_trabzon a crm:E53_Place ; ;
-    rdfs:label "Трабзон"@ru ; ;
+    rdfs:label "Трабзон"@ru , "Trabzon"@en ; ;
     crm:P2_has_type "port" ; ;
     wgs:lat 41.0 ; wgs:long 39.7 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(39.7 41.0)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q45301 , <https://www.geonames.org/738648/> .
 :place_platana a crm:E53_Place ; ;
-    rdfs:label "Платана"@ru ; ;
+    rdfs:label "Платана"@ru , "Akçaabat"@en ; ;
     crm:P2_has_type "port" ; ;
     wgs:lat 41.02 ; wgs:long 39.57 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(39.57 41.02)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q424661 , <https://www.geonames.org/752627/> .
 :place_balaklava_gurzuf a crm:E53_Place ; ;
-    rdfs:label "Балаклава / Гурзуф"@ru ; ;
+    rdfs:label "Балаклава / Гурзуф"@ru , "Balaklava / Gurzuf"@en ; ;
     crm:P2_has_type "coast" ; ;
     wgs:lat 44.55 ; wgs:long 34.1 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(34.1 44.55)"^^geo:wktLiteral ] .
 :place_kaffa a crm:E53_Place ; ;
-    rdfs:label "Феодосия (Кафа)"@ru ; ;
+    rdfs:label "Феодосия (Кафа)"@ru , "Feodosiia"@en ; ;
     crm:P2_has_type "port" ; ;
     wgs:lat 45.0 ; wgs:long 35.4 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(35.4 45.0)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q2585920 .
 :place_smolensk a crm:E53_Place ; ;
-    rdfs:label "Смоленск"@ru ; ;
+    rdfs:label "Смоленск"@ru , "Smolensk"@en ; ;
     crm:P2_has_type "city" ; ;
     wgs:lat 54.8 ; wgs:long 32.0 ; ;
     geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT(32.0 54.8)"^^geo:wktLiteral ] ;
     owl:sameAs wd:Q2337 , <https://www.geonames.org/491687/> .
 
 :person_af a crm:E21_Person ; ;
-    rdfs:label "Афанасий Никитин"@ru ;
+    rdfs:label "Афанасий Никитин"@ru , "Afanasy Nikitin"@en ;
     owl:sameAs wd:Q48624 , <http://viaf.org/viaf/25399800> .
 :person_boris a crm:E21_Person ; ;
-    rdfs:label "Борис Захарьич"@ru .
+    rdfs:label "Борис Захарьич"@ru , "Boris Zakharyich"@en .
 :person_mikhail a crm:E21_Person ; ;
-    rdfs:label "Кн. Михаил Борисович"@ru ;
+    rdfs:label "Кн. Михаил Борисович"@ru , "Mikhail III of Tver"@en ;
     owl:sameAs wd:Q2635644 .
 :person_genadiy a crm:E21_Person ; ;
-    rdfs:label "Владыка Геннадий"@ru .
+    rdfs:label "Владыка Геннадий"@ru , "Gennadiy of Tver"@en .
 :person_asanbeg a crm:E21_Person ; ;
-    rdfs:label "Асанбег Ширванский"@ru .
+    rdfs:label "Асанбег Ширванский"@ru , "Hasan-beg (Shirvan envoy)"@en .
 :person_tatars a crm:E21_Person ; ;
-    rdfs:label "Татары (астраханские)"@ru .
+    rdfs:label "Татары (астраханские)"@ru , "Astrakhan Tatars"@en .
 :person_farrukhyasar a crm:E21_Person ; ;
-    rdfs:label "Ширваншах Фаррух-Ясар"@ru ;
+    rdfs:label "Ширваншах Фаррух-Ясар"@ru , "Farrukh Yassar"@en ;
     owl:sameAs wd:Q2002210 .
 :person_hassan a crm:E21_Person ; ;
-    rdfs:label "Хасан-ходжа Хорасанский"@ru .
+    rdfs:label "Хасан-ходжа Хорасанский"@ru , "Hasan-khoja Khorasani"@en .
 :person_asad a crm:E21_Person ; ;
-    rdfs:label "Хан Асад"@ru .
+    rdfs:label "Хан Асад"@ru , "Khan Asad"@en .
 :person_mahmud a crm:E21_Person ; ;
-    rdfs:label "Махмуд Гаван"@ru ;
+    rdfs:label "Махмуд Гаван"@ru , "Mahmud Gawan"@en ;
     owl:sameAs wd:Q2151490 , <http://viaf.org/viaf/306081118> .
 :person_sultan a crm:E21_Person ; ;
-    rdfs:label "Султан Мухаммад III (Лашкари)"@ru ;
+    rdfs:label "Султан Мухаммад III (Лашкари)"@ru , "Muhammad Shah Lashkari"@en ;
     owl:sameAs wd:Q4519937 .
 :person_brahmins a crm:E21_Person ; ;
-    rdfs:label "Брахманы (Шрисайлам)"@ru .
+    rdfs:label "Брахманы (Шрисайлам)"@ru , "Brahmins (Srisailam)"@en .
 :person_local a crm:E21_Person ; ;
-    rdfs:label "Купцы Индийского океана"@ru .
+    rdfs:label "Купцы Индийского океана"@ru , "Indian Ocean merchants"@en .
 :person_mamyrev a crm:E21_Person ; ;
-    rdfs:label "Дьяк Василий Мамырев"@ru .
+    rdfs:label "Дьяк Василий Мамырев"@ru , "Vasiliy Mamyrev"@en .
 :person_karamzin a crm:E21_Person ; ;
-    rdfs:label "Н. М. Карамзин"@ru ;
+    rdfs:label "Н. М. Карамзин"@ru , "Nikolay Karamzin"@en ;
     owl:sameAs wd:Q191598 , <http://viaf.org/viaf/71438262> .
 
 :event_departure_tver a crm:E5_Event ; ;

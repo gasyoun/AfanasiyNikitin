@@ -1,16 +1,16 @@
-person_id,name_ru,name_translit,role,relation,dates,place_id,wikidata_qid,viaf_id,epistemic,certainty,source_id,source_page,notes,recon_status
-af,Афанасий Никитин,Afanasiy Nikitin,"Тверской купец, путешественник",self,ум. 1475,tver,Q48624,25399800,text,certain,KHR2026,,"Автор «Хожения». Умер под Смоленском, не дойдя до Твери.",confirmed
-boris,Борис Захарьич,Boris Zakharyich,Воевода тверской,helped,,tver,,,text,certain,KHR2026,,Дал охранную грамоту для выезда.,collective
-mikhail,Кн. Михаил Борисович,Mikhail Borisovich,Великий князь Тверской,helped,1461–1485 (правл.),tver,Q2635644,,text,certain,KHR2026,,Благословение и санкция на купеческий выезд.,confirmed
-genadiy,Владыка Геннадий,Gennadiy of Tver,Епископ Тверской,helped,,tver,,,text,certain,KHR2026,,Церковное благословение отъезда.,none
-asanbeg,Асанбег Ширванский,Hasan-beg (Shirvan envoy),Посол ширваншаха,neutral,,nizhny_novgorod,,,text,certain,KHR2026,,Афанасий пристал к его каравану на Волге; после ограбления бросил купцов.,collective
-tatars,Татары (астраханские),Astrakhan Tatars,Ограбили караван под Астраханью,harmed,,astrakhan,,,text,certain,KHR2026,,Коллективный субъект. Ограбление 1467 сделало возвращение невозможным.,collective
-farrukhyasar,Ширваншах Фаррух-Ясар,Farrukh Yasar,Ширваншах,harmed,1462–1500 (правл.),derbent,Q2002210,,reconstruction,certain,KHR2026,,Идентификация титула «ширваншах». Отказал в возмещении убытков.,confirmed
-hassan,Хасан-ходжа Хорасанский,Hasan-khoja Khorasani,Торговец из Хорасана,helped,,junnar,,,text,certain,KHR2026,,"Единственный, кому Афанасий лично благодарен; спас в Джуннаре.",collective
-asad,Хан Асад,Khan Asad,Правитель Джуннара,harmed,,junnar,,,text,certain,KHR2026,,"Конфисковал коня, угрожал смертью за веру.",collective
-mahmud,Махмуд Гаван,Mahmud Gawan,Великий визирь (меликтучар) Бахманидов,neutral,ок. 1411–1481,bidar,Q2151490,306081118,reconstruction,approx,KHR2026,,"Идентификация «меликтучара». Хрусталёв: возможно, негласный протектор Афанасия (гипотеза).",confirmed
-sultan,Султан Мухаммад III (Лашкари),Muhammad Shah III Lashkari,Бахманидский султан,neutral,1463–1482 (правл.),bidar,Q4519937,,reconstruction,certain,KHR2026,,Правивший в 1469–72 бахманидский султан; атлас-виджет ошибочно называет его «Махмуд III». Верный правитель — Мухаммад III Лашкари (ум. 1482).,confirmed
-brahmins,Брахманы (Шрисайлам),Brahmins (Srisailam),Индуистские жрецы,helped,,srisailam,,,text,certain,KHR2026,,"Коллективный субъект. Приняли паломника, накормили.",collective
-local,Купцы Индийского океана,Indian Ocean merchants,Морские торговые партнёры,neutral,,hormuz,,,text,approx,KHR2026,,Коллективный субъект. Афанасий плыл на их судах («тавах»).,collective
-mamyrev,Дьяк Василий Мамырев,Vasiliy Mamyrev,Московский дьяк,indirect,,,,,text,certain,KHR2026,,"Получил «тетради», переписал, включил в летопись. Назван в обрамлении текста.",none
-karamzin,Н. М. Карамзин,Nikolay Karamzin,"Историк, первый публикатор",indirect,,,Q191598,71438262,reconstruction,certain,KHR2026,,"Первым опубликовал «Хожение» (1817). Историографический, а не текстовый персонаж.",confirmed
+person_id,name_ru,name_translit,name_en,role,relation,dates,place_id,wikidata_qid,viaf_id,epistemic,certainty,source_id,source_page,notes,recon_status
+af,Афанасий Никитин,Afanasiy Nikitin,Afanasy Nikitin,"Тверской купец, путешественник",self,ум. 1475,tver,Q48624,25399800,text,certain,KHR2026,,"Автор «Хожения». Умер под Смоленском, не дойдя до Твери.",confirmed
+boris,Борис Захарьич,Boris Zakharyich,Boris Zakharyich,Воевода тверской,helped,,tver,,,text,certain,KHR2026,,Дал охранную грамоту для выезда.,collective
+mikhail,Кн. Михаил Борисович,Mikhail Borisovich,Mikhail III of Tver,Великий князь Тверской,helped,1461–1485 (правл.),tver,Q2635644,,text,certain,KHR2026,,Благословение и санкция на купеческий выезд.,confirmed
+genadiy,Владыка Геннадий,Gennadiy of Tver,Gennadiy of Tver,Епископ Тверской,helped,,tver,,,text,certain,KHR2026,,Церковное благословение отъезда.,none
+asanbeg,Асанбег Ширванский,Hasan-beg (Shirvan envoy),Hasan-beg (Shirvan envoy),Посол ширваншаха,neutral,,nizhny_novgorod,,,text,certain,KHR2026,,Афанасий пристал к его каравану на Волге; после ограбления бросил купцов.,collective
+tatars,Татары (астраханские),Astrakhan Tatars,Astrakhan Tatars,Ограбили караван под Астраханью,harmed,,astrakhan,,,text,certain,KHR2026,,Коллективный субъект. Ограбление 1467 сделало возвращение невозможным.,collective
+farrukhyasar,Ширваншах Фаррух-Ясар,Farrukh Yasar,Farrukh Yassar,Ширваншах,harmed,1462–1500 (правл.),derbent,Q2002210,,reconstruction,certain,KHR2026,,Идентификация титула «ширваншах». Отказал в возмещении убытков.,confirmed
+hassan,Хасан-ходжа Хорасанский,Hasan-khoja Khorasani,Hasan-khoja Khorasani,Торговец из Хорасана,helped,,junnar,,,text,certain,KHR2026,,"Единственный, кому Афанасий лично благодарен; спас в Джуннаре.",collective
+asad,Хан Асад,Khan Asad,Khan Asad,Правитель Джуннара,harmed,,junnar,,,text,certain,KHR2026,,"Конфисковал коня, угрожал смертью за веру.",collective
+mahmud,Махмуд Гаван,Mahmud Gawan,Mahmud Gawan,Великий визирь (меликтучар) Бахманидов,neutral,ок. 1411–1481,bidar,Q2151490,306081118,reconstruction,approx,KHR2026,,"Идентификация «меликтучара». Хрусталёв: возможно, негласный протектор Афанасия (гипотеза).",confirmed
+sultan,Султан Мухаммад III (Лашкари),Muhammad Shah III Lashkari,Muhammad Shah Lashkari,Бахманидский султан,neutral,1463–1482 (правл.),bidar,Q4519937,,reconstruction,certain,KHR2026,,Правивший в 1469–72 бахманидский султан; атлас-виджет ошибочно называет его «Махмуд III». Верный правитель — Мухаммад III Лашкари (ум. 1482).,confirmed
+brahmins,Брахманы (Шрисайлам),Brahmins (Srisailam),Brahmins (Srisailam),Индуистские жрецы,helped,,srisailam,,,text,certain,KHR2026,,"Коллективный субъект. Приняли паломника, накормили.",collective
+local,Купцы Индийского океана,Indian Ocean merchants,Indian Ocean merchants,Морские торговые партнёры,neutral,,hormuz,,,text,approx,KHR2026,,Коллективный субъект. Афанасий плыл на их судах («тавах»).,collective
+mamyrev,Дьяк Василий Мамырев,Vasiliy Mamyrev,Vasiliy Mamyrev,Московский дьяк,indirect,,,,,text,certain,KHR2026,,"Получил «тетради», переписал, включил в летопись. Назван в обрамлении текста.",none
+karamzin,Н. М. Карамзин,Nikolay Karamzin,Nikolay Karamzin,"Историк, первый публикатор",indirect,,,Q191598,71438262,reconstruction,certain,KHR2026,,"Первым опубликовал «Хожение» (1817). Историографический, а не текстовый персонаж.",confirmed

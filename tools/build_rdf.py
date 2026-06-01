@@ -60,7 +60,7 @@ out += [':journey a crm:E9_Move ;',
 # places
 for p in places:
     s = [f':place_{cid(p["place_id"])} a crm:E53_Place ;',
-         f'    rdfs:label "{lit(p["name_ru"])}"@ru ;',
+         f'    rdfs:label "{lit(p["name_ru"])}"@ru' + (f' , "{lit(p["name_en"])}"@en' if p.get("name_en") else "") + ' ;',
          f'    crm:P2_has_type "{lit(p["type"])}" ;',
          f'    wgs:lat {p["lat"]} ; wgs:long {p["lon"]} ;',
          f'    geo:hasGeometry [ a geo:Geometry ; geo:asWKT "POINT({p["lon"]} {p["lat"]})"^^geo:wktLiteral ]']
@@ -79,7 +79,7 @@ out.append("")
 # people
 for p in people:
     s = [f':person_{cid(p["person_id"])} a crm:E21_Person ;',
-         f'    rdfs:label "{lit(p["name_ru"])}"@ru']
+         f'    rdfs:label "{lit(p["name_ru"])}"@ru' + (f' , "{lit(p["name_en"])}"@en' if p.get("name_en") else "")]
     same = []
     if p.get("wikidata_qid"):
         same.append(f'wd:{p["wikidata_qid"]}')

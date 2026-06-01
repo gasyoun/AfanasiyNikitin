@@ -54,6 +54,7 @@
         "fields": [
           { "name": "place_id", "type": "string", "description": "Stable slug" },
           { "name": "name_ru", "type": "string", "description": "Modern Russian name" },
+          { "name": "name_en", "type": "string", "description": "English name (Wikidata label where reconciled)" },
           { "name": "name_historical", "type": "string", "description": "Name as in the text / 15th c." },
           { "name": "name_modern", "type": "string", "description": "Modern place + country" },
           { "name": "country_modern", "type": "string" },
@@ -117,6 +118,7 @@
           { "name": "person_id", "type": "string", "description": "Stable slug" },
           { "name": "name_ru", "type": "string", "description": "Russian name" },
           { "name": "name_translit", "type": "string", "description": "Latin transliteration (aids reconciliation)" },
+          { "name": "name_en", "type": "string", "description": "English name (Wikidata label where reconciled)" },
           { "name": "role", "type": "string", "description": "Role / title" },
           { "name": "relation", "type": "string", "description": "helped | harmed | neutral | self | indirect (relation to Afanasiy)" },
           { "name": "dates", "type": "string", "description": "Life or reign dates where known" },
