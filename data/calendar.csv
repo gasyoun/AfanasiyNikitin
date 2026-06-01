@@ -1,0 +1,38 @@
+event_id,year_ce,type,julian_date,gregorian_date,hijri,method,place_id,epistemic,certainty,source_id,notes
+lent_1467,1467,great_lent_start,1467-02-09,1467-02-18,,Pascha - 48 d (Clean Monday),,model,certain,ATLAS,
+pascha_1467,1467,pascha,1467-03-29,1467-04-07,,Julian computus (Meeus),,model,certain,ATLAS,
+ramadan_871,1467,ramadan_start,1467-04-06,1467-04-15,1 Ramadan 871 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,
+eid_871,1467,eid_al_fitr,1467-05-06,1467-05-15,1 Shawwal 871 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,Ураза-байрам
+lent_1468,1468,great_lent_start,1468-02-29,1468-03-09,,Pascha - 48 d (Clean Monday),,model,certain,ATLAS,
+ramadan_872,1468,ramadan_start,1468-03-25,1468-04-03,1 Ramadan 872 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,
+pascha_1468,1468,pascha,1468-04-17,1468-04-26,,Julian computus (Meeus),,model,certain,ATLAS,
+eid_872,1468,eid_al_fitr,1468-04-24,1468-05-03,1 Shawwal 872 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,Ураза-байрам
+lent_1469,1469,great_lent_start,1469-02-13,1469-02-22,,Pascha - 48 d (Clean Monday),,model,certain,ATLAS,
+ramadan_873,1469,ramadan_start,1469-03-15,1469-03-24,1 Ramadan 873 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,
+pascha_1469,1469,pascha,1469-04-02,1469-04-11,,Julian computus (Meeus),hormuz,model,certain,ATLAS,Khrustalev anchor: Easter in Hormuz (1st Pascha of the journey)
+eid_873,1469,eid_al_fitr,1469-04-14,1469-04-23,1 Shawwal 873 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,Ураза-байрам
+ramadan_874,1470,ramadan_start,1470-03-04,1470-03-13,1 Ramadan 874 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,overlaps Orthodox Great Lent 1470
+lent_1470,1470,great_lent_start,1470-03-05,1470-03-14,,Pascha - 48 d (Clean Monday),,model,certain,ATLAS,Великий пост; overlaps Ramadan in 1470 (Khrustalev: 'постился с бесермены')
+eid_874,1470,eid_al_fitr,1470-04-03,1470-04-12,1 Shawwal 874 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,Ураза-байрам
+pascha_1470,1470,pascha,1470-04-22,1470-05-01,,Julian computus (Meeus),,model,certain,ATLAS,
+mahashivaratri_1471,1471,mahashivaratri,1471-02-19,1471-02-28,,"Hindu lunisolar (recorded, not recomputed)",srisailam,reconstruction,approx,KHR2026,"Krishna-paksha 14, Phalguna; Khrustalev anchor at Srisailam ~19 Feb 1471 (Julian). Not computed by this script."
+ramadan_875,1471,ramadan_start,1471-02-21,1471-03-02,1 Ramadan 875 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,
+lent_1471,1471,great_lent_start,1471-02-25,1471-03-06,,Pascha - 48 d (Clean Monday),,model,certain,ATLAS,
+eid_875,1471,eid_al_fitr,1471-03-23,1471-04-01,1 Shawwal 875 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,Ураза-байрам
+pascha_1471,1471,pascha,1471-04-14,1471-04-23,,Julian computus (Meeus),,model,certain,ATLAS,
+lent_1472,1472,great_lent_start,1472-02-10,1472-02-19,,Pascha - 48 d (Clean Monday),,model,certain,ATLAS,
+ramadan_876,1472,ramadan_start,1472-02-11,1472-02-20,1 Ramadan 876 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,
+eid_876,1472,eid_al_fitr,1472-03-12,1472-03-21,1 Shawwal 876 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,Ураза-байрам
+pascha_1472,1472,pascha,1472-03-29,1472-04-07,,Julian computus (Meeus),,model,certain,ATLAS,
+ramadan_877,1473,ramadan_start,1473-01-30,1473-02-08,1 Ramadan 877 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,
+lent_1473,1473,great_lent_start,1473-03-01,1473-03-10,,Pascha - 48 d (Clean Monday),,model,certain,ATLAS,
+eid_877,1473,eid_al_fitr,1473-03-01,1473-03-10,1 Shawwal 877 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,Ураза-байрам
+pascha_1473,1473,pascha,1473-04-18,1473-04-27,,Julian computus (Meeus),,model,certain,ATLAS,
+ramadan_878,1474,ramadan_start,1474-01-20,1474-01-29,1 Ramadan 878 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,
+eid_878,1474,eid_al_fitr,1474-02-19,1474-02-28,1 Shawwal 878 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,Ураза-байрам
+lent_1474,1474,great_lent_start,1474-02-21,1474-03-02,,Pascha - 48 d (Clean Monday),,model,certain,ATLAS,
+pascha_1474,1474,pascha,1474-04-10,1474-04-19,,Julian computus (Meeus),muscat,model,certain,ATLAS,"Khrustalev anchor: the 'sixth' Easter, in Muscat (return leg)"
+ramadan_879,1475,ramadan_start,1475-01-09,1475-01-18,1 Ramadan 879 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,
+lent_1475,1475,great_lent_start,1475-02-06,1475-02-15,,Pascha - 48 d (Clean Monday),,model,certain,ATLAS,
+eid_879,1475,eid_al_fitr,1475-02-08,1475-02-17,1 Shawwal 879 AH,tabular Islamic (civil epoch),,model,approx,ATLAS,Ураза-байрам
+pascha_1475,1475,pascha,1475-03-26,1475-04-04,,Julian computus (Meeus),,model,certain,ATLAS,

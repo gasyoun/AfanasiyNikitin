@@ -16,6 +16,7 @@ This directory is the **single source of truth** for the atlas. The plan is to i
 | `citations.csv` | Estimated scholarly attention by decade (flagged `epistemic=model` — heuristic, not bibliometric). | 12 |
 | `trade.csv` | Trade evidence — 4 text-attributed facts + 19 heuristic `model` goods (provenance per `article_figures/trade_model_sources.md`). | 23 |
 | `fragments.csv` | The 104 manuscript fragments (Ф.1–104): folio → layer/genre/chronological period/location/date. **Metadata only** — `quote` is empty (gated). | 104 |
+| `calendar.csv` | Computed Orthodox Easter / Great Lent / Ramadan / Eid 1467–1475 + the Mahashivaratri anchor. **Generated** by `tools/computus.py`. | 37 |
 | `reconciliation.md` | Phase 2 audit: every place/person → its Wikidata / GeoNames / Pleiades / VIAF match, distance, and status. | — |
 | `places.lpf.geojson` | Gazetteer in **Linked Places Format** (GeoJSON-LD) for the World Historical Gazetteer. | — |
 | `../datapackage.json` | [Frictionless](https://frictionlessdata.io/) descriptor: schemas, types, keys, foreign keys, license. | — |
@@ -57,6 +58,6 @@ pip install frictionless
 frictionless validate datapackage.json
 ```
 
-## Planned datasets (not yet built)
+## All datasets built (Phases 1 & 3)
 
-`calendar` — the only remaining dataset, and it is **generated** by a reproducible computus script (Phase 3), not hand-entered.
+`calendar.csv` is **generated** by [`tools/computus.py`](../tools/computus.py): it computes Orthodox Easter (Julian computus) and Ramadan/Eid (tabular Islamic) and independently reproduces Khrustalev's dating anchors — Easter 2 Apr 1469 (Hormuz), Great Lent ∩ Ramadan in early March 1470, Easter 10 Apr 1474 (Muscat). Regenerate any derived file: `python tools/computus.py` · `python tools/reconcile.py` · `python tools/build_lpf.py`.

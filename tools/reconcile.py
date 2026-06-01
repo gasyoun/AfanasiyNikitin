@@ -123,6 +123,7 @@ report = ["# Phase 2 reconciliation report", "",
           f"(tolerance {TOL_KM:.0f} km) and must be a settlement (by type or population). "
           "People verified by instance-of=human + description keyword. **IDs are written only "
           "for `confirmed` rows**; `candidate`/`none` are left blank for human review (OpenRefine → Wikidata).", ""]
+open_items = []  # (kind, id, status, what's-needed) for the dedicated review list
 
 # ---------- PLACES ----------
 places, pfields = read_csv("places.csv")
@@ -176,6 +177,8 @@ for r in places:
         r["wikidata_qid"] = r["geonames_id"] = r["pleiades_id"] = ""
     r["recon_status"] = status
     report.append(f"| {pid} | {qid} | {lbl} | {dist} | {gid} | {plid} | {status} | {note} |")
+    if status in ("candidate", "none"):
+        open_items.append(("place", pid, status, note or "no match"))
 write_csv("places.csv", places, pfields)
 
 # ---------- PEOPLE ----------
@@ -231,7 +234,16 @@ for r in people:
         r["wikidata_qid"] = r["viaf_id"] = ""
     r["recon_status"] = status
     report.append(f"| {pid} | {qid} | {lbl} | {viaf} | {status} | {note} |")
+    if status in ("candidate", "none"):
+        open_items.append(("person", pid, status, note or "no match"))
 write_csv("people.csv", people, fields)
+
+report += ["", "## Open items — need human review", "",
+           f"{len(open_items)} entities left unreconciled (excluding collectives and skip-regions, "
+           "which have no individual/point authority record by design).", "",
+           "| kind | id | status | what's needed |", "|---|---|---|---|"]
+for kind, i, st, nt in open_items:
+    report.append(f"| {kind} | {i} | {st} | {nt} |")
 
 summary = {}
 for r in places + people:

@@ -50,7 +50,19 @@ Reconciled places & people to Wikidata via **`tools/reconcile.py`** (coordinate-
 
 **Left for human review (in `data/reconciliation.md`):** sultan (correct Bahmani ruler), farrukhyasar / mamyrev / genadiy (likely have items under other spellings), kallur (disputed localization, nearest match 165 km), srisailam (matched the dam township, not the temple town).
 
-**Next:** (1) merge PRs #4 + #5; (2) `calendar` — **Phase 3** (reproducible computus script); (3) page-level `source_page` (manual — needs the book); (4) register the LPF gazetteer with the World Historical Gazetteer; (5) optional: `schema.org/Dataset` + Zenodo DOI for citability.
+**Next (after Phase 2):** see Phase 3 below.
+
+---
+
+## Session 2026-06-01 (cont.) — Phase 3: computus + open-items list
+
+**`tools/computus.py`** generates **`data/calendar.csv`** (37 rows): Orthodox Easter (Julian computus, exact), Great Lent (Pascha−48), Ramadan/Eid (tabular Islamic, civil epoch), + the Mahashivaratri anchor (recorded, not recomputed). **Self-checks pass** and the script independently reproduces Khrustalev's anchors: Easter 2 Apr 1469 (Hormuz), Easter 10 Apr 1474 (Muscat), and — the key one — Great Lent 1470 (5 Mar Julian) ∩ Ramadan 1470 (4 Mar Julian), i.e. «постился с бесермены». Islamic epoch verified against 1 Muharram 1443 AH = 2021-08-10. datapackage → **v0.6.0** (9 datasets).
+
+Also added an auto-generated **“Open items — need human review”** section to `tools/reconcile.py` → `data/reconciliation.md` (the honestly-blank reconciliations: kallur, sultan, farrukhyasar, mamyrev, genadiy).
+
+**✅ Data complete (Phases 1–3):** 9 datasets — sources, places, itinerary, people, editions, citations, trade, fragments, calendar — reconciled (Phase 2) and computed (Phase 3) where applicable; validator green. All on `data/fair-spine-phase1` (PR #5).
+
+**Next:** (1) merge PRs #4 + #5; (2) register the LPF gazetteer with the World Historical Gazetteer; (3) Zenodo DOI + `CITATION.cff` for citability; (4) resolve open reconciliation items (correct Bahmani sultan = Muhammad Shah III, Shirvanshah, Mamyrev); (5) page-level `source_page` (manual).
 
 ---
 
