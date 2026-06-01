@@ -25,6 +25,7 @@ This directory is the **single source of truth** for the atlas. The architecture
 | `atlas.ttl` | **Linked Data** (RDF/Turtle): CIDOC-CRM journey/events + GeoSPARQL places + `owl:sameAs` Wikidata/GeoNames/VIAF. **Generated** by `tools/build_rdf.py`. | — |
 | `route.geojson` | Journey route — LineString + 29 waypoint Points (built by `tools/build_route.py`). | — |
 | `itinerary.lt.json` | Itinerary as **Linked Traces** (LTF draft) for the World Historical Gazetteer. | — |
+| `bibliography.bib` · `bibliography.json` | Bibliography of editions — **BibTeX + CSL-JSON** (built by `tools/build_bibliography.py`). | 9 |
 | `../datapackage.json` | [Frictionless](https://frictionlessdata.io/) descriptor: schemas, types, keys, foreign keys, license. | — |
 
 ## Conventions
