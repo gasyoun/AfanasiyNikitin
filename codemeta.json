@@ -1,0 +1,33 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "Afanasiy Nikitin Atlas",
+  "description": "Interactive atlas + open FAIR dataset of Afanasiy Nikitin's 1467-1475 journey (per D. G. Khrustalev, 2026): 29 vanilla-JS/D3 visualisations over a machine-readable data spine (12 datasets, Frictionless datapackage), reconciled to Wikidata/GeoNames/Pleiades/VIAF, with Linked Places Format, Linked Traces, and CIDOC-CRM RDF exports and a reproducible computus.",
+  "codeRepository": "https://github.com/gasyoun/AfanasiyNikitin",
+  "url": "https://gasyoun.github.io/AfanasiyNikitin/",
+  "applicationCategory": "Digital Humanities",
+  "programmingLanguage": ["Python", "JavaScript", "HTML"],
+  "runtimePlatform": ["Web browser", "Python 3"],
+  "license": "https://spdx.org/licenses/CC-BY-4.0",
+  "version": "0.8.0",
+  "dateModified": "2026-06-01",
+  "keywords": [
+    "digital humanities",
+    "Afanasiy Nikitin",
+    "Khozhenie za tri morya",
+    "historical itinerary",
+    "linked open data",
+    "CIDOC-CRM",
+    "Bahmani Sultanate"
+  ],
+  "author": [
+    { "@type": "Person", "name": "gasyoun", "url": "https://github.com/gasyoun" }
+  ],
+  "isBasedOn": "Хрусталёв Д. Г. Тетради купца Афанасия. СПб.: Нестор-История, 2026. ISBN 978-5-4469-2357-1",
+  "developmentStatus": "active",
+  "softwareRequirements": [
+    "D3.js v7",
+    "TopoJSON",
+    "Python 3 (stdlib; optional: frictionless, rdflib, pandas, matplotlib)"
+  ]
+}
