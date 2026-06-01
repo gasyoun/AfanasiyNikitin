@@ -104,6 +104,18 @@ Tier-1/2 autonomous improvements; datapackage → **v0.8.0**; CI green; **12 dat
 
 ---
 
+## Session 2026-06-01 (cont.) — tier-2/3 autonomous batch (pushed to main)
+
+Of the six remaining options, **done & pushed** (datapackage → **v0.9.0**, CI green):
+- **codemeta.json** + **`tools/build_all.py`** — one command regenerates every derived file + runs both validators (deterministic).
+- **Bibliography** `data/bibliography.{bib,json}` (BibTeX + CSL-JSON, `tools/build_bibliography.py`) + **`tools/enrich_authority.py`** (idempotent GeoNames/Pleiades/VIAF pull — coverage already complete from Wikidata; direct APIs are account-gated so nothing fabricated).
+- **EN localization** — `name_en` on places + people (Wikidata English labels, `tools/localize_en.py`), threaded into LPF toponyms + RDF `rdfs:label @en` (41 labels).
+- **#1+#5 on the flagship map** — additive accessible `<table>` (built from itinerary+places CSVs) with `epistemic`/`certainty` badges + Wikidata links, canvas `role=img`/`aria-describedby`. node --check passes; canvas render untouched. This is the reusable pattern.
+
+**Held back deliberately:** rolling the a11y-table/epistemic pattern across all 29 widgets, and migrating the other data-heavy bespoke widgets onto the spine (#6: citations, people-network, editions, …). Each couples data to presentation + a sync render (like the flagship's `WP`/`PASSAGES`) → a per-widget async-refactor + fallback + **visual** verification. The flagship got that care (PR + checks); doing 5+ such canvas refactors blind/unattended to the live site is unwise. Recommend continuing **one widget at a time, verified** (offer stands). **Human-gated:** Zenodo DOI, WHG upload.
+
+---
+
 ## Session 2026-05-23 — Polyglot prayer interlinear widget
 
 Added **`afanasy_prayer_interlinear.html`** (28th widget). Word-by-word interlinear of Afanasiy's four polyglot passages (Ф. 49, Ф. 50–51, Ф. 97, and the closing doxology Ф. 104), transcribed from the 1986 academic edition via `hrustalev_tetradi_2026.pdf`. The doxology (Ф. 104) is decoded as the Basmala, Shahada, Qur'an 59:22–24, and the chain of the Beautiful Names (28 identified). Three modes (Чтение / Подстрочник / 99 имён), per-word detail panel, language filter, Arabic-script toggle, stat bar; reuses the shared `--viz-language-*` palette; cross-links to language map / manuscripts / religious crisis.
