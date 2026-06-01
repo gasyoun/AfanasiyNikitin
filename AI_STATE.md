@@ -72,6 +72,8 @@ Resolved 2 of the 5 open reconciliations (verified via Wikidata, added to `tools
 
 **WHG:** the LPF is validated WHG-ready via **`tools/validate_lpf.py`** (26 features, 22 linked, unique IDs, valid geometry/time-spans). Wrote **`SUBMISSION_WHG.md`** (dataset metadata + step-by-step upload/reconcile/publish). Actual upload/publication is account-gated — a human step.
 
+**Citability:** added `CITATION.cff` + `.zenodo.json` (root) and a `schema.org/Dataset` JSON-LD block in `index.html` (Google Dataset Search). DOI mint is a one-time human step (enable Zenodo↔GitHub, cut a release) — steps in `data/README.md`. PRs #4 + #5 merged to `main`.
+
 ---
 
 ## Session 2026-05-23 — Polyglot prayer interlinear widget
