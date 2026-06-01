@@ -10,7 +10,7 @@ data/reconciliation.md for human OpenRefine review.
 Usage:  python tools/reconcile.py            # writes enriched CSVs + report
         python tools/reconcile.py --dry-run  # report only, do not touch CSVs
 """
-import sys, os, json, time, csv, math, urllib.parse, urllib.request
+import sys, os, json, time, csv, math, urllib.parse, urllib.request, urllib.error
 
 sys.stdout.reconfigure(encoding="utf-8")
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,27 +26,34 @@ EXCLUDE = {"Q1777138", "Q27031206", "Q1149652", "Q1066984", "Q12813115"}  # race
 SKIP_PLACE = {"somalia_coast", "balaklava_gurzuf", "mazandaran_sari"}  # regions/coasts: not point-reconcilable
 # Human-reviewed picks the auto-matcher could not resolve (chosen among its own verified candidates):
 PLACE_OVERRIDE = {"hormuz": "Q888643", "kaffa": "Q2585920", "gulbarga": "Q37112"}
-PERSON_OVERRIDE = {"af": "Q48624"}
+PERSON_OVERRIDE = {"af": "Q48624", "sultan": "Q4519937", "farrukhyasar": "Q2002210"}
 
 
 def api(params):
     params = dict(params); params["format"] = "json"
     req = urllib.request.Request(API + "?" + urllib.parse.urlencode(params), headers=UA)
-    for attempt in range(3):
+    for attempt in range(6):
         try:
             with urllib.request.urlopen(req, timeout=30) as r:
                 return json.load(r)
-        except Exception:
-            if attempt == 2:
+        except urllib.error.HTTPError as e:
+            if e.code == 429:  # rate limited — honor Retry-After, then back off
+                wait = int(e.headers.get("Retry-After", 0)) or 12 * (attempt + 1)
+                time.sleep(wait); continue
+            if attempt == 5:
                 raise
-            time.sleep(1.5)
+            time.sleep(3)
+        except Exception:
+            if attempt == 5:
+                raise
+            time.sleep(3)
     return {}
 
 
 def search(term, lang):
     d = api({"action": "wbsearchentities", "search": term, "language": lang,
              "uselang": lang, "limit": 12, "type": "item"})
-    time.sleep(0.12)
+    time.sleep(0.3)
     return [h["id"] for h in d.get("search", [])]
 
 
@@ -57,7 +64,7 @@ def entities(ids):
         d = api({"action": "wbgetentities", "ids": "|".join(ids[i:i + 50]),
                  "props": "claims|labels|descriptions", "languages": "en|ru"})
         out.update(d.get("entities", {}))
-        time.sleep(0.12)
+        time.sleep(0.3)
     return out
 
 

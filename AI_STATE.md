@@ -62,7 +62,15 @@ Also added an auto-generated **“Open items — need human review”** section 
 
 **✅ Data complete (Phases 1–3):** 9 datasets — sources, places, itinerary, people, editions, citations, trade, fragments, calendar — reconciled (Phase 2) and computed (Phase 3) where applicable; validator green. All on `data/fair-spine-phase1` (PR #5).
 
-**Next:** (1) merge PRs #4 + #5; (2) register the LPF gazetteer with the World Historical Gazetteer; (3) Zenodo DOI + `CITATION.cff` for citability; (4) resolve open reconciliation items (correct Bahmani sultan = Muhammad Shah III, Shirvanshah, Mamyrev); (5) page-level `source_page` (manual).
+**Next:** (1) merge PRs #4 + #5; (2) Zenodo DOI + `CITATION.cff` for citability; (3) page-level `source_page` (manual).
+
+---
+
+## Session 2026-06-01 (cont.) — open items resolved + WHG submission packet
+
+Resolved 2 of the 5 open reconciliations (verified via Wikidata, added to `tools/reconcile.py` `PERSON_OVERRIDE`): **sultan → Q4519937** (Muhammad Shah III Lashkari — corrected the atlas's wrong «Махмуд III» name) and **farrukhyasar → Q2002210** (Farrukh Yassar). People now **6/15 confirmed**. The remaining 3 are honestly open (listed in `data/reconciliation.md`): `kallur` (disputed localization, nearest 165 km), `genadiy` + `mamyrev` (no Wikidata record surfaced). Hardened `reconcile.py` with HTTP-429 backoff (honors Retry-After).
+
+**WHG:** the LPF is validated WHG-ready via **`tools/validate_lpf.py`** (26 features, 22 linked, unique IDs, valid geometry/time-spans). Wrote **`SUBMISSION_WHG.md`** (dataset metadata + step-by-step upload/reconcile/publish). Actual upload/publication is account-gated — a human step.
 
 ---
 
