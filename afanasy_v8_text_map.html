@@ -35,6 +35,14 @@
 .af-slider input{flex:1;}
 .af-syr{font-size:11px;color:var(--color-text-secondary);min-width:26px;text-align:right;font-variant-numeric:tabular-nums;}
 .af-hint{font-size:10px;color:var(--color-text-secondary);text-align:center;margin-top:4px;opacity:.7;}
+.af-datatable{margin-top:12px;}
+.af-datatable>summary{cursor:pointer;color:var(--color-text-secondary);font-size:11px;padding:4px 0;}
+.af-dt-tbl{border-collapse:collapse;width:100%;margin-top:6px;font-size:12px;}
+.af-dt-tbl caption{text-align:left;font-size:10px;color:var(--color-text-secondary);margin-bottom:4px;}
+.af-dt-tbl th,.af-dt-tbl td{border:0.5px solid var(--color-border-tertiary);padding:3px 6px;text-align:left;vertical-align:top;}
+.af-dt-tbl th{background:var(--color-background-secondary);font-weight:500;}
+.af-badge{display:inline-block;font-size:9px;padding:0 5px;border-radius:6px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);white-space:nowrap;}
+.af-badge.epi-reconstruction{border-color:#b58a3c;}.af-badge.epi-text{border-color:#2a7a2a;}.af-badge.epi-localization{border-color:#1e5a8a;}.af-badge.epi-model{border-color:#9a4a8a;}.af-badge.epi-hypothesis{border-color:#b2202a;}
   </style>
 
   <!-- Tabler Icons -->
@@ -49,7 +57,7 @@
 
     <div class="af-wrap">
   <div class="af-left">
-    <canvas id="mapC" style="display:block;width:100%;height:auto;max-width:520px;aspect-ratio:520 / 400;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);cursor:pointer;"></canvas>
+    <canvas id="mapC" role="img" aria-label="Анимированная карта маршрута Афанасия Никитина 1467–1475. Полная доступная таблица всех точек — в блоке «Данные точек маршрута» ниже." aria-describedby="af-dt" style="display:block;width:100%;height:auto;max-width:520px;aspect-ratio:520 / 400;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);cursor:pointer;"></canvas>
     <div class="af-info">
       <div class="af-yr-col">
         <div class="af-yr">
@@ -78,6 +86,10 @@
     <div class="af-texts" id="texts"></div>
   </div>
 </div>
+<details class="af-datatable">
+  <summary>📋 Данные точек маршрута — доступная таблица (accessible data table)</summary>
+  <div id="af-dt">Загрузка данных…</div>
+</details>
   </div>
 
   <script src="lib/d3.min.js"></script>
@@ -337,12 +349,33 @@ function start(){
   requestAnimationFrame(frame);
 }
 
+// Accessible data table (screen-reader equivalent of the canvas) — also surfaces
+// the epistemic/certainty labels + Wikidata links straight from the data spine.
+function buildDataTable(){
+  const el=document.getElementById('af-dt');
+  if(typeof d3==='undefined'||!d3.csv){el.textContent='Таблица недоступна.';return;}
+  Promise.all([d3.csv('data/itinerary.csv'), d3.csv('data/places.csv')]).then(([itin,places])=>{
+    const byId={}; places.forEach(p=>{byId[p.place_id]=p;});
+    itin.sort((a,b)=>(+a.seq)-(+b.seq));
+    const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    let h='<table class="af-dt-tbl"><caption>Точки маршрута из data/itinerary.csv + data/places.csv; метки epistemic / certainty — тип и достоверность сведения.</caption>'+
+      '<thead><tr><th scope="col">№</th><th scope="col">Место</th><th scope="col">English</th><th scope="col">Дата</th><th scope="col">Море / регион</th><th scope="col">Тип сведения</th><th scope="col">Wikidata</th></tr></thead><tbody>';
+    itin.forEach(r=>{
+      const p=byId[r.place_id]||{};
+      const wd=p.wikidata_qid?('<a href="http://www.wikidata.org/entity/'+p.wikidata_qid+'" target="_blank" rel="noopener">'+p.wikidata_qid+'</a>'):'—';
+      h+='<tr><td>'+esc(r.seq)+'</td><td>'+esc(p.name_ru||r.place_id)+'</td><td>'+esc(p.name_en||'')+'</td><td>'+esc(r.year_label)+'</td><td>'+esc(r.sea_region)+'</td>'+
+         '<td><span class="af-badge epi-'+esc(r.epistemic)+'">'+esc(r.epistemic)+'</span> <span class="af-badge">'+esc(r.certainty)+'</span></td><td>'+wd+'</td></tr>';
+    });
+    el.innerHTML=h+'</tbody></table>';
+  }).catch(()=>{el.textContent='Таблица недоступна без веб-сервера (d3.csv требует HTTP).';});
+}
 function waitLib(cb){if(typeof d3!=='undefined'&&typeof topojson!=='undefined')cb();else setTimeout(()=>waitLib(cb),60);}
 waitLib(()=>{
   loadSpineWP()
     .then(wp=>{ if(wp){WP=wp;} window.__WP_SOURCE=wp?'spine':'bundled'; })
     .catch(()=>{ window.__WP_SOURCE='bundled'; })
     .then(start);
+  buildDataTable();
 });
 })();
 </script>
