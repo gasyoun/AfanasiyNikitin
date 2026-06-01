@@ -93,6 +93,17 @@ Per human direction (all four tasks; **push to main**; keep looping). All landed
 
 ---
 
+## Session 2026-06-01 (cont.) — Linked Data, enrichment, reproducible notebook (pushed to main)
+
+Tier-1/2 autonomous improvements; datapackage → **v0.8.0**; CI green; **12 datasets**.
+- **Enrichment (#4):** `data/legs.csv` (28 straight-line distances, `tools/build_legs.py`), `data/events.csv` (12 key events w/ place+people refs), `data/edges.csv` (17 people-network edges). FK-validated.
+- **RDF / Linked Data (#1):** `data/atlas.ttl` (`tools/build_rdf.py`) — CIDOC-CRM journey (E9_Move) + events (E5), GeoSPARQL+WGS84 places, `owl:sameAs` → Wikidata/GeoNames/VIAF. **478 triples** (rdflib-validated).
+- **Reproducible notebook (#2):** `notebooks/atlas.ipynb` re-derives the Julian-Easter anchors (1469/1474) + the 1470 Lent∩Ramadan overlap from first principles and plots the route from `data/*.csv`. Executes clean end-to-end.
+
+**Remaining autonomous options (tier list, not yet done):** accessibility table-fallbacks for canvas widgets; finish Pleiades/GeoNames coverage + a CSL/BibTeX bibliography; `codemeta.json` + per-resource licenses + a build-all script; EN localization of the data; sitemap/OG; surface `epistemic`/`certainty` in widgets; migrate other widgets onto the spine. **Human-gated:** Zenodo DOI, WHG upload.
+
+---
+
 ## Session 2026-05-23 — Polyglot prayer interlinear widget
 
 Added **`afanasy_prayer_interlinear.html`** (28th widget). Word-by-word interlinear of Afanasiy's four polyglot passages (Ф. 49, Ф. 50–51, Ф. 97, and the closing doxology Ф. 104), transcribed from the 1986 academic edition via `hrustalev_tetradi_2026.pdf`. The doxology (Ф. 104) is decoded as the Basmala, Shahada, Qur'an 59:22–24, and the chain of the Beautiful Names (28 identified). Three modes (Чтение / Подстрочник / 99 имён), per-word detail panel, language filter, Arabic-script toggle, stat bar; reuses the shared `--viz-language-*` palette; cross-links to language map / manuscripts / religious crisis.
