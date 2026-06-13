@@ -7,7 +7,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- **Discoverability** — `sitemap.xml` (31 pages) + `robots.txt`, and Open Graph / Twitter-card meta + a canonical link on `index.html` for social sharing and search engines.
+
 ### Changed
+- **`CITATION.cff` / `.zenodo.json` author** — replaced the `gasyoun` username placeholder with the real author name (Mārcis Gasūns) ahead of the citable release / DOI.
 - **`afanasy_citations_v2.html` migrated onto the data spine** — the 12-decade citation chart now reads its numbers (`total` / `ru` / `foreign` / `translations`) from [data/citations.csv](data/citations.csv) at boot (dependency-free CSV parser; bundled `DEC_BUNDLED` remains the presentation layer — labels, colour tokens, events/notes — and the hard fallback for `file://`/offline; `window.__CI_SOURCE` reports `spine`/`bundled`). Adds the accessible-data-table + `epistemic`/`certainty` badge pattern (canvas marked `role="img"` with `aria-describedby`) — the table makes explicit that these are `model` (estimated attention), not bibliometry. Verified in headless Edge: spine activates over HTTP with the chart numbers unchanged, falls back cleanly under `file://`, clean console.
 - **`afanasy_editions_v3.html` migrated onto the data spine** — the cover shelf now merges structured edition metadata (`year` / `editor` / `place` / `publisher` / `kind`) from [data/editions.csv](data/editions.csv) at boot, joined by `edition_id` (bundled `EDS_BUNDLED` keeps the hand-drawn SVG covers, colours, tags, and c1/c2/q/disc narrative as the presentation layer + hard fallback; `window.__EW_SOURCE` reports `spine`/`bundled`). Adds an accessible data table (year / edition / editor / place / publisher / type) with the shelf marked `role="list"` + `aria-describedby`, and a `kind` badge in the detail panel. Verified in headless Edge: spine activates over HTTP with the covers and years unchanged, falls back cleanly under `file://`, clean console.
 

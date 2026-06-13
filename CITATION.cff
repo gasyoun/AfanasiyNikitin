@@ -14,8 +14,8 @@ license: CC-BY-4.0
 url: "https://gasyoun.github.io/AfanasiyNikitin/"
 repository-code: "https://github.com/gasyoun/AfanasiyNikitin"
 authors:
-  # Replace with your full given-names / family-names before publishing a release.
-  - name: "gasyoun"
+  - given-names: "Mārcis"
+    family-names: "Gasūns"
     website: "https://github.com/gasyoun"
 keywords:
   - digital humanities
