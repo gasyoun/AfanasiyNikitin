@@ -3,8 +3,8 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-05-21 · Conversation ID: GPT-5.5 roadmap + handoff refresh
-> **Latest pushed commit:** `7125f8e` (`refactor: tokenize service worker check colors`) on `main`
+> **Last updated:** 2026-06-13 · Claude Opus 4.8 · version drift fix + people-network spine migration
+> **Branch:** `feat/people-network-spine` (off `main`)
 
 ---
 
@@ -113,6 +113,22 @@ Of the six remaining options, **done & pushed** (datapackage → **v0.9.0**, CI 
 - **#1+#5 on the flagship map** — additive accessible `<table>` (built from itinerary+places CSVs) with `epistemic`/`certainty` badges + Wikidata links, canvas `role=img`/`aria-describedby`. node --check passes; canvas render untouched. This is the reusable pattern.
 
 **Held back deliberately:** rolling the a11y-table/epistemic pattern across all 29 widgets, and migrating the other data-heavy bespoke widgets onto the spine (#6: citations, people-network, editions, …). Each couples data to presentation + a sync render (like the flagship's `WP`/`PASSAGES`) → a per-widget async-refactor + fallback + **visual** verification. The flagship got that care (PR + checks); doing 5+ such canvas refactors blind/unattended to the live site is unwise. Recommend continuing **one widget at a time, verified** (offer stands). **Human-gated:** Zenodo DOI, WHG upload.
+
+---
+
+## Session 2026-06-13 — version drift fix + people-network onto the spine (branch `feat/people-network-spine`)
+
+**(1) Release version drift fixed.** `datapackage.json` (0.9.0), `CITATION.cff` (0.6.0), `.zenodo.json` (0.6.0), the `schema.org` block in `index.html` (0.6.0), and the release-command example in `data/README.md` (v0.6.0) all disagreed. **Unified on `1.0.0`** (matching the CHANGELOG release header `[1.0.0] - 2026-06-13`) to unblock a clean Zenodo DOI; `date-released` → 2026-06-13. Validator (`tools/validate_data.py`) green. Also: untracked `.claude/settings.local.json` (now gitignored) — it had been swept into the working tree. Commit `e5441bf`.
+
+**(2) `afanasy_people_network.html` migrated onto the spine** — the second widget (after the flagship map) to do the careful, verified migration. The 15-node / 17-edge graph now builds from `data/people.csv` + `data/edges.csv` at boot via a small dependency-free RFC4180 CSV parser (no d3 added). Pattern:
+- **Spine = source of truth** for who/relation/edge-structure + LOD enrichment (`name_en`, `wikidata_qid`, `epistemic`, `certainty`).
+- **Bundled `NODES_BUNDLED`/`EDGES_BUNDLED` = presentation layer** (x/y/r layout, canvas-tuned wrapped labels, quote/body/loc narrative) **and the hard fallback**. Join validated to 15/17; any unknown id, bad relation, or count mismatch → falls back wholesale. `window.__PN_SOURCE` reports `spine`/`bundled`.
+- Added the **#1+#5 pattern**: epistemic/certainty badges + Wikidata link in the detail panel, an accessible `<table>` (`#pn-dt`) built from the spine, and `role="img"` + `aria-describedby` on the canvas.
+- **Data-quality fix propagated:** the widget called the Bahmani sultan «Махмуд III»; corrected to **Мухаммад III (Лашкари)** (Q4519937) in both the spine-driven path and the bundled node.
+
+**Verified (headless Edge / CDP over Node's built-in WebSocket):** served over HTTP → `__PN_SOURCE=spine`, 15 table rows, 6 Wikidata links, `?node=sultan` deep-link shows the corrected name + badge + Wikidata link, **clean console**; under `file://` → `__PN_SOURCE=bundled`, still renders 15 rows with the correction. `node --check`-equivalent (Function-constructor) syntax check passes. Scratch CDP scripts removed before commit per CLAUDE.md.
+
+**Next candidates for the same one-at-a-time treatment:** citations, editions (the remaining data-heavy bespoke widgets). **Human-gated:** Zenodo DOI (cut `v1.0.0` release after enabling Zenodo↔GitHub), WHG upload.
 
 ---
 

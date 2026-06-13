@@ -43,6 +43,16 @@ canvas#pn-c{display:block;width:100%;height:auto;max-width:460px;aspect-ratio:46
 .pn-help-text{color:var(--viz-network-help);}
 .pn-harm-text{color:var(--viz-network-harm);}
 .pn-neutral-text{color:var(--viz-network-indirect);}
+/* Epistemic / certainty badges + accessible data table (built from data/people.csv) */
+.pn-det-meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-top:2px;}
+.pn-badge{display:inline-block;font-size:9px;padding:0 5px;border-radius:6px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);white-space:nowrap;}
+.pn-badge.epi-reconstruction{border-color:#b58a3c;}.pn-badge.epi-text{border-color:#2a7a2a;}.pn-badge.epi-localization{border-color:#1e5a8a;}.pn-badge.epi-model{border-color:#9a4a8a;}.pn-badge.epi-hypothesis{border-color:#b2202a;}
+.pn-badge a{color:inherit;text-decoration:none;}
+.pn-dt-wrap{margin-top:10px;max-height:168px;overflow:auto;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);}
+.pn-dt-tbl{border-collapse:collapse;width:100%;font-size:11px;}
+.pn-dt-tbl caption{text-align:left;font-size:10px;color:var(--color-text-secondary);margin:6px 8px;}
+.pn-dt-tbl th,.pn-dt-tbl td{border:0.5px solid var(--color-border-tertiary);padding:3px 6px;text-align:left;vertical-align:top;}
+.pn-dt-tbl th{background:var(--color-background-secondary);font-weight:500;position:sticky;top:0;}
   </style>
 </head>
 <body>
@@ -68,7 +78,7 @@ canvas#pn-c{display:block;width:100%;height:auto;max-width:460px;aspect-ratio:46
 
 <div class="pn-row">
   <div class="pn-graph-wrap">
-    <canvas id="pn-c" width="460" height="460"></canvas>
+    <canvas id="pn-c" width="460" height="460" role="img" aria-label="Граф социальной сети Афанасия Никитина: кто помог, кто навредил, кто остался нейтрален. Полная доступная таблица всех людей — в блоке «Данные сети» ниже." aria-describedby="pn-dt"></canvas>
     <div class="pn-hint">← нажмите узел · перетащите для перестановки</div>
   </div>
   <div class="pn-sidebar">
@@ -90,6 +100,7 @@ canvas#pn-c{display:block;width:100%;height:auto;max-width:460px;aspect-ratio:46
     </div>
   </div>
 </div>
+<div class="pn-dt-wrap"><div id="pn-dt">Загрузка данных…</div></div>
 </div>
 
 <script>
@@ -101,8 +112,11 @@ C.width=W*dpr;C.height=H*dpr;
 const ctx=C.getContext('2d');
 ctx.scale(dpr,dpr);
 
-// ── Node data ─────────────────────────────────────────────────────────────────
-const NODES=[
+// ── Node data (bundled fallback + presentation layer) ──────────────────────────
+// Layout (x/y/r), wrapped canvas labels, and narrative (quote/body/loc) live here;
+// the data spine (data/people.csv) is the source of truth for who/relation/LOD and
+// overrides these at boot when it loads cleanly. See loadSpine() below.
+const NODES_BUNDLED=[
   {id:'af',  label:'Афанасий\nНикитин', role:'Тверской купец, путешественник',
    type:'self', r:22, x:230, y:230,
    quote:'«Пошёл я, Афанасий сын Никитин, от Спаса Святого — за три моря»',
@@ -148,10 +162,10 @@ const NODES=[
    quote:'«Меликтучар выступил с войском» — Афанасий хроникёр его походов',
    body:'<b>Великий визирь (меликтучар) Бахманидского султаната</b> (ок. 1411–1481). Гилянский купец, ставший государственным деятелем. Хрусталёв: возможно, именно он был негласным «протектором» Афанасия при дворе. Афанасий подробно описывает его военные кампании.',
    loc:'Бидар, 1469–1472'},
-  {id:'sultan',  label:'Султан\nМахмуд III', role:'Правитель Бахманидов',
+  {id:'sultan',  label:'Султан\nМухаммад III', role:'Бахманидский султан',
    type:'neutral', r:13, x:130, y:300,
    quote:'«Султан выезжает — пред ним 300 слонов в доспехах»',
-   body:'<b>Бахманидский султан Махмуд III</b>. Афанасий наблюдал его выезды с грандиозной свитой. Прямых контактов не описано, но присутствие при дворе подразумевает хотя бы косвенное знакомство.',
+   body:'<b>Бахманидский султан Мухаммад III (Лашкари)</b> (правил 1463–1482), именно он правил в 1469–72. Афанасий наблюдал его выезды с грандиозной свитой. Прямых контактов не описано, но присутствие при дворе подразумевает хотя бы косвенное знакомство. (Атлас прежде ошибочно называл его «Махмуд III» — исправлено по реконструкции Хрусталёва.)',
    loc:'Бидар, 1469–1472'},
   {id:'brahmins',label:'Брахманы\n(Шрисайлам)', role:'Приняли паломника',
    type:'help', r:12, x:60, y:310,
@@ -180,8 +194,8 @@ const NODES=[
    loc:'Россия, 1817'},
 ];
 
-// ── Edges ─────────────────────────────────────────────────────────────────────
-const EDGES=[
+// ── Edges (bundled fallback; canvas-tuned wrapped labels) ───────────────────────
+const EDGES_BUNDLED=[
   {a:'af',b:'boris',  type:'help',    label:'охранная\nграмота'},
   {a:'af',b:'mikhail',type:'help',    label:'благо-\nсловение'},
   {a:'af',b:'genadiy',type:'help',    label:'церковное\nблагосл.'},
@@ -200,6 +214,64 @@ const EDGES=[
   {a:'af',b:'mamyrev', type:'indirect',label:'посмертная\nпередача'},
   {a:'mamyrev',b:'karamzin',type:'indirect',label:'летопись\n→ издание'},
 ];
+
+// Live bindings — overridden by the spine at boot, or kept as the bundled fallback.
+let NODES=NODES_BUNDLED, EDGES=EDGES_BUNDLED;
+
+// ── Data spine (data/people.csv + data/edges.csv) ───────────────────────────────
+// Minimal RFC4180 CSV parser (quoted fields, embedded commas/newlines) keeps this
+// widget dependency-free — no d3. Returns an array of header-keyed objects.
+function parseCSV(text){
+  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  const rows=[];let row=[],field='',inQ=false,i=0;
+  while(i<text.length){
+    const c=text[i];
+    if(inQ){
+      if(c==='"'){if(text[i+1]==='"'){field+='"';i+=2;continue;}inQ=false;i++;continue;}
+      field+=c;i++;continue;
+    }
+    if(c==='"'){inQ=true;i++;continue;}
+    if(c===','){row.push(field);field='';i++;continue;}
+    if(c==='\n'){row.push(field);rows.push(row);row=[];field='';i++;continue;}
+    field+=c;i++;
+  }
+  if(field!==''||row.length){row.push(field);rows.push(row);}
+  const head=rows.shift().map(h=>h.trim());
+  return rows.filter(r=>r.some(v=>v!=='')).map(r=>{const o={};head.forEach((h,j)=>{o[h]=(r[j]||'');});return o;});
+}
+
+const REL_MAP={self:'self',helped:'help',harmed:'harm',neutral:'neutral',indirect:'indirect'};
+
+// Build NODES/EDGES from the spine, joined onto the bundled presentation layer.
+// Returns {nodes,edges} or null to fall back (offline / file:// / shape mismatch).
+function loadSpine(){
+  if(typeof fetch!=='function')return Promise.resolve(null);
+  const grab=u=>fetch(u).then(r=>{if(!r.ok)throw 0;return r.text();});
+  return Promise.all([grab('data/people.csv'),grab('data/edges.csv')]).then(([pt,et])=>{
+    const people=parseCSV(pt),edges=parseCSV(et);
+    const presById={};NODES_BUNDLED.forEach(n=>{presById[n.id]=n;});
+    const nodes=[];
+    for(const p of people){
+      const pres=presById[p.person_id];           // layout + narrative live in bundled
+      const type=REL_MAP[p.relation];
+      if(!pres||!type)return null;
+      nodes.push({id:p.person_id,label:pres.label,type,r:pres.r,x:pres.x,y:pres.y,
+        role:p.role||pres.role,quote:pres.quote,body:pres.body,loc:pres.loc,
+        name_ru:p.name_ru||'',name_en:p.name_en||'',wikidata_qid:p.wikidata_qid||'',
+        epistemic:p.epistemic||'',certainty:p.certainty||''});
+    }
+    const presEdge={};EDGES_BUNDLED.forEach(e=>{presEdge[e.a+'|'+e.b]=e;});
+    const es=[];
+    for(const e of edges){
+      const type=REL_MAP[e.relation]||e.relation;  // edges.csv already uses help/harm/...
+      if(!['help','harm','neutral','indirect'].includes(type))return null;
+      const pe=presEdge[e.source+'|'+e.target];    // canvas-tuned wrapped label
+      es.push({a:e.source,b:e.target,type,label:pe?pe.label:(e.label||'')});
+    }
+    if(nodes.length!==NODES_BUNDLED.length||es.length!==EDGES_BUNDLED.length)return null;
+    return {nodes,edges:es};
+  }).catch(()=>null);
+}
 
 const TYPE_TOKEN={self:'--viz-network-self',help:'--viz-network-help',harm:'--viz-network-harm',neutral:'--viz-network-neutral',indirect:'--viz-network-indirect'};
 const EDGE_TOKEN={help:'--viz-network-help',harm:'--viz-network-harm',neutral:'--viz-network-indirect',indirect:'--viz-network-indirect-edge'};
@@ -324,11 +396,17 @@ function showDetail(n){
   if(!n){det.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary); animation: fadeSlideIn 0.25s ease-out;">Нажмите на узел чтобы узнать о человеке.</div>';det.style.borderLeftColor='var(--color-border-tertiary)';return;}
   const col=colorOf(TYPE_TOKEN[n.type],cssVal('--color-border-primary'));
   det.style.borderLeftColor=col;
+  const meta=[];
+  if(n.epistemic)meta.push(`<span class="pn-badge epi-${n.epistemic}">${n.epistemic}</span>`);
+  if(n.certainty)meta.push(`<span class="pn-badge">${n.certainty}</span>`);
+  if(n.wikidata_qid)meta.push(`<span class="pn-badge"><a href="http://www.wikidata.org/entity/${n.wikidata_qid}" target="_blank" rel="noopener">Wikidata ${n.wikidata_qid}</a></span>`);
+  const metaHtml=meta.length?`<div class="pn-det-meta">${meta.join('')}</div>`:'';
   det.innerHTML=`<div class="pn-det-wrapper" style="animation: fadeSlideIn 0.25s ease-out; display: flex; flex-direction: column; gap: 8px;">
     <div class="pn-det-name" style="color:${col}; font-weight: 600; font-size: 13px;">${n.label.replace('\n',' ')}</div>
     <div class="pn-det-role" style="font-size: 11px; color: var(--color-text-secondary);">${n.role} · <span style="opacity:.7;">${n.loc}</span></div>
     <div class="pn-det-quote" style="font-size: 11px; font-family: var(--font-serif); font-style: italic; border-left: 2px solid var(--color-border-secondary); padding-left: 8px; margin: 4px 0; color: var(--color-text-primary);">${n.quote}</div>
     <div class="pn-det-body" style="font-size: 11px; color: var(--color-text-secondary); line-height: 1.45;">${n.body}</div>
+    ${metaHtml}
   </div>`;
 }
 
@@ -368,22 +446,41 @@ window.setFilter=function(f){
   draw();
 };
 
-draw();
-const urlParams = new URLSearchParams(window.location.search);
-const nodeParam = urlParams.get('node');
-if (nodeParam) {
-  const targetNode = NODES.find(n => n.id === nodeParam);
-  if (targetNode) {
-    activeNode = targetNode.id;
-    showDetail(targetNode);
-    draw();
-  }
+// Accessible data table (screen-reader equivalent of the canvas) — surfaces the
+// English names, epistemic/certainty labels, and Wikidata links from the spine.
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function buildDataTable(){
+  const el=document.getElementById('pn-dt');
+  if(!el)return;
+  const REL_RU={self:'автор',help:'помог',harm:'навредил',neutral:'нейтрал.',indirect:'заочно'};
+  let h='<table class="pn-dt-tbl"><caption>Люди сети из data/people.csv; связи — data/edges.csv. Метки epistemic / certainty — тип и достоверность сведения.</caption>'+
+    '<thead><tr><th scope="col">Имя</th><th scope="col">English</th><th scope="col">Роль</th><th scope="col">Связь</th><th scope="col">Тип сведения</th><th scope="col">Wikidata</th></tr></thead><tbody>';
+  NODES.forEach(n=>{
+    const wd=n.wikidata_qid?('<a href="http://www.wikidata.org/entity/'+esc(n.wikidata_qid)+'" target="_blank" rel="noopener">'+esc(n.wikidata_qid)+'</a>'):'—';
+    const epi=n.epistemic?('<span class="pn-badge epi-'+esc(n.epistemic)+'">'+esc(n.epistemic)+'</span>'+(n.certainty?' <span class="pn-badge">'+esc(n.certainty)+'</span>':'')):'—';
+    h+='<tr><td>'+esc(n.name_ru||n.label.replace(/\n/g,' '))+'</td><td>'+esc(n.name_en)+'</td><td>'+esc(n.role)+'</td><td>'+esc(REL_RU[n.type]||n.type)+'</td><td>'+epi+'</td><td>'+wd+'</td></tr>';
+  });
+  el.innerHTML=h+'</tbody></table>';
 }
 
+function boot(){
+  draw();
+  const nodeParam=new URLSearchParams(window.location.search).get('node');
+  if(nodeParam){
+    const targetNode=NODES.find(n=>n.id===nodeParam);
+    if(targetNode){activeNode=targetNode.id;showDetail(targetNode);draw();}
+  }
+  buildDataTable();
+}
+
+draw();                       // immediate render from bundled data
+loadSpine().then(spine=>{
+  if(spine){NODES=spine.nodes;EDGES=spine.edges;}
+  window.__PN_SOURCE=spine?'spine':'bundled';
+  boot();
+});
+
 new MutationObserver(()=>draw()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-// Auto-spin slightly to show it's interactive
-let spin=0;
-const initPos=NODES.map(n=>({id:n.id,x:n.x,y:n.y}));
 })();
 </script>
   </div>
