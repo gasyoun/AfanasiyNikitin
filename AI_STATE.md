@@ -3,8 +3,8 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-13 · Claude Opus 4.8 · editions spine migration (4 widgets now spine-driven)
-> **Branch:** `feat/editions-spine` (off `main`); `v1.0.0` tagged on `main`
+> **Last updated:** 2026-06-13 · Claude Opus 4.8 · ✅ widget→spine migration arc COMPLETE (4 widgets)
+> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0` tagged on `main`
 
 ---
 
@@ -144,7 +144,22 @@ Of the six remaining options, **done & pushed** (datapackage → **v0.9.0**, CI 
 
 **Verified:** node join test → 9/9, **zero year drift**, all 9 kinds present, merge correct (lu1986 → Лурье/Семёнов · Ленинград · Наука · academic-standard). Headless Edge/CDP → HTTP `__EW_SOURCE=spine`, 9 covers render, 9 table rows + 9 kind badges, editor/publisher cells from CSV, Khrustalev-2026 click opens detail with «Реконструкция» tag, **clean console**; `file://` → `__EW_SOURCE=bundled`, 9 covers + 9 rows. Scratch CDP scripts removed before commit.
 
-**Spine-driven widgets now: flagship map, people-network, citations, editions (4).** No obvious data-heavy bespoke widget left to migrate; remaining widgets are either already spine-fed or are text/SVG pieces without a matching dataset.
+### ✅ Widget→spine migration arc COMPLETE (2026-06-13)
+
+**Four widgets now render from `data/*.csv` at boot**, each with a hard offline/`file://` fallback to bundled data, an accessible data-table equivalent, and `epistemic`/`certainty` (or `kind`) labels:
+
+| Widget | Spine data | Flag | PR |
+|---|---|---|---|
+| `afanasy_v8_text_map.html` (route map) | places + itinerary | `__WP_SOURCE` | #6 |
+| `afanasy_people_network.html` (social graph) | people + edges | `__PN_SOURCE` | #8 |
+| `afanasy_citations_v2.html` (citations) | citations | `__CI_SOURCE` | #9 |
+| `afanasy_editions_v3.html` (editions) | editions | `__EW_SOURCE` | #10 |
+
+Plus `afanasy_map_spine.html` — the from-scratch "render straight from CSV" prototype. **README updated** to say widgets *already* read from the spine (PR #11). **No data-heavy bespoke widget left to migrate**: the remaining widgets are either already spine-fed (Gantt via `js/atlas-data.js`) or are text/SVG pieces (bestiary, composition tree, prayer interlinear, historiography, …) with no matching dataset — migrating them would be invention, not reuse. **Arc closed.**
+
+The reusable pattern (for any future widget): rename hardcoded `DATA` → `DATA_BUNDLED`; add a dependency-free RFC4180 `parseCSV` + `loadSpine()` that joins spine→bundled and returns `null` on any mismatch (→ wholesale fallback); `let DATA=DATA_BUNDLED` reassigned in `loadSpine().then(...)`; immediate bundled render then re-render after the swap; expose `window.__X_SOURCE`; add the `#x-dt` accessible table + badges + `role`/`aria-describedby`. Verify with the Function-constructor syntax check, a node join test (expect **zero drift** vs bundled), and headless Edge/CDP over both HTTP and `file://`.
+
+**Remaining open work is human-gated only:** Zenodo DOI (enable Zenodo↔GitHub, then the `v1.0.0` tag mints it; add the DOI back to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org), WHG upload (`SUBMISSION_WHG.md`), real-device PWA install.
 
 ---
 
