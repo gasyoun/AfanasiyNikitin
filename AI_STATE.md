@@ -3,8 +3,8 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-13 · Claude Opus 4.8 · version drift fix + people-network spine migration
-> **Branch:** `feat/people-network-spine` (off `main`)
+> **Last updated:** 2026-06-13 · Claude Opus 4.8 · v1.0.0 released + citations spine migration
+> **Branch:** `feat/citations-spine` (off `main`); `v1.0.0` tagged on `main`
 
 ---
 
@@ -129,6 +129,18 @@ Of the six remaining options, **done & pushed** (datapackage → **v0.9.0**, CI 
 **Verified (headless Edge / CDP over Node's built-in WebSocket):** served over HTTP → `__PN_SOURCE=spine`, 15 table rows, 6 Wikidata links, `?node=sultan` deep-link shows the corrected name + badge + Wikidata link, **clean console**; under `file://` → `__PN_SOURCE=bundled`, still renders 15 rows with the correction. `node --check`-equivalent (Function-constructor) syntax check passes. Scratch CDP scripts removed before commit per CLAUDE.md.
 
 **Next candidates for the same one-at-a-time treatment:** citations, editions (the remaining data-heavy bespoke widgets). **Human-gated:** Zenodo DOI (cut `v1.0.0` release after enabling Zenodo↔GitHub), WHG upload.
+
+---
+
+## Session 2026-06-13 (cont.) — v1.0.0 cut + citations onto the spine
+
+**v1.0.0 released.** PR #8 (`release/v1.0.0`) merged to `main` (`c0fb144`); GitHub release **`v1.0.0`** cut against `main`. Direct-to-`main` push is blocked by the harness → land work via PR + auto-merge (CI green), then `gh release create`. All stale merged branches pruned; repo is now just `main`. **Still human-gated:** enable Zenodo↔GitHub then the tag mints a DOI (add it back to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org); WHG upload.
+
+**`afanasy_citations_v2.html` migrated onto the spine** (branch `feat/citations-spine`) — third verified widget→spine migration. The 12-decade chart reads `total`/`ru`/`foreign`/`translations` from `data/citations.csv` at boot via the same dependency-free RFC4180 parser. **Spine = numbers + epistemic/certainty; bundled `DEC_BUNDLED` = presentation (labels, colour tokens, events/notes) + hard fallback.** Join is keyed by an explicit `CSV_PERIODS` order list onto the bundled entries by index; count-guard + finite-number-guard or it falls back wholesale; `window.__CI_SOURCE` reports `spine`/`bundled`. Added the #1+#5 pattern (accessible `<table>` `#ci-dt`, epistemic/certainty badges in the detail panel, canvas `role="img"`+`aria-describedby`); the table caption states explicitly these are `model` estimates, not bibliometry.
+
+**Verified:** node join test → 12/12, **zero number drift** (chart pixels unchanged), 12 epistemic labels. Headless Edge/CDP → HTTP `__CI_SOURCE=spine`, 12 rows, 24 badges, bar/area/cats mode tabs work, bar click opens detail with correct counts + badge, **clean console**; `file://` → `__CI_SOURCE=bundled`, 12 rows. Scratch CDP scripts removed before commit.
+
+**Remaining one-at-a-time candidate:** editions (`afanasy_editions_v3.html` ← `data/editions.csv`).
 
 ---
 
