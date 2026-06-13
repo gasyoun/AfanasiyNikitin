@@ -203,7 +203,8 @@
     rdfs:label "Кн. Михаил Борисович"@ru , "Mikhail III of Tver"@en ;
     owl:sameAs wd:Q2635644 .
 :person_genadiy a crm:E21_Person ; ;
-    rdfs:label "Владыка Геннадий"@ru , "Gennadiy of Tver"@en .
+    rdfs:label "Владыка Геннадий"@ru , "Gennadiy of Tver"@en ;
+    owl:sameAs wd:Q4135475 .
 :person_asanbeg a crm:E21_Person ; ;
     rdfs:label "Асанбег Ширванский"@ru , "Hasan-beg (Shirvan envoy)"@en .
 :person_tatars a crm:E21_Person ; ;

@@ -26,7 +26,17 @@ EXCLUDE = {"Q1777138", "Q27031206", "Q1149652", "Q1066984", "Q12813115"}  # race
 SKIP_PLACE = {"somalia_coast", "balaklava_gurzuf", "mazandaran_sari"}  # regions/coasts: not point-reconcilable
 # Human-reviewed picks the auto-matcher could not resolve (chosen among its own verified candidates):
 PLACE_OVERRIDE = {"hormuz": "Q888643", "kaffa": "Q2585920", "gulbarga": "Q37112"}
-PERSON_OVERRIDE = {"af": "Q48624", "sultan": "Q4519937", "farrukhyasar": "Q2002210"}
+PERSON_OVERRIDE = {"af": "Q48624", "sultan": "Q4519937", "farrukhyasar": "Q2002210",
+                   "genadiy": "Q4135475"}  # Геннадий (Кожин), еп. Тверской 1461–1477 (verified 2026-06-13)
+# Findings from manual research (2026-06-13), appended to the open-items note so the
+# rationale survives regeneration. These stay BLANK by design — no confident match exists:
+RESEARCH_NOTES = {
+    "mamyrev": "verified 2026-06-13: no Wikidata/Wikipedia authority record exists for the "
+               "dyak Vasily Mamyrev — left blank (checked, not merely unsearched).",
+    "kallur":  "verified 2026-06-13: the famous Kollur Mine (Q6427412) is 17th-century (~1619), "
+               "anachronistic for Nikitin's 1470s visit; sources place his diamonds only vaguely "
+               "in the Raichur Doab; nearest 'Kallur' villages are 165+ km away. No confident QID.",
+}
 
 
 def api(params):
@@ -185,7 +195,9 @@ for r in places:
     r["recon_status"] = status
     report.append(f"| {pid} | {qid} | {lbl} | {dist} | {gid} | {plid} | {status} | {note} |")
     if status in ("candidate", "none"):
-        open_items.append(("place", pid, status, note or "no match"))
+        nt = note or "no match"
+        if pid in RESEARCH_NOTES: nt += " — " + RESEARCH_NOTES[pid]
+        open_items.append(("place", pid, status, nt))
 write_csv("places.csv", places, pfields)
 
 # ---------- PEOPLE ----------
@@ -242,7 +254,9 @@ for r in people:
     r["recon_status"] = status
     report.append(f"| {pid} | {qid} | {lbl} | {viaf} | {status} | {note} |")
     if status in ("candidate", "none"):
-        open_items.append(("person", pid, status, note or "no match"))
+        nt = note or "no match"
+        if pid in RESEARCH_NOTES: nt += " — " + RESEARCH_NOTES[pid]
+        open_items.append(("person", pid, status, nt))
 write_csv("people.csv", people, fields)
 
 report += ["", "## Open items — need human review", "",

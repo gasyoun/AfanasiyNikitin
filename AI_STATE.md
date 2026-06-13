@@ -3,7 +3,7 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-13 · Claude Opus 4.8 · ✅ widget→spine migration arc COMPLETE (4 widgets)
+> **Last updated:** 2026-06-13 · Claude Opus 4.8 · spine arc complete + discoverability + 3 reconciliations resolved
 > **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0` tagged on `main`
 
 ---
@@ -158,6 +158,10 @@ Of the six remaining options, **done & pushed** (datapackage → **v0.9.0**, CI 
 Plus `afanasy_map_spine.html` — the from-scratch "render straight from CSV" prototype. **README updated** to say widgets *already* read from the spine (PR #11). **No data-heavy bespoke widget left to migrate**: the remaining widgets are either already spine-fed (Gantt via `js/atlas-data.js`) or are text/SVG pieces (bestiary, composition tree, prayer interlinear, historiography, …) with no matching dataset — migrating them would be invention, not reuse. **Arc closed.**
 
 The reusable pattern (for any future widget): rename hardcoded `DATA` → `DATA_BUNDLED`; add a dependency-free RFC4180 `parseCSV` + `loadSpine()` that joins spine→bundled and returns `null` on any mismatch (→ wholesale fallback); `let DATA=DATA_BUNDLED` reassigned in `loadSpine().then(...)`; immediate bundled render then re-render after the swap; expose `window.__X_SOURCE`; add the `#x-dt` accessible table + badges + `role`/`aria-describedby`. Verify with the Function-constructor syntax check, a node join test (expect **zero drift** vs bundled), and headless Edge/CDP over both HTTP and `file://`.
+
+**Discoverability + citation (PR #13):** added `sitemap.xml` (31 pages) + `robots.txt` + Open Graph/Twitter meta on `index.html`; replaced the `gasyoun` placeholder author in `CITATION.cff`/`.zenodo.json` with **Mārcis Gasūns** (confirm form / add ORCID if desired).
+
+**✅ 3 open reconciliations resolved (2026-06-13):** `genadiy` → **Q4135475** (Геннадий Кожин, еп. Тверской 1461–1477) confirmed → threaded into `people.csv` + `reconcile.py` `PERSON_OVERRIDE` + RDF `owl:sameAs` (people **6/15 → 7/15**). `mamyrev` (no Wikidata record exists) and `kallur` (famous Kollur Mine Q6427412 is 17th-c./anachronistic; nearest 'Kallur' villages 165+ km) investigated and **deliberately left blank** — rationale captured durably in `reconcile.py` `RESEARCH_NOTES` + `data/reconciliation.md`. `build_all.py` green; only `mamyrev` + `kallur` remain open (by design — "a wrong QID is worse than a blank one").
 
 **Remaining open work is human-gated only:** Zenodo DOI (enable Zenodo↔GitHub, then the `v1.0.0` tag mints it; add the DOI back to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org), WHG upload (`SUBMISSION_WHG.md`), real-device PWA install.
 
