@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+### Changed
+- **`afanasy_citations_v2.html` migrated onto the data spine** — the 12-decade citation chart now reads its numbers (`total` / `ru` / `foreign` / `translations`) from [data/citations.csv](data/citations.csv) at boot (dependency-free CSV parser; bundled `DEC_BUNDLED` remains the presentation layer — labels, colour tokens, events/notes — and the hard fallback for `file://`/offline; `window.__CI_SOURCE` reports `spine`/`bundled`). Adds the accessible-data-table + `epistemic`/`certainty` badge pattern (canvas marked `role="img"` with `aria-describedby`) — the table makes explicit that these are `model` (estimated attention), not bibliometry. Verified in headless Edge: spine activates over HTTP with the chart numbers unchanged, falls back cleanly under `file://`, clean console.
+
 ## [1.0.0] - 2026-06-13
 
 ### Added

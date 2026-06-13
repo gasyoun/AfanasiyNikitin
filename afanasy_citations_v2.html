@@ -30,6 +30,15 @@ canvas#ci-c{display:block;width:100%;height:auto;max-width:700px;aspect-ratio:70
 .ci-det-n{font-size:11px;color:var(--color-text-secondary);line-height:1.55;margin-top:5px;}
 .ci-det-n b{color:var(--color-text-primary);}
 .ci-src{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+/* Epistemic / certainty badges + accessible data table (built from data/citations.csv) */
+.ci-det-meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-top:6px;}
+.ci-badge{display:inline-block;font-size:9px;padding:0 5px;border-radius:6px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);white-space:nowrap;}
+.ci-badge.epi-model{border-color:#9a4a8a;}.ci-badge.epi-text{border-color:#2a7a2a;}.ci-badge.epi-reconstruction{border-color:#b58a3c;}
+.ci-dt-wrap{margin-top:10px;max-height:168px;overflow:auto;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);}
+.ci-dt-tbl{border-collapse:collapse;width:100%;font-size:11px;}
+.ci-dt-tbl caption{text-align:left;font-size:10px;color:var(--color-text-secondary);margin:6px 8px;}
+.ci-dt-tbl th,.ci-dt-tbl td{border:0.5px solid var(--color-border-tertiary);padding:3px 6px;text-align:left;vertical-align:top;}
+.ci-dt-tbl th{background:var(--color-background-secondary);font-weight:500;position:sticky;top:0;}
   </style>
 </head>
 <body>
@@ -59,9 +68,10 @@ canvas#ci-c{display:block;width:100%;height:auto;max-width:700px;aspect-ratio:70
 </div>
 
 <div class="ci-leg" id="ci-leg"></div>
-<div class="ci-wrap"><canvas id="ci-c" width="700" height="300"></canvas></div>
+<div class="ci-wrap"><canvas id="ci-c" width="700" height="300" role="img" aria-label="График числа публикаций о «Хожении за три моря» по десятилетиям с 1810-х по 2020-е, с пятью волнами интереса. Полная доступная таблица — в блоке «Данные» ниже." aria-describedby="ci-dt"></canvas></div>
 <div class="ci-det" id="ci-det"><div style="font-size:11px;color:var(--color-text-secondary);">← нажмите период на графике</div></div>
 <div class="ci-src">Данные синтезированы по библиографиям академического издания «Хожения» (1986), каталогу РНБ, Хрусталёву (2026). Периоды до 1818 — нулевые: текст существовал только в рукописи.</div>
+<div class="ci-dt-wrap"><div id="ci-dt">Загрузка данных…</div></div>
 </div>
 
 <script>
@@ -74,7 +84,11 @@ ctx.scale(dpr,dpr);
 const W=700,H=300,mL=42,mR=16,mT=30,mB=55;
 const iW=W-mL-mR,iH=H-mT-mB;
 
-const DEC=[
+// Bundled fallback + presentation layer (formatted labels, color tokens, rich
+// events/notes). The data spine (data/citations.csv) is the source of truth for
+// the numbers (total/ru/foreign/translations) + epistemic/certainty and overrides
+// these at boot when it loads cleanly. See loadSpine() below.
+const DEC_BUNDLED=[
   {lb:'1810-е',  total:2,  ru:2,  fo:0,  tr:0, cl:'--viz-citation-publication',
    ev:['1818 — Карамзин: первая публикация в «Истории государства Российского»'],
    nt:'Единственная публикация за десятилетие. Карамзин вводит текст в оборот, но относится скептически.'},
@@ -112,6 +126,8 @@ const DEC=[
    ev:['2020 — постколониальные прочтения в западной медиевистике','2021 — конференция в Твери: 550-летие','2026 — Хрусталёв: реконструкция состава, новая датировка'],
    nt:'<b>Пятая волна: постколониальный и текстологический ренессанс.</b> Хрусталёв пересматривает всё.'},
 ];
+// Live binding — replaced by the spine at boot, or kept as the bundled fallback.
+let DEC=DEC_BUNDLED;
 
 const CATS=[
   {k:'ru', color:'--viz-citation-publication', lb:'Российская наука'},
@@ -126,6 +142,48 @@ const WAVES=[
   {i:7, lb:'④ 1960\nФильм',       cl:'--viz-citation-wave-cultural'},
   {i:11,lb:'⑤ 2026\nХрусталёв',  cl:'--viz-citation-wave-current'},
 ];
+
+// ── Data spine (data/citations.csv) ─────────────────────────────────────────────
+// Minimal RFC4180 CSV parser (quoted fields, embedded commas/newlines) keeps this
+// widget dependency-free — no d3. Returns an array of header-keyed objects.
+function parseCSV(text){
+  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  const rows=[];let row=[],field='',inQ=false,i=0;
+  while(i<text.length){
+    const c=text[i];
+    if(inQ){
+      if(c==='"'){if(text[i+1]==='"'){field+='"';i+=2;continue;}inQ=false;i++;continue;}
+      field+=c;i++;continue;
+    }
+    if(c==='"'){inQ=true;i++;continue;}
+    if(c===','){row.push(field);field='';i++;continue;}
+    if(c==='\n'){row.push(field);rows.push(row);row=[];field='';i++;continue;}
+    field+=c;i++;
+  }
+  if(field!==''||row.length){row.push(field);rows.push(row);}
+  const head=rows.shift().map(h=>h.trim());
+  return rows.filter(r=>r.some(v=>v!=='')).map(r=>{const o={};head.forEach((h,j)=>{o[h]=(r[j]||'');});return o;});
+}
+
+// CSV `period` keys in chronological order — maps each spine row onto the matching
+// bundled presentation entry by index. Source of truth for the numbers + epistemic.
+const CSV_PERIODS=['1810s','1820-40s','1850-60s','1870-90s','1900-10s','1920-30s','1940-50s','1960-70s','1980s','1990s','2000-10s','2020s'];
+function loadSpine(){
+  if(typeof fetch!=='function')return Promise.resolve(null);
+  if(DEC_BUNDLED.length!==CSV_PERIODS.length)return Promise.resolve(null);
+  return fetch('data/citations.csv').then(r=>{if(!r.ok)throw 0;return r.text();}).then(text=>{
+    const byPeriod={};parseCSV(text).forEach(r=>{byPeriod[r.period]=r;});
+    const dec=[];
+    for(let k=0;k<DEC_BUNDLED.length;k++){
+      const b=DEC_BUNDLED[k], r=byPeriod[CSV_PERIODS[k]];
+      if(!r)return null;
+      const total=+r.total, ru=+r.ru, fo=+r.foreign, tr=+r.translations;
+      if(![total,ru,fo,tr].every(Number.isFinite))return null;
+      dec.push(Object.assign({},b,{period:CSV_PERIODS[k],total,ru,fo,tr,epistemic:r.epistemic||'',certainty:r.certainty||''}));
+    }
+    return dec;
+  }).catch(()=>null);
+}
 
 let mode='bar', activeIdx=null;
 
@@ -307,9 +365,13 @@ function showDet(d){
   if(!d){el.style.borderLeftColor='var(--color-border-tertiary)';el.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary);">← нажмите период на графике</div>';return;}
   const detColor=colorOf(d.cl);
   el.style.borderLeftColor=detColor;
+  const meta=[];
+  if(d.epistemic)meta.push(`<span class="ci-badge epi-${d.epistemic}">${d.epistemic}</span>`);
+  if(d.certainty)meta.push(`<span class="ci-badge">${d.certainty}</span>`);
+  const metaHtml=meta.length?`<div class="ci-det-meta">${meta.join('')}</div>`:'';
   el.innerHTML=`<div class="ci-det-h">${d.lb} · <span style="color:${detColor};">${d.total} публикаций</span> · РФ: ${d.ru} · Иностр.: ${d.fo} · Переводы: ${d.tr}</div>`+
     d.ev.map(ev=>`<div class="ci-det-ev">${ev}</div>`).join('')+
-    `<div class="ci-det-n">${d.nt}</div>`;
+    `<div class="ci-det-n">${d.nt}</div>`+metaHtml;
 }
 
 window.setMode=function(m){
@@ -318,7 +380,27 @@ window.setMode=function(m){
   buildLeg();draw();
 };
 
-buildLeg();draw();
+// Accessible data table (screen-reader equivalent of the chart) — surfaces the
+// per-decade counts and the epistemic/certainty labels straight from the spine.
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function buildDataTable(){
+  const el=document.getElementById('ci-dt');if(!el)return;
+  let h='<table class="ci-dt-tbl"><caption>Оценочные показатели внимания из data/citations.csv (epistemic = model — это не библиометрия). Всего = РФ + зарубеж.; переводы — подмножество.</caption>'+
+    '<thead><tr><th scope="col">Период</th><th scope="col">Всего</th><th scope="col">РФ</th><th scope="col">Зарубеж.</th><th scope="col">Переводы</th><th scope="col">Тип сведения</th></tr></thead><tbody>';
+  DEC.forEach(d=>{
+    const epi=d.epistemic?('<span class="ci-badge epi-'+esc(d.epistemic)+'">'+esc(d.epistemic)+'</span>'+(d.certainty?' <span class="ci-badge">'+esc(d.certainty)+'</span>':'')):'—';
+    h+='<tr><td>'+esc(d.lb)+'</td><td>'+d.total+'</td><td>'+d.ru+'</td><td>'+d.fo+'</td><td>'+d.tr+'</td><td>'+epi+'</td></tr>';
+  });
+  el.innerHTML=h+'</tbody></table>';
+}
+
+buildLeg();draw();              // immediate render from bundled data
+loadSpine().then(spine=>{
+  if(spine){DEC=spine;}
+  window.__CI_SOURCE=spine?'spine':'bundled';
+  buildLeg();draw();buildDataTable();
+});
+
 new MutationObserver(()=>{
   buildLeg();
   showDet(activeIdx!==null?DEC[activeIdx]:null);
