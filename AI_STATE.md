@@ -3,8 +3,8 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-13 · Claude Opus 4.8 · spine arc complete + discoverability + 3 reconciliations resolved
-> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0` tagged on `main`
+> **Last updated:** 2026-06-13 · Claude Opus 4.8 · v1.1.0 released
+> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0` + `v1.1.0` tagged on `main`
 
 ---
 
@@ -163,7 +163,9 @@ The reusable pattern (for any future widget): rename hardcoded `DATA` → `DATA_
 
 **✅ 3 open reconciliations resolved (2026-06-13):** `genadiy` → **Q4135475** (Геннадий Кожин, еп. Тверской 1461–1477) confirmed → threaded into `people.csv` + `reconcile.py` `PERSON_OVERRIDE` + RDF `owl:sameAs` (people **6/15 → 7/15**). `mamyrev` (no Wikidata record exists) and `kallur` (famous Kollur Mine Q6427412 is 17th-c./anachronistic; nearest 'Kallur' villages 165+ km) investigated and **deliberately left blank** — rationale captured durably in `reconcile.py` `RESEARCH_NOTES` + `data/reconciliation.md`. `build_all.py` green; only `mamyrev` + `kallur` remain open (by design — "a wrong QID is worse than a blank one").
 
-**Remaining open work is human-gated only:** Zenodo DOI (enable Zenodo↔GitHub, then the `v1.0.0` tag mints it; add the DOI back to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org), WHG upload (`SUBMISSION_WHG.md`), real-device PWA install.
+**✅ v1.1.0 released (2026-06-13, PR #15, tag `v1.1.0` → `838a92f`).** Promoted CHANGELOG `[Unreleased]` → `[1.1.0]` (fresh empty `[Unreleased]` left on top) and bumped all version metadata in lockstep to **1.1.0** (`datapackage.json`, `CITATION.cff`, `.zenodo.json`, `index.html` schema.org, `data/README.md` release cmd). Bundles, since v1.0.0: citations + editions onto the spine (4 spine-driven total), discoverability (sitemap/robots/OG), real citation author, and the 3 resolved reconciliations. Release/merge flow: GitHub auto-merge is now disabled on the repo → land via PR, `gh pr checks --watch`, then `gh pr merge --merge`, then `gh release create`.
+
+**Remaining open work is human-gated only:** Zenodo DOI (enable Zenodo↔GitHub; once on, you choose which tag — `v1.0.0` or `v1.1.0` — to archive; then add the DOI back to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org), WHG upload (`SUBMISSION_WHG.md`), real-device PWA install.
 
 ---
 
