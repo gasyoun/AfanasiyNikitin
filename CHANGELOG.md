@@ -5,7 +5,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased]
+## [1.0.0] - 2026-06-13
 
 ### Added
 - **FAIR data spine (`data/`)** — 9 machine-readable datasets (sources, places, itinerary, people, editions, citations, trade, 104 manuscript fragments, computed calendar) described by a Frictionless `datapackage.json`. Every row carries `epistemic` (text / reconstruction / localization / model / hypothesis) and `certainty` labels; data licensed **CC-BY-4.0** (`RIGHTS.md`).
