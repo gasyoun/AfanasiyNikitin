@@ -10,3 +10,6 @@ hrustalev_tetradi_2026.pdf
 # in-copyright-derived — see RIGHTS.md (kept local, not published)
 tetradi_hrustalev_2026.md
 article_drevnyaya_rus_draft.md
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json
