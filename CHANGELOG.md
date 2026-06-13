@@ -7,6 +7,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-06-13
+
 ### Added
 - **Discoverability** — `sitemap.xml` (31 pages) + `robots.txt`, and Open Graph / Twitter-card meta + a canonical link on `index.html` for social sharing and search engines.
 

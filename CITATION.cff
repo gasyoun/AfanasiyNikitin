@@ -8,7 +8,7 @@ abstract: >-
   calendar. Places and people are reconciled to Wikidata, GeoNames, Pleiades and
   VIAF; a Linked Places Format export is included for the World Historical Gazetteer.
 type: dataset
-version: "1.0.0"
+version: "1.1.0"
 date-released: "2026-06-13"
 license: CC-BY-4.0
 url: "https://gasyoun.github.io/AfanasiyNikitin/"
