@@ -76,7 +76,7 @@ A [`CITATION.cff`](../CITATION.cff) sits at the repo root, so GitHub shows a **"
 **Mint a DOI (one-time, needs your account):**
 
 1. Sign in to **zenodo.org** with GitHub → **Settings → GitHub** → flip the switch **on** for `gasyoun/AfanasiyNikitin`.
-2. Cut a release: `gh release create v1.0.0 -t "v1.0.0 — FAIR data spine" -n "Datasets + reconciliation + LPF + computus."` (or via the GitHub UI). Zenodo archives it and mints a DOI.
+2. Cut a release: `gh release create v1.1.0 -t "v1.1.0 — FAIR data spine" -n "Datasets + reconciliation + LPF + computus."` (or via the GitHub UI). Zenodo archives it and mints a DOI.
 3. Add the DOI to `CITATION.cff` (`doi:`), `.zenodo.json`, and the `schema.org/Dataset` block in `index.html` (`identifier`).
 
 `.zenodo.json` pre-fills the Zenodo deposit metadata; the `schema.org/Dataset` JSON-LD in `index.html` makes the dataset discoverable via **Google Dataset Search**.
