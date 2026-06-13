@@ -3,8 +3,8 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-13 · Claude Opus 4.8 · v1.0.0 released + citations spine migration
-> **Branch:** `feat/citations-spine` (off `main`); `v1.0.0` tagged on `main`
+> **Last updated:** 2026-06-13 · Claude Opus 4.8 · editions spine migration (4 widgets now spine-driven)
+> **Branch:** `feat/editions-spine` (off `main`); `v1.0.0` tagged on `main`
 
 ---
 
@@ -140,7 +140,11 @@ Of the six remaining options, **done & pushed** (datapackage → **v0.9.0**, CI 
 
 **Verified:** node join test → 12/12, **zero number drift** (chart pixels unchanged), 12 epistemic labels. Headless Edge/CDP → HTTP `__CI_SOURCE=spine`, 12 rows, 24 badges, bar/area/cats mode tabs work, bar click opens detail with correct counts + badge, **clean console**; `file://` → `__CI_SOURCE=bundled`, 12 rows. Scratch CDP scripts removed before commit.
 
-**Remaining one-at-a-time candidate:** editions (`afanasy_editions_v3.html` ← `data/editions.csv`).
+**`afanasy_editions_v3.html` migrated onto the spine** (branch `feat/editions-spine`) — fourth verified widget→spine migration, and the most presentation-coupled so far. Each edition has a hand-drawn SVG `coverFn` + rich c1/c2/q/disc narrative not in the CSV, and `editions.csv` has **no epistemic/certainty** columns — but it does carry structured `editor`/`place`/`publisher`/`kind` the widget only expressed as prose. So: **spine = source of truth for the edition set + year + structured metadata** (merged by `edition_id`); **bundled `EDS_BUNDLED` = SVG covers/colours/tags/narrative + hard fallback**; `window.__EW_SOURCE` reports `spine`/`bundled`. Added an accessible `<table>` `#ew-dt` (year/edition/editor/place/publisher/type), shelf marked `role="list"`+`aria-describedby`, and a `kind` badge (English slug → Russian via `KIND_RU`) in the detail panel. No epistemic badge here (column absent — correct).
+
+**Verified:** node join test → 9/9, **zero year drift**, all 9 kinds present, merge correct (lu1986 → Лурье/Семёнов · Ленинград · Наука · academic-standard). Headless Edge/CDP → HTTP `__EW_SOURCE=spine`, 9 covers render, 9 table rows + 9 kind badges, editor/publisher cells from CSV, Khrustalev-2026 click opens detail with «Реконструкция» tag, **clean console**; `file://` → `__EW_SOURCE=bundled`, 9 covers + 9 rows. Scratch CDP scripts removed before commit.
+
+**Spine-driven widgets now: flagship map, people-network, citations, editions (4).** No obvious data-heavy bespoke widget left to migrate; remaining widgets are either already spine-fed or are text/SVG pieces without a matching dataset.
 
 ---
 

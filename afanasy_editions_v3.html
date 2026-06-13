@@ -122,6 +122,13 @@
 .ew-dd{padding:9px 15px;font-size:11px;color:var(--color-text-secondary);line-height:1.55;background:var(--color-background-secondary);}
 .ew-dd b{color:var(--color-text-primary);}
 .ew-src{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+/* Structured-metadata badge + accessible data table (built from data/editions.csv) */
+.ew-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;background:var(--color-background-secondary);border:.5px solid var(--color-border-secondary);color:var(--color-text-secondary);white-space:nowrap;}
+.ew-dt-wrap{margin-top:10px;max-height:200px;overflow:auto;border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);}
+.ew-dt-tbl{border-collapse:collapse;width:100%;font-size:11px;}
+.ew-dt-tbl caption{text-align:left;font-size:10px;color:var(--color-text-secondary);margin:6px 8px;}
+.ew-dt-tbl th,.ew-dt-tbl td{border:.5px solid var(--color-border-tertiary);padding:3px 6px;text-align:left;vertical-align:top;}
+.ew-dt-tbl th{background:var(--color-background-secondary);font-weight:500;position:sticky;top:0;}
   </style>
 </head>
 <body>
@@ -137,9 +144,10 @@
   За 208 лет «Хожение» издавалось более <b>40 раз</b> и переведено на <b>20 языков</b>. Каждое поколение находило в тексте своё. <b>Нажмите обложку</b> чтобы узнать об издании.
 </div>
 
-<div class="ew-shelf" id="shelf"></div>
+<div class="ew-shelf" id="shelf" role="list" aria-label="Полка изданий «Хожения за три моря». Полная доступная таблица — в блоке «Данные изданий» ниже." aria-describedby="ew-dt"></div>
 <div class="ew-det" id="det"></div>
 <div class="ew-src">Обложки — авторские SVG-реконструкции в стилистике эпохи. По: Лурье–Семёнов (1986, вступ. статья), Хрусталёв (2026, введение), каталог РНБ.</div>
+<div class="ew-dt-wrap"><div id="ew-dt">Загрузка данных…</div></div>
 </div>
 
 <script>
@@ -286,8 +294,11 @@ function cover_khrust(svg,W,H){
   txt(svg,'С.-Петербург · 2026',{'x':W/2,'y':H*.90,'text-anchor':'middle','font-size':3.8,'font-family':'Arial,sans-serif','fill':'var(--ew-c-6040a0)'});
 }
 
-// ── Editions data ─────────────────────────────────────────────────────────────
-const EDS=[
+// ── Editions data (bundled fallback + presentation layer) ──────────────────────
+// SVG covers, colours, tags, and the c1/c2/q/disc narrative live here; the data
+// spine (data/editions.csv) is the source of truth for the edition set + year +
+// structured metadata (editor/place/publisher/kind) and is merged in at boot.
+const EDS_BUNDLED=[
 {id:'k1818', year:1818, color:'var(--ew-c-1e4a7a)', short:'Карамзин\n«История...»', coverFn:cover_karamzin,
  title:'«История государства Российского», т. VI, прим. 326',
  who:'Н.М. Карамзин · Санкт-Петербург, 1818',
@@ -361,38 +372,90 @@ const EDS=[
  q:'«Перед нами не "книга", написанная Афанасием, а рукопись, собранная Мамыревым из тетрадей купца — как попало»',
  disc:'🔍 Открытие: 7 тетрадей разного жанра. Датировка сдвинута. «Летопись Бахманидов» = уникальный источник. Афанасий, возможно, служил при дворе.'},
 ];
+// Live binding — merged with the spine at boot, or kept as the bundled fallback.
+let EDS=EDS_BUNDLED;
+
+// ── Data spine (data/editions.csv) ──────────────────────────────────────────────
+// Minimal RFC4180 CSV parser (quoted fields, embedded commas/newlines) keeps this
+// widget dependency-free — no d3. Returns an array of header-keyed objects.
+function parseCSV(text){
+  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  const rows=[];let row=[],field='',inQ=false,i=0;
+  while(i<text.length){
+    const c=text[i];
+    if(inQ){
+      if(c==='"'){if(text[i+1]==='"'){field+='"';i+=2;continue;}inQ=false;i++;continue;}
+      field+=c;i++;continue;
+    }
+    if(c==='"'){inQ=true;i++;continue;}
+    if(c===','){row.push(field);field='';i++;continue;}
+    if(c==='\n'){row.push(field);rows.push(row);row=[];field='';i++;continue;}
+    field+=c;i++;
+  }
+  if(field!==''||row.length){row.push(field);rows.push(row);}
+  const head=rows.shift().map(h=>h.trim());
+  return rows.filter(r=>r.some(v=>v!=='')).map(r=>{const o={};head.forEach((h,j)=>{o[h]=(r[j]||'');});return o;});
+}
+
+const KIND_RU={'first-publication':'Первая публикация','first-standalone':'Первое отдельное','first-critical':'Первое критическое','jubilee':'Юбилейное','mass-academic':'Массовое академическое','film-tie-in':'К фильму','academic-standard':'Академический эталон','mass-commercial':'Массовое коммерческое','reconstruction':'Реконструкция'};
+
+// Merge the spine onto the bundled presentation layer (join by edition_id). Returns
+// the merged array or null to fall back (offline / file:// / unknown id / count mismatch).
+function loadSpine(){
+  if(typeof fetch!=='function')return Promise.resolve(null);
+  return fetch('data/editions.csv').then(r=>{if(!r.ok)throw 0;return r.text();}).then(text=>{
+    const byId={};parseCSV(text).forEach(r=>{byId[r.edition_id]=r;});
+    const eds=[];
+    for(const b of EDS_BUNDLED){
+      const r=byId[b.id];
+      if(!r)return null;
+      const yr=+r.year;
+      eds.push(Object.assign({},b,{
+        year:Number.isFinite(yr)?yr:b.year,
+        editor:r.editor||'', place:r.place||'', publisher:r.publisher||'',
+        language:r.language||'', kind:r.kind||''
+      }));
+    }
+    if(eds.length!==EDS_BUNDLED.length)return null;
+    return eds;
+  }).catch(()=>null);
+}
 
 const BW=72,BH=96;
 let activeId=null;
 
 const shelf=document.getElementById('shelf');
-EDS.forEach(ed=>{
-  const item=document.createElement('div');
-  item.className='ew-item';item.dataset.id=ed.id;
+function buildShelf(){
+  shelf.innerHTML='';
+  EDS.forEach(ed=>{
+    const item=document.createElement('div');
+    item.className='ew-item';item.dataset.id=ed.id;
+    item.setAttribute('role','listitem');
 
-  const bw=document.createElement('div');
-  bw.className='ew-book-wrap';
+    const bw=document.createElement('div');
+    bw.className='ew-book-wrap';
 
-  const svg=mksvg(BW,BH);
-  svg.setAttribute('width',BW);svg.setAttribute('height',BH);
-  ed.coverFn(svg,BW,BH);
-  bw.appendChild(svg);
+    const svg=mksvg(BW,BH);
+    svg.setAttribute('width',BW);svg.setAttribute('height',BH);
+    ed.coverFn(svg,BW,BH);
+    bw.appendChild(svg);
 
-  const yr=document.createElement('div');
-  yr.className='ew-yr';yr.style.color=ed.color;yr.textContent=ed.year;
+    const yr=document.createElement('div');
+    yr.className='ew-yr';yr.style.color=ed.color;yr.textContent=ed.year;
 
-  const sh=document.createElement('div');
-  sh.className='ew-short';
-  sh.textContent=ed.short.split('\n')[0];
+    const sh=document.createElement('div');
+    sh.className='ew-short';
+    sh.textContent=ed.short.split('\n')[0];
 
-  item.appendChild(bw);item.appendChild(yr);item.appendChild(sh);
-  item.addEventListener('click',()=>{
-    activeId=activeId===ed.id?null:ed.id;
-    document.querySelectorAll('.ew-item').forEach(i=>i.classList.toggle('on',i.dataset.id===activeId));
-    showDet(activeId?EDS.find(e=>e.id===activeId):null);
+    item.appendChild(bw);item.appendChild(yr);item.appendChild(sh);
+    item.addEventListener('click',()=>{
+      activeId=activeId===ed.id?null:ed.id;
+      document.querySelectorAll('.ew-item').forEach(i=>i.classList.toggle('on',i.dataset.id===activeId));
+      showDet(activeId?EDS.find(e=>e.id===activeId):null);
+    });
+    shelf.appendChild(item);
   });
-  shelf.appendChild(item);
-});
+}
 
 function showDet(ed){
   const det=document.getElementById('det');
@@ -400,7 +463,8 @@ function showDet(ed){
   const bigSVG=mksvg(BW,BH);
   bigSVG.setAttribute('width',96);bigSVG.setAttribute('height',128);
   ed.coverFn(bigSVG,BW,BH);
-  const tags=ed.tags.map(tg=>`<span class="ew-dtag" style="background:${tg.bg};color:${tg.fg};">${tg.t}</span>`).join('');
+  const kindTag=ed.kind?`<span class="ew-dtag" style="background:var(--color-background-secondary);color:var(--color-text-secondary);border:.5px solid var(--color-border-secondary);" title="${ed.kind}">${KIND_RU[ed.kind]||ed.kind}</span>`:'';
+  const tags=ed.tags.map(tg=>`<span class="ew-dtag" style="background:${tg.bg};color:${tg.fg};">${tg.t}</span>`).join('')+kindTag;
   det.innerHTML='';det.classList.add('open');
   det.style.borderColor=`color-mix(in srgb,${ed.color} 35%,transparent)`;
   const dh=document.createElement('div');dh.className='ew-dh';dh.style.background=`color-mix(in srgb,${ed.color} 8%,transparent)`;
@@ -418,6 +482,30 @@ function showDet(ed){
   const dd=document.createElement('div');dd.className='ew-dd';dd.innerHTML=ed.disc;det.appendChild(dd);
   det.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
+
+// Accessible data table (screen-reader equivalent of the cover shelf) — surfaces the
+// structured edition metadata (editor / place / publisher / kind) from the spine.
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function buildDataTable(){
+  const el=document.getElementById('ew-dt');if(!el)return;
+  let h='<table class="ew-dt-tbl"><caption>Издания «Хожения» из data/editions.csv (в хронологическом порядке).</caption>'+
+    '<thead><tr><th scope="col">Год</th><th scope="col">Издание</th><th scope="col">Редактор</th><th scope="col">Место</th><th scope="col">Издательство</th><th scope="col">Тип</th></tr></thead><tbody>';
+  EDS.forEach(ed=>{
+    const who=ed.editor||ed.who||'';
+    const kind=ed.kind?'<span class="ew-badge" title="'+esc(ed.kind)+'">'+esc(KIND_RU[ed.kind]||ed.kind)+'</span>':'—';
+    h+='<tr><td>'+esc(String(ed.year))+'</td><td>'+esc(ed.title)+'</td><td>'+esc(who)+'</td><td>'+esc(ed.place||'—')+'</td><td>'+esc(ed.publisher||'—')+'</td><td>'+kind+'</td></tr>';
+  });
+  el.innerHTML=h+'</tbody></table>';
+}
+
+buildShelf();                   // immediate render from bundled data
+loadSpine().then(spine=>{
+  if(spine){EDS=spine;}
+  window.__EW_SOURCE=spine?'spine':'bundled';
+  buildShelf();
+  if(activeId)showDet(EDS.find(e=>e.id===activeId)||null);
+  buildDataTable();
+});
 })();
 </script>
   </div>
