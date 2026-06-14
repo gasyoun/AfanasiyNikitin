@@ -8,6 +8,9 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ## [Unreleased]
 
+### Changed
+- **Shared spine loader (`js/atlas-spine.js`).** The 6 spine-driven widgets that read `data/*.csv` (people-network, citations, editions, event-timeline, epistemic-lens, lod-coverage) each carried an identical copy of the RFC4180 `parseCSV`; extracted it into one shared `window.AtlasSpine.parseCSV` (+ a `fetchText` helper), loaded in `<head>` and cached by the Service Worker (`afanasy-atlas-v15`). Bundled fallbacks unchanged — a missing/late script still degrades to bundled data. Verified in headless Edge: all 6 still activate the spine (correct row counts) and fall back under `file://`.
+
 ### Added
 - **New widget `afanasy_lod_coverage.html` (Связанные данные)** — a Linked-Open-Data coverage dashboard: KPI cards (29/41 reconciled to Wikidata; places 22/26 and people 7/15 confirmed; 2 honestly open), reconciliation-status stacked bars (places/people), authority-coverage bars (Wikidata / GeoNames 20/26 / Pleiades 2/26 / VIAF 3/15), and a filterable 41-entity table (all / places / people / open) linking out to each authority record. Spine-driven: recomputes from `data/places.csv` + `data/people.csv` at boot (`window.__LO_SOURCE`) with a bundled fallback. Wired into `index.html` (statistical category, card 32 — atlas now 32 widgets), `sitemap.xml`, the Service Worker cache (`afanasy-atlas-v14`), and `README.md`.
 

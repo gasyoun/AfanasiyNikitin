@@ -1,4 +1,4 @@
-const CACHE_NAME = 'afanasy-atlas-v14';
+const CACHE_NAME = 'afanasy-atlas-v15';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -6,6 +6,7 @@ const ASSETS_TO_CACHE = [
   './favicon.svg',
   './css/atlas.css',
   './js/atlas-data.js',
+  './js/atlas-spine.js',
   './js/atlas-theme.js',
   './js/atlas-export.js',
   './lib/d3.min.js',
