@@ -3,9 +3,27 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-14 · Claude Opus 4.8 · new epistemic-lens widget (atlas now 31 widgets)
-> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.3.0` tagged on `main`
-> **Versioning:** site (CHANGELOG + tags) = **1.3.0**; dataset (datapackage/CITATION/.zenodo/schema.org) = **1.1.0**, bumped only on `data/` changes — see [data/README.md](data/README.md) §Versioning. (Epistemic-lens widget currently unreleased on `main`.)
+> **Last updated:** 2026-06-14 · Claude Opus 4.8 · v1.4.0 released (epistemic lens); handoff
+> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.4.0` tagged on `main`
+> **Versioning:** site (CHANGELOG + tags) = **1.4.0**; dataset (datapackage/CITATION/.zenodo/schema.org) = **1.1.0**, bumped only on `data/` changes — see [data/README.md](data/README.md) §Versioning.
+
+---
+
+## 🤝 Handoff — for the next Opus 4.8 session (2026-06-14)
+
+**Where things stand.** The atlas is **31 widgets**, live at https://gasyoun.github.io/AfanasiyNikitin/, **`main` is clean** (no open branches), site at **v1.4.0**, dataset at **1.1.0** (decoupled). The engineering arc is essentially complete: FAIR data spine + LOD + computus + CI, four migrated widgets + two new spine-driven widgets, discoverability (sitemap/robots/OG), citation metadata, all 3 reconciliations resolved.
+
+**➡️ Next steps (pick from these — nothing is blocking):**
+1. **Human-gated only (cannot be done by the agent):** Zenodo DOI (enable Zenodo↔GitHub, pick a tag to archive — dataset version archived = `.zenodo.json` = 1.1.0; then add the DOI to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org); WHG upload (`SUBMISSION_WHG.md`); real-device PWA install (Android/iPhone).
+2. **Optional autonomous viz:** the **LOD/reconciliation coverage dashboard** (last unbuilt item from the brainstorm — recon_status + Wikidata/GeoNames/Pleiades/VIAF coverage). Build it spine-driven with the pattern below.
+3. **Optional polish:** a real 1200×630 OG preview PNG (currently the SVG favicon); per-page OG beyond the index; reconcile the **stale `index.md`** master index (it predates many widgets — known-stale, never updated through this whole arc).
+4. **Owed:** bump the **dataset** version 1.1.0 → 1.2.0 (datapackage/CITATION/.zenodo/schema.org) the next time anything under `data/` actually changes — *not* on a widget-only release.
+
+**🔁 Release flow (auto-merge is DISABLED on the repo):** land via PR → `gh pr checks <n> --watch` → `gh pr merge <n> --merge` → `gh release create vX.Y.Z --target main`. Direct push to `main` is blocked by the harness. GitHub auto-deletes merged branches; `git remote prune origin` to clear stale refs.
+
+**🧩 Reusable widget→spine pattern (used by 6 widgets):** rename hardcoded `DATA` → `DATA_BUNDLED`; add a dependency-free RFC4180 `parseCSV` + `loadSpine()` that joins/recomputes from `data/*.csv` and returns `null` on any shape mismatch (→ wholesale bundled fallback); `let DATA=DATA_BUNDLED` reassigned in `loadSpine().then(...)`; render bundled immediately, re-render after the swap; expose `window.__XX_SOURCE`; add an accessible `<table>` + `epistemic`/`certainty` badges + `role`/`aria-describedby`. For a NEW widget at the **end of the last index section**, the card badge is just the next number (no renumber); inserting mid-list needs the renumber script (`re.sub` over `card-num` in document order). Wire every new widget into `index.html` (card + counts), `sitemap.xml` (regen via the node one-liner), `sw.js` (cache bump), `README.md` (table + overview).
+
+**✅ Verification harness:** Function-constructor syntax check; a Node join/recompute test (expect **zero drift** vs bundled); headless Edge over CDP using Node's built-in `WebSocket` (Edge at `C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe`, `--headless=new --remote-debugging-port`), checking both HTTP→spine and `file://`→bundled, clean console. Put throwaway scripts under `scratch/` and delete before commit (per CLAUDE.md).
 
 ---
 
