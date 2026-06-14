@@ -4,8 +4,8 @@ This file is maintained by AI assistants (Antigravity/Claude) working on this re
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
 > **Last updated:** 2026-06-14 · Claude Opus 4.8 · Phase: harden ✅ + data rigor (book companion). Quality report done; source_page citations need the book (human).
-> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.4.0` tagged on `main` (LOD dashboard + shared spine lib unreleased on `main`)
-> **Versioning:** site (CHANGELOG + tags) = **1.4.0**; dataset (datapackage/CITATION/.zenodo/schema.org) = **1.1.0**, bumped only on `data/` changes — see [data/README.md](data/README.md) §Versioning.
+> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.5.0` tagged on `main`
+> **Versioning:** site (CHANGELOG + tags) = **1.5.0**; dataset (datapackage/CITATION/.zenodo/schema.org) = **1.1.0**, bumped only on `data/` changes — see [data/README.md](data/README.md) §Versioning.
 
 ---
 
