@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Как мы это знаем — Афанасий Никитин</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+  <style>
+.el{font-size:13px;}
+.el-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:10px;}
+.el-intro b{color:var(--color-text-primary);}
+.el-h{font-size:11px;font-weight:600;letter-spacing:.03em;color:var(--color-text-secondary);text-transform:uppercase;margin:4px 0 7px;}
+/* epistemic palette (constant across themes, like the region palette) */
+.epi-text{background:#2a7a2a;} .epi-reconstruction{background:#b58a3c;} .epi-localization{background:#1e5a8a;}
+.epi-model{background:#9a4a8a;} .epi-hypothesis{background:#b2202a;}
+.el-leg{display:flex;gap:11px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
+.el-leg-i{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--color-text-secondary);}
+.el-leg-d{width:11px;height:11px;border-radius:3px;flex-shrink:0;}
+.el-leg-sep{width:1px;height:14px;background:var(--color-border-secondary);}
+/* aggregate stacked bars */
+.el-agg{margin-bottom:14px;}
+.el-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.el-row-total{margin-top:6px;padding-top:7px;border-top:.5px solid var(--color-border-tertiary);font-weight:600;}
+.el-row-label{flex:0 0 116px;font-size:11px;color:var(--color-text-primary);text-align:right;}
+.el-row-label .el-n{color:var(--color-text-secondary);font-size:9.5px;font-variant-numeric:tabular-nums;}
+.el-bar{flex:1;display:flex;height:18px;border-radius:3px;overflow:hidden;background:var(--color-background-secondary);}
+.el-row-total .el-bar{height:22px;}
+.el-seg{height:100%;}
+/* route strip */
+.el-route{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
+.el-cell{width:30px;height:30px;border-radius:5px;border:none;color:#fff;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;padding:0;transition:transform .1s;position:relative;}
+.el-cell:hover{transform:translateY(-2px);}
+.el-cell.cert-approx{opacity:.62;}
+.el-cell.cert-disputed{opacity:.9;border:2px dashed var(--color-text-primary);}
+.el-cell.on{outline:2.5px solid var(--color-text-primary);outline-offset:1px;}
+.el-det{padding:11px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);border-left:3px solid var(--color-border-tertiary);min-height:58px;margin-bottom:8px;transition:border-color .2s;}
+.el-det-h{font-size:13px;font-weight:600;margin-bottom:3px;}
+.el-det-sub{font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;}
+.el-det-row{font-size:11px;color:var(--color-text-secondary);margin-bottom:4px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.el-det-row b{color:var(--color-text-primary);font-weight:500;}
+.el-det-links{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px;}
+.el-link{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;padding:3px 9px;border-radius:6px;background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);color:var(--color-text-secondary);text-decoration:none;}
+.el-link:hover{border-color:var(--color-text-secondary);}
+.el-badge{display:inline-block;font-size:9px;padding:1px 6px;border-radius:6px;color:#fff;white-space:nowrap;}
+.el-badge.cert{color:var(--color-text-secondary);background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);}
+.el-src{font-size:10px;color:var(--color-text-secondary);line-height:1.6;margin-top:8px;}
+.el-dt-wrap{margin-top:10px;max-height:172px;overflow:auto;border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);}
+.el-dt-tbl{border-collapse:collapse;width:100%;font-size:11px;}
+.el-dt-tbl caption{text-align:left;font-size:10px;color:var(--color-text-secondary);margin:6px 8px;}
+.el-dt-tbl th,.el-dt-tbl td{border:.5px solid var(--color-border-tertiary);padding:3px 6px;text-align:left;vertical-align:top;font-variant-numeric:tabular-nums;}
+.el-dt-tbl th{background:var(--color-background-secondary);font-weight:500;position:sticky;top:0;}
+  </style>
+</head>
+<body>
+  <div class="vis-container">
+    <div class="vis-header">
+      <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка"><a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Атлас</a><span class="atlas-breadcrumb-sep" aria-hidden="true">/</span><span class="atlas-breadcrumb-current">Как мы это знаем</span></nav>
+      <h1>Как мы это знаем</h1>
+    </div>
+
+    <h2 class="sr-only">Эпистемический разбор атласа: что документировано, что реконструировано, что гипотеза</h2>
+    <div class="el">
+<div class="el-intro">
+  Каждая строка данных атласа помечена тем, <b>как мы это знаем</b>: прямой текст «Хожения», реконструкция Хрусталёва, локализация места, модель/оценка или гипотеза. Из 286 записей лишь <b>22 — прямой текст</b>; остальное — интерпретация. Ниже — разбор по наборам данных и по точкам маршрута. <b>Нажмите точку</b> маршрута для подробностей.
+</div>
+
+<div class="el-leg" id="el-leg"></div>
+
+<div class="el-h">Из чего сделан атлас — по наборам данных</div>
+<div class="el-agg" id="el-agg" role="img" aria-label="Доля типов сведений (epistemic) в каждом наборе данных. Полная таблица — в блоке «Данные» ниже." aria-describedby="el-dt"></div>
+
+<div class="el-h">Путь: достоверность локализации 29 точек</div>
+<div class="el-route" id="el-route" role="group" aria-label="29 точек маршрута, цвет — тип локализации места, штриховка — спорная локализация"></div>
+<div class="el-det" id="el-det"><div style="font-size:11px;color:var(--color-text-secondary);">← нажмите точку маршрута</div></div>
+
+<div class="el-src">Источник: метки <code>epistemic</code> / <code>certainty</code> в <code>data/*.csv</code> (по Хрусталёву, 2026). «Маршрут» весь помечен как реконструкция (порядок и датировка — реконструкция состава тетрадей); «места» — по достоверности локализации (спорные: Аланд, Каллур, сомалийский берег).</div>
+<div class="el-dt-wrap"><div id="el-dt">Загрузка данных…</div></div>
+</div>
+
+<script>
+(function(){
+// ── Bundled fallback (precomputed) ──────────────────────────────────────────────
+// The data spine (data/*.csv) is the source of truth and recomputes these at boot;
+// these copies keep the widget working offline / under file://. See loadSpine().
+const AGG_BUNDLED=[
+  {"ds": "places", "label": "Места", "n": 26, "epi": {"localization": 22, "hypothesis": 3, "reconstruction": 1}},
+  {"ds": "itinerary", "label": "Маршрут", "n": 29, "epi": {"reconstruction": 29}},
+  {"ds": "people", "label": "Люди", "n": 15, "epi": {"text": 11, "reconstruction": 4}},
+  {"ds": "events", "label": "События", "n": 12, "epi": {"text": 7, "reconstruction": 5}},
+  {"ds": "trade", "label": "Торговля", "n": 23, "epi": {"text": 4, "model": 19}},
+  {"ds": "fragments", "label": "Фрагменты", "n": 104, "epi": {"reconstruction": 104}},
+  {"ds": "calendar", "label": "Календарь", "n": 37, "epi": {"model": 36, "reconstruction": 1}},
+  {"ds": "legs", "label": "Отрезки", "n": 28, "epi": {"model": 28}},
+  {"ds": "citations", "label": "Цитируемость", "n": 12, "epi": {"model": 12}},
+  {"ds": "overall", "label": "ВСЕ данные", "n": 286, "epi": {"localization": 22, "hypothesis": 3, "reconstruction": 144, "text": 22, "model": 95}}
+];
+const ROUTE_BUNDLED=[
+  {"seq": 1, "place_id": "tver", "place": "Тверь", "year": "1467, весна", "sea": "Путь по Руси", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q2288", "wp": 0},
+  {"seq": 2, "place_id": "nizhny_novgorod", "place": "Нижний Новгород", "year": "1467, лето", "sea": "Путь по Руси", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q891", "wp": 1},
+  {"seq": 3, "place_id": "astrakhan", "place": "Астрахань", "year": "1467, осень", "sea": "Первое море — Каспийское", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q3927", "wp": 2},
+  {"seq": 4, "place_id": "derbent", "place": "Дербент", "year": "1467–1468", "sea": "Первое море — Каспийское", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q131416", "wp": 3},
+  {"seq": 5, "place_id": "baku", "place": "Баку", "year": "1468", "sea": "Путь через Персию", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q9248", "wp": 4},
+  {"seq": 6, "place_id": "mazandaran_sari", "place": "Мазендаран (Сари)", "year": "1468", "sea": "Путь через Персию", "p_epi": "localization", "p_cert": "approx", "i_epi": "reconstruction", "i_cert": "approx", "wikidata_qid": "", "wp": 5},
+  {"seq": 7, "place_id": "kashan", "place": "Кашан", "year": "1468–1469", "sea": "Путь через Персию", "p_epi": "localization", "p_cert": "approx", "i_epi": "reconstruction", "i_cert": "approx", "wikidata_qid": "Q240475", "wp": 6},
+  {"seq": 8, "place_id": "yazd", "place": "Йезд", "year": "1468–1469", "sea": "Путь через Персию", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "approx", "wikidata_qid": "Q182394", "wp": 6},
+  {"seq": 9, "place_id": "lar", "place": "Лар", "year": "1468–1469; май 1474", "sea": "Путь через Персию", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q721029", "wp": 7},
+  {"seq": 10, "place_id": "hormuz", "place": "Ормуз", "year": "1469, Пасха", "sea": "Второе море — Индийское", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q888643", "wp": 8},
+  {"seq": 11, "place_id": "muscat", "place": "Маскат", "year": "1469, весна; 10 апр. 1474", "sea": "Второе море — Индийское", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q3826", "wp": 9},
+  {"seq": 12, "place_id": "chaul", "place": "Чаул", "year": "1469, лето", "sea": "Индия", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q1068374", "wp": 10},
+  {"seq": 13, "place_id": "junnar", "place": "Джуннар", "year": "1469, осень", "sea": "Индия", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q2445461", "wp": 11},
+  {"seq": 14, "place_id": "bidar", "place": "Бидар", "year": "1469–1471", "sea": "Индия", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q461922", "wp": 12},
+  {"seq": 15, "place_id": "aland", "place": "Аланд", "year": "1469–1473", "sea": "Индия", "p_epi": "hypothesis", "p_cert": "disputed", "i_epi": "reconstruction", "i_cert": "approx", "wikidata_qid": "Q2738477", "wp": 13},
+  {"seq": 16, "place_id": "srisailam", "place": "Шрисайлам (Парват)", "year": "1471, февраль", "sea": "Индия", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q1382167", "wp": 14},
+  {"seq": 17, "place_id": "bidar", "place": "Бидар", "year": "1471–1472", "sea": "Индия", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q461922", "wp": 12},
+  {"seq": 18, "place_id": "gulbarga", "place": "Гулбарга", "year": "февраль–август 1473", "sea": "Индия", "p_epi": "reconstruction", "p_cert": "approx", "i_epi": "reconstruction", "i_cert": "approx", "wikidata_qid": "Q37112", "wp": 16},
+  {"seq": 19, "place_id": "kallur", "place": "Каллур", "year": "март–август 1473", "sea": "Индия", "p_epi": "hypothesis", "p_cert": "disputed", "i_epi": "reconstruction", "i_cert": "approx", "wikidata_qid": "", "wp": 17},
+  {"seq": 20, "place_id": "dabhol", "place": "Дабхол", "year": "ноябрь 1473 — январь 1474", "sea": "Второе море — Индийское", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q5207479", "wp": 18},
+  {"seq": 21, "place_id": "somalia_coast", "place": "«Эфиопия» (сомалийский берег)", "year": "февраль 1474", "sea": "Второе море — Индийское", "p_epi": "hypothesis", "p_cert": "disputed", "i_epi": "reconstruction", "i_cert": "approx", "wikidata_qid": "", "wp": 19},
+  {"seq": 22, "place_id": "hormuz", "place": "Ормуз", "year": "апрель–май 1474", "sea": "Третье море — Чёрное", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q888643", "wp": 8},
+  {"seq": 23, "place_id": "lar", "place": "Лар", "year": "май 1474", "sea": "Путь через Персию", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q721029", "wp": 7},
+  {"seq": 24, "place_id": "erzincan", "place": "Арцынцан", "year": "сентябрь 1474", "sea": "Третье море — Чёрное", "p_epi": "localization", "p_cert": "approx", "i_epi": "reconstruction", "i_cert": "approx", "wikidata_qid": "Q136217", "wp": 22},
+  {"seq": 25, "place_id": "trabzon", "place": "Трабзон", "year": "1474", "sea": "Третье море — Чёрное", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q45301", "wp": 23},
+  {"seq": 26, "place_id": "platana", "place": "Платана", "year": "1–20 октября 1474", "sea": "Третье море — Чёрное", "p_epi": "localization", "p_cert": "approx", "i_epi": "reconstruction", "i_cert": "approx", "wikidata_qid": "Q424661", "wp": 24},
+  {"seq": 27, "place_id": "balaklava_gurzuf", "place": "Балаклава / Гурзуф", "year": "1–6 ноября 1474", "sea": "Третье море — Чёрное", "p_epi": "localization", "p_cert": "approx", "i_epi": "reconstruction", "i_cert": "approx", "wikidata_qid": "", "wp": 25},
+  {"seq": 28, "place_id": "kaffa", "place": "Феодосия (Кафа)", "year": "1474–1475", "sea": "Третье море — Чёрное", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q2585920", "wp": 26},
+  {"seq": 29, "place_id": "smolensk", "place": "Смоленск", "year": "1475", "sea": "Конец пути", "p_epi": "localization", "p_cert": "certain", "i_epi": "reconstruction", "i_cert": "certain", "wikidata_qid": "Q2337", "wp": 27}
+];
+
+const EPI_ORDER=['text','reconstruction','localization','model','hypothesis'];
+const EPI_RU={text:'текст (документировано)',reconstruction:'реконструкция',localization:'локализация',model:'модель / оценка',hypothesis:'гипотеза'};
+const EPI_HEX={text:'#2a7a2a',reconstruction:'#b58a3c',localization:'#1e5a8a',model:'#9a4a8a',hypothesis:'#b2202a'};
+const CERT_RU={certain:'точно',approx:'приблизительно',disputed:'спорно'};
+const LABELS={places:'Места',itinerary:'Маршрут',people:'Люди',events:'События',trade:'Торговля',fragments:'Фрагменты',calendar:'Календарь',legs:'Отрезки',citations:'Цитируемость'};
+
+let AGG=AGG_BUNDLED, ROUTE=ROUTE_BUNDLED, activeIdx=null;
+
+// ── Data spine (data/*.csv) ─────────────────────────────────────────────────────
+function parseCSV(text){
+  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  const rows=[];let row=[],field='',inQ=false,i=0;
+  while(i<text.length){
+    const c=text[i];
+    if(inQ){
+      if(c==='"'){if(text[i+1]==='"'){field+='"';i+=2;continue;}inQ=false;i++;continue;}
+      field+=c;i++;continue;
+    }
+    if(c==='"'){inQ=true;i++;continue;}
+    if(c===','){row.push(field);field='';i++;continue;}
+    if(c==='\n'){row.push(field);rows.push(row);row=[];field='';i++;continue;}
+    field+=c;i++;
+  }
+  if(field!==''||row.length){row.push(field);rows.push(row);}
+  const head=rows.shift().map(h=>h.trim());
+  return rows.filter(r=>r.some(v=>v!=='')).map(r=>{const o={};head.forEach((h,j)=>{o[h]=(r[j]||'');});return o;});
+}
+
+const FILES=['places','itinerary','people','events','trade','fragments','calendar','legs','citations'];
+function loadSpine(){
+  if(typeof fetch!=='function')return Promise.resolve(null);
+  const grab=u=>fetch(u).then(r=>{if(!r.ok)throw 0;return r.text();});
+  return Promise.all(FILES.map(f=>grab('data/'+f+'.csv'))).then(texts=>{
+    const data={};FILES.forEach((f,i)=>{data[f]=parseCSV(texts[i]);});
+    const agg=[];const overall={};
+    for(const f of FILES){
+      if(!data[f].length||!('epistemic' in data[f][0]))return null;
+      const epi={};
+      for(const r of data[f]){const e=r.epistemic||'';epi[e]=(epi[e]||0)+1;overall[e]=(overall[e]||0)+1;}
+      agg.push({ds:f,label:LABELS[f],n:data[f].length,epi});
+    }
+    agg.push({ds:'overall',label:'ВСЕ данные',n:Object.values(overall).reduce((a,b)=>a+b,0),epi:overall});
+    const places={};data.places.forEach(r=>{places[r.place_id]=r;});
+    const itin=data.itinerary.slice().sort((a,b)=>(+a.seq)-(+b.seq));
+    const p2wp={};let wp=0;
+    for(let i=0;i<itin.length;i++){const pid=itin[i].place_id;
+      if(pid==='kashan'&&itin[i+1]&&itin[i+1].place_id==='yazd'){if(!(pid in p2wp))p2wp[pid]=wp;if(!('yazd' in p2wp))p2wp['yazd']=wp;i++;wp++;continue;}
+      if(!(pid in p2wp))p2wp[pid]=wp;wp++;}
+    const route=itin.map(r=>{const pl=places[r.place_id]||{};return {seq:+r.seq,place_id:r.place_id,place:pl.name_ru||r.place_id,
+      year:r.year_label||'',sea:r.sea_region||'',p_epi:pl.epistemic||'',p_cert:pl.certainty||'',
+      i_epi:r.epistemic||'',i_cert:r.certainty||'',wikidata_qid:pl.wikidata_qid||'',wp:(r.place_id in p2wp)?p2wp[r.place_id]:-1};});
+    if(!route.length||agg.length<2)return null;
+    return {agg,route};
+  }).catch(()=>null);
+}
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function buildLegend(){
+  const el=document.getElementById('el-leg');
+  const epi=EPI_ORDER.map(k=>`<span class="el-leg-i"><span class="el-leg-d epi-${k}"></span>${EPI_RU[k]}</span>`).join('');
+  el.innerHTML=epi+'<span class="el-leg-sep"></span>'+
+    '<span class="el-leg-i"><span class="el-leg-d" style="background:var(--color-text-secondary);"></span>цвет точки = локализация</span>'+
+    '<span class="el-leg-i" style="opacity:.62;"><span class="el-leg-d" style="background:var(--color-text-secondary);"></span>бледный = приблизительно</span>'+
+    '<span class="el-leg-i"><span class="el-leg-d" style="background:transparent;border:2px dashed var(--color-text-primary);"></span>штрих = спорно</span>';
+}
+
+function renderAgg(){
+  const el=document.getElementById('el-agg');
+  el.innerHTML=AGG.map(a=>{
+    const segs=EPI_ORDER.filter(k=>a.epi[k]).map(k=>{
+      const pct=a.epi[k]/a.n*100;
+      return `<div class="el-seg epi-${k}" style="width:${pct.toFixed(2)}%" title="${EPI_RU[k]}: ${a.epi[k]} (${pct.toFixed(0)}%)"></div>`;
+    }).join('');
+    return `<div class="el-row${a.ds==='overall'?' el-row-total':''}"><div class="el-row-label">${esc(a.label)} <span class="el-n">${a.n}</span></div><div class="el-bar">${segs}</div></div>`;
+  }).join('');
+}
+
+function renderRoute(){
+  const el=document.getElementById('el-route');
+  el.innerHTML=ROUTE.map((r,i)=>{
+    const lbl=`${r.place}, ${r.year}: ${EPI_RU[r.p_epi]||r.p_epi}, ${CERT_RU[r.p_cert]||r.p_cert}`;
+    return `<button class="el-cell epi-${r.p_epi} cert-${r.p_cert}${activeIdx===i?' on':''}" data-i="${i}" aria-label="${esc(lbl)}" title="${esc(lbl)}">${r.seq}</button>`;
+  }).join('');
+}
+
+function showDet(r){
+  const el=document.getElementById('el-det');
+  if(!r){el.style.borderLeftColor='var(--color-border-tertiary)';el.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary);">← нажмите точку маршрута</div>';return;}
+  const col=EPI_HEX[r.p_epi]||'var(--color-border-primary)';
+  el.style.borderLeftColor=col;
+  const epiBadge=(e)=>`<span class="el-badge epi-${esc(e)}">${esc(EPI_RU[e]||e)}</span>`;
+  const certBadge=(c)=>`<span class="el-badge cert">${esc(CERT_RU[c]||c)}</span>`;
+  const links=[];
+  if(r.wp>=0)links.push(`<a class="el-link" href="afanasy_v8_text_map.html?wp=${r.wp}"><i class="ti ti-map-pin"></i> на карте</a>`);
+  if(r.wikidata_qid)links.push(`<a class="el-link" href="http://www.wikidata.org/entity/${esc(r.wikidata_qid)}" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> ${esc(r.wikidata_qid)}</a>`);
+  el.innerHTML=`<div class="el-det-h" style="color:${col};">№${r.seq} · ${esc(r.place)}</div>
+    <div class="el-det-sub">${esc(r.year)} · ${esc(r.sea)}</div>
+    <div class="el-det-row"><b>Локализация места:</b> ${epiBadge(r.p_epi)} ${certBadge(r.p_cert)}</div>
+    <div class="el-det-row"><b>Сведение о маршруте:</b> ${epiBadge(r.i_epi)} ${certBadge(r.i_cert)}</div>
+    ${links.length?`<div class="el-det-links">${links.join('')}</div>`:''}`;
+}
+
+function buildDataTable(){
+  const el=document.getElementById('el-dt');if(!el)return;
+  let h='<table class="el-dt-tbl"><caption>Типы сведений (epistemic) по наборам данных — из data/*.csv. «Маршрут» весь реконструкция; «текст» = прямо засвидетельствовано.</caption>'+
+    '<thead><tr><th scope="col">Набор</th><th scope="col">N</th>'+EPI_ORDER.map(k=>'<th scope="col">'+esc(EPI_RU[k].split(' ')[0])+'</th>').join('')+'</tr></thead><tbody>';
+  AGG.forEach(a=>{
+    h+='<tr><td>'+esc(a.label)+'</td><td>'+a.n+'</td>'+EPI_ORDER.map(k=>'<td>'+(a.epi[k]||'·')+'</td>').join('')+'</tr>';
+  });
+  el.innerHTML=h+'</tbody></table>';
+}
+
+document.getElementById('el-route').addEventListener('click',ev=>{
+  const t=ev.target.closest('[data-i]');if(!t)return;
+  const i=+t.getAttribute('data-i');
+  activeIdx=activeIdx===i?null:i;
+  renderRoute();
+  showDet(activeIdx!==null?ROUTE[activeIdx]:null);
+});
+
+function render(){buildLegend();renderAgg();renderRoute();buildDataTable();}
+
+render();                       // immediate render from bundled data
+loadSpine().then(spine=>{
+  if(spine){AGG=spine.agg;ROUTE=spine.route;}
+  window.__EL_SOURCE=spine?'spine':'bundled';
+  render();
+  if(activeIdx!==null)showDet(ROUTE[activeIdx]||null);
+});
+})();
+</script>
+  </div>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+  <script>
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') location.href = 'index.html';
+      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+        document.getElementById('theme-toggle')?.click();
+      }
+    });
+  </script>
+<script src="js/atlas-export.js"></script>
+</body>
+</html>
