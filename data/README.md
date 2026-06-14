@@ -69,6 +69,15 @@ frictionless validate datapackage.json
 
 `calendar.csv` is **generated** by [`tools/computus.py`](../tools/computus.py): it computes Orthodox Easter (Julian computus) and Ramadan/Eid (tabular Islamic) and independently reproduces Khrustalev's dating anchors — Easter 2 Apr 1469 (Hormuz), Great Lent ∩ Ramadan in early March 1470, Easter 10 Apr 1474 (Muscat). Regenerate any derived file: `python tools/computus.py` · `python tools/reconcile.py` · `python tools/build_lpf.py`.
 
+## Versioning (dataset vs site)
+
+This project carries **two independent version tracks**:
+
+- **Site / atlas release** — the [`CHANGELOG`](../CHANGELOG.md) and the git tags (`vX.Y.Z` / GitHub releases) track the *interactive atlas* (widgets, docs, tooling). This moves on every release.
+- **Dataset version** — `version` in [`datapackage.json`](../datapackage.json), [`CITATION.cff`](../CITATION.cff), [`.zenodo.json`](../.zenodo.json), and the `schema.org/Dataset` block in `index.html` track the *data* only. **Bump it solely when something under `data/` changes** (rows, schema, reconciliation), independent of site releases.
+
+So the two numbers can differ — e.g. a site release that only adds a widget leaves the dataset version untouched. (Dataset is at **1.1.0**; the atlas is ahead because v1.2.0 was widget-only.)
+
 ## Cite this dataset
 
 A [`CITATION.cff`](../CITATION.cff) sits at the repo root, so GitHub shows a **"Cite this repository"** button. License: **CC-BY-4.0**.
@@ -76,7 +85,7 @@ A [`CITATION.cff`](../CITATION.cff) sits at the repo root, so GitHub shows a **"
 **Mint a DOI (one-time, needs your account):**
 
 1. Sign in to **zenodo.org** with GitHub → **Settings → GitHub** → flip the switch **on** for `gasyoun/AfanasiyNikitin`.
-2. Cut a release: `gh release create v1.2.0 -t "v1.2.0 — FAIR data spine" -n "Datasets + reconciliation + LPF + computus."` (or via the GitHub UI). Zenodo archives it and mints a DOI.
+2. Cut a release (the git tag is the *site* version; the *dataset* version archived is whatever `.zenodo.json` says): `gh release create vX.Y.Z -t "vX.Y.Z — FAIR data spine" -n "Datasets + reconciliation + LPF + computus."` (or via the GitHub UI). Zenodo archives it and mints a DOI.
 3. Add the DOI to `CITATION.cff` (`doi:`), `.zenodo.json`, and the `schema.org/Dataset` block in `index.html` (`identifier`).
 
 `.zenodo.json` pre-fills the Zenodo deposit metadata; the `schema.org/Dataset` JSON-LD in `index.html` makes the dataset discoverable via **Google Dataset Search**.

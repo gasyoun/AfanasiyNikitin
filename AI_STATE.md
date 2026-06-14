@@ -3,8 +3,9 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-14 · Claude Opus 4.8 · new event-timeline widget (atlas now 30 widgets)
-> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0` + `v1.1.0` tagged on `main`
+> **Last updated:** 2026-06-14 · Claude Opus 4.8 · v1.2.0 released; dataset version decoupled from site
+> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.2.0` tagged on `main`
+> **Versioning:** site (CHANGELOG + tags) = **1.2.0**; dataset (datapackage/CITATION/.zenodo/schema.org) = **1.1.0**, bumped only on `data/` changes — see [data/README.md](data/README.md) §Versioning.
 
 ---
 
