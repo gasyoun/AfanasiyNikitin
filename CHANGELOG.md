@@ -7,6 +7,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-06-14
+
 ### Added
 - **New widget `afanasy_event_timeline.html` (Хронология событий)** — an interactive timeline of the 12 key events of 1467–1475 (from [data/events.csv](data/events.csv)), spine-driven from day one: nodes are colour-coded by category, and clicking an event cross-links to its place on the route map (`?wp=`) and its actors in the people network (`?node=`), with `epistemic`/`certainty` badges and an accessible data table. Reads `data/events.csv` + places/people/itinerary at boot (dependency-free CSV parser; `window.__ET_SOURCE` reports `spine`/`bundled`) with a denormalised bundled fallback for offline/`file://`. Wired into `index.html` (chronological category, card 12 — atlas now 30 widgets), `sitemap.xml`, the Service Worker cache (`afanasy-atlas-v12`), and `README.md`.
 
