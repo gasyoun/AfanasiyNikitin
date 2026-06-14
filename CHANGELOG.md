@@ -8,6 +8,8 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-06-14
+
 ### Changed
 - **Decoupled the dataset version from the site release.** `datapackage.json` / `CITATION.cff` / `.zenodo.json` / the `schema.org/Dataset` block now track the *data* only and are set back to **1.1.0** (the last release in which `data/` actually changed — the genadiy reconciliation); v1.2.0 was widget-only, so the dataset version no longer follows it. The two tracks and the DOI implication are documented in [data/README.md](data/README.md#versioning-dataset-vs-site).
 
