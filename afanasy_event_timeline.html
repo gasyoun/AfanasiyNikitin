@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Хронология событий — Афанасий Никитин</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+  <style>
+.et{font-size:13px;}
+.et-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:10px;}
+.et-intro b{color:var(--color-text-primary);}
+.et-leg{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:8px;}
+.et-leg-i{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--color-text-secondary);}
+.et-leg-d{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
+.et-wrap{position:relative;margin-bottom:8px;overflow-x:auto;}
+svg#et-svg{display:block;width:100%;height:auto;max-width:920px;min-width:760px;}
+/* category palette (constant across themes, like the region palette) */
+.et-c-move{--c:#3770be;} .et-c-peril{--c:#be3c28;} .et-c-faith{--c:#e0a020;}
+.et-c-trade{--c:#4a7c59;} .et-c-power{--c:#6e32a0;} .et-c-legacy{--c:#8a8a8a;}
+.et-node{fill:var(--color-background-primary);stroke:var(--c);stroke-width:2;cursor:pointer;transition:r .12s;}
+.et-node.on{fill:var(--c);stroke:var(--c);}
+.et-hit{fill:transparent;cursor:pointer;}
+.et-thread{stroke:var(--color-border-secondary);stroke-width:1.5;}
+.et-conn{stroke:var(--color-border-tertiary);stroke-width:.7;}
+.et-date{font:600 8.5px sans-serif;fill:var(--color-text-primary);}
+.et-place{font:7.5px sans-serif;fill:var(--color-text-secondary);}
+.et-det{padding:11px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);border-left:3px solid var(--color-border-tertiary);min-height:64px;margin-bottom:8px;transition:border-color .2s;}
+.et-det-h{font-size:13px;font-weight:600;margin-bottom:3px;}
+.et-det-sub{font-size:11px;color:var(--color-text-secondary);margin-bottom:7px;}
+.et-det-sub a{color:var(--color-text-primary);text-decoration:none;border-bottom:1px dotted var(--color-border-secondary);}
+.et-det-note{font-size:11.5px;font-family:var(--font-serif);line-height:1.6;color:var(--color-text-primary);margin-bottom:7px;}
+.et-chips{display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
+.et-chip{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);color:var(--color-text-secondary);text-decoration:none;white-space:nowrap;}
+a.et-chip:hover{border-color:var(--color-text-secondary);}
+.et-badge{display:inline-block;font-size:9px;padding:0 5px;border-radius:6px;border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);white-space:nowrap;}
+.et-badge.epi-text{border-color:#2a7a2a;}.et-badge.epi-reconstruction{border-color:#b58a3c;}.et-badge.epi-localization{border-color:#1e5a8a;}.et-badge.epi-model{border-color:#9a4a8a;}.et-badge.epi-hypothesis{border-color:#b2202a;}
+.et-src{font-size:10px;color:var(--color-text-secondary);line-height:1.6;}
+.et-dt-wrap{margin-top:10px;max-height:184px;overflow:auto;border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);}
+.et-dt-tbl{border-collapse:collapse;width:100%;font-size:11px;}
+.et-dt-tbl caption{text-align:left;font-size:10px;color:var(--color-text-secondary);margin:6px 8px;}
+.et-dt-tbl th,.et-dt-tbl td{border:.5px solid var(--color-border-tertiary);padding:3px 6px;text-align:left;vertical-align:top;}
+.et-dt-tbl th{background:var(--color-background-secondary);font-weight:500;position:sticky;top:0;}
+  </style>
+</head>
+<body>
+  <div class="vis-container">
+    <div class="vis-header">
+      <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка"><a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Атлас</a><span class="atlas-breadcrumb-sep" aria-hidden="true">/</span><span class="atlas-breadcrumb-current">Хронология событий</span></nav>
+      <h1>Хронология событий</h1>
+    </div>
+
+    <h2 class="sr-only">Хронология ключевых событий путешествия Афанасия Никитина</h2>
+    <div class="et">
+<div class="et-intro">
+  <b>12 узловых событий</b> «грешного хожения» 1467–1475 — от благословения в Твери до передачи «тетрадей» дьяку Мамыреву. Порядок хронологический (не в линейном масштабе по годам). <b>Нажмите точку</b>: событие свяжется с местом на карте и людьми в сети.
+</div>
+
+<div class="et-leg" id="et-leg"></div>
+<div class="et-wrap"><svg id="et-svg" viewBox="0 0 920 210" role="img" aria-label="Хронология из 12 ключевых событий путешествия 1467–1475, от отъезда из Твери до посмертной передачи тетрадей. Полная доступная таблица — в блоке «Данные» ниже." aria-describedby="et-dt"></svg></div>
+<div class="et-det" id="et-det"><div style="font-size:11px;color:var(--color-text-secondary);">← нажмите событие на ленте времени</div></div>
+<div class="et-src">События и атрибуции — из <code>data/events.csv</code> (по Хрусталёву, 2026). Метки <code>epistemic</code>/<code>certainty</code> отмечают тип сведения; «reconstruction» — реконструкция Хрусталёва (датировка по астрономическим якорям).</div>
+<div class="et-dt-wrap"><div id="et-dt">Загрузка данных…</div></div>
+</div>
+
+<script>
+(function(){
+// ── Bundled fallback + denormalised display layer ───────────────────────────────
+// The data spine (data/events.csv + places/people/itinerary) is the source of truth
+// and overrides this at boot; these denormalised copies (place/person names, map
+// waypoint index) keep the widget working offline / under file://. See loadSpine().
+const EVENTS_BUNDLED=[
+  {"id": "departure_tver", "date": "1467, весна", "year": 1467, "place_id": "tver", "place": "Тверь", "wp": 0, "people": [{"id": "mikhail", "name": "Кн. Михаил Борисович"}, {"id": "genadiy", "name": "Владыка Геннадий"}, {"id": "boris", "name": "Борис Захарьич"}], "type": "departure", "epistemic": "text", "certainty": "certain", "note": "Благословение и охранная грамота; начало «грешного хожения»."},
+  {"id": "astrakhan_robbery", "date": "1467, осень", "year": 1467, "place_id": "astrakhan", "place": "Астрахань", "wp": 2, "people": [{"id": "tatars", "name": "Татары (астраханские)"}, {"id": "asanbeg", "name": "Асанбег Ширванский"}], "type": "robbery", "epistemic": "text", "certainty": "certain", "note": "Ограбление татарами; потеря товара сделала возвращение невозможным."},
+  {"id": "derbent_refusal", "date": "1467–1468", "year": 1467, "place_id": "derbent", "place": "Дербент", "wp": 3, "people": [{"id": "farrukhyasar", "name": "Ширваншах Фаррух-Ясар"}], "type": "refusal", "epistemic": "text", "certainty": "certain", "note": "Ширваншах принял, но отказал в возмещении убытков."},
+  {"id": "pascha_hormuz", "date": "2 апр. 1469", "year": 1469, "place_id": "hormuz", "place": "Ормуз", "wp": 8, "people": [], "type": "liturgical", "epistemic": "reconstruction", "certainty": "certain", "note": "Первая Пасха в пути — якорная точка датировки Хрусталёва."},
+  {"id": "junnar_threat", "date": "авг. 1469", "year": 1469, "place_id": "junnar", "place": "Джуннар", "wp": 11, "people": [{"id": "asad", "name": "Хан Асад"}, {"id": "hassan", "name": "Хасан-ходжа Хорасанский"}], "type": "threat-rescue", "epistemic": "text", "certainty": "certain", "note": "Асад-хан конфисковал коня и угрожал; спас Хасан-ходжа в день Спаса."},
+  {"id": "horse_sale_bidar", "date": "Рождество 1469", "year": 1469, "place_id": "bidar", "place": "Бидар", "wp": 12, "people": [], "type": "transaction", "epistemic": "text", "certainty": "certain", "note": "Жеребец продан в Бидаре за 68 футунов."},
+  {"id": "lent_ramadan_1470", "date": "март 1470", "year": 1470, "place_id": "bidar", "place": "Бидар", "wp": 12, "people": [{"id": "local", "name": "Купцы Индийского океана"}], "type": "liturgical", "epistemic": "reconstruction", "certainty": "certain", "note": "Великий пост совпал с Рамаданом — «постился с бесермены»."},
+  {"id": "srisailam_pilgrimage", "date": "19 фев. 1471", "year": 1471, "place_id": "srisailam", "place": "Шрисайлам (Парват)", "wp": 14, "people": [{"id": "brahmins", "name": "Брахманы (Шрисайлам)"}], "type": "pilgrimage", "epistemic": "reconstruction", "certainty": "certain", "note": "Паломничество к Шрисайламу; Махашиваратри — якорная дата."},
+  {"id": "gavan_triumph_bidar", "date": "1472", "year": 1472, "place_id": "bidar", "place": "Бидар", "wp": 12, "people": [{"id": "mahmud", "name": "Махмуд Гаван"}, {"id": "sultan", "name": "Султан Мухаммад III (Лашкари)"}], "type": "military", "epistemic": "reconstruction", "certainty": "approx", "note": "Взятие Гоа и триумфальный въезд великого визиря Махмуда Гавана."},
+  {"id": "kaffa_arrival", "date": "ноя. 1474", "year": 1474, "place_id": "kaffa", "place": "Феодосия (Кафа)", "wp": 26, "people": [], "type": "arrival", "epistemic": "text", "certainty": "certain", "note": "«Пришёл есмь в Кафу» — финальная запись «тетрадей»."},
+  {"id": "death_smolensk", "date": "1475", "year": 1475, "place_id": "smolensk", "place": "Смоленск", "wp": 27, "people": [], "type": "death", "epistemic": "text", "certainty": "certain", "note": "Афанасий умер под Смоленском, не дойдя до Твери."},
+  {"id": "tetradi_to_mamyrev", "date": "~1475", "year": 1475, "place_id": "smolensk", "place": "Смоленск", "wp": 27, "people": [{"id": "mamyrev", "name": "Дьяк Василий Мамырев"}], "type": "transmission", "epistemic": "reconstruction", "certainty": "approx", "note": "«Тетради» переданы дьяку Василию Мамыреву и включены в летопись."}
+];
+
+// type -> semantic category (drives node colour + legend)
+const CAT={departure:'move',arrival:'move',robbery:'peril','threat-rescue':'peril',refusal:'peril',death:'peril',liturgical:'faith',pilgrimage:'faith',transaction:'trade',military:'power',transmission:'legacy'};
+const CAT_RU={move:'Путь (отъезд / прибытие)',peril:'Опасность и утрата',faith:'Вера',trade:'Торговля',power:'Власть и война',legacy:'Наследие текста'};
+const TYPE_RU={departure:'отъезд',arrival:'прибытие',robbery:'ограбление',refusal:'отказ',death:'смерть','threat-rescue':'угроза и спасение',liturgical:'литургическое',pilgrimage:'паломничество',transaction:'сделка',military:'военное',transmission:'передача'};
+const CAT_HEX={move:'#3770be',peril:'#be3c28',faith:'#e0a020',trade:'#4a7c59',power:'#6e32a0',legacy:'#8a8a8a'};
+
+let EVENTS=EVENTS_BUNDLED, activeId=null;
+
+// ── Data spine (data/events.csv + places/people/itinerary) ──────────────────────
+function parseCSV(text){
+  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  const rows=[];let row=[],field='',inQ=false,i=0;
+  while(i<text.length){
+    const c=text[i];
+    if(inQ){
+      if(c==='"'){if(text[i+1]==='"'){field+='"';i+=2;continue;}inQ=false;i++;continue;}
+      field+=c;i++;continue;
+    }
+    if(c==='"'){inQ=true;i++;continue;}
+    if(c===','){row.push(field);field='';i++;continue;}
+    if(c==='\n'){row.push(field);rows.push(row);row=[];field='';i++;continue;}
+    field+=c;i++;
+  }
+  if(field!==''||row.length){row.push(field);rows.push(row);}
+  const head=rows.shift().map(h=>h.trim());
+  return rows.filter(r=>r.some(v=>v!=='')).map(r=>{const o={};head.forEach((h,j)=>{o[h]=(r[j]||'');});return o;});
+}
+
+function loadSpine(){
+  if(typeof fetch!=='function')return Promise.resolve(null);
+  const grab=u=>fetch(u).then(r=>{if(!r.ok)throw 0;return r.text();});
+  return Promise.all([grab('data/events.csv'),grab('data/places.csv'),grab('data/people.csv'),grab('data/itinerary.csv')])
+    .then(([ev,pl,pe,it])=>{
+      const events=parseCSV(ev), places={}, people={};
+      parseCSV(pl).forEach(r=>{places[r.place_id]=r;});
+      parseCSV(pe).forEach(r=>{people[r.person_id]=r;});
+      const itin=parseCSV(it).sort((a,b)=>(+a.seq)-(+b.seq));
+      // place_id -> map waypoint index, replicating the flagship kashan+yazd merge
+      const p2wp={};let wp=0;
+      for(let i=0;i<itin.length;i++){
+        const pid=itin[i].place_id;
+        if(pid==='kashan'&&itin[i+1]&&itin[i+1].place_id==='yazd'){
+          if(!(pid in p2wp))p2wp[pid]=wp; if(!('yazd' in p2wp))p2wp['yazd']=wp; i++; wp++; continue;
+        }
+        if(!(pid in p2wp))p2wp[pid]=wp; wp++;
+      }
+      const out=[];
+      for(const e of events){
+        const pl0=places[e.place_id]; if(!pl0)return null;
+        const ppl=(e.people||'').split(';').filter(Boolean).map(id=>people[id]?{id,name:people[id].name_ru}:null);
+        if(ppl.some(x=>!x))return null;
+        out.push({id:e.event_id,date:e.date_label,year:+e.year,place_id:e.place_id,place:pl0.name_ru,
+          wp:(e.place_id in p2wp)?p2wp[e.place_id]:-1,people:ppl,type:e.type,
+          epistemic:e.epistemic,certainty:e.certainty,note:e.note});
+      }
+      if(out.length!==EVENTS_BUNDLED.length)return null;
+      return out;
+    }).catch(()=>null);
+}
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// ── Timeline (SVG) ──────────────────────────────────────────────────────────────
+const W=920,H=210,mL=46,mR=46,baseY=118;
+function drawTimeline(){
+  const svg=document.getElementById('et-svg');
+  const n=EVENTS.length;
+  const x=i=>mL+(n<2?0:i*(W-mL-mR)/(n-1));
+  let s='';
+  s+=`<line class="et-thread" x1="${x(0)}" y1="${baseY}" x2="${x(n-1)}" y2="${baseY}"/>`;
+  EVENTS.forEach((e,i)=>{
+    const cx=x(i), above=i%2===0, ly=above?baseY-30:baseY+30, ty=above?baseY-46:baseY+40;
+    s+=`<line class="et-conn" x1="${cx}" y1="${baseY}" x2="${cx}" y2="${ly}"/>`;
+    s+=`<text class="et-date" x="${cx}" y="${ty}" text-anchor="middle">${esc(e.date)}</text>`;
+    s+=`<text class="et-place" x="${cx}" y="${ty+(above?-9:9)}" text-anchor="middle">${esc(e.place)}</text>`;
+  });
+  EVENTS.forEach((e,i)=>{
+    const cx=x(i), cat=CAT[e.type]||'legacy', on=activeId===e.id;
+    s+=`<circle class="et-node et-c-${cat}${on?' on':''}" cx="${cx}" cy="${baseY}" r="${on?9:7}" data-id="${e.id}"/>`;
+    s+=`<circle class="et-hit" cx="${cx}" cy="${baseY}" r="16" data-id="${e.id}"/>`;
+  });
+  svg.innerHTML=s;
+}
+
+function buildLegend(){
+  const el=document.getElementById('et-leg');
+  const cats=[];EVENTS.forEach(e=>{const c=CAT[e.type]||'legacy';if(!cats.includes(c))cats.push(c);});
+  el.innerHTML=cats.map(c=>`<span class="et-leg-i"><span class="et-leg-d" style="background:${CAT_HEX[c]}"></span>${CAT_RU[c]}</span>`).join('');
+}
+
+function showDet(e){
+  const el=document.getElementById('et-det');
+  if(!e){el.style.borderLeftColor='var(--color-border-tertiary)';el.innerHTML='<div style="font-size:11px;color:var(--color-text-secondary);">← нажмите событие на ленте времени</div>';return;}
+  const cat=CAT[e.type]||'legacy', col=CAT_HEX[cat];
+  el.style.borderLeftColor=col;
+  const placeLink=e.wp>=0?`<a href="afanasy_v8_text_map.html?wp=${e.wp}" title="Открыть на карте">${esc(e.place)}</a>`:esc(e.place);
+  const chips=e.people.map(p=>`<a class="et-chip" href="afanasy_people_network.html?node=${encodeURIComponent(p.id)}" title="Открыть в сети людей">${esc(p.name)}</a>`).join('');
+  const badges=`<span class="et-badge epi-${esc(e.epistemic)}">${esc(e.epistemic)}</span> <span class="et-badge">${esc(e.certainty)}</span>`;
+  el.innerHTML=`<div class="et-det-h" style="color:${col};">${esc(e.date)} · ${esc(e.place)}</div>
+    <div class="et-det-sub">${TYPE_RU[e.type]||esc(e.type)} · место: ${placeLink} · ${badges}</div>
+    <div class="et-det-note">${esc(e.note)}</div>
+    ${chips?`<div class="et-chips"><span style="font-size:10px;color:var(--color-text-secondary);">Люди:</span> ${chips}</div>`:''}`;
+}
+
+function buildDataTable(){
+  const el=document.getElementById('et-dt');if(!el)return;
+  let h='<table class="et-dt-tbl"><caption>12 ключевых событий из data/events.csv (хронологический порядок). Метки epistemic / certainty — тип и достоверность сведения.</caption>'+
+    '<thead><tr><th scope="col">Дата</th><th scope="col">Место</th><th scope="col">Событие</th><th scope="col">Люди</th><th scope="col">Тип</th><th scope="col">Сведение</th></tr></thead><tbody>';
+  EVENTS.forEach(e=>{
+    const ppl=e.people.map(p=>esc(p.name)).join(', ')||'—';
+    h+='<tr><td>'+esc(e.date)+'</td><td>'+esc(e.place)+'</td><td>'+esc(e.note)+'</td><td>'+ppl+'</td><td>'+esc(TYPE_RU[e.type]||e.type)+'</td>'+
+       '<td><span class="et-badge epi-'+esc(e.epistemic)+'">'+esc(e.epistemic)+'</span> <span class="et-badge">'+esc(e.certainty)+'</span></td></tr>';
+  });
+  el.innerHTML=h+'</tbody></table>';
+}
+
+document.getElementById('et-svg').addEventListener('click',ev=>{
+  const t=ev.target.closest('[data-id]');if(!t)return;
+  const id=t.getAttribute('data-id');
+  activeId=activeId===id?null:id;
+  drawTimeline();
+  showDet(activeId?EVENTS.find(e=>e.id===activeId):null);
+});
+
+function render(){buildLegend();drawTimeline();buildDataTable();}
+
+render();                       // immediate render from bundled data
+loadSpine().then(spine=>{
+  if(spine){EVENTS=spine;}
+  window.__ET_SOURCE=spine?'spine':'bundled';
+  render();
+  if(activeId)showDet(EVENTS.find(e=>e.id===activeId)||null);
+  // deep link ?event=<id>
+  const ev=new URLSearchParams(location.search).get('event');
+  if(ev&&EVENTS.some(e=>e.id===ev)){activeId=ev;drawTimeline();showDet(EVENTS.find(e=>e.id===ev));}
+});
+})();
+</script>
+  </div>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+  <script>
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') location.href = 'index.html';
+      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+        document.getElementById('theme-toggle')?.click();
+      }
+    });
+  </script>
+<script src="js/atlas-export.js"></script>
+</body>
+</html>
