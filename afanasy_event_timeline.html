@@ -7,6 +7,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/atlas.css">
   <link rel="stylesheet" href="lib/tabler-icons.min.css">
+  <script src="js/atlas-spine.js"></script>
   <style>
 .et{font-size:13px;}
 .et-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:10px;}
@@ -94,24 +95,7 @@ const CAT_HEX={move:'#3770be',peril:'#be3c28',faith:'#e0a020',trade:'#4a7c59',po
 let EVENTS=EVENTS_BUNDLED, activeId=null;
 
 // ── Data spine (data/events.csv + places/people/itinerary) ──────────────────────
-function parseCSV(text){
-  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
-  const rows=[];let row=[],field='',inQ=false,i=0;
-  while(i<text.length){
-    const c=text[i];
-    if(inQ){
-      if(c==='"'){if(text[i+1]==='"'){field+='"';i+=2;continue;}inQ=false;i++;continue;}
-      field+=c;i++;continue;
-    }
-    if(c==='"'){inQ=true;i++;continue;}
-    if(c===','){row.push(field);field='';i++;continue;}
-    if(c==='\n'){row.push(field);rows.push(row);row=[];field='';i++;continue;}
-    field+=c;i++;
-  }
-  if(field!==''||row.length){row.push(field);rows.push(row);}
-  const head=rows.shift().map(h=>h.trim());
-  return rows.filter(r=>r.some(v=>v!=='')).map(r=>{const o={};head.forEach((h,j)=>{o[h]=(r[j]||'');});return o;});
-}
+const parseCSV = (window.AtlasSpine || {}).parseCSV;  // shared loader: js/atlas-spine.js
 
 function loadSpine(){
   if(typeof fetch!=='function')return Promise.resolve(null);

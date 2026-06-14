@@ -3,21 +3,27 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-14 · Claude Opus 4.8 · new LOD coverage dashboard (atlas now 32 widgets)
-> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.4.0` tagged on `main` (LOD dashboard unreleased on `main`)
+> **Last updated:** 2026-06-14 · Claude Opus 4.8 · Phase: harden + data depth/rigor (book companion). Shared spine lib done.
+> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.4.0` tagged on `main` (LOD dashboard + shared spine lib unreleased on `main`)
 > **Versioning:** site (CHANGELOG + tags) = **1.4.0**; dataset (datapackage/CITATION/.zenodo/schema.org) = **1.1.0**, bumped only on `data/` changes — see [data/README.md](data/README.md) §Versioning.
 
 ---
 
 ## 🤝 Handoff — for the next Opus 4.8 session (2026-06-14)
 
-**Where things stand.** The atlas is **31 widgets**, live at https://gasyoun.github.io/AfanasiyNikitin/, **`main` is clean** (no open branches), site at **v1.4.0**, dataset at **1.1.0** (decoupled). The engineering arc is essentially complete: FAIR data spine + LOD + computus + CI, four migrated widgets + two new spine-driven widgets, discoverability (sitemap/robots/OG), citation metadata, all 3 reconciliations resolved.
+**Chosen phase (decided with the human, 2026-06-14):** **(1) harden the foundation first, then (2) data depth & rigor**, oriented as a **companion to Khrustalev's 2026 book**. Audience = author's book companion → favour rigour, page-level citations, the DOI.
 
-**➡️ Next steps (pick from these — nothing is blocking):**
-1. **Human-gated only (cannot be done by the agent):** Zenodo DOI (enable Zenodo↔GitHub, pick a tag to archive — dataset version archived = `.zenodo.json` = 1.1.0; then add the DOI to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org); WHG upload (`SUBMISSION_WHG.md`); real-device PWA install (Android/iPhone).
-2. **Optional autonomous viz:** ~~LOD/reconciliation coverage dashboard~~ ✅ built (`afanasy_lod_coverage.html`, 2026-06-14). The three brainstormed candidates (event timeline, epistemic lens, LOD dashboard) are now all done — no obvious next viz without new data/research; propose a fresh idea or ask the human.
-3. **Optional polish:** a real 1200×630 OG preview PNG (currently the SVG favicon); per-page OG beyond the index; reconcile the **stale `index.md`** master index (it predates many widgets — known-stale, never updated through this whole arc).
-4. **Owed:** bump the **dataset** version 1.1.0 → 1.2.0 (datapackage/CITATION/.zenodo/schema.org) the next time anything under `data/` actually changes — *not* on a widget-only release.
+**Where things stand.** The atlas is **32 widgets**, live at https://gasyoun.github.io/AfanasiyNikitin/, **`main` is clean** (no open branches), site **v1.4.0**, dataset **1.1.0** (decoupled). Engineering arc complete: FAIR spine + LOD + computus + CI, 7 spine-driven widgets (4 migrated + event timeline + epistemic lens + LOD dashboard), discoverability, citation metadata, all 3 reconciliations resolved.
+
+**➡️ Phase work queue:**
+1. **Harden (in progress):**
+   - ✅ **Shared spine loader** `js/atlas-spine.js` — the 6 CSV-reading widgets now share one `parseCSV` (was 6 copies). Verified all 6 still spine + fall back.
+   - ⏳ **CI widget-drift check (NEXT):** add a browser-free `tools/validate_widgets.py` (wire into the `data-validate` workflow) that, per spine widget, checks the embedded `*_BUNDLED` fallback still matches what the CSVs produce — so a `data/` edit that isn't reflected in a widget's bundled copy fails CI. (Optional stretch: a headless smoke test, but the drift check is the higher-value, non-flaky guard.)
+   - Optional: roll the accessible-`<table>` + epistemic-badge pattern to the remaining canvas/SVG widgets that lack it.
+2. **Data depth & rigor (then):** populate page-level `source_page` citations to Khrustalev across the datasets (mostly empty today); add a **data-quality / completeness report**; expand `name_en`/enrichment. This is the book-companion payoff.
+3. **Human-gated only:** Zenodo DOI (enable Zenodo↔GitHub, pick a tag — archived dataset version = `.zenodo.json` = 1.1.0; then add the DOI to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org); WHG upload (`SUBMISSION_WHG.md`); real-device PWA install.
+4. **Polish / housekeeping:** 1200×630 OG preview PNG; per-page OG; reconcile the **stale `index.md`** master index (never updated through this whole arc).
+5. **Owed:** bump the **dataset** version 1.1.0 → 1.2.0 the next time `data/` actually changes — *not* on a widget-only release.
 
 **🔁 Release flow (auto-merge is DISABLED on the repo):** land via PR → `gh pr checks <n> --watch` → `gh pr merge <n> --merge` → `gh release create vX.Y.Z --target main`. Direct push to `main` is blocked by the harness. GitHub auto-deletes merged branches; `git remote prune origin` to clear stale refs.
 
