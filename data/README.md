@@ -69,6 +69,8 @@ frictionless validate datapackage.json
 
 `calendar.csv` is **generated** by [`tools/computus.py`](../tools/computus.py): it computes Orthodox Easter (Julian computus) and Ramadan/Eid (tabular Islamic) and independently reproduces Khrustalev's dating anchors — Easter 2 Apr 1469 (Hormuz), Great Lent ∩ Ramadan in early March 1470, Easter 10 Apr 1474 (Muscat). Regenerate any derived file: `python tools/computus.py` · `python tools/reconcile.py` · `python tools/build_lpf.py`.
 
+A completeness / quality report — per-dataset fill rates, `source_page` citation coverage, reconciliation and epistemic mix — is regenerated at [`QUALITY.md`](QUALITY.md) by [`tools/data_quality.py`](../tools/data_quality.py) (also run by `tools/build_all.py`).
+
 ## Versioning (dataset vs site)
 
 This project carries **two independent version tracks**:

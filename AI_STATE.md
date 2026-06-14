@@ -3,7 +3,7 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-14 · Claude Opus 4.8 · Phase: harden + data depth/rigor (book companion). Shared spine lib + CI drift gate done; data-rigor next.
+> **Last updated:** 2026-06-14 · Claude Opus 4.8 · Phase: harden ✅ + data rigor (book companion). Quality report done; source_page citations need the book (human).
 > **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.4.0` tagged on `main` (LOD dashboard + shared spine lib unreleased on `main`)
 > **Versioning:** site (CHANGELOG + tags) = **1.4.0**; dataset (datapackage/CITATION/.zenodo/schema.org) = **1.1.0**, bumped only on `data/` changes — see [data/README.md](data/README.md) §Versioning.
 
@@ -20,7 +20,10 @@ It records the current state of work, decisions made, and context needed to cont
    - ✅ **Shared spine loader** `js/atlas-spine.js` — the 6 CSV-reading widgets now share one `parseCSV` (was 6 copies). Verified all 6 still spine + fall back.
    - ✅ **CI widget-drift check** — `tools/validate_widgets.cjs` (Node; evals each widget's `*_BUNDLED`, compares CSV-derived fields to `data/*.csv`), wired into the `data-validate` workflow with `afanasy_*.html` / `js/atlas-spine.js` trigger paths. Immediately caught a real drift (people-network bundled `mamyrev` was `help`, CSV says `indirect`) — fixed. Covers all 6 spine widgets. **NB for future widget edits:** if you change a `data/*.csv` row, regenerate the affected widget's `*_BUNDLED` (the scratch gen helpers show how) or this gate fails.
    - ⏳ Optional remaining hardening: roll the accessible-`<table>` + epistemic-badge pattern to the remaining canvas/SVG widgets that lack it.
-2. **Data depth & rigor (then):** populate page-level `source_page` citations to Khrustalev across the datasets (mostly empty today); add a **data-quality / completeness report**; expand `name_en`/enrichment. This is the book-companion payoff.
+2. **Data depth & rigor (in progress):**
+   - ✅ **Data-quality report** `data/QUALITY.md` (`tools/data_quality.py`, run by `build_all.py`) — maps the gaps. Key finding: `source_page` is **0%** on places/itinerary/people/editions/citations (only fragments 100% + trade 17%); `name_en` 100% on places/people.
+   - ⏳ **Page-level `source_page` citations (NEEDS THE BOOK — human/scholarly):** fill `source_page` from Khrustalev 2026. The book text/PDF is in-copyright + gitignored, so the agent can't source page numbers reliably — this is a human task (or hand the agent specific page refs to enter). The core book-companion rigor payoff. NB: filling `source_page` IS a `data/` content change → bump the **dataset** version 1.1.0 → 1.2.0 in that PR.
+   - ⏳ Optional: expand `name_en` to events / fragment genres; richer notes.
 3. **Human-gated only:** Zenodo DOI (enable Zenodo↔GitHub, pick a tag — archived dataset version = `.zenodo.json` = 1.1.0; then add the DOI to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org); WHG upload (`SUBMISSION_WHG.md`); real-device PWA install.
 4. **Polish / housekeeping:** 1200×630 OG preview PNG; per-page OG; reconcile the **stale `index.md`** master index (never updated through this whole arc).
 5. **Owed:** bump the **dataset** version 1.1.0 → 1.2.0 the next time `data/` actually changes — *not* on a widget-only release.

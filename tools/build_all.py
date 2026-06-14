@@ -13,6 +13,7 @@ STEPS = [
     "tools/build_lpf.py",     # -> data/places.lpf.geojson
     "tools/build_route.py",   # -> data/route.geojson, data/itinerary.lt.json
     "tools/build_rdf.py",     # -> data/atlas.ttl
+    "tools/data_quality.py",  # -> data/QUALITY.md (informational report)
     "tools/validate_data.py",  # gate
     "tools/validate_lpf.py",   # gate
 ]
