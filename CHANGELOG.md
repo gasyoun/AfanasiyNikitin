@@ -6,6 +6,11 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ---
 
+## [Unreleased]
+
+### Added
+- **New widget `afanasy_lod_coverage.html` (Связанные данные)** — a Linked-Open-Data coverage dashboard: KPI cards (29/41 reconciled to Wikidata; places 22/26 and people 7/15 confirmed; 2 honestly open), reconciliation-status stacked bars (places/people), authority-coverage bars (Wikidata / GeoNames 20/26 / Pleiades 2/26 / VIAF 3/15), and a filterable 41-entity table (all / places / people / open) linking out to each authority record. Spine-driven: recomputes from `data/places.csv` + `data/people.csv` at boot (`window.__LO_SOURCE`) with a bundled fallback. Wired into `index.html` (statistical category, card 32 — atlas now 32 widgets), `sitemap.xml`, the Service Worker cache (`afanasy-atlas-v14`), and `README.md`.
+
 ## [1.4.0] - 2026-06-14
 
 ### Added
