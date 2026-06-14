@@ -3,9 +3,9 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-14 · Claude Opus 4.8 · v1.2.0 released; dataset version decoupled from site
-> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.2.0` tagged on `main`
-> **Versioning:** site (CHANGELOG + tags) = **1.2.0**; dataset (datapackage/CITATION/.zenodo/schema.org) = **1.1.0**, bumped only on `data/` changes — see [data/README.md](data/README.md) §Versioning.
+> **Last updated:** 2026-06-14 · Claude Opus 4.8 · new epistemic-lens widget (atlas now 31 widgets)
+> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.3.0` tagged on `main`
+> **Versioning:** site (CHANGELOG + tags) = **1.3.0**; dataset (datapackage/CITATION/.zenodo/schema.org) = **1.1.0**, bumped only on `data/` changes — see [data/README.md](data/README.md) §Versioning. (Epistemic-lens widget currently unreleased on `main`.)
 
 ---
 
@@ -167,6 +167,8 @@ The reusable pattern (for any future widget): rename hardcoded `DATA` → `DATA_
 **✅ v1.1.0 released (2026-06-13, PR #15, tag `v1.1.0` → `838a92f`).** Promoted CHANGELOG `[Unreleased]` → `[1.1.0]` (fresh empty `[Unreleased]` left on top) and bumped all version metadata in lockstep to **1.1.0** (`datapackage.json`, `CITATION.cff`, `.zenodo.json`, `index.html` schema.org, `data/README.md` release cmd). Bundles, since v1.0.0: citations + editions onto the spine (4 spine-driven total), discoverability (sitemap/robots/OG), real citation author, and the 3 resolved reconciliations. Release/merge flow: GitHub auto-merge is now disabled on the repo → land via PR, `gh pr checks --watch`, then `gh pr merge --merge`, then `gh release create`.
 
 **✅ New widget `afanasy_event_timeline.html` (2026-06-14, [Unreleased]).** First *new* spine-driven widget (vs migrations): an SVG timeline of the 12 events in [data/events.csv](data/events.csv), nodes colour-coded by 6 semantic categories, click → detail with cross-links to the route map (`?wp=`) and people network (`?node=`) + epistemic/certainty badges + accessible table. Reads events + places + people + itinerary at boot (resolves names + replicates the kashan/yazd→wp merge); `window.__ET_SOURCE` reports `spine`/`bundled`; denormalised `EVENTS_BUNDLED` is the offline/`file://` fallback. Verified (Function-ctor syntax; node join 12/12; headless Edge HTTP→spine + file://→bundled, 12 nodes/rows, click+deep-link+cross-links, clean console). Wired into `index.html` (chrono card #12, badges renumbered 1→30 via script, counts 29→30), `sitemap.xml` (32 URLs), `sw.js` (cache `v12`), `README.md` (table + overview). **Atlas now 30 widgets.** Note: `index.md` master index not updated (known-stale secondary doc).
+
+**✅ New widget `afanasy_epistemic_lens.html` (2026-06-14, [Unreleased]).** Second new spine-driven widget — the "how do we know?" lens. Per-dataset 100%-stacked bars by `epistemic` across all 9 epistemic-bearing datasets (286 rows: text 22 / reconstruction 144 / localization 22 / model 95 / hypothesis 3) + a 29-waypoint route strip coloured by place epistemic/certainty (surfaces disputed Aland/Kallur/Somali-coast). Click waypoint → detail w/ badges + map link (`?wp=`) + Wikidata. **Recomputes the aggregate from `data/*.csv` at boot** (`window.__EL_SOURCE`), precomputed `AGG_BUNDLED`/`ROUTE_BUNDLED` fallback. Verified (syntax; headless Edge HTTP→spine aggregate matches survey exactly, 10 agg rows + 29 cells + 3 disputed, Kallur detail, clean console; file://→bundled). Wired into `index.html` (**stats card #31, appended at end of last section → no renumber**, counts 30→31, stats 3→4), `sitemap.xml` (33 URLs), `sw.js` (cache `v13`), `README.md`. **Atlas now 31 widgets.** `index.md` still not updated (known-stale).
 
 **Remaining open work is human-gated only:** Zenodo DOI (enable Zenodo↔GitHub; once on, you choose which tag — `v1.0.0` or `v1.1.0` — to archive; then add the DOI back to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org), WHG upload (`SUBMISSION_WHG.md`), real-device PWA install.
 

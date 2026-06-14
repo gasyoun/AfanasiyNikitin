@@ -8,6 +8,9 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ## [Unreleased]
 
+### Added
+- **New widget `afanasy_epistemic_lens.html` (Как мы это знаем)** — an epistemic breakdown of the atlas: per-dataset 100%-stacked bars by `epistemic` (text / reconstruction / localization / model / hypothesis) across all 9 epistemic-bearing datasets (286 rows; only 22 are directly text-attested), plus a 29-waypoint route strip coloured by each place's localization epistemic/certainty that surfaces the disputed stops (Aland, Kallur, Somali coast). Click a waypoint → detail with epistemic/certainty badges, a route-map link (`?wp=`), and Wikidata. Spine-driven: recomputes the aggregate from `data/*.csv` at boot (`window.__EL_SOURCE` reports `spine`/`bundled`) with a precomputed bundled fallback. Wired into `index.html` (statistical category, card 31 — atlas now 31 widgets), `sitemap.xml`, the Service Worker cache (`afanasy-atlas-v13`), and `README.md`.
+
 ## [1.3.0] - 2026-06-14
 
 ### Changed
