@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Связанные данные: покрытие — Афанасий Никитин</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="lib/tabler-icons.min.css">
+  <style>
+.lo{font-size:13px;}
+.lo-intro{padding:9px 13px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);font-size:11.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:10px;}
+.lo-intro b{color:var(--color-text-primary);}
+.lo-h{font-size:11px;font-weight:600;letter-spacing:.03em;color:var(--color-text-secondary);text-transform:uppercase;margin:12px 0 7px;}
+/* KPI cards */
+.lo-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:6px;}
+.lo-kpi{padding:9px 11px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);border-top:3px solid var(--color-border-secondary);}
+.lo-kpi-v{font-size:20px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;}
+.lo-kpi-l{font-size:10px;color:var(--color-text-secondary);margin-top:3px;line-height:1.3;}
+/* status palette (constant across themes) */
+.st-confirmed{background:#2a7a2a;} .st-candidate{background:#b58a3c;} .st-collective{background:#8a8a8a;}
+.st-skip-region{background:#5a7a9a;} .st-none{background:#b2202a;}
+.lo-leg{display:flex;gap:11px;flex-wrap:wrap;align-items:center;margin-bottom:8px;}
+.lo-leg-i{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--color-text-secondary);}
+.lo-leg-d{width:11px;height:11px;border-radius:3px;flex-shrink:0;}
+/* bars */
+.lo-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.lo-row-label{flex:0 0 112px;font-size:11px;color:var(--color-text-primary);text-align:right;}
+.lo-row-label .lo-n{color:var(--color-text-secondary);font-size:9.5px;font-variant-numeric:tabular-nums;}
+.lo-bar{flex:1;display:flex;height:18px;border-radius:3px;overflow:hidden;background:var(--color-background-secondary);}
+.lo-seg{height:100%;}
+.lo-cov{flex:1;height:18px;border-radius:3px;background:var(--color-background-secondary);overflow:hidden;position:relative;}
+.lo-cov-fill{height:100%;background:#1e5a8a;}
+.lo-cov-txt{position:absolute;right:7px;top:0;line-height:18px;font-size:10px;color:var(--color-text-primary);font-variant-numeric:tabular-nums;}
+/* filter + table */
+.lo-filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 6px;}
+.lo-f{padding:4px 11px;border-radius:20px;font-size:11px;cursor:pointer;background:var(--color-background-secondary);border:.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);}
+.lo-f.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
+.lo-dt-wrap{max-height:300px;overflow:auto;border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);}
+.lo-dt-tbl{border-collapse:collapse;width:100%;font-size:11px;}
+.lo-dt-tbl caption{text-align:left;font-size:10px;color:var(--color-text-secondary);margin:6px 8px;}
+.lo-dt-tbl th,.lo-dt-tbl td{border:.5px solid var(--color-border-tertiary);padding:3px 6px;text-align:left;vertical-align:top;}
+.lo-dt-tbl th{background:var(--color-background-secondary);font-weight:500;position:sticky;top:0;}
+.lo-dt-tbl a{color:var(--color-text-primary);text-decoration:none;border-bottom:1px dotted var(--color-border-secondary);}
+.lo-badge{display:inline-block;font-size:9px;padding:1px 6px;border-radius:6px;color:#fff;white-space:nowrap;}
+.lo-na{color:var(--color-text-secondary);opacity:.5;}
+.lo-src{font-size:10px;color:var(--color-text-secondary);line-height:1.6;margin-top:8px;}
+  </style>
+</head>
+<body>
+  <div class="vis-container">
+    <div class="vis-header">
+      <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка"><a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Атлас</a><span class="atlas-breadcrumb-sep" aria-hidden="true">/</span><span class="atlas-breadcrumb-current">Связанные данные</span></nav>
+      <h1>Связанные данные: покрытие</h1>
+    </div>
+
+    <h2 class="sr-only">Покрытие реконсиляции: статус и ссылки на Wikidata / GeoNames / Pleiades / VIAF</h2>
+    <div class="lo">
+<div class="lo-intro">
+  Места и люди атласа сверены с авторитетными базами — <b>Wikidata, GeoNames, Pleiades, VIAF</b>. Принцип: <b>неверный QID хуже пустого</b>, поэтому идентификаторы проставлены только для подтверждённых записей; коллективные субъекты и регионы/берега не имеют отдельной авторитетной записи по своей природе. Аудит — в <code>data/reconciliation.md</code>.
+</div>
+
+<div class="lo-kpis" id="lo-kpis"></div>
+
+<div class="lo-h">Статус реконсиляции</div>
+<div class="lo-leg" id="lo-leg"></div>
+<div id="lo-status" role="img" aria-label="Распределение статусов реконсиляции для мест и людей. Полная таблица — ниже." aria-describedby="lo-dt"></div>
+
+<div class="lo-h">Покрытие авторитетными базами</div>
+<div id="lo-cov"></div>
+
+<div class="lo-filters" id="lo-filters">
+  <button class="lo-f on" data-f="all" onclick="setFilter('all')">Все</button>
+  <button class="lo-f" data-f="place" onclick="setFilter('place')">Места</button>
+  <button class="lo-f" data-f="person" onclick="setFilter('person')">Люди</button>
+  <button class="lo-f" data-f="open" onclick="setFilter('open')">Открытые</button>
+</div>
+<div class="lo-dt-wrap"><div id="lo-dt">Загрузка данных…</div></div>
+<div class="lo-src">Источник: колонки <code>recon_status</code> и <code>wikidata_qid</code> / <code>geonames_id</code> / <code>pleiades_id</code> / <code>viaf_id</code> в <code>data/places.csv</code> и <code>data/people.csv</code>. «Открытые» = честно нереконсилированные (kallur, mamyrev); коллективные и регионы — пусты по замыслу.</div>
+</div>
+
+<script>
+(function(){
+// ── Bundled fallback (denormalised from places.csv + people.csv) ────────────────
+// The data spine recomputes this from data/{places,people}.csv at boot; this copy
+// keeps the widget working offline / under file://. See loadSpine().
+const ENTITIES_BUNDLED=[
+  {"kind": "place", "id": "tver", "name": "Тверь", "status": "confirmed", "wikidata": "Q2288", "geonames": "480060", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "nizhny_novgorod", "name": "Нижний Новгород", "status": "confirmed", "wikidata": "Q891", "geonames": "520555", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "astrakhan", "name": "Астрахань", "status": "confirmed", "wikidata": "Q3927", "geonames": "580497", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "derbent", "name": "Дербент", "status": "confirmed", "wikidata": "Q131416", "geonames": "566532", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "baku", "name": "Баку", "status": "confirmed", "wikidata": "Q9248", "geonames": "587081", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "mazandaran_sari", "name": "Мазендаран (Сари)", "status": "skip-region", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "kashan", "name": "Кашан", "status": "confirmed", "wikidata": "Q240475", "geonames": "128476", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "yazd", "name": "Йезд", "status": "confirmed", "wikidata": "Q182394", "geonames": "111822", "pleiades": "29811", "viaf": ""},
+  {"kind": "place", "id": "lar", "name": "Лар", "status": "confirmed", "wikidata": "Q721029", "geonames": "125877", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "hormuz", "name": "Ормуз", "status": "confirmed", "wikidata": "Q888643", "geonames": "131231", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "muscat", "name": "Маскат", "status": "confirmed", "wikidata": "Q3826", "geonames": "287286", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "chaul", "name": "Чаул", "status": "confirmed", "wikidata": "Q1068374", "geonames": "1274503", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "junnar", "name": "Джуннар", "status": "confirmed", "wikidata": "Q2445461", "geonames": "1268761", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "bidar", "name": "Бидар", "status": "confirmed", "wikidata": "Q461922", "geonames": "1275738", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "aland", "name": "Аланд", "status": "confirmed", "wikidata": "Q2738477", "geonames": "1279068", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "srisailam", "name": "Шрисайлам (Парват)", "status": "confirmed", "wikidata": "Q1382167", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "gulbarga", "name": "Гулбарга", "status": "confirmed", "wikidata": "Q37112", "geonames": "1270752", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "kallur", "name": "Каллур", "status": "candidate", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "dabhol", "name": "Дабхол", "status": "confirmed", "wikidata": "Q5207479", "geonames": "1273765", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "somalia_coast", "name": "«Эфиопия» (сомалийский берег)", "status": "skip-region", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "erzincan", "name": "Арцынцан", "status": "confirmed", "wikidata": "Q136217", "geonames": "315373", "pleiades": "874467", "viaf": ""},
+  {"kind": "place", "id": "trabzon", "name": "Трабзон", "status": "confirmed", "wikidata": "Q45301", "geonames": "738648", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "platana", "name": "Платана", "status": "confirmed", "wikidata": "Q424661", "geonames": "752627", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "balaklava_gurzuf", "name": "Балаклава / Гурзуф", "status": "skip-region", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "kaffa", "name": "Феодосия (Кафа)", "status": "confirmed", "wikidata": "Q2585920", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "place", "id": "smolensk", "name": "Смоленск", "status": "confirmed", "wikidata": "Q2337", "geonames": "491687", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "af", "name": "Афанасий Никитин", "status": "confirmed", "wikidata": "Q48624", "geonames": "", "pleiades": "", "viaf": "25399800"},
+  {"kind": "person", "id": "boris", "name": "Борис Захарьич", "status": "collective", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "mikhail", "name": "Кн. Михаил Борисович", "status": "confirmed", "wikidata": "Q2635644", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "genadiy", "name": "Владыка Геннадий", "status": "confirmed", "wikidata": "Q4135475", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "asanbeg", "name": "Асанбег Ширванский", "status": "collective", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "tatars", "name": "Татары (астраханские)", "status": "collective", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "farrukhyasar", "name": "Ширваншах Фаррух-Ясар", "status": "confirmed", "wikidata": "Q2002210", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "hassan", "name": "Хасан-ходжа Хорасанский", "status": "collective", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "asad", "name": "Хан Асад", "status": "collective", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "mahmud", "name": "Махмуд Гаван", "status": "confirmed", "wikidata": "Q2151490", "geonames": "", "pleiades": "", "viaf": "306081118"},
+  {"kind": "person", "id": "sultan", "name": "Султан Мухаммад III (Лашкари)", "status": "confirmed", "wikidata": "Q4519937", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "brahmins", "name": "Брахманы (Шрисайлам)", "status": "collective", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "local", "name": "Купцы Индийского океана", "status": "collective", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "mamyrev", "name": "Дьяк Василий Мамырев", "status": "none", "wikidata": "", "geonames": "", "pleiades": "", "viaf": ""},
+  {"kind": "person", "id": "karamzin", "name": "Н. М. Карамзин", "status": "confirmed", "wikidata": "Q191598", "geonames": "", "pleiades": "", "viaf": "71438262"}
+];
+
+const STATUS_ORDER=['confirmed','candidate','collective','skip-region','none'];
+const STATUS_RU={confirmed:'подтверждено',candidate:'кандидат',collective:'коллективное',"skip-region":'регион/берег',none:'нет записи'};
+const STATUS_HEX={confirmed:'#2a7a2a',candidate:'#b58a3c',collective:'#8a8a8a',"skip-region":'#5a7a9a',none:'#b2202a'};
+const AUTH_URL={
+  wikidata:q=>'http://www.wikidata.org/entity/'+q,
+  geonames:q=>'https://www.geonames.org/'+q,
+  pleiades:q=>'https://pleiades.stoa.org/places/'+q,
+  viaf:q=>'https://viaf.org/viaf/'+q
+};
+
+let ENTITIES=ENTITIES_BUNDLED, filter='all';
+
+// ── Data spine (data/places.csv + data/people.csv) ──────────────────────────────
+function parseCSV(text){
+  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  const rows=[];let row=[],field='',inQ=false,i=0;
+  while(i<text.length){
+    const c=text[i];
+    if(inQ){
+      if(c==='"'){if(text[i+1]==='"'){field+='"';i+=2;continue;}inQ=false;i++;continue;}
+      field+=c;i++;continue;
+    }
+    if(c==='"'){inQ=true;i++;continue;}
+    if(c===','){row.push(field);field='';i++;continue;}
+    if(c==='\n'){row.push(field);rows.push(row);row=[];field='';i++;continue;}
+    field+=c;i++;
+  }
+  if(field!==''||row.length){row.push(field);rows.push(row);}
+  const head=rows.shift().map(h=>h.trim());
+  return rows.filter(r=>r.some(v=>v!=='')).map(r=>{const o={};head.forEach((h,j)=>{o[h]=(r[j]||'');});return o;});
+}
+
+function loadSpine(){
+  if(typeof fetch!=='function')return Promise.resolve(null);
+  const grab=u=>fetch(u).then(r=>{if(!r.ok)throw 0;return r.text();});
+  return Promise.all([grab('data/places.csv'),grab('data/people.csv')]).then(([pl,pe])=>{
+    const places=parseCSV(pl),people=parseCSV(pe);
+    if(!places.length||!people.length)return null;
+    const out=[];
+    for(const r of places)out.push({kind:'place',id:r.place_id,name:r.name_ru,status:r.recon_status||'',
+      wikidata:(r.wikidata_qid||'').trim(),geonames:(r.geonames_id||'').trim(),pleiades:(r.pleiades_id||'').trim(),viaf:''});
+    for(const r of people)out.push({kind:'person',id:r.person_id,name:r.name_ru,status:r.recon_status||'',
+      wikidata:(r.wikidata_qid||'').trim(),geonames:'',pleiades:'',viaf:(r.viaf_id||'').trim()});
+    return out;
+  }).catch(()=>null);
+}
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+const places=()=>ENTITIES.filter(e=>e.kind==='place');
+const people=()=>ENTITIES.filter(e=>e.kind==='person');
+const has=(arr,f)=>arr.filter(e=>e[f]).length;
+
+function renderKPIs(){
+  const wd=has(ENTITIES,'wikidata'), n=ENTITIES.length;
+  const pc=places().filter(e=>e.status==='confirmed').length, pn=places().length;
+  const ec=people().filter(e=>e.status==='confirmed').length, en=people().length;
+  const open=ENTITIES.filter(e=>e.status==='candidate'||e.status==='none').length;
+  const cards=[
+    [wd+' / '+n,'сверено с Wikidata','#1e5a8a'],
+    [pc+' / '+pn,'мест подтверждено','#2a7a2a'],
+    [ec+' / '+en,'людей подтверждено','#2a7a2a'],
+    [open,'честно открыто','#b2202a']
+  ];
+  document.getElementById('lo-kpis').innerHTML=cards.map(c=>
+    `<div class="lo-kpi" style="border-top-color:${c[2]};"><div class="lo-kpi-v" style="color:${c[2]};">${c[0]}</div><div class="lo-kpi-l">${c[1]}</div></div>`).join('');
+}
+
+function buildLegend(){
+  document.getElementById('lo-leg').innerHTML=STATUS_ORDER.map(s=>
+    `<span class="lo-leg-i"><span class="lo-leg-d st-${s}"></span>${STATUS_RU[s]}</span>`).join('');
+}
+
+function statusBar(label,arr){
+  const n=arr.length;
+  const segs=STATUS_ORDER.filter(s=>arr.some(e=>e.status===s)).map(s=>{
+    const c=arr.filter(e=>e.status===s).length, pct=c/n*100;
+    return `<div class="lo-seg st-${s}" style="width:${pct.toFixed(2)}%" title="${STATUS_RU[s]}: ${c}"></div>`;
+  }).join('');
+  return `<div class="lo-row"><div class="lo-row-label">${label} <span class="lo-n">${n}</span></div><div class="lo-bar">${segs}</div></div>`;
+}
+function renderStatus(){
+  document.getElementById('lo-status').innerHTML=statusBar('Места',places())+statusBar('Люди',people());
+}
+
+function covBar(label,n,total){
+  const pct=total?n/total*100:0;
+  return `<div class="lo-row"><div class="lo-row-label">${label}</div><div class="lo-cov"><div class="lo-cov-fill" style="width:${pct.toFixed(1)}%"></div><span class="lo-cov-txt">${n} / ${total}</span></div></div>`;
+}
+function renderCoverage(){
+  document.getElementById('lo-cov').innerHTML=
+    covBar('Wikidata',has(ENTITIES,'wikidata'),ENTITIES.length)+
+    covBar('GeoNames',has(places(),'geonames'),places().length)+
+    covBar('Pleiades',has(places(),'pleiades'),places().length)+
+    covBar('VIAF',has(people(),'viaf'),people().length);
+}
+
+function cell(e,auth){
+  if(!e[auth])return '<span class="lo-na">—</span>';
+  const txt=auth==='wikidata'?esc(e[auth]):'✓';
+  return `<a href="${AUTH_URL[auth](encodeURIComponent(e[auth]))}" target="_blank" rel="noopener" title="${auth}: ${esc(e[auth])}">${txt}</a>`;
+}
+function buildTable(){
+  const rows=ENTITIES.filter(e=>filter==='all'||(filter==='open'?(e.status==='candidate'||e.status==='none'):e.kind===filter));
+  let h='<table class="lo-dt-tbl"><caption>41 объект из data/places.csv + data/people.csv. ✓ = есть ссылка на авторитетную базу (откроется в новой вкладке).</caption>'+
+    '<thead><tr><th scope="col">Тип</th><th scope="col">Объект</th><th scope="col">Статус</th><th scope="col">Wikidata</th><th scope="col">GeoNames</th><th scope="col">Pleiades</th><th scope="col">VIAF</th></tr></thead><tbody>';
+  rows.forEach(e=>{
+    h+='<tr><td>'+(e.kind==='place'?'место':'человек')+'</td><td>'+esc(e.name)+'</td>'+
+       '<td><span class="lo-badge st-'+esc(e.status)+'">'+esc(STATUS_RU[e.status]||e.status)+'</span></td>'+
+       '<td>'+cell(e,'wikidata')+'</td><td>'+cell(e,'geonames')+'</td><td>'+cell(e,'pleiades')+'</td><td>'+cell(e,'viaf')+'</td></tr>';
+  });
+  if(!rows.length)h+='<tr><td colspan="7" style="color:var(--color-text-secondary);">нет объектов</td></tr>';
+  document.getElementById('lo-dt').innerHTML=h+'</tbody></table>';
+}
+
+window.setFilter=function(f){
+  filter=f;
+  document.querySelectorAll('.lo-f').forEach(b=>b.classList.toggle('on',b.dataset.f===f));
+  buildTable();
+};
+
+function render(){renderKPIs();buildLegend();renderStatus();renderCoverage();buildTable();}
+
+render();                       // immediate render from bundled data
+loadSpine().then(spine=>{
+  if(spine&&spine.length)ENTITIES=spine;
+  window.__LO_SOURCE=(spine&&spine.length)?'spine':'bundled';
+  render();
+});
+})();
+</script>
+  </div>
+
+  <!-- Floating Theme Toggle -->
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+  <script>
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') location.href = 'index.html';
+      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+        document.getElementById('theme-toggle')?.click();
+      }
+    });
+  </script>
+<script src="js/atlas-export.js"></script>
+</body>
+</html>

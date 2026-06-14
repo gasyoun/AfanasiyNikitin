@@ -1,4 +1,4 @@
-const CACHE_NAME = 'afanasy-atlas-v13';
+const CACHE_NAME = 'afanasy-atlas-v14';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -21,6 +21,7 @@ const ASSETS_TO_CACHE = [
   './afanasy_pascha_chronograph.html',
   './afanasy_event_timeline.html',
   './afanasy_epistemic_lens.html',
+  './afanasy_lod_coverage.html',
   './afanasy_climate_monsoon.html',
   './afanasy_economics_prices.html',
   './three_travelers_comparison.html',

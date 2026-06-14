@@ -3,8 +3,8 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-14 · Claude Opus 4.8 · v1.4.0 released (epistemic lens); handoff
-> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.4.0` tagged on `main`
+> **Last updated:** 2026-06-14 · Claude Opus 4.8 · new LOD coverage dashboard (atlas now 32 widgets)
+> **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.4.0` tagged on `main` (LOD dashboard unreleased on `main`)
 > **Versioning:** site (CHANGELOG + tags) = **1.4.0**; dataset (datapackage/CITATION/.zenodo/schema.org) = **1.1.0**, bumped only on `data/` changes — see [data/README.md](data/README.md) §Versioning.
 
 ---
@@ -15,7 +15,7 @@ It records the current state of work, decisions made, and context needed to cont
 
 **➡️ Next steps (pick from these — nothing is blocking):**
 1. **Human-gated only (cannot be done by the agent):** Zenodo DOI (enable Zenodo↔GitHub, pick a tag to archive — dataset version archived = `.zenodo.json` = 1.1.0; then add the DOI to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org); WHG upload (`SUBMISSION_WHG.md`); real-device PWA install (Android/iPhone).
-2. **Optional autonomous viz:** the **LOD/reconciliation coverage dashboard** (last unbuilt item from the brainstorm — recon_status + Wikidata/GeoNames/Pleiades/VIAF coverage). Build it spine-driven with the pattern below.
+2. **Optional autonomous viz:** ~~LOD/reconciliation coverage dashboard~~ ✅ built (`afanasy_lod_coverage.html`, 2026-06-14). The three brainstormed candidates (event timeline, epistemic lens, LOD dashboard) are now all done — no obvious next viz without new data/research; propose a fresh idea or ask the human.
 3. **Optional polish:** a real 1200×630 OG preview PNG (currently the SVG favicon); per-page OG beyond the index; reconcile the **stale `index.md`** master index (it predates many widgets — known-stale, never updated through this whole arc).
 4. **Owed:** bump the **dataset** version 1.1.0 → 1.2.0 (datapackage/CITATION/.zenodo/schema.org) the next time anything under `data/` actually changes — *not* on a widget-only release.
 
