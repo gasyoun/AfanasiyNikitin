@@ -6,14 +6,19 @@ on:
       - 'data/**'
       - 'datapackage.json'
       - 'tools/validate_*.py'
+      - 'tools/validate_widgets.cjs'
       - 'tools/build_*.py'
       - 'tools/computus.py'
+      - 'afanasy_*.html'
+      - 'js/atlas-spine.js'
       - '.github/workflows/data-validate.yml'
   pull_request:
     paths:
       - 'data/**'
       - 'datapackage.json'
       - 'tools/**'
+      - 'afanasy_*.html'
+      - 'js/atlas-spine.js'
   workflow_dispatch:
 
 jobs:
@@ -24,6 +29,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
 
       # Informational: Frictionless schema/FK validation of the data package.
       - name: Install Frictionless
@@ -38,3 +46,5 @@ jobs:
         run: python tools/validate_data.py
       - name: Validate Linked Places Format
         run: python tools/validate_lpf.py
+      - name: Validate widget fallbacks (spine drift)
+        run: node tools/validate_widgets.cjs

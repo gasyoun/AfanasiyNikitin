@@ -8,6 +8,12 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ## [Unreleased]
 
+### Added
+- **CI widget-drift gate (`tools/validate_widgets.cjs`).** A browser-free Node check (wired into the `data-validate` workflow) that evals each spine widget's embedded `*_BUNDLED` fallback and compares the CSV-derived fields against `data/*.csv` — so a `data/` edit that isn't mirrored in a widget's offline fallback now fails CI. Covers all 6 spine widgets (people-network, citations, editions, event-timeline, epistemic-lens, lod-coverage).
+
+### Fixed
+- **People-network offline fallback miscoloured Дьяк Мамырев.** The bundled `NODES_BUNDLED` had `mamyrev` as `type:'help'` while `people.csv`/`edges.csv` say `indirect`; surfaced by the new drift gate. The live spine path was already correct — only the `file://`/offline fallback was affected. Now `indirect`.
+
 ### Changed
 - **Shared spine loader (`js/atlas-spine.js`).** The 6 spine-driven widgets that read `data/*.csv` (people-network, citations, editions, event-timeline, epistemic-lens, lod-coverage) each carried an identical copy of the RFC4180 `parseCSV`; extracted it into one shared `window.AtlasSpine.parseCSV` (+ a `fetchText` helper), loaded in `<head>` and cached by the Service Worker (`afanasy-atlas-v15`). Bundled fallbacks unchanged — a missing/late script still degrades to bundled data. Verified in headless Edge: all 6 still activate the spine (correct row counts) and fall back under `file://`.
 
