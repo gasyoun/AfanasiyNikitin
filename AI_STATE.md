@@ -3,30 +3,29 @@
 This file is maintained by AI assistants (Antigravity/Claude) working on this repository.  
 It records the current state of work, decisions made, and context needed to continue seamlessly.
 
-> **Last updated:** 2026-06-14 · Claude Opus 4.8 · Phase: harden ✅ + data rigor (book companion). Quality report done; source_page citations need the book (human).
+> **Last updated:** 2026-06-14 · Claude Opus 4.8 · v1.5.0 released; handoff refreshed. Harden ✅; data-rigor autonomous part ✅; source_page needs the book (human).
 > **Branch:** `main` (clean; all feature branches merged + pruned); `v1.0.0`–`v1.5.0` tagged on `main`
 > **Versioning:** site (CHANGELOG + tags) = **1.5.0**; dataset (datapackage/CITATION/.zenodo/schema.org) = **1.1.0**, bumped only on `data/` changes — see [data/README.md](data/README.md) §Versioning.
 
 ---
 
-## 🤝 Handoff — for the next Opus 4.8 session (2026-06-14)
+## 🤝 Handoff — for the next Opus 4.8 session (updated 2026-06-14, post-v1.5.0)
 
 **Chosen phase (decided with the human, 2026-06-14):** **(1) harden the foundation first, then (2) data depth & rigor**, oriented as a **companion to Khrustalev's 2026 book**. Audience = author's book companion → favour rigour, page-level citations, the DOI.
 
-**Where things stand.** The atlas is **32 widgets**, live at https://gasyoun.github.io/AfanasiyNikitin/, **`main` is clean** (no open branches), site **v1.4.0**, dataset **1.1.0** (decoupled). Engineering arc complete: FAIR spine + LOD + computus + CI, 7 spine-driven widgets (4 migrated + event timeline + epistemic lens + LOD dashboard), discoverability, citation metadata, all 3 reconciliations resolved.
+**Where things stand.** Atlas = **32 widgets**, live at https://gasyoun.github.io/AfanasiyNikitin/, **`main` clean** (no open branches), site **v1.5.0**, dataset **1.1.0** (decoupled). Engineering + new-viz arcs complete: FAIR spine + LOD + computus + CI, **7 spine-driven widgets**, discoverability, citation metadata, reconciliations resolved. **Phase 1 (harden) is COMPLETE and shipped in v1.5.0.** **Phase 2 (data rigor): the autonomous part is done** (`data/QUALITY.md`); the core remaining step (page-level `source_page` citations) is **blocked on the in-copyright book**, so the autonomous in-phase runway is essentially spent — the next session likely starts with a human decision.
 
-**➡️ Phase work queue:**
-1. **Harden (in progress):**
-   - ✅ **Shared spine loader** `js/atlas-spine.js` — the 6 CSV-reading widgets now share one `parseCSV` (was 6 copies). Verified all 6 still spine + fall back.
-   - ✅ **CI widget-drift check** — `tools/validate_widgets.cjs` (Node; evals each widget's `*_BUNDLED`, compares CSV-derived fields to `data/*.csv`), wired into the `data-validate` workflow with `afanasy_*.html` / `js/atlas-spine.js` trigger paths. Immediately caught a real drift (people-network bundled `mamyrev` was `help`, CSV says `indirect`) — fixed. Covers all 6 spine widgets. **NB for future widget edits:** if you change a `data/*.csv` row, regenerate the affected widget's `*_BUNDLED` (the scratch gen helpers show how) or this gate fails.
-   - ⏳ Optional remaining hardening: roll the accessible-`<table>` + epistemic-badge pattern to the remaining canvas/SVG widgets that lack it.
-2. **Data depth & rigor (in progress):**
-   - ✅ **Data-quality report** `data/QUALITY.md` (`tools/data_quality.py`, run by `build_all.py`) — maps the gaps. Key finding: `source_page` is **0%** on places/itinerary/people/editions/citations (only fragments 100% + trade 17%); `name_en` 100% on places/people.
-   - ⏳ **Page-level `source_page` citations (NEEDS THE BOOK — human/scholarly):** fill `source_page` from Khrustalev 2026. The book text/PDF is in-copyright + gitignored, so the agent can't source page numbers reliably — this is a human task (or hand the agent specific page refs to enter). The core book-companion rigor payoff. NB: filling `source_page` IS a `data/` content change → bump the **dataset** version 1.1.0 → 1.2.0 in that PR.
-   - ⏳ Optional: expand `name_en` to events / fragment genres; richer notes.
-3. **Human-gated only:** Zenodo DOI (enable Zenodo↔GitHub, pick a tag — archived dataset version = `.zenodo.json` = 1.1.0; then add the DOI to `CITATION.cff` / `.zenodo.json` / `index.html` schema.org); WHG upload (`SUBMISSION_WHG.md`); real-device PWA install.
-4. **Polish / housekeeping:** 1200×630 OG preview PNG; per-page OG; reconcile the **stale `index.md`** master index (never updated through this whole arc).
-5. **Owed:** bump the **dataset** version 1.1.0 → 1.2.0 the next time `data/` actually changes — *not* on a widget-only release.
+**⚑ Start here next session — pick one (autonomous runway is thin; most value now needs the human or fresh direction):**
+- **`source_page` citations** (the book-companion payoff) — needs Khrustalev 2026 page numbers. The book is in-copyright + gitignored, so the agent *cannot* source them; the human enters refs or hands them over → agent fills + validates + bumps **dataset 1.1.0 → 1.2.0**.
+- **Human-gated:** Zenodo DOI (enable Zenodo↔GitHub, pick a tag — archived dataset version = `.zenodo.json` = 1.1.0; then add DOI to `CITATION.cff` / `.zenodo.json` / `index.html`); WHG upload (`SUBMISSION_WHG.md`); real-device PWA install.
+- **Optional autonomous polish:** roll the accessible-`<table>` + epistemic-badge pattern to the remaining canvas/SVG widgets; a 1200×630 OG preview PNG + per-page OG; reconcile the **stale `index.md`** master index (never updated through this whole arc).
+- **Or a fresh idea** — the three brainstormed viz (event timeline / epistemic lens / LOD dashboard) are all built; no obvious next viz without new data/research.
+
+**✅ Done & shipped (do not redo):**
+- **Harden:** shared spine loader `js/atlas-spine.js` (one `parseCSV` for the 6 CSV-reading widgets) + CI widget-drift gate `tools/validate_widgets.cjs` (in the `data-validate` workflow; caught & fixed a real drift — people-network `mamyrev` was `help`, CSV says `indirect`). **NB:** edit a `data/*.csv` row → regenerate the affected widget's `*_BUNDLED` or the gate fails CI.
+- **Data rigor:** `data/QUALITY.md` (`tools/data_quality.py`, run by `build_all.py`). Finding: `source_page` 0% on places/itinerary/people/editions/citations (fragments 100%, trade 17%); `name_en` 100% on places/people.
+
+**⏳ Owed:** bump the **dataset** version 1.1.0 → 1.2.0 the next time `data/` actually changes — *not* on a widget-only release.
 
 **🔁 Release flow (auto-merge is DISABLED on the repo):** land via PR → `gh pr checks <n> --watch` → `gh pr merge <n> --merge` → `gh release create vX.Y.Z --target main`. Direct push to `main` is blocked by the harness. GitHub auto-deletes merged branches; `git remote prune origin` to clear stale refs.
 
