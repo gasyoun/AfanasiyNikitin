@@ -398,6 +398,10 @@ git status --short --branch
 
 ## Suggested Next Steps (see ROADMAP.md for full plan)
 
+**Current (2026-06-14):**
+- ⏳ **Dataset version is "owed" a bump.** It sits at **1.1.0** but the site is at 1.2.0. This is *correct* now (decoupled — v1.2.0 was widget-only). **The next time anything under `data/` changes** (rows, schema, a new reconciliation, regenerated derived files with real diffs), bump the dataset version **1.1.0 → 1.2.0** across `datapackage.json`, `CITATION.cff` (+ `date-released`), `.zenodo.json`, and the `schema.org/Dataset` block in `index.html` — in that same PR, independent of the CHANGELOG/site version. Policy: [data/README.md](data/README.md) §Versioning.
+- **Human-gated:** Zenodo DOI (enable Zenodo↔GitHub, pick a tag to archive; dataset version archived = `.zenodo.json` = 1.1.0), WHG upload (`SUBMISSION_WHG.md`), real-device PWA install.
+
 **Priority (today):**
 1. ✅ **FIX 5** — Manuscripts: leaf-size proof + two-gap visualization (DONE)
 2. ✅ **FIX 6** — Emotional arc: silence zone (1471–1472) + pronoun analysis (DONE)
