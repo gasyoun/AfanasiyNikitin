@@ -112,7 +112,10 @@ function el(tag,a){const e=document.createElementNS(SVG_NS,tag);for(const[k,v] o
 function t(s,a){const e=el('text',a);e.textContent=s;return e;}
 
 // ── Data ─────────────────────────────────────────────────────────────────────
-const EASTER_OBSERVATIONS=[
+// EASTER_OBSERVATIONS_BUNDLED: the widget's bundled data. The true-Easter dates
+// (trueYear/trueMonth/trueDay) are the computed Orthodox Pascha and are held in
+// sync with data/calendar.csv (pascha rows) by tools/validate_widgets.cjs (CI gate).
+const EASTER_OBSERVATIONS_BUNDLED=[
   {n:1,trueYear:1467,trueMonth:3,trueDay:29,obsYear:1467,obsMonth:3,obsDay:29,loc:'«Каин»',drift:0,
    trueStr:'29 марта 1467',obsStr:'29 марта 1467',
    quote:'Первая Пасха остаётся в русском календарном счёте: Афанасий ещё не потерял привычную пасхалию.',
@@ -146,6 +149,7 @@ const EASTER_OBSERVATIONS=[
    quote:'В Маскате христиане снова исправляют дату: счёт Афанасия возвращается к истинной Пасхе.',
    analysis:'<b>Пасхальная привязка 8.</b> Нулевой сдвиг после индийского разлада показывает внешнюю коррекцию календаря на обратном пути.'},
 ];
+const EASTER_OBSERVATIONS=EASTER_OBSERVATIONS_BUNDLED;
 
 function driftLabel(drift){
   if(drift===0)return '0 дней';

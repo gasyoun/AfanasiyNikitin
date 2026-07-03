@@ -158,6 +158,19 @@ try { // lod-coverage
   console.log('  lod-coverage    ✓ (' + ENT.length + ' entities, status + links match)');
 } catch (e) { fail('lod-coverage: ' + e.message); }
 
+try { // calendar — the 8 "true Easter" anchors must equal calendar.csv pascha (Julian) dates
+  const html = H('afanasy_calendar_pascha_islam.html');
+  const OBS = bundled(html, 'EASTER_OBSERVATIONS_BUNDLED');
+  const byYear = {}; csv('calendar.csv').filter(r => r.type === 'pascha').forEach(r => { byYear[r.year_ce] = r; });
+  OBS.forEach(o => { const r = byYear[o.trueYear];
+    if (!r) return fail('calendar: no pascha row for ' + o.trueYear);
+    const [y, m, d] = r.julian_date.split('-').map(Number);
+    eq(o.trueYear, y, `calendar obs ${o.n} trueYear`);
+    eq(o.trueMonth, m, `calendar obs ${o.n} trueMonth`);
+    eq(o.trueDay, d, `calendar obs ${o.n} trueDay`); });
+  console.log('  calendar        ✓ (' + OBS.length + ' Easter anchors match calendar.csv pascha)');
+} catch (e) { fail('calendar: ' + e.message); }
+
 console.log('');
 if (fails.length) {
   console.error('WIDGET DRIFT — ' + fails.length + ' mismatch(es). Regenerate the affected widget\'s *_BUNDLED fallback to match data/*.csv:\n');
