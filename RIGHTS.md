@@ -18,7 +18,7 @@ Phase 0 of the FAIR-data plan. It establishes **what may be published openly and
 
 The repo is public (`github.com/gasyoun/AfanasiyNikitin`). Two tracked files are derived from the in-copyright book:
 
-1. **`tetradi_hrustalev_2026.md`** — a detailed précis that reproduces the ISBN, the seven-block reconstruction (the book's central original contribution), and the full year-by-year new chronology. A summary this close to the book's original structure likely exceeds the Russian citation right (ГК РФ ст. 1274 permits citation «в объёме, оправданном целью» — not a wholesale précis).
+1. **`tetradi_hrustalev_2026.md`** — a detailed précis that reproduces the ISBN, the seven-block reconstruction (the book's central original contribution), and the full year-by-year new chronology. A summary this close to the book's original structure likely exceeds the Russian citation right (ГК РФ ст. 1274 permits citation «в объеме, оправданном целью» — not a wholesale précis).
 2. **`article_drevnyaya_rus_draft.md`** — your own `article_site_weak_spots.md` §2.6 states the journal requires the article not be public before a decision.
 
 **Recommendation (your call — I have not done this):** for each, either trim to a short factual abstract, or untrack while keeping the local file:

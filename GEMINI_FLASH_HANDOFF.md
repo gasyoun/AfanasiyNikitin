@@ -198,7 +198,7 @@ ATLAS.WP = [
   { idx:0, lat:56.9, lon:35.9, t:0,
     name:'Тверь', date:'1467, весна',
     desc:'Начало «грешного хожения за три моря»', sea:'Путь по Руси',
-    passage:'В лето 6975. Пошёл я, Афанасий...' },
+    passage:'В лето 6975. Пошел я, Афанасий...' },
   // ... all 19 entries, merging WP[] and PASSAGES[] arrays
 ];
 
@@ -311,7 +311,7 @@ git commit -m "refactor(theme): extract theme toggle to js/atlas-theme.js"
 {
   "name": "Афанасий Никитин — Интерактивный Атлас",
   "short_name": "АН Атлас",
-  "description": "Визуализации к книге Д.Г. Хрусталёва «Тетради купца Афанасия»",
+  "description": "Визуализации к книге Д.Г. Хрусталева «Тетради купца Афанасия»",
   "start_url": "/AfanasiyNikitin/",
   "scope": "/AfanasiyNikitin/",
   "display": "standalone",
