@@ -7,7 +7,8 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = path.dirname(__dirname);
 const D = f => fs.readFileSync(path.join(ROOT, 'data', f), 'utf8');
-const H = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
+// Widgets moved to static/atlas/ in the H486 Docusaurus rebuild (10-07-2026).
+const H = f => fs.readFileSync(path.join(ROOT, 'static', 'atlas', f), 'utf8');
 
 const fails = [];
 const fail = m => fails.push(m);

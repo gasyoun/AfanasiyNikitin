@@ -9,16 +9,16 @@ on:
       - 'tools/validate_widgets.cjs'
       - 'tools/build_*.py'
       - 'tools/computus.py'
-      - 'afanasy_*.html'
-      - 'js/atlas-spine.js'
+      - 'static/atlas/afanasy_*.html'
+      - 'static/atlas/js/atlas-spine.js'
       - '.github/workflows/data-validate.yml'
   pull_request:
     paths:
       - 'data/**'
       - 'datapackage.json'
       - 'tools/**'
-      - 'afanasy_*.html'
-      - 'js/atlas-spine.js'
+      - 'static/atlas/afanasy_*.html'
+      - 'static/atlas/js/atlas-spine.js'
   workflow_dispatch:
 
 jobs:
