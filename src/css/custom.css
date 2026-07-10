@@ -1,17 +1,76 @@
 /**
- * Placeholder — replaced by the two-tier atlas token system in H486 Phase 2.
+ * Docusaurus-side theme (H490 §5 design pass, Fable 5 `claude-fable-5`).
+ * Mirrors the atlas token system in static/atlas/css/atlas.css: the same
+ * parchment/ink/киноварь palette, serif-for-content / sans-for-chrome type
+ * rule, tabular figures for compared numbers. The widgets consume the atlas
+ * stylesheet inside their iframes; this file makes the shell match them.
  */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-  --ifm-color-primary: #b87020;
-  --ifm-color-primary-dark: #a0591b;
-  --ifm-color-primary-darker: #96541a;
-  --ifm-color-primary-darkest: #7c4515;
-  --ifm-color-primary-light: #d0871f;
-  --ifm-color-primary-lighter: #d99231;
-  --ifm-color-primary-lightest: #e2a852;
+  /* киноварь (cinnabar) accent — same values as --p-accent-* in atlas.css */
+  --ifm-color-primary: #a6432e;
+  --ifm-color-primary-dark: #953c29;
+  --ifm-color-primary-darker: #8c3423;
+  --ifm-color-primary-darkest: #742b1d;
+  --ifm-color-primary-light: #b54a33;
+  --ifm-color-primary-lighter: #bf5a44;
+  --ifm-color-primary-lightest: #cf7a68;
+
+  /* parchment surfaces / ink text — same ramps as atlas.css */
+  --ifm-background-color: #fbf7ee;
+  --ifm-background-surface-color: #f5efe1;
+  --ifm-font-color-base: #241a10;
+  --ifm-color-emphasis-600: #52453a;
+  --ifm-toc-border-color: #dfd2b5;
+  --ifm-hr-border-color: #dfd2b5;
+
+  /* serif for content, sans for chrome */
+  --ifm-font-family-base: 'PT Serif', Georgia, 'Times New Roman', serif;
+  --ifm-heading-font-family: 'PT Serif', Georgia, serif;
+  --ifm-font-size-base: 17px;
+  --ifm-line-height-base: 1.65;
 }
 
 [data-theme='dark'] {
-  --ifm-color-primary: #e08830;
+  --ifm-color-primary: #d97757;
+  --ifm-color-primary-dark: #d3653f;
+  --ifm-color-primary-darker: #c95c37;
+  --ifm-color-primary-darkest: #a94b2c;
+  --ifm-color-primary-light: #e68e6e;
+  --ifm-color-primary-lighter: #ea9c80;
+  --ifm-color-primary-lightest: #f1b8a3;
+
+  --ifm-background-color: #16120d;
+  --ifm-background-surface-color: #1d1812;
+  --ifm-font-color-base: #ece1d3;
+  --ifm-color-emphasis-600: #b5a795;
+  --ifm-toc-border-color: #322a1f;
+  --ifm-hr-border-color: #322a1f;
+}
+
+/* Chrome stays sans: navbar, sidebar, footer, buttons, badges, TOC. */
+.navbar,
+.menu,
+.footer,
+.pagination-nav,
+.breadcrumbs,
+.table-of-contents,
+button,
+.badge {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Tabular figures wherever numbers are compared vertically. */
+table,
+.table-of-contents {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Narrative blockquotes — the «Хожение» quotations: rubric bar, no italics
+   (the quoted register is already marked; italics would double-mark it). */
+.markdown blockquote {
+  border-left: 3px solid var(--ifm-color-primary);
+  background: var(--ifm-background-surface-color);
+  font-style: normal;
 }

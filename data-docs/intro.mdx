@@ -1,0 +1,49 @@
+---
+slug: /
+title: Данные
+sidebar_position: 0
+---
+
+# Датасет
+
+Атлас стоит на открытом, машиночитаемом датасете — **12 таблиц**, описанных
+Frictionless-паспортом
+[`datapackage.json`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/datapackage.json)
+и проверяемых CI-валидацией на каждый пуш. Архитектура перевёрнута: не данные
+зашиты в визуализации, а визуализации читают данные; каталог
+[`data/`](https://github.com/gasyoun/AfanasiyNikitin/tree/main/data) — единственный
+источник истины.
+
+Три принципа:
+
+1. **Только факты.** Координаты, даты, расстояния, имена — публикуются
+   свободно (CC-BY-4.0); выражение и композиция источников — нет. Правовая
+   разметка — в [RIGHTS.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/RIGHTS.md),
+   и каждый ряд каждой таблицы несёт `source_id` — внешний ключ в реестр
+   источников с колонкой `rights`.
+2. **Видимая эпистемика.** Каждый ряд помечен: что это за утверждение
+   (`epistemic`: text · reconstruction · localization · model · hypothesis)
+   и насколько оно надёжно (`certainty`: certain · approx · disputed).
+   Оценочные ряды (эвристические цены, модельные цитирования) не выдаются
+   за измеренные.
+3. **Связанные данные.** Места и люди сверены с Wikidata / GeoNames /
+   Pleiades / VIAF; газеттир экспортирован в Linked Places Format, маршрут —
+   в Linked Traces, весь граф — в RDF/Turtle (CIDOC-CRM + GeoSPARQL).
+
+Подробнее: [модель данных](./model.mdx) · [происхождение и надёжность](./provenance.mdx).
+
+## Скачать
+
+- [datapackage.json](https://github.com/gasyoun/AfanasiyNikitin/blob/main/datapackage.json) — Frictionless Data Package (схемы, типы, ключи)
+- [data/*.csv](https://github.com/gasyoun/AfanasiyNikitin/tree/main/data) — 12 таблиц, UTF-8, RFC 4180
+- [places.lpf.geojson](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/places.lpf.geojson) — газеттир, Linked Places Format
+- [route.geojson](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/route.geojson) — маршрут (LineString + 29 точек)
+- [atlas.ttl](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/atlas.ttl) — RDF/Turtle
+- [bibliography.bib](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/bibliography.bib) — библиография изданий (BibTeX; есть и CSL-JSON)
+
+## Лицензия и цитирование
+
+Данные — **CC-BY-4.0**. Как цитировать — в
+[CITATION.cff](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CITATION.cff);
+версия датасета ведётся отдельно от версии сайта (см.
+[провенанс](./provenance.mdx#версии)).

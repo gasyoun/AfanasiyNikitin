@@ -1,0 +1,57 @@
+---
+title: Происхождение и надёжность
+sidebar_position: 2
+---
+
+# Происхождение и надёжность
+
+## Откуда взяты данные
+
+Каждый ряд несёт `source_id` — ключ в
+[реестр источников](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/sources.csv),
+где для каждого источника записаны права. Четыре главных:
+
+- **«Хожение за три моря»** (XV в.) — public domain; цитируется по спискам.
+- **Хрусталёв Д. Г., 2026** — источник *фактов* (датировок, локализаций);
+  каждый заимствованный факт помечен `KHR2026`. Изложение и композиция книги
+  не воспроизводятся (см. [RIGHTS.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/RIGHTS.md)).
+- **Ибн Маджид, ок. 1490** — морские дистанции и метод; public domain.
+- **Собственный аналитический слой проекта** (координатные привязки, торговые
+  эвристики, современные пересказы отрывков) — CC-BY-4.0.
+
+## Реконсиляция
+
+Места и люди сверены с внешними авторитетами инструментом
+[`tools/reconcile.py`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/tools/reconcile.py):
+места проверяются координатным расстоянием и типом (поселение), люди —
+признаком instance-of=human и ключевым словом описания. Каждое решение — и
+все ряды, оставленные на ручную проверку, — записаны в
+[reconciliation.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/reconciliation.md);
+перезапуск скрипта воспроизводим.
+
+## Вычислимая хронология
+
+[`tools/computus.py`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/tools/computus.py)
+считает православные Пасхи (юлианская пасхалия) и Рамаданы (табличный
+исламский календарь) на все годы пути — и независимо воспроизводит опорные
+датировки реконструкции: Пасха 2 апреля 1469 (Ормуз), пересечение Великого
+поста с Рамаданом в начале марта 1470, Пасха 10 апреля 1474 (Маскат).
+Хронология атласа — не пересказ, а перепроверенное вычисление.
+
+## Качество
+
+Отчёт о полноте — доля заполненных полей, покрытие постраничных ссылок,
+статус реконсиляции, эпистемический состав каждой таблицы — регенерируется в
+[data/QUALITY.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/QUALITY.md).
+Известные ошибки данных не скрываются, а документируются (пример: координата
+Дабхола в раннем файле проекта указывала в открытое море — исправление
+записано в примечаниях газеттира).
+
+## Версии
+
+Датасет и сайт версионируются **раздельно**: версия данных живёт в
+[datapackage.json](https://github.com/gasyoun/AfanasiyNikitin/blob/main/datapackage.json) /
+[CITATION.cff](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CITATION.cff) /
+[.zenodo.json](https://github.com/gasyoun/AfanasiyNikitin/blob/main/.zenodo.json)
+и меняется только при изменении `data/`; релизы сайта идут своим чередом в
+[CHANGELOG](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CHANGELOG.md).

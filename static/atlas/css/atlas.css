@@ -10,36 +10,45 @@
  * <AtlasFigure>). Visual values are unchanged from the pre-rebuild stylesheet;
  * picking new colors/type is Fable's design-system pass (§5), not this one.
  */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@600;700&display=swap');
 
 /* ==================== PRIMITIVES ==================== */
+/* H490 §5 final palette (Fable 5 `claude-fable-5` design pass). The register
+ * is a 15th-century travel account: INK is a warm sepia-black ramp (manuscript
+ * ink, not neutral grey — and the border step is de-saturated so borders read
+ * as ink, not as a second accent); PARCHMENT is a true paper ramp — the base
+ * surface is paper-tinted, no pure white anywhere; the single ACCENT is
+ * киноварь (cinnabar), the rubric red of Russian manuscripts, replacing the
+ * previous amber. Categorical series for the visualizations are unchanged.
+ * Dark mode remaps the same ramp names onto night values; the semantic layer
+ * below never changes shape. */
 :root {
-    /* Ink ramp (text/border browns) */
-    --p-ink-900: #2c1810;
-    --p-ink-700: #5e4e44;
-    --p-ink-500: #8b5a30;
-    /* Parchment ramp (surfaces) */
-    --p-parchment-50:  #ffffff;
-    --p-parchment-100: #fdfbf7;
-    --p-parchment-200: #f5eedf;
-    --p-parchment-300: #e9e0cf;
-    --p-parchment-400: #dcd0ba;
-    /* Accent ramp */
-    --p-accent-500: #b87020;
-    --p-accent-600: #a0591b;
+    /* Ink ramp (manuscript sepia-blacks; 500 is the border step) */
+    --p-ink-900: #241a10;
+    --p-ink-700: #52453a;
+    --p-ink-500: #7d6b58;
+    /* Parchment ramp (paper surfaces; 50 is paper, not white) */
+    --p-parchment-50:  #fbf7ee;
+    --p-parchment-100: #f5efe1;
+    --p-parchment-200: #ece2cc;
+    --p-parchment-300: #dfd2b5;
+    --p-parchment-400: #cebd9b;
+    /* Accent — киноварь (cinnabar rubric red) */
+    --p-accent-500: #a6432e;
+    --p-accent-600: #8c3423;
 }
 
 [data-theme="dark"] {
-    --p-ink-900: #ebdcd5;
-    --p-ink-700: #b8aba3;
-    --p-ink-500: #c09060;
-    --p-parchment-50:  #121212;
-    --p-parchment-100: #1a1a1a;
-    --p-parchment-200: #222222;
-    --p-parchment-300: #2d241d;
-    --p-parchment-400: #3a2e26;
-    --p-accent-500: #e08830;
-    --p-accent-600: #f0a040;
+    --p-ink-900: #ece1d3;
+    --p-ink-700: #b5a795;
+    --p-ink-500: #8a7a66;
+    --p-parchment-50:  #16120d;
+    --p-parchment-100: #1d1812;
+    --p-parchment-200: #272017;
+    --p-parchment-300: #322a1f;
+    --p-parchment-400: #413729;
+    --p-accent-500: #d97757;
+    --p-accent-600: #e68e6e;
 }
 
 /* ==================== SEMANTIC TOKENS ==================== */
@@ -68,9 +77,12 @@
     --border-radius-lg: 12px;
     --border-radius-md: 8px;
     --border-radius-sm: 4px;
+    /* H490 §5 type rule: serif for narrative prose (PT Serif — designed for
+     * Cyrillic), sans for UI chrome and labels, display serif for titles.
+     * Tabular figures wherever numbers are compared vertically. */
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-serif: Georgia, "Times New Roman", serif;
+    --font-display: 'Playfair Display', 'PT Serif', Georgia, serif;
+    --font-serif: 'PT Serif', Georgia, "Times New Roman", serif;
     --shadow-container: 0 8px 24px rgba(0, 0, 0, 0.05);
     --shadow-floating-control: 0 4px 16px rgba(0,0,0,0.15);
     --shadow-popover: 0 3px 12px rgba(0,0,0,.12);
