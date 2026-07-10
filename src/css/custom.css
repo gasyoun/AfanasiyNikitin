@@ -1,0 +1,17 @@
+/**
+ * Placeholder — replaced by the two-tier atlas token system in H486 Phase 2.
+ */
+
+:root {
+  --ifm-color-primary: #b87020;
+  --ifm-color-primary-dark: #a0591b;
+  --ifm-color-primary-darker: #96541a;
+  --ifm-color-primary-darkest: #7c4515;
+  --ifm-color-primary-light: #d0871f;
+  --ifm-color-primary-lighter: #d99231;
+  --ifm-color-primary-lightest: #e2a852;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #e08830;
+}

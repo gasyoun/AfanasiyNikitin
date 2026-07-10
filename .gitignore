@@ -13,3 +13,18 @@ article_drevnyaya_rus_draft.md
 
 # Claude Code local settings (machine-specific)
 .claude/settings.local.json
+
+# Docusaurus
+/node_modules
+/build
+/.docusaurus
+/.cache-loader
+~$*
+
+# generated at build/start time by scripts/sync-atlas-data.mjs — data/ (repo root) is the source of truth
+/static/atlas/data/
+/static/downloads/
+/static/datapackage.json
+/static/codemeta.json
+/static/.zenodo.json
+/static/CITATION.cff
