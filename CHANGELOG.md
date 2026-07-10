@@ -6,6 +6,22 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ---
 
+## [1.6.0] - 2026-07-10
+
+On top of the H486 Docusaurus rebuild ([PR #34](https://github.com/gasyoun/AfanasiyNikitin/pull/34), which predates this entry and was not separately changelogged). Executor: Fable 5 (`claude-fable-5`), handoff H490.
+
+### Added
+- **`/put/` narrative spine** — seven chapters + intro in `put-docs/`, organized by the medieval text's own three-seas structure (Русь · Каспий и Персия · Ормуз—Индия · Индия · вера и календарь · возвращение · судьба текста). Rights-safe by construction (RIGHTS.md): keyed to the public-domain «Хожение» (quoted with attribution, incl. the project's own CC-BY renderings from `ATLAS.PASSAGES`) and the project dataset; Khrustalev (2026) cited for dated facts only, never restated as structure. Each chapter embeds 2–3 `<AtlasFigure>` figures with real per-figure trust blocks.
+- **`/data/` documentation** — `intro` rewritten + new `model` (12 tables, keys, epistemic/certainty conventions) and `provenance` (sources & rights, reconciliation method, computable chronology, quality report, dataset-vs-site versioning) pages, digesting `data/README.md` for the site.
+
+### Changed
+- **§5 design system finalized** (the pass H486 deferred): primitive palette re-drawn in `static/atlas/css/atlas.css` — true parchment surface ramp (no pure white), warm sepia ink ramp with a de-saturated border step, and **киноварь (cinnabar) as the single accent** replacing amber; dark mode remaps the same ramps. Type rule applied: **PT Serif for narrative/content, Inter for chrome**, tabular figures for compared numbers; `src/css/custom.css` rebuilt to mirror the same tokens on the Docusaurus side (parchment background, serif content, rubric-styled «Хожение» blockquotes).
+- **All 33 atlas MDX pages carry real trust blocks** — `scripts/generate-atlas-mdx.mjs` now holds per-visualization `source` metadata (actual artifact, n, date; counts audited against `data/*.csv`), replacing the generic placeholder; `video_export` is marked as a tool, not a finding (spec §4.1).
+
+### Notes
+- Build green in both locales, zero broken links; verified no gitignored in-copyright file (Khrustalev PDF/précis/article draft) enters `build/`.
+- Open questions parked as `@DECIDE` in the Uprava GTD hub: narrative staging (shipped complete in RU as the conservative default), EN-locale scope (currently fallback, no translation authored), `video_export` retention (kept, behind a tool note).
+
 ## [1.5.0] - 2026-06-14
 
 ### Added
