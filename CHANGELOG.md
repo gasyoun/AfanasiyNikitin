@@ -6,6 +6,22 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ---
 
+## [1.7.0] - 2026-07-10
+
+MG's rulings on H486/H490's three open `@DECIDE` items ([H498](https://github.com/gasyoun/Uprava/blob/main/handoffs/H498-Sonnet_AfanasiyNikitin_decide_followup_i18n_tools_split_10.07.26.md)). Executor: Sonnet 5 (`claude-sonnet-5`).
+
+### Added
+- **English (`en`) locale content** — the site declared `locales: ['ru', 'en']` since H486 but shipped no translated content (the `en` build silently fell back to Russian strings). Now populated per MG's ruling (**captions + data docs, not the narrative**): all 32 themed atlas pages + the new tools page (title, `<AtlasFigure>` caption/trust-block), the six theme + one tools sidebar category labels, the `/atlas/` and `/data/` landing pages, all three `/data/` docs pages (model, provenance), and UI chrome (navbar, footer, landing-page `<Translate>` strings) under `i18n/en/`. `/put/` (the narrative) deliberately stays Russian-only. `scripts/generate-atlas-mdx.mjs` now generates RU and EN atlas content from one shared data table so the two languages can't drift apart structurally.
+
+### Changed
+- **`afanasy_video_export.html` moved out of the atlas gallery into its own "Инструменты"/"Tools" section** (`atlas-docs/instrumenty/`), per MG's ruling and the design spec's own §4.1 recommendation ("belongs behind a tools divider, not in the gallery proper") — previously it sat inside "Метод и историография" with only an inline note distinguishing it. The six analytical themes go from 33 combined pages to 32; the new tools section holds the 33rd.
+- Internal `/atlas/` cross-links switched from root-relative (`/atlas/...`) to file-relative MDX paths (`./theme/slug.mdx`) so they resolve correctly under both the `ru` and `en` locale prefixes.
+
+### Notes
+- Build green in both locales, zero broken links.
+- Narrative-timing `@DECIDE` closed by superseding event: H490 had already shipped the full 7-chapter spine before the ruling landed, satisfying "launch now" — `put-docs/` untouched this pass.
+- Known residual: the browser-tab `<title>` suffix (site name/tagline from `docusaurus.config.mjs`) still renders in Russian on `en` pages — Docusaurus doesn't localize `config.title` per-locale out of the box. Each page's own title segment (e.g. "Atlas", "Video Export") is correctly translated; only the trailing site-name suffix is not.
+
 ## [1.6.0] - 2026-07-10
 
 On top of the H486 Docusaurus rebuild ([PR #34](https://github.com/gasyoun/AfanasiyNikitin/pull/34), which predates this entry and was not separately changelogged). Executor: Fable 5 (`claude-fable-5`), handoff H490.

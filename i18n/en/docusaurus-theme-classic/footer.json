@@ -1,0 +1,34 @@
+{
+  "link.title.Сайт": {
+    "message": "Site",
+    "description": "The title of the footer links column with title=Сайт in the footer"
+  },
+  "link.title.Источники": {
+    "message": "Sources",
+    "description": "The title of the footer links column with title=Источники in the footer"
+  },
+  "link.item.label.Нарратив": {
+    "message": "Narrative",
+    "description": "The label of footer link with label=Нарратив linking to /put/"
+  },
+  "link.item.label.Атлас": {
+    "message": "Atlas",
+    "description": "The label of footer link with label=Атлас linking to /atlas/"
+  },
+  "link.item.label.Данные": {
+    "message": "Data",
+    "description": "The label of footer link with label=Данные linking to /data/"
+  },
+  "link.item.label.RIGHTS.md": {
+    "message": "RIGHTS.md",
+    "description": "The label of footer link with label=RIGHTS.md linking to https://github.com/gasyoun/AfanasiyNikitin/blob/main/RIGHTS.md"
+  },
+  "link.item.label.CITATION.cff": {
+    "message": "CITATION.cff",
+    "description": "The label of footer link with label=CITATION.cff linking to https://github.com/gasyoun/AfanasiyNikitin/blob/main/CITATION.cff"
+  },
+  "copyright": {
+    "message": "Copyright © 2026 Mārcis Gasūns. Data is distributed under CC-BY-4.0.",
+    "description": "The footer copyright"
+  }
+}
