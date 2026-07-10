@@ -358,5 +358,5 @@ None of the 12 visualizations link to each other (except Gantt→Map via `?wp=N`
 
 ---
 
-*Source: Хрусталёв Д.Г. «Тетради купца Афанасия». СПб.: Нестор-История, 2026.*  
+*Source: Хрусталев Д.Г. «Тетради купца Афанасия». СПб.: Нестор-История, 2026.*  
 *Full text extracted to `scratch/book_text.txt` (271 pages, 928K chars)*

@@ -20,7 +20,7 @@ Khrustalev reconstructs 8 Easters with exact dates and locations:
 | 1 | «первая» | 29 Mar 1467 | «Каин» (Kalyzin?) | Correct |
 | 2 | «вторая» | 17 Apr 1468 | Chebokhar, Mazenderan | Correct |
 | 3 | «первая»/«третья» | 2 Apr 1469 | Hormuz | Counter reset |
-| 4 | «четвёртая» | 3 Apr 1470 | Bidar | Off by 19 days |
+| 4 | «четвертая» | 3 Apr 1470 | Bidar | Off by 19 days |
 | 5 | — | 13 Mar 1471 | Bidar | Calculated from Urazan |
 | 6 | — | 1 May 1472 | Bidar | Off by 33 days |
 | 7 | «пятая» | early Mar 1473 | Gulbarga | Drifted to Muslim calendar |

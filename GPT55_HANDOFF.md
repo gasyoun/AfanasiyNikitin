@@ -4,7 +4,7 @@
 
 ---
 
-You are taking over work on **AfanasiyNikitin** — an interactive atlas of 13 standalone HTML widgets documenting the 1467–1475 journey of the Russian merchant Afanasiy Nikitin to India. The project supplements Хрусталёв Д.Г. «Тетради купца Афанасия» (Нестор-История, 2026).
+You are taking over work on **AfanasiyNikitin** — an interactive atlas of 13 standalone HTML widgets documenting the 1467–1475 journey of the Russian merchant Afanasiy Nikitin to India. The project supplements Хрусталев Д.Г. «Тетради купца Афанасия» (Нестор-История, 2026).
 
 **Repo:** `c:\Users\user\Documents\GitHub\AfanasiyNikitin`
 **Live site:** https://gasyoun.github.io/AfanasiyNikitin/
