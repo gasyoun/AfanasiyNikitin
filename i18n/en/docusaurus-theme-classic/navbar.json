@@ -1,0 +1,26 @@
+{
+  "title": {
+    "message": "Afanasy Nikitin",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Atlas logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Нарратив": {
+    "message": "Narrative",
+    "description": "Navbar item with label Нарратив"
+  },
+  "item.label.Атлас": {
+    "message": "Atlas",
+    "description": "Navbar item with label Атлас"
+  },
+  "item.label.Данные": {
+    "message": "Data",
+    "description": "Navbar item with label Данные"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

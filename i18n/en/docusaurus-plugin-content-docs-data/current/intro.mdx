@@ -1,0 +1,51 @@
+---
+slug: /
+title: Data
+sidebar_position: 0
+---
+
+# The Dataset
+
+The atlas stands on an open, machine-readable dataset — **12 tables**,
+described by a Frictionless data-package manifest,
+[`datapackage.json`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/datapackage.json),
+and validated by CI on every push. The architecture is inverted: data isn't
+baked into the visualizations — the visualizations read the data.
+[`data/`](https://github.com/gasyoun/AfanasiyNikitin/tree/main/data) is the
+single source of truth.
+
+Three principles:
+
+1. **Facts only.** Coordinates, dates, distances, names — published freely
+   under CC-BY-4.0; the expression and composition of the sources are not.
+   The rights map lives in
+   [RIGHTS.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/RIGHTS.md),
+   and every row of every table carries a `source_id` — a foreign key into a
+   source registry with its own `rights` column.
+2. **Visible epistemics.** Every row is tagged with what kind of claim it is
+   (`epistemic`: text · reconstruction · localization · model · hypothesis)
+   and how reliable it is (`certainty`: certain · approx · disputed).
+   Estimated rows (heuristic prices, modeled citation counts) are never
+   presented as measurements.
+3. **Linked data.** Places and people are cross-checked against Wikidata /
+   GeoNames / Pleiades / VIAF; the gazetteer is exported to Linked Places
+   Format, the route to Linked Traces, and the whole graph to RDF/Turtle
+   (CIDOC-CRM + GeoSPARQL).
+
+More detail: [data model](./model.mdx) · [provenance and reliability](./provenance.mdx).
+
+## Downloads
+
+- [datapackage.json](https://github.com/gasyoun/AfanasiyNikitin/blob/main/datapackage.json) — Frictionless Data Package (schemas, types, keys)
+- [data/*.csv](https://github.com/gasyoun/AfanasiyNikitin/tree/main/data) — 12 tables, UTF-8, RFC 4180
+- [places.lpf.geojson](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/places.lpf.geojson) — the gazetteer, Linked Places Format
+- [route.geojson](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/route.geojson) — the route (LineString + 29 points)
+- [atlas.ttl](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/atlas.ttl) — RDF/Turtle
+- [bibliography.bib](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/bibliography.bib) — edition bibliography (BibTeX; a CSL-JSON copy exists too)
+
+## License and citation
+
+The data is **CC-BY-4.0**. How to cite it is in
+[CITATION.cff](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CITATION.cff);
+the dataset's version is tracked separately from the site's version (see
+[provenance](./provenance.mdx#versions)).

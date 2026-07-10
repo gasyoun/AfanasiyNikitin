@@ -1,0 +1,34 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.atlasSidebar.category.Путь и пространство": {
+    "message": "Route & Geography",
+    "description": "The label for category Путь и пространство in sidebar atlasSidebar"
+  },
+  "sidebar.atlasSidebar.category.Торговля и экономика": {
+    "message": "Trade & Economics",
+    "description": "The label for category Торговля и экономика in sidebar atlasSidebar"
+  },
+  "sidebar.atlasSidebar.category.Время и календарь": {
+    "message": "Time & Calendar",
+    "description": "The label for category Время и календарь in sidebar atlasSidebar"
+  },
+  "sidebar.atlasSidebar.category.Вера и мир": {
+    "message": "Faith & the World",
+    "description": "The label for category Вера и мир in sidebar atlasSidebar"
+  },
+  "sidebar.atlasSidebar.category.Текст и рукописи": {
+    "message": "Text & Manuscripts",
+    "description": "The label for category Текст и рукописи in sidebar atlasSidebar"
+  },
+  "sidebar.atlasSidebar.category.Метод и историография": {
+    "message": "Method & Historiography",
+    "description": "The label for category Метод и историография in sidebar atlasSidebar"
+  },
+  "sidebar.atlasSidebar.category.Инструменты": {
+    "message": "Tools",
+    "description": "The label for category Инструменты in sidebar atlasSidebar"
+  }
+}

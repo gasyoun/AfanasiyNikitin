@@ -1,0 +1,61 @@
+---
+title: Provenance and Reliability
+sidebar_position: 2
+---
+
+# Provenance and Reliability
+
+## Where the data comes from
+
+Every row carries a `source_id` — a key into the
+[source registry](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/sources.csv),
+which records the rights for each source. Four principal sources:
+
+- **"The Journey Beyond Three Seas"** (15th c.) — public domain; cited by manuscript witness.
+- **Khrustalev, D. G., 2026** — a source of *facts* (datings, localizations);
+  every borrowed fact is tagged `KHR2026`. The book's own exposition and
+  composition are not reproduced (see
+  [RIGHTS.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/RIGHTS.md)).
+- **Ibn Majid, c. 1490** — sea distances and method; public domain.
+- **The project's own analytical layer** (coordinate anchoring, trade
+  heuristics, modern retellings of passages) — CC-BY-4.0.
+
+## Reconciliation
+
+Places and people are cross-checked against external authorities by
+[`tools/reconcile.py`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/tools/reconcile.py):
+places are verified by coordinate distance and type (settlement), people by
+the instance-of=human property and a description keyword match. Every
+decision — and every row left for manual review — is recorded in
+[reconciliation.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/reconciliation.md);
+re-running the script is reproducible.
+
+## Computable chronology
+
+[`tools/computus.py`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/tools/computus.py)
+computes Orthodox Easters (the Julian paschal reckoning) and Ramadans (a
+tabular Islamic calendar) for every year of the journey — and independently
+reproduces the reconstruction's anchor datings: Easter on 2 April 1469
+(Hormuz), the overlap of Great Lent with Ramadan in early March 1470, and
+Easter on 10 April 1474 (Muscat). The atlas's chronology is not a
+retelling — it's a re-verified computation.
+
+## Quality
+
+A completeness report — the share of populated fields, page-reference
+coverage, reconciliation status, and the epistemic composition of every
+table — is regenerated at
+[data/QUALITY.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/QUALITY.md).
+Known data errors aren't hidden — they're documented (example: a Dabhol
+coordinate in an early project file pointed out into open sea — the fix is
+recorded in the gazetteer's notes).
+
+## Versions
+
+The dataset and the site are versioned **separately**: the data version
+lives in
+[datapackage.json](https://github.com/gasyoun/AfanasiyNikitin/blob/main/datapackage.json) /
+[CITATION.cff](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CITATION.cff) /
+[.zenodo.json](https://github.com/gasyoun/AfanasiyNikitin/blob/main/.zenodo.json)
+and changes only when `data/` changes; site releases follow their own cadence
+in the [CHANGELOG](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CHANGELOG.md).
