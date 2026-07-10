@@ -1,0 +1,22 @@
+{
+  "title": "Afanasiy Nikitin Atlas — open dataset",
+  "description": "FAIR, linked dataset for the interactive atlas of Afanasiy Nikitin's 1467-1475 journey (per D. G. Khrustalev, 2026): places, itinerary, people, editions, citations, trade, manuscript fragments, and a computed liturgical/Islamic calendar. Places and people are reconciled to Wikidata, GeoNames, Pleiades and VIAF; a Linked Places Format export is included for the World Historical Gazetteer. Facts only; see RIGHTS.md.",
+  "upload_type": "dataset",
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "version": "1.1.0",
+  "keywords": [
+    "digital humanities",
+    "Afanasiy Nikitin",
+    "Khozhenie za tri morya",
+    "historical itinerary",
+    "linked open data",
+    "Bahmani Sultanate"
+  ],
+  "creators": [
+    { "name": "Gasūns, Mārcis" }
+  ],
+  "related_identifiers": [
+    { "identifier": "https://github.com/gasyoun/AfanasiyNikitin", "relation": "isSupplementTo", "scheme": "url" }
+  ]
+}

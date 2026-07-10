@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below."
+title: "Afanasiy Nikitin Atlas — open dataset"
+abstract: >-
+  FAIR, linked dataset for the interactive atlas of Afanasiy Nikitin's 1467-1475
+  journey (per D. G. Khrustalev, 2026): places, itinerary, people, editions,
+  citations, trade, manuscript fragments, and a computed liturgical/Islamic
+  calendar. Places and people are reconciled to Wikidata, GeoNames, Pleiades and
+  VIAF; a Linked Places Format export is included for the World Historical Gazetteer.
+type: dataset
+version: "1.1.0"
+date-released: "2026-06-13"
+license: CC-BY-4.0
+url: "https://gasyoun.github.io/AfanasiyNikitin/"
+repository-code: "https://github.com/gasyoun/AfanasiyNikitin"
+authors:
+  - given-names: "Mārcis"
+    family-names: "Gasūns"
+    website: "https://github.com/gasyoun"
+keywords:
+  - digital humanities
+  - Afanasiy Nikitin
+  - Khozhenie za tri morya
+  - historical itinerary
+  - linked open data
+  - Bahmani Sultanate
+# After enabling Zenodo and cutting the first GitHub release, add the minted DOI:
+# doi: "10.5281/zenodo.XXXXXXX"
+references:
+  - type: book
+    title: "Тетради купца Афанасия. Реконструкция первоначального состава «Хожения за три моря»"
+    authors:
+      - family-names: "Хрусталёв"
+        given-names: "Д. Г."
+    publisher:
+      name: "Нестор-История"
+    year: 2026
+    isbn: "978-5-4469-2357-1"
