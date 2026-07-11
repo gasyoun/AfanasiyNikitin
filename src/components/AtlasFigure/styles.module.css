@@ -45,6 +45,20 @@
   text-decoration: underline;
 }
 
+.embedBtn {
+  border: none;
+  background: transparent;
+  color: var(--ifm-color-emphasis-700);
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+  margin-left: auto;
+}
+
+.embedBtn:hover {
+  color: var(--ifm-color-primary);
+}
+
 .openLink {
   color: var(--ifm-color-emphasis-700);
   text-decoration: none;

@@ -6,6 +6,11 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ---
 
+## [Unreleased]
+
+### Added
+- **Embed-code button on every atlas figure** (ROADMAP 6.2, [H719](https://github.com/gasyoun/Uprava/blob/main/handoffs/H719-Fable_AfanasiyNikitin_fair-lod-next-rights-clear_11.07.26.md)) — `<AtlasFigure>`'s toolbar now has a "⧉ Embed" button next to fullscreen/"Открыть отдельно" that copies a ready-to-paste `<iframe>` snippet pointing at the canonical published widget URL (`https://gasyoun.github.io/AfanasiyNikitin/atlas/<widget>.html`, via `useDocusaurusContext().siteConfig.url` so it's correct regardless of dev/preview host), for reuse on other websites or DH platforms per RIGHTS.md (the widgets are the project's own CC-BY-4.0 analytical layer — no in-copyright text involved). Falls back to a `window.prompt` with the snippet if `navigator.clipboard.writeText` is unavailable. Single component change covers all 33 atlas pages.
+
 ## [1.7.0] - 2026-07-10
 
 MG's rulings on H486/H490's three open `@DECIDE` items ([H498](https://github.com/gasyoun/Uprava/blob/main/handoffs/H498-Sonnet_AfanasiyNikitin_decide_followup_i18n_tools_split_10.07.26.md)). Executor: Sonnet 5 (`claude-sonnet-5`).

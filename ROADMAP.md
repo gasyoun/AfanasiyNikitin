@@ -101,7 +101,7 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 | # | Item | Priority | Description |
 |---|------|----------|-------------|
 | 6.1 | **SVG/PNG download buttons** | 🟡 Medium | Each SVG chart gets a "⬇ Download SVG" and "⬇ Download PNG" button. For Canvas pages: `canvas.toBlob()`. For SVG: `Blob` + `URL.createObjectURL` |
-| 6.2 | **Embeddable `<iframe>` snippets** | 🟢 Low | Each visualization page generates a one-line `<iframe>` embed code for other websites or digital humanities platforms |
+| 6.2 | **Embeddable `<iframe>` snippets** | 🟢 Done | `<AtlasFigure>` toolbar (H719) has a "⧉ Embed" button that copies a ready-to-paste `<iframe src="https://gasyoun.github.io/AfanasiyNikitin/atlas/…">` snippet for the canonical published widget — one component, all 33 pages |
 | 6.3 | **Print stylesheet** | 🟢 Low | `@media print {}` rules that hide controls, expand charts to full width, and render in black-and-white for academic papers |
 
 ---

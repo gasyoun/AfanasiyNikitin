@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
 
 /**
@@ -28,8 +29,11 @@ export default function AtlasFigure({
   children,
 }) {
   const frameSrc = useBaseUrl(`/atlas/${src}`);
+  const { siteConfig } = useDocusaurusContext();
+  const embedUrl = `${siteConfig.url}${frameSrc}`;
   const containerRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [embedCopied, setEmbedCopied] = useState(false);
 
   useEffect(() => {
     function onFsChange() {
@@ -48,6 +52,17 @@ export default function AtlasFigure({
     }
   }
 
+  async function copyEmbedCode() {
+    const snippet = `<iframe src="${embedUrl}" title="${(title || caption || src).replace(/"/g, '&quot;')}" width="100%" height="${height}" loading="lazy" style="border:none;min-width:${minWidth}px"></iframe>`;
+    try {
+      await navigator.clipboard.writeText(snippet);
+      setEmbedCopied(true);
+      setTimeout(() => setEmbedCopied(false), 2000);
+    } catch {
+      window.prompt('Скопируйте код для встраивания:', snippet);
+    }
+  }
+
   return (
     <figure className={styles.figure}>
       {children && <div className={styles.description}>{children}</div>}
@@ -63,6 +78,14 @@ export default function AtlasFigure({
             aria-label={isFullscreen ? 'Выйти из полноэкранного режима' : 'Открыть на весь экран'}
           >
             {isFullscreen ? '⤡ Свернуть' : '⤢ На весь экран'}
+          </button>
+          <button
+            type="button"
+            className={styles.embedBtn}
+            onClick={copyEmbedCode}
+            aria-label="Скопировать код для встраивания на другой сайт"
+          >
+            {embedCopied ? '✓ Скопировано' : '⧉ Embed'}
           </button>
           <a
             className={styles.openLink}
