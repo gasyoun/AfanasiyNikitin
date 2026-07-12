@@ -1,5 +1,7 @@
 # ROADMAP — Афанасий Никитин Интерактивный Атлас
 
+_Created: 19-05-2026 · Last updated: 11-07-2026_
+
 Development roadmap for the interactive atlas. Items are grouped by phase and priority.  
 Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
