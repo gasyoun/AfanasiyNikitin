@@ -2,7 +2,7 @@
 
 _Created: 10-07-2026 · Last updated: 10-07-2026_
 
-Target spec for rebuilding the Afanasiy Nikitin atlas site from scratch on Docusaurus, replacing the current flat tree of hand-rolled standalone HTML pages. Authored by Opus 4.8 (`claude-opus-4-8`); intended build executor Sonnet 5 (`claude-sonnet-5`) per [H486](https://github.com/gasyoun/Uprava/blob/main/handoffs/H486-Sonnet_AfanasiyNikitin_atlas_site_docusaurus_rebuild_10.07.26.md).
+Target spec for rebuilding the Afanasiy Nikitin atlas site from scratch on Docusaurus, replacing the current flat tree of hand-rolled standalone HTML pages. Authored by Opus 4.8 (`claude-opus-4-8`); intended build executor Sonnet 5 (`claude-sonnet-5`) per [H486](https://github.com/gasyoun/Uprava/blob/main/handoffs/archive/H486-Sonnet_AfanasiyNikitin_atlas_site_docusaurus_rebuild_10.07.26.md).
 
 Reference implementation for the target shape: [csl-guides](https://sanskrit-lexicon.github.io/csl-guides/).
 
