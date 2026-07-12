@@ -155,7 +155,52 @@
     .atlas-export-modal-btn-copy.copied {
       background: var(--viz-network-help, #1e8250);
     }
-    
+
+    /* Citation modal — two labelled blocks (BibTeX + GOST) */
+    .atlas-cite-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .atlas-cite-section + .atlas-cite-section {
+      margin-top: 6px;
+    }
+    .atlas-cite-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .atlas-cite-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      background: var(--color-background-secondary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .atlas-cite-copy:hover {
+      color: var(--color-text-primary);
+      border-color: var(--color-accent);
+    }
+    .atlas-cite-copy.copied {
+      color: var(--color-background-primary);
+      background: var(--viz-network-help, #1e8250);
+      border-color: var(--viz-network-help, #1e8250);
+    }
+
     @media (max-width: 600px) {
       .atlas-export-container {
         margin-left: 0;
@@ -349,7 +394,130 @@
     setTimeout(() => modalOverlay.classList.add('active'), 50);
   }
 
-  // 6. Initialization
+  // 6. Citation helpers + modal (BibTeX + GOST-style Russian reference)
+  const SITE_NAME = 'Афанасий Никитин — интерактивный атлас';
+  const CANONICAL_BASE = 'https://gasyoun.github.io/AfanasiyNikitin/atlas/';
+
+  // Widget's own title: prefer the breadcrumb "current" label, else strip the
+  // site-name suffix/prefix off <title> (widgets vary in order).
+  function getWidgetTitle() {
+    const crumb = document.querySelector('.atlas-breadcrumb-current');
+    if (crumb && crumb.textContent.trim()) return crumb.textContent.trim();
+    let t = (document.title || '').trim();
+    t = t.replace(/\s*[—–-]\s*Афанасий Никитин.*$/i, '')
+         .replace(/^Афанасий Никитин\s*[—–-]\s*/i, '')
+         .trim();
+    return t || 'Интерактивный атлас';
+  }
+
+  function accessDate() {
+    const d = new Date();
+    const p = (n) => String(n).padStart(2, '0');
+    return `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()}`;
+  }
+
+  function citeKey(cleanName) {
+    return 'gasuns_' + cleanName.replace(/[^a-z0-9]+/gi, '_').replace(/^_|_$/g, '') + '_2026';
+  }
+
+  function buildBibtex(title, url, cleanName) {
+    return [
+      `@misc{${citeKey(cleanName)},`,
+      `  author       = {Gasūns, Mārcis},`,
+      `  title        = {${title}},`,
+      `  year         = {2026},`,
+      `  howpublished = {\\url{${url}}},`,
+      `  note         = {${SITE_NAME}. CC-BY-4.0. Дата обращения: ${accessDate()}}`,
+      `}`,
+    ].join('\n');
+  }
+
+  function buildGost(title, url) {
+    return `Гасунс М. ${title} // ${SITE_NAME}. 2026. URL: ${url} (дата обращения: ${accessDate()}).`;
+  }
+
+  let citeOverlay = null;
+  function showCiteModal(cleanName) {
+    const title = getWidgetTitle();
+    const url = CANONICAL_BASE + cleanName + '.html';
+    const bibtex = buildBibtex(title, url, cleanName);
+    const gost = buildGost(title, url);
+
+    if (!citeOverlay) {
+      citeOverlay = document.createElement('div');
+      citeOverlay.className = 'atlas-export-modal-overlay';
+
+      const card = document.createElement('div');
+      card.className = 'atlas-export-modal-card';
+
+      const header = document.createElement('div');
+      header.className = 'atlas-export-modal-header';
+      header.innerHTML = `
+        <h3>Цитировать</h3>
+        <button class="atlas-export-modal-close" aria-label="Закрыть"><i class="ti ti-x"></i></button>
+      `;
+
+      const body = document.createElement('div');
+      body.className = 'atlas-export-modal-body';
+      body.innerHTML = `
+        <p>Ссылка на эту визуализацию для академической статьи или списка литературы:</p>
+        <div class="atlas-cite-section" data-fmt="bibtex">
+          <div class="atlas-cite-label">BibTeX
+            <button class="atlas-cite-copy" type="button"><i class="ti ti-copy"></i> Копировать</button>
+          </div>
+          <textarea class="atlas-export-modal-textarea" readonly></textarea>
+        </div>
+        <div class="atlas-cite-section" data-fmt="gost">
+          <div class="atlas-cite-label">ГОСТ (Р 7.0.100)
+            <button class="atlas-cite-copy" type="button"><i class="ti ti-copy"></i> Копировать</button>
+          </div>
+          <textarea class="atlas-export-modal-textarea" style="height:70px" readonly></textarea>
+        </div>
+      `;
+
+      card.appendChild(header);
+      card.appendChild(body);
+      citeOverlay.appendChild(card);
+      document.body.appendChild(citeOverlay);
+
+      // Close events
+      header.querySelector('.atlas-export-modal-close').onclick = () => citeOverlay.classList.remove('active');
+      citeOverlay.onclick = (e) => {
+        if (e.target === citeOverlay) citeOverlay.classList.remove('active');
+      };
+
+      // Per-section copy actions
+      body.querySelectorAll('.atlas-cite-section').forEach(section => {
+        const btn = section.querySelector('.atlas-cite-copy');
+        const textarea = section.querySelector('.atlas-export-modal-textarea');
+        btn.onclick = function() {
+          textarea.select();
+          const done = () => {
+            this.innerHTML = '<i class="ti ti-check"></i> Скопировано!';
+            this.classList.add('copied');
+            setTimeout(() => {
+              this.innerHTML = '<i class="ti ti-copy"></i> Копировать';
+              this.classList.remove('copied');
+            }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(textarea.value).then(done, () => { document.execCommand('copy'); done(); });
+          } else {
+            document.execCommand('copy');
+            done();
+          }
+        };
+      });
+    }
+
+    // Fill fresh values (access date is re-evaluated every open)
+    citeOverlay.querySelector('[data-fmt="bibtex"] .atlas-export-modal-textarea').value = bibtex;
+    citeOverlay.querySelector('[data-fmt="gost"] .atlas-export-modal-textarea').value = gost;
+
+    setTimeout(() => citeOverlay.classList.add('active'), 50);
+  }
+
+  // 7. Initialization
   function init() {
     const container = document.querySelector('.vis-container');
     if (!container) return;
@@ -395,6 +563,14 @@
     btnEmbed.innerHTML = '<i class="ti ti-code"></i> Встроить';
     btnEmbed.onclick = () => showEmbedModal(pageFilename);
     exportContainer.appendChild(btnEmbed);
+
+    // Cite Button
+    const btnCite = document.createElement('button');
+    btnCite.className = 'atlas-export-btn';
+    btnCite.title = 'Получить библиографическую ссылку (BibTeX, ГОСТ)';
+    btnCite.innerHTML = '<i class="ti ti-quote"></i> Цитировать';
+    btnCite.onclick = () => showCiteModal(cleanName);
+    exportContainer.appendChild(btnCite);
 
     // Inject into header cleanly
     const breadcrumb = header.querySelector('.atlas-breadcrumb');

@@ -34,6 +34,9 @@ export default function AtlasFigure({
   const containerRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [embedCopied, setEmbedCopied] = useState(false);
+  const [citeOpen, setCiteOpen] = useState(false);
+  const [citation, setCitation] = useState({ bibtex: '', gost: '' });
+  const [citeCopied, setCiteCopied] = useState('');
 
   useEffect(() => {
     function onFsChange() {
@@ -63,6 +66,41 @@ export default function AtlasFigure({
     }
   }
 
+  function openCite() {
+    // Widget's own name, canonical published URL, access date (computed now,
+    // not at build time). Rights-clear: project's own CC-BY-4.0 metadata only.
+    const workTitle = title || caption || src.replace(/\.html$/, '');
+    const d = new Date();
+    const p = (n) => String(n).padStart(2, '0');
+    const accessed = `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()}`;
+    const key = 'gasuns_' + src.replace(/\.html$/, '').replace(/[^a-z0-9]+/gi, '_').replace(/^_|_$/g, '') + '_2026';
+    const site = 'Афанасий Никитин — интерактивный атлас';
+    const bibtex = [
+      `@misc{${key},`,
+      `  author       = {Gasūns, Mārcis},`,
+      `  title        = {${workTitle}},`,
+      `  year         = {2026},`,
+      `  howpublished = {\\url{${embedUrl}}},`,
+      `  note         = {${site}. CC-BY-4.0. Дата обращения: ${accessed}}`,
+      `}`,
+    ].join('\n');
+    const gost = `Гасунс М. ${workTitle} // ${site}. 2026. URL: ${embedUrl} (дата обращения: ${accessed}).`;
+    setCitation({ bibtex, gost });
+    setCiteCopied('');
+    setCiteOpen(true);
+  }
+
+  async function copyCite(kind) {
+    const text = kind === 'bibtex' ? citation.bibtex : citation.gost;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCiteCopied(kind);
+      setTimeout(() => setCiteCopied(''), 2000);
+    } catch {
+      window.prompt('Скопируйте ссылку:', text);
+    }
+  }
+
   return (
     <figure className={styles.figure}>
       {children && <div className={styles.description}>{children}</div>}
@@ -86,6 +124,14 @@ export default function AtlasFigure({
             aria-label="Скопировать код для встраивания на другой сайт"
           >
             {embedCopied ? '✓ Скопировано' : '⧉ Embed'}
+          </button>
+          <button
+            type="button"
+            className={styles.embedBtn}
+            onClick={openCite}
+            aria-label="Получить библиографическую ссылку (BibTeX, ГОСТ)"
+          >
+            ❞ Цитировать
           </button>
           <a
             className={styles.openLink}
@@ -120,6 +166,44 @@ export default function AtlasFigure({
             </span>
           )}
         </figcaption>
+      )}
+      {citeOpen && (
+        <div
+          className={styles.citeOverlay}
+          onClick={(e) => { if (e.target === e.currentTarget) setCiteOpen(false); }}
+        >
+          <div className={styles.citeCard} role="dialog" aria-label="Цитировать">
+            <div className={styles.citeHeader}>
+              <strong>Цитировать</strong>
+              <button
+                type="button"
+                className={styles.citeClose}
+                onClick={() => setCiteOpen(false)}
+                aria-label="Закрыть"
+              >
+                ✕
+              </button>
+            </div>
+            <div className={styles.citeSection}>
+              <div className={styles.citeLabel}>
+                BibTeX
+                <button type="button" className={styles.citeCopyBtn} onClick={() => copyCite('bibtex')}>
+                  {citeCopied === 'bibtex' ? '✓ Скопировано' : 'Копировать'}
+                </button>
+              </div>
+              <textarea className={styles.citeTextarea} readOnly value={citation.bibtex} rows={8} />
+            </div>
+            <div className={styles.citeSection}>
+              <div className={styles.citeLabel}>
+                ГОСТ (Р 7.0.100)
+                <button type="button" className={styles.citeCopyBtn} onClick={() => copyCite('gost')}>
+                  {citeCopied === 'gost' ? '✓ Скопировано' : 'Копировать'}
+                </button>
+              </div>
+              <textarea className={styles.citeTextarea} readOnly value={citation.gost} rows={3} />
+            </div>
+          </div>
+        </div>
       )}
     </figure>
   );
