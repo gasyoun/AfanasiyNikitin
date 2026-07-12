@@ -6,6 +6,16 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ---
 
+## [1.9.1] - 2026-07-12
+
+Concordance-page restoration + a Minimal design mockup ([H832](https://github.com/gasyoun/Uprava/blob/main/handoffs/H832-Opus_AfanasiyNikitin_concordance-index-minimal-mockup_12.07.26.md), part of the [H563](https://github.com/gasyoun/Uprava/blob/main/handoffs/H563-Fable_Uprava_dashboard-redesign-4-directions_11.07.26.md) org-wide dashboard/index redesign fan-out); executor Opus 4.8 (`claude-opus-4-8`). Site-only release — no `data/` change, dataset version stays 1.1.0.
+
+### Fixed
+- **`static/atlas/afanasy_concordance_index.html` was completely non-functional and is now restored.** The H486 Docusaurus rebuild ([1.6.0], commit `f54d64d`, where the file was first added) left it corrupted in two places, so the entire ~1024-line inline script never executed — **no toponym/person list, no search, no detail cards**, standalone *and* in the iframed `<AtlasFigure>` widget. (1) The floating theme-toggle `<button style="…">` was truncated mid-value at `box-sh`, its quote/`>` never closed, and the `</button>` + the `<script src="js/atlas-data.js">` / `js/atlas-theme.js` includes + the inline `<script>` opener were all dropped (the whole script was swallowed as an unterminated button attribute — `document.scripts` was empty). Restored from the healthy sibling `afanasy_gantt.html`. (2) A duplicated 123-line block of detail-render code had been spliced past the real IIFE close (`})();m: 8px;">…`), introducing a `SyntaxError`; removed (the truncated script is validated by `node --check`, and every function it calls is defined once before the close). The page now renders the real 25 toponyms + 15 historical figures from `js/atlas-data.js`, with working search and detail cards. It was the **only** one of the 33 atlas pages affected.
+
+### Added
+- **Minimal design-direction mockup for the concordance index** — [`static/atlas/mockups/minimal.html`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/mockups/minimal.html), a non-destructive restyle of the (now-working) concordance page into the H563 **Minimal** direction: paper-white surfaces, one restrained indigo accent, hairline rules, near-flat shadows, sans (Inter) title, plus a Minimal dark-mode remap. Implemented as a token-override layer over `css/atlas.css`'s primitive ramps, so the page's markup and full inline script stay **byte-identical** to the live page (verified by `diff`); a `<base href="../">` lets it live one folder down while keeping the original relative asset/nav paths. The live page is untouched — a human picks the winning direction per H563.
+
 ## [1.9.0] - 2026-07-12
 
 Citation-export feature ([PR #42](https://github.com/gasyoun/AfanasiyNikitin/pull/42), [H766](https://github.com/gasyoun/Uprava/blob/main/handoffs/H766-Fable_AfanasiyNikitin_citation-export-54_12.07.26.md)); executor Opus 4.8 (`claude-opus-4-8`). Site-only release — no `data/` change, dataset version stays 1.1.0.

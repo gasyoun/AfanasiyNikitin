@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Указатель топонимов и лиц — Афанасий Никитин</title>
+  <!-- H563 fan-out · Minimal mockup lives one level below static/atlas/; this base
+       lets the byte-identical body/JS keep its original relative asset + nav paths. -->
+  <base href="../">
+  <title>Указатель топонимов и лиц — Афанасий Никитин (Minimal mockup)</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/atlas.css">
   <link rel="stylesheet" href="lib/tabler-icons.min.css">
@@ -279,6 +282,67 @@
         min-height: 250px;
       }
     }
+  </style>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       MINIMAL direction — token-override layer (H563 fan-out · H832)
+       Surface: AfanasiyNikitin concordance index. Everything above this block —
+       markup, inline concordance CSS, and the full inline <script> below — is
+       byte-identical to static/atlas/afanasy_concordance_index.html. This block
+       only REDEFINES the shared design-system palette ramps (the two-tier token
+       system in css/atlas.css): parchment/sepia-ink/cinnabar → paper-white,
+       cool-neutral ink, one restrained indigo accent, hairline rules, near-flat
+       shadows, sans title. Overriding the PRIMITIVES (not the semantic tokens)
+       keeps the primitive→semantic mapping and the dark-mode remap intact, so
+       the theme toggle still works. Non-destructive: never overwrites the live
+       page — a human picks the winning direction per H563.
+       ══════════════════════════════════════════════════════════════════════ -->
+  <style>
+    /* — Light: Minimal palette ramps — */
+    :root {
+      /* Ink ramp (500 is the border step, not text) */
+      --p-ink-900: #1b1b1f;   /* text primary — near-black, faint cool  */
+      --p-ink-700: #6b6b76;   /* text secondary — cool grey             */
+      --p-ink-500: #d0d0d6;   /* border-primary — soft hairline ring    */
+      /* Parchment ramp → paper (no tint, whisper-warm white) */
+      --p-parchment-50:  #fdfdfc;  /* page paper           */
+      --p-parchment-100: #f7f7f6;  /* raised surfaces      */
+      --p-parchment-200: #eeeef0;  /* hover / tertiary bg  */
+      --p-parchment-300: #ececef;  /* border-tertiary      */
+      --p-parchment-400: #e1e1e6;  /* border-secondary     */
+      /* One accent — restrained indigo (replaces cinnabar) */
+      --p-accent-500: #4f46e5;
+      --p-accent-600: #4338ca;
+
+      /* Minimal chrome: tighter radii, near-flat shadows, sans title */
+      --border-radius-lg: 8px;
+      --border-radius-md: 6px;
+      --border-radius-sm: 3px;
+      --shadow-container: 0 1px 2px rgba(20,20,25,.05), 0 1px 3px rgba(20,20,25,.04);
+      --shadow-floating-control: 0 2px 10px rgba(20,20,25,.12);
+      --shadow-popover: 0 4px 14px rgba(20,20,25,.10);
+      --shadow-detail-panel: 0 1px 6px rgba(20,20,25,.06);
+      --font-display: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* — Dark: Minimal palette ramps (keeps the theme toggle meaningful) — */
+    html[data-theme="dark"] {
+      --p-ink-900: #ececf1;
+      --p-ink-700: #a0a0ab;
+      --p-ink-500: #3b3b42;
+      --p-parchment-50:  #141417;
+      --p-parchment-100: #191a1d;
+      --p-parchment-200: #212227;
+      --p-parchment-300: #2a2b30;
+      --p-parchment-400: #33343a;
+      --p-accent-500: #8b83f5;
+      --p-accent-600: #a7a1f8;
+    }
+
+    /* — Recolor the two hard-coded amber spots in the inline CSS above to the
+         Minimal accent (later same-selector rules win; nothing else changes) — */
+    mark.search-highlight { background: rgba(79,70,229,.15); }
+    .concordance-search-input:focus { box-shadow: 0 0 0 2px rgba(79,70,229,.18); }
   </style>
 </head>
 <body>
