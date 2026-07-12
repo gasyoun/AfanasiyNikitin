@@ -79,7 +79,7 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 | 4.1 | **PWA Service Worker** (`sw.js`) | 🟢 Done | Caches all 29 HTML files + local D3/TopoJSON assets + the spine map's data |
 | 4.2 | **`manifest.json`** | 🟢 Done | Installable as home-screen app |
 | 4.3 | **CDN fallback** | 🟢 Done | D3, TopoJSON, world-atlas bundled locally in `lib/` |
-| 4.4 | **Canvas performance on mobile** | ⬜ Planned | `devicePixelRatio` awareness and detail reduction |
+| 4.4 | **Canvas performance on mobile** | 🟢 Done | `devicePixelRatio` awareness across all 10 canvas widgets (already shipped; classified in [PR #40](https://github.com/gasyoun/AfanasiyNikitin/pull/40), H719) |
 | 4.5 | **Real-device PWA validation** | ⬜ Planned | Android Chrome install prompt + iPhone Safari Add to Home Screen + offline reload |
 
 ---
@@ -89,9 +89,9 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 | # | Item | Status | Notes |
 |---|------|--------|-------|
 | 5.1 | **Full-text search** | 🟢 Done | Search bar + category filter pills on `index.html` |
-| 5.2 | **Toponym / person index** | ⬜ Planned | Cross-visualization panel: click "Ормуз" → highlights across map, Gantt, trade chart |
-| 5.3 | **Text passage viewer** | ⬜ Planned | Sidebar with original text synchronized to map animation |
-| 5.4 | **Citation export** | ⬜ Planned | BibTeX / footnote for academic papers |
+| 5.2 | **Toponym / person index** | 🟢 Done | `afanasy_concordance_index.html` (H486); classified in [PR #40](https://github.com/gasyoun/AfanasiyNikitin/pull/40), H719 |
+| 5.3 | **Text passage viewer** | 🟢 Done | Flagship map text-sync since v1; classified in [PR #40](https://github.com/gasyoun/AfanasiyNikitin/pull/40), H719 |
+| 5.4 | **Citation export** | 🟢 Done | "Цитировать" button → BibTeX `@misc` + GOST-style Russian reference, on the widget export toolkit and `<AtlasFigure>` toolbar ([PR #42](https://github.com/gasyoun/AfanasiyNikitin/pull/42), H766) |
 | 5.5 | **English localization** | ⬜ Planned | Language toggle RU/EN |
 
 ---
@@ -100,9 +100,9 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
 | # | Item | Priority | Description |
 |---|------|----------|-------------|
-| 6.1 | **SVG/PNG download buttons** | 🟡 Medium | Each SVG chart gets a "⬇ Download SVG" and "⬇ Download PNG" button. For Canvas pages: `canvas.toBlob()`. For SVG: `Blob` + `URL.createObjectURL` |
+| 6.1 | **SVG/PNG download buttons** | 🟢 Done | `js/atlas-export.js` (SVG + PNG via `canvas.toBlob()` / `Blob`+`URL.createObjectURL`) in 27 widgets (H486); classified in [PR #40](https://github.com/gasyoun/AfanasiyNikitin/pull/40), H719 |
 | 6.2 | **Embeddable `<iframe>` snippets** | 🟢 Done | `<AtlasFigure>` toolbar (H719) has a "⧉ Embed" button that copies a ready-to-paste `<iframe src="https://gasyoun.github.io/AfanasiyNikitin/atlas/…">` snippet for the canonical published widget — one component, all 33 pages |
-| 6.3 | **Print stylesheet** | 🟢 Low | `@media print {}` rules that hide controls, expand charts to full width, and render in black-and-white for academic papers |
+| 6.3 | **Print stylesheet** | 🟢 Done | `@media print` in `css/atlas.css` (hides controls, expands charts); classified in [PR #40](https://github.com/gasyoun/AfanasiyNikitin/pull/40), H719 |
 
 ---
 
@@ -142,23 +142,22 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
 ```
 🔴 High priority (do next):
-  4.5 Real-device PWA validation
-  5.2 Toponym / person index
-  6.1 SVG/PNG export buttons
+  4.5 Real-device PWA validation  (gated — needs physical Android/iPhone)
 
 🟡 Medium priority:
-  4.4 Mobile canvas optimization
   8.5 Full live GitHub Pages smoke test
-  5.3 Text passage viewer polish
-  5.5 English localization
-  6.2 iframe embed snippets
 
 🟢 Low priority / nice-to-have:
   8.4 Broad hardcoded-color review
-  5.4 Citation export
-  6.3 Print stylesheet
+
+✅ Recently shipped (2026-07):
+  5.5 English localization        (v1.7.0)
+  6.2 iframe embed snippets       (v1.8.0, PR #39)
+  4.4 Mobile canvas optimization  · 5.2 Toponym index · 5.3 Text passage viewer
+  6.1 SVG/PNG export buttons · 6.3 Print stylesheet   (classified done, PR #40 / H719)
+  5.4 Citation export             (PR #42 / H766)
 ```
 
 ---
 
-*Maintained by Antigravity AI · Last updated 2026-05-21*
+*Maintained by Antigravity AI · Last updated 2026-07-12*
