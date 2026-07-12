@@ -6,7 +6,9 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ---
 
-## [Unreleased]
+## [1.9.0] - 2026-07-12
+
+Citation-export feature ([PR #42](https://github.com/gasyoun/AfanasiyNikitin/pull/42), [H766](https://github.com/gasyoun/Uprava/blob/main/handoffs/H766-Fable_AfanasiyNikitin_citation-export-54_12.07.26.md)); executor Opus 4.8 (`claude-opus-4-8`). Site-only release — no `data/` change, dataset version stays 1.1.0.
 
 ### Added
 - **Citation ("Цитировать") button on every atlas figure** (ROADMAP 5.4, [H766](https://github.com/gasyoun/Uprava/blob/main/handoffs/H766-Fable_AfanasiyNikitin_citation-export-54_12.07.26.md)) — a "Цитировать" control now sits in both citation surfaces: the widget export toolkit (`static/atlas/js/atlas-export.js`, next to SVG/PNG/Встроить) and the `<AtlasFigure>` toolbar (next to "⧉ Embed"). It opens a modal with two ready-to-copy blocks: a **BibTeX** `@misc` record (`author = {Gasūns, Mārcis}`, widget title, `year = {2026}`, `howpublished = {\url{…}}`, note with site name + CC-BY-4.0 + access date) and a **GOST-style Russian reference** (`Гасунс М. <виджет> // Афанасий Никитин — интерактивный атлас. 2026. URL: … (дата обращения: DD.MM.YYYY)`). Both point at the canonical published URL (`https://gasyoun.github.io/AfanasiyNikitin/atlas/<widget>.html` — from `useDocusaurusContext().siteConfig.url` in React, hard-coded canonical base in the widget toolkit), never the dev host; the access date is computed at open time. Rights-clear (RIGHTS.md): inputs are the project's own CC-BY-4.0 metadata — page title/URL + `CITATION.cff` author — no in-copyright text. Widget-toolkit copy falls back to `document.execCommand('copy')` and the React modal to `window.prompt` where the async Clipboard API is unavailable.

@@ -91,7 +91,7 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 | 5.1 | **Full-text search** | 🟢 Done | Search bar + category filter pills on `index.html` |
 | 5.2 | **Toponym / person index** | 🟢 Done | `afanasy_concordance_index.html` (H486); classified in [PR #40](https://github.com/gasyoun/AfanasiyNikitin/pull/40), H719 |
 | 5.3 | **Text passage viewer** | 🟢 Done | Flagship map text-sync since v1; classified in [PR #40](https://github.com/gasyoun/AfanasiyNikitin/pull/40), H719 |
-| 5.4 | **Citation export** | 🟢 Done | "Цитировать" button → BibTeX `@misc` + GOST-style Russian reference, on the widget export toolkit and `<AtlasFigure>` toolbar ([PR #PLACEHOLDER](https://github.com/gasyoun/AfanasiyNikitin/pull/PLACEHOLDER), H766) |
+| 5.4 | **Citation export** | 🟢 Done | "Цитировать" button → BibTeX `@misc` + GOST-style Russian reference, on the widget export toolkit and `<AtlasFigure>` toolbar ([PR #42](https://github.com/gasyoun/AfanasiyNikitin/pull/42), H766) |
 | 5.5 | **English localization** | ⬜ Planned | Language toggle RU/EN |
 
 ---
@@ -155,7 +155,7 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
   6.2 iframe embed snippets       (v1.8.0, PR #39)
   4.4 Mobile canvas optimization  · 5.2 Toponym index · 5.3 Text passage viewer
   6.1 SVG/PNG export buttons · 6.3 Print stylesheet   (classified done, PR #40 / H719)
-  5.4 Citation export             (PR #PLACEHOLDER / H766)
+  5.4 Citation export             (PR #42 / H766)
 ```
 
 ---
