@@ -110,7 +110,7 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 
 | # | Item | Cadence | Notes |
 |---|------|---------|-------|
-| 7.1 | Gold rate update (`GOLD_GRAM_USD`, `USD_RUB`) | Weekly | In `afanasy_trade_marshruttnik.html`; current: $151.18/g, 1 зол. ≈ $529 ≈ ₽38 900 |
+| 7.1 | Gold rate update (`GOLD_GRAM_USD`, `USD_RUB`) | Weekly | In `afanasy_trade_guide_v4.html` (not `afanasy_trade_marshruttnik.html`, which has no rate constants); current: $131.54/g, USD/RUB 78.11, 1 зол. ≈ $460 ≈ ₽35 931 (27 июля 2026) |
 | 7.2 | Waypoint data review | Per book edition | If Khrustalev publishes errata or a 2nd edition, update `afanasy_journey_data.md` and all widgets |
 | 7.3 | Academic citation index | Annual | Add new publications to `afanasy_citations_stats.html` when created |
 
