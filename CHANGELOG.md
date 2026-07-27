@@ -6,6 +6,13 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ---
 
+## [1.9.2] - 2026-07-27
+
+Gold/currency rate refresh in the trade widget ([H1508](https://github.com/gasyoun/Uprava/blob/main/handoffs/H1508-Sonnet_AfanasiyNikitin_afanasiynikitin-gold-rate-refresh_22.07.26.md)); executor Sonnet 5 (`claude-sonnet-5`). Site-only release — no `data/` change, dataset version stays 1.1.0.
+
+### Changed
+- **Stale gold/currency conversion rates refreshed** in `static/atlas/afanasy_trade_guide_v4.html` (line 163) — `RATES_DATE` had sat at "14 мая 2026" (~10 weeks stale). `GOLD_GRAM_USD` 151.18 → 131.54 (spot gold ≈ $4,090.57/oz on 27 July 2026, per TradingEconomics/Fortune), `USD_RUB` 73.51 → 78.11 (TradingEconomics, 27 July 2026), `RATES_DATE` → "27 июля 2026". Derived `ZOL_USD`/`ZOL_RUB` recompute automatically from the `Math.round(...)` formulas already in the widget (460 / 35 931); no other markup or logic touched.
+
 ## [1.9.1] - 2026-07-12
 
 Concordance-page restoration + a Minimal design mockup ([H832](https://github.com/gasyoun/Uprava/blob/main/handoffs/H832-Opus_AfanasiyNikitin_concordance-index-minimal-mockup_12.07.26.md), part of the [H563](https://github.com/gasyoun/Uprava/blob/main/handoffs/H563-Fable_Uprava_dashboard-redesign-4-directions_11.07.26.md) org-wide dashboard/index redesign fan-out); executor Opus 4.8 (`claude-opus-4-8`). Site-only release — no `data/` change, dataset version stays 1.1.0.
