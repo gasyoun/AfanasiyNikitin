@@ -92,7 +92,7 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled
 | 5.2 | **Toponym / person index** | 🟢 Done | `afanasy_concordance_index.html` (H486); classified in [PR #40](https://github.com/gasyoun/AfanasiyNikitin/pull/40), H719 |
 | 5.3 | **Text passage viewer** | 🟢 Done | Flagship map text-sync since v1; classified in [PR #40](https://github.com/gasyoun/AfanasiyNikitin/pull/40), H719 |
 | 5.4 | **Citation export** | 🟢 Done | "Цитировать" button → BibTeX `@misc` + GOST-style Russian reference, on the widget export toolkit and `<AtlasFigure>` toolbar ([PR #42](https://github.com/gasyoun/AfanasiyNikitin/pull/42), H766) |
-| 5.5 | **English localization** | ⬜ Planned | Language toggle RU/EN |
+| 5.5 | **English localization** | 🟢 Done | Language toggle RU/EN; shipped H498 (10-07-2026, v1.7.0) |
 
 ---
 
