@@ -1,7 +1,7 @@
 # Афанасий Никитин — интерактивный атлас
 ## Визуализации по книге Д.Г. Хрусталева «Тетради купца Афанасия» (СПб.: Нестор-История, 2026)
 
-_Created: 19-05-2026 · Last updated: 11-07-2026_
+_Created: 19-05-2026 · Last updated: 26-08-2026_
 
 **🌐 [Открыть интерактивный атлас](https://gasyoun.github.io/AfanasiyNikitin/)**
 
@@ -284,7 +284,7 @@ _Created: 19-05-2026 · Last updated: 11-07-2026_
 
 Атлас опирается на открытый машиночитаемый набор данных в каталоге [`data/`](data/) — это «хребет» проекта (единый источник истины), из которого уже питаются сами виджеты.
 
-- **9 датасетов** (CSV, UTF-8): источники, места, маршрут, люди, издания, цитируемость, торговля, 104 фрагмента рукописи и вычисленный календарь. Описаны Frictionless-дескриптором [`datapackage.json`](datapackage.json).
+- **12 датасетов** (CSV, UTF-8): источники, места, маршрут, люди, издания, цитируемость, торговля, 104 фрагмента рукописи, вычисленный календарь, а также этапы (`legs`), события (`events`) и связи (`edges`), добавленные 01-06-2026. Плюс 6 производных выгрузок (LPF GeoJSON, маршрут GeoJSON, литовский итинерарий, RDF/Turtle, BibTeX, CSL-JSON) — всего **18 ресурсов**. Описаны Frictionless-дескриптором [`datapackage.json`](datapackage.json).
 - **Виджеты читают из «хребта».** Четыре флагманских виджета строятся прямо из `data/*.csv` при загрузке, с жестким откатом на встроенные данные офлайн / при `file://`: [`afanasy_v8_text_map.html`](static/atlas/afanasy_v8_text_map.html) (маршрут ← места + итинерарий), [`afanasy_people_network.html`](static/atlas/afanasy_people_network.html) (граф ← люди + связи), [`afanasy_citations_v2.html`](static/atlas/afanasy_citations_v2.html) (цитируемость по десятилетиям) и [`afanasy_editions_v3.html`](static/atlas/afanasy_editions_v3.html) (метаданные изданий). У каждого — доступная таблица-эквивалент и метки `epistemic`/`certainty` со ссылками на Wikidata. Прототип «с нуля из данных» — [`afanasy_map_spine.html`](static/atlas/afanasy_map_spine.html).
 - **Прозрачность достоверности.** Каждая строка несет метки `epistemic` (текст / реконструкция / локализация / модель / гипотеза) и `certainty`; торговые коэффициенты и оценки цитируемости явно помечены как `model`.
 - **Linked Open Data.** Места и люди сверены с **Wikidata / GeoNames / Pleiades / VIAF** (22 из 26 мест и 7 из 15 лиц подтверждены; аудит в [`data/reconciliation.md`](data/reconciliation.md)). Газеттир выгружен в **Linked Places Format** ([`data/places.lpf.geojson`](data/places.lpf.geojson)) для World Historical Gazetteer; маршрут — в [`data/route.geojson`](data/route.geojson).
