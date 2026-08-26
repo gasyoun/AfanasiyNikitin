@@ -6,6 +6,23 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ---
 
+## [1.9.3] - 2026-08-26
+
+Documentation truth-pass against the working tree ([H3003](https://github.com/gasyoun/Uprava/blob/main/handoffs/H3003-Opus_multi_stale-roadmap-s5-dh-narrative-ask-replan_17.08.26.md), slice 5 of the stale-roadmap `/ask` batch); executor Opus 5 (`claude-opus-5`). Docs-only release — no site code, no `data/` change, dataset version stays 1.1.0.
+
+### Fixed
+- **`ROADMAP.md` claimed a PWA that had been deleted nine weeks earlier.** Commit `f54d64d` (10-07-2026, [PR #34](https://github.com/gasyoun/AfanasiyNikitin/pull/34), H486) removed `sw.js`, `manifest.json`, `index.html` and `check_sw.html` in the Docusaurus rebuild, and nothing replaced them — `package.json` carries no `@docusaurus/plugin-pwa`. Six roadmap statements were silently falsified by that one commit and are now corrected against the tree: 1.3 (hand-written card hub) and 4.1/4.2 (Service Worker, installable manifest) → ❌ Removed with the deleting commit cited; 4.5 (real-device PWA validation), which had stood as the file's single 🔴 «do next» item, → ❌ Not executable; 5.1 (full-text search) → ❌ Regressed — `docusaurus.config.mjs` has no Algolia block and `package.json` no local-search plugin, so category browsing survives as the `/atlas/` IA but site-wide search exists nowhere; 8.5's «Service Worker» smoke-test leg dropped. Phase 4's header is ❌ Removed, Phase 5's 🟡 4-of-5, and the `## Priority Summary` no longer promotes a dead item to High priority.
+- **Stale counts corrected in `ROADMAP.md`, `CLAUDE.md` and `README.md`.** «29 interactive visualizations» → **33** (the tree carries 33 widget pages under `static/atlas/`; this CHANGELOG already records the climb 29 → 31 → 32 → 33), and «9 FAIR datasets» → **18 declared resources** = 12 CSV datasets + 6 derived exports per `datapackage.json`. Both were accurate when written and simply never bumped — `legs`/`events`/`edges` landed in `80986b8` on 2026-06-01, the same date as the snapshot line they aged out of.
+- **`ROADMAP.md` 7.3 pointed at a filename that has never existed** in this repository (`afanasy_citations_stats.html`); the real citation widget is [`afanasy_citations_v2.html`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_citations_v2.html).
+- **Phase 6's ⬜ Planned header contradicted its own three 🟢 rows** and is now ✅ Complete; Phase 7's header is 🟡 Ongoing.
+
+### Added
+- **`ROADMAP.md` «Status check 26-08-2026 (H3003)»** — a falsification table (row · claim · what the tree shows · evidence), a «verified still true» list so a later pass does not re-audit 4.3/4.4/5.2–5.5/6.1–6.3/8.1–8.4, and a lane table re-sorting every open item by **who can unblock it**: agent-doable now (7.1 rate refresh, 8.4 colour review, 8.5 live smoke test) · waiting on an artefact (7.2 Khrustalev errata, 7.3 new publications) · needing a human ruling (restore offline support or record the PWA abandoned; restore site-wide search or record it dropped; 4.5, which needs both).
+
+### Notes
+- ROADMAP 7.1's gold/currency rate is ~30 days stale against its own «Weekly» cadence (`RATES_DATE` «27 июля 2026»), and `CLAUDE.md` still quotes the pre-[1.9.2] $151.18/g. Refreshing a live rate is a product update, not roadmap hygiene — H3003 recorded the staleness and deliberately did not execute it.
+- Historical entries below that reference `index.html` or the `afanasy-atlas-v13`/`v14` Service Worker caches describe releases that really shipped and were **not** rewritten. This file is append-only.
+
 ## [1.9.2] - 2026-07-27
 
 Gold/currency rate refresh in the trade widget ([H1508](https://github.com/gasyoun/Uprava/blob/main/handoffs/H1508-Sonnet_AfanasiyNikitin_afanasiynikitin-gold-rate-refresh_22.07.26.md)); executor Sonnet 5 (`claude-sonnet-5`). Site-only release — no `data/` change, dataset version stays 1.1.0.
