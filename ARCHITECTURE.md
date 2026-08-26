@@ -248,7 +248,7 @@ window.ATLAS = {
   ECONOMICS: { steps: [...], goods: [...] },
 
   // Gold rate (update weekly)
-  GOLD: { gramUSD: 151.18, usdRub: 73.5 },
+  GOLD: { gramUSD: 148.76, usdRub: 84.46 },
 };
 ```
 
