@@ -127,7 +127,7 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled / Removed
 
 | # | Item | Cadence | Notes |
 |---|------|---------|-------|
-| 7.1 | Gold rate update (`GOLD_GRAM_USD`, `USD_RUB`) | Weekly | In `afanasy_trade_guide_v4.html` (not `afanasy_trade_marshruttnik.html`, which has no rate constants); current: $131.54/g, USD/RUB 78.11, 1 зол. ≈ $460 ≈ ₽35 931 (27 июля 2026) — **stale by ~30 days against its own Weekly cadence**, and [CLAUDE.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CLAUDE.md) still quotes the pre-H1508 $151.18/g. Refreshing a live rate is a product update, not roadmap hygiene; H3003 recorded the staleness and did not execute it |
+| 7.1 | Gold rate update (`GOLD_GRAM_USD`, `USD_RUB`) | Weekly | 🟢 Refreshed 26-08-2026 under H3558, [PR #66](https://github.com/gasyoun/AfanasiyNikitin/pull/66): $148.76/g (gold-api XAU ÷ 31.1034768, Swissquote cross-check within ~0.08 %), USD/RUB 84.46 (ЦБ РФ via `cbr-xml-daily`), 1 зол. ≈ $521 ≈ ₽44 004 — up 13.3 % in USD from the 27-07-2026 figures. The **cause** of the drift was fixed too, not just the numbers: three of the five rate rows in `afanasy_trade_guide_v4.html` were static markup with no `id`, so the [1.9.2] refresh (27-07-2026, H1508) updated the constants while visitors still saw `14.05.2026 / $151.18/г / ₽73.51 / ₽38 896`. All five values now derive from the one constants line (`r-date`, `r-gold`, `r-usdrub` added). Same rate propagated to `CLAUDE.md`, `README.md`, `index.md`, `ARCHITECTURE.md` |
 | 7.2 | Waypoint data review | Per book edition | If Khrustalev publishes errata or a 2nd edition, update `afanasy_journey_data.md` and all widgets |
 | 7.3 | Academic citation index | Annual | Add new publications to [`afanasy_citations_v2.html`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_citations_v2.html) when created. The filename given here before, `afanasy_citations_stats.html`, has never existed in this repository |
 
@@ -140,8 +140,8 @@ Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled / Removed
 | 8.1 | Desktop no-scroll audit | 🟢 Done | Audited at 1366×768 in headless Edge across the compacted widget set |
 | 8.2 | Canvas dark-mode palettes | 🟢 Done | CSS inversion removed; Canvas widgets draw theme-aware palettes internally |
 | 8.3 | Color-token audit | 🟢 Done | Shared chart/data/shadow tokens now cover the audited pages; legacy audit patterns are clean |
-| 8.4 | Broad hardcoded-color review | ⬜ Planned | Optional: inspect remaining local palette definitions/index decorative CSS; avoid churn unless a real theme/readability issue appears |
-| 8.5 | Full live GitHub Pages smoke test | ⬜ Planned | After Pages deploy, verify the live landing, representative widgets, and the console. The «Service Worker» leg was dropped 26-08-2026 — 4.1 is removed |
+| 8.4 | Broad hardcoded-color review | 🟢 Reviewed 26-08-2026 — no edit warranted | H3558, [PR #66](https://github.com/gasyoun/AfanasiyNikitin/pull/66). Measured, not assumed: 449 colour literals against 2113 `var(--…)` uses; **304 of the 449 sit inside `--var:` definitions** (that *is* the palette mechanism), 145 sit directly in a property, and of those only **6** duplicate a variable defined in the same file — all six on `afanasy_event_timeline.html:93`, a per-category colour list, not CSS drift. Dark theme is not missing: `css/atlas.css` runs a two-tier token system, `[data-theme="dark"]` overrides **52** variables directly and **70** in total through `var()` chains; `atlas.css` is loaded by **33 of 33** widgets, `js/atlas-theme.js` by **32 of 33** (`afanasy_map_spine.html` excepted). The one plausible silent-breakage mode was checked and is zero: no widget overrides any of the 70 dark variables in its own inline `<style>`. The row's own bar was «avoid churn unless a real theme/readability issue appears» — none appeared |
+| 8.5 | Full live GitHub Pages smoke test | 🟡 Network leg done 26-08-2026 · console leg → Lane B | H3558, [PR #66](https://github.com/gasyoun/AfanasiyNikitin/pull/66). Run live against `https://gasyoun.github.io/AfanasiyNikitin`: landing 200 (13 765 B, Docusaurus v3.6.3, canonical and `og:url` agree, hreflang ru/en/x-default); four bundles 200; the doors `/put`, `/atlas`, `/data`, `/en/` 200; `/sitemap.xml` 200; both `contentUrl`s from the JSON-LD `Dataset` 200; `/atlas/css/atlas.css` and `/atlas/js/atlas-theme.js` 200; **all 33 widgets 200, not one non-200**; all five data paths the widgets actually request 200. The **console** leg cannot run from an agent on this machine — the built-in browser pane blocks sub-resource loads client-side (`net::ERR_BLOCKED_BY_CLIENT`) on the very URLs curl serves 200, a pane limitation and not a site defect → needs a human with an ordinary browser. The «Service Worker» leg was dropped 26-08-2026 — 4.1 is removed. Cosmetic, not a defect: the landing `<title>` renders doubled («Афанасий Никитин — Атлас \| Афанасий Никитин — Атлас») |
 
 ---
 
@@ -165,15 +165,20 @@ Rewritten 26-08-2026 against the tree — the previous block promoted 4.5 as the
   — none an agent can execute; 4.5 died with the PWA it was to validate
 
 🟡 Medium priority:
-  8.5 Full live GitHub Pages smoke test   (no Service Worker leg any more)
-  7.1 Gold/currency rate refresh          (~30 days stale against a Weekly cadence)
+  — none an agent can execute; the three Lane-A rows were run 26-08-2026 under H3558 (PR #66)
 
 🟢 Low priority / nice-to-have:
-  8.4 Broad hardcoded-color review
+  — none open
 
 🧊 Needs a human ruling (see «Status check 26-08-2026» below):
   offline support — restore 4.1/4.2, or record the PWA as abandoned
   site-wide search — restore 5.1 on Docusaurus, or record it as dropped in the rebuild
+  8.5 console leg — an agent cannot run it from this machine; a human with an ordinary browser
+
+✅ Recently shipped (2026-08, H3558 / PR #66):
+  7.1 Gold/currency rate refresh  ($148.76/g, USD/RUB 84.46) + the no-`id` cause behind the drift
+  8.4 Hardcoded-color review      (measured; no edit warranted)
+  8.5 Live Pages smoke test       (network leg: 33/33 widgets 200; console leg → a human)
 
 ✅ Recently shipped (2026-07):
   5.5 English localization        (v1.7.0)
@@ -204,7 +209,7 @@ or in the README. No product checkbox was executed in this pass.
 | Snapshot line | «9 FAIR datasets» | 18 declared resources = 12 CSV + 6 derived exports | [`datapackage.json`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/datapackage.json); `legs`/`events`/`edges` added by `80986b8` **on 2026-06-01**, the snapshot's own date — the count went stale within hours, it was never false when written |
 | Phase 5, Phase 6 headers | ⬜ Planned | Phase 6 is three-for-three 🟢; Phase 5 is four-of-five | the tables directly beneath those headers |
 | 7.3 | «add to `afanasy_citations_stats.html`» | that filename has never existed; the real file is `afanasy_citations_v2.html` | [`static/atlas/`](https://github.com/gasyoun/AfanasiyNikitin/tree/main/static/atlas), README |
-| 7.1 | rate current as of 27 July 2026 | ~30 days old against a **Weekly** cadence; `CLAUDE.md` still carries the older $151.18/g | [CLAUDE.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CLAUDE.md) |
+| 7.1 | rate current as of 27 July 2026 | was ~30 days old against a **Weekly** cadence, and `CLAUDE.md` carried the older $151.18/g — **both fixed 26-08-2026** under H3558, [PR #66](https://github.com/gasyoun/AfanasiyNikitin/pull/66) ($148.76/g, USD/RUB 84.46, 1 зол. ≈ $521 ≈ ₽44 004), together with the no-`id` markup that had kept stale values on screen through the previous refresh | [CLAUDE.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CLAUDE.md), [`afanasy_trade_guide_v4.html`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_trade_guide_v4.html) |
 
 ### Verified still true — do not "fix" these
 
@@ -219,8 +224,8 @@ the snapshot's `data-validate` CI claim (job `validate` exists and runs).
 
 | Lane | Items | Who acts |
 |---|---|---|
-| **A — agent-doable now** | 7.1 gold/currency refresh · 8.4 hardcoded-color review · 8.5 live smoke test (after a Pages deploy) | an agent, in a product pass — deliberately **not** executed by this hygiene pass |
-| **B — specified, waiting on an artefact** | 7.2 waypoint review (waits on Khrustalev errata or a 2nd edition) · 7.3 citation index (waits on new publications appearing) | nobody until the artefact exists |
+| **A — agent-doable now** | **0 (was 3)** — all three run 26-08-2026 under H3558, [PR #66](https://github.com/gasyoun/AfanasiyNikitin/pull/66): 7.1 executed · 8.4 measured and closed with no edit · 8.5 network leg executed (33/33 widgets 200) | done; nobody |
+| **B — specified, waiting on an artefact** | 7.2 waypoint review (waits on Khrustalev errata or a 2nd edition) · 7.3 citation index (waits on new publications appearing) · 8.5 console leg (waits on an ordinary browser — the agent pane blocks sub-resources client-side) | nobody until the artefact exists; for 8.5, any human with a normal browser |
 | **C — a human ruling** | restore offline support (4.1/4.2) or record the PWA as abandoned · restore site-wide search (5.1) or record it as dropped · 4.5 real-device validation, which needs both a restored PWA and physical Android/iPhone hardware | a human should decide |
 
 ### The absence of error that was checked
@@ -232,6 +237,6 @@ caches are **historical release records and were left untouched** — that file 
 
 ---
 
-_Executor provenance: Opus 5 (`claude-opus-5`), 26-08-2026, H3003. Superseded byline «Maintained by Antigravity AI · Last updated 2026-07-12»._
+_Executor provenance: Opus 5 (`claude-opus-5`), 26-08-2026 — hygiene pass H3003, then Lane-A execution H3558 ([PR #66](https://github.com/gasyoun/AfanasiyNikitin/pull/66)). Superseded byline «Maintained by Antigravity AI · Last updated 2026-07-12»._
 
 _Dr. Mārcis Gasūns_
