@@ -111,10 +111,10 @@ table.tg-tbl tr.data-row:hover td{background:var(--color-background-secondary);}
   <div class="tg-rate-box">
     <div class="tg-rate-title">Курс золотого</div>
     <div class="tg-rate-row"><span class="tg-rate-lbl">1 зол. = 3.5 г золота</span></div>
-    <div class="tg-rate-row"><span class="tg-rate-lbl">Золото (14.05.2026)</span><span class="tg-rate-val">$151.18/г</span></div>
-    <div class="tg-rate-row"><span class="tg-rate-lbl">1 зол. в USD</span><span class="tg-rate-val" id="r-usd">$529</span></div>
-    <div class="tg-rate-row"><span class="tg-rate-lbl">USD/RUB</span><span class="tg-rate-val">₽73.51</span></div>
-    <div class="tg-rate-row"><span class="tg-rate-lbl">1 зол. в RUB</span><span class="tg-rate-val" id="r-rub">₽38 896</span></div>
+    <div class="tg-rate-row"><span class="tg-rate-lbl">Золото (<span id="r-date">26.08.2026</span>)</span><span class="tg-rate-val" id="r-gold">$148.76/г</span></div>
+    <div class="tg-rate-row"><span class="tg-rate-lbl">1 зол. в USD</span><span class="tg-rate-val" id="r-usd">$521</span></div>
+    <div class="tg-rate-row"><span class="tg-rate-lbl">USD/RUB</span><span class="tg-rate-val" id="r-usdrub">₽84.46</span></div>
+    <div class="tg-rate-row"><span class="tg-rate-lbl">1 зол. в RUB</span><span class="tg-rate-val" id="r-rub">₽44 004</span></div>
     <div style="font-size:9px;color:var(--color-text-secondary);margin-top:5px;opacity:.7;">Обновлять раз в неделю</div>
   </div>
 </div>
@@ -160,9 +160,13 @@ const TGC={
 };
 
 // ── Rates ─────────────────────────────────────────────────────────────────────
-const GOLD_GRAM_USD=131.54, USD_RUB=78.11, DUCAT_G=3.5, RATES_DATE='27 июля 2026';
+const GOLD_GRAM_USD=148.76, USD_RUB=84.46, DUCAT_G=3.5,
+      RATES_DATE='26 августа 2026', RATES_DATE_SHORT='26.08.2026';
 const ZOL_USD=Math.round(DUCAT_G*GOLD_GRAM_USD);
 const ZOL_RUB=Math.round(ZOL_USD*USD_RUB);
+document.getElementById('r-date').textContent=RATES_DATE_SHORT;
+document.getElementById('r-gold').textContent='$'+GOLD_GRAM_USD.toFixed(2)+'/г';
+document.getElementById('r-usdrub').textContent='₽'+USD_RUB.toFixed(2);
 document.getElementById('r-usd').textContent='$'+ZOL_USD.toLocaleString('ru');
 document.getElementById('r-rub').textContent='₽'+ZOL_RUB.toLocaleString('ru');
 document.getElementById('tg-source').innerHTML=

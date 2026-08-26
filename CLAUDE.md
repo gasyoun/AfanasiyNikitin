@@ -142,10 +142,18 @@ The project uses "золотой" (gold coins) for medieval prices. The exchange
 
 ```
 1 золотой ≈ Venetian ducat = 3.5g pure gold
-Current rate: ~$151.18/g → 1 золотой ≈ $529 USD ≈ ₽38,900 RUB
+Current rate: ~$148.76/g → 1 золотой ≈ $521 USD ≈ ₽44,004 RUB (26-08-2026)
 ```
 
-Update the rate weekly by searching for `GOLD_GRAM_USD` and `USD_RUB` constants in widgets that handle economics (e.g., `afanasy_trade_marshruttnik.html`).
+Update the rate weekly in `static/atlas/afanasy_trade_guide_v4.html` — the single
+`const GOLD_GRAM_USD=…, USD_RUB=…, DUCAT_G=…, RATES_DATE=…, RATES_DATE_SHORT=…`
+line is the only place the numbers live; the whole rate box is rendered from it,
+so nothing can drift. (`afanasy_trade_marshruttnik.html` carries no rate
+constants — it never did.) Sources: gold `https://api.gold-api.com/price/XAU`
+(USD per troy ounce ÷ 31.1034768), USD/RUB the official CBR rate from
+`https://www.cbr-xml-daily.ru/daily_json.js`. Also refresh the prose copies in
+`README.md`, `index.md` and `ARCHITECTURE.md`; leave `CHANGELOG.md` and
+`.ai_state.md` history alone.
 
 ### Custom Mercator Projection
 
