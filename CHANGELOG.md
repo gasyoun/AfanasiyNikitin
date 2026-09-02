@@ -6,6 +6,17 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ---
 
+## [1.9.5] - 2026-09-02
+
+Locale-aware browser-title suffix ([H3875](https://github.com/gasyoun/Uprava/blob/main/handoffs/H3875-Sonnet_AfanasiyNikitin_en-browser-title-suffix-localization_02.09.26.md)); executor Sonnet 5 (`claude-sonnet-5`). Site-only release — no `data/` change, dataset version stays 1.1.0.
+
+### Fixed
+- **English pages appended the Russian site name to every `<title>` tag.** `docusaurus.config.mjs`'s top-level `title`/`tagline` were hardcoded Russian strings, so every EN page's browser-title suffix read `| Афанасий Никитин — Атлас` regardless of locale — noted as a cosmetic observation in [1.9.4]. Docusaurus builds each locale as a separate pass and sets `DOCUSAURUS_CURRENT_LOCALE` for its duration (documented per-locale-config technique); `docusaurus.config.mjs` now reads that env var to pick an EN or RU `title`/`tagline` pair, so `npm run build` (used by CI and the existing deploy pipeline) picks up the fix with no workflow changes.
+- **The homepage's own page title leaked Russian into the EN build too.** `src/pages/index.js` passed a hardcoded Russian string to `<Layout title=… description=…>`; changed to `translate()` calls against two new keys (`landing.meta.title`, `landing.meta.description`) added to `i18n/en/code.json`.
+
+### Added
+- **`scripts/check-locale-titles.mjs`**, wired as `npm test` (picked up automatically by the existing `js-lint` CI job's `npm test --if-present`). Builds both `ru` and `en` locales to a temp dir, reads the `<title>` tag off four representative pages, and asserts the EN suffix carries no Cyrillic while the RU suffix still does. Verified as a real regression guard, not a tautology: reverting the `docusaurus.config.mjs` locale read makes it fail (Cyrillic leaking into all four EN suffixes); restoring the fix returns it to green.
+
 ## [1.9.4] - 2026-08-26
 
 Дорожка A (agent-doable) строк 7.1 / 8.4 / 8.5 из статус-проверки H3003, исполнено по [H3558](https://github.com/gasyoun/Uprava/blob/main/handoffs/H3558-Opus_multi_stale-roadmap-s5-lane-a-residuals_26.08.26.md); executor Opus 5 (`claude-opus-5`). Site-only release — no `data/` change, dataset version stays 1.1.0.
