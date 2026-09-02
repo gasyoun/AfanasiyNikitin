@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import Translate from '@docusaurus/Translate';
+import Translate, { translate } from '@docusaurus/Translate';
 import styles from './index.module.css';
 
 const DOORS = [
@@ -37,8 +37,14 @@ const DOORS = [
 export default function Home() {
   return (
     <Layout
-      title="Афанасий Никитин — Атлас"
-      description="Интерактивный атлас путешествия купца Афанасия Никитина, 1467–1475">
+      title={translate({
+        id: 'landing.meta.title',
+        message: 'Афанасий Никитин — Атлас',
+      })}
+      description={translate({
+        id: 'landing.meta.description',
+        message: 'Интерактивный атлас путешествия купца Афанасия Никитина, 1467–1475',
+      })}>
       <header className={styles.hero}>
         <div className="container">
           <h1 className={styles.heroTitle}>

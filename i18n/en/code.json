@@ -17,6 +17,12 @@
   "landing.data.description": {
     "message": "FAIR dataset: route, events, places — CC-BY-4.0, with a DOI"
   },
+  "landing.meta.title": {
+    "message": "Afanasy Nikitin — Atlas"
+  },
+  "landing.meta.description": {
+    "message": "Interactive atlas of merchant Afanasy Nikitin's 1467–1475 journey"
+  },
   "landing.hero.title": {
     "message": "Afanasy Nikitin"
   },

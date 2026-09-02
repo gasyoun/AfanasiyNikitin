@@ -1,10 +1,24 @@
 // @ts-check
 import { themes as prismThemes } from 'prism-react-renderer';
 
+// Docusaurus builds each locale as a separate process/pass and sets
+// DOCUSAURUS_CURRENT_LOCALE for the duration of that pass (documented at
+// https://docusaurus.io/docs/i18n/introduction#customize-configuration-per-locale).
+// `title`/`tagline` are NOT auto-translated by the i18n JSON files the way
+// navbar/footer strings are — read the locale here so the English build's
+// <title> suffix stops appending the Russian site name (H3875).
+const currentLocale = process.env.DOCUSAURUS_CURRENT_LOCALE || 'ru';
+const isEn = currentLocale === 'en';
+
+const siteTitle = isEn ? 'Afanasy Nikitin — Atlas' : 'Афанасий Никитин — Атлас';
+const siteTagline = isEn
+  ? "Interactive atlas of merchant Afanasy Nikitin's 1467–1475 journey"
+  : 'Интерактивный атлас путешествия купца Афанасия Никитина, 1467–1475';
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Афанасий Никитин — Атлас',
-  tagline: 'Интерактивный атлас путешествия купца Афанасия Никитина, 1467–1475',
+  title: siteTitle,
+  tagline: siteTagline,
   favicon: 'img/favicon.svg',
 
   url: 'https://gasyoun.github.io',
