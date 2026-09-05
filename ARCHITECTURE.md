@@ -1,3 +1,5 @@
+_Created: 19-05-2026 · Last updated: 05-09-2026_
+
 # ARCHITECTURE — Афанасий Никитин Интерактивный Атлас
 
 > **As-is analysis + Target architecture plan**  
@@ -444,3 +446,5 @@ This requires no server and no framework — pure browser API.
 ---
 
 *Architecture plan by Antigravity AI · 2026-05-19*
+
+_Dr. Mārcis Gasūns_

@@ -1,3 +1,5 @@
+_Created: 19-05-2026 · Last updated: 05-09-2026_
+
 # GPT 5.5 — Handoff Prompt
 
 > Paste everything below the `---` into GPT 5.5. Self-contained: it links to source-of-truth files in the repo and tells the model what NOT to redo.
@@ -114,3 +116,5 @@ Report:
 4. Updated `AI_STATE.md` `## ➡️ Next Steps` for the next agent.
 
 Begin with Phase 0. Do not skip ahead.
+
+_Dr. Mārcis Gasūns_

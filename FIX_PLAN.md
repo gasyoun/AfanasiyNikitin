@@ -1,3 +1,5 @@
+_Created: 19-05-2026 · Last updated: 05-09-2026_
+
 # FIX PLAN — Existing Visualizations
 ## Based on full analysis of Khrustalev 2026 «Тетради купца Афанасия»
 
@@ -360,3 +362,5 @@ None of the 12 visualizations link to each other (except Gantt→Map via `?wp=N`
 
 *Source: Хрусталев Д.Г. «Тетради купца Афанасия». СПб.: Нестор-История, 2026.*  
 *Full text extracted to `scratch/book_text.txt` (271 pages, 928K chars)*
+
+_Dr. Mārcis Gasūns_

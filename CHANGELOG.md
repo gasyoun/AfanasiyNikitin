@@ -1,8 +1,10 @@
+_Created: 19-05-2026 · Last updated: 05-09-2026_
+
 # CHANGELOG
 
 All notable changes to the Afanasiy Nikitin Interactive Atlas are documented here.  
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
-These versions track the **atlas (site)**. The **dataset** is versioned separately in `datapackage.json` / `CITATION.cff` / `.zenodo.json` and only bumps when `data/` changes — see [data/README.md](data/README.md#versioning-dataset-vs-site).
+These versions track the **atlas (site)**. The **dataset** is versioned separately in `datapackage.json` / `CITATION.cff` / `.zenodo.json` and only bumps when `data/` changes — see [data/README.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/README.md#versioning-dataset-vs-site).
 
 ---
 
@@ -135,12 +137,12 @@ On top of the H486 Docusaurus rebuild ([PR #34](https://github.com/gasyoun/Afana
 ## [1.3.0] - 2026-06-14
 
 ### Changed
-- **Decoupled the dataset version from the site release.** `datapackage.json` / `CITATION.cff` / `.zenodo.json` / the `schema.org/Dataset` block now track the *data* only and are set back to **1.1.0** (the last release in which `data/` actually changed — the genadiy reconciliation); v1.2.0 was widget-only, so the dataset version no longer follows it. The two tracks and the DOI implication are documented in [data/README.md](data/README.md#versioning-dataset-vs-site).
+- **Decoupled the dataset version from the site release.** `datapackage.json` / `CITATION.cff` / `.zenodo.json` / the `schema.org/Dataset` block now track the *data* only and are set back to **1.1.0** (the last release in which `data/` actually changed — the genadiy reconciliation); v1.2.0 was widget-only, so the dataset version no longer follows it. The two tracks and the DOI implication are documented in [data/README.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/README.md#versioning-dataset-vs-site).
 
 ## [1.2.0] - 2026-06-14
 
 ### Added
-- **New widget `afanasy_event_timeline.html` (Хронология событий)** — an interactive timeline of the 12 key events of 1467–1475 (from [data/events.csv](data/events.csv)), spine-driven from day one: nodes are colour-coded by category, and clicking an event cross-links to its place on the route map (`?wp=`) and its actors in the people network (`?node=`), with `epistemic`/`certainty` badges and an accessible data table. Reads `data/events.csv` + places/people/itinerary at boot (dependency-free CSV parser; `window.__ET_SOURCE` reports `spine`/`bundled`) with a denormalised bundled fallback for offline/`file://`. Wired into `index.html` (chronological category, card 12 — atlas now 30 widgets), `sitemap.xml`, the Service Worker cache (`afanasy-atlas-v12`), and `README.md`.
+- **New widget `afanasy_event_timeline.html` (Хронология событий)** — an interactive timeline of the 12 key events of 1467–1475 (from [data/events.csv](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/events.csv)), spine-driven from day one: nodes are colour-coded by category, and clicking an event cross-links to its place on the route map (`?wp=`) and its actors in the people network (`?node=`), with `epistemic`/`certainty` badges and an accessible data table. Reads `data/events.csv` + places/people/itinerary at boot (dependency-free CSV parser; `window.__ET_SOURCE` reports `spine`/`bundled`) with a denormalised bundled fallback for offline/`file://`. Wired into `index.html` (chronological category, card 12 — atlas now 30 widgets), `sitemap.xml`, the Service Worker cache (`afanasy-atlas-v12`), and `README.md`.
 
 ## [1.1.0] - 2026-06-13
 
@@ -150,8 +152,8 @@ On top of the H486 Docusaurus rebuild ([PR #34](https://github.com/gasyoun/Afana
 ### Changed
 - **Reconciliation — 3 open items resolved.** **genadiy** → **Q4135475** (Геннадий Кожин, Bishop of Tver 1461–1477) confirmed and threaded into `data/people.csv`, `tools/reconcile.py` `PERSON_OVERRIDE`, and the RDF `owl:sameAs` (people now 7/15 confirmed). **mamyrev** and **kallur** investigated and deliberately left blank — no Wikidata record exists for the dyak Vasily Mamyrev, and the famous Kollur Mine (Q6427412) is 17th-century (anachronistic for 1470); rationale recorded in `data/reconciliation.md` + a `RESEARCH_NOTES` map in `reconcile.py` so it survives regeneration.
 - **`CITATION.cff` / `.zenodo.json` author** — replaced the `gasyoun` username placeholder with the real author name (Mārcis Gasūns) ahead of the citable release / DOI.
-- **`afanasy_citations_v2.html` migrated onto the data spine** — the 12-decade citation chart now reads its numbers (`total` / `ru` / `foreign` / `translations`) from [data/citations.csv](data/citations.csv) at boot (dependency-free CSV parser; bundled `DEC_BUNDLED` remains the presentation layer — labels, colour tokens, events/notes — and the hard fallback for `file://`/offline; `window.__CI_SOURCE` reports `spine`/`bundled`). Adds the accessible-data-table + `epistemic`/`certainty` badge pattern (canvas marked `role="img"` with `aria-describedby`) — the table makes explicit that these are `model` (estimated attention), not bibliometry. Verified in headless Edge: spine activates over HTTP with the chart numbers unchanged, falls back cleanly under `file://`, clean console.
-- **`afanasy_editions_v3.html` migrated onto the data spine** — the cover shelf now merges structured edition metadata (`year` / `editor` / `place` / `publisher` / `kind`) from [data/editions.csv](data/editions.csv) at boot, joined by `edition_id` (bundled `EDS_BUNDLED` keeps the hand-drawn SVG covers, colours, tags, and c1/c2/q/disc narrative as the presentation layer + hard fallback; `window.__EW_SOURCE` reports `spine`/`bundled`). Adds an accessible data table (year / edition / editor / place / publisher / type) with the shelf marked `role="list"` + `aria-describedby`, and a `kind` badge in the detail panel. Verified in headless Edge: spine activates over HTTP with the covers and years unchanged, falls back cleanly under `file://`, clean console.
+- **`afanasy_citations_v2.html` migrated onto the data spine** — the 12-decade citation chart now reads its numbers (`total` / `ru` / `foreign` / `translations`) from [data/citations.csv](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/citations.csv) at boot (dependency-free CSV parser; bundled `DEC_BUNDLED` remains the presentation layer — labels, colour tokens, events/notes — and the hard fallback for `file://`/offline; `window.__CI_SOURCE` reports `spine`/`bundled`). Adds the accessible-data-table + `epistemic`/`certainty` badge pattern (canvas marked `role="img"` with `aria-describedby`) — the table makes explicit that these are `model` (estimated attention), not bibliometry. Verified in headless Edge: spine activates over HTTP with the chart numbers unchanged, falls back cleanly under `file://`, clean console.
+- **`afanasy_editions_v3.html` migrated onto the data spine** — the cover shelf now merges structured edition metadata (`year` / `editor` / `place` / `publisher` / `kind`) from [data/editions.csv](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/editions.csv) at boot, joined by `edition_id` (bundled `EDS_BUNDLED` keeps the hand-drawn SVG covers, colours, tags, and c1/c2/q/disc narrative as the presentation layer + hard fallback; `window.__EW_SOURCE` reports `spine`/`bundled`). Adds an accessible data table (year / edition / editor / place / publisher / type) with the shelf marked `role="list"` + `aria-describedby`, and a `kind` badge in the detail panel. Verified in headless Edge: spine activates over HTTP with the covers and years unchanged, falls back cleanly under `file://`, clean console.
 
 ## [1.0.0] - 2026-06-13
 
@@ -337,3 +339,5 @@ On top of the H486 Docusaurus rebuild ([PR #34](https://github.com/gasyoun/Afana
 ---
 
 *Generated by Antigravity AI · Last updated 2026-05-19*
+
+_Dr. Mārcis Gasūns_

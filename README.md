@@ -1,7 +1,7 @@
 # Афанасий Никитин — интерактивный атлас
 ## Визуализации по книге Д.Г. Хрусталева «Тетради купца Афанасия» (СПб.: Нестор-История, 2026)
 
-_Created: 19-05-2026 · Last updated: 26-08-2026_
+_Created: 19-05-2026 · Last updated: 05-09-2026_
 
 **🌐 [Открыть интерактивный атлас](https://gasyoun.github.io/AfanasiyNikitin/)**
 
@@ -37,7 +37,7 @@ _Created: 19-05-2026 · Last updated: 26-08-2026_
 - **[Атлас](https://gasyoun.github.io/AfanasiyNikitin/atlas/)** (`atlas-docs/`) — галерея всех виджетов, сгруппированных по шести аналитическим темам плюс раздел «Инструменты» (видеоэкспорт).
 - **[Данные](https://gasyoun.github.io/AfanasiyNikitin/data/)** (`data-docs/`) — документация модели данных и провенанса (откуда взято, что реконструировано, что помечено как `model`).
 
-Каждый виджет остается самостоятельным HTML-файлом в [`static/atlas/`](static/atlas/) и встраивается в страницы одним MDX-компонентом `<AtlasFigure>`. Интерфейс сайта двуязычный: русский (по умолчанию) и английский; на английский переведены подписи и трест-блоки виджетов и документация данных, а нарратив «Пути» остается русскоязычным. Сборка и деплой — через GitHub Actions ([`deploy-pages.yml`](.github/workflows/deploy-pages.yml)).
+Каждый виджет остается самостоятельным HTML-файлом в [`static/atlas/`](static/atlas/) и встраивается в страницы одним MDX-компонентом `<AtlasFigure>`. Интерфейс сайта двуязычный: русский (по умолчанию) и английский; на английский переведены подписи и трест-блоки виджетов и документация данных, а нарратив «Пути» остается русскоязычным. Сборка и деплой — через GitHub Actions ([`deploy-pages.yml`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/.github/workflows/deploy-pages.yml)).
 
 ---
 
@@ -147,63 +147,63 @@ _Created: 19-05-2026 · Last updated: 26-08-2026_
 
 | # | Название | Файл |
 |---|----------|------|
-| 1 | **Тайм-лапс на карте** — анимированный маршрут 1467–1475, историческая карта, цитаты «Хожения» | [afanasy_v8_text_map.html](static/atlas/afanasy_v8_text_map.html) |
-| 2 | **Три путешественника** — Афанасий / Марко Поло / Васко да Гама на одной карте | [three_travelers_comparison.html](static/atlas/three_travelers_comparison.html) |
-| 3 | **Торговый маршрутник (порты)** — интерактивная карта портов Ормуз→Китай с товарами | [afanasy_trade_marshruttnik.html](static/atlas/afanasy_trade_marshruttnik.html) |
-| 4 | **Анимация границ** — политическая карта 1467–1475 (Ак-Коюнлу, Бахманиды, Москва) | [afanasy_borders_animation.html](static/atlas/afanasy_borders_animation.html) |
-| 5 | **Климат и муссоны** — сезонные ветры Индийского океана и их влияние на сроки плавания | [afanasy_climate_monsoon.html](static/atlas/afanasy_climate_monsoon.html) |
-| 6 | **Морские переходы** — скорость и навигация: Аравийское и Черное моря, анимация ветров | [afanasy_sea_voyages.html](static/atlas/afanasy_sea_voyages.html) |
+| 1 | **Тайм-лапс на карте** — анимированный маршрут 1467–1475, историческая карта, цитаты «Хожения» | [afanasy_v8_text_map.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_v8_text_map.html) |
+| 2 | **Три путешественника** — Афанасий / Марко Поло / Васко да Гама на одной карте | [three_travelers_comparison.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/three_travelers_comparison.html) |
+| 3 | **Торговый маршрутник (порты)** — интерактивная карта портов Ормуз→Китай с товарами | [afanasy_trade_marshruttnik.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_trade_marshruttnik.html) |
+| 4 | **Анимация границ** — политическая карта 1467–1475 (Ак-Коюнлу, Бахманиды, Москва) | [afanasy_borders_animation.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_borders_animation.html) |
+| 5 | **Климат и муссоны** — сезонные ветры Индийского океана и их влияние на сроки плавания | [afanasy_climate_monsoon.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_climate_monsoon.html) |
+| 6 | **Морские переходы** — скорость и навигация: Аравийское и Черное моря, анимация ветров | [afanasy_sea_voyages.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_sea_voyages.html) |
 
 ### 📊 Хронологические и количественные (6)
 
 | # | Название | Файл |
 |---|----------|------|
-| 7 | **Гантт-диаграмма** — 8 лет по месяцам: движение, стоянки, события | [afanasy_gantt.html](static/atlas/afanasy_gantt.html) |
-| 8 | **Скорость передвижения** — суша vs море, км/день по отрезкам | [afanasy_speed_land_sea.html](static/atlas/afanasy_speed_land_sea.html) |
-| 9 | **Календарь Пасх** — православные и мусульманские праздники 1467–1475 | [afanasy_calendar_pascha_islam.html](static/atlas/afanasy_calendar_pascha_islam.html) |
-| 10 | **Эмоциональная дуга** — тональность 20 фрагментов «Хожения» по шкале −10…+10 | [afanasy_emotional_arc.html](static/atlas/afanasy_emotional_arc.html) |
-| 11 | **Пасхальный хронограф** — дрейф календарей и календарно-астрономическое обоснование датировки | [afanasy_pascha_chronograph.html](static/atlas/afanasy_pascha_chronograph.html) |
-| 12 | **Хронология событий** — 12 узловых событий 1467–1475, связанных с местами на карте и людьми в сети | [afanasy_event_timeline.html](static/atlas/afanasy_event_timeline.html) |
+| 7 | **Гантт-диаграмма** — 8 лет по месяцам: движение, стоянки, события | [afanasy_gantt.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gantt.html) |
+| 8 | **Скорость передвижения** — суша vs море, км/день по отрезкам | [afanasy_speed_land_sea.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_speed_land_sea.html) |
+| 9 | **Календарь Пасх** — православные и мусульманские праздники 1467–1475 | [afanasy_calendar_pascha_islam.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_calendar_pascha_islam.html) |
+| 10 | **Эмоциональная дуга** — тональность 20 фрагментов «Хожения» по шкале −10…+10 | [afanasy_emotional_arc.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_emotional_arc.html) |
+| 11 | **Пасхальный хронограф** — дрейф календарей и календарно-астрономическое обоснование датировки | [afanasy_pascha_chronograph.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_pascha_chronograph.html) |
+| 12 | **Хронология событий** — 12 узловых событий 1467–1475, связанных с местами на карте и людьми в сети | [afanasy_event_timeline.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_event_timeline.html) |
 
 ### 💬 Текстовые и лингвистические (6)
 
 | # | Название | Файл |
 |---|----------|------|
-| 13 | **Карта языков текста** — русский/тюркский/персидский/арабский по разделам | [afanasy_language_map_v2.html](static/atlas/afanasy_language_map_v2.html) |
-| 14 | **Сравнение рукописей** — Троицкий vs Летописный: параллельный текст, утерянные листы | [afanasy_manuscripts.html](static/atlas/afanasy_manuscripts.html) |
-| 15 | **Слои рукописи** — интерактивный таймлайн 104 фрагментов в хронологическом порядке | [afanasy_manuscript_layers.html](static/atlas/afanasy_manuscript_layers.html) |
-| 16 | **Религиозный кризис** — соотношение православных и мусульманских имен Бога по разделам «Хожения» | [afanasy_religious_crisis.html](static/atlas/afanasy_religious_crisis.html) |
-| 17 | **Парват: «чудо о буте»** — Афанасий в индуистском Шрисайламе: образы Шивы, паломничество и календарный аргумент Махашиваратри (1471) | [afanasy_parvat.html](static/atlas/afanasy_parvat.html) |
-| 18 | **Подстрочник полиглотной молитвы** — финальное славословие (Ф. 104) и три ламента слово за словом: Коран 59:22–24 и имена Аллаха в кириллице | [afanasy_prayer_interlinear.html](static/atlas/afanasy_prayer_interlinear.html) |
+| 13 | **Карта языков текста** — русский/тюркский/персидский/арабский по разделам | [afanasy_language_map_v2.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_language_map_v2.html) |
+| 14 | **Сравнение рукописей** — Троицкий vs Летописный: параллельный текст, утерянные листы | [afanasy_manuscripts.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscripts.html) |
+| 15 | **Слои рукописи** — интерактивный таймлайн 104 фрагментов в хронологическом порядке | [afanasy_manuscript_layers.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscript_layers.html) |
+| 16 | **Религиозный кризис** — соотношение православных и мусульманских имен Бога по разделам «Хожения» | [afanasy_religious_crisis.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_religious_crisis.html) |
+| 17 | **Парват: «чудо о буте»** — Афанасий в индуистском Шрисайламе: образы Шивы, паломничество и календарный аргумент Махашиваратри (1471) | [afanasy_parvat.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_parvat.html) |
+| 18 | **Подстрочник полиглотной молитвы** — финальное славословие (Ф. 104) и три ламента слово за словом: Коран 59:22–24 и имена Аллаха в кириллице | [afanasy_prayer_interlinear.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_prayer_interlinear.html) |
 
 ### 👥 Персонажи и структура (7)
 
 | # | Название | Файл |
 |---|----------|------|
-| 19 | **Дерево состава** — «Хожение» = 7 текстов → Мамырев → 3 списка | [khozheniye_composition_tree.html](static/atlas/khozheniye_composition_tree.html) |
-| 20 | **Сеть людей** — граф встреч: кто помог Афанасию и кто навредил в пути | [afanasy_people_network.html](static/atlas/afanasy_people_network.html) |
-| 21 | **Параллельная биография** — судьбы Афанасия и визиря Махмуда Гавана в Бидаре | [afanasy_gavan_parallel.html](static/atlas/afanasy_gavan_parallel.html) |
-| 22 | **Указатель топонимов и лиц** — справочник персонажей и пунктов с цитатами и картами | [afanasy_concordance_index.html](static/atlas/afanasy_concordance_index.html) |
-| 23 | **Историография «Хожения»** — история открытий и переизданий текста от 1475 до 2026 года | [afanasy_historiography.html](static/atlas/afanasy_historiography.html) |
-| 24 | **40 изданий за 208 лет** — переведено на 20 языков; история публикаций | [afanasy_editions_v3.html](static/atlas/afanasy_editions_v3.html) |
-| 25 | **До и после: Афанасий и Азия** — что знал до отъезда vs что узнал; средневековое русское представление об Азии | [afanasy_world_before_after.html](static/atlas/afanasy_world_before_after.html) |
+| 19 | **Дерево состава** — «Хожение» = 7 текстов → Мамырев → 3 списка | [khozheniye_composition_tree.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/khozheniye_composition_tree.html) |
+| 20 | **Сеть людей** — граф встреч: кто помог Афанасию и кто навредил в пути | [afanasy_people_network.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_people_network.html) |
+| 21 | **Параллельная биография** — судьбы Афанасия и визиря Махмуда Гавана в Бидаре | [afanasy_gavan_parallel.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gavan_parallel.html) |
+| 22 | **Указатель топонимов и лиц** — справочник персонажей и пунктов с цитатами и картами | [afanasy_concordance_index.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_concordance_index.html) |
+| 23 | **Историография «Хожения»** — история открытий и переизданий текста от 1475 до 2026 года | [afanasy_historiography.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_historiography.html) |
+| 24 | **40 изданий за 208 лет** — переведено на 20 языков; история публикаций | [afanasy_editions_v3.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_editions_v3.html) |
+| 25 | **До и после: Афанасий и Азия** — что знал до отъезда vs что узнал; средневековое русское представление об Азии | [afanasy_world_before_after.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_world_before_after.html) |
 
 ### 💰 Экономика и торговля (2)
 
 | # | Название | Файл |
 |---|----------|------|
-| 26 | **Экономика путешествия** — жеребец, пряности, торговля лошадьми | [afanasy_economics_prices.html](static/atlas/afanasy_economics_prices.html) |
-| 27 | **Маршрутник купца** — расстояния, цены, условный конвертер валют; как торговый план сталкивался с ограничениями маршрута | [afanasy_trade_guide_v4.html](static/atlas/afanasy_trade_guide_v4.html) |
+| 26 | **Экономика путешествия** — жеребец, пряности, торговля лошадьми | [afanasy_economics_prices.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_economics_prices.html) |
+| 27 | **Маршрутник купца** — расстояния, цены, условный конвертер валют; как торговый план сталкивался с ограничениями маршрута | [afanasy_trade_guide_v4.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_trade_guide_v4.html) |
 
 ### 📈 Статистические (5)
 
 | # | Название | Файл |
 |---|----------|------|
-| 28 | **Бестиарий Индии** — флора и фауна в ранних русских описаниях Индии: слон, кокос, попугай | [afanasy_bestiary.html](static/atlas/afanasy_bestiary.html) |
-| 29 | **Цитирование по десятилетиям** — «Хожение» в науке 1818–2026: академические волны популярности | [afanasy_citations_v2.html](static/atlas/afanasy_citations_v2.html) |
-| 30 | **Экспорт видео** — запись тайм-лапса в .webm через MediaRecorder API | [afanasy_video_export.html](static/atlas/afanasy_video_export.html) |
-| 31 | **Как мы это знаем** — эпистемический разбор: доля текста / реконструкции / гипотезы по наборам данных и достоверность локализации 29 точек | [afanasy_epistemic_lens.html](static/atlas/afanasy_epistemic_lens.html) |
-| 32 | **Связанные данные** — покрытие реконсиляции: ссылки на Wikidata / GeoNames / Pleiades / VIAF для 41 места и человека | [afanasy_lod_coverage.html](static/atlas/afanasy_lod_coverage.html) |
+| 28 | **Бестиарий Индии** — флора и фауна в ранних русских описаниях Индии: слон, кокос, попугай | [afanasy_bestiary.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_bestiary.html) |
+| 29 | **Цитирование по десятилетиям** — «Хожение» в науке 1818–2026: академические волны популярности | [afanasy_citations_v2.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_citations_v2.html) |
+| 30 | **Экспорт видео** — запись тайм-лапса в .webm через MediaRecorder API | [afanasy_video_export.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_video_export.html) |
+| 31 | **Как мы это знаем** — эпистемический разбор: доля текста / реконструкции / гипотезы по наборам данных и достоверность локализации 29 точек | [afanasy_epistemic_lens.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_epistemic_lens.html) |
+| 32 | **Связанные данные** — покрытие реконсиляции: ссылки на Wikidata / GeoNames / Pleiades / VIAF для 41 места и человека | [afanasy_lod_coverage.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_lod_coverage.html) |
 
 ---
 
@@ -214,7 +214,7 @@ _Created: 19-05-2026 · Last updated: 26-08-2026_
 | [Тетради_купца_Афанасия.md](Тетради_купца_Афанасия.md) | Конспект книги Хрусталева: структура, хронология, герои, выводы |
 | [afanasy_geolocations.md](static/atlas/afanasy_geolocations.md) | Геолокации 19+ точек маршрута, GeoJSON для ГИС |
 | [afanasy_journey_data.md](static/atlas/afanasy_journey_data.md) | Данные тайм-лапса: координаты, даты, описания, моря |
-| [afanasy_video_export.html](static/atlas/afanasy_video_export.html) | Открыть в браузере → «Записать видео» → скачается .webm |
+| [afanasy_video_export.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_video_export.html) | Открыть в браузере → «Записать видео» → скачается .webm |
 
 ---
 
@@ -284,12 +284,12 @@ _Created: 19-05-2026 · Last updated: 26-08-2026_
 
 Атлас опирается на открытый машиночитаемый набор данных в каталоге [`data/`](data/) — это «хребет» проекта (единый источник истины), из которого уже питаются сами виджеты.
 
-- **12 датасетов** (CSV, UTF-8): источники, места, маршрут, люди, издания, цитируемость, торговля, 104 фрагмента рукописи, вычисленный календарь, а также этапы (`legs`), события (`events`) и связи (`edges`), добавленные 01-06-2026. Плюс 6 производных выгрузок (LPF GeoJSON, маршрут GeoJSON, литовский итинерарий, RDF/Turtle, BibTeX, CSL-JSON) — всего **18 ресурсов**. Описаны Frictionless-дескриптором [`datapackage.json`](datapackage.json).
-- **Виджеты читают из «хребта».** Четыре флагманских виджета строятся прямо из `data/*.csv` при загрузке, с жестким откатом на встроенные данные офлайн / при `file://`: [`afanasy_v8_text_map.html`](static/atlas/afanasy_v8_text_map.html) (маршрут ← места + итинерарий), [`afanasy_people_network.html`](static/atlas/afanasy_people_network.html) (граф ← люди + связи), [`afanasy_citations_v2.html`](static/atlas/afanasy_citations_v2.html) (цитируемость по десятилетиям) и [`afanasy_editions_v3.html`](static/atlas/afanasy_editions_v3.html) (метаданные изданий). У каждого — доступная таблица-эквивалент и метки `epistemic`/`certainty` со ссылками на Wikidata. Прототип «с нуля из данных» — [`afanasy_map_spine.html`](static/atlas/afanasy_map_spine.html).
+- **12 датасетов** (CSV, UTF-8): источники, места, маршрут, люди, издания, цитируемость, торговля, 104 фрагмента рукописи, вычисленный календарь, а также этапы (`legs`), события (`events`) и связи (`edges`), добавленные 01-06-2026. Плюс 6 производных выгрузок (LPF GeoJSON, маршрут GeoJSON, литовский итинерарий, RDF/Turtle, BibTeX, CSL-JSON) — всего **18 ресурсов**. Описаны Frictionless-дескриптором [`datapackage.json`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/datapackage.json).
+- **Виджеты читают из «хребта».** Четыре флагманских виджета строятся прямо из `data/*.csv` при загрузке, с жестким откатом на встроенные данные офлайн / при `file://`: [`afanasy_v8_text_map.html`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_v8_text_map.html) (маршрут ← места + итинерарий), [`afanasy_people_network.html`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_people_network.html) (граф ← люди + связи), [`afanasy_citations_v2.html`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_citations_v2.html) (цитируемость по десятилетиям) и [`afanasy_editions_v3.html`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_editions_v3.html) (метаданные изданий). У каждого — доступная таблица-эквивалент и метки `epistemic`/`certainty` со ссылками на Wikidata. Прототип «с нуля из данных» — [`afanasy_map_spine.html`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_map_spine.html).
 - **Прозрачность достоверности.** Каждая строка несет метки `epistemic` (текст / реконструкция / локализация / модель / гипотеза) и `certainty`; торговые коэффициенты и оценки цитируемости явно помечены как `model`.
-- **Linked Open Data.** Места и люди сверены с **Wikidata / GeoNames / Pleiades / VIAF** (22 из 26 мест и 7 из 15 лиц подтверждены; аудит в [`data/reconciliation.md`](data/reconciliation.md)). Газеттир выгружен в **Linked Places Format** ([`data/places.lpf.geojson`](data/places.lpf.geojson)) для World Historical Gazetteer; маршрут — в [`data/route.geojson`](data/route.geojson).
-- **Воспроизводимость.** Даты Пасх, Великого поста и Рамадана вычисляет скрипт [`tools/computus.py`](tools/computus.py), независимо воспроизводя календарные «якоря» датировки Хрусталева. Скрипты `tools/*.py` пересобирают все производные файлы; CI-проверка `data-validate` контролирует целостность при каждом изменении. Блокнот [`notebooks/atlas.ipynb`](notebooks/atlas.ipynb) воспроизводит весь аргумент — от данных к датировке и маршруту.
-- **Права и лицензия.** Данные — **CC-BY-4.0** (отдельно от кода); только факты, см. [`RIGHTS.md`](RIGHTS.md). Цитирование — [`CITATION.cff`](CITATION.cff).
+- **Linked Open Data.** Места и люди сверены с **Wikidata / GeoNames / Pleiades / VIAF** (22 из 26 мест и 7 из 15 лиц подтверждены; аудит в [`data/reconciliation.md`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/reconciliation.md)). Газеттир выгружен в **Linked Places Format** ([`data/places.lpf.geojson`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/places.lpf.geojson)) для World Historical Gazetteer; маршрут — в [`data/route.geojson`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/route.geojson).
+- **Воспроизводимость.** Даты Пасх, Великого поста и Рамадана вычисляет скрипт [`tools/computus.py`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/tools/computus.py), независимо воспроизводя календарные «якоря» датировки Хрусталева. Скрипты `tools/*.py` пересобирают все производные файлы; CI-проверка `data-validate` контролирует целостность при каждом изменении. Блокнот [`notebooks/atlas.ipynb`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/notebooks/atlas.ipynb) воспроизводит весь аргумент — от данных к датировке и маршруту.
+- **Права и лицензия.** Данные — **CC-BY-4.0** (отдельно от кода); только факты, см. [`RIGHTS.md`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/RIGHTS.md). Цитирование — [`CITATION.cff`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CITATION.cff).
 
 ---
 

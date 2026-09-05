@@ -1,3 +1,5 @@
+_Created: 19-05-2026 · Last updated: 05-09-2026_
+
 # Афанасий Никитин — Интерактивный Атлас
 ## Как пользоваться · Сценарии просмотра · Use Cases · Инструкция для детей
 
@@ -22,19 +24,19 @@
 
 Если у вас мало времени — начните здесь:
 
-1. **[Тайм-лапс на карте](static/atlas/afanasy_v8_text_map.html)** → нажмите ▶ → смотрите, как желтая точка за 2 минуты проходит три моря (1467–1475)
+1. **[Тайм-лапс на карте](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_v8_text_map.html)** → нажмите ▶ → смотрите, как желтая точка за 2 минуты проходит три моря (1467–1475)
 2. Нажмите любую остановку на карте → появится цитата из «Хожения»
-3. **[Три путешественника](static/atlas/three_travelers_comparison.html)** → Афанасий, Марко Поло и Васко да Гама на одной карте — у всех троих Ормуз
+3. **[Три путешественника](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/three_travelers_comparison.html)** → Афанасий, Марко Поло и Васко да Гама на одной карте — у всех троих Ормуз
 
 ---
 
 ### ⏱ 20 минут — «Понять суть»
 
 1. **Тайм-лапс** → маршрут
-2. **[Гантт-диаграмма](static/atlas/afanasy_gantt.html)** → почему Бидар занимает половину всего путешествия?
-3. **[Эмоциональная дуга](static/atlas/afanasy_emotional_arc.html)** → три кризиса: ограбление на Волге → Джуннар → потеря Пасхи
-4. **[Двойной календарь](static/atlas/afanasy_calendar_pascha_islam.html)** → совпадение православного поста и Рамадана в марте 1470 — главное доказательство новой датировки
-5. **[Маршрутник купца](static/atlas/afanasy_trade_marshruttnik.html)** → почему торговый план с конем провалился
+2. **[Гантт-диаграмма](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gantt.html)** → почему Бидар занимает половину всего путешествия?
+3. **[Эмоциональная дуга](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_emotional_arc.html)** → три кризиса: ограбление на Волге → Джуннар → потеря Пасхи
+4. **[Двойной календарь](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_calendar_pascha_islam.html)** → совпадение православного поста и Рамадана в марте 1470 — главное доказательство новой датировки
+5. **[Маршрутник купца](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_trade_marshruttnik.html)** → почему торговый план с конем провалился
 
 ---
 
@@ -42,15 +44,15 @@
 
 **Порядок для учителя:**
 
-**Шаг 1.** [Тайм-лапс](static/atlas/afanasy_v8_text_map.html) на проекторе — ▶, 2 минуты. Вопрос: *через какие государства он шел?*
+**Шаг 1.** [Тайм-лапс](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_v8_text_map.html) на проекторе — ▶, 2 минуты. Вопрос: *через какие государства он шел?*
 
-**Шаг 2.** [Анимация границ](static/atlas/afanasy_borders_animation.html) — покажите, что Афанасий шел через Ак-Коюнлу, Бахманидский султанат, Персию. Москва в это время поглощала Новгород.
+**Шаг 2.** [Анимация границ](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_borders_animation.html) — покажите, что Афанасий шел через Ак-Коюнлу, Бахманидский султанат, Персию. Москва в это время поглощала Новгород.
 
-**Шаг 3.** [Гантт-диаграмма](static/atlas/afanasy_gantt.html) — *почему Бидар = половина диаграммы?* (Ответ: убыток на коне, нет денег на дорогу.)
+**Шаг 3.** [Гантт-диаграмма](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gantt.html) — *почему Бидар = половина диаграммы?* (Ответ: убыток на коне, нет денег на дорогу.)
 
-**Шаг 4.** [Пасхальный хронограф](static/atlas/afanasy_pascha_chronograph.html) — покажите, как Афанасий терял православный календарь. 8 Пасх, дрейф на +33 дня к 1472 году.
+**Шаг 4.** [Пасхальный хронограф](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_pascha_chronograph.html) — покажите, как Афанасий терял православный календарь. 8 Пасх, дрейф на +33 дня к 1472 году.
 
-**Шаг 5.** [Параллель Гаван/Афанасий](static/atlas/afanasy_gavan_parallel.html) — оба купца, оба в изгнании, оба в Бидаре одновременно. Один стал великим визирем, другой умер под Смоленском.
+**Шаг 5.** [Параллель Гаван/Афанасий](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gavan_parallel.html) — оба купца, оба в изгнании, оба в Бидаре одновременно. Один стал великим визирем, другой умер под Смоленском.
 
 **Шаг 6.** [Бестиарий](afanasy_bestiarium.html) — первые русские описания слона, кокоса, попугая.
 
@@ -60,11 +62,11 @@
 
 ### ⏱ 45 минут — «Урок литературы» (сценарий для класса)
 
-**Шаг 1.** [Карта языков](static/atlas/afanasy_language_map_v2.html) — Афанасий писал на пяти языках одновременно. Нажмите на фрагмент «Бидар — молитва»: «Господи» и «Аллах» в одном абзаце.
+**Шаг 1.** [Карта языков](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_language_map_v2.html) — Афанасий писал на пяти языках одновременно. Нажмите на фрагмент «Бидар — молитва»: «Господи» и «Аллах» в одном абзаце.
 
 **Шаг 2.** [Языковая тепловая карта](afanasy_language_heatmap.html) — публичный «Дорожник» (для читателей) vs личный дневник (непереведенные вставки). Покажите разницу.
 
-**Шаг 3.** [Эмоциональная дуга](static/atlas/afanasy_emotional_arc.html) — тональность 20 фрагментов. *Где ему было хуже всего? Лучше всего?*
+**Шаг 3.** [Эмоциональная дуга](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_emotional_arc.html) — тональность 20 фрагментов. *Где ему было хуже всего? Лучше всего?*
 
 **Шаг 4.** [Одиночество пути](afanasy_journey_pronouns.html) — «яз» (я) vs «мы» по сегментам. Он путешествовал один — но когда говорит «мы»? (Ответ: возможно, нанялся на службу к Бахманидам.)
 
@@ -77,22 +79,22 @@
 Пройдите все 6 тематических групп последовательно:
 
 **Группа 1 — Маршрут:**
-[Тайм-лапс](static/atlas/afanasy_v8_text_map.html) → [Морские переходы](static/atlas/afanasy_sea_voyages.html) → [Индия Афанасия](afanasy_india_geography.html) → [Анимация границ](static/atlas/afanasy_borders_animation.html)
+[Тайм-лапс](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_v8_text_map.html) → [Морские переходы](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_sea_voyages.html) → [Индия Афанасия](afanasy_india_geography.html) → [Анимация границ](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_borders_animation.html)
 
 **Группа 2 — Хронология:**
-[Пасхальный хронограф](static/atlas/afanasy_pascha_chronograph.html) → [Двойной календарь](static/atlas/afanasy_calendar_pascha_islam.html) → [Гантт](static/atlas/afanasy_gantt.html) → [Скорость](static/atlas/afanasy_speed_land_sea.html)
+[Пасхальный хронограф](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_pascha_chronograph.html) → [Двойной календарь](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_calendar_pascha_islam.html) → [Гантт](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gantt.html) → [Скорость](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_speed_land_sea.html)
 
 **Группа 3 — Текст:**
-[Состав рукописи](static/atlas/afanasy_manuscript_layers.html) → [Реконструкция порядка](afanasy_text_reconstruction.html) → [Языковая карта](static/atlas/afanasy_language_map_v2.html) → [Тепловая карта](afanasy_language_heatmap.html) → [Три рукописи](static/atlas/afanasy_manuscripts.html)
+[Состав рукописи](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscript_layers.html) → [Реконструкция порядка](afanasy_text_reconstruction.html) → [Языковая карта](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_language_map_v2.html) → [Тепловая карта](afanasy_language_heatmap.html) → [Три рукописи](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscripts.html)
 
 **Группа 4 — Люди:**
-[Параллель Гаван/Афанасий](static/atlas/afanasy_gavan_parallel.html) → [Граф людей](static/atlas/afanasy_people_network.html) → [Одиночество пути](afanasy_journey_pronouns.html) → [Историография](static/atlas/afanasy_historiography.html)
+[Параллель Гаван/Афанасий](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gavan_parallel.html) → [Граф людей](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_people_network.html) → [Одиночество пути](afanasy_journey_pronouns.html) → [Историография](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_historiography.html)
 
 **Группа 5 — Экономика и война:**
-[Маршрутник купца](static/atlas/afanasy_trade_marshruttnik.html) → [Экономика путешествия](static/atlas/afanasy_economics_prices.html) → [Летопись войн](afanasy_bahmani_wars.html)
+[Маршрутник купца](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_trade_marshruttnik.html) → [Экономика путешествия](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_economics_prices.html) → [Летопись войн](afanasy_bahmani_wars.html)
 
 **Группа 6 — Контекст:**
-[Три путешественника](static/atlas/three_travelers_comparison.html) → [Бестиарий](afanasy_bestiarium.html) → [Дерево состава](static/atlas/khozheniye_composition_tree.html)
+[Три путешественника](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/three_travelers_comparison.html) → [Бестиарий](afanasy_bestiarium.html) → [Дерево состава](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/khozheniye_composition_tree.html)
 
 ---
 
@@ -100,9 +102,9 @@
 
 Следуйте строго этому порядку:
 
-1. **[Пасхальный хронограф](static/atlas/afanasy_pascha_chronograph.html)** — поймите математику датировки. 8 Пасх, дрейф, возврат. Это ядро аргументации Хрусталева.
+1. **[Пасхальный хронограф](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_pascha_chronograph.html)** — поймите математику датировки. 8 Пасх, дрейф, возврат. Это ядро аргументации Хрусталева.
 
-2. **[Состав рукописи](static/atlas/afanasy_manuscript_layers.html)** — 104 фрагмента (Ф.1–Ф.104), 7 текстовых слоев: «Дорожник», «Маршрутник», «Индийские веры», «Летопись войн», дневники, молитвы, заметки.
+2. **[Состав рукописи](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscript_layers.html)** — 104 фрагмента (Ф.1–Ф.104), 7 текстовых слоев: «Дорожник», «Маршрутник», «Индийские веры», «Летопись войн», дневники, молитвы, заметки.
 
 3. **[Реконструкция порядка](afanasy_text_reconstruction.html)** — хронологический порядок записи vs порядок в рукописи. Переключите анимацию: смотрите, как Мамырев перемешал листки.
 
@@ -110,9 +112,9 @@
 
 5. **[Летопись войн](afanasy_bahmani_wars.html)** — Ф.81–94: записи Афанасия о военных кампаниях Бахманидов 1472–1473. Хрусталев: возможно, собирал сведения для разведки.
 
-6. **[Три рукописи](static/atlas/afanasy_manuscripts.html)** — Летописная vs Троицкая: два пропуска по ~1160 знаков = два утерянных листа. Доказательство: 580 знаков/лист в протографе.
+6. **[Три рукописи](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscripts.html)** — Летописная vs Троицкая: два пропуска по ~1160 знаков = два утерянных листа. Доказательство: 580 знаков/лист в протографе.
 
-7. **[Двойной календарь](static/atlas/afanasy_calendar_pascha_islam.html)** — полный православно-мусульманский календарь 1467–1475. Все праздники, посты, байрамы. Проверьте все 8 Пасх по таблице.
+7. **[Двойной календарь](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_calendar_pascha_islam.html)** — полный православно-мусульманский календарь 1467–1475. Все праздники, посты, байрамы. Проверьте все 8 Пасх по таблице.
 
 ---
 
@@ -123,11 +125,11 @@
 ### USE CASE 1 — Урок истории: «Путешествие Афанасия Никитина»
 **Аудитория:** 6–7 класс, учитель + 25 учеников
 
-**Шаг 1.** [Тайм-лапс](static/atlas/afanasy_v8_text_map.html) на проекторе → ▶ → 2 минуты на весь маршрут.
+**Шаг 1.** [Тайм-лапс](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_v8_text_map.html) на проекторе → ▶ → 2 минуты на весь маршрут.
 
 **Шаг 2.** Нажимайте точки на карте → цитаты «Хожения» прямо на маршруте.
 
-**Шаг 3.** [Гантт-диаграмма](static/atlas/afanasy_gantt.html) → *почему Бидар — половина диаграммы?*
+**Шаг 3.** [Гантт-диаграмма](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gantt.html) → *почему Бидар — половина диаграммы?*
 
 **Шаг 4.** [Бестиарий](afanasy_bestiarium.html) → пусть дети угадают животных.
 
@@ -138,11 +140,11 @@
 ### USE CASE 2 — Урок литературы: «Хожение» как текст
 **Аудитория:** 8–9 класс
 
-**Шаг 1.** [Карта языков](static/atlas/afanasy_language_map_v2.html) → Афанасий писал на пяти языках.
+**Шаг 1.** [Карта языков](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_language_map_v2.html) → Афанасий писал на пяти языках.
 
 **Шаг 2.** [Языковая тепловая карта](afanasy_language_heatmap.html) → нажмите на оранжевую ячейку → нпереведенная вставка на тюркском (частная запись).
 
-**Шаг 3.** [Эмоциональная дуга](static/atlas/afanasy_emotional_arc.html) → три кризиса.
+**Шаг 3.** [Эмоциональная дуга](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_emotional_arc.html) → три кризиса.
 
 **Вопрос:** *Можно ли считать Афанасия верующим?*
 
@@ -151,9 +153,9 @@
 ### USE CASE 3 — Проектная работа: «Торговый путь XV века»
 **Аудитория:** 9–10 класс, проект по истории
 
-**Шаг 1.** [Маршрутник купца](static/atlas/afanasy_trade_marshruttnik.html) → выберите «Купить в: Ормуз», «Продать в: Бидар» → арабский конь: маржа +177%, но 3 200 км за 55 дней.
+**Шаг 1.** [Маршрутник купца](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_trade_marshruttnik.html) → выберите «Купить в: Ормуз», «Продать в: Бидар» → арабский конь: маржа +177%, но 3 200 км за 55 дней.
 
-**Шаг 2.** [Экономика путешествия](static/atlas/afanasy_economics_prices.html) → вкладка «Жеребец». Полная история провала торгового плана.
+**Шаг 2.** [Экономика путешествия](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_economics_prices.html) → вкладка «Жеребец». Полная история провала торгового плана.
 
 **Вопрос для доклада:** *Почему Афанасий застрял в Индии на 4 года? Какую ошибку он совершил как купец?*
 
@@ -162,9 +164,9 @@
 ### USE CASE 4 — Исследовательская работа: датировка
 **Аудитория:** студент или старшеклассник на олимпиаде
 
-**Шаг 1.** [Пасхальный хронограф](static/atlas/afanasy_pascha_chronograph.html) → смотрите дрейф между истинными и наблюденными Пасхами.
+**Шаг 1.** [Пасхальный хронограф](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_pascha_chronograph.html) → смотрите дрейф между истинными и наблюденными Пасхами.
 
-**Шаг 2.** [Двойной календарь](static/atlas/afanasy_calendar_pascha_islam.html) → найдите 1470 год: Великий пост и Рамадан почти совпадают. Такое бывает раз в ~33 года.
+**Шаг 2.** [Двойной календарь](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_calendar_pascha_islam.html) → найдите 1470 год: Великий пост и Рамадан почти совпадают. Такое бывает раз в ~33 года.
 
 **Шаг 3.** Найдите в тексте: *«постился с бесерменами в неделю»* → это и есть главное доказательство датировки Хрусталева (1467–1475 вместо прежней хронологии).
 
@@ -175,11 +177,11 @@
 ### USE CASE 5 — Сравнительная история: Восток и Запад
 **Аудитория:** старшеклассник, студент
 
-**Шаг 1.** [Три путешественника](static/atlas/three_travelers_comparison.html) → Афанасий (1467), Марко Поло (1271), Васко да Гама (1497). Ормуз — точка пересечения.
+**Шаг 1.** [Три путешественника](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/three_travelers_comparison.html) → Афанасий (1467), Марко Поло (1271), Васко да Гама (1497). Ормуз — точка пересечения.
 
-**Шаг 2.** [Параллель Гаван/Афанасий](static/atlas/afanasy_gavan_parallel.html) → Махмуд Гаван: купец из Гиляна, стал великим визирем. Афанасий: купец из Твери, умер под Смоленском. Оба — в одном городе (Бидар), в одно время (1469–1473).
+**Шаг 2.** [Параллель Гаван/Афанасий](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gavan_parallel.html) → Махмуд Гаван: купец из Гиляна, стал великим визирем. Афанасий: купец из Твери, умер под Смоленском. Оба — в одном городе (Бидар), в одно время (1469–1473).
 
-**Шаг 3.** [Анимация границ](static/atlas/afanasy_borders_animation.html) → мировой контекст: Константинополь уже пал (1453), Бахманиды берут Гоа (1472), Москва поглощает Новгород (1478).
+**Шаг 3.** [Анимация границ](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_borders_animation.html) → мировой контекст: Константинополь уже пал (1453), Бахманиды берут Гоа (1472), Москва поглощает Новгород (1478).
 
 **Вопрос:** *Что значило «путешествовать» в XV веке — что открывал, чем рисковал?*
 
@@ -188,7 +190,7 @@
 ### USE CASE 6 — Творческий проект: видео для класса
 **Аудитория:** любой возраст
 
-1. Скачайте [afanasy_video_export.html](static/atlas/afanasy_video_export.html) и откройте в браузере
+1. Скачайте [afanasy_video_export.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_video_export.html) и откройте в браузере
 2. Выберите скорость «× 3 — нормальная»
 3. Нажмите «⏺ Записать видео» → скачается .webm файл
 4. Вставьте в презентацию или загрузите на YouTube
@@ -202,8 +204,8 @@
 Скачайте три файла:
 
 1. **[Тетради_купца_Афанасия.md](Тетради_купца_Афанасия.md)** — полный конспект книги Хрусталева
-2. **[afanasy_geolocations.md](afanasy_geolocations.md)** — координаты всех точек маршрута + GeoJSON
-3. **[afanasy_journey_data.md](afanasy_journey_data.md)** — даты, описания, моря
+2. **[afanasy_geolocations.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/afanasy_geolocations.md)** — координаты всех точек маршрута + GeoJSON
+3. **[afanasy_journey_data.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/afanasy_journey_data.md)** — даты, описания, моря
 
 ---
 
@@ -222,7 +224,7 @@
 
 ### Шаг 1 — Посмотри, куда он шел 🗺
 
-**Нажми на [тайм-лапс](static/atlas/afanasy_v8_text_map.html)** и кнопку ▶ «Играть».
+**Нажми на [тайм-лапс](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_v8_text_map.html)** и кнопку ▶ «Играть».
 
 Желтая точка — это Афанасий. Слева внизу меняется год: 1467, 1468, 1469...
 
@@ -235,7 +237,7 @@
 
 ### Шаг 2 — Посмотри, сколько времени он провел в каждом месте ⏱
 
-**Открой [Гантт-диаграмму](static/atlas/afanasy_gantt.html).**
+**Открой [Гантт-диаграмму](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gantt.html).**
 
 Найди самую длинную полоску. Это **Бидар** — город в Индии.
 
@@ -258,7 +260,7 @@
 
 ### Шаг 4 — Посмотри, как он терял веру 🙏
 
-**Открой [Эмоциональную дугу](static/atlas/afanasy_emotional_arc.html).**
+**Открой [Эмоциональную дугу](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_emotional_arc.html).**
 
 График тональности: положительное → отрицательное. Найди три самые низкие точки — три кризиса.
 
@@ -268,7 +270,7 @@
 
 ### Шаг 5 — Узнай, сколько стоил его конь 💰
 
-**Открой [Маршрутник купца](static/atlas/afanasy_trade_marshruttnik.html).**
+**Открой [Маршрутник купца](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_trade_marshruttnik.html).**
 
 Выбери «Купить в: Тверь» и наведи на «100 зол.» — это примерно **53 000 долларов** сегодня!
 
@@ -280,7 +282,7 @@
 
 ### Шаг 6 — Сделай видео 🎬
 
-Открой [afanasy_video_export.html](static/atlas/afanasy_video_export.html) в браузере → «Записать видео». Готово!
+Открой [afanasy_video_export.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_video_export.html) в браузере → «Записать видео». Готово!
 
 ---
 
@@ -324,3 +326,5 @@
 
 *Атлас создан на основе: Хрусталев Д.Г. «Тетради купца Афанасия». СПб.: Нестор-История, 2026.*  
 *Текст «Хожения за три моря»: академическое издание Лурье–Семенова, Наука, 1986.*
+
+_Dr. Mārcis Gasūns_

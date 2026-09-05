@@ -1,3 +1,5 @@
+_Created: 21-05-2026 · Last updated: 05-09-2026_
+
 # Gemini Flash Handoff Prompt
 
 Paste everything below this line into Gemini Flash.
@@ -162,3 +164,5 @@ Report:
 3. What was not verified and why.
 4. Commit hash pushed.
 5. Updated next steps in `AI_STATE.md`.
+
+_Dr. Mārcis Gasūns_

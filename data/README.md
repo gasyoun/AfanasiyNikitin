@@ -1,3 +1,5 @@
+_Created: 01-06-2026 · Last updated: 05-09-2026_
+
 # `data/` — the FAIR data spine
 
 This directory is the **single source of truth** for the atlas. The architecture is inverted: instead of data being hardcoded inside the HTML widgets, the widgets read *from* these files — the flagship map (`afanasy_v8_text_map.html`) already does, with others to follow.
@@ -31,7 +33,7 @@ This directory is the **single source of truth** for the atlas. The architecture
 ## Conventions
 
 - **Encoding:** UTF-8, no BOM. Comma-delimited; fields with commas are double-quoted (RFC 4180).
-- **`source_id`** → foreign key into `sources.csv`. **Facts only** are published here; see [`../RIGHTS.md`](../RIGHTS.md).
+- **`source_id`** → foreign key into `sources.csv`. **Facts only** are published here; see [`../RIGHTS.md`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/RIGHTS.md).
 - **`epistemic`** — the five-label epistemic vocabulary (from `article_site_weak_spots.md` §2.5), so users can tell what kind of claim each row is:
   `text` · `reconstruction` · `localization` · `model` · `hypothesis`
 - **`certainty`** — locational/temporal certainty, a separate axis: `certain` · `approx` · `disputed`.
@@ -54,9 +56,9 @@ Places and people carry a `recon_status` (`confirmed` / `candidate` / `none` / `
 - places → `wikidata_qid`, `geonames_id`, `pleiades_id`
 - people → `wikidata_qid`, `viaf_id`
 
-Matches come from [`tools/reconcile.py`](../tools/reconcile.py): places are verified by **coordinate distance** and must be a settlement (excluding racetracks/districts); people by instance-of=human + a description keyword. **IDs are written only for `confirmed` rows — a wrong QID is worse than a blank one.** Every decision, plus the `candidate`/`none` rows left for human review, is recorded in [`reconciliation.md`](reconciliation.md). Human-approved picks the matcher couldn't resolve live in the `*_OVERRIDE` maps at the top of the script, so re-running (`python tools/reconcile.py`) is reproducible.
+Matches come from [`tools/reconcile.py`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/tools/reconcile.py): places are verified by **coordinate distance** and must be a settlement (excluding racetracks/districts); people by instance-of=human + a description keyword. **IDs are written only for `confirmed` rows — a wrong QID is worse than a blank one.** Every decision, plus the `candidate`/`none` rows left for human review, is recorded in [`reconciliation.md`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/reconciliation.md). Human-approved picks the matcher couldn't resolve live in the `*_OVERRIDE` maps at the top of the script, so re-running (`python tools/reconcile.py`) is reproducible.
 
-[`tools/build_lpf.py`](../tools/build_lpf.py) then emits [`places.lpf.geojson`](places.lpf.geojson) in **Linked Places Format** (GeoJSON-LD), turning each authority ID into a `closeMatch` link — ready to ingest into the World Historical Gazetteer / Peripleo.
+[`tools/build_lpf.py`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/tools/build_lpf.py) then emits [`places.lpf.geojson`](places.lpf.geojson) in **Linked Places Format** (GeoJSON-LD), turning each authority ID into a `closeMatch` link — ready to ingest into the World Historical Gazetteer / Peripleo.
 
 ## Validate
 
@@ -67,22 +69,22 @@ frictionless validate datapackage.json
 
 ## All datasets built (Phases 1 & 3)
 
-`calendar.csv` is **generated** by [`tools/computus.py`](../tools/computus.py): it computes Orthodox Easter (Julian computus) and Ramadan/Eid (tabular Islamic) and independently reproduces Khrustalev's dating anchors — Easter 2 Apr 1469 (Hormuz), Great Lent ∩ Ramadan in early March 1470, Easter 10 Apr 1474 (Muscat). Regenerate any derived file: `python tools/computus.py` · `python tools/reconcile.py` · `python tools/build_lpf.py`.
+`calendar.csv` is **generated** by [`tools/computus.py`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/tools/computus.py): it computes Orthodox Easter (Julian computus) and Ramadan/Eid (tabular Islamic) and independently reproduces Khrustalev's dating anchors — Easter 2 Apr 1469 (Hormuz), Great Lent ∩ Ramadan in early March 1470, Easter 10 Apr 1474 (Muscat). Regenerate any derived file: `python tools/computus.py` · `python tools/reconcile.py` · `python tools/build_lpf.py`.
 
-A completeness / quality report — per-dataset fill rates, `source_page` citation coverage, reconciliation and epistemic mix — is regenerated at [`QUALITY.md`](QUALITY.md) by [`tools/data_quality.py`](../tools/data_quality.py) (also run by `tools/build_all.py`).
+A completeness / quality report — per-dataset fill rates, `source_page` citation coverage, reconciliation and epistemic mix — is regenerated at [`QUALITY.md`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/QUALITY.md) by [`tools/data_quality.py`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/tools/data_quality.py) (also run by `tools/build_all.py`).
 
 ## Versioning (dataset vs site)
 
 This project carries **two independent version tracks**:
 
-- **Site / atlas release** — the [`CHANGELOG`](../CHANGELOG.md) and the git tags (`vX.Y.Z` / GitHub releases) track the *interactive atlas* (widgets, docs, tooling). This moves on every release.
-- **Dataset version** — `version` in [`datapackage.json`](../datapackage.json), [`CITATION.cff`](../CITATION.cff), [`.zenodo.json`](../.zenodo.json), and the `schema.org/Dataset` block in `index.html` track the *data* only. **Bump it solely when something under `data/` changes** (rows, schema, reconciliation), independent of site releases.
+- **Site / atlas release** — the [`CHANGELOG`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CHANGELOG.md) and the git tags (`vX.Y.Z` / GitHub releases) track the *interactive atlas* (widgets, docs, tooling). This moves on every release.
+- **Dataset version** — `version` in [`datapackage.json`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/datapackage.json), [`CITATION.cff`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CITATION.cff), [`.zenodo.json`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/.zenodo.json), and the `schema.org/Dataset` block in `index.html` track the *data* only. **Bump it solely when something under `data/` changes** (rows, schema, reconciliation), independent of site releases.
 
 So the two numbers can differ — e.g. a site release that only adds a widget leaves the dataset version untouched. (Dataset is at **1.1.0**; the atlas is ahead because v1.2.0 was widget-only.)
 
 ## Cite this dataset
 
-A [`CITATION.cff`](../CITATION.cff) sits at the repo root, so GitHub shows a **"Cite this repository"** button. License: **CC-BY-4.0**.
+A [`CITATION.cff`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/CITATION.cff) sits at the repo root, so GitHub shows a **"Cite this repository"** button. License: **CC-BY-4.0**.
 
 **Mint a DOI (one-time, needs your account):**
 
@@ -91,3 +93,5 @@ A [`CITATION.cff`](../CITATION.cff) sits at the repo root, so GitHub shows a **"
 3. Add the DOI to `CITATION.cff` (`doi:`), `.zenodo.json`, and the `schema.org/Dataset` block in `index.html` (`identifier`).
 
 `.zenodo.json` pre-fills the Zenodo deposit metadata; the `schema.org/Dataset` JSON-LD in `index.html` makes the dataset discoverable via **Google Dataset Search**.
+
+_Dr. Mārcis Gasūns_

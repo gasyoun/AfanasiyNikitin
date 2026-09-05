@@ -1,6 +1,8 @@
+_Created: 01-06-2026 · Last updated: 05-09-2026_
+
 # Submitting the gazetteer to the World Historical Gazetteer (WHG)
 
-The place dataset is exported as **Linked Places Format** at [`data/places.lpf.geojson`](data/places.lpf.geojson) and validated as WHG-ready by [`tools/validate_lpf.py`](tools/validate_lpf.py) (26 features, all with geometry + names + time-spans; 22 carry `closeMatch` links to Wikidata / GeoNames / Pleiades).
+The place dataset is exported as **Linked Places Format** at [`data/places.lpf.geojson`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/places.lpf.geojson) and validated as WHG-ready by [`tools/validate_lpf.py`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/tools/validate_lpf.py) (26 features, all with geometry + names + time-spans; 22 carry `closeMatch` links to Wikidata / GeoNames / Pleiades).
 
 > **This step needs a WHG account and goes through WHG's editorial review** — it can't be automated. The instructions below are everything needed to do it; nothing here was (or could be) submitted on your behalf.
 
@@ -34,3 +36,5 @@ The place dataset is exported as **Linked Places Format** at [`data/places.lpf.g
 ## Related
 
 A complementary route/trace (the ordered 29-waypoint itinerary) could later be submitted as a **Linked Traces** annotation — a natural follow-up once the gazetteer is published.
+
+_Dr. Mārcis Gasūns_

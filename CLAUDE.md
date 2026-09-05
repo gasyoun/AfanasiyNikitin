@@ -231,3 +231,5 @@ All visualizations must respect this scholarship. When adding dates or interpret
 - **Accessibility:** Use semantic HTML (`<h2>`, `<nav>`, labels), ARIA attributes, and sufficient color contrast (>4.5:1).
 - **Localization:** Russian text is embedded in HTML/JS. If translating, plan for layout changes (German/English are longer).
 - **Embedding:** Widgets use CSS custom properties so they can be embedded in any design system. Respect variable naming.
+
+_Dr. Mārcis Gasūns_

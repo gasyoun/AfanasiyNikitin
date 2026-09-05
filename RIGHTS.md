@@ -1,3 +1,5 @@
+_Created: 01-06-2026 · Last updated: 05-09-2026_
+
 # RIGHTS.md — source & copyright triage
 
 Phase 0 of the FAIR-data plan. It establishes **what may be published openly and what must stay local**, so every dataset row can carry a defensible `source_id` and so the repo doesn't republish protected material.
@@ -34,7 +36,7 @@ git rm --cached tetradi_hrustalev_2026.md article_drevnyaya_rus_draft.md
 
 ## Source register
 
-Full machine-readable version: [`data/sources.csv`](data/sources.csv). Summary:
+Full machine-readable version: [`data/sources.csv`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/data/sources.csv). Summary:
 
 | `source_id` | What | Rights | May we publish? |
 |---|---|---|---|
@@ -67,7 +69,7 @@ These map onto the dataset's `epistemic` column (the five-label vocabulary from 
 ## Licensing
 
 - **Code:** keep the repo's existing license.
-- **Data (`data/`):** CC-BY-4.0 (recommended) — declared in [`datapackage.json`](datapackage.json) `licenses`.
+- **Data (`data/`):** CC-BY-4.0 (recommended) — declared in [`datapackage.json`](https://github.com/gasyoun/AfanasiyNikitin/blob/main/datapackage.json) `licenses`.
 - **Hosted text:** none beyond short public-domain medieval quotations with edition attribution.
 
 Keeping code and data licenses distinct is standard FAIR practice and lets the dataset be cited and reused independently of the widgets.
@@ -81,3 +83,5 @@ The modern-Russian renderings in `js/atlas-data.js` (`ATLAS.PASSAGES`) are **the
 ---
 
 *Phase 0 of the FAIR-data plan · created 2026-06-01 · revisit before any Zenodo release.*
+
+_Dr. Mārcis Gasūns_

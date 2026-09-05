@@ -1,3 +1,5 @@
+_Created: 19-05-2026 · Last updated: 05-09-2026_
+
 # VISUALIZATIONS PLAN
 ## Based on full analysis of Khrustalev 2026 «Тетради купца Афанасия»
 
@@ -361,3 +363,5 @@ Two major gaps in Летописная vs Троицкая: ~1160 chars each = e
 
 **Phase 5** (updates to existing):
 4, 15 + index.html
+
+_Dr. Mārcis Gasūns_

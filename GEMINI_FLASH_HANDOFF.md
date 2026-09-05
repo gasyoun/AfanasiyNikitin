@@ -1,3 +1,5 @@
+_Created: 19-05-2026 · Last updated: 05-09-2026_
+
 # GEMINI FLASH — Implementation Plan
 ## AfanasiyNikitin Interactive Atlas — Architecture Migration
 
@@ -540,3 +542,5 @@ git push --force
 
 *Original handoff prepared by Antigravity AI · 2026-05-19*
 *Updated by GPT-5.5 · 2026-05-21 · Historical plan retained for reference; no npm required*
+
+_Dr. Mārcis Gasūns_
