@@ -54,7 +54,7 @@ _Created: 19-05-2026 · Last updated: 05-09-2026_
 
 **Шаг 5.** [Параллель Гаван/Афанасий](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gavan_parallel.html) — оба купца, оба в изгнании, оба в Бидаре одновременно. Один стал великим визирем, другой умер под Смоленском.
 
-**Шаг 6.** [Бестиарий](afanasy_bestiarium.html) — первые русские описания слона, кокоса, попугая.
+**Шаг 6.** Бестиарий — первые русские описания слона, кокоса, попугая.
 
 **Результат:** дети понимают маршрут, хронологию, экономику и уникальность «Хожения» как личного документа.
 
@@ -64,11 +64,11 @@ _Created: 19-05-2026 · Last updated: 05-09-2026_
 
 **Шаг 1.** [Карта языков](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_language_map_v2.html) — Афанасий писал на пяти языках одновременно. Нажмите на фрагмент «Бидар — молитва»: «Господи» и «Аллах» в одном абзаце.
 
-**Шаг 2.** [Языковая тепловая карта](afanasy_language_heatmap.html) — публичный «Дорожник» (для читателей) vs личный дневник (непереведенные вставки). Покажите разницу.
+**Шаг 2.** Языковая тепловая карта — публичный «Дорожник» (для читателей) vs личный дневник (непереведенные вставки). Покажите разницу.
 
 **Шаг 3.** [Эмоциональная дуга](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_emotional_arc.html) — тональность 20 фрагментов. *Где ему было хуже всего? Лучше всего?*
 
-**Шаг 4.** [Одиночество пути](afanasy_journey_pronouns.html) — «яз» (я) vs «мы» по сегментам. Он путешествовал один — но когда говорит «мы»? (Ответ: возможно, нанялся на службу к Бахманидам.)
+**Шаг 4.** Одиночество пути — «яз» (я) vs «мы» по сегментам. Он путешествовал один — но когда говорит «мы»? (Ответ: возможно, нанялся на службу к Бахманидам.)
 
 **Вопрос для обсуждения:** *Можно ли считать Афанасия верующим? Каким богам он молился в итоге?*
 
@@ -79,22 +79,22 @@ _Created: 19-05-2026 · Last updated: 05-09-2026_
 Пройдите все 6 тематических групп последовательно:
 
 **Группа 1 — Маршрут:**
-[Тайм-лапс](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_v8_text_map.html) → [Морские переходы](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_sea_voyages.html) → [Индия Афанасия](afanasy_india_geography.html) → [Анимация границ](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_borders_animation.html)
+[Тайм-лапс](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_v8_text_map.html) → [Морские переходы](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_sea_voyages.html) → Индия Афанасия → [Анимация границ](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_borders_animation.html)
 
 **Группа 2 — Хронология:**
 [Пасхальный хронограф](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_pascha_chronograph.html) → [Двойной календарь](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_calendar_pascha_islam.html) → [Гантт](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gantt.html) → [Скорость](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_speed_land_sea.html)
 
 **Группа 3 — Текст:**
-[Состав рукописи](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscript_layers.html) → [Реконструкция порядка](afanasy_text_reconstruction.html) → [Языковая карта](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_language_map_v2.html) → [Тепловая карта](afanasy_language_heatmap.html) → [Три рукописи](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscripts.html)
+[Состав рукописи](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscript_layers.html) → Реконструкция порядка → [Языковая карта](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_language_map_v2.html) → Тепловая карта → [Три рукописи](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscripts.html)
 
 **Группа 4 — Люди:**
-[Параллель Гаван/Афанасий](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gavan_parallel.html) → [Граф людей](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_people_network.html) → [Одиночество пути](afanasy_journey_pronouns.html) → [Историография](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_historiography.html)
+[Параллель Гаван/Афанасий](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gavan_parallel.html) → [Граф людей](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_people_network.html) → Одиночество пути → [Историография](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_historiography.html)
 
 **Группа 5 — Экономика и война:**
-[Маршрутник купца](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_trade_marshruttnik.html) → [Экономика путешествия](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_economics_prices.html) → [Летопись войн](afanasy_bahmani_wars.html)
+[Маршрутник купца](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_trade_marshruttnik.html) → [Экономика путешествия](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_economics_prices.html) → Летопись войн
 
 **Группа 6 — Контекст:**
-[Три путешественника](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/three_travelers_comparison.html) → [Бестиарий](afanasy_bestiarium.html) → [Дерево состава](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/khozheniye_composition_tree.html)
+[Три путешественника](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/three_travelers_comparison.html) → Бестиарий → [Дерево состава](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/khozheniye_composition_tree.html)
 
 ---
 
@@ -106,11 +106,11 @@ _Created: 19-05-2026 · Last updated: 05-09-2026_
 
 2. **[Состав рукописи](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscript_layers.html)** — 104 фрагмента (Ф.1–Ф.104), 7 текстовых слоев: «Дорожник», «Маршрутник», «Индийские веры», «Летопись войн», дневники, молитвы, заметки.
 
-3. **[Реконструкция порядка](afanasy_text_reconstruction.html)** — хронологический порядок записи vs порядок в рукописи. Переключите анимацию: смотрите, как Мамырев перемешал листки.
+3. **Реконструкция порядка** — хронологический порядок записи vs порядок в рукописи. Переключите анимацию: смотрите, как Мамырев перемешал листки.
 
-4. **[Языковая тепловая карта](afanasy_language_heatmap.html)** — различие публичного «Дорожника» (переводы иностранных слов) и личного дневника (нпереведенные вставки на тюркском и персидском).
+4. **Языковая тепловая карта** — различие публичного «Дорожника» (переводы иностранных слов) и личного дневника (нпереведенные вставки на тюркском и персидском).
 
-5. **[Летопись войн](afanasy_bahmani_wars.html)** — Ф.81–94: записи Афанасия о военных кампаниях Бахманидов 1472–1473. Хрусталев: возможно, собирал сведения для разведки.
+5. **Летопись войн** — Ф.81–94: записи Афанасия о военных кампаниях Бахманидов 1472–1473. Хрусталев: возможно, собирал сведения для разведки.
 
 6. **[Три рукописи](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_manuscripts.html)** — Летописная vs Троицкая: два пропуска по ~1160 знаков = два утерянных листа. Доказательство: 580 знаков/лист в протографе.
 
@@ -131,7 +131,7 @@ _Created: 19-05-2026 · Last updated: 05-09-2026_
 
 **Шаг 3.** [Гантт-диаграмма](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_gantt.html) → *почему Бидар — половина диаграммы?*
 
-**Шаг 4.** [Бестиарий](afanasy_bestiarium.html) → пусть дети угадают животных.
+**Шаг 4.** Бестиарий → пусть дети угадают животных.
 
 **Результат:** дети понимают маршрут, хронологию и то, что Афанасий первым написал о слоне, попугае и кокосе.
 
@@ -142,7 +142,7 @@ _Created: 19-05-2026 · Last updated: 05-09-2026_
 
 **Шаг 1.** [Карта языков](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_language_map_v2.html) → Афанасий писал на пяти языках.
 
-**Шаг 2.** [Языковая тепловая карта](afanasy_language_heatmap.html) → нажмите на оранжевую ячейку → нпереведенная вставка на тюркском (частная запись).
+**Шаг 2.** Языковая тепловая карта → нажмите на оранжевую ячейку → нпереведенная вставка на тюркском (частная запись).
 
 **Шаг 3.** [Эмоциональная дуга](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_emotional_arc.html) → три кризиса.
 
@@ -203,7 +203,7 @@ _Created: 19-05-2026 · Last updated: 05-09-2026_
 
 Скачайте три файла:
 
-1. **[Тетради_купца_Афанасия.md](Тетради_купца_Афанасия.md)** — полный конспект книги Хрусталева
+1. **Тетради_купца_Афанасия.md** — полный конспект книги Хрусталева
 2. **[afanasy_geolocations.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/afanasy_geolocations.md)** — координаты всех точек маршрута + GeoJSON
 3. **[afanasy_journey_data.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/afanasy_journey_data.md)** — даты, описания, моря
 
@@ -248,7 +248,7 @@ _Created: 19-05-2026 · Last updated: 05-09-2026_
 
 ### Шаг 3 — Познакомься с животными Индии 🐘
 
-**Открой [Бестиарий](afanasy_bestiarium.html).**
+**Открой Бестиарий.**
 
 12 животных и растений, которых Афанасий увидел впервые. На Руси таких никто не знал!
 

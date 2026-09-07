@@ -211,9 +211,9 @@ _Created: 19-05-2026 · Last updated: 05-09-2026_
 
 | Файл | Содержание |
 |------|------------|
-| [Тетради_купца_Афанасия.md](Тетради_купца_Афанасия.md) | Конспект книги Хрусталева: структура, хронология, герои, выводы |
-| [afanasy_geolocations.md](static/atlas/afanasy_geolocations.md) | Геолокации 19+ точек маршрута, GeoJSON для ГИС |
-| [afanasy_journey_data.md](static/atlas/afanasy_journey_data.md) | Данные тайм-лапса: координаты, даты, описания, моря |
+| Тетради_купца_Афанасия.md | Конспект книги Хрусталева: структура, хронология, герои, выводы |
+| afanasy_geolocations.md | Геолокации 19+ точек маршрута, GeoJSON для ГИС |
+| afanasy_journey_data.md | Данные тайм-лапса: координаты, даты, описания, моря |
 | [afanasy_video_export.html](https://github.com/gasyoun/AfanasiyNikitin/blob/main/static/atlas/afanasy_video_export.html) | Открыть в браузере → «Записать видео» → скачается .webm |
 
 ---
