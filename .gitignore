@@ -28,3 +28,10 @@ article_drevnyaya_rus_draft.md
 /static/codemeta.json
 /static/.zenodo.json
 /static/CITATION.cff
+
+# H4631 sandbox/credential baseline (13-09-2026): real env files are never
+# committed — house convention keeps secrets in ~/.secrets/;
+# .env.example stays tracked.
+.env
+.env.*
+!.env.example
