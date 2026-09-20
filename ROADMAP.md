@@ -1,7 +1,9 @@
 # ROADMAP — Афанасий Никитин Интерактивный Атлас
 
-_Created: 19-05-2026 · Last updated: 26-08-2026_
+_Created: 19-05-2026 · Last updated: 20-09-2026_
 
+
+> **Truth-pass 20-09-2026** — `roadmap_handoff_truth.py --check` verified every H### handoff referenced below DONE/terminal against the combined registry (0 OPEN). Backlog fully drained; page retained in place as the programme record (H3075 classification — rulings survive their backlog).
 Development roadmap for the interactive atlas. Items are grouped by phase and priority.  
 Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled / Removed
 
