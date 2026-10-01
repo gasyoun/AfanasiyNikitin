@@ -14,7 +14,11 @@ import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const PAGES = ['index.html', 'atlas.html', 'put.html', 'data.html'];
+// atlas/put/data are doc PLUGINS (routeBasePath per plugin), not src/pages:
+// the atlas plugin emits its landing doc as atlas/intro.html, while
+// put.html and data.html exist as top-level pages. There is no atlas.html
+// in any locale build — asking for one fails the whole check at birth.
+const PAGES = ['index.html', 'atlas/intro.html', 'put.html', 'data.html'];
 const CYRILLIC = /[Ѐ-ӿ]/;
 
 function build(locale, outDir) {
