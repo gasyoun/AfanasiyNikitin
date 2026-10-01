@@ -1,9 +1,20 @@
 # ROADMAP — Афанасий Никитин Интерактивный Атлас
 
-_Created: 19-05-2026 · Last updated: 20-09-2026_
+_Created: 19-05-2026 · Last updated: 01-10-2026_
 
 
 > **Truth-pass 20-09-2026** — `roadmap_handoff_truth.py --check` verified every H### handoff referenced below DONE/terminal against the combined registry (0 OPEN). Backlog fully drained; page retained in place as the programme record (H3075 classification — rulings survive their backlog).
+>
+> **Verdict 01-10-2026 ([H5574](https://github.com/gasyoun/Uprava/blob/main/handoffs/H5574-OxAlpha_SanskritSpellCheck_roadmap-verdict-w2-spack-afanasiy-visualdcs_01.10.26.md), wave 2) — REFRESH.** The atlas is live ([gasyoun.github.io/AfanasiyNikitin](https://gasyoun.github.io/AfanasiyNikitin/)), so the page stays the programme record. Evidence re-verified against `origin/main` 01-10-2026: zero open checkboxes, every referenced handoff terminal, nothing unminted left for an agent — everything remaining is human-gated or waits on an external artifact. What is left now lives in the gated checklist below and is mirrored into Uprava [GTD_NEXT_ACTIONS.md](https://github.com/gasyoun/Uprava/blob/main/GTD_NEXT_ACTIONS.md) per ruling 10 of [GRILL_ROADMAP_CLOSEOUT_OXALPHA_MASS_MINT_21-09-2026.md](https://github.com/gasyoun/Uprava/blob/main/docs/GRILL_ROADMAP_CLOSEOUT_OXALPHA_MASS_MINT_21-09-2026.md).
+
+## What is left (01-10-2026) — gated, none agent-doable today
+
+- [ ] Ruling: restore offline support (4.1 PWA service worker + 4.2 manifest) **or** record the PWA as abandoned — human-only (MG ruling; GTD @DO 01-10-2026)
+- [ ] Ruling: restore site-wide search (5.1 on Docusaurus) **or** record it as dropped in the rebuild — human-only (MG ruling; GTD @DO 01-10-2026)
+- [ ] 8.5 console-leg Pages smoke test — human-only (needs an ordinary browser; the agent pane blocks sub-resources client-side — H3003 Lane B; GTD @WAITING)
+- [ ] 7.2 waypoint data review — waits on an external artifact (Khrustalev errata or a 2nd edition); do not attempt without it (GTD @WAITING)
+- [ ] 7.3 academic citation index additions — waits on an external artifact (new publications appearing); do not attempt without them (GTD @WAITING)
+
 Development roadmap for the interactive atlas. Items are grouped by phase and priority.  
 Status: 🟢 Done · 🟡 In Progress · ⬜ Planned · ❌ Cancelled / Removed
 
