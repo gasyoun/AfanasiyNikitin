@@ -286,7 +286,7 @@ From the text (various Ф.):
 
 ---
 
-### 15. ✅ `afanasy_economics_prices.html` — UPDATE
+### 15. ✅ `afanasy_economics_prices.html` — UPDATE DONE (H5742, 03-10-2026: futun↔ruble block)
 Existing visualization. Add precise data from the book:
 - Horse: 100 rubles (bought) → 68 futuns (sold, Christmas 1469)
 - Daily living cost in Bidar: 2.5 altyn/day = 27 rubles/year
@@ -294,7 +294,7 @@ Existing visualization. Add precise data from the book:
 
 ---
 
-### 16. 🔵 `afanasy_three_manuscripts.html`
+### 16. ✅ `afanasy_three_manuscripts.html` — BUILT (H5742, 03-10-2026)
 **Три рукописных традиции**
 
 Book explains 3 manuscript traditions used:
@@ -363,5 +363,12 @@ Two major gaps in Летописная vs Троицкая: ~1160 chars each = e
 
 **Phase 5** (updates to existing):
 4, 15 + index.html
+
+**Phase 5 status (H5742, 03-10-2026):** ✅ item 15 (`afanasy_economics_prices.html` — futun↔ruble block,
+implied rate + Khrustalev p.230 fn pointer) · ✅ item 16 (`afanasy_three_manuscripts.html` — built: three
+traditions + the two-gap / ~580-chars-per-leaf proof) · ✅ `index.html` (static/atlas/, all 31+1 pages in
+six tiers; the hub the breadcrumbs pointed at was missing). ⏳ residual: item 4 (`afanasy_v8_text_map.html`
+— replace 19 waypoints with the Chapter-4 precise table): the Ch.4 dated table is not extractable from the
+repo (scratch/book_text.txt absent) — needs the book text or a data/itinerary.csv dates pass.
 
 _Dr. Mārcis Gasūns_

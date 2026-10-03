@@ -8,6 +8,18 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 
 ---
 
+## [Unreleased]
+
+### Added
+- **`static/atlas/index.html`** — the atlas root index the breadcrumbs and Escape handlers of every `afanasy_*.html` page pointed at but which did not exist: all 31 (now 32) atlas pages catalogued in the six tiers of `VISUALIZATIONS_PLAN.md`, with plan-item numbers where applicable ([H5742](https://github.com/gasyoun/Uprava/blob/main/handoffs/H5742-OxAlpha_AfanasiyNikitin_atlas-index-and-updates_03.10.26.md); executor GLM-5.3-Flash, ox-alpha).
+- **`static/atlas/afanasy_three_manuscripts.html`** — plan item 16: the three manuscript traditions (Letopisnaya RNB F.IV.144, Troitskaya RGB F.304/III No. 24, the unused Sukhanovskaya) and the two-gap proof — each ~1160-char lacuna equals exactly two lost leaves of the shared proto-source, fixing its leaf capacity at ~580 chars. Links to `afanasy_manuscripts.html` for the word-level diff.
+
+### Changed
+- **`static/atlas/afanasy_economics_prices.html`** — plan item 15 update: a futun↔ruble block with the implied rate (100 rubles ÷ 68 futuns ≈ 1.47 rub/futun, an upper bound since the sale was a loss) and the pointer to Khrustalev (2026), p. 230 fn, for the coin's full discussion.
+- **`VISUALIZATIONS_PLAN.md`** — Phase 5 status block: 15 and 16 and the index closed; the honest residual named (item 4, the v8_text_map Chapter-4 precise-date pass — the Ch.4 table is not extractable from the repo).
+
+---
+
 ## [1.9.5] - 2026-09-02
 
 Locale-aware browser-title suffix ([H3875](https://github.com/gasyoun/Uprava/blob/main/handoffs/H3875-Sonnet_AfanasiyNikitin_en-browser-title-suffix-localization_02.09.26.md)); executor Sonnet 5 (`claude-sonnet-5`). Site-only release — no `data/` change, dataset version stays 1.1.0.
