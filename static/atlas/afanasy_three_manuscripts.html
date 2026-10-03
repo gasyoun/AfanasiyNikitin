@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Афанасий Никитин — Три рукописные традиции</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/atlas.css">
+  <style>
+    .tm-wrap{max-width:980px;margin:0 auto;padding:18px 16px 90px;}
+    .tm-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin:16px 0;}
+    .tm-card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);
+      border-radius:var(--border-radius-md);padding:12px 14px;}
+    .tm-card h3{margin:0 0 6px;font-size:15px;display:flex;align-items:center;gap:8px;}
+    .tm-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+    .tm-card p{margin:4px 0;font-size:13px;line-height:1.5;color:var(--color-text-secondary);}
+    .tm-card b{color:var(--color-text-primary);}
+    .tm-unused{opacity:.75;border-style:dashed;}
+    /* the lost-leaf proof: two aligned text extents on a shared char axis */
+    .tm-proof{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);
+      border-radius:var(--border-radius-md);padding:14px 16px;margin:16px 0;}
+    .tm-proof h3{margin:0 0 12px;font-size:15px;}
+    .tm-track{margin:0 0 18px;}
+    .tm-track-label{font-size:12.5px;color:var(--color-text-secondary);margin-bottom:5px;}
+    .tm-extent{position:relative;height:26px;border-radius:4px;
+      background:color-mix(in srgb, var(--color-text-primary) 8%, transparent);
+      border:0.5px solid var(--color-border-tertiary);}
+    .tm-filled{position:absolute;top:0;bottom:0;border-radius:4px 0 0 4px;}
+    .tm-gap{position:absolute;top:-3px;bottom:-3px;border:1.5px dashed var(--viz-manuscript-deleted);
+      border-radius:3px;background:repeating-linear-gradient(45deg,transparent,transparent 5px,
+      color-mix(in srgb, var(--viz-manuscript-deleted) 12%, transparent) 5px,
+      color-mix(in srgb, var(--viz-manuscript-deleted) 12%, transparent) 10px);}
+    .tm-gap-label{position:absolute;top:100%;margin-top:4px;font-size:11px;white-space:nowrap;
+      color:var(--viz-manuscript-deleted-text, var(--color-text-secondary));}
+    .tm-axis{display:flex;justify-content:space-between;font-size:10.5px;color:var(--color-text-secondary);
+      margin-top:26px;border-top:0.5px solid var(--color-border-tertiary);padding-top:3px;}
+    .tm-math{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:8px;}
+    .tm-step{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);
+      border-radius:var(--border-radius-md);padding:10px 12px;font-size:13px;line-height:1.5;}
+    .tm-step b{font-size:16px;display:block;margin-bottom:2px;}
+    .tm-note{font-size:12.5px;color:var(--color-text-secondary);line-height:1.55;margin:10px 0 0;}
+    .tm-note code{font-size:11.5px;}
+    @media(max-width:640px){.tm-cards{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка"><a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Атлас</a><span class="atlas-breadcrumb-sep" aria-hidden="true">/</span><span class="atlas-breadcrumb-current">Три рукописные традиции</span></nav>
+  <div class="tm-wrap">
+    <header>
+      <h1 style="margin:0 0 6px;font-size:22px;">Три рукописные традиции «Хожения»</h1>
+      <p class="tm-note" style="margin-top:0;">Дошкольная история текста: две редакции, которыми пользуется
+        Хрусталёв (2026), и третья, поздняя. Главный сюжет страницы — арифметика двух лакун: она доказывает,
+        что у Летописной и Троицкой редакций был общий протограф, а заодно даёт оценку ёмкости его листа.
+        Построчное сравнение текстов с вариантами — на странице
+        <a href="afanasy_manuscripts.html">«Сравнение рукописей»</a>.</p>
+    </header>
+
+    <section class="tm-cards">
+      <div class="tm-card">
+        <h3><span class="tm-dot" style="background:var(--viz-manuscript-letopisny);"></span>Летописная редакция</h3>
+        <p><b>Список Еттерова</b> в составе Львовской летописи.</p>
+        <p>РНБ F.IV.144, лл. 441–458 об.</p>
+        <p>Плотность: <b>≈ 850 знаков/лист</b>. Базовый текст изданий «Хожения».</p>
+      </div>
+      <div class="tm-card">
+        <h3><span class="tm-dot" style="background:var(--viz-manuscript-troitsky);"></span>Троицкая редакция</h3>
+        <p><b>Троицкий список</b> (Ермолинская редакция).</p>
+        <p>РГБ Ф.304/III № 24, лл. 369–392 об.</p>
+        <p>Плотность: <b>≈ 700 знаков/лист</b>. Независимое свидетельство того же текста.</p>
+      </div>
+      <div class="tm-card tm-unused">
+        <h3><span class="tm-dot" style="background:var(--viz-manuscript-sukhanov);"></span>Сухановская редакция</h3>
+        <p>Поздняя переработка текста.</p>
+        <p>В реконструкции Хрусталёва <b>не используется</b> — свидетельство второго ряда; приведена здесь
+          для полноты традиции.</p>
+      </div>
+    </section>
+
+    <section class="tm-proof">
+      <h3>Доказательство утрат: две лакуны = два утерянных листа протографа</h3>
+
+      <div class="tm-track">
+        <div class="tm-track-label">Летописная редакция (РНБ F.IV.144) — протяжённость текста в знаках</div>
+        <div class="tm-extent" id="tm-ext-let"></div>
+        <div class="tm-axis"><span>0</span><span>≈ 5 000</span><span>≈ 10 000</span><span>≈ 15 000 знаков</span></div>
+      </div>
+
+      <div class="tm-track">
+        <div class="tm-track-label">Троицкая редакция (РГБ Ф.304/III № 24) — тот же интервал повествования</div>
+        <div class="tm-extent" id="tm-ext-tro"></div>
+        <div class="tm-axis"><span>0</span><span>≈ 5 000</span><span>≈ 10 000</span><span>≈ 15 000 знаков</span></div>
+      </div>
+
+      <div class="tm-math">
+        <div class="tm-step"><b>2 лакуны × ≈1 160 знаков</b>два крупных расхождения Летописной и Троицкой —
+          каждое равноценно выпавшему куску текста, а не авторскому сокращению</div>
+        <div class="tm-step"><b>≈ 1 160 зн. = 2 листа</b>каждая лакуна равна ровно двум листам общего
+          протографа — симметрия в обеих редакциях исключает случайность</div>
+        <div class="tm-step"><b>≈ 580 знаков/лист</b>ёмкость листа протографа: 1 160 ÷ 2 — рабочая
+          единица сверки списков, выведенная из самих лакун</div>
+      </div>
+
+      <p class="tm-note">Чтение: лакуны симметричны в обеих редакциях и кратны одной единице — значит,
+        общий протограф физически терял листы (квироны расходились при копировании), а не «редактор
+        сокращал». Именно эта арифметика позволяет Хрусталёву восстанавливать порядок фрагментов
+        (Ф.1–Ф.104) независимо от порядка списка.</p>
+    </section>
+
+    <p class="tm-note">Источник фактов: Хрусталёв (2026), гл. 3, заключительный раздел — описания списков
+      и расчёт лакун. Визуализация — проект «Атлас Афанасия Никитина»; масштабы протяженностей на шкале —
+      иллюстративные (пропорции соответствуют плотностям ≈850 и ≈700 знаков/лист при равном интервале
+      повествования). Данные на 03-10-2026.</p>
+  </div>
+
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+  <script>
+  (function(){
+    // Illustrative extents: same narrative interval, per-page densities 850 vs 700,
+    // two symmetric ~1160-char gaps drawn on both tracks (the lost leaves).
+    var AXIS_MAX = 15000;
+    function extent(id, charsPerPage, gaps){
+      var el = document.getElementById(id);
+      // visible text ≈ leaves × chars/page; leaf counts per list: Л. 441–458об ≈ 18 л., Т. 369–392об ≈ 24 л.
+      var leaves = id === 'tm-ext-let' ? 18 : 24;
+      var width = Math.min(100, (leaves * charsPerPage / AXIS_MAX) * 100);
+      var filled = document.createElement('div');
+      filled.className = 'tm-filled';
+      filled.style.left = '0';
+      filled.style.width = width + '%';
+      filled.style.background = 'color-mix(in srgb, ' +
+        (id === 'tm-ext-let' ? 'var(--viz-manuscript-letopisny)' : 'var(--viz-manuscript-troitsky)') +
+        ' 55%, transparent)';
+      el.appendChild(filled);
+      gaps.forEach(function(g){
+        var gap = document.createElement('div');
+        gap.className = 'tm-gap';
+        gap.style.left = (width * g.pos) + '%';
+        gap.style.width = (width * g.w) + '%';
+        var lbl = document.createElement('div');
+        lbl.className = 'tm-gap-label';
+        lbl.style.left = (width * g.pos) + '%';
+        lbl.textContent = g.label;
+        gap.appendChild(lbl);
+        el.appendChild(gap);
+      });
+    }
+    extent('tm-ext-let', 850, [
+      {pos: 0.18, w: 0.115, label: 'лакуна ≈ 1 160 зн. = 2 листа протографа'},
+      {pos: 0.55, w: 0.115, label: 'лакуна ≈ 1 160 зн. = 2 листа протографа'}
+    ]);
+    extent('tm-ext-tro', 700, [
+      {pos: 0.18, w: 0.115, label: 'та же лакуна'},
+      {pos: 0.55, w: 0.115, label: 'та же лакуна'}
+    ]);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') location.href = 'index.html';
+      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+        document.getElementById('theme-toggle')?.click();
+      }
+    });
+  })();
+  </script>
+  <script src="js/atlas-export.js"></script>
+</body>
+</html>

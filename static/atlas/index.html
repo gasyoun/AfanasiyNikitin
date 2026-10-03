@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Афанасий Никитин — Атлас: все визуализации</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/atlas.css">
+  <style>
+    .ix-wrap{max-width:1060px;margin:0 auto;padding:18px 16px 90px;}
+    .ix-lead{font-size:13.5px;color:var(--color-text-secondary);line-height:1.55;max-width:72ch;margin:6px 0 18px;}
+    .ix-tier{margin:26px 0 10px;font-size:17px;font-weight:600;display:flex;align-items:baseline;gap:10px;}
+    .ix-tier small{font-size:12px;font-weight:400;color:var(--color-text-secondary);}
+    .ix-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:9px;}
+    .ix-card{display:flex;flex-direction:column;gap:4px;background:var(--color-background-secondary);
+      border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);
+      padding:10px 12px;text-decoration:none;color:inherit;transition:border-color .12s;}
+    .ix-card:hover{border-color:var(--color-accent);}
+    .ix-title{font-size:13.5px;font-weight:600;line-height:1.3;}
+    .ix-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.45;}
+    .ix-tag{font-size:10.5px;color:var(--color-text-secondary);}
+    .ix-also{margin-top:22px;font-size:12.5px;color:var(--color-text-secondary);line-height:1.6;}
+    .ix-also a{color:var(--color-accent);text-decoration:none;}
+    .ix-also a:hover{text-decoration:underline;}
+    @media(max-width:640px){.ix-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <nav class="atlas-breadcrumb" aria-label="Навигационная цепочка"><span class="atlas-breadcrumb-current">Атлас</span></nav>
+  <div class="ix-wrap">
+    <header>
+      <h1 style="margin:0 0 4px;font-size:22px;">Атлас «Хожения за три моря»</h1>
+      <p class="ix-lead">31 визуализация <code>static/atlas/afanasy_*.html</code>, сгруппированные по шести тирам
+        <a href="https://github.com/gasyoun/AfanasiyNikitin/blob/main/VISUALIZATIONS_PLAN.md">VISUALIZATIONS_PLAN.md</a>
+        (план обновлён 05-09-2026). Страницы вне 16 пунктов плана отнесены к тирам по содержанию.
+        Полотно сайта (нарратив, тематические галереи, FAIR-датасет) —
+        <a href="/">главная</a>. Данные на 03-10-2026.</p>
+    </header>
+
+    <!-- TIER 1 — Core Thesis -->
+    <h2 class="ix-tier">Тир 1 · Ядро книги <small>Core Thesis — датировка и устройство текста</small></h2>
+    <div class="ix-grid">
+      <a class="ix-card" href="afanasy_pascha_chronograph.html"><span class="ix-title">Пасхальный хронограф</span><span class="ix-desc">8 Пасх 1467–1474: подлинная таблица против наблюдений Афанасия, дрейф календаря. План №1</span></a>
+      <a class="ix-card" href="afanasy_manuscript_layers.html"><span class="ix-title">Слои рукописи</span><span class="ix-desc">9 тетрадей, 7 типов текста, Ф.1–Ф.104: порядок списка против хронологии письма. План №2</span></a>
+      <a class="ix-card" href="afanasy_manuscripts.html"><span class="ix-title">Сравнение рукописей</span><span class="ix-desc">Летописная против Троицкой: построчные варианты, вставки, разночтения</span></a>
+      <a class="ix-card" href="afanasy_three_manuscripts.html"><span class="ix-title">Три рукописные традиции</span><span class="ix-desc">РНБ F.IV.144, РГБ Ф.304/III № 24, Сухановская; доказательство утрат ≈580 зн./лист. План №16</span></a>
+      <a class="ix-card" href="afanasy_citations_v2.html"><span class="ix-title">Цитирование</span><span class="ix-desc">Фрагменты «Хожения» в историографии: кто и что цитирует</span></a>
+    </div>
+
+    <!-- TIER 2 — Journey & Geography -->
+    <h2 class="ix-tier">Тир 2 · Путь и география <small>Journey &amp; Geography</small></h2>
+    <div class="ix-grid">
+      <a class="ix-card" href="afanasy_v8_text_map.html"><span class="ix-title">Тайм-лапс на карте</span><span class="ix-desc">Маршрут 1467–1475 по опорным точкам. План №4 (обновление)</span></a>
+      <a class="ix-card" href="afanasy_map_spine.html"><span class="ix-title">Карта маршрута из данных</span><span class="ix-desc">29 отрезков, 26 мест — сверка с Wikidata/GeoNames/Pleiades</span></a>
+      <a class="ix-card" href="afanasy_sea_voyages.html"><span class="ix-title">Морские переходы</span><span class="ix-desc">28 переходов, метод дистанций сверён с лоцией Ибн Маджида. План №6</span></a>
+      <a class="ix-card" href="afanasy_speed_land_sea.html"><span class="ix-title">Скорость: суша vs море</span><span class="ix-desc">Вычисленные оценки скорости по отрезкам пути</span></a>
+      <a class="ix-card" href="afanasy_borders_animation.html"><span class="ix-title">Анимация границ</span><span class="ix-desc">Политическая карта 1460–1470-х вдоль маршрута</span></a>
+      <a class="ix-card" href="afanasy_parvat.html"><span class="ix-title">Парват: чудо бутово</span><span class="ix-desc">Фрагмент о Шрисайламе, февраль 1471</span></a>
+      <a class="ix-card" href="afanasy_world_before_after.html"><span class="ix-title">До и после: Азия</span><span class="ix-desc">Индия и Персия глазами Афанасия — наблюдения и последствия</span></a>
+    </div>
+
+    <!-- TIER 3 — People & Context -->
+    <h2 class="ix-tier">Тир 3 · Люди и окружение <small>People &amp; Context</small></h2>
+    <div class="ix-grid">
+      <a class="ix-card" href="afanasy_gavan_parallel.html"><span class="ix-title">Параллельная биография</span><span class="ix-desc">Афанасий и Махмуд Гаван — две судьбы в одном Бидаре. План №8</span></a>
+      <a class="ix-card" href="afanasy_people_network.html"><span class="ix-title">Сеть людей</span><span class="ix-desc">15 участников маршрута и их связи. План №9</span></a>
+      <a class="ix-card" href="afanasy_religious_crisis.html"><span class="ix-title">Религиозный кризис</span><span class="ix-desc">«Вера погасла»: кризис и возвращение к вере на пути</span></a>
+      <a class="ix-card" href="afanasy_prayer_interlinear.html"><span class="ix-title">Подстрочник молитвы</span><span class="ix-desc">Молитва Ф.103: тюркский и арабский текст с переводом</span></a>
+      <a class="ix-card" href="afanasy_bestiary.html"><span class="ix-title">Бестиарий Индии</span><span class="ix-desc">Животные «Хожения» — от кудравых обезьян до гора</span></a>
+      <a class="ix-card" href="afanasy_climate_monsoon.html"><span class="ix-title">Климат и муссоны</span><span class="ix-desc">Сезонные ветры как каркас маршрута</span></a>
+    </div>
+
+    <!-- TIER 4 — Text & Language -->
+    <h2 class="ix-tier">Тир 4 · Текст и язык <small>Text &amp; Language Analysis</small></h2>
+    <div class="ix-grid">
+      <a class="ix-card" href="afanasy_language_map_v2.html"><span class="ix-title">Карта языков текста</span><span class="ix-desc">Смешение русских, тюркских, арабских и персидских слоёв</span></a>
+      <a class="ix-card" href="afanasy_concordance_index.html"><span class="ix-title">Указатель топонимов</span><span class="ix-desc">Конкорданс мест «Хожения» с идентификациями</span></a>
+      <a class="ix-card" href="afanasy_editions_v3.html"><span class="ix-title">40 изданий</span><span class="ix-desc">Издательская история текста, 1475 — наши дни</span></a>
+      <a class="ix-card" href="afanasy_trade_guide_v4.html"><span class="ix-title">Торговый справочник</span><span class="ix-desc">Товары, цены, рынки по тексту и комментариям</span></a>
+      <a class="ix-card" href="afanasy_trade_marshruttnik.html"><span class="ix-title">Торговый маршрутник</span><span class="ix-desc">Коммерческая география маршрута</span></a>
+    </div>
+
+    <!-- TIER 5 — Historical Context -->
+    <h2 class="ix-tier">Тир 5 · Исторический контекст <small>Historical Context</small></h2>
+    <div class="ix-grid">
+      <a class="ix-card" href="afanasy_historiography.html"><span class="ix-title">Историография</span><span class="ix-desc">Как читали «Хожение»: от Афанасия до Хрусталёва. План №13</span></a>
+      <a class="ix-card" href="afanasy_economics_prices.html"><span class="ix-title">Экономика пути</span><span class="ix-desc">Жеребец за 100 руб., 68 футунов, 2,5 алтына/день; курс футуна. План №15 (обновление)</span></a>
+      <a class="ix-card" href="afanasy_calendar_pascha_islam.html"><span class="ix-title">Календарь: Пасхи и Рамаданы</span><span class="ix-desc">Двойной календарь путешествия</span></a>
+      <a class="ix-card" href="afanasy_event_timeline.html"><span class="ix-title">Хронология событий</span><span class="ix-desc">Датированные события 1467–1475 одной лентой</span></a>
+      <a class="ix-card" href="afanasy_gantt.html"><span class="ix-title">Гантт-диаграмма</span><span class="ix-desc">Стоянки и переходы по датам Хрусталёва</span></a>
+      <a class="ix-card" href="afanasy_emotional_arc.html"><span class="ix-title">Эмоциональная дуга</span><span class="ix-desc">Тон повествования от фрагмента к фрагменту</span></a>
+    </div>
+
+    <!-- TIER 6 — Method & Data -->
+    <h2 class="ix-tier">Тир 6 · Метод и данные <small>Method, Epistemic &amp; Updates</small></h2>
+    <div class="ix-grid">
+      <a class="ix-card" href="afanasy_epistemic_lens.html"><span class="ix-title">Как мы это знаем</span><span class="ix-desc">Эпистемический статус каждого факта атласа</span></a>
+      <a class="ix-card" href="afanasy_lod_coverage.html"><span class="ix-title">Связанные данные: покрытие</span><span class="ix-desc">Wikidata/GeoNames/Pleiades — полнота привязок</span></a>
+      <a class="ix-card" href="afanasy_video_export.html"><span class="ix-title">Экспорт видео</span><span class="ix-desc">Анимации маршрута в видеофайлы</span></a>
+    </div>
+
+    <p class="ix-also">Также в атласе: <a href="khozheniye_composition_tree.html">дерево состава «Хожения»</a> ·
+      <a href="three_travelers_comparison.html">три путешественника</a>. Нарративная часть сайта —
+      <a href="/">главная страница</a>; тематические галереи и датасет — там же.</p>
+  </div>
+
+  <button id="theme-toggle" aria-label="Переключить тему" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--color-border-primary); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-floating-control);" title="Переключить тему">
+    <i class="ti ti-moon" id="theme-icon" style="font-size: 20px;"></i>
+  </button>
+  <script src="js/atlas-theme.js"></script>
+  <script>
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== 'INPUT') {
+        document.getElementById('theme-toggle')?.click();
+      }
+    });
+  </script>
+  <script src="js/atlas-export.js"></script>
+</body>
+</html>
