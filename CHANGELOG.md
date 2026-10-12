@@ -9,7 +9,9 @@ These versions track the **atlas (site)**. The **dataset** is versioned separate
 ---
 
 ## [Unreleased]
+<!-- entries land in changelog_queue/ -- appended via tools/changelog_queue_consume.py, consumed by cut_release.py at release-cut (H3355); direct bullets here are hook-blocked -->
 
+## [1.9.6] - 2026-10-12
 ### Added
 - **`static/atlas/index.html`** — the atlas root index the breadcrumbs and Escape handlers of every `afanasy_*.html` page pointed at but which did not exist: all 31 (now 32) atlas pages catalogued in the six tiers of `VISUALIZATIONS_PLAN.md`, with plan-item numbers where applicable ([H5742](https://github.com/gasyoun/Uprava/blob/main/handoffs/H5742-OxAlpha_AfanasiyNikitin_atlas-index-and-updates_03.10.26.md); executor GLM-5.3-Flash, ox-alpha).
 - **`static/atlas/afanasy_three_manuscripts.html`** — plan item 16: the three manuscript traditions (Letopisnaya RNB F.IV.144, Troitskaya RGB F.304/III No. 24, the unused Sukhanovskaya) and the two-gap proof — each ~1160-char lacuna equals exactly two lost leaves of the shared proto-source, fixing its leaf capacity at ~580 chars. Links to `afanasy_manuscripts.html` for the word-level diff.
