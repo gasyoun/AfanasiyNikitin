@@ -5,7 +5,7 @@ _Created: 19-05-2026 · Last updated: 05-09-2026_
 
 **🌐 [Открыть интерактивный атлас](https://gasyoun.github.io/AfanasiyNikitin/)**
 
-**Программная запись:** [ROADMAP.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/ROADMAP.md) — бэклог дренирован (truth-pass 20-09-2026), файл сохранён как программная запись проекта; вердикт wave 2 от 01-10-2026 — [H5574](https://github.com/gasyoun/Uprava/blob/main/handoffs/H5574-OxAlpha_SanskritSpellCheck_roadmap-verdict-w2-spack-afanasiy-visualdcs_01.10.26.md).
+**Программная запись:** [ROADMAP.md](https://github.com/gasyoun/AfanasiyNikitin/blob/main/ROADMAP.md) — бэклог дренирован (truth-pass 20-09-2026), файл сохранён как программная запись проекта; вердикт wave 2 от 01-10-2026 — [H5574](https://github.com/gasyoun/Uprava/blob/main/handoffs/archive/H5574-OxAlpha_SanskritSpellCheck_roadmap-verdict-w2-spack-afanasiy-visualdcs_01.10.26.md).
 
 ---
 

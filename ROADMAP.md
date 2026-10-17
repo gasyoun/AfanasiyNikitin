@@ -5,7 +5,7 @@ _Created: 19-05-2026 · Last updated: 01-10-2026_
 
 > **Truth-pass 20-09-2026** — `roadmap_handoff_truth.py --check` verified every H### handoff referenced below DONE/terminal against the combined registry (0 OPEN). Backlog fully drained; page retained in place as the programme record (H3075 classification — rulings survive their backlog).
 >
-> **Verdict 01-10-2026 ([H5574](https://github.com/gasyoun/Uprava/blob/main/handoffs/H5574-OxAlpha_SanskritSpellCheck_roadmap-verdict-w2-spack-afanasiy-visualdcs_01.10.26.md), wave 2) — REFRESH.** The atlas is live ([gasyoun.github.io/AfanasiyNikitin](https://gasyoun.github.io/AfanasiyNikitin/)), so the page stays the programme record. Evidence re-verified against `origin/main` 01-10-2026: zero open checkboxes, every referenced handoff terminal, nothing unminted left for an agent — everything remaining is human-gated or waits on an external artifact. What is left now lives in the gated checklist below and is mirrored into Uprava [GTD_NEXT_ACTIONS.md](https://github.com/gasyoun/Uprava/blob/main/GTD_NEXT_ACTIONS.md) per ruling 10 of [GRILL_ROADMAP_CLOSEOUT_OXALPHA_MASS_MINT_21-09-2026.md](https://github.com/gasyoun/Uprava/blob/main/docs/GRILL_ROADMAP_CLOSEOUT_OXALPHA_MASS_MINT_21-09-2026.md).
+> **Verdict 01-10-2026 ([H5574](https://github.com/gasyoun/Uprava/blob/main/handoffs/archive/H5574-OxAlpha_SanskritSpellCheck_roadmap-verdict-w2-spack-afanasiy-visualdcs_01.10.26.md), wave 2) — REFRESH.** The atlas is live ([gasyoun.github.io/AfanasiyNikitin](https://gasyoun.github.io/AfanasiyNikitin/)), so the page stays the programme record. Evidence re-verified against `origin/main` 01-10-2026: zero open checkboxes, every referenced handoff terminal, nothing unminted left for an agent — everything remaining is human-gated or waits on an external artifact. What is left now lives in the gated checklist below and is mirrored into Uprava [GTD_NEXT_ACTIONS.md](https://github.com/gasyoun/Uprava/blob/main/GTD_NEXT_ACTIONS.md) per ruling 10 of [GRILL_ROADMAP_CLOSEOUT_OXALPHA_MASS_MINT_21-09-2026.md](https://github.com/gasyoun/Uprava/blob/main/docs/GRILL_ROADMAP_CLOSEOUT_OXALPHA_MASS_MINT_21-09-2026.md).
 
 ## What is left (01-10-2026) — gated, none agent-doable today
 
@@ -206,7 +206,7 @@ Rewritten 26-08-2026 against the tree — the previous block promoted 4.5 as the
 ## Status check 26-08-2026 (H3003) — what the tree says, and who unblocks each open item
 
 Executed by **Opus 5** (`claude-opus-5`) under
-[H3003 — slice 5 of the stale-roadmap `/ask` batch](https://github.com/gasyoun/Uprava/blob/main/handoffs/H3003-Opus_multi_stale-roadmap-s5-dh-narrative-ask-replan_17.08.26.md).
+[H3003 — slice 5 of the stale-roadmap `/ask` batch](https://github.com/gasyoun/Uprava/blob/main/handoffs/archive/H3003-Opus_multi_stale-roadmap-s5-dh-narrative-ask-replan_17.08.26.md).
 Every row below was verified against the working tree and `git log`, not against prose in this file
 or in the README. No product checkbox was executed in this pass.
 
