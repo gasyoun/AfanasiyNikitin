@@ -1,0 +1,11 @@
+# Афанасий Никитин — Атлас
+
+> Docusaurus atlas companion to Afanasiy Nikitin's «Хождение за три моря» (Russian and English versions).
+
+## Pages
+
+- [Атлас (ru)](https://gasyoun.github.io/AfanasiyNikitin/)
+- [Atlas (en)](https://gasyoun.github.io/AfanasiyNikitin/en/)
+- [Atlas data/view](https://gasyoun.github.io/AfanasiyNikitin/atlas/)
+
+Source: https://github.com/gasyoun/AfanasiyNikitin
